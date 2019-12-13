@@ -15,8 +15,8 @@ public class AnalysisImpl implements Analysis{
     public boolean testArchitecture(String pathContext, String... pathScenarios) {
         Objects.requireNonNull(pathContext);
         Objects.requireNonNull(pathScenarios); 
-        var urlContext = URI.createURI(pathContext);
-        var urlUsageModel = URI.createURI(pathScenarios[0]);
+        var urlContext = URI.createFileURI(pathContext);
+        var urlUsageModel = URI.createFileURI(pathScenarios[0]);
         
         var loader = new ModelLoader();
         

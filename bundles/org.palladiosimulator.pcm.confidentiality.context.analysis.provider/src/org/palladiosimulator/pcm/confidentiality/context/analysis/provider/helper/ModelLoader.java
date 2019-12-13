@@ -4,7 +4,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.palladiosimulator.pcm.confidentiality.context.model.Context;
+import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public class ModelLoader {
@@ -13,8 +13,8 @@ public class ModelLoader {
     public ModelLoader() {
         resourceSet = new ResourceSetImpl();
     }
-    public Context getContextModel(URI path) {
-        return (Context) loadResource(resourceSet, path);
+    public ConfidentialAccessSpecification getContextModel(URI path) {
+        return (ConfidentialAccessSpecification) loadResource(resourceSet, path);
     }
     public UsageModel getUsageModel(URI path) {
         return (UsageModel) loadResource(resourceSet, path);

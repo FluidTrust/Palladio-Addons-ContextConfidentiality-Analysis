@@ -10,6 +10,7 @@ Require-Bundle: org.palladiosimulator.pcm.confidentiality.context.analysis.api;b
  org.eclipse.emf.ecore
 Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.analysis.provider.AnalysisImpl.xml
 Bundle-ActivationPolicy: lazy
-Import-Package: org.palladiosimulator.pcm.confidentiality.context.model,
+Import-Package: org.palladiosimulator.pcm.confidentiality.context,
+ org.palladiosimulator.pcm.confidentiality.context.model,
  org.palladiosimulator.pcm.core,
  org.palladiosimulator.pcm.usagemodel
