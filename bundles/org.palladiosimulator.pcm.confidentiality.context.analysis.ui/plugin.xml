@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.category"
+            name="Transform Category">
+      </category>
+      <command
+            categoryId="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.category"
+            name="Transform Command"
+            id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.transformCommand">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.handlers.MainHandler"
+            commandId="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.transformCommand">
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.transformCommand"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            contextId="org.eclipse.ui.contexts.window"
+            sequence="M1+6">
+      </key>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.menus.transformMenu"
+               label="Transform PCM-2-XACML Menu"
+               mnemonic="M">
+            <command
+                  commandId="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.transformCommand"
+                  id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.menus.transformCommand"
+                  mnemonic="S">
+            </command>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
+         <toolbar
+               id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.toolbars.transformToolbar">
+            <command
+                  id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.toolbars.transformCommand"
+                  commandId="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.commands.transformCommand"
+                  icon="icons/sample.png"
+                  tooltip="Start Analysis">
+            </command>
+         </toolbar>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.handlers.PreferencesHandler"
+            id="org.palladiosimulator.pcm.confidentiality.context.analysis.ui.prefPage"
+            name="Preferences of PCM-2-XACML transformation">
+      </page>
+   </extension>
+
+</plugin>
