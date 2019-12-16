@@ -26,9 +26,9 @@ public class MainHandler extends AbstractHandler {
     public Object execute(ExecutionEvent event) throws ExecutionException {
         //URI.createFileURI(path)
         var analysis = Activator.getInstance().getAnalysis();
-        var usagePath = new String[1];
-        usagePath[0] = "/home/majuwa/workspaces/control_running/Example/newUsageModel.usagemodel" ;
-        var contextPath = "/home/majuwa/workspaces/control_running/Example/My.context";
+        var usagePath = new URI[1];
+        usagePath[0] = URI.createFileURI("/home/majuwa/workspaces/control_running/Example/newUsageModel.usagemodel");
+        var contextPath = URI.createFileURI("/home/majuwa/workspaces/control_running/Example/My.context");
         analysis.testArchitecture(contextPath, usagePath);
         LOGGER.info("test");
         return null;
