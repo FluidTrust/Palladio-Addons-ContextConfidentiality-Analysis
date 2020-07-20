@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Provider
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.provider
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.provider
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Require-Bundle: org.eclipse.osgi.services;bundle-version="3.8.0";resolution:=optional,
+ org.eclipse.emf.ecore,
+ org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api;bundle-version="1.0.0",
+ org.palladiosimulator.pcm.confidentiality.context;bundle-version="0.1.0",
+ org.palladiosimulator.mdsdprofiles;bundle-version="4.2.0",
+ org.palladiosimulator.pcm,
+ org.palladiosimulator.mdsdprofiles.api;bundle-version="4.2.0",
+ org.palladiosimulator.pcm.confidentiality.ConfidentialityProfile;bundle-version="1.0.0"
+Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.analysis.provider.AnalysisImpl.xml
+Bundle-ActivationPolicy: lazy
