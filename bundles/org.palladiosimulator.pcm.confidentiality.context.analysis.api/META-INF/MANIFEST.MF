@@ -1,9 +1,11 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Api
-Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.api
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.api
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.api
 Import-Package: org.eclipse.emf.common.util
+Require-Bundle: org.palladiosimulator.pcm.confidentiality.context,
+ edu.kit.kastel.scbs.confidentialitymm

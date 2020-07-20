@@ -16,7 +16,7 @@ public class Activator extends AbstractUIPlugin {
 
     // The plug-in ID
     public static final String PLUGIN_ID = 
-            "org.palladiosimulator.pcm.confidentiality.context.analysis.ui"; //$NON-NLS-1$
+            "org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.ui"; //$NON-NLS-1$
     
     // The shared instance
     private static Activator instance;
