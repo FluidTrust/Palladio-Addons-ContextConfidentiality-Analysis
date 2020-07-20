@@ -1,9 +1,9 @@
-package org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution;
+package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-import org.osgi.framework.ServiceReference;
-import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
+//import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.query.impl.IQueryManager;
+//import org.prolog4j.manager.IProverManager;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -11,20 +11,28 @@ import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.At
 public class Activator extends AbstractUIPlugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "pcm.dataprocessing.analysis.wfe"; //$NON-NLS-1$
+	public static final String PLUGIN_ID = "org.palladiosimulator.pcm.confidentiality.context.analysis.launcher"; //$NON-NLS-1$
 
 	// The shared instance
 	private static Activator instance;
 
-    private AttackerAnalysis analysis;
+//	private IProverManager proverManager;
+//	private volatile IQueryManager queryManager;
+	/**
+	 * The constructor
+	 */
+	public Activator() {
+	}
 
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
-		setInstance(instance);
-		ServiceReference<AttackerAnalysis> reference = context.getServiceReference(AttackerAnalysis.class);
-        analysis = context.getService(reference);
-        instance = this;
+		setInstance(this);
+
+		//FIXME attackerAnalysis package
+//		ServiceReference<Analysis.> proverManagerReference = context.getServiceReference(Analysis.class);
+//		this.proverManager = context.getService(proverManagerReference);
+
 	}
 
 	@Override
@@ -33,14 +41,10 @@ public class Activator extends AbstractUIPlugin {
 		super.stop(context);
 	}
 
-
 	private static void setInstance(Activator instance) {
 		Activator.instance = instance;
 	}
-	
-	public AttackerAnalysis getAnalysis() {
-	    return analysis;
-	}
+
 	/**
 	 * Returns the shared instance
 	 *
@@ -50,5 +54,4 @@ public class Activator extends AbstractUIPlugin {
 		return Activator.instance;
 	}
 
-	
 }

@@ -1,23 +1,10 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.provider;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.modelversioning.emfprofile.registry.IProfileRegistry;
 import org.osgi.service.component.annotations.Component;
-import org.palladiosimulator.mdsdprofiles.api.ProfileAPI;
-import org.palladiosimulator.mdsdprofiles.api.StereotypeAPI;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.api.AttackerAnalysis;
-import org.palladiosimulator.pcm.confidentiality.context.model.Context;
-import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
-import org.palladiosimulator.pcm.confidentiality.profile.ProfileConstants;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
+import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
 import org.palladiosimulator.pcm.repository.Repository;
-import org.palladiosimulator.pcm.usagemodel.AbstractUserAction;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.pcm.usagemodel.Start;
-import org.palladiosimulator.pcm.usagemodel.UsageScenario;
-
-import edu.kit.kastel.scbs.confidentiality.ConfidentialitySpecification;
-import edu.kit.kastel.scbs.confidentiality.adversary.Adversaries;
-import edu.kit.kastel.scbs.confidentiality.adversary.Adversary;
 
 @Component
 public class AnalysisImpl implements AttackerAnalysis {
@@ -54,8 +41,9 @@ public class AnalysisImpl implements AttackerAnalysis {
     }*/
 
     @Override
-    public boolean runAttackerAnalysis(Repository pcm, Context context, Adversaries adversary, ConfidentialitySpecification data) {
-        IProfileRegistry.eINSTANCE.getClass();
+    public boolean runAttackerAnalysis(Repository pcm, ConfidentialAccessSpecification context, Attacker adversary) {
+        return false;
+        //IProfileRegistry.eINSTANCE.getClass();
         /*
         var profiles = ProfileAPI.getAppliedProfiles(adversary.eResource());
         if(!ProfileAPI.isProfileApplied(adversary.eResource(),ProfileConstants.PROFILE_NAME))

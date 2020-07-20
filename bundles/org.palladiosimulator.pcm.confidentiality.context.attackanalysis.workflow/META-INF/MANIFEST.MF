@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WFE
-Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.execution
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.Activator
 Bundle-ActivationPolicy: lazy
@@ -15,10 +15,12 @@ Require-Bundle: org.eclipse.ui,
  de.uka.ipd.sdq.workflow.launchconfig,
  org.palladiosimulator.analyzer.workflow;bundle-version="4.2.0",
  org.palladiosimulator.pcm.confidentiality.context,
- org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api,
- edu.kit.kastel.scbs.confidentialitymm
+ org.palladiosimulator.pcm.confidentiality.attacker;bundle-version="0.1.0",
+ org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: pcm.dataprocessing.analysis.wfe
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.partition,
- org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow
-Import-Package: org.osgi.service.component.annotations;version="1.2.0"
+ org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow,
+ org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow.config
+Import-Package: org.osgi.service.component.annotations;version="1.2.0",
+ org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api

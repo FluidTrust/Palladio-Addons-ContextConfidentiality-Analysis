@@ -10,6 +10,7 @@ import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.executio
 import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.partition.DataAttackPartition;
 import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
@@ -24,11 +25,11 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
  * @author majuwa
  *
  */
-public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackboard> {
+public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     private MDSDBlackboard blackbord;
 
-    public AttackerAnalysisJob(ContextAnalysisWorkflowConfig config) {
+    public ScenarioAnalysisJob(ScenarioAnalysisWorkflowConfig config) {
 
     }
 
@@ -40,9 +41,6 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         var pcmPartition = (PCMResourceSetPartition) this.blackbord.getPartition(PARTITION_ID_PCM);
         var dataPartition = (DataAttackPartition) this.blackbord.getPartition(PARTITION_ID_KASTEL);
 
-        // Fix someday
-//        var attackerModel = dataPartition.getAdversaryModel();
-//        var dataModel = dataPartition.getDataspecification();
         analysis.runAttackerAnalysis(pcmPartition.getMiddlewareRepository(), contextPartition.getContextSpecification(),
                 null);
     }
@@ -55,7 +53,7 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 
     @Override
     public String getName() {
-        return "AttackerAnalysis Job";
+        return "Scenario Analysis Job";
     }
 
     @Override
