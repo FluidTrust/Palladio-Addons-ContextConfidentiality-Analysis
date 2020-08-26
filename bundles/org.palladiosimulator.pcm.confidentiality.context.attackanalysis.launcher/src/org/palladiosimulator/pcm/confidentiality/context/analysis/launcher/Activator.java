@@ -2,7 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
-//import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.query.impl.IQueryManager;
+//import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.query.impl.IQueryManager;
 //import org.prolog4j.manager.IProverManager;
 
 /**

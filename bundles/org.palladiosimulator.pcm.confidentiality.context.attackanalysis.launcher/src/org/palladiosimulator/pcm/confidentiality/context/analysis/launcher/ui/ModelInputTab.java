@@ -12,10 +12,14 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.Activator;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
@@ -36,10 +40,12 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
     private Composite comp;
 
     private Text repositoryTextField;
+    private Text usageTextField;
     private Text allocationTextField;
     private Text contextTextField;
     private Text dataTextField;
     private Text adversaryTextField;
+    private Combo analysisCombo;
 
     public ModelInputTab() {
 
@@ -95,6 +101,8 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
                 dataTextField.setText(configuration.getAttribute(Constants.DATA_MODEL_LABEL.getConstant(), ""));
                 adversaryTextField
                         .setText(configuration.getAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), ""));
+                usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL.getConstant(),""));
+                analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(),""));
 
             } catch (CoreException e) {
                 // TODO expection handling
@@ -109,6 +117,8 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         configuration.setAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), contextTextField.getText());
         configuration.setAttribute(Constants.DATA_MODEL_LABEL.getConstant(), dataTextField.getText());
         configuration.setAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), adversaryTextField.getText());
+        configuration.setAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), analysisCombo.getText());
+        configuration.setAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), usageTextField.getText());
 
     }
 
@@ -126,13 +136,51 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
             }
 
         };
+        final SelectionListener selectionListener = new SelectionListener() {
+
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                setDirty(true);
+                updateLaunchConfigurationDialog();
+            }
+
+            @Override
+            public void widgetDefaultSelected(SelectionEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        };
 
         comp = new Composite(parent, SWT.NONE);
         GridLayout layout = new GridLayout();
         comp.setLayout(layout);
         setControl(comp);
 
+        var analysisGroup = new Group(comp, SWT.NONE);
+        analysisGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        analysisGroup.setText(Constants.ANALYSIS_TYPE_LABEL.getConstant());
+        analysisGroup.setLayout(layout);
+
+        analysisCombo = new Combo(analysisGroup, SWT.DROP_DOWN);
+
+        String[] items = new String[] { "Scenario", "Insider", "Attack surface" };
+
+        analysisCombo.setItems(items);
+
+        analysisCombo.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        analysisCombo.addSelectionListener(selectionListener);
+        analysisCombo.clearSelection();
+
         /* Usage Model */
+        
+
+        usageTextField = new Text(comp, SWT.BORDER);
+        usageTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        TabHelper.createFileInputSection(comp, modifyListener, Constants.USAGE_MODEL_LABEL.getConstant(),
+                new String[] { "*.usagemodel" }, usageTextField, Display.getCurrent().getActiveShell(), "");
+        
+        /* Repository */
 
         repositoryTextField = new Text(comp, SWT.BORDER);
         repositoryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -162,8 +210,6 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         adversaryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(comp, modifyListener, Constants.ADVERSARY_MODEL_LABEL.getConstant(),
                 new String[] { "*.adversary" }, adversaryTextField, Display.getCurrent().getActiveShell(), "");
-
-        // TODO setPositionForStart
     }
 
     /**

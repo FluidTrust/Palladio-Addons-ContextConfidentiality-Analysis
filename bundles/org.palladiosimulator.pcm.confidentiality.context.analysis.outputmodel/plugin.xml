@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated outputmodel -->
+      <package
+            uri="http://www.palladiosimulator.org/pcm/confidentiality/scenario/0.1/"
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelPackage"
+            genModel="model/outputmodel.genmodel"/>
+   </extension>
+
+</plugin>

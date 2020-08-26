@@ -3,9 +3,12 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow.AttackerAnalysisWorkflow;
-import org.palladiosimulator.pcm.confidentiality.context.attackanalysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.ScenarioAnalysisWorkflow;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalyisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.mdsd.AbstractWorkflowBasedMDSDLaunchConfigurationDelegate;
@@ -24,15 +27,32 @@ public class LaunchDelegate
     @Override
     protected ContextAnalysisWorkflowConfig deriveConfiguration(ILaunchConfiguration configuration, String mode)
             throws CoreException {
-        var config = new ContextAnalysisWorkflowConfig();
-        var builder = new AttackerAnalysisConfigurationBuilder(configuration, mode);
-        builder.fillConfiguration(config);
+        var output = configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), "default");
+        ContextAnalysisWorkflowConfig config = null;
+        switch (output) {
+        case "Scenario":
+            config = new ScenarioAnalysisWorkflowConfig();
+            var builder = new ScenarioAnalysisConfigurationBuilder(configuration, mode);
+            builder.fillConfiguration(config);
+            break;
+        case "Insider":
+            throw new UnsupportedOperationException();
+        case "Attack surface":
+            throw new UnsupportedOperationException();
+        default:
+            assert false;
+        }
         return config;
+
     }
 
     @Override
     protected IJob createWorkflowJob(ContextAnalysisWorkflowConfig config, ILaunch launch) throws CoreException {
-        return new AttackerAnalysisWorkflow(config);
+        
+        //TODO make better
+        if(config instanceof ScenarioAnalysisWorkflowConfig)
+            return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
+        return new AttackerAnalysisWorkflow((AttackerAnalyisWorkflowConfig) config); //FIXME
     }
 
 }

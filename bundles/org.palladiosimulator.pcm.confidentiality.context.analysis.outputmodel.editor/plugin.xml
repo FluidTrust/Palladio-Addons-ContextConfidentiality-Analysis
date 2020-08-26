@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated outputmodel -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.presentation.OutputmodelModelWizardID"
+            name="%_UI_OutputmodelModelWizard_label"
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.presentation.OutputmodelModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/OutputmodelModelFile.gif">
+         <description>%_UI_OutputmodelModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated outputmodel -->
+      <editor
+            id="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.presentation.OutputmodelEditorID"
+            name="%_UI_OutputmodelEditor_label"
+            icon="icons/full/obj16/OutputmodelModelFile.gif"
+            extensions="outputmodel"
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.presentation.OutputmodelEditor"
+            contributorClass="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.presentation.OutputmodelActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
