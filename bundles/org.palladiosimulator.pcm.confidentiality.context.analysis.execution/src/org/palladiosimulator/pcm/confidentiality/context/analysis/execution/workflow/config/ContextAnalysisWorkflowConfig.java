@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config;
 
@@ -10,7 +10,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
 
 /**
  * This class encapsulates most of the attributes needed for an {@link AttackerAnalysisWorkflow}.
- * 
+ *
  *
  *
  */
@@ -20,30 +20,27 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
     private URI allocationModel;
     private URI contextModel;
 
-
-
-
     public URI getRepositoryModel() {
-        return repositoryModel;
+        return this.repositoryModel;
     }
 
-    public void setRepositoryModel(URI repositoryModel) {
+    public void setRepositoryModel(final URI repositoryModel) {
         this.repositoryModel = repositoryModel;
     }
 
     public URI getAllocationModel() {
-        return allocationModel;
+        return this.allocationModel;
     }
 
-    public void setAllocationModel(URI allocationModel) {
+    public void setAllocationModel(final URI allocationModel) {
         this.allocationModel = allocationModel;
     }
 
     public URI getContextModel() {
-        return contextModel;
+        return this.contextModel;
     }
 
-    public void setContextModel(URI contextModel) {
+    public void setContextModel(final URI contextModel) {
         this.contextModel = contextModel;
     }
 

@@ -12,34 +12,35 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
 /**
  * Job for loading the required models for an Attacker Analysis into a MDSDBlackboard
- * 
+ *
  * @author majuwa
  *
  */
 public abstract class AbstractLoadModelJob implements IBlackboardInteractingJob<MDSDBlackboard> {
     protected MDSDBlackboard blackboard;
-    protected ContextAnalysisWorkflowConfig configuration;
+    protected final ContextAnalysisWorkflowConfig configuration;
 
-    public AbstractLoadModelJob(ContextAnalysisWorkflowConfig configuration) {
+    public AbstractLoadModelJob(final ContextAnalysisWorkflowConfig configuration) {
         this.configuration = configuration;
     }
 
-    protected void loadModel2Partition(ResourceSetPartition partition, URI[] uris, EPackage[] packages,
-            String partitionID) {
+    protected void loadModel2Partition(final ResourceSetPartition partition, final URI[] uris,
+            final EPackage[] packages, final String partitionID) {
         partition.initialiseResourceSetEPackages(packages);
         this.blackboard.addPartition(partitionID, partition);
-        for (URI uri : uris)
+        for (final URI uri : uris) {
             partition.loadModel(uri);
+        }
         partition.resolveAllProxies();
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
-        //so far empty
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
+        // so far empty
     }
 
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 

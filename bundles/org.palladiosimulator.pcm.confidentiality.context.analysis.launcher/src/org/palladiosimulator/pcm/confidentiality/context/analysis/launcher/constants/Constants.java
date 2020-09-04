@@ -14,9 +14,10 @@ public enum Constants {
 	PROLOG_INTERPRETER_LABEL("Select PROLOG Interpreter"),
 	REPOSITORY_MODEL_LABEL("Select Repository Model"),
 	ALLOCATION_MODEL_LABEL("Select Allocation Model"),
+	MODIFIACTION_MODEL_LABEL("Select Modifiaction Model"),
 	CONTEXT_MODEL_LABEL("Select Context Model"),
 	DATA_MODEL_LABEL("Select Data Model"),
-	ADVERSARY_MODEL_LABEL("Select Adversary Model"),
+	ADVERSARY_MODEL_LABEL("Select Attacker Model"),
 	USAGE_MODEL_LABEL("Select Usage Model"),
 	CONSOLE_ID("pcm.dataprocessing.context.analysis.launcher.console"),
 	DEFAULT_CONFIG_VALUE("default");

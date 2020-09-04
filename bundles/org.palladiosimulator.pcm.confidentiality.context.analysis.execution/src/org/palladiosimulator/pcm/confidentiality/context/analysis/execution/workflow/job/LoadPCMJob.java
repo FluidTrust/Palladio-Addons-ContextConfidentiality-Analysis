@@ -11,22 +11,25 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
-public abstract class LoadPCMJob extends AbstractLoadModelJob{
+public abstract class LoadPCMJob extends AbstractLoadModelJob {
 
-    public LoadPCMJob(ContextAnalysisWorkflowConfig configuration) {
+    public LoadPCMJob(final ContextAnalysisWorkflowConfig configuration) {
         super(configuration);
     }
+
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        var pcmPartition = new PCMResourceSetPartition();
-        var urisPCM =  getUrisPCM();
-        loadModel2Partition(pcmPartition, urisPCM, AbstractPCMWorkflowRunConfiguration.PCM_EPACKAGES, PARTITION_ID_PCM);
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        final var pcmPartition = new PCMResourceSetPartition();
+        final var urisPCM = this.getUrisPCM();
+        this.loadModel2Partition(pcmPartition, urisPCM, AbstractPCMWorkflowRunConfiguration.PCM_EPACKAGES,
+                PARTITION_ID_PCM);
     }
+
     @Override
     public String getName() {
-       return "Load PCM model";
+        return "Load PCM model";
     }
-    
+
     protected abstract URI[] getUrisPCM();
 
 }

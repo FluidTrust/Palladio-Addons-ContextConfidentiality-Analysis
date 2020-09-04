@@ -45,6 +45,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
     private Text contextTextField;
     private Text dataTextField;
     private Text adversaryTextField;
+    private Text modificationTextField;
     private Combo analysisCombo;
 
     public ModelInputTab() {
@@ -101,8 +102,10 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
                 dataTextField.setText(configuration.getAttribute(Constants.DATA_MODEL_LABEL.getConstant(), ""));
                 adversaryTextField
                         .setText(configuration.getAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), ""));
-                usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL.getConstant(),""));
-                analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(),""));
+                usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), ""));
+                analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), ""));
+                modificationTextField
+                        .setText(configuration.getAttribute(Constants.MODIFIACTION_MODEL_LABEL.getConstant(), ""));
 
             } catch (CoreException e) {
                 // TODO expection handling
@@ -119,7 +122,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         configuration.setAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), adversaryTextField.getText());
         configuration.setAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), analysisCombo.getText());
         configuration.setAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), usageTextField.getText());
-
+        configuration.setAttribute(Constants.MODIFIACTION_MODEL_LABEL.getConstant(), modificationTextField.getText());
     }
 
     @Override
@@ -173,13 +176,12 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         analysisCombo.clearSelection();
 
         /* Usage Model */
-        
 
         usageTextField = new Text(comp, SWT.BORDER);
         usageTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(comp, modifyListener, Constants.USAGE_MODEL_LABEL.getConstant(),
                 new String[] { "*.usagemodel" }, usageTextField, Display.getCurrent().getActiveShell(), "");
-        
+
         /* Repository */
 
         repositoryTextField = new Text(comp, SWT.BORDER);
@@ -209,7 +211,12 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         adversaryTextField = new Text(comp, SWT.BORDER);
         adversaryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(comp, modifyListener, Constants.ADVERSARY_MODEL_LABEL.getConstant(),
-                new String[] { "*.adversary" }, adversaryTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.attacker" }, adversaryTextField, Display.getCurrent().getActiveShell(), "");
+
+        modificationTextField = new Text(comp, SWT.BORDER);
+        modificationTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
+        TabHelper.createFileInputSection(comp, modifyListener, Constants.MODIFIACTION_MODEL_LABEL.getConstant(),
+                new String[] { "*.kamp4attackmodificationmarks" }, modificationTextField, Display.getCurrent().getActiveShell(), "");
     }
 
     /**

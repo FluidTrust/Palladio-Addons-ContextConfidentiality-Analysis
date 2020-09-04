@@ -6,12 +6,11 @@ public class ScenarioAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
     private URI usage;
 
     public URI getUsage() {
-        return usage;
+        return this.usage;
     }
 
-    public void setUsage(URI usage) {
+    public void setUsage(final URI usage) {
         this.usage = usage;
     }
-    
 
 }

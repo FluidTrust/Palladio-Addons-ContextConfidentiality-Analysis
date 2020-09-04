@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Partition
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.analysis.partition.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ de.uka.ipd.sdq.workflow.mdsd,
+ org.palladiosimulator.pcm.confidentiality.context,
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks;bundle-version="1.0.0",
+ org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.partition
+Bundle-ActivationPolicy: lazy
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition

@@ -5,14 +5,15 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 
 public class LoadPCMScenario extends LoadPCMJob {
 
-    public LoadPCMScenario(ScenarioAnalysisWorkflowConfig configuration) {
+    public LoadPCMScenario(final ScenarioAnalysisWorkflowConfig configuration) {
         super(configuration);
     }
 
     @Override
     protected URI[] getUrisPCM() {
-        var configuration = (ScenarioAnalysisWorkflowConfig) this.configuration;
-        return  new URI[] { configuration.getRepositoryModel(), configuration.getAllocationModel(), configuration.getUsage()};
+        final var configuration = (ScenarioAnalysisWorkflowConfig) this.configuration;
+        return new URI[] { configuration.getRepositoryModel(), configuration.getAllocationModel(),
+                configuration.getUsage() };
     }
 
 }

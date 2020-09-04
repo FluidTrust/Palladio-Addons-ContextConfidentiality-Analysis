@@ -45,6 +45,7 @@ public class ScenarioAnalysisImpl implements ScenarioAnalysis {
 
     private boolean analysisScenario(UsageScenario scenario, Set<ResourceDemandingBehaviour> behaviour,
             ConfidentialAccessSpecification context) {
+
         var contextSet = getContextSet(context.getPcmspecificationcontainer().getContextspecification(), scenario);
         var policyList = getContextSetsPolicy(context.getPcmspecificationcontainer().getPolicyspecification(), behaviour);
 

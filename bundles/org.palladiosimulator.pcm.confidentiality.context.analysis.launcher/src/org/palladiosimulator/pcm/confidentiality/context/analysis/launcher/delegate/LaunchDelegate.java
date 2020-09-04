@@ -4,8 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.ScenarioAnalysisWorkflow;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalyisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
@@ -32,11 +31,14 @@ public class LaunchDelegate
         switch (output) {
         case "Scenario":
             config = new ScenarioAnalysisWorkflowConfig();
-            var builder = new ScenarioAnalysisConfigurationBuilder(configuration, mode);
-            builder.fillConfiguration(config);
+            var scenarioBuilder = new ScenarioAnalysisConfigurationBuilder(configuration, mode);
+            scenarioBuilder.fillConfiguration(config);
             break;
         case "Insider":
-            throw new UnsupportedOperationException();
+            config = new AttackerAnalysisWorkflowConfig();
+            var attackBuilder = new AttackAnalysisConfigurationBuilder(configuration, mode);
+            attackBuilder.fillConfiguration(config);
+            break;
         case "Attack surface":
             throw new UnsupportedOperationException();
         default:
@@ -52,7 +54,7 @@ public class LaunchDelegate
         //TODO make better
         if(config instanceof ScenarioAnalysisWorkflowConfig)
             return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
-        return new AttackerAnalysisWorkflow((AttackerAnalyisWorkflowConfig) config); //FIXME
+        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); //FIXME
     }
 
 }

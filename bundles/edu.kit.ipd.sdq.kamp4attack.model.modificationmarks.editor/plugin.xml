@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated KAMP4attackModificationsmarks -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizardID"
+            name="%_UI_KAMP4attackModificationmarksModelWizard_label"
+            class="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/KAMP4attackModificationmarksModelFile.gif">
+         <description>%_UI_KAMP4attackModificationmarksModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated KAMP4attackModificationsmarks -->
+      <editor
+            id="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditorID"
+            name="%_UI_KAMP4attackModificationmarksEditor_label"
+            icon="icons/full/obj16/KAMP4attackModificationmarksModelFile.gif"
+            extensions="kamp4attackmodificationmarks"
+            class="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditor"
+            contributorClass="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksActionBarContributor">
+      </editor>
+   </extension>
+</plugin>
