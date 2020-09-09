@@ -5,12 +5,11 @@ Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.editor;
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.editor
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
-Bundle-Activator: KAMP4attackModificationmarks.presentation.KAMP4attackModificationsmarksEditorPlugin$Implementation
+Bundle-Activator: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationsmarksEditorPlugin$Implementation
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: edu.kit.ipd.sdq.kamp4attack.model.KAMP4attackModificationmarks.presentation,
- KAMP4attackModificationmarks.presentation
+Export-Package: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.core.resources;visibility:=reexport,
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.edit;visibility:=reexport,

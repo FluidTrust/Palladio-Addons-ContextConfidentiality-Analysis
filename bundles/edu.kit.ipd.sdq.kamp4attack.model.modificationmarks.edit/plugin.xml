@@ -10,7 +10,7 @@
       <!-- @generated KAMP4attackModificationsmarks -->
       <factory
             uri="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0"
-            class="KAMP4attackModificationmarks.provider.KAMP4attackModificationmarksItemProviderAdapterFactory"
+            class="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.provider.KAMP4attackModificationmarksItemProviderAdapterFactory"
             supportedTypes=
               "org.eclipse.emf.edit.provider.IEditingDomainItemProvider
                org.eclipse.emf.edit.provider.IStructuredItemContentProvider

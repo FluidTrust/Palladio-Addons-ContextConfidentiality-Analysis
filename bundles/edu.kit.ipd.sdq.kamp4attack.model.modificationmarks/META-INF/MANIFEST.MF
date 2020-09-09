@@ -8,12 +8,9 @@ Bundle-ClassPath: .
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Export-Package: edu.kit.ipd.sdq.kamp4attack.model.KAMP4attackModificationmarks,
- edu.kit.ipd.sdq.kamp4attack.model.KAMP4attackModificationmarks.impl,
- edu.kit.ipd.sdq.kamp4attack.model.KAMP4attackModificationmarks.util,
- KAMP4attackModificationmarks,
- KAMP4attackModificationmarks.impl,
- KAMP4attackModificationmarks.util
+Export-Package: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks,
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl,
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.palladiosimulator.pcm.confidentiality.attacker;visibility:=reexport,

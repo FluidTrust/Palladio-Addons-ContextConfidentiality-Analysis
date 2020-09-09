@@ -12,9 +12,9 @@
             id="org.eclipse.emf.ecore.Wizard.category.ID"
             name="%_UI_Wizard_category"/>
       <wizard
-            id="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizardID"
+            id="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizardID"
             name="%_UI_KAMP4attackModificationmarksModelWizard_label"
-            class="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizard"
+            class="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksModelWizard"
             category="org.eclipse.emf.ecore.Wizard.category.ID"
             icon="icons/full/obj16/KAMP4attackModificationmarksModelFile.gif">
          <description>%_UI_KAMP4attackModificationmarksModelWizard_description</description>
@@ -25,12 +25,12 @@
    <extension point="org.eclipse.ui.editors">
       <!-- @generated KAMP4attackModificationsmarks -->
       <editor
-            id="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditorID"
+            id="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditorID"
             name="%_UI_KAMP4attackModificationmarksEditor_label"
             icon="icons/full/obj16/KAMP4attackModificationmarksModelFile.gif"
             extensions="kamp4attackmodificationmarks"
-            class="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditor"
-            contributorClass="KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksActionBarContributor">
+            class="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksEditor"
+            contributorClass="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.presentation.KAMP4attackModificationmarksActionBarContributor">
       </editor>
    </extension>
 </plugin>

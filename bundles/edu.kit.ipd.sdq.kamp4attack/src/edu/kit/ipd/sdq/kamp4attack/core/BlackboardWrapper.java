@@ -1,11 +1,18 @@
 package edu.kit.ipd.sdq.kamp4attack.core;
 
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_CONTEXT;
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
+
+import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants;
+import org.palladiosimulator.pcm.confidentiality.context.specification.PCMSpecificationContainer;
+import org.palladiosimulator.pcm.system.System;
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import edu.kit.ipd.sdq.kamp.architecture.AbstractArchitectureVersion;
-import edu.kit.ipd.sdq.kamp4attack.model.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 
 /**
  * This class wraps the MDSD Blackboard {@link MDSDBlackboard}
@@ -23,6 +30,20 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
         super("", ((ModificationMarkPartition) blackboard.getPartition(PartitionConstants.PARTITION_ID_MODIFICATION))
                 .getModificationRepository());
         this.blackboard = blackboard;
+    }
+
+    /**
+     * Gets the {@link System} 
+     * @return Returns the system of the current PCM model 
+     */
+    public System getAssembly() {
+        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
+        return pcmPartition.getSystem();
+    }
+    
+    public PCMSpecificationContainer getSpecification() {
+        final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
+        return contextPartition.getContextSpecification().getPcmspecificationcontainer();
     }
 
     // TODO add necessary getters for Blackboard
