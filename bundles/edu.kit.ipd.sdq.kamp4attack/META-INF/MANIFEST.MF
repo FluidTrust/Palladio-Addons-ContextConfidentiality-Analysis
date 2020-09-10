@@ -24,7 +24,4 @@ Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.kamp4attack.activator,
  edu.kit.ipd.sdq.kamp4attack.core,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation
-Import-Package: edu.kit.ipd.sdq.kamp4aps.model.DeploymentContext,
- edu.kit.ipd.sdq.kamp4aps.model.KAMP4aPSModificationmarks.provider,
- edu.kit.ipd.sdq.kamp4iec.model.IECFieldOfActivityAnnotations,
- org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
+Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition

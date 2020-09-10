@@ -30,7 +30,7 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        final var analysis = Activator.getInstance().getAttackerAnalysis();
+//        final var analysis = Activator.getInstance().getAttackerAnalysis();
 
 //        final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
 //        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);

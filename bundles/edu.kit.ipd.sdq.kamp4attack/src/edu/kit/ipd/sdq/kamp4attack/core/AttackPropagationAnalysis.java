@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
 
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.AssemblyChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ContextChanges;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ResourceChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
@@ -25,10 +27,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
 
     private CredentialChange changePropagationDueToCredential;
-//    private SensorChanges scenarioZero;
-////    private SwitchChanges scenarioOne;
-////    private BusChanges scenarioTwo;
-//    private SignalInterfacePropagation siPropagation;
 
     @Override
     public void runChangePropagationAnalysis(BlackboardWrapper board) {
@@ -42,41 +40,36 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         // Calculate
         do {
             changePropagationDueToCredential.setChanged(false);
-            calculateAndMarkToCredentialPropagation(board);
-//            calculateAndMarkFromStructurePropagation(board);
-//            calculateAndMarkFromModulePropagation(board);
-//            calculateAndMarkFromComponentPropagation(board);
-//            calculateAndMarkFromInterfacePropagation(board);
-//            addAllChangePropagations(board);
+            calculateAndMarkResourcePropagation(board);
+            calculateAndMarkToAssemblyPropagation(board);
+            calculateAndMarkToContextPropagation(board);
+            
         } while (changePropagationDueToCredential.isChanged());
-//		calculateAndMarkRampChanges(modelStorage);
-//		calculateAndMarkScrewingChanges(modelStorage);
 
-        // Update
-//        board.getModificationMarkRepository().getChangePropagationSteps().add(changePropagationDueToCredential);
         
         
         
-        
-//		IECArchitectureVersion iecVersion = BlackboardWrapper.extractIECArchitecture(modelStorage);
-//		if(iecVersion.getModificationMarkRepository() != null && iecVersion.getConfiguration() != null) {
-//			IECChangePropagationAnalysis iecAnalysis = new IECChangePropagationAnalysis();
-//			List<IECComponent> iecSeed = new LinkedList<>();
-//			for(IECModifyGlobalVariable mod : changePropagationDueToDataDependency.getGlobalVariableModifications()) {
-//				iecSeed.add(mod.getAffectedElement());
-//			}
-//			iecAnalysis.setSeedModifications(iecSeed);
-//			
-//			iecAnalysis.runChangePropagationAnalysis(iecVersion);
-//		}
+     
 
     }
 
     
-    private void calculateAndMarkToCredentialPropagation(BlackboardWrapper board) {
+    private void calculateAndMarkToContextPropagation(BlackboardWrapper board) {
         var change = new ContextChanges(board);
-//        change.addInitialMarkedContextsList(changePropagationDueToCredential);
-        
+        change.calculateContextToResourcePropagation(changePropagationDueToCredential);
+        change.calculateContextToAssemblyPropagation(changePropagationDueToCredential);
+    }
+    
+    private void calculateAndMarkToAssemblyPropagation(BlackboardWrapper board) {
+        var change = new AssemblyChange(board);
+        change.calculateAssemblyToContextPropagation(changePropagationDueToCredential);
+        change.calculateAssemblyToResourcePropagation(changePropagationDueToCredential);
+    }
+    
+    private void calculateAndMarkResourcePropagation(BlackboardWrapper board) {
+        var change = new ResourceChange(board);
+        change.calculateResourceToAssemblyPropagation(changePropagationDueToCredential);
+        change.calculateResourceToContextPropagation(changePropagationDueToCredential);
     }
 
 

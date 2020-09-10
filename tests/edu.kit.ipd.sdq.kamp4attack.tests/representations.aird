@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<viewpoint:DAnalysis xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:viewpoint="http://www.eclipse.org/sirius/1.1.0" uid="_ynqZoPNaEeqOqt8GHyWfrw" version="14.3.1.202003261200">
+  <semanticResources>models/GetAssemblyContext/My.attacker</semanticResources>
+  <semanticResources>models/GetAssemblyContext/newAssembly.system</semanticResources>
+  <semanticResources>models/GetAssemblyContext/newRepository.repository</semanticResources>
+  <semanticResources>models/GetAssemblyContext/My.context</semanticResources>
+  <semanticResources>models/GetAssemblyContext/newResourceEnvironment.resourceenvironment</semanticResources>
+  <semanticResources>models/GetAssemblyContext/My.kamp4attackmodificationmarks</semanticResources>
+  <semanticResources>models/GetAssemblyContext/newAllocation.allocation</semanticResources>
+  <semanticResources>models/GetAssemblyContext/newUsageModel.usagemodel</semanticResources>
+</viewpoint:DAnalysis>

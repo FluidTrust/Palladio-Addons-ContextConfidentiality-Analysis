@@ -4,10 +4,12 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
 
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
+import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants;
 import org.palladiosimulator.pcm.confidentiality.context.specification.PCMSpecificationContainer;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
@@ -40,6 +42,17 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
         return pcmPartition.getSystem();
     }
+    
+    public ResourceEnvironment getResourceEnvironment() {
+        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
+        return pcmPartition.getResourceEnvironment();
+    }
+    
+    public Allocation getAllocation() {
+        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
+        return pcmPartition.getAllocation();
+    }
+    
     
     public PCMSpecificationContainer getSpecification() {
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
