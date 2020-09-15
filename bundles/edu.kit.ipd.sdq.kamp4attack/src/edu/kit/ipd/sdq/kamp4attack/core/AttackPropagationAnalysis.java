@@ -13,17 +13,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 //TODO This is probably the interesting component.
 
-/**
- * The change propagation analysis of KAMP4APS 1. determines a seed population of affected
- * components (resp. provided roles) 2. calculates in iterations: a) inter-component propagation b)
- * intra-component propagation 3. generates internal modification marks for affected elements
- * 
- * - elements which were already part of a seed population are not further investigated
- * 
- * 
- * @author Sandro Koch
- *
- */
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
 
     private CredentialChange changePropagationDueToCredential;

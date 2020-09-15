@@ -1,10 +1,7 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
@@ -13,9 +10,8 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.PcmPackage;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
@@ -48,43 +44,39 @@ import edu.kit.ipd.sdq.kamp.model.modificationmarks.ModificationmarksPackage;
 import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage;
 
-class TestModels {
+public abstract class AbstractModelTest {
 
-    private final static String PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.attacker";
-    private final static String PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAssembly.system";
-    private final static String PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAllocation.allocation";
-    private final static String PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.context";
-    private final static String PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.kamp4attackmodificationmarks";
-    private final static String PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newRepository.repository";
-    private final static String PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newUsageModel.usagemodel";
-    private final static String PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newResourceEnvironment.resourceenvironment";
+    final String PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.attacker";
+    final String PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAssembly.system";
+    final String PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAllocation.allocation";
+    final String PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.context";
+    final String PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.kamp4attackmodificationmarks";
+    final String PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newRepository.repository";
+    final String PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newUsageModel.usagemodel";
+    final String PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newResourceEnvironment.resourceenvironment";
+    final boolean EXECUTE_ANALYSIS_BEFORE = true;
+    
+    System assembly;
+    ResourceEnvironment environment;
+    Allocation allocation;
+    ConfidentialAccessSpecification context;
+    AttackerSpecification attacker;
+    AbstractKAMP4attackModificationRepository<?> modification;
 
-    static System assembly;
-    static ResourceEnvironment environment;
-    static Allocation allocation;
-    static ConfidentialAccessSpecification context;
-    static AttackerSpecification attacker;
-    static AbstractKAMP4attackModificationRepository<?> modification;
+    @BeforeEach
+    void loadModels() throws IOException {
 
-    @BeforeAll
-    static void loadModels() throws IOException {
-
-        final EPackage[] ePackages = new EPackage[] {
-                EcorePackage.eINSTANCE, IdentifierPackage.eINSTANCE, UnitsPackage.eINSTANCE,
-                ProbfunctionPackage.eINSTANCE, PcmPackage.eINSTANCE,
-                SeffPackage.eINSTANCE, RepositoryPackage.eINSTANCE, ParameterPackage.eINSTANCE,
-                UsagemodelPackage.eINSTANCE, SystemPackage.eINSTANCE, ResourcetypePackage.eINSTANCE,
-                ResourceenvironmentPackage.eINSTANCE, AllocationPackage.eINSTANCE, StoexPackage.eINSTANCE,
-                CorePackage.eINSTANCE, /* CompletionsPackage.eINSTANCE, */ ReliabilityPackage.eINSTANCE,
-                QosReliabilityPackage.eINSTANCE, SeffReliabilityPackage.eINSTANCE,
-                KAMP4attackModificationmarksPackage.eINSTANCE, ModificationmarksPackage.eINSTANCE,
-                ContextPackage.eINSTANCE, SpecificationPackage.eINSTANCE, AssemblyPackage.eINSTANCE,
-                AttackerPackage.eINSTANCE, AttackSpecificationPackage.eINSTANCE };
+        final EPackage[] ePackages = new EPackage[] { EcorePackage.eINSTANCE, IdentifierPackage.eINSTANCE,
+                UnitsPackage.eINSTANCE, ProbfunctionPackage.eINSTANCE, PcmPackage.eINSTANCE, SeffPackage.eINSTANCE,
+                RepositoryPackage.eINSTANCE, ParameterPackage.eINSTANCE, UsagemodelPackage.eINSTANCE,
+                SystemPackage.eINSTANCE, ResourcetypePackage.eINSTANCE, ResourceenvironmentPackage.eINSTANCE,
+                AllocationPackage.eINSTANCE, StoexPackage.eINSTANCE, CorePackage.eINSTANCE,
+                /* CompletionsPackage.eINSTANCE, */ ReliabilityPackage.eINSTANCE, QosReliabilityPackage.eINSTANCE,
+                SeffReliabilityPackage.eINSTANCE, KAMP4attackModificationmarksPackage.eINSTANCE,
+                ModificationmarksPackage.eINSTANCE, ContextPackage.eINSTANCE, SpecificationPackage.eINSTANCE,
+                AssemblyPackage.eINSTANCE, AttackerPackage.eINSTANCE, AttackSpecificationPackage.eINSTANCE };
 
         var resourceSet = new ResourceSetImpl();
 
@@ -113,23 +105,19 @@ class TestModels {
         resourceRepository.getContents().get(0);
         resourceUsage.getContents().get(0);
         modification = (AbstractKAMP4attackModificationRepository<?>) resourceModification.getContents().get(0);
+
+        execute();
+
     }
 
-    private static Resource loadResource(final ResourceSet resourceSet, final String path) {
-        return resourceSet.getResource(URI.createURI(path), true);
-    }
-
-    @Test
-    void test() {
-
+    void execute() {
         var wrapper = new BlackboardWrapper(modification, assembly, environment, allocation,
                 context.getPcmspecificationcontainer());
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
+    }
 
-        var steps = modification.getChangePropagationSteps();
-
-        assertTrue(steps.stream().allMatch(e -> e instanceof CompromisedAssembly || e instanceof CredentialChange
-                || e instanceof CompromisedResource));
+    private Resource loadResource(final ResourceSet resourceSet, final String path) {
+        return resourceSet.getResource(URI.createURI(path), true);
     }
 
 }

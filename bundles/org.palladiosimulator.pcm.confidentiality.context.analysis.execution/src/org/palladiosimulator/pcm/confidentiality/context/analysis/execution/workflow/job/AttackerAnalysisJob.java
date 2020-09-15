@@ -1,7 +1,13 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
 
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_CONTEXT;
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 
@@ -41,8 +47,15 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 ////        var dataModel = dataPartition.getDataspecification();
 //        analysis.runAttackerAnalysis(pcmPartition.getMiddlewareRepository(), contextPartition.getContextSpecification(),
 //                null);
-        var partition =  blackboard.getPartition(PartitionConstants.PARTITION_ID_MODIFICATION);
-        var wrapper = new BlackboardWrapper(blackboard);
+        var modificationPartition = ((ModificationMarkPartition) blackboard
+                .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
+        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
+        var system =  pcmPartition.getSystem();
+        var environment = pcmPartition.getResourceEnvironment();
+        var allocation = pcmPartition.getAllocation();
+        final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
+        var specification =  contextPartition.getContextSpecification().getPcmspecificationcontainer();
+        var wrapper = new BlackboardWrapper(modificationPartition, system, environment,allocation,specification);
         var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
     }

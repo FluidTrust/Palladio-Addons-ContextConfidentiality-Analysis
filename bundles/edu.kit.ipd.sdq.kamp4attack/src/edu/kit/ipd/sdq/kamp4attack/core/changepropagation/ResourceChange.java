@@ -2,11 +2,9 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;

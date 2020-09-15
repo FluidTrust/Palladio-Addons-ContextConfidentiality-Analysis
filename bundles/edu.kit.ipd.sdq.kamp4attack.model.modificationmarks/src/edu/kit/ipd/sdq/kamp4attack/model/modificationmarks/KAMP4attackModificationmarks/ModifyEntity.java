@@ -3,7 +3,6 @@
 package edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks;
 
 import edu.kit.ipd.sdq.kamp.model.modificationmarks.AbstractModification;
-
 import org.eclipse.emf.ecore.EObject;
 
 import org.palladiosimulator.pcm.core.entity.Entity;
