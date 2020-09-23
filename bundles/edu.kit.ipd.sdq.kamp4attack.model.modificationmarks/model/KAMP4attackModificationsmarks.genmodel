@@ -24,9 +24,11 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedassembly"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/contextchange"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KAMP4attackModificationsmarks.ecore#//CredentialChange/changed"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedlinkingresource"/>
     </genClasses>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedResource"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedAssembly"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//ContextChange"/>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedLinkingResource"/>
   </genPackages>
 </genmodel:GenModel>

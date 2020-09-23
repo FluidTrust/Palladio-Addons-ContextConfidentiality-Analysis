@@ -5,6 +5,7 @@ package edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificat
 import edu.kit.ipd.sdq.kamp.model.modificationmarks.impl.ChangePropagationStepImpl;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -37,6 +38,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getCompromisedassembly <em>Compromisedassembly</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getContextchange <em>Contextchange</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#isChanged <em>Changed</em>}</li>
+ *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getCompromisedlinkingresource <em>Compromisedlinkingresource</em>}</li>
  * </ul>
  *
  * @generated
@@ -91,6 +93,16 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
      * @ordered
      */
     protected boolean changed = CHANGED_EDEFAULT;
+
+    /**
+     * The cached value of the '{@link #getCompromisedlinkingresource() <em>Compromisedlinkingresource</em>}' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see #getCompromisedlinkingresource()
+     * @generated
+     * @ordered
+     */
+    protected EList<CompromisedLinkingResource> compromisedlinkingresource;
 
     /**
      * <!-- begin-user-doc -->
@@ -173,6 +185,18 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
      * <!-- end-user-doc -->
      * @generated
      */
+    public EList<CompromisedLinkingResource> getCompromisedlinkingresource() {
+        if (compromisedlinkingresource == null) {
+            compromisedlinkingresource = new EObjectContainmentEList<CompromisedLinkingResource>(CompromisedLinkingResource.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE);
+        }
+        return compromisedlinkingresource;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     @Override
     public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
         switch (featureID) {
@@ -182,6 +206,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
                 return ((InternalEList<?>)getCompromisedassembly()).basicRemove(otherEnd, msgs);
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE:
                 return ((InternalEList<?>)getContextchange()).basicRemove(otherEnd, msgs);
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
+                return ((InternalEList<?>)getCompromisedlinkingresource()).basicRemove(otherEnd, msgs);
         }
         return super.eInverseRemove(otherEnd, featureID, msgs);
     }
@@ -202,6 +228,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
                 return getContextchange();
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
                 return isChanged();
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
+                return getCompromisedlinkingresource();
         }
         return super.eGet(featureID, resolve, coreType);
     }
@@ -230,6 +258,10 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
                 setChanged((Boolean)newValue);
                 return;
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
+                getCompromisedlinkingresource().clear();
+                getCompromisedlinkingresource().addAll((Collection<? extends CompromisedLinkingResource>)newValue);
+                return;
         }
         super.eSet(featureID, newValue);
     }
@@ -254,6 +286,9 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
                 setChanged(CHANGED_EDEFAULT);
                 return;
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
+                getCompromisedlinkingresource().clear();
+                return;
         }
         super.eUnset(featureID);
     }
@@ -274,6 +309,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
                 return contextchange != null && !contextchange.isEmpty();
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
                 return changed != CHANGED_EDEFAULT;
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
+                return compromisedlinkingresource != null && !compromisedlinkingresource.isEmpty();
         }
         return super.eIsSet(featureID);
     }

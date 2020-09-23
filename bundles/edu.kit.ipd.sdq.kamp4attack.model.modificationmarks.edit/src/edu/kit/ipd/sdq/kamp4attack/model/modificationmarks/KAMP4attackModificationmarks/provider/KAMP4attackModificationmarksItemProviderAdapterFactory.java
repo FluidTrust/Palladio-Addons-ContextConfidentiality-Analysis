@@ -233,6 +233,29 @@ public class KAMP4attackModificationmarksItemProviderAdapterFactory extends KAMP
     }
 
     /**
+     * This keeps track of the one adapter used for all {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource} instances.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected CompromisedLinkingResourceItemProvider compromisedLinkingResourceItemProvider;
+
+    /**
+     * This creates an adapter for a {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    @Override
+    public Adapter createCompromisedLinkingResourceAdapter() {
+        if (compromisedLinkingResourceItemProvider == null) {
+            compromisedLinkingResourceItemProvider = new CompromisedLinkingResourceItemProvider(this);
+        }
+
+        return compromisedLinkingResourceItemProvider;
+    }
+
+    /**
      * This returns the root adapter factory that contains this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -338,6 +361,7 @@ public class KAMP4attackModificationmarksItemProviderAdapterFactory extends KAMP
         if (compromisedResourceItemProvider != null) compromisedResourceItemProvider.dispose();
         if (compromisedAssemblyItemProvider != null) compromisedAssemblyItemProvider.dispose();
         if (contextChangeItemProvider != null) contextChangeItemProvider.dispose();
+        if (compromisedLinkingResourceItemProvider != null) compromisedLinkingResourceItemProvider.dispose();
     }
 
 }

@@ -48,15 +48,14 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class AbstractModelTest {
 
-    final String PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.attacker";
-    final String PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAssembly.system";
-    final String PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newAllocation.allocation";
-    final String PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.context";
-    final String PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/My.kamp4attackmodificationmarks";
-    final String PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newRepository.repository";
-    final String PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newUsageModel.usagemodel";
-    final String PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/GetAssemblyContext/newResourceEnvironment.resourceenvironment";
-    final boolean EXECUTE_ANALYSIS_BEFORE = true;
+    String PATH_ATTACKER;
+    String PATH_ASSEMBLY;
+    String PATH_ALLOCATION;
+    String PATH_CONTEXT;
+    String PATH_MODIFICATION;
+    String PATH_REPOSITORY;
+    String PATH_USAGE;
+    String PATH_RESOURCES;
     
     System assembly;
     ResourceEnvironment environment;
@@ -111,11 +110,14 @@ public abstract class AbstractModelTest {
     }
 
     void execute() {
-        var wrapper = new BlackboardWrapper(modification, assembly, environment, allocation,
-                context.getPcmspecificationcontainer());
+        var wrapper = this.getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
-
+     final protected BlackboardWrapper getBlackboardWrapper() {
+        return new BlackboardWrapper(modification, assembly, environment, allocation,
+                context.getPcmspecificationcontainer());
+    }
+    
     private Resource loadResource(final ResourceSet resourceSet, final String path) {
         return resourceSet.getResource(URI.createURI(path), true);
     }

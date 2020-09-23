@@ -11,9 +11,19 @@ import org.junit.jupiter.api.Test;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
-
 class ModelsTest extends AbstractModelTest {
     
+    ModelsTest() {
+        this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.attacker";
+        this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newAssembly.system";
+        this.PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newAllocation.allocation";
+        this.PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.context";
+        this.PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.kamp4attackmodificationmarks";
+        this.PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newRepository.repository";
+        this.PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newUsageModel.usagemodel";
+        this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newResourceEnvironment.resourceenvironment";
+    }
+
     @Test
     void testCorrectReturnTypes() {
 

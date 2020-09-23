@@ -56,6 +56,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
             addCompromisedassemblyPropertyDescriptor(object);
             addContextchangePropertyDescriptor(object);
             addChangedPropertyDescriptor(object);
+            addCompromisedlinkingresourcePropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -149,6 +150,28 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
     }
 
     /**
+     * This adds a property descriptor for the Compromisedlinkingresource feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addCompromisedlinkingresourcePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add
+            (createItemPropertyDescriptor
+                (((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+                 getResourceLocator(),
+                 getString("_UI_CredentialChange_compromisedlinkingresource_feature"),
+                 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_compromisedlinkingresource_feature", "_UI_CredentialChange_type"),
+                 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE,
+                 true,
+                 false,
+                 true,
+                 null,
+                 null,
+                 null));
+    }
+
+    /**
      * This specifies how to implement {@link #getChildren} and is used to deduce an appropriate feature for an
      * {@link org.eclipse.emf.edit.command.AddCommand}, {@link org.eclipse.emf.edit.command.RemoveCommand} or
      * {@link org.eclipse.emf.edit.command.MoveCommand} in {@link #createCommand}.
@@ -163,6 +186,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
             childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE);
             childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY);
             childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__CONTEXTCHANGE);
+            childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE);
         }
         return childrenFeatures;
     }
@@ -222,6 +246,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
             case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE:
+            case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE:
                 fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
                 return;
         }
@@ -253,6 +278,11 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
             (createChildParameter
                 (KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__CONTEXTCHANGE,
                  KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange()));
+
+        newChildDescriptors.add
+            (createChildParameter
+                (KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE,
+                 KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource()));
     }
 
     /**

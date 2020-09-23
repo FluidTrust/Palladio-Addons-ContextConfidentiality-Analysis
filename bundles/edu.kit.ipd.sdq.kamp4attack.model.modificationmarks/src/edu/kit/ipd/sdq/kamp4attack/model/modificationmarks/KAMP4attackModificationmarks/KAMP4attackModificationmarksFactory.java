@@ -85,6 +85,15 @@ public interface KAMP4attackModificationmarksFactory extends EFactory {
     ContextChange createContextChange();
 
     /**
+     * Returns a new object of class '<em>Compromised Linking Resource</em>'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return a new object of class '<em>Compromised Linking Resource</em>'.
+     * @generated
+     */
+    CompromisedLinkingResource createCompromisedLinkingResource();
+
+    /**
      * Returns the package supported by this factory.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->

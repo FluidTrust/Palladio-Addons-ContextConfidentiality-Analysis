@@ -17,23 +17,23 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class Change<T> {
-    
+
     protected Collection<T> initialMarkedItems;
-    
-	protected BlackboardWrapper modelStorage;
-	
-	public Change(BlackboardWrapper v) {
-		modelStorage = v;
-		initialMarkedItems = loadInitialMarkedItems();
-	}
-	
-	protected abstract Collection<T> loadInitialMarkedItems();
-	
+
+    protected BlackboardWrapper modelStorage;
+
+    public Change(BlackboardWrapper v) {
+        modelStorage = v;
+        initialMarkedItems = loadInitialMarkedItems();
+    }
+
+    protected abstract Collection<T> loadInitialMarkedItems();
+
     protected final Stream<SystemPolicySpecification> getPolicyStream() {
         return modelStorage.getSpecification().getPolicyspecification().stream()
                 .filter(SystemPolicySpecification.class::isInstance).map(SystemPolicySpecification.class::cast);
     }
-    
+
     protected void updateFromContextProviderStream(CredentialChange changes,
             Stream<AttributeProvider> streamAttributeProvider) {
         var streamContextChange = streamAttributeProvider.flatMap(e -> e.getContextset().getContexts().stream())
@@ -43,18 +43,19 @@ public abstract class Change<T> {
                     change.setAffectedElement(e);
                     return change;
                 });
-        
-        var listChanges = streamContextChange.filter(e -> {
-            return !changes.getContextchange().stream().anyMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement()));
-        }).collect(Collectors.toList());
-        
-        
+
+        var listChanges = streamContextChange
+                .filter(e -> changes.getContextchange().stream()
+                        .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
+                .collect(Collectors.toList());
+
         changes.getContextchange().addAll(listChanges);
-        
-        if(listChanges.size() > 0) {
+
+        if (!listChanges.isEmpty()) {
             changes.setChanged(true);
         }
     }
+
     protected final ContextSet createContextSet(List<ContextAttribute> contexts) {
         var set = SetFactory.eINSTANCE.createContextSet();
         set.getContexts().addAll(contexts);

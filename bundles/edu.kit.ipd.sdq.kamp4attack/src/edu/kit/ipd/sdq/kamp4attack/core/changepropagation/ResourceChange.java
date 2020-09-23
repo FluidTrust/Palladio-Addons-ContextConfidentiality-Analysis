@@ -27,23 +27,21 @@ public class ResourceChange extends Change<ResourceContainer> {
     public void calculateResourceToContextPropagation(CredentialChange changes) {
         var listInfectedContainer = changes.getCompromisedresource().stream()
                 .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
-        
+
         var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream().filter(
                 e -> listInfectedContainer.stream().anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
-        
+
         updateFromContextProviderStream(changes, streamAttributeProvider);
-        
-        
-        
+
     }
 
-    
     public void calculateResourceToAssemblyPropagation(CredentialChange changes) {
         var listInfectedContainer = changes.getCompromisedresource().stream()
                 .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
 
         var streamTargetAllocations = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
-                .filter(e -> listInfectedContainer.stream().anyMatch(f -> EcoreUtil.equals(f, e.getResourceContainer_AllocationContext())));
+                .filter(e -> listInfectedContainer.stream()
+                        .anyMatch(f -> EcoreUtil.equals(f, e.getResourceContainer_AllocationContext())));
 
         var streamAssembly = streamTargetAllocations.map(AllocationContext::getAssemblyContext_AllocationContext);
 
@@ -54,13 +52,13 @@ public class ResourceChange extends Change<ResourceContainer> {
             return change;
         });
 
-        var listChanges = streamChanges.filter(e -> {
-            return !changes.getCompromisedassembly().stream()
-                    .anyMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement()));
-        }).collect(Collectors.toList());
+        var listChanges = streamChanges
+                .filter(e -> changes.getCompromisedassembly().stream()
+                        .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
+                .collect(Collectors.toList());
 
         changes.getCompromisedassembly().addAll(listChanges);
-        if (listChanges.size() > 0)
+        if (!listChanges.isEmpty())
             changes.setChanged(true);
     }
 

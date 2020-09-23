@@ -18,6 +18,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromisedassembly <em>Compromisedassembly</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getContextchange <em>Contextchange</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#isChanged <em>Changed</em>}</li>
+ *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromisedlinkingresource <em>Compromisedlinkingresource</em>}</li>
  * </ul>
  *
  * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange()
@@ -82,5 +83,17 @@ public interface CredentialChange extends ChangePropagationStep {
      * @generated
      */
     void setChanged(boolean value);
+
+    /**
+     * Returns the value of the '<em><b>Compromisedlinkingresource</b></em>' containment reference list.
+     * The list contents are of type {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource}.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the value of the '<em>Compromisedlinkingresource</em>' containment reference list.
+     * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange_Compromisedlinkingresource()
+     * @model containment="true"
+     * @generated
+     */
+    EList<CompromisedLinkingResource> getCompromisedlinkingresource();
 
 } // CredentialChange

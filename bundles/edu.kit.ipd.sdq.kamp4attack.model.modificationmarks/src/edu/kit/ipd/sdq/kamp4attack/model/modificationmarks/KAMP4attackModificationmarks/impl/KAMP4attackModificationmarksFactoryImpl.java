@@ -63,6 +63,7 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
             case KAMP4attackModificationmarksPackage.COMPROMISED_RESOURCE: return createCompromisedResource();
             case KAMP4attackModificationmarksPackage.COMPROMISED_ASSEMBLY: return createCompromisedAssembly();
             case KAMP4attackModificationmarksPackage.CONTEXT_CHANGE: return createContextChange();
+            case KAMP4attackModificationmarksPackage.COMPROMISED_LINKING_RESOURCE: return createCompromisedLinkingResource();
             default:
                 throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
         }
@@ -136,6 +137,16 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
     public ContextChange createContextChange() {
         ContextChangeImpl contextChange = new ContextChangeImpl();
         return contextChange;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public CompromisedLinkingResource createCompromisedLinkingResource() {
+        CompromisedLinkingResourceImpl compromisedLinkingResource = new CompromisedLinkingResourceImpl();
+        return compromisedLinkingResource;
     }
 
     /**

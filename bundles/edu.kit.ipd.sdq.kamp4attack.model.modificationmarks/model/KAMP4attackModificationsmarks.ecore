@@ -43,6 +43,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextchange" upperBound="-1"
         eType="#//ContextChange" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changed" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compromisedlinkingresource"
+        upperBound="-1" eType="#//CompromisedLinkingResource" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
@@ -57,6 +59,11 @@
   <eClassifiers xsi:type="ecore:EClass" name="ContextChange">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
       <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//model/ContextAttribute"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompromisedLinkingResource">
+    <eGenericSuperTypes eClassifier="#//ModifyEntity">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
     </eGenericSuperTypes>
   </eClassifiers>
 </ecore:EPackage>

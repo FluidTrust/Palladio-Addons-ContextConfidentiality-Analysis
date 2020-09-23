@@ -7,6 +7,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.AssemblyChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ContextChanges;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.LinkingChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ResourceChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -29,6 +30,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         // Calculate
         do {
             changePropagationDueToCredential.setChanged(false);
+            calculateAndMarkLinkingPropagation(board);
             calculateAndMarkResourcePropagation(board);
             calculateAndMarkToAssemblyPropagation(board);
             calculateAndMarkToContextPropagation(board);
@@ -47,6 +49,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         var change = new ContextChanges(board);
         change.calculateContextToResourcePropagation(changePropagationDueToCredential);
         change.calculateContextToAssemblyPropagation(changePropagationDueToCredential);
+        change.calculateContextLinkingToResourcePropagation(changePropagationDueToCredential);
     }
     
     private void calculateAndMarkToAssemblyPropagation(BlackboardWrapper board) {
@@ -59,6 +62,11 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         var change = new ResourceChange(board);
         change.calculateResourceToAssemblyPropagation(changePropagationDueToCredential);
         change.calculateResourceToContextPropagation(changePropagationDueToCredential);
+    }
+    
+    private void calculateAndMarkLinkingPropagation(BlackboardWrapper board) {
+        var change = new LinkingChange(board);
+        change.calculateLinkingResourceToContextPropagation(changePropagationDueToCredential);
     }
 
 
@@ -89,21 +97,31 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
                     changePropagationDueToCredential.getContextchange().addAll(contextChange);
                 }
             }
+            
+            //convert affectedResources to changes
             var affectedRessourcesList = localAttacker.getCompromisedResources().stream().map(resource -> {
                 var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(resource);
                 return change;
             }).collect(Collectors.toList());
-            
             changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
             
+            //convert affectedAssemblyContexts to changes
             var affectedComponentsList = localAttacker.getCompromisedComponents().stream().map(assemblyComponent -> {
                 var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
                 change.setAffectedElement(assemblyComponent);
                 return change;
             }).collect(Collectors.toList());
-            
             changePropagationDueToCredential.getCompromisedassembly().addAll(affectedComponentsList);
+            
+            //convert affectedLinkingResources to changes
+            var affectedLinkingList = localAttacker.getCompromisedLinkingResources().stream().map(linkingResource -> {
+                var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
+                change.setAffectedElement(linkingResource);
+                return change;
+            }).collect(Collectors.toList());
+            changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
+            
         }
         board.getModificationMarkRepository().getChangePropagationSteps().add(changePropagationDueToCredential);
     }

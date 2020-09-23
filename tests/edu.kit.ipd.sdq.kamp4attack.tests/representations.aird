@@ -30,4 +30,26 @@
   <semanticResources>My.context</semanticResources>
   <semanticResources>newAssembly.system</semanticResources>
   <semanticResources>newResourceEnvironment.resourceenvironment</semanticResources>
+  <semanticResources>models/PreStepTest/My.attacker</semanticResources>
+  <semanticResources>models/PreStepTest/newAssembly.system</semanticResources>
+  <semanticResources>models/PreStepTest/newRepository.repository</semanticResources>
+  <semanticResources>models/PreStepTest/My.context</semanticResources>
+  <semanticResources>models/PreStepTest/newResourceEnvironment.resourceenvironment</semanticResources>
+  <semanticResources>models/PreStepTest/newAllocation.allocation</semanticResources>
+  <semanticResources>models/PreStepTest/newUsageModel.usagemodel</semanticResources>
+  <semanticResources>models/SimpleModelTest/My.attacker</semanticResources>
+  <semanticResources>models/SimpleModelTest/newAssembly.system</semanticResources>
+  <semanticResources>models/SimpleModelTest/newRepository.repository</semanticResources>
+  <semanticResources>models/SimpleModelTest/My.context</semanticResources>
+  <semanticResources>models/SimpleModelTest/newResourceEnvironment.resourceenvironment</semanticResources>
+  <semanticResources>models/SimpleModelTest/newAllocation.allocation</semanticResources>
+  <semanticResources>models/SimpleModelTest/newUsageModel.usagemodel</semanticResources>
+  <semanticResources>models/PropagationUnitTests/My.attacker</semanticResources>
+  <semanticResources>models/PropagationUnitTests/My.context</semanticResources>
+  <semanticResources>models/PropagationUnitTests/newResourceEnvironment.resourceenvironment</semanticResources>
+  <semanticResources>models/PropagationUnitTests/newAssembly.system</semanticResources>
+  <semanticResources>models/PropagationUnitTests/newRepository.repository</semanticResources>
+  <semanticResources>models/PropagationUnitTests/My.kamp4attackmodificationmarks</semanticResources>
+  <semanticResources>models/PropagationUnitTests/newAllocation.allocation</semanticResources>
+  <semanticResources>models/PropagationUnitTests/newUsageModel.usagemodel</semanticResources>
 </viewpoint:DAnalysis>

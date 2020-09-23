@@ -28,11 +28,11 @@ public class AssemblyChange extends Change<AssemblyContext> {
     }
 
     public void calculateAssemblyToContextPropagation(CredentialChange changes) {
-        var listCompromisedContexts = changes.getCompromisedassembly().stream()
+        var listCompromisedAssemblyContexts = changes.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
 
         var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream().filter(
-                e -> listCompromisedContexts.stream().anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
+                e -> listCompromisedAssemblyContexts.stream().anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
         updateFromContextProviderStream(changes, streamAttributeProvider);
     }
@@ -64,7 +64,7 @@ public class AssemblyChange extends Change<AssemblyContext> {
             }
         }
         for(var container:setAttacked) {
-            if(!changes.getCompromisedresource().stream().anyMatch(e-> EcoreUtil.equals(e.getAffectedElement(),container))) {
+            if(changes.getCompromisedresource().stream().noneMatch(e-> EcoreUtil.equals(e.getAffectedElement(),container))) {
                 var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(container);
                 change.setToolderived(true);

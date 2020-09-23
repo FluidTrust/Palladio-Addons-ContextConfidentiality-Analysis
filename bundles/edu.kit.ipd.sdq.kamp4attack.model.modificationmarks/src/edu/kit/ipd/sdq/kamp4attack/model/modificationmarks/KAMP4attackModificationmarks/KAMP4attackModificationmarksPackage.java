@@ -380,13 +380,22 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
     int CREDENTIAL_CHANGE__CHANGED = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 3;
 
     /**
+     * The feature id for the '<em><b>Compromisedlinkingresource</b></em>' containment reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 4;
+
+    /**
      * The number of structural features of the '<em>Credential Change</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int CREDENTIAL_CHANGE_FEATURE_COUNT = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 4;
+    int CREDENTIAL_CHANGE_FEATURE_COUNT = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 5;
 
     /**
      * The number of operations of the '<em>Credential Change</em>' class.
@@ -618,6 +627,80 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
 
 
     /**
+     * The meta object id for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedLinkingResourceImpl <em>Compromised Linking Resource</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedLinkingResourceImpl
+     * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getCompromisedLinkingResource()
+     * @generated
+     */
+    int COMPROMISED_LINKING_RESOURCE = 9;
+
+    /**
+     * The feature id for the '<em><b>Affected Element</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE__AFFECTED_ELEMENT = MODIFY_ENTITY__AFFECTED_ELEMENT;
+
+    /**
+     * The feature id for the '<em><b>Causing Elements</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE__CAUSING_ELEMENTS = MODIFY_ENTITY__CAUSING_ELEMENTS;
+
+    /**
+     * The feature id for the '<em><b>Id</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE__ID = MODIFY_ENTITY__ID;
+
+    /**
+     * The feature id for the '<em><b>Toolderived</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE__TOOLDERIVED = MODIFY_ENTITY__TOOLDERIVED;
+
+    /**
+     * The feature id for the '<em><b>User Decision</b></em>' attribute.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE__USER_DECISION = MODIFY_ENTITY__USER_DECISION;
+
+    /**
+     * The number of structural features of the '<em>Compromised Linking Resource</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE_FEATURE_COUNT = MODIFY_ENTITY_FEATURE_COUNT + 0;
+
+    /**
+     * The number of operations of the '<em>Compromised Linking Resource</em>' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int COMPROMISED_LINKING_RESOURCE_OPERATION_COUNT = MODIFY_ENTITY_OPERATION_COUNT + 0;
+
+
+    /**
      * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository <em>Abstract KAMP 4attack Modification Repository</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -733,6 +816,17 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
     EAttribute getCredentialChange_Changed();
 
     /**
+     * Returns the meta object for the containment reference list '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromisedlinkingresource <em>Compromisedlinkingresource</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the containment reference list '<em>Compromisedlinkingresource</em>'.
+     * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromisedlinkingresource()
+     * @see #getCredentialChange()
+     * @generated
+     */
+    EReference getCredentialChange_Compromisedlinkingresource();
+
+    /**
      * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource <em>Compromised Resource</em>}'.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -761,6 +855,16 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
      * @generated
      */
     EClass getContextChange();
+
+    /**
+     * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource <em>Compromised Linking Resource</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for class '<em>Compromised Linking Resource</em>'.
+     * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource
+     * @generated
+     */
+    EClass getCompromisedLinkingResource();
 
     /**
      * Returns the factory that creates the instances of the model.
@@ -886,6 +990,14 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
         EAttribute CREDENTIAL_CHANGE__CHANGED = eINSTANCE.getCredentialChange_Changed();
 
         /**
+         * The meta object literal for the '<em><b>Compromisedlinkingresource</b></em>' containment reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE = eINSTANCE.getCredentialChange_Compromisedlinkingresource();
+
+        /**
          * The meta object literal for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedResourceImpl <em>Compromised Resource</em>}' class.
          * <!-- begin-user-doc -->
          * <!-- end-user-doc -->
@@ -914,6 +1026,16 @@ public interface KAMP4attackModificationmarksPackage extends EPackage {
          * @generated
          */
         EClass CONTEXT_CHANGE = eINSTANCE.getContextChange();
+
+        /**
+         * The meta object literal for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedLinkingResourceImpl <em>Compromised Linking Resource</em>}' class.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedLinkingResourceImpl
+         * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getCompromisedLinkingResource()
+         * @generated
+         */
+        EClass COMPROMISED_LINKING_RESOURCE = eINSTANCE.getCompromisedLinkingResource();
 
     }
 

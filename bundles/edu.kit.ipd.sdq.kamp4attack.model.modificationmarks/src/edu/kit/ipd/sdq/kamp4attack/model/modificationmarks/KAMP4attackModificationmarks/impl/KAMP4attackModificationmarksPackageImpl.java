@@ -15,6 +15,7 @@ import edu.kit.ipd.sdq.kamp.model.modificationmarks.ModificationmarksPackage;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackComponent;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -117,6 +118,13 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
      * @generated
      */
     private EClass contextChangeEClass = null;
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    private EClass compromisedLinkingResourceEClass = null;
 
     /**
      * Creates an instance of the model <b>Package</b>, registered with
@@ -294,6 +302,15 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getCredentialChange_Compromisedlinkingresource() {
+        return (EReference)credentialChangeEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getCompromisedResource() {
         return compromisedResourceEClass;
     }
@@ -314,6 +331,15 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
      */
     public EClass getContextChange() {
         return contextChangeEClass;
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EClass getCompromisedLinkingResource() {
+        return compromisedLinkingResourceEClass;
     }
 
     /**
@@ -360,12 +386,15 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
         createEReference(credentialChangeEClass, CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY);
         createEReference(credentialChangeEClass, CREDENTIAL_CHANGE__CONTEXTCHANGE);
         createEAttribute(credentialChangeEClass, CREDENTIAL_CHANGE__CHANGED);
+        createEReference(credentialChangeEClass, CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE);
 
         compromisedResourceEClass = createEClass(COMPROMISED_RESOURCE);
 
         compromisedAssemblyEClass = createEClass(COMPROMISED_ASSEMBLY);
 
         contextChangeEClass = createEClass(CONTEXT_CHANGE);
+
+        compromisedLinkingResourceEClass = createEClass(COMPROMISED_LINKING_RESOURCE);
     }
 
     /**
@@ -445,6 +474,10 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
         g2 = createEGenericType(theModelPackage.getContextAttribute());
         g1.getETypeArguments().add(g2);
         contextChangeEClass.getEGenericSuperTypes().add(g1);
+        g1 = createEGenericType(this.getModifyEntity());
+        g2 = createEGenericType(theResourceenvironmentPackage.getLinkingResource());
+        g1.getETypeArguments().add(g2);
+        compromisedLinkingResourceEClass.getEGenericSuperTypes().add(g1);
 
         // Initialize classes, features, and operations; add parameters
         initEClass(abstractKAMP4attackModificationRepositoryEClass, AbstractKAMP4attackModificationRepository.class, "AbstractKAMP4attackModificationRepository", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -463,12 +496,15 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
         initEReference(getCredentialChange_Compromisedassembly(), this.getCompromisedAssembly(), null, "compromisedassembly", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEReference(getCredentialChange_Contextchange(), this.getContextChange(), null, "contextchange", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
         initEAttribute(getCredentialChange_Changed(), theEcorePackage.getEBoolean(), "changed", null, 0, 1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getCredentialChange_Compromisedlinkingresource(), this.getCompromisedLinkingResource(), null, "compromisedlinkingresource", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(compromisedResourceEClass, CompromisedResource.class, "CompromisedResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(compromisedAssemblyEClass, CompromisedAssembly.class, "CompromisedAssembly", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         initEClass(contextChangeEClass, ContextChange.class, "ContextChange", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+        initEClass(compromisedLinkingResourceEClass, CompromisedLinkingResource.class, "CompromisedLinkingResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
         // Create resource
         createResource(eNS_URI);
