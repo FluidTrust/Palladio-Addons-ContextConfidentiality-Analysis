@@ -91,7 +91,7 @@ public class ContextChanges extends Change<ContextAttribute> {
         }
     }
 
-    public void calculateContextToLinkingPropagtaion(CredentialChange changes) {
+    public void calculateContextToLinkingPropagation(CredentialChange changes) {
         var contexts = createContextSet(getContexts(changes));
         var resources = changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .collect(Collectors.toList());
@@ -106,6 +106,7 @@ public class ContextChanges extends Change<ContextAttribute> {
 
         var listResourceContainer = streamTargetAllocations
                 .map(AllocationContext::getResourceContainer_AllocationContext).collect(Collectors.toList());
+       
 
         resources.addAll(listResourceContainer);
 
@@ -161,13 +162,18 @@ public class ContextChanges extends Change<ContextAttribute> {
             AssemblyContext component) {
         var system = this.modelStorage.getAssembly();
         var set = createContextSet(contexts);
+        // TODO simplify stream expression directly to components!
         var targetConnectors = system.getConnectors__ComposedStructure().stream()
                 .filter(AssemblyConnector.class::isInstance).map(AssemblyConnector.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getRequiredRole_AssemblyConnector(), component))
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
+                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
                 .collect(Collectors.toList());
 
         var targetComponents = targetConnectors.stream()
                 .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).collect(Collectors.toList());
+
+        targetComponents.addAll(targetConnectors.stream()
+                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).collect(Collectors.toList()));
 
         return targetComponents.stream().filter(e -> attackAssemblyContext(e, set)).collect(Collectors.toSet());
     }
