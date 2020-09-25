@@ -12,7 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class ModelsTest extends AbstractModelTest {
-    
+
     ModelsTest() {
         this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.attacker";
         this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newAssembly.system";
@@ -25,22 +25,8 @@ class ModelsTest extends AbstractModelTest {
     }
 
     @Test
-    void testCorrectReturnTypes() {
-
-        var steps = modification.getChangePropagationSteps();
-
-        assertTrue(steps.stream().allMatch(CredentialChange.class::isInstance));
-    }
-
-    @Test
-    void testNoNullValue() {
-        var steps = modification.getChangePropagationSteps();
-        assertNotNull(steps);
-    }
-
-    @Test
     void testCorrectReturnSize() {
-        var steps = modification.getChangePropagationSteps();
+        final var steps = this.modification.getChangePropagationSteps();
 
         assertEquals(1, steps.size());
         assertEquals(1, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());
@@ -49,25 +35,39 @@ class ModelsTest extends AbstractModelTest {
     }
 
     @Test
+    void testCorrectReturnTypes() {
+
+        final var steps = this.modification.getChangePropagationSteps();
+
+        assertTrue(steps.stream().allMatch(CredentialChange.class::isInstance));
+    }
+
+    @Test
     void testCorrectReturnValues() {
-        var steps = modification.getChangePropagationSteps();
+        final var steps = this.modification.getChangePropagationSteps();
 
-        var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();
-        var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
+        final var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();
+        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
 
-        var contexts = ((CredentialChange) steps.get(0)).getContextchange().stream()
+        final var contexts = ((CredentialChange) steps.get(0)).getContextchange().stream()
                 .map(ContextChange::getAffectedElement).collect(Collectors.toList());
         assertEquals("_Fg8BQe2_Eeq6pfPMAIqEqg", resource.getId());
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
 
-        var context0 = contexts.get(0);
-        var context1 = contexts.get(1);
+        final var context0 = contexts.get(0);
+        final var context1 = contexts.get(1);
 
         assertTrue((context0.getId().equals("_XE-xsO29Eeq6pfPMAIqEqg")
                 && context1.getId().equals("_abPi4O29Eeq6pfPMAIqEqg"))
                 || (context1.getId().equals("_XE-xsO29Eeq6pfPMAIqEqg")
                         && context0.getId().equals("_abPi4O29Eeq6pfPMAIqEqg")));
 
+    }
+
+    @Test
+    void testNoNullValue() {
+        final var steps = this.modification.getChangePropagationSteps();
+        assertNotNull(steps);
     }
 
 }

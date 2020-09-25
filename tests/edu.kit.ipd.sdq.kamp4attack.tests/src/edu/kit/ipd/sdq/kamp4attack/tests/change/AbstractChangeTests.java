@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.tests;
+package edu.kit.ipd.sdq.kamp4attack.tests.change;
 
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
@@ -16,6 +16,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.tests.AbstractModelTest;
 
 public abstract class AbstractChangeTests extends AbstractModelTest {
 
@@ -30,35 +31,27 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newResourceEnvironment.resourceenvironment";
     }
 
-    @Override
-    void execute() {
-
+    private void addPolicy(final ContextSet contextSet, final SystemPolicySpecification policyAssembly) {
+        policyAssembly.getPolicy().add(contextSet);
+        this.context.getPcmspecificationcontainer().getPolicyspecification().add(policyAssembly);
     }
 
-    protected SingleAttributeContext createContext(final String name) {
-        final var contextAccess = ModelFactory.eINSTANCE.createSingleAttributeContext();
-        contextAccess.setEntityName(name);
-        this.context.getContextContainer().get(0).getContext().add(contextAccess);
-        return contextAccess;
+    protected CompromisedAssembly createAssembly(final CredentialChange change) {
+        return this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
     }
 
-    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
-        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
-        contextSetAccessResource.getContexts().add(contextAccess);
-        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
-        return contextSetAccessResource;
+    protected CompromisedAssembly createAssembly(final CredentialChange change,
+            final AssemblyContext assemblyComponent) {
+        final var infectedAssembly = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
+        final var assemblyContext = assemblyComponent;
+        infectedAssembly.setAffectedElement(assemblyContext);
+        change.getCompromisedassembly().add(infectedAssembly);
+        return infectedAssembly;
     }
 
     protected void createAttributeProvider(final ContextSet contextSet, final AssemblyContext component) {
         final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
         attributeProvider.setAssemblycontext(component);
-        attributeProvider.setContextset(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
-    }
-
-    protected void createAttributeProvider(final ContextSet contextSet, final ResourceContainer resource) {
-        final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
-        attributeProvider.setResourcecontainer(resource);
         attributeProvider.setContextset(contextSet);
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
@@ -70,68 +63,79 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected CompromisedAssembly createAssembly(final CredentialChange change) {
-        return createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+    protected void createAttributeProvider(final ContextSet contextSet, final ResourceContainer resource) {
+        final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
+        attributeProvider.setResourcecontainer(resource);
+        attributeProvider.setContextset(contextSet);
+        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected CompromisedAssembly createAssembly(final CredentialChange change, AssemblyContext assemblyComponent) {
-        final var infectedAssembly = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
-        final var assemblyContext = assemblyComponent;
-        infectedAssembly.setAffectedElement(assemblyContext);
-        change.getCompromisedassembly().add(infectedAssembly);
-        return infectedAssembly;
+    protected SingleAttributeContext createContext(final String name) {
+        final var contextAccess = ModelFactory.eINSTANCE.createSingleAttributeContext();
+        contextAccess.setEntityName(name);
+        this.context.getContextContainer().get(0).getContext().add(contextAccess);
+        return contextAccess;
     }
 
-    protected void createPolicyAssembly(final ContextSet contextSet, AssemblyContext assemblyComponent) {
+    protected void createContextChange(final ContextAttribute context, final CredentialChange change) {
+        final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+        contextChange.setAffectedElement(context);
+        change.getContextchange().add(contextChange);
+    }
+
+    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
+        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
+        contextSetAccessResource.getContexts().add(contextAccess);
+        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
+        return contextSetAccessResource;
+    }
+
+    protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
+        return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+    }
+
+    protected CompromisedLinkingResource createLinkingChange(final CredentialChange change,
+            final LinkingResource linking) {
+        final var linkingChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
+        linkingChange.setAffectedElement(linking);
+        change.getCompromisedlinkingresource().add(linkingChange);
+        return linkingChange;
+    }
+
+    protected void createPolicyAssembly(final ContextSet contextSet, final AssemblyContext assemblyComponent) {
         final var policyAssembly = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
         policyAssembly.setAssemblycontext(assemblyComponent);
-        addPolicy(contextSet, policyAssembly);
-    }
-
-    private void addPolicy(final ContextSet contextSet, final SystemPolicySpecification policyAssembly) {
-        policyAssembly.getPolicy().add(contextSet);
-        this.context.getPcmspecificationcontainer().getPolicyspecification().add(policyAssembly);
-    }
-
-    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
-        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-        policyResource.setResourcecontainer(resource);
-        addPolicy(contextSet, policyResource);
+        this.addPolicy(contextSet, policyAssembly);
     }
 
     protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
         final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
         policyLinking.setLinkingresource(linking);
-        addPolicy(contextSet, policyLinking);
+        this.addPolicy(contextSet, policyLinking);
     }
 
-    protected void createContextChange(final ContextAttribute context, final CredentialChange change) {
-        var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(context);
-        change.getContextchange().add(contextChange);
+    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
+        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
+        policyResource.setResourcecontainer(resource);
+        this.addPolicy(contextSet, policyResource);
     }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
-        return createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
 
     }
 
-    protected CompromisedResource createResourceChange(final CredentialChange change, ResourceContainer resource) {
+    protected CompromisedResource createResourceChange(final CredentialChange change,
+            final ResourceContainer resource) {
         final var infectedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         infectedResource.setAffectedElement(resource);
         change.getCompromisedresource().add(infectedResource);
         return infectedResource;
     }
 
-    protected CompromisedLinkingResource createLinkingChange(CredentialChange change) {
-        return createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
-    }
+    @Override
+    protected void execute() {
 
-    protected CompromisedLinkingResource createLinkingChange(CredentialChange change, LinkingResource linking) {
-        var linkingChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
-        linkingChange.setAffectedElement(linking);
-        change.getCompromisedlinkingresource().add(linkingChange);
-        return linkingChange;
     }
 
 }

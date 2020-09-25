@@ -1,29 +1,21 @@
-package edu.kit.ipd.sdq.kamp4attack.tests;
+package edu.kit.ipd.sdq.kamp4attack.tests.change;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyFactory;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ResourceChange;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
-public class PropagationResourceTest extends AbstractChangeTests {
+class PropagationResourceTest extends AbstractChangeTests {
 
     private void isNoAssemblyResourceLinkingPropagation(final CredentialChange change,
             final ResourceContainer resource) {
-
         this.isNoResourceLinkingPropagation(change, resource);
         assertTrue(change.getCompromisedassembly().isEmpty());
 
@@ -58,7 +50,7 @@ public class PropagationResourceTest extends AbstractChangeTests {
         final var contextSet = this.createContextSet(context);
 
         this.createPolicyAssembly(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        
+
         this.runResourceAssemblyPropagation(change);
 
         this.isNoResourceLinkingPropagation(change, resource);

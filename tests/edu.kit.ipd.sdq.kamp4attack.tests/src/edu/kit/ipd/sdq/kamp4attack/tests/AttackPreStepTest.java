@@ -1,24 +1,19 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class AttackPreStepTest extends AbstractModelTest {
 
     private String contextID;
-    
-    
+
     AttackPreStepTest() {
         this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/My.attacker";
         this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newAssembly.system";
@@ -30,13 +25,11 @@ class AttackPreStepTest extends AbstractModelTest {
         this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newResourceEnvironment.resourceenvironment";
     }
 
-    
-
     @Override
-    void execute() {
-        var testContext = ModelFactory.eINSTANCE.createSingleAttributeContext();
+    protected void execute() {
+        final var testContext = ModelFactory.eINSTANCE.createSingleAttributeContext();
         testContext.setEntityName("TestValue");
-        contextID = testContext.getId();
+        this.contextID = testContext.getId();
         ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().clear();
         ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().add(testContext);
     }
@@ -44,31 +37,17 @@ class AttackPreStepTest extends AbstractModelTest {
     @Test
     void testNoNullValue() {
         super.execute();
-        var steps = modification.getChangePropagationSteps();
+        final var steps = this.modification.getChangePropagationSteps();
         assertNotNull(steps);
-    }
-
-    @Test
-    void testOnlyStartContext() {
-        this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
-        super.execute();
-        var steps = modification.getChangePropagationSteps();
-
-        assertEquals(1, steps.size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedresource().size());
-        assertEquals(1, ((CredentialChange) steps.get(0)).getContextchange().size());
-        assertEquals(contextID,
-                ((CredentialChange) steps.get(0)).getContextchange().get(0).getAffectedElement().getId());
     }
 
     @Test
     void testOnlyStartAssembly() {
         ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().clear();
         super.execute();
-        var steps = modification.getChangePropagationSteps();
+        final var steps = this.modification.getChangePropagationSteps();
 
-        var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
+        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
 
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
         assertEquals(1, steps.size());
@@ -79,17 +58,31 @@ class AttackPreStepTest extends AbstractModelTest {
     }
 
     @Test
-    @Disabled
+    void testOnlyStartContext() {
+        this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
+        super.execute();
+        final var steps = this.modification.getChangePropagationSteps();
+
+        assertEquals(1, steps.size());
+        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());
+        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedresource().size());
+        assertEquals(1, ((CredentialChange) steps.get(0)).getContextchange().size());
+        assertEquals(this.contextID,
+                ((CredentialChange) steps.get(0)).getContextchange().get(0).getAffectedElement().getId());
+    }
+
+    @Test
+    @Disabled("unclear for what")
     void testOnlyStartResource() {
         ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().clear();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
-        var dbResource = this.environment.getResourceContainer_ResourceEnvironment().stream()
+        final var dbResource = this.environment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(e -> e.getEntityName().equals("DatabaseMachine")).findAny().get();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources().add(dbResource);
         super.execute();
-        var steps = modification.getChangePropagationSteps();
+        final var steps = this.modification.getChangePropagationSteps();
 
-        var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();
+        final var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();
 
         assertEquals(1, steps.size());
         assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());

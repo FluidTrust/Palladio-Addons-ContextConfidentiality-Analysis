@@ -10,7 +10,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.PcmPackage;
 import org.palladiosimulator.pcm.allocation.Allocation;
@@ -48,24 +47,38 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class AbstractModelTest {
 
-    String PATH_ATTACKER;
-    String PATH_ASSEMBLY;
-    String PATH_ALLOCATION;
-    String PATH_CONTEXT;
-    String PATH_MODIFICATION;
-    String PATH_REPOSITORY;
-    String PATH_USAGE;
-    String PATH_RESOURCES;
-    
-    System assembly;
-    ResourceEnvironment environment;
-    Allocation allocation;
-    ConfidentialAccessSpecification context;
-    AttackerSpecification attacker;
-    AbstractKAMP4attackModificationRepository<?> modification;
+    protected String PATH_ATTACKER;
+    protected String PATH_ASSEMBLY;
+    protected String PATH_ALLOCATION;
+    protected String PATH_CONTEXT;
+    protected String PATH_MODIFICATION;
+    protected String PATH_REPOSITORY;
+    protected String PATH_USAGE;
+    protected String PATH_RESOURCES;
+
+    protected System assembly;
+    protected ResourceEnvironment environment;
+    protected Allocation allocation;
+    protected ConfidentialAccessSpecification context;
+    protected AttackerSpecification attacker;
+    protected AbstractKAMP4attackModificationRepository<?> modification;
+
+    private Resource loadResource(final ResourceSet resourceSet, final String path) {
+        return resourceSet.getResource(URI.createURI(path), true);
+    }
+
+    protected void execute() {
+        final var wrapper = this.getBlackboardWrapper();
+        (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
+    }
+
+    final protected BlackboardWrapper getBlackboardWrapper() {
+        return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
+                this.context.getPcmspecificationcontainer());
+    }
 
     @BeforeEach
-    void loadModels() throws IOException {
+    protected void loadModels() throws IOException {
 
         final EPackage[] ePackages = new EPackage[] { EcorePackage.eINSTANCE, IdentifierPackage.eINSTANCE,
                 UnitsPackage.eINSTANCE, ProbfunctionPackage.eINSTANCE, PcmPackage.eINSTANCE, SeffPackage.eINSTANCE,
@@ -77,49 +90,37 @@ public abstract class AbstractModelTest {
                 ModificationmarksPackage.eINSTANCE, ContextPackage.eINSTANCE, SpecificationPackage.eINSTANCE,
                 AssemblyPackage.eINSTANCE, AttackerPackage.eINSTANCE, AttackSpecificationPackage.eINSTANCE };
 
-        var resourceSet = new ResourceSetImpl();
+        final var resourceSet = new ResourceSetImpl();
 
-        for (final EPackage ePackage : ePackages)
+        for (final EPackage ePackage : ePackages) {
             resourceSet.getPackageRegistry().put(ePackage.getNsURI(), ePackage);
+        }
 
-        var resourceAssembly = loadResource(resourceSet, PATH_ASSEMBLY);
-        var resourceAllocation = loadResource(resourceSet, PATH_ALLOCATION);
-        var resourceResource = loadResource(resourceSet, PATH_RESOURCES);
-        var resourceRepository = loadResource(resourceSet, PATH_REPOSITORY);
-        var resourceUsage = loadResource(resourceSet, PATH_USAGE);
-        var resourceContext = loadResource(resourceSet, PATH_CONTEXT);
-        var resourceAttacker = loadResource(resourceSet, PATH_ATTACKER);
-        var resourceModification = loadResource(resourceSet, PATH_MODIFICATION);
+        final var resourceAssembly = this.loadResource(resourceSet, this.PATH_ASSEMBLY);
+        final var resourceAllocation = this.loadResource(resourceSet, this.PATH_ALLOCATION);
+        final var resourceResource = this.loadResource(resourceSet, this.PATH_RESOURCES);
+        final var resourceRepository = this.loadResource(resourceSet, this.PATH_REPOSITORY);
+        final var resourceUsage = this.loadResource(resourceSet, this.PATH_USAGE);
+        final var resourceContext = this.loadResource(resourceSet, this.PATH_CONTEXT);
+        final var resourceAttacker = this.loadResource(resourceSet, this.PATH_ATTACKER);
+        final var resourceModification = this.loadResource(resourceSet, this.PATH_MODIFICATION);
 
-        var list = new ArrayList<Resource>(resourceSet.getResources());
-        for (var res : list) {
+        final var list = new ArrayList<Resource>(resourceSet.getResources());
+        for (final var res : list) {
             EcoreUtil.resolveAll(res);
         }
 
-        assembly = (System) resourceAssembly.getContents().get(0);
-        environment = (ResourceEnvironment) resourceResource.getContents().get(0);
-        allocation = (Allocation) resourceAllocation.getContents().get(0);
-        context = (ConfidentialAccessSpecification) resourceContext.getContents().get(0);
-        attacker = (AttackerSpecification) resourceAttacker.getContents().get(0);
+        this.assembly = (System) resourceAssembly.getContents().get(0);
+        this.environment = (ResourceEnvironment) resourceResource.getContents().get(0);
+        this.allocation = (Allocation) resourceAllocation.getContents().get(0);
+        this.context = (ConfidentialAccessSpecification) resourceContext.getContents().get(0);
+        this.attacker = (AttackerSpecification) resourceAttacker.getContents().get(0);
         resourceRepository.getContents().get(0);
         resourceUsage.getContents().get(0);
-        modification = (AbstractKAMP4attackModificationRepository<?>) resourceModification.getContents().get(0);
+        this.modification = (AbstractKAMP4attackModificationRepository<?>) resourceModification.getContents().get(0);
 
-        execute();
+        this.execute();
 
-    }
-
-    void execute() {
-        var wrapper = this.getBlackboardWrapper();
-        (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
-    }
-     final protected BlackboardWrapper getBlackboardWrapper() {
-        return new BlackboardWrapper(modification, assembly, environment, allocation,
-                context.getPcmspecificationcontainer());
-    }
-    
-    private Resource loadResource(final ResourceSet resourceSet, final String path) {
-        return resourceSet.getResource(URI.createURI(path), true);
     }
 
 }
