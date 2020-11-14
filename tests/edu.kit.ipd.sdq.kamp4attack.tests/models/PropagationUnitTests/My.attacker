@@ -4,9 +4,7 @@
     <attacker id="_nXTRAO26Eeq-yNCPvHsSJQ" entityName="StolenCustomer" capabilities="_pIoEsO26Eeq-yNCPvHsSJQ"/>
   </attackers>
   <attacks>
-    <attack xsi:type="attack:CredentialAttack" id="_pIoEsO26Eeq-yNCPvHsSJQ" entityName="StolenCustomerCredentials" exploits="_HeBq8O29Eeq6pfPMAIqEqg"/>
+    <attack xsi:type="attack:CredentialAttack" id="_pIoEsO26Eeq-yNCPvHsSJQ" entityName="StolenCustomerCredentials"/>
   </attacks>
-  <vulnerabilites>
-    <vulnerability xsi:type="attack:CredentialVulnerability" id="_HeBq8O29Eeq6pfPMAIqEqg" entityName="Attacking Context Model"/>
-  </vulnerabilites>
+  <vulnerabilites/>
 </attacker:AttackerSpecification>

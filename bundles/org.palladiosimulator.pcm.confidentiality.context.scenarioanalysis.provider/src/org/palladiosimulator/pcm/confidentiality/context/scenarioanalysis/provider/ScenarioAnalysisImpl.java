@@ -1,6 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -10,13 +9,14 @@ import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
-import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.UsageModelVisitorScenarioAnalysis;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.UsageModelVisitorScenarioRepository;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.specification.ContextSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.specification.PolicySpecification;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
@@ -26,14 +26,19 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 public class ScenarioAnalysisImpl implements ScenarioAnalysis {
 
     @Override
-    public AnalysisResults runScenarioAnalysis(Repository pcm, ConfidentialAccessSpecification context,
-            UsageModel usage) {
-        
+    public AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context) {
+
+        var usage = pcm.getUsageModel();
+        if (context.getPcmspecificationcontainer().getPolicyspecification().stream()
+                .anyMatch(SystemPolicySpecification.class::isInstance)) {
+            return new ScenarioAnalysisSystemImpl().runScenarioAnalysis(pcm, context);
+        }
+
         var result = OutputmodelFactory.eINSTANCE.createAnalysisResults();
         for (var scenario : usage.getUsageScenario_UsageModel()) {
-            var visitor = new UsageModelVisitorScenarioAnalysis();
+            var visitor = new UsageModelVisitorScenarioRepository();
             var seffs = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
-            
+
             var output = OutputmodelFactory.eINSTANCE.createScenarioOutput();
             output.setResult(analysisScenario(scenario, seffs, context));
             output.setScenario(scenario);
@@ -47,14 +52,14 @@ public class ScenarioAnalysisImpl implements ScenarioAnalysis {
             ConfidentialAccessSpecification context) {
 
         var contextSet = getContextSet(context.getPcmspecificationcontainer().getContextspecification(), scenario);
-        var policyList = getContextSetsPolicy(context.getPcmspecificationcontainer().getPolicyspecification(), behaviour);
+        var policyList = getContextSetsPolicy(context.getPcmspecificationcontainer().getPolicyspecification(),
+                behaviour);
 
-        for(var policySeff: policyList) {
-            if(!checkContext(contextSet, policySeff))
+        for (var policySeff : policyList) {
+            if (!checkContext(contextSet, policySeff))
                 return false;
         }
-        
-        
+
         return true;
     }
 
@@ -88,13 +93,15 @@ public class ScenarioAnalysisImpl implements ScenarioAnalysis {
         return policySpecification.stream().filter(policy -> contains(policy, behaviour))
                 .map(PolicySpecification::getPolicy).collect(Collectors.toList());
     }
+
     private boolean contains(PolicySpecification policy, Set<ResourceDemandingBehaviour> behaviours) {
-        for(ResourceDemandingBehaviour behaviour : behaviours) {
-            if(EcoreUtil.equals(policy.getResourcedemandingbehaviour(), behaviour))
+        for (ResourceDemandingBehaviour behaviour : behaviours) {
+            if (EcoreUtil.equals(policy.getResourcedemandingbehaviour(), behaviour))
                 return true;
         }
         return false;
     }
+
     private ContextSet getContextSet(List<ContextSpecification> contextSpecification, UsageScenario scenario) {
         return contextSpecification.stream().filter(usage -> EcoreUtil.equals(scenario, usage.getUsagescenario()))
                 .map(ContextSpecification::getContextset).findFirst().get();

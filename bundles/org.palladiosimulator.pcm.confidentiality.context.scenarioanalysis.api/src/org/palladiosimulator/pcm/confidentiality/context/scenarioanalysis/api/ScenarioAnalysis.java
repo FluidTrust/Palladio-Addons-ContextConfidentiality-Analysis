@@ -6,6 +6,6 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.An
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 public interface ScenarioAnalysis extends ContextAnalysis {
-    AnalysisResults runScenarioAnalysis(Repository pcm, ConfidentialAccessSpecification context, UsageModel usage);
+    AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context);
 
 }

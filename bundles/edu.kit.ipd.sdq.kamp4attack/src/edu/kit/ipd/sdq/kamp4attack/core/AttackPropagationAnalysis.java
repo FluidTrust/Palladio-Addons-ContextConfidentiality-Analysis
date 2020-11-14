@@ -3,7 +3,7 @@ package edu.kit.ipd.sdq.kamp4attack.core;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
-
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialVulnerability;
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.AssemblyChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ContextChanges;
@@ -11,6 +11,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.LinkingChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ResourceChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+
 
 //TODO This is probably the interesting component.
 
@@ -89,7 +90,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
                 if(capabilities instanceof CredentialAttack) {
                     var credentialAttack = (CredentialAttack) capabilities;
                     
-                    var contextChange = credentialAttack.getContexts().stream().map(context -> {
+                    var contextChange = credentialAttack.getExploits().stream().map(CredentialVulnerability::getContext).map(context -> {
                         var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
                         change.setAffectedElement(context);
                         return change;

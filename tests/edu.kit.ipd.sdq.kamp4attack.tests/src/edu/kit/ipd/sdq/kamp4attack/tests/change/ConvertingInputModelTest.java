@@ -80,7 +80,8 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     void testTransformationContext() {
 
         var context = this.createContext("Test");
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().add(context);
+        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits()
+                .add(this.createCredentialVulnerability(context));
 
         runAnalysis();
 
@@ -101,7 +102,8 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
                 .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
         var context = this.createContext("Test");
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getContexts().add(context);
+        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits()
+                .add(this.createCredentialVulnerability(context));
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources()
                 .add(this.environment.getResourceContainer_ResourceEnvironment().get(0));
         this.allocation.getAllocationContexts_Allocation().clear();
@@ -109,7 +111,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
                 .add(this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
         runAnalysis();
-        
+
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
         var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 

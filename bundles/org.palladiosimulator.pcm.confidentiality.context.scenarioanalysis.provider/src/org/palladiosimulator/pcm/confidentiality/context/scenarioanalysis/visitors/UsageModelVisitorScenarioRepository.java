@@ -1,6 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +13,8 @@ import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.solver.transformations.PCMInstanceHelper;
 
-public class UsageModelVisitorScenarioAnalysis extends AbstractUsageModelVisitor<ResourceDemandingBehaviour>{
+@Deprecated
+public class UsageModelVisitorScenarioRepository extends AbstractUsageModelVisitor<ResourceDemandingBehaviour>{
    
     @Override
     public Set<ResourceDemandingBehaviour> caseEntryLevelSystemCall(EntryLevelSystemCall call) {

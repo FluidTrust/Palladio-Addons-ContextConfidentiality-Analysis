@@ -22,7 +22,7 @@ import org.palladiosimulator.solver.visitors.SeffVisitor;
 /**
  * Abstract visitor which visits for a {@link ScenarioBehaviour} each contained action. For each Object a List is propagated. 
  * The class is based on the UsageModelVisitor of the solver bundle
- * @author majuwa, Koziolek, Martens
+ * @author Koziolek, Martens, majuwa
  * 
  */
 public class AbstractUsageModelVisitor<T> extends UsagemodelSwitch<Set<T>> {
