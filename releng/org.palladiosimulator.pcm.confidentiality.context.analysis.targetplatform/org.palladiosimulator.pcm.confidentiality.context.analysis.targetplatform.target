@@ -270,7 +270,7 @@
 			<unit id="edu.kit.ipd.sdq.kamp.feature.feature.group" version="tbd"/>
 			<repository location="https://raw.githubusercontent.com/KAMP-Research/KAMP/gh-pages"/>
 		</location>
-				<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
 			<unit id="com.google.auto.factory-annotations.feature.feature.group" version="1.0.0"/>
 			<repository location="https://updatesite.mdsd.tools/thirdparty-library/nightly"/>
 		</location>
