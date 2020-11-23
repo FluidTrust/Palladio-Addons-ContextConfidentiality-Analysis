@@ -14,6 +14,8 @@ import org.eclipse.emf.common.EMFPlugin;
 
 import org.eclipse.emf.common.util.ResourceLocator;
 
+import org.eclipse.emf.ecore.provider.EcoreEditPlugin;
+import org.palladiosimulator.pcm.confidentiality.context.provider.ContextEditPlugin;
 import org.palladiosimulator.pcm.core.provider.PalladioComponentModelEditPlugin;
 
 /**
@@ -46,7 +48,8 @@ public final class OutputmodelEditPlugin extends EMFPlugin {
      * @generated
      */
     public OutputmodelEditPlugin() {
-        super(new ResourceLocator[] { IdentifierEditPlugin.INSTANCE, PalladioComponentModelEditPlugin.INSTANCE,
+        super(new ResourceLocator[] { ContextEditPlugin.INSTANCE, EcoreEditPlugin.INSTANCE,
+                IdentifierEditPlugin.INSTANCE, PalladioComponentModelEditPlugin.INSTANCE,
                 ProbabilityFunctionEditPlugin.INSTANCE, StoexEditPlugin.INSTANCE, UnitsEditPlugin.INSTANCE, });
     }
 

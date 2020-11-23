@@ -13,6 +13,8 @@ Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.outpu
 Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
+ org.palladiosimulator.pcm.confidentiality.context;visibility:=reexport,
+ org.palladiosimulator.pcm.confidentiality.context.edit;visibility:=reexport,
  de.uka.ipd.sdq.identifier;visibility:=reexport,
  de.uka.ipd.sdq.identifier.edit;visibility:=reexport,
  org.palladiosimulator.pcm;visibility:=reexport,
@@ -22,5 +24,7 @@ Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.stoex;visibility:=reexport,
  de.uka.ipd.sdq.stoex.edit;visibility:=reexport,
  de.uka.ipd.sdq.units;visibility:=reexport,
- de.uka.ipd.sdq.units.edit;visibility:=reexport
+ de.uka.ipd.sdq.units.edit;visibility:=reexport,
+ org.eclipse.emf.ecore;visibility:=reexport,
+ org.eclipse.emf.ecore.edit;visibility:=reexport
 Bundle-ActivationPolicy: lazy

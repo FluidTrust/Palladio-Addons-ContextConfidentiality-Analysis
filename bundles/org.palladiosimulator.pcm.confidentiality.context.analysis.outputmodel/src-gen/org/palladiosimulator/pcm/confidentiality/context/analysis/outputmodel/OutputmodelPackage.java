@@ -86,13 +86,58 @@ public interface OutputmodelPackage extends EPackage {
     int SCENARIO_OUTPUT__SCENARIO = 1;
 
     /**
+     * The feature id for the '<em><b>Operationsignature</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCENARIO_OUTPUT__OPERATIONSIGNATURE = 2;
+
+    /**
+     * The feature id for the '<em><b>Operationinterface</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCENARIO_OUTPUT__OPERATIONINTERFACE = 3;
+
+    /**
+     * The feature id for the '<em><b>Connector</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCENARIO_OUTPUT__CONNECTOR = 4;
+
+    /**
+     * The feature id for the '<em><b>Requestor Set</b></em>' reference.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCENARIO_OUTPUT__REQUESTOR_SET = 5;
+
+    /**
+     * The feature id for the '<em><b>Required Sets</b></em>' reference list.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     * @ordered
+     */
+    int SCENARIO_OUTPUT__REQUIRED_SETS = 6;
+
+    /**
      * The number of structural features of the '<em>Scenario Output</em>' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      * @ordered
      */
-    int SCENARIO_OUTPUT_FEATURE_COUNT = 2;
+    int SCENARIO_OUTPUT_FEATURE_COUNT = 7;
 
     /**
      * The meta object id for the '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.impl.AnalysisResultsImpl <em>Analysis Results</em>}' class.
@@ -153,6 +198,61 @@ public interface OutputmodelPackage extends EPackage {
      * @generated
      */
     EReference getScenarioOutput_Scenario();
+
+    /**
+     * Returns the meta object for the reference '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getOperationsignature <em>Operationsignature</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Operationsignature</em>'.
+     * @see org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getOperationsignature()
+     * @see #getScenarioOutput()
+     * @generated
+     */
+    EReference getScenarioOutput_Operationsignature();
+
+    /**
+     * Returns the meta object for the reference '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getOperationinterface <em>Operationinterface</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Operationinterface</em>'.
+     * @see org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getOperationinterface()
+     * @see #getScenarioOutput()
+     * @generated
+     */
+    EReference getScenarioOutput_Operationinterface();
+
+    /**
+     * Returns the meta object for the reference '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getConnector <em>Connector</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Connector</em>'.
+     * @see org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getConnector()
+     * @see #getScenarioOutput()
+     * @generated
+     */
+    EReference getScenarioOutput_Connector();
+
+    /**
+     * Returns the meta object for the reference '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getRequestorSet <em>Requestor Set</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference '<em>Requestor Set</em>'.
+     * @see org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getRequestorSet()
+     * @see #getScenarioOutput()
+     * @generated
+     */
+    EReference getScenarioOutput_RequestorSet();
+
+    /**
+     * Returns the meta object for the reference list '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getRequiredSets <em>Required Sets</em>}'.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @return the meta object for the reference list '<em>Required Sets</em>'.
+     * @see org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput#getRequiredSets()
+     * @see #getScenarioOutput()
+     * @generated
+     */
+    EReference getScenarioOutput_RequiredSets();
 
     /**
      * Returns the meta object for class '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults <em>Analysis Results</em>}'.
@@ -223,6 +323,46 @@ public interface OutputmodelPackage extends EPackage {
          * @generated
          */
         EReference SCENARIO_OUTPUT__SCENARIO = eINSTANCE.getScenarioOutput_Scenario();
+
+        /**
+         * The meta object literal for the '<em><b>Operationsignature</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SCENARIO_OUTPUT__OPERATIONSIGNATURE = eINSTANCE.getScenarioOutput_Operationsignature();
+
+        /**
+         * The meta object literal for the '<em><b>Operationinterface</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SCENARIO_OUTPUT__OPERATIONINTERFACE = eINSTANCE.getScenarioOutput_Operationinterface();
+
+        /**
+         * The meta object literal for the '<em><b>Connector</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SCENARIO_OUTPUT__CONNECTOR = eINSTANCE.getScenarioOutput_Connector();
+
+        /**
+         * The meta object literal for the '<em><b>Requestor Set</b></em>' reference feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SCENARIO_OUTPUT__REQUESTOR_SET = eINSTANCE.getScenarioOutput_RequestorSet();
+
+        /**
+         * The meta object literal for the '<em><b>Required Sets</b></em>' reference list feature.
+         * <!-- begin-user-doc -->
+         * <!-- end-user-doc -->
+         * @generated
+         */
+        EReference SCENARIO_OUTPUT__REQUIRED_SETS = eINSTANCE.getScenarioOutput_RequiredSets();
 
         /**
          * The meta object literal for the '{@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.impl.AnalysisResultsImpl <em>Analysis Results</em>}' class.

@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadContextJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadPCMScenario;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.SaveOutputModelJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.ScenarioAnalysisJob;
 
 import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
@@ -24,5 +25,6 @@ public class ScenarioAnalysisWorkflow extends SequentialBlackboardInteractingJob
         this.add(new LoadPCMScenario(config));
         this.add(new LoadContextJob(config));
         this.add(new ScenarioAnalysisJob(config));
+        this.add(new SaveOutputModelJob(config));
     }
 }

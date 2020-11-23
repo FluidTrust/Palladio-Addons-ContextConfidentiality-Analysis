@@ -54,6 +54,11 @@ public class ScenarioOutputItemProvider extends ItemProviderAdapter implements I
 
             addResultPropertyDescriptor(object);
             addScenarioPropertyDescriptor(object);
+            addOperationsignaturePropertyDescriptor(object);
+            addOperationinterfacePropertyDescriptor(object);
+            addConnectorPropertyDescriptor(object);
+            addRequestorSetPropertyDescriptor(object);
+            addRequiredSetsPropertyDescriptor(object);
         }
         return itemPropertyDescriptors;
     }
@@ -87,6 +92,83 @@ public class ScenarioOutputItemProvider extends ItemProviderAdapter implements I
                         getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_scenario_feature",
                                 "_UI_ScenarioOutput_type"),
                         OutputmodelPackage.Literals.SCENARIO_OUTPUT__SCENARIO, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Operationsignature feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOperationsignaturePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_ScenarioOutput_operationsignature_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_operationsignature_feature",
+                        "_UI_ScenarioOutput_type"),
+                OutputmodelPackage.Literals.SCENARIO_OUTPUT__OPERATIONSIGNATURE, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Operationinterface feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addOperationinterfacePropertyDescriptor(Object object) {
+        itemPropertyDescriptors.add(createItemPropertyDescriptor(
+                ((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+                getString("_UI_ScenarioOutput_operationinterface_feature"),
+                getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_operationinterface_feature",
+                        "_UI_ScenarioOutput_type"),
+                OutputmodelPackage.Literals.SCENARIO_OUTPUT__OPERATIONINTERFACE, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Connector feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addConnectorPropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(), getString("_UI_ScenarioOutput_connector_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_connector_feature",
+                                "_UI_ScenarioOutput_type"),
+                        OutputmodelPackage.Literals.SCENARIO_OUTPUT__CONNECTOR, true, false, true, null, null, null));
+    }
+
+    /**
+     * This adds a property descriptor for the Requestor Set feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addRequestorSetPropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(), getString("_UI_ScenarioOutput_requestorSet_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_requestorSet_feature",
+                                "_UI_ScenarioOutput_type"),
+                        OutputmodelPackage.Literals.SCENARIO_OUTPUT__REQUESTOR_SET, true, false, true, null, null,
+                        null));
+    }
+
+    /**
+     * This adds a property descriptor for the Required Sets feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    protected void addRequiredSetsPropertyDescriptor(Object object) {
+        itemPropertyDescriptors
+                .add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+                        getResourceLocator(), getString("_UI_ScenarioOutput_requiredSets_feature"),
+                        getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_requiredSets_feature",
+                                "_UI_ScenarioOutput_type"),
+                        OutputmodelPackage.Literals.SCENARIO_OUTPUT__REQUIRED_SETS, true, false, true, null, null,
+                        null));
     }
 
     /**

@@ -163,10 +163,15 @@ import de.uka.ipd.sdq.stoex.provider.StoexItemProviderAdapterFactory;
 
 import de.uka.ipd.sdq.units.provider.UnitsItemProviderAdapterFactory;
 
+import org.eclipse.emf.ecore.provider.EcoreItemProviderAdapterFactory;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 
 import org.palladiosimulator.pcm.allocation.provider.AllocationItemProviderAdapterFactory;
 
+import org.palladiosimulator.pcm.confidentiality.context.model.provider.ModelItemProviderAdapterFactory;
+import org.palladiosimulator.pcm.confidentiality.context.provider.ContextItemProviderAdapterFactory;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.provider.AssemblyItemProviderAdapterFactory;
+import org.palladiosimulator.pcm.confidentiality.context.specification.provider.SpecificationItemProviderAdapterFactory;
 import org.palladiosimulator.pcm.core.composition.provider.CompositionItemProviderAdapterFactory;
 
 import org.palladiosimulator.pcm.core.entity.provider.EntityItemProviderAdapterFactory;
@@ -725,6 +730,13 @@ public class OutputmodelEditor extends MultiPageEditorPart
 
         adapterFactory.addAdapterFactory(new ResourceItemProviderAdapterFactory());
         adapterFactory.addAdapterFactory(new OutputmodelItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(new ContextItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(new ModelItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(
+                new org.palladiosimulator.pcm.confidentiality.context.set.provider.SetItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(new SpecificationItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(new AssemblyItemProviderAdapterFactory());
+        adapterFactory.addAdapterFactory(new EcoreItemProviderAdapterFactory());
         adapterFactory.addAdapterFactory(new IdentifierItemProviderAdapterFactory());
         adapterFactory.addAdapterFactory(new PcmItemProviderAdapterFactory());
         adapterFactory.addAdapterFactory(new CoreItemProviderAdapterFactory());

@@ -14,15 +14,24 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 import org.palladiosimulator.pcm.PcmPackage;
 
+import org.palladiosimulator.pcm.confidentiality.context.ContextPackage;
+
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelPackage;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
+
+import org.palladiosimulator.pcm.confidentiality.context.set.SetPackage;
+
+import org.palladiosimulator.pcm.core.composition.CompositionPackage;
+
+import org.palladiosimulator.pcm.repository.RepositoryPackage;
 
 import org.palladiosimulator.pcm.usagemodel.UsagemodelPackage;
 
@@ -98,6 +107,8 @@ public class OutputmodelPackageImpl extends EPackageImpl implements OutputmodelP
         isInited = true;
 
         // Initialize simple dependencies
+        ContextPackage.eINSTANCE.eClass();
+        EcorePackage.eINSTANCE.eClass();
         IdentifierPackage.eINSTANCE.eClass();
         PcmPackage.eINSTANCE.eClass();
         ProbfunctionPackage.eINSTANCE.eClass();
@@ -150,6 +161,51 @@ public class OutputmodelPackageImpl extends EPackageImpl implements OutputmodelP
      * <!-- end-user-doc -->
      * @generated
      */
+    public EReference getScenarioOutput_Operationsignature() {
+        return (EReference) scenarioOutputEClass.getEStructuralFeatures().get(2);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getScenarioOutput_Operationinterface() {
+        return (EReference) scenarioOutputEClass.getEStructuralFeatures().get(3);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getScenarioOutput_Connector() {
+        return (EReference) scenarioOutputEClass.getEStructuralFeatures().get(4);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getScenarioOutput_RequestorSet() {
+        return (EReference) scenarioOutputEClass.getEStructuralFeatures().get(5);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    public EReference getScenarioOutput_RequiredSets() {
+        return (EReference) scenarioOutputEClass.getEStructuralFeatures().get(6);
+    }
+
+    /**
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
     public EClass getAnalysisResults() {
         return analysisResultsEClass;
     }
@@ -195,6 +251,11 @@ public class OutputmodelPackageImpl extends EPackageImpl implements OutputmodelP
         scenarioOutputEClass = createEClass(SCENARIO_OUTPUT);
         createEAttribute(scenarioOutputEClass, SCENARIO_OUTPUT__RESULT);
         createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__SCENARIO);
+        createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__OPERATIONSIGNATURE);
+        createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__OPERATIONINTERFACE);
+        createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__CONNECTOR);
+        createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__REQUESTOR_SET);
+        createEReference(scenarioOutputEClass, SCENARIO_OUTPUT__REQUIRED_SETS);
 
         analysisResultsEClass = createEClass(ANALYSIS_RESULTS);
         createEReference(analysisResultsEClass, ANALYSIS_RESULTS__SCENARIOOUTPUT);
@@ -227,6 +288,11 @@ public class OutputmodelPackageImpl extends EPackageImpl implements OutputmodelP
         // Obtain other dependent packages
         UsagemodelPackage theUsagemodelPackage = (UsagemodelPackage) EPackage.Registry.INSTANCE
                 .getEPackage(UsagemodelPackage.eNS_URI);
+        RepositoryPackage theRepositoryPackage = (RepositoryPackage) EPackage.Registry.INSTANCE
+                .getEPackage(RepositoryPackage.eNS_URI);
+        CompositionPackage theCompositionPackage = (CompositionPackage) EPackage.Registry.INSTANCE
+                .getEPackage(CompositionPackage.eNS_URI);
+        SetPackage theSetPackage = (SetPackage) EPackage.Registry.INSTANCE.getEPackage(SetPackage.eNS_URI);
 
         // Create type parameters
 
@@ -242,6 +308,21 @@ public class OutputmodelPackageImpl extends EPackageImpl implements OutputmodelP
                 !IS_DERIVED, IS_ORDERED);
         initEReference(getScenarioOutput_Scenario(), theUsagemodelPackage.getUsageScenario(), null, "scenario", null, 0,
                 1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getScenarioOutput_Operationsignature(), theRepositoryPackage.getOperationSignature(), null,
+                "operationsignature", null, 0, 1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getScenarioOutput_Operationinterface(), theRepositoryPackage.getOperationInterface(), null,
+                "operationinterface", null, 0, 1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE,
+                !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getScenarioOutput_Connector(), theCompositionPackage.getConnector(), null, "connector", null, 0,
+                1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getScenarioOutput_RequestorSet(), theSetPackage.getContextSet(), null, "requestorSet", null, 0,
+                1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+                !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+        initEReference(getScenarioOutput_RequiredSets(), theSetPackage.getContextSet(), null, "requiredSets", null, 0,
+                -1, ScenarioOutput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
                 !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
         initEClass(analysisResultsEClass, AnalysisResults.class, "AnalysisResults", !IS_ABSTRACT, !IS_INTERFACE,

@@ -1,22 +1,18 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
-import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.SeffAssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ResultEMFModelStorage;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.CheckOperation;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.SystemWalker;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.UsageModelVisitorScenarioSystem;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.repository.Signature;
-import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.solver.transformations.PCMInstanceHelper;
+import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
+import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
+import org.palladiosimulator.pcm.confidentiality.context.specification.ContextSpecification;
+import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
@@ -24,50 +20,36 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
     public AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context) {
 
         var usage = pcm.getUsageModel();
-        var result = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        var result = new ResultEMFModelStorage();
+
         for (var scenario : usage.getUsageScenario_UsageModel()) {
+            var requestor = this.getRequestorContexts(context, scenario);
+            var checkOperation = new CheckOperation(pcm, context, requestor, result, scenario);
+
             var visitor = new UsageModelVisitorScenarioSystem();
             var systemCalls = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
 
             for (var systemCall : systemCalls) {
-                
-                var seff = getSEFF(systemCall,pcm);
-                var visitor2 = new SeffAssemblyContext();
-                var externalCallActions = visitor2.doSwitch(seff);
-                var encapsulatingContexts = new ArrayList<AssemblyContext>();
-                for (var externalAction :externalCallActions) {
-                    var service = PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts);
-                }
+                var walker = new SystemWalker(checkOperation);
+                walker.propagationBySeff(systemCall, pcm.getSystem());
             }
 
-            var output = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-//            output.setResult(analysisScenario(scenario, seffs, context));
-            output.setScenario(scenario);
-            result.getScenariooutput().add(output);
+            // set positiv return value if no error happened
+            if (result.getResultModel().getScenariooutput().stream()
+                    .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
+                result.storePositiveResult(scenario);
+            }
         }
 
-        return result;
+        return result.getResultModel();
 
     }
 
-    private ServiceEffectSpecification getSEFF(EntryLevelSystemCall call, PCMBlackBoard pcm) {
-        Signature sig = call.getOperationSignature__EntryLevelSystemCall();
-
-        List<AssemblyContext> acList = PCMInstanceHelper.getHandlingAssemblyContexts(call, pcm.getSystem());
-
-        AssemblyContext ac = acList.get(acList.size() - 1);
-        return getSEFF(sig, ac);
-    }
-
-    private ServiceEffectSpecification getSEFF(Signature sig, AssemblyContext ac) {
-        BasicComponent bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
-        EList<ServiceEffectSpecification> seffList = bc.getServiceEffectSpecifications__BasicComponent();
-        for (ServiceEffectSpecification seff : seffList) {
-            if (seff.getDescribedService__SEFF().getEntityName().equals(sig.getEntityName())) {
-                return seff;
-            }
-        }
-        return null;
+    private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, UsageScenario scenario) {
+        var requestor = access.getPcmspecificationcontainer().getContextspecification().stream()
+                .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario)).map(ContextSpecification::getContextset)
+                .findAny();
+        return requestor.orElse(SetFactory.eINSTANCE.createContextSet());
     }
 
 }

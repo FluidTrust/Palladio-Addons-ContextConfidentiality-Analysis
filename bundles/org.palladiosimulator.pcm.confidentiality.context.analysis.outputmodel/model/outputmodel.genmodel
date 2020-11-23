@@ -8,7 +8,7 @@
     modelName="Outputmodel" rootExtendsInterface="org.eclipse.emf.cdo.CDOObject" rootExtendsClass="org.eclipse.emf.internal.cdo.CDOObjectImpl"
     reflectiveDelegation="true" codeFormatting="true" importerID="org.eclipse.emf.importer.ecore"
     featureDelegation="Reflective" complianceLevel="5.0" copyrightFields="false" providerRootExtendsClass=""
-    usedGenPackages="../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
+    usedGenPackages="../../org.palladiosimulator.pcm.confidentiality.context/model/context.genmodel#//context ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../de.uka.ipd.sdq.identifier/model/identifier.genmodel#//identifier ../../org.palladiosimulator.pcm/model/pcm.genmodel#//pcm ../../de.uka.ipd.sdq.probfunction/model/ProbabilityFunction.genmodel#//probfunction ../../de.uka.ipd.sdq.stoex/model/stoex.genmodel#//stoex ../../de.uka.ipd.sdq.units/model/Units.genmodel#//units"
     importOrganizing="true">
   <foreignModel>outputmodel.ecore</foreignModel>
   <modelPluginVariables>CDO=org.eclipse.emf.cdo</modelPluginVariables>
@@ -18,6 +18,11 @@
     <genClasses ecoreClass="outputmodel.ecore#//ScenarioOutput">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/result"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/scenario"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationsignature"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationinterface"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/connector"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/requestorSet"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/requiredSets"/>
     </genClasses>
     <genClasses ecoreClass="outputmodel.ecore#//AnalysisResults">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//AnalysisResults/scenariooutput"/>

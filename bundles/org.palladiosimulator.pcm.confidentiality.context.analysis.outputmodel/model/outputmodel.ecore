@@ -5,6 +5,12 @@
   <eClassifiers xsi:type="ecore:EClass" name="ScenarioOutput">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="result" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/UsageScenario"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationsignature" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationSignature"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationinterface" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationInterface"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requestorSet" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//set/ContextSet"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredSets" upperBound="-1"
+        eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//set/ContextSet"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnalysisResults">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenariooutput" upperBound="-1"
