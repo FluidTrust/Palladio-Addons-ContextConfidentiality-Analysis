@@ -12,6 +12,7 @@ import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visito
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
 import org.palladiosimulator.pcm.confidentiality.context.specification.ContextSpecification;
+import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
@@ -24,12 +25,13 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
         for (var scenario : usage.getUsageScenario_UsageModel()) {
             var requestor = this.getRequestorContexts(context, scenario);
-            var checkOperation = new CheckOperation(pcm, context, requestor, result, scenario);
 
             var visitor = new UsageModelVisitorScenarioSystem();
             var systemCalls = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
 
             for (var systemCall : systemCalls) {
+                var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
+                var checkOperation = new CheckOperation(pcm, context, tmpRequestor, result, scenario);
                 var walker = new SystemWalker(checkOperation);
                 walker.propagationBySeff(systemCall, pcm.getSystem());
             }
@@ -50,6 +52,14 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                 .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario)).map(ContextSpecification::getContextset)
                 .findAny();
         return requestor.orElse(SetFactory.eINSTANCE.createContextSet());
+    }
+
+    private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, EntryLevelSystemCall systemCall,
+            ContextSet oldSet) {
+        var requestor = access.getPcmspecificationcontainer().getContextspecification().stream()
+                .filter(e -> EcoreUtil.equals(e.getEntrylevelsystemcall(), systemCall))
+                .map(ContextSpecification::getContextset).findAny();
+        return requestor.orElse(oldSet);
     }
 
 }

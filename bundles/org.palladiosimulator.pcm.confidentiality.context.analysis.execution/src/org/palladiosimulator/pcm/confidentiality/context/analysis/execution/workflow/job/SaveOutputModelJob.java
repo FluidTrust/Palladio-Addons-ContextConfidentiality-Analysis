@@ -29,7 +29,7 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
 
         var test = configuration.getAllocationModel();
         var segments = test.segments();
-        segments[test.segmentCount()-1] = "my.output";
+        segments[test.segmentCount()-1] = "my.outputmodel";
         var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
         
         var resource = partitionOutput.getResourceSet().createResource(testUri);
@@ -51,7 +51,7 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
     @Override
     public String getName() {
         // TODO Auto-generated method stub
-        return null;
+        return "Save Scenario Analysis Job";
     }
 
     @Override
