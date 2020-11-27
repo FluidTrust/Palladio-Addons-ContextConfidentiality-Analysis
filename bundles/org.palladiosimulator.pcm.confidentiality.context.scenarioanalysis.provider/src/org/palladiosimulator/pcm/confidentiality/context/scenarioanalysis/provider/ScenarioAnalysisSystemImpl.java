@@ -1,5 +1,7 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;
 
+import java.util.stream.Stream;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
@@ -41,6 +43,10 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                     .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
                 result.storePositiveResult(scenario);
             }
+            if(isMisusage(context, scenario)) {
+                result.flip(scenario);
+            }
+
         }
 
         return result.getResultModel();
@@ -48,10 +54,22 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
     }
 
     private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, UsageScenario scenario) {
-        var requestor = access.getPcmspecificationcontainer().getContextspecification().stream()
-                .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario)).map(ContextSpecification::getContextset)
-                .findAny();
+        var requestorStream = getSpecificationScenario(access, scenario);
+        var requestor = requestorStream.map(ContextSpecification::getContextset).findAny();
         return requestor.orElse(SetFactory.eINSTANCE.createContextSet());
+    }
+    
+    private boolean isMisusage(ConfidentialAccessSpecification access, UsageScenario scenario) {
+        var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
+        if(scenarioSpecification.isPresent())
+            return scenarioSpecification.get().isMissageUse();
+        return false;
+    }
+
+    private Stream<ContextSpecification> getSpecificationScenario(ConfidentialAccessSpecification access,
+            UsageScenario scenario) {
+        return access.getPcmspecificationcontainer().getContextspecification().stream()
+                .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
     }
 
     private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, EntryLevelSystemCall systemCall,

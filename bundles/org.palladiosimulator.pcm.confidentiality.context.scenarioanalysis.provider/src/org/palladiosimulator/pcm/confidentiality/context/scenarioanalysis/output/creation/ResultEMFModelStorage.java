@@ -2,6 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.outpu
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
@@ -13,13 +14,12 @@ import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
-public class ResultEMFModelStorage implements ScenarioResultStorage {
+public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenario {
 
     private AnalysisResults results;
 
     public ResultEMFModelStorage() {
         results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
-        ;
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage {
         if (results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
                 .anyMatch(ScenarioOutput::isResult))
             throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
-        
+
         // checking for null values
         Objects.requireNonNull(scenario);
         Objects.requireNonNull(operationInterface);
@@ -47,34 +47,52 @@ public class ResultEMFModelStorage implements ScenarioResultStorage {
         scenarioResult.setRequestorSet(requestor);
         scenarioResult.setScenario(scenario);
         scenarioResult.getRequiredSets().addAll(policies);
-        
+
         results.getScenariooutput().add(scenarioResult);
 
     }
 
     @Override
     public void storePositiveResult(UsageScenario scenario) {
-        //checking for negative results
+        // checking for negative results
         if (results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
                 .anyMatch(ScenarioOutput::isResult))
             throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
-        
+
         Objects.requireNonNull(scenario);
-        
+
         var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         scenarioResult.setResult(true);
         scenarioResult.setScenario(scenario);
-        
+
         results.getScenariooutput().add(scenarioResult);
 
     }
-    
+
     /**
      * Returns a a self-contained copy of the current internally used result model
+     * 
      * @return self-contained copy of the AnalysisResults
      */
     public AnalysisResults getResultModel() {
         return EcoreUtil.copy(results);
+    }
+
+    @Override
+    public void flip(UsageScenario scenario) {
+        Objects.requireNonNull(scenario);
+        var outputScenario = results.getScenariooutput().stream()
+                .filter(e -> EcoreUtil.equals(scenario, e.getScenario())).collect(Collectors.toList());
+        if(outputScenario.isEmpty())
+            throw new IllegalArgumentException("Usage scenario not found");
+        
+        var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        scenarioResult.setResult(!outputScenario.get(0).isResult());
+        scenarioResult.setScenario(scenario);
+        
+        results.getScenariooutput().removeAll(outputScenario);
+        results.getScenariooutput().add(scenarioResult);
+              
     }
 
 }

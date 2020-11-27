@@ -37,11 +37,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
             calculateAndMarkToContextPropagation(board);
             
         } while (changePropagationDueToCredential.isChanged());
-
-        
-        
-        
-     
+                           
 
     }
 
