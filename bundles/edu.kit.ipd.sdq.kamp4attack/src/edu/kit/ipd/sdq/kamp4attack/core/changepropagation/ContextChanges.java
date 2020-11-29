@@ -15,6 +15,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -43,8 +44,14 @@ public class ContextChanges extends Change<ContextAttribute> {
                 .collect(Collectors.toList());
 
         var setAttacked = new HashSet<AssemblyContext>();
+        // Assembly2Assembly
         for (var component : assembly) {
             var listAttacked = propagateFromAssemblyContext(contexts, component);
+            setAttacked.addAll(listAttacked);
+        }
+        // Assembly
+        for (var component : assembly) {
+            var listAttacked = propagateFromAssemblyContextwithOperations(contexts, component);
             setAttacked.addAll(listAttacked);
         }
         for (var component : setAttacked) {
@@ -106,7 +113,6 @@ public class ContextChanges extends Change<ContextAttribute> {
 
         var listResourceContainer = streamTargetAllocations
                 .map(AllocationContext::getResourceContainer_AllocationContext).collect(Collectors.toList());
-       
 
         resources.addAll(listResourceContainer);
 
@@ -158,16 +164,32 @@ public class ContextChanges extends Change<ContextAttribute> {
                         .anyMatch(f -> EcoreUtil.equals(f, container)));
     }
 
+    private Set<AssemblyContext> propagateFromAssemblyContextwithOperations(List<ContextAttribute> contexts,
+            AssemblyContext component) {
+        var system = this.modelStorage.getAssembly();
+        var set = createContextSet(contexts);
+        var targetConnectors = getTargetedConnectors(component, system);
+        
+        var attackedConnectors = targetConnectors.stream().filter(e-> getPolicyStream().filter(policy -> policy.getMethodspecification() != null).filter(policy -> EcoreUtil.equals(policy.getMethodspecification().getConnector(), e)).
+                flatMap(policy -> policy.getPolicy().stream()).
+                anyMatch(policy -> policy.checkAccessRight(set))).
+                collect(Collectors.toList());
+        
+        var targetComponents = attackedConnectors.stream()
+                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).collect(Collectors.toSet());
+
+        targetComponents.addAll(attackedConnectors.stream()
+                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).collect(Collectors.toSet()));
+        
+        return targetComponents;
+    }
+
     private Set<AssemblyContext> propagateFromAssemblyContext(List<ContextAttribute> contexts,
             AssemblyContext component) {
         var system = this.modelStorage.getAssembly();
         var set = createContextSet(contexts);
         // TODO simplify stream expression directly to components!
-        var targetConnectors = system.getConnectors__ComposedStructure().stream()
-                .filter(AssemblyConnector.class::isInstance).map(AssemblyConnector.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
-                .collect(Collectors.toList());
+        var targetConnectors = getTargetedConnectors(component, system);
 
         var targetComponents = targetConnectors.stream()
                 .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).collect(Collectors.toList());
@@ -176,6 +198,14 @@ public class ContextChanges extends Change<ContextAttribute> {
                 .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).collect(Collectors.toList()));
 
         return targetComponents.stream().filter(e -> attackAssemblyContext(e, set)).collect(Collectors.toSet());
+    }
+
+    private List<AssemblyConnector> getTargetedConnectors(AssemblyContext component, System system) {
+        return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
+                .map(AssemblyConnector.class::cast)
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
+                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
+                .collect(Collectors.toList());
     }
 
     private boolean attackAssemblyContext(AssemblyContext component, ContextSet set) {
