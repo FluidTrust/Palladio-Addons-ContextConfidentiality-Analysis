@@ -47,6 +47,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         change.calculateContextToResourcePropagation(changePropagationDueToCredential);
         change.calculateContextToAssemblyPropagation(changePropagationDueToCredential);
         change.calculateContextLinkingToResourcePropagation(changePropagationDueToCredential);
+        change.calculateContextToLinkingPropagation(changePropagationDueToCredential);
     }
     
     private void calculateAndMarkToAssemblyPropagation(BlackboardWrapper board) {
