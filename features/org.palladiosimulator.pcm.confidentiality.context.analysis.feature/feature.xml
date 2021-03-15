@@ -6,6 +6,10 @@
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license.epl2"
       license-feature-version="1.0.0">
+   
+   <requires>
+      <import plugin="org.palladiosimulator.analyzer.workflow" version="3.10.0" match="greaterOrEqual"/>
+   </requires> 
 
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.api"

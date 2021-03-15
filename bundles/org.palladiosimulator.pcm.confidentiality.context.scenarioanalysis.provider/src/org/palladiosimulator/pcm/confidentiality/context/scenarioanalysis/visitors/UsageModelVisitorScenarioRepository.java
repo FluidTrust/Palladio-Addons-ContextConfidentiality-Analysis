@@ -5,13 +5,13 @@ import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMHelpers;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
 import org.palladiosimulator.pcm.seff.ServiceEffectSpecification;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
-import org.palladiosimulator.solver.transformations.PCMInstanceHelper;
 
 @Deprecated
 public class UsageModelVisitorScenarioRepository extends AbstractUsageModelVisitor<ResourceDemandingBehaviour>{

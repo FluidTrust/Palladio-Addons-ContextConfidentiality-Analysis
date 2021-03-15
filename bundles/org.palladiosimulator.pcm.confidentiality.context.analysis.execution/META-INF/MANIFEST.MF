@@ -13,7 +13,6 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.emf.ecore,
  org.apache.log4j,
  de.uka.ipd.sdq.workflow.launchconfig,
- org.palladiosimulator.analyzer.workflow;bundle-version="4.2.0",
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.pcm.confidentiality.attacker;bundle-version="0.1.0",
  org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api,
@@ -28,4 +27,7 @@ Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execu
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job
 Import-Package: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks,
  org.osgi.service.component.annotations;version="1.2.0",
+ org.palladiosimulator.analyzer.workflow,
+ org.palladiosimulator.analyzer.workflow.blackboard,
+ org.palladiosimulator.analyzer.workflow.configurations,
  org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api
