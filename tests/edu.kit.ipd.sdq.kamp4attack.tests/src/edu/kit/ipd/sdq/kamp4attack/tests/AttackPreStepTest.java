@@ -5,12 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.SpecificationFactory;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -34,9 +29,8 @@ class AttackPreStepTest extends AbstractModelTest {
         final var testContext = ModelFactory.eINSTANCE.createSingleAttributeContext();
         testContext.setEntityName("TestValue");
         this.contextID = testContext.getId();
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits().clear();
-        final var vulnerability = createCredentialVulnerability(testContext);
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits().add(vulnerability);
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(testContext);
     }
 
     @Test
@@ -48,7 +42,7 @@ class AttackPreStepTest extends AbstractModelTest {
 
     @Test
     void testOnlyStartAssembly() {
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits().clear();
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
         super.execute();
         final var steps = this.modification.getChangePropagationSteps();
 
@@ -79,7 +73,7 @@ class AttackPreStepTest extends AbstractModelTest {
     @Test
     @Disabled("unclear for what")
     void testOnlyStartResource() {
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits().clear();
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
         final var dbResource = this.environment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(e -> e.getEntityName().equals("DatabaseMachine")).findAny().get();

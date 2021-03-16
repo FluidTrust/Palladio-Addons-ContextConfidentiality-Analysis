@@ -16,13 +16,9 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationPackage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerPackage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationPackage;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialVulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ContextPackage;
-import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.specification.SpecificationPackage;
 import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyPackage;
 import org.palladiosimulator.pcm.core.CorePackage;
@@ -127,10 +123,10 @@ public abstract class AbstractModelTest {
 
     }
 
-    final protected CredentialVulnerability createCredentialVulnerability(ContextAttribute context) {
-        final var vulnearbility = AttackSpecificationFactory.eINSTANCE.createCredentialVulnerability();
-        vulnearbility.setContext(context);
-        return vulnearbility;
-    }
+//    final protected CredentialVulnerability createCredentialVulnerability(ContextAttribute context) {
+//        final var vulnearbility = AttackSpecificationFactory.eINSTANCE.createCredentialVulnerability();
+//        vulnearbility.setContext(context);
+//        return vulnearbility;
+//    }
 
 }

@@ -5,10 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CredentialAttack;
 
 import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class ConvertingInputModelTest extends AbstractChangeTests {
@@ -80,8 +78,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     void testTransformationContext() {
 
         var context = this.createContext("Test");
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits()
-                .add(this.createCredentialVulnerability(context));
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
 
         runAnalysis();
 
@@ -102,8 +99,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
                 .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
         var context = this.createContext("Test");
-        ((CredentialAttack) this.attacker.getAttacks().getAttack().get(0)).getExploits()
-                .add(this.createCredentialVulnerability(context));
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources()
                 .add(this.environment.getResourceContainer_ResourceEnvironment().get(0));
         this.allocation.getAllocationContexts_Allocation().clear();
