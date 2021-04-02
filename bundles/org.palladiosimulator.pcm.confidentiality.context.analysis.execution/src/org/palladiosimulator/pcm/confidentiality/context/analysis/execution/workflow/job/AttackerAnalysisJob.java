@@ -2,10 +2,11 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.wor
 
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_CONTEXT;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_ATTACK;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.AttackPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants;
@@ -55,7 +56,9 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         var allocation = pcmPartition.getAllocation();
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
         var specification =  contextPartition.getContextSpecification().getPcmspecificationcontainer();
-        var wrapper = new BlackboardWrapper(modificationPartition, system, environment,allocation,specification);
+        final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
+        var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
+        var wrapper = new BlackboardWrapper(modificationPartition, system, environment,allocation,specification, vulnerabilitySpecification);
         var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
     }

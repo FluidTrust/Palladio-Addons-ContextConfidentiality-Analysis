@@ -101,7 +101,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
                 contextTextField.setText(configuration.getAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), ""));
                 dataTextField.setText(configuration.getAttribute(Constants.DATA_MODEL_LABEL.getConstant(), ""));
                 adversaryTextField
-                        .setText(configuration.getAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), ""));
+                        .setText(configuration.getAttribute(Constants.ATTACKER_MODEL_LABEL.getConstant(), ""));
                 usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), ""));
                 analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), ""));
                 modificationTextField
@@ -119,7 +119,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         configuration.setAttribute(Constants.ALLOCATION_MODEL_LABEL.getConstant(), allocationTextField.getText());
         configuration.setAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), contextTextField.getText());
         configuration.setAttribute(Constants.DATA_MODEL_LABEL.getConstant(), dataTextField.getText());
-        configuration.setAttribute(Constants.ADVERSARY_MODEL_LABEL.getConstant(), adversaryTextField.getText());
+        configuration.setAttribute(Constants.ATTACKER_MODEL_LABEL.getConstant(), adversaryTextField.getText());
         configuration.setAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), analysisCombo.getText());
         configuration.setAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), usageTextField.getText());
         configuration.setAttribute(Constants.MODIFIACTION_MODEL_LABEL.getConstant(), modificationTextField.getText());
@@ -210,7 +210,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
 
         adversaryTextField = new Text(comp, SWT.BORDER);
         adversaryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
-        TabHelper.createFileInputSection(comp, modifyListener, Constants.ADVERSARY_MODEL_LABEL.getConstant(),
+        TabHelper.createFileInputSection(comp, modifyListener, Constants.ATTACKER_MODEL_LABEL.getConstant(),
                 new String[] { "*.attacker" }, adversaryTextField, Display.getCurrent().getActiveShell(), "");
 
         modificationTextField = new Text(comp, SWT.BORDER);

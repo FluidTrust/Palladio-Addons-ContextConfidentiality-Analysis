@@ -4,7 +4,7 @@ import org.eclipse.emf.common.util.URI;
 
 public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfig {
     private URI dataModel;
-    private URI adversaryModel;
+    private URI attackModel;
     private URI modificationModel;
 
     public URI getDataModel() {
@@ -15,12 +15,12 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
         this.dataModel = dataModel;
     }
 
-    public URI getAdversaryModel() {
-        return this.adversaryModel;
+    public URI getAttackModel() {
+        return this.attackModel;
     }
 
-    public void setAdversaryModel(final URI adversaryModel) {
-        this.adversaryModel = adversaryModel;
+    public void setAttackModel(final URI adversaryModel) {
+        this.attackModel = adversaryModel;
     }
     
     public URI getModificationModel() {

@@ -74,7 +74,7 @@ public abstract class AbstractModelTest {
 
     final protected BlackboardWrapper getBlackboardWrapper() {
         return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
-                this.context.getPcmspecificationcontainer());
+                this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration());
     }
 
     @BeforeEach

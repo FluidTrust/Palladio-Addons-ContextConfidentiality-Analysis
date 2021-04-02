@@ -20,7 +20,7 @@ public abstract class AbstractLoadModelJob implements IBlackboardInteractingJob<
     protected MDSDBlackboard blackboard;
     protected final ContextAnalysisWorkflowConfig configuration;
 
-    public AbstractLoadModelJob(final ContextAnalysisWorkflowConfig configuration) {
+    protected AbstractLoadModelJob(final ContextAnalysisWorkflowConfig configuration) {
         this.configuration = configuration;
     }
 

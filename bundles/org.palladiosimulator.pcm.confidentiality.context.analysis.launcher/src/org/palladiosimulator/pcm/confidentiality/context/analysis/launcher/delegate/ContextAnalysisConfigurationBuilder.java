@@ -18,7 +18,7 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowConfigurationBuilder
  */
 public abstract class ContextAnalysisConfigurationBuilder extends AbstractWorkflowConfigurationBuilder {
 
-    public ContextAnalysisConfigurationBuilder(ILaunchConfiguration configuration, String mode) throws CoreException {
+    protected ContextAnalysisConfigurationBuilder(ILaunchConfiguration configuration, String mode) throws CoreException {
         super(configuration, mode);
     }
 
