@@ -17,7 +17,7 @@ public enum Constants {
 	MODIFIACTION_MODEL_LABEL("Select Modifiaction Model"),
 	CONTEXT_MODEL_LABEL("Select Context Model"),
 	DATA_MODEL_LABEL("Select Data Model"),
-	ADVERSARY_MODEL_LABEL("Select Attacker Model"),
+	ATTACKER_MODEL_LABEL("Select Attacker Model"),
 	USAGE_MODEL_LABEL("Select Usage Model"),
 	CONSOLE_ID("pcm.dataprocessing.context.analysis.launcher.console"),
 	DEFAULT_CONFIG_VALUE("default");

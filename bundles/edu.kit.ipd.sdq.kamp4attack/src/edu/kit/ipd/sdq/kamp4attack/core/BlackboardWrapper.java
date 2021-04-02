@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.kamp4attack.core;
 
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.VulnerabilitySystemSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.specification.PCMSpecificationContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
@@ -24,8 +25,9 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
     private ResourceEnvironment environment;
     private Allocation allocation;
     private PCMSpecificationContainer pcmSpecification;
+    private VulnerabilitySystemSpecification vulnerabilitySpecification;
    
-    public BlackboardWrapper(AbstractKAMP4attackModificationRepository<?> blackboard, System assembly, ResourceEnvironment environment, Allocation allocation, PCMSpecificationContainer pcmSpecification) {
+    public BlackboardWrapper(AbstractKAMP4attackModificationRepository<?> blackboard, System assembly, ResourceEnvironment environment, Allocation allocation, PCMSpecificationContainer pcmSpecification, VulnerabilitySystemSpecification vulnerabilitySpecification) {
         super("", blackboard);
         this.assembly = assembly;
         this.environment = environment;
@@ -53,7 +55,9 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
     public PCMSpecificationContainer getSpecification() {
         return this.pcmSpecification;
     }
-
-    // TODO add necessary getters for Blackboard
+    
+    public VulnerabilitySystemSpecification getVulnerabilitySpecification() {
+        return this.vulnerabilitySpecification;
+    }
 
 }

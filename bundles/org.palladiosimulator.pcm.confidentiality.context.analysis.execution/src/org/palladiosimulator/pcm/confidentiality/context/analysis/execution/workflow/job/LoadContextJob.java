@@ -27,7 +27,7 @@ public class LoadContextJob extends AbstractLoadModelJob {
 
     @Override
     public String getName() {
-        return "Load modification model";
+        return "Load context model";
     }
 
 }

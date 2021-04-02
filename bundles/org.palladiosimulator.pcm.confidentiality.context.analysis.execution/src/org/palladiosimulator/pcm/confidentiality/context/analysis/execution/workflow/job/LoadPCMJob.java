@@ -13,7 +13,7 @@ import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 public abstract class LoadPCMJob extends AbstractLoadModelJob {
 
-    public LoadPCMJob(final ContextAnalysisWorkflowConfig configuration) {
+    protected LoadPCMJob(final ContextAnalysisWorkflowConfig configuration) {
         super(configuration);
     }
 

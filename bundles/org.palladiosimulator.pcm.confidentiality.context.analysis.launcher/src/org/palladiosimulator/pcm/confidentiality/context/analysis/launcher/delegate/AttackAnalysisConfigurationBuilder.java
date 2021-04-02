@@ -29,6 +29,7 @@ public class AttackAnalysisConfigurationBuilder extends ContextAnalysisConfigura
                     + AttackerAnalysisWorkflowConfig.class + " expected");
         var config = (AttackerAnalysisWorkflowConfig) configuration;
         config.setModificationModel(getURI(Constants.MODIFIACTION_MODEL_LABEL.getConstant()));
+        config.setAttackModel(getURI(Constants.ATTACKER_MODEL_LABEL.getConstant()));
         
     }
 

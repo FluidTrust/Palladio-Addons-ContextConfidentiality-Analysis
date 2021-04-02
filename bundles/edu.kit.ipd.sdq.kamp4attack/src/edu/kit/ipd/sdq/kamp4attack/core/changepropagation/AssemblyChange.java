@@ -2,10 +2,12 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
+import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -48,22 +50,21 @@ public class AssemblyChange extends Change<AssemblyContext> {
                 .filter(e -> listCompromisedContexts.stream()
                         .anyMatch(f -> EcoreUtil.equals(f, e.getAssemblyContext_AllocationContext())));
 
-        var listResourceContainer = streamTargetAllocations
+        var attackableResourceContainers = streamTargetAllocations
                 .map(AllocationContext::getResourceContainer_AllocationContext).collect(Collectors.toList());
 
-        var set = this.createContextSet(contexts);
+        var credentials = this.createContextSet(contexts);
         
-        var setAttacked = new HashSet<ResourceContainer>();
+        var setAttackedResources = new HashSet<ResourceContainer>();
         
-        for (var container : listResourceContainer) {
-            var listContextSets = this.getPolicyStream()
-                    .filter(e -> EcoreUtil.equals(e.getResourcecontainer(), container))
-                    .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
-            if(listContextSets.stream().anyMatch(e-> e.checkAccessRight(set))) {
-                setAttacked.add(container);
-            }
-        }
-        for(var container:setAttacked) {
+        attackResourceCredentials(attackableResourceContainers, credentials, setAttackedResources);
+        
+//        attackableResourceContainers
+        
+        
+        
+        
+        for(var container:setAttackedResources) {
             if(changes.getCompromisedresource().stream().noneMatch(e-> EcoreUtil.equals(e.getAffectedElement(),container))) {
                 var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(container);
@@ -73,8 +74,18 @@ public class AssemblyChange extends Change<AssemblyContext> {
             }
         }
 
-        
+    }
 
+    private void attackResourceCredentials(List<ResourceContainer> attackableResourceContainers, ContextSet credentials,
+            HashSet<ResourceContainer> setAttacked) {
+        for (var container : attackableResourceContainers) {
+            var listContextSets = this.getPolicyStream()
+                    .filter(e -> EcoreUtil.equals(e.getResourcecontainer(), container))
+                    .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
+            if(listContextSets.stream().anyMatch(e-> e.checkAccessRight(credentials))) {
+                setAttacked.add(container);
+            }
+        }
     }
 
 }

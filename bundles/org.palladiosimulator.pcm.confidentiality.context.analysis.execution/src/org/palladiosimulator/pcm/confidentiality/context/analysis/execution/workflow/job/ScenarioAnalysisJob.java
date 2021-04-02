@@ -45,12 +45,11 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
-        final var dataPartition = (DataAttackPartition) this.blackboard.getPartition(PARTITION_ID_KASTEL);
 
-        var pcm = new PCMBlackBoard(pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(), pcmPartition.getUsageModel());
-        
-        final var result = analysis.runScenarioAnalysis(pcm,
-                contextPartition.getContextSpecification());
+        var pcm = new PCMBlackBoard(pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
+                pcmPartition.getUsageModel());
+
+        final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification());
         final var outputPartition = new OutputPartition();
         final var content = new ArrayList<EObject>(1);
         content.add(result);

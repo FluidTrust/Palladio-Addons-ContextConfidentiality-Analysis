@@ -3,6 +3,11 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.wor
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 
+/**
+ * Loads the necessary PCM models for the attacker analysis
+ * @author majuwa
+ *
+ */
 public class LoadPCMAttack extends LoadPCMJob {
 
     public LoadPCMAttack(final AttackerAnalysisWorkflowConfig configuration) {
