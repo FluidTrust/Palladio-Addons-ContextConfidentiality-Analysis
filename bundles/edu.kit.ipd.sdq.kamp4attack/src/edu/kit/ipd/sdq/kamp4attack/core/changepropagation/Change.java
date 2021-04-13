@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
@@ -60,5 +61,12 @@ public abstract class Change<T> {
         var set = SetFactory.eINSTANCE.createContextSet();
         set.getContexts().addAll(contexts);
         return set;
+    }
+
+    protected List<Attack> getAttacks() {
+        var listAttackers = this.modelStorage.getModificationMarkRepository().getSeedModifications()
+                .getAttackcomponent();
+        return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
+                .collect(Collectors.toList());
     }
 }

@@ -7,6 +7,11 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -33,8 +38,9 @@ public class AssemblyChange extends Change<AssemblyContext> {
         var listCompromisedAssemblyContexts = changes.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
 
-        var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream().filter(
-                e -> listCompromisedAssemblyContexts.stream().anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
+        var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(e -> listCompromisedAssemblyContexts.stream()
+                        .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
         updateFromContextProviderStream(changes, streamAttributeProvider);
     }
@@ -54,18 +60,36 @@ public class AssemblyChange extends Change<AssemblyContext> {
                 .map(AllocationContext::getResourceContainer_AllocationContext).collect(Collectors.toList());
 
         var credentials = this.createContextSet(contexts);
-        
+
         var setAttackedResources = new HashSet<ResourceContainer>();
-        
+
         attackResourceCredentials(attackableResourceContainers, credentials, setAttackedResources);
-        
+
 //        attackableResourceContainers
-        
-        
-        
-        
-        for(var container:setAttackedResources) {
-            if(changes.getCompromisedresource().stream().noneMatch(e-> EcoreUtil.equals(e.getAffectedElement(),container))) {
+
+//        AttackVector.LOCAL;
+        for (var resource : attackableResourceContainers) {
+            var vulnerabilityList = this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
+                    .filter(e -> EcoreUtil.equals(e.getResourcecontainer(), resource)).map(systemIntegration -> systemIntegration.getVulnerability()).collect(Collectors.toList());
+            var listAttacks = getAttacks();
+            var listCredentialsNeeded = getCredentials(resource);
+            //TODO: refactor without label
+            stop:
+            for (var credentialsNeeded: listCredentialsNeeded) {
+                for(var vulnerability: vulnerabilityList) {
+                    for(var attack : listAttacks) {
+                        if(attack.canExploit(vulnerability, credentials, credentialsNeeded, AttackVector.LOCAL)) {
+                            setAttackedResources.add(resource);
+                            break stop;
+                        }
+                    }
+                }
+            }
+        }
+
+        for (var container : setAttackedResources) {
+            if (changes.getCompromisedresource().stream()
+                    .noneMatch(e -> EcoreUtil.equals(e.getAffectedElement(), container))) {
                 var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(container);
                 change.setToolderived(true);
@@ -79,13 +103,18 @@ public class AssemblyChange extends Change<AssemblyContext> {
     private void attackResourceCredentials(List<ResourceContainer> attackableResourceContainers, ContextSet credentials,
             HashSet<ResourceContainer> setAttacked) {
         for (var container : attackableResourceContainers) {
-            var listContextSets = this.getPolicyStream()
-                    .filter(e -> EcoreUtil.equals(e.getResourcecontainer(), container))
-                    .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
-            if(listContextSets.stream().anyMatch(e-> e.checkAccessRight(credentials))) {
+            var listContextSets = getCredentials(container);
+            if (listContextSets.stream().anyMatch(e -> e.checkAccessRight(credentials))) {
                 setAttacked.add(container);
             }
         }
+    }
+
+    private List<ContextSet> getCredentials(ResourceContainer container) {
+        var listContextSets = this.getPolicyStream()
+                .filter(e -> EcoreUtil.equals(e.getResourcecontainer(), container))
+                .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
+        return listContextSets;
     }
 
 }

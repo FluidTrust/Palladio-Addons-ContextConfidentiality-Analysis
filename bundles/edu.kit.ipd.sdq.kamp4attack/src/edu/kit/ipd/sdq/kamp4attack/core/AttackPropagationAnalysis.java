@@ -2,6 +2,8 @@ package edu.kit.ipd.sdq.kamp4attack.core;
 
 import java.util.stream.Collectors;
 
+import org.osgi.service.component.annotations.Component;
+
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.AssemblyChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.ContextChanges;
@@ -12,6 +14,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 //TODO This is probably the interesting component.
 
+
+@Component
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
 
     private CredentialChange changePropagationDueToCredential;
