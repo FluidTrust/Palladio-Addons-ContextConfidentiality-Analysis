@@ -14,6 +14,7 @@ import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.
 import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
@@ -55,6 +56,12 @@ public abstract class Change<T> {
         if (!listChanges.isEmpty()) {
             changes.setChanged(true);
         }
+    }
+
+    protected final ContextSet getCredentials(CredentialChange changes) {
+        var contexts = changes.getContextchange().stream().map(ContextChange::getAffectedElement)
+                .collect(Collectors.toList());
+        return createContextSet(contexts);
     }
 
     protected final ContextSet createContextSet(List<ContextAttribute> contexts) {

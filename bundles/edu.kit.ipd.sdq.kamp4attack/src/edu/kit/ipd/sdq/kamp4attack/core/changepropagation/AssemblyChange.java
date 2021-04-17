@@ -46,9 +46,7 @@ public class AssemblyChange extends Change<AssemblyContext> {
     }
 
     public void calculateAssemblyToResourcePropagation(CredentialChange changes) {
-        var contexts = changes.getContextchange().stream().map(ContextChange::getAffectedElement)
-                .collect(Collectors.toList());
-
+        
         var listCompromisedContexts = changes.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
 
@@ -59,7 +57,7 @@ public class AssemblyChange extends Change<AssemblyContext> {
         var attackableResourceContainers = streamTargetAllocations
                 .map(AllocationContext::getResourceContainer_AllocationContext).collect(Collectors.toList());
 
-        var credentials = this.createContextSet(contexts);
+        var credentials = getCredentials(changes);
 
         var setAttackedResources = new HashSet<ResourceContainer>();
 

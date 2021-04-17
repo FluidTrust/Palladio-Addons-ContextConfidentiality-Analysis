@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.CompromisedData;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.RepositoryComponent;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 public class Datahandler {
-    
-    public List<CompromisedData> getData(RepositoryComponent component) {
+
+    public static List<CompromisedData> getData(RepositoryComponent component) {
         var interfacesList = component.getProvidedRoles_InterfaceProvidingEntity().stream()
                 .filter(OperationProvidedRole.class::isInstance).map(OperationProvidedRole.class::cast)
                 .map(OperationProvidedRole::getProvidedInterface__OperationProvidedRole)
@@ -40,6 +43,12 @@ public class Datahandler {
 
         return Stream.concat(listDataReturnTypes, listDataParameter).collect(Collectors.toUnmodifiableList());
 
+    }
+
+    public static List<CompromisedData> getData(ResourceContainer resource, Allocation allocation) {
+        var assemblyContexts = CollectionHelper.getAssemblyContext(List.of(resource), allocation);
+        return assemblyContexts.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
+                .flatMap(e -> getData(e).stream()).collect(Collectors.toList());
     }
 
 }

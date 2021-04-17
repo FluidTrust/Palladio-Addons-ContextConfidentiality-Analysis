@@ -33,9 +33,9 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         do {
             changePropagationDueToCredential.setChanged(false);
             calculateAndMarkLinkingPropagation(board);
-            calculateAndMarkResourcePropagation(board);
-            calculateAndMarkToAssemblyPropagation(board);
-            calculateAndMarkToContextPropagation(board);
+//            calculateAndMarkResourcePropagation(board);
+//            calculateAndMarkToAssemblyPropagation(board);
+//            calculateAndMarkToContextPropagation(board);
 
         } while (changePropagationDueToCredential.isChanged());
 
@@ -64,6 +64,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
     private void calculateAndMarkLinkingPropagation(BlackboardWrapper board) {
         var change = new LinkingChange(board);
         change.calculateLinkingResourceToContextPropagation(changePropagationDueToCredential);
+        change.calculateLinkingResourceToResourcePropagation(changePropagationDueToCredential);
     }
 
     /**
