@@ -28,6 +28,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.kamp4attack.activator,
  edu.kit.ipd.sdq.kamp4attack.core,
- edu.kit.ipd.sdq.kamp4attack.core.changepropagation
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers,
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes
 Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
 Service-Component: OSGI-INF/edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis.xml
