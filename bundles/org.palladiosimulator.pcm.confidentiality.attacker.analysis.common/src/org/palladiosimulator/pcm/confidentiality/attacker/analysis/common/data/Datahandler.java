@@ -26,6 +26,7 @@ public class Datahandler {
             var data = AttackerFactory.eINSTANCE.createCompromisedData();
             data.setDataType(parameter.getDataType__Parameter());
             data.setReferenceName(parameter.getParameterName());
+            data.setSource(component);
             return data;
         });
 
