@@ -33,6 +33,7 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
         this.environment = environment;
         this.allocation = allocation;
         this.pcmSpecification = pcmSpecification;
+        this.vulnerabilitySpecification = vulnerabilitySpecification;
     }
 
     /**
