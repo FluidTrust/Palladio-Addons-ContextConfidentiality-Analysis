@@ -102,7 +102,6 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources()
                 .add(this.environment.getResourceContainer_ResourceEnvironment().get(0));
-        this.allocation.getAllocationContexts_Allocation().clear();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedLinkingResources()
                 .add(this.environment.getLinkingResources__ResourceEnvironment().get(0));
 

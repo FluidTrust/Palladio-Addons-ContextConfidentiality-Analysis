@@ -12,7 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context
 
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
-    protected AssemblyContextPropagationContext(final BlackboardWrapper v) {
+    public AssemblyContextPropagationContext(final BlackboardWrapper v) {
         super(v);
     }
 
@@ -28,7 +28,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, null);
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
 }

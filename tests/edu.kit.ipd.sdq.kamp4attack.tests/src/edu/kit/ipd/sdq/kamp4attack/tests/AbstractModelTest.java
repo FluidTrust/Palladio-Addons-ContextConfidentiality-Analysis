@@ -123,10 +123,4 @@ public abstract class AbstractModelTest {
 
     }
 
-//    final protected CredentialVulnerability createCredentialVulnerability(ContextAttribute context) {
-//        final var vulnearbility = AttackSpecificationFactory.eINSTANCE.createCredentialVulnerability();
-//        vulnearbility.setContext(context);
-//        return vulnearbility;
-//    }
-
 }

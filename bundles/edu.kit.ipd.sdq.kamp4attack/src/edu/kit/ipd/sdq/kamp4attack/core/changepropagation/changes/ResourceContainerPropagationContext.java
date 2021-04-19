@@ -18,7 +18,7 @@ public class ResourceContainerPropagationContext extends ResourceContainerChange
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, null);
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
