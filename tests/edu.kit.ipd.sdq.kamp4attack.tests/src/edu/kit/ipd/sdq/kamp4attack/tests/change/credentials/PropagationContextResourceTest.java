@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.tests.change;
+package edu.kit.ipd.sdq.kamp4attack.tests.change.credentials;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,6 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationContextResourceTest extends AbstractChangeTests {
 
@@ -30,10 +31,9 @@ class PropagationContextResourceTest extends AbstractChangeTests {
 //        final var resourceChange = new ContextChanges(wrapper);
 //        resourceChange.calculateContextToResourcePropagation(change);
         final var resourceChange = new ResourceContainerPropagationContext(wrapper);
-        resourceChange.calculateResourceContainerToLinkingResourcePropagation(change);
+        resourceChange.calculateResourceContainerToResourcePropagation(change);
         
     }
-    @Disabled
     @Test
     void testContextToResourcePropagation() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
@@ -117,7 +117,6 @@ class PropagationContextResourceTest extends AbstractChangeTests {
         assertTrue(change.getCompromisedresource().isEmpty());
         assertFalse(change.isChanged());
     }
-    @Disabled
     @Test
     void testContextToResourcePropagationOnlyOne() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();

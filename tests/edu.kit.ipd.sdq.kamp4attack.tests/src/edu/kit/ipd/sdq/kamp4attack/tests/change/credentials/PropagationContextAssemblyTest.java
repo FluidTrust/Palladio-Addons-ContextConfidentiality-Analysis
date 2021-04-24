@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.tests.change;
+package edu.kit.ipd.sdq.kamp4attack.tests.change.credentials;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -12,6 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContex
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationContextAssemblyTest extends AbstractChangeTests {
 
@@ -61,7 +62,6 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertFalse(change.isChanged());
 
     }
-
     @Disabled
     @Test
     void testContextToAssemblyPropagationDuplicate() {

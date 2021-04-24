@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.tests.change;
+package edu.kit.ipd.sdq.kamp4attack.tests.change.credentials;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -8,9 +8,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationContextLinkingTest extends AbstractChangeTests {
 
@@ -34,10 +38,19 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
         this.isNoAssemblyChangeLinkingChange(change);
     }
 
-    private void runContextToLinkingPropagation(final CredentialChange change) {
+    private void runResourceToLinkingPropagation(final CredentialChange change) {
         final var wrapper = this.getBlackboardWrapper();
-        final var contextChange = new ContextChanges(wrapper);
-        contextChange.calculateContextToLinkingPropagation(change);
+        final var contextChange = new ResourceContainerPropagationContext(wrapper);
+        contextChange.calculateResourceContainerToLinkingResourcePropagation(change);
+//        final var contextChange = new 
+//        contextChange.calculateContextToLinkingPropagation(change);
+    }
+    private void runAssemblyToLinkingPropagation(final CredentialChange change) {
+        final var wrapper = this.getBlackboardWrapper();
+        final var contextChange = new AssemblyContextPropagationContext(wrapper);
+        contextChange.calculateAssemblyContextToLinkingResourcePropagation(change);
+//        final var contextChange = new 
+//        contextChange.calculateContextToLinkingPropagation(change);
     }
 
     @Test
@@ -54,7 +67,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicies(contextSet);
 
-        this.runContextToLinkingPropagation(change);
+        this.runAssemblyToLinkingPropagation(change);
 
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
@@ -79,7 +92,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicyLinking(contextSet, this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         this.isNoContextChangeNoAssemblyNoLinking(change);
         assertEquals(1, change.getCompromisedresource().size());
@@ -95,7 +108,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
         final var contextSet = this.createContextSet(context);
         this.createPolicyLinking(contextSet, this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         this.isNoContextChangeNoAssemblyNoLinking(change);
         assertTrue(change.getCompromisedresource().isEmpty());
@@ -116,7 +129,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicies(contextSet);
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
@@ -144,7 +157,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicies(contextSet);
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
@@ -174,7 +187,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicyLinking(contextSet, this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         this.isNoAssemblyChangeLinkingChange(change);
         assertEquals(1, change.getContextchange().size());
@@ -198,7 +211,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
 
         this.createPolicyLinking(contextSet, this.environment.getLinkingResources__ResourceEnvironment().get(1));
 
-        this.runContextToLinkingPropagation(change);
+        this.runResourceToLinkingPropagation(change);
 
         this.isNoAssemblyChangeLinkingChange(change);
         assertEquals(1, change.getContextchange().size());

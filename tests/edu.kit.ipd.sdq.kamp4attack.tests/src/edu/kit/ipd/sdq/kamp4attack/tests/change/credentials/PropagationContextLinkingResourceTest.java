@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.tests.change;
+package edu.kit.ipd.sdq.kamp4attack.tests.change.credentials;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     private void createPolicies(final ContextSet contextSet) {
@@ -31,9 +33,8 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     }
 
     private void runContextLinkingToResourcePropagation(final CredentialChange change) {
-        final var wrapper = this.getBlackboardWrapper();
-        final var contextChange = new ContextChanges(wrapper);
-        contextChange.calculateContextLinkingToResourcePropagation(change);
+        final var contextChange = new LinkingPropagationContext(getBlackboardWrapper());
+        contextChange.calculateLinkingResourceToResourcePropagation(change);
     }
 
     @Test
