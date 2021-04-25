@@ -1,5 +1,13 @@
 package edu.kit.ipd.sdq.kamp4attack.tests.change;
 
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEID;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEAttack;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEID;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEVulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.model.SingleAttributeContext;
@@ -132,7 +140,54 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         change.getCompromisedresource().add(infectedResource);
         return infectedResource;
     }
+    
+    protected CWEID createCWEID(int id) {
+        var cweID = AttackSpecificationFactory.eINSTANCE.createCWEID();
+        cweID.setCweID(id);
+        return cweID;
+    }
 
+    protected CWEID createCWEID(int id, CWEID parent) {
+        var cweID = createCWEID(id);
+        parent.getChildren().add(cweID);
+        return cweID;
+    }
+
+    protected CVEID createCVEID(int id) {
+        var cweID = AttackSpecificationFactory.eINSTANCE.createCVEID();
+        cweID.setCveID(id);
+        return cweID;
+    }
+
+    protected CWEAttack createCWEAttack(CWEID id) {
+        var cweAttack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
+        cweAttack.setCategory(id);
+        return cweAttack;
+    }
+
+    protected CWEVulnerability createCWEVulnerability(CWEID id, AttackVector vector, Privileges privileges,
+            ConfidentialityImpact impact, boolean takeOver, ContextSet requiredCredentials,
+            ContextSet gainedCredentials) {
+        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
+        vulnerability.setCweID(id);
+        vulnerability.setAttackVector(vector);
+        vulnerability.setPrivileges(privileges);
+        vulnerability.setConfidentialityImpact(impact);
+        vulnerability.setTakeOver(takeOver);
+        if (requiredCredentials != null)
+            vulnerability.setRequiredCredentials(requiredCredentials);
+        if (gainedCredentials != null)
+            vulnerability.getGainedPrivilege().add(gainedCredentials);
+        return vulnerability;
+    }
+    
+    protected CWEID createSimpleAttack() {
+        var cweID = createCWEID(1);
+        var attack = createCWEAttack(cweID);
+        this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
+        return cweID;
+    }
+    
     @Override
     protected void execute() {
 
