@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.Datahandler;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -34,7 +34,7 @@ public abstract class ResourceContainerHandler extends AttackHandler {
 
     private void handleDataExtraction(Collection<CompromisedResource> resources) {
         var dataList = resources.stream()
-                .flatMap(resource -> Datahandler
+                .flatMap(resource -> DataHandler
                         .getData(resource.getAffectedElement(), getModelStorage().getAllocation()).stream())
                 .collect(Collectors.toList());
         getDataHandler().addData(dataList);

@@ -74,5 +74,9 @@
 			<unit id="edu.kit.ipd.sdq.kamp.feature.feature.group" version="tbd"/>
 			<repository location="https://raw.githubusercontent.com/KAMP-Research/KAMP/gh-pages"/>
 		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" refresh="true">
+			<unit id="org.palladiosimulator.generator.fluent_api.feature.feature.group" version="tbd"/>
+			<repository location="https://updatesite.palladio-simulator.com/palladio-addons-fluentapimodelgenerator/nightly/"/>
+		</location>
 	</locations>
 </target>

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.Datahandler;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -34,7 +34,7 @@ public abstract class AssemblyContextHandler extends AttackHandler {
     private void handleDataExtraction(Collection<CompromisedAssembly> components) {
 
         var dataList = components.stream().map(component -> component.getAffectedElement().getEncapsulatedComponent__AssemblyContext())
-                .flatMap(component -> Datahandler.getData(component).stream()).collect(Collectors.toList());
+                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
         getDataHandler().addData(dataList);
     }

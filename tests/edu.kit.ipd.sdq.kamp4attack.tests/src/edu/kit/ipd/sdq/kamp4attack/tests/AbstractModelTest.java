@@ -1,5 +1,7 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -118,7 +120,7 @@ public abstract class AbstractModelTest {
         resourceRepository.getContents().get(0);
         resourceUsage.getContents().get(0);
         this.modification = (AbstractKAMP4attackModificationRepository<?>) resourceModification.getContents().get(0);
-
+        attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
         this.execute();
 
     }

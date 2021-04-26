@@ -26,12 +26,36 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_yrdlgO29Eeq6pfPMAIqEqg" entityName="Interface1">
-    <signatures__OperationInterface id="_0cTRAO29Eeq6pfPMAIqEqg" entityName="checkUserData"/>
+    <signatures__OperationInterface id="_0cTRAO29Eeq6pfPMAIqEqg" entityName="checkUserData">
+      <parameters__OperationSignature parameterName="userID">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_HFVosO2-Eeq6pfPMAIqEqg" entityName="UserDBInterface">
-    <signatures__OperationInterface id="_J5tNwO2-Eeq6pfPMAIqEqg" entityName="getUserData"/>
+    <signatures__OperationInterface id="_J5tNwO2-Eeq6pfPMAIqEqg" entityName="getUserData" returnType__OperationSignature="_LIlH0KaeEeuF7tmdK8jWKA">
+      <parameters__OperationSignature parameterName="id">
+        <dataType__Parameter xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+      </parameters__OperationSignature>
+    </signatures__OperationInterface>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_TIbAEO2-Eeq6pfPMAIqEqg" entityName="LocationInterface">
-    <signatures__OperationInterface id="_VeITMO2-Eeq6pfPMAIqEqg" entityName="getLocation"/>
+    <signatures__OperationInterface id="_VeITMO2-Eeq6pfPMAIqEqg" entityName="getLocation" returnType__OperationSignature="_ltfw8KaeEeuF7tmdK8jWKA"/>
   </interfaces__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_LIlH0KaeEeuF7tmdK8jWKA" entityName="User">
+    <innerDeclaration_CompositeDataType entityName="Username">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="userID">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_ltfw8KaeEeuF7tmdK8jWKA" entityName="Location">
+    <innerDeclaration_CompositeDataType entityName="longitude">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="latitude">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
 </repository:Repository>

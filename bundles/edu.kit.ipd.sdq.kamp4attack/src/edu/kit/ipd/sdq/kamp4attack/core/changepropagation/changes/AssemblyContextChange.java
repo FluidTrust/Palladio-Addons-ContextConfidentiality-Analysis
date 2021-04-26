@@ -107,10 +107,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var targetConnectors = this.getTargetedConnectors(component, system);
 
         final var targetComponents = targetConnectors.stream()
-                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).collect(Collectors.toList());
+                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
 
         targetComponents.addAll(targetConnectors.stream()
-                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).collect(Collectors.toList()));
+                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
         return targetComponents;
     }
 

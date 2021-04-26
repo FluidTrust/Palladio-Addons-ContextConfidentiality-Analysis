@@ -1,6 +1,8 @@
 package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -17,9 +19,13 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 
-public class Datahandler {
-
-    public static List<CompromisedData> getData(RepositoryComponent component) {
+public class DataHandler {
+    
+    private DataHandler() {
+        
+    }
+    
+    public static Collection<CompromisedData> getData(RepositoryComponent component) {
         var interfacesList = component.getProvidedRoles_InterfaceProvidingEntity().stream()
                 .filter(OperationProvidedRole.class::isInstance).map(OperationProvidedRole.class::cast)
                 .map(OperationProvidedRole::getProvidedInterface__OperationProvidedRole)
@@ -36,28 +42,31 @@ public class Datahandler {
         var listDataReturnTypes = interfacesRequired.flatMap(e -> e.getSignatures__OperationInterface().stream())
                 .map(returnType -> {
                     return createDataReturnValue(returnType);
-                });
+                }).flatMap(Optional::stream).collect(Collectors.toList());
 
-        return Stream.concat(listDataReturnTypes, listDataParameter).collect(Collectors.toUnmodifiableList());
+        listDataParameter.addAll(listDataReturnTypes);
+        return listDataParameter;
 
     }
 
-    private static CompromisedData createDataReturnValue(OperationSignature returnType) {
+    private static Optional<CompromisedData> createDataReturnValue(OperationSignature signature) {
+        if(signature.getReturnType__OperationSignature() == null)
+            return Optional.empty();
         var data = AttackerFactory.eINSTANCE.createCompromisedData();
-        data.setDataType(returnType.getReturnType__OperationSignature());
-        return data;
+        data.setDataType(signature.getReturnType__OperationSignature());
+        data.setSource(signature);
+        return Optional.of(data);
     }
 
-    private static Stream<CompromisedData> createDataFromParameter(RepositoryComponent component,
+    private static Collection<CompromisedData> createDataFromParameter(RepositoryComponent component,
             Stream<Parameter> parameters) {
-        var listDataParameter = parameters.map(parameter -> {
+        return parameters.map(parameter -> {
             var data = AttackerFactory.eINSTANCE.createCompromisedData();
             data.setDataType(parameter.getDataType__Parameter());
             data.setReferenceName(parameter.getParameterName());
             data.setSource(component);
             return data;
-        });
-        return listDataParameter;
+        }).collect(Collectors.toList());
     }
 
     public static List<CompromisedData> getData(ResourceContainer resource, Allocation allocation) {
@@ -66,18 +75,25 @@ public class Datahandler {
                 .flatMap(e -> getData(e).stream()).collect(Collectors.toList());
     }
 
-    public static List<CompromisedData> getData(ResourceDemandingSEFF seff) {
+    public static Collection<CompromisedData> getData(ResourceDemandingSEFF seff) {
         var component = seff.getBasicComponent_ServiceEffectSpecification();
         var parameterStream = ((OperationSignature) seff.getDescribedService__SEFF())
                 .getParameters__OperationSignature().stream();
 
-        var dataSignatureStream = Datahandler.createDataFromParameter(component, parameterStream);
+        var dataSignatureList = DataHandler.createDataFromParameter(component, parameterStream);
 
-        var seffStream = seff.getSteps_Behaviour().stream().filter(ExternalCallAction.class::isInstance)
+        var seffList = seff.getSteps_Behaviour().stream().filter(ExternalCallAction.class::isInstance)
                 .map(ExternalCallAction.class::cast).map(ExternalCallAction::getCalledService_ExternalService)
-                .map(Datahandler::createDataReturnValue);
-
-        return Stream.concat(dataSignatureStream, seffStream).collect(Collectors.toUnmodifiableList());
+                .map(DataHandler::createDataReturnValue).flatMap(Optional::stream).collect(Collectors.toUnmodifiableList());
+        
+        var returnData = createDataReturnValue((OperationSignature) seff.getDescribedService__SEFF());
+        if(returnData.isPresent()) {
+            dataSignatureList.add(returnData.get());
+        }
+        
+        
+        dataSignatureList.addAll(seffList);
+        return dataSignatureList;
 
     }
 
