@@ -1,12 +1,14 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
@@ -32,8 +34,12 @@ public abstract class AssemblyContextHandler extends AttackHandler {
     }
 
     private void handleDataExtraction(Collection<CompromisedAssembly> components) {
-
-        var dataList = components.stream().map(component -> component.getAffectedElement().getEncapsulatedComponent__AssemblyContext())
+        
+        Collection<AssemblyContext> filteredComponents = components.stream().map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+        
+        filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
+        
+        var dataList = filteredComponents.stream().map(component -> component.getEncapsulatedComponent__AssemblyContext()).distinct()
                 .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
         getDataHandler().addData(dataList);
@@ -49,7 +55,7 @@ public abstract class AssemblyContextHandler extends AttackHandler {
     }
 
     private boolean contains(CompromisedAssembly component, CredentialChange change) {
-        return change.getCompromisedresource().stream().anyMatch(referenceComponent -> EcoreUtil
+        return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil
                 .equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
     }
 

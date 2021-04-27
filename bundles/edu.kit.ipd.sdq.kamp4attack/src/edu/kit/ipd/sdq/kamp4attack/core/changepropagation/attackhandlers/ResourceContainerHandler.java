@@ -7,10 +7,13 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -23,7 +26,7 @@ public abstract class ResourceContainerHandler extends AttackHandler {
     public void attackResourceContainer(Collection<ResourceContainer> containers, CredentialChange change,
             EObject source) {
         var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
-                .flatMap(Optional::stream).collect(Collectors.toList());
+                .flatMap(Optional::stream).distinct().collect(Collectors.toList());
         var newCompromisedResources = filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
             handleDataExtraction(newCompromisedResources);
@@ -33,10 +36,16 @@ public abstract class ResourceContainerHandler extends AttackHandler {
     }
 
     private void handleDataExtraction(Collection<CompromisedResource> resources) {
-        var dataList = resources.stream()
+        
+        Collection<ResourceContainer> filteredComponents = resources.stream()
+                .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
+
+        filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
+
+        var dataList = filteredComponents.stream()
                 .flatMap(resource -> DataHandler
-                        .getData(resource.getAffectedElement(), getModelStorage().getAllocation()).stream())
-                .collect(Collectors.toList());
+                        .getData(resource, getModelStorage().getAllocation()).stream())
+                .distinct().collect(Collectors.toList());
         getDataHandler().addData(dataList);
     }
 
@@ -53,7 +62,5 @@ public abstract class ResourceContainerHandler extends AttackHandler {
         return change.getCompromisedresource().stream().anyMatch(referenceContainer -> EcoreUtil
                 .equals(referenceContainer.getAffectedElement(), resource.getAffectedElement()));
     }
-
-
 
 }
