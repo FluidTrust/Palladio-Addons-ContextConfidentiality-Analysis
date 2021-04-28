@@ -52,9 +52,10 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
         for (final var resource : listInfectedContainer) {
             final var resources = this.getConnectedResourceContainers(resource);
-            final var assemblycontext = CollectionHelper.getAssemblyContext(resources,
+            var assemblycontext = CollectionHelper.getAssemblyContext(resources,
                     this.modelStorage.getAllocation());
             final var handler = this.getAssemblyHandler();
+            assemblycontext = CollectionHelper.removeDuplicates(assemblycontext);
             handler.attackAssemblyContext(assemblycontext, changes, resource);
         }
 

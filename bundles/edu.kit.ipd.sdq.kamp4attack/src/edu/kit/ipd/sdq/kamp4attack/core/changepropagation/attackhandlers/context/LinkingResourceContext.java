@@ -27,7 +27,8 @@ public class LinkingResourceContext extends LinkingResourceHandler {
         var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), linking);
 
         if (policies.stream().anyMatch(policy -> policy.checkAccessRight(credentials))) {
-            var compromised = HelperCreationCompromisedElements.createCompromisedLinking(linking, List.of(source, credentials));
+            var sourceList = this.createSource(source, credentials);
+            var compromised = HelperCreationCompromisedElements.createCompromisedLinking(linking, sourceList);
             return Optional.of(compromised);
         }
         return Optional.empty();

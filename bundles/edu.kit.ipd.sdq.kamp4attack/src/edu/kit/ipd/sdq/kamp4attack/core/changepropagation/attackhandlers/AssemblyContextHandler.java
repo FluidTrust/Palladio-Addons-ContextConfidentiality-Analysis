@@ -34,12 +34,14 @@ public abstract class AssemblyContextHandler extends AttackHandler {
     }
 
     private void handleDataExtraction(Collection<CompromisedAssembly> components) {
-        
-        Collection<AssemblyContext> filteredComponents = components.stream().map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
-        
+
+        Collection<AssemblyContext> filteredComponents = components.stream()
+                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
-        
-        var dataList = filteredComponents.stream().map(component -> component.getEncapsulatedComponent__AssemblyContext()).distinct()
+
+        var dataList = filteredComponents.stream()
+                .map(component -> component.getEncapsulatedComponent__AssemblyContext()).distinct()
                 .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
         getDataHandler().addData(dataList);

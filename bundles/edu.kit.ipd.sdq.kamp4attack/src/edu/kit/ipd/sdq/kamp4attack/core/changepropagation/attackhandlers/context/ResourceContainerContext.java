@@ -27,7 +27,8 @@ public class ResourceContainerContext extends ResourceContainerHandler {
         var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), container);
 
         if (policies.stream().anyMatch(policy -> policy.checkAccessRight(credentials))) {
-            var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, List.of(source, credentials));
+            var sourceList = this.createSource(source, credentials);
+            var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, sourceList);
             return Optional.of(compromised);
         }
         return Optional.empty();

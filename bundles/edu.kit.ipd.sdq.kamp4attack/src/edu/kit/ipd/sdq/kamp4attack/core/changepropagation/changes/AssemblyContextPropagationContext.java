@@ -17,7 +17,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     }
 
     @Override
-    protected ResourceContainerHandler getResourceHandler() {
+    protected ResourceContainerHandler getLocalResourceHandler() {
         return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
@@ -29,6 +29,11 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
         return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+    }
+
+    @Override
+    protected ResourceContainerHandler getRemoteResourceHandler() {
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
 }

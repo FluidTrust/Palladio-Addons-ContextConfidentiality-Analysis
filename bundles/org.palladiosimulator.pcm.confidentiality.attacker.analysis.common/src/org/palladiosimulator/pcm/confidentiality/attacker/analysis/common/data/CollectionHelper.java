@@ -27,8 +27,8 @@ public class CollectionHelper {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T extends EObject> Collection<T> removeDuplicates(Collection<T> collection){       
-        return (Collection<T>) EcoreUtil.filterDescendants(collection); //checked by incoming values
+    public static <T extends EObject> List<T> removeDuplicates(Collection<T> collection){       
+        return (List<T>) EcoreUtil.filterDescendants(collection); //checked by incoming values
     }
     
     private static boolean searchResource(ResourceContainer targetContainer, List<ResourceContainer> listContainer) {

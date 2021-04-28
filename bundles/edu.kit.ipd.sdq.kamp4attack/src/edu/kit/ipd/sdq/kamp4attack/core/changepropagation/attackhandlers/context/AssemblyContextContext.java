@@ -27,7 +27,8 @@ public class AssemblyContextContext extends AssemblyContextHandler {
         var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), component);
         
         if (policies.stream().anyMatch(policy -> policy.checkAccessRight(credentials))) {
-            var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, List.of(source, credentials));
+            var sourceList = this.createSource(source, credentials);
+            var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
             return Optional.of(compromised);
         }
         return Optional.empty();

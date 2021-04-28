@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -56,7 +57,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             final var connected = this.getConnectedComponents(component);
             final var containers = connected.stream().map(e -> this.getResourceContainer(e)).distinct()
                     .collect(Collectors.toList());
-            final var handler = this.getResourceHandler();
+            final var handler = this.getRemoteResourceHandler();
             handler.attackResourceContainer(containers, changes, component);
         }
 
@@ -68,7 +69,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         for (final var component : listCompromisedContexts) {
             final var resource = this.getResourceContainer(component);
-            final var handler = this.getResourceHandler();
+            final var handler = this.getLocalResourceHandler();
             handler.attackResourceContainer(List.of(resource), changes, component);
         }
 
@@ -87,15 +88,18 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         return resource;
     }
 
-    protected abstract ResourceContainerHandler getResourceHandler();
+    protected abstract ResourceContainerHandler getLocalResourceHandler();
+    
+    protected abstract ResourceContainerHandler getRemoteResourceHandler();
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation(final CredentialChange changes) {
         final var listCompromisedContexts = this.getCompromisedAssemblyContexts(changes);
         for (final var component : listCompromisedContexts) {
-            final var targetComponents = this.getConnectedComponents(component);
+            var targetComponents = this.getConnectedComponents(component);
 
             final var handler = this.getAssemblyHandler();
+            targetComponents = CollectionHelper.removeDuplicates(targetComponents);
             handler.attackAssemblyContext(targetComponents, changes, component);
         }
 

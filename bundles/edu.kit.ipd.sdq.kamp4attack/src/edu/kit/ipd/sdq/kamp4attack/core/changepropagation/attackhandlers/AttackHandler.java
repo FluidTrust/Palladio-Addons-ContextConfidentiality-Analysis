@@ -1,9 +1,11 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
@@ -52,5 +54,13 @@ public abstract class AttackHandler {
                 .getAttackcomponent();
         return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
                 .collect(Collectors.toList());
+    }
+    
+    protected List<EObject> createSource(EObject sourceItem, ContextSet contextSet){
+        List<EObject> list = new ArrayList<>();
+        list.add(sourceItem);
+        list.addAll(contextSet.getContexts());
+        return list;
+        
     }
 }
