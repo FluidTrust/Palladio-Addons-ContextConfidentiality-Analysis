@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
@@ -31,6 +30,7 @@ public class AssemblyContextContext extends AssemblyContextHandler {
             var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
             return Optional.of(compromised);
         }
+        //TODO: Add data handling
         return Optional.empty();
     }
 
