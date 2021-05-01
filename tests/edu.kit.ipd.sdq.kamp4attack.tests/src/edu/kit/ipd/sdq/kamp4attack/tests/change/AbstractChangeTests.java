@@ -153,7 +153,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return cweID;
     }
 
-    protected CVEID createCVEID(int id) {
+    protected CVEID createCVEID(String id) {
         var cweID = AttackSpecificationFactory.eINSTANCE.createCVEID();
         cweID.setCveID(id);
         return cweID;
