@@ -169,7 +169,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             ConfidentialityImpact impact, boolean takeOver, ContextSet requiredCredentials,
             ContextSet gainedCredentials) {
         var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
-        vulnerability.setCweID(id);
+        vulnerability.getCweID().add(id);
         vulnerability.setAttackVector(vector);
         vulnerability.setPrivileges(privileges);
         vulnerability.setConfidentialityImpact(impact);

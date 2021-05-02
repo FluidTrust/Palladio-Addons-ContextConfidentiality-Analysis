@@ -31,7 +31,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, AssemblyContext.class);
     }
 
-    private List<AssemblyContext> getCompromisedAssemblyContexts(final CredentialChange changes) {
+    protected List<AssemblyContext> getCompromisedAssemblyContexts(final CredentialChange changes) {
         final var listCompromisedAssemblyContexts = changes.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
         return listCompromisedAssemblyContexts;

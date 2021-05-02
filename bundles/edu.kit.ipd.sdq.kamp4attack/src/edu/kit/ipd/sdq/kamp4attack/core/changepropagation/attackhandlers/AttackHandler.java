@@ -6,8 +6,10 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
@@ -62,5 +64,15 @@ public abstract class AttackHandler {
         list.addAll(contextSet.getContexts());
         return list;
         
+    }
+    // TODO: Think about better location
+    protected ContextSet addCredentialsLocal(AttackVector attackVector, ContextSet credentials, List<ContextSet> policies) {
+        if (attackVector == AttackVector.LOCAL) {
+            credentials = EcoreUtil.copy(credentials);
+            for(var policy:policies) {
+                credentials.getContexts().addAll(policy.getContexts());
+            }
+        }
+        return credentials;
     }
 }

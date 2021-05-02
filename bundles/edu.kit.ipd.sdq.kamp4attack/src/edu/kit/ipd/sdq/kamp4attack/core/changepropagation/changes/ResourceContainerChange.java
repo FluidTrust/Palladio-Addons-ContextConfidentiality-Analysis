@@ -31,7 +31,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, ResourceContainer.class);
     }
 
-    private List<ResourceContainer> getInfectedResourceContainers(final CredentialChange changes) {
+    protected List<ResourceContainer> getInfectedResourceContainers(final CredentialChange changes) {
         return changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .collect(Collectors.toList());
     }
