@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
+  <attackers>
+    <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="Test" attacks="_7FiQ4KjgEeuVCuR42tT90g">
+      <compromisedLinkingResources href="../../../default.resourceenvironment#_67lcMMN9EeWPE-QAhbUzuQ"/>
+      <compromiseddata id="_Y-7zcKjqEeuVCuR42tT90g" referenceName="requestData">
+        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
+        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zcajqEeuVCuR42tT90g" referenceName="offerId">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zcqjqEeuVCuR42tT90g" referenceName="ccd_decl">
+        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
+        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zc6jqEeuVCuR42tT90g" referenceName="flights">
+        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
+        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zdKjqEeuVCuR42tT90g">
+        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
+        <source href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zdajqEeuVCuR42tT90g">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zdqjqEeuVCuR42tT90g">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_Y-7zd6jqEeuVCuR42tT90g">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
+      </compromiseddata>
+    </attacker>
+  </attackers>
+  <attacks>
+    <attack xsi:type="attack:CWEAttack" id="_DDiogKhNEeuQg4UyNka2Xg" entityName="attackPhone" category="//@categoryspecification/@categories.0"/>
+    <attack xsi:type="attack:CWEAttack" id="_LYgOsKhVEeu5yqcK0mgf-g" entityName="attackPhoneLocally" category="//@categoryspecification/@categories.3"/>
+    <attack xsi:type="attack:CWEAttack" id="_cVvgkKjREeuEI7xzXmgBHQ" entityName="attackTravelAgencySEFF" category="//@categoryspecification/@categories.1"/>
+    <attack xsi:type="attack:CWEAttack" id="_7FiQ4KjgEeuVCuR42tT90g" entityName="attackAirline" category="//@categoryspecification/@categories.4"/>
+  </attacks>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_px3jQKd4EeuyobD7xRWqAQ" entityName="Vulnerability Travelplanner" attackVector="AdjacentNetwork" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_6TslgKg2Eeu41LgoiPSZgg" entityName="Smartphone" attackVector="Local" confidentialityImpact="High" cweID="//@categoryspecification/@categories.3">
+      <gainedPrivilege href="test_model.context#_If9f8CpAEeu2k9cuIp092g"/>
+    </vulnerability>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_DE78MKg4EeuBy83MqQpiOw" entityName="Vulnerability TravelAgency" attackVector="AdjacentNetwork" privileges="Low" takeOver="true" cweID="//@categoryspecification/@categories.1"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_wRVugKjgEeuVCuR42tT90g" entityName="Airline Resource Container" attackVector="Network" takeOver="true" cweID="//@categoryspecification/@categories.4"/>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CWEID" entityName="Deserialization of Untrusted Data" cweID="502" parents="//@categoryspecification/@categories.2"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Neutralization of Special Elements used in a Command" cweID="77" parents="//@categoryspecification/@categories.2"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Neutralization" cweID="707" children="//@categoryspecification/@categories.0 //@categoryspecification/@categories.1"/>
+    <categories xsi:type="attack:CWEID" entityName="Cleartext Storage of Sensitive Information" cweID="312"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Access Control" cweID="284"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities id="_XZ5qMKg4EeuBy83MqQpiOw" vulnerability="_6TslgKg2Eeu41LgoiPSZgg">
+      <resourcecontainer href="../../../default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    </vulnerabilities>
+    <vulnerabilities id="_ei34AKg4EeuBy83MqQpiOw" vulnerability="_px3jQKd4EeuyobD7xRWqAQ">
+      <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+    </vulnerabilities>
+    <vulnerabilities id="_lzfl8Kg4EeuBy83MqQpiOw" vulnerability="_DE78MKg4EeuBy83MqQpiOw">
+      <methodspecification href="test_model.context#//@pcmspecificationcontainer/@policyspecification.5/@methodspecification"/>
+    </vulnerabilities>
+    <vulnerabilities id="_2ll60KjgEeuVCuR42tT90g" vulnerability="_wRVugKjgEeuVCuR42tT90g">
+      <resourcecontainer href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

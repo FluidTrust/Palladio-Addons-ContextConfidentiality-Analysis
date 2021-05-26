@@ -2,6 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visit
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -9,11 +10,12 @@ import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpeci
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ScenarioResultStorage;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AttributeProvider;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.MethodSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
-import org.palladiosimulator.pcm.core.composition.DelegationConnector;
 import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
@@ -24,50 +26,56 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class CheckOperation {
     private List<SystemPolicySpecification> policies;
-    private ContextSet requestorContext;
+    private List<AttributeProvider> attributeProviders;
     private ScenarioResultStorage storage;
     private System system;
     private UsageScenario scenario;
 
     public CheckOperation(PCMBlackBoard pcm, ConfidentialAccessSpecification accessSpecificatoin,
-            ContextSet requestorContext, ScenarioResultStorage storage, UsageScenario scenario) {
+           ScenarioResultStorage storage, UsageScenario scenario) {
         // non null checks
         Objects.requireNonNull(pcm);
         Objects.requireNonNull(accessSpecificatoin);
-        Objects.requireNonNull(requestorContext);
         Objects.requireNonNull(storage);
         Objects.requireNonNull(scenario);
 
         this.policies = accessSpecificatoin.getPcmspecificationcontainer().getPolicyspecification().stream()
                 .filter(SystemPolicySpecification.class::isInstance).map(SystemPolicySpecification.class::cast)
                 .collect(Collectors.toList());
-        this.requestorContext = requestorContext;
+        this.attributeProviders = accessSpecificatoin.getPcmspecificationcontainer().getAttributeprovider();
         this.storage = storage;
         this.system = pcm.getSystem();
         this.scenario = scenario;
     }
 
-    public void performCheck(ExternalCallAction externalAction, AssemblyContext encapsulatedContext) {
+    public Optional<ContextSet> performCheck(ExternalCallAction externalAction, AssemblyContext encapsulatedContext,
+            ContextSet requestorContext) {
         var connector = getAssemblyConnector(externalAction, encapsulatedContext);
 
-        performCheck(externalAction.getCalledService_ExternalService(), connector);
+        return performCheck(externalAction.getCalledService_ExternalService(), connector, requestorContext);
 
     }
-    
-    public void performCheck(EntryLevelSystemCall systemCall, AssemblyContext encapsulatedContext) {
+
+    public Optional<ContextSet> performCheck(EntryLevelSystemCall systemCall, AssemblyContext encapsulatedContext,
+            ContextSet requestorContext) {
         var connector = getDelegationConnector(systemCall, encapsulatedContext);
-        performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), connector);
+        return performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), connector, requestorContext);
     }
 
-    private void performCheck(OperationSignature signature, Connector connector) {
+    public Optional<ContextSet> performCheck(OperationSignature signature, Connector connector, ContextSet requestorContext) {
         var setContexts = getContextSets(signature, connector, policies);
+        var listAttributeProvider = getAttributeProvider(signature, connector);
         if (!checkContextSet(requestorContext, setContexts)) {
             storage.storeNegativeResult(scenario, signature.getInterface__OperationSignature(), signature, connector,
                     requestorContext, setContexts);
         }
+        if(listAttributeProvider.isEmpty())
+            return Optional.empty();
+        if(listAttributeProvider.size()!=1)
+            throw new IllegalStateException("There exists more than one attribute provider for one method specification. Please recheck your model");
+        else
+            return Optional.of(listAttributeProvider.get(0));
     }
-
-
 
     private ProvidedDelegationConnector getDelegationConnector(EntryLevelSystemCall systemCall,
             AssemblyContext assemblyContext) {
@@ -91,9 +99,20 @@ public class CheckOperation {
     private List<ContextSet> getContextSets(Signature signature, Connector connector,
             List<SystemPolicySpecification> policies) {
         return policies.stream().filter(e -> e.getMethodspecification() != null)
-                .filter(e -> EcoreUtil.equals(e.getMethodspecification().getSignature(), signature)
-                        && EcoreUtil.equals(e.getMethodspecification().getConnector(), connector))
+                .filter(e -> filterMethodspecification(signature, connector, e.getMethodspecification()))
                 .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
+    }
+
+    private boolean filterMethodspecification(Signature signature, Connector connector,
+            MethodSpecification methodSpecification) {
+        return EcoreUtil.equals(methodSpecification.getSignature(), signature)
+                && EcoreUtil.equals(methodSpecification.getConnector(), connector);
+    }
+
+    private List<ContextSet> getAttributeProvider(Signature signature, Connector connector) {
+        return attributeProviders.stream().filter(e -> e.getMethodspecification() != null)
+                .filter(e -> filterMethodspecification(signature, connector, e.getMethodspecification()))
+                .map(AttributeProvider::getContextset).collect(Collectors.toList());
     }
 
     private AssemblyConnector getAssemblyConnector(ExternalCallAction action, AssemblyContext assemblyContext) {

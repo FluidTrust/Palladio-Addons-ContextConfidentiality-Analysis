@@ -13,3 +13,4 @@ Require-Bundle: org.palladiosimulator.pcm.confidentiality.context.scenarioanalys
  org.eclipse.osgi.services;bundle-version="3.8.0"
 Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider.ScenarioAnalysisImpl.xml
 Bundle-ActivationPolicy: lazy
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;x-friends:="org.palladiosimulator.pcm.confidentiality.context.analysis.tests"

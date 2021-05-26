@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
+import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.Signature;
@@ -23,25 +24,27 @@ public class SystemWalker {
 
     }
 
-    public void propagationBySeff(EntryLevelSystemCall systemCall, System system) {
+    public void propagationBySeff(EntryLevelSystemCall systemCall, System system, ContextSet context) {
         var assemblyContext = getHandlingAssemblyContext(systemCall, system);
         var encapsulatingContexts = new ArrayList<AssemblyContext>();
         encapsulatingContexts.add(assemblyContext);
 
-        operation.performCheck(systemCall, assemblyContext);
+        operation.performCheck(systemCall, assemblyContext, context);
 
         var seff = getSEFF(systemCall, system);
-        propagationBySeff(seff, encapsulatingContexts);
+        propagationBySeff(seff, encapsulatingContexts, context);
     }
 
-    private void propagationBySeff(ServiceEffectSpecification seff, List<AssemblyContext> encapsulatingContexts) {
+    private void propagationBySeff(ServiceEffectSpecification seff, List<AssemblyContext> encapsulatingContexts, ContextSet context) {
         var visitor2 = new SeffAssemblyContext();
         var externalCallActions = visitor2.doSwitch(seff);
         for (var externalAction : externalCallActions) {
-            operation.performCheck(externalAction, encapsulatingContexts.get(encapsulatingContexts.size() - 1));
+            var contextOpt = operation.performCheck(externalAction, encapsulatingContexts.get(encapsulatingContexts.size() - 1), context);
             var service = PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts);
             var nextSeff = getSEFF(externalAction.getCalledService_ExternalService(), service.get(service.size() - 1));
-            propagationBySeff(nextSeff,service);
+            if(contextOpt.isPresent())
+                context = contextOpt.get();
+            propagationBySeff(nextSeff,service, context);
         }
     }
 

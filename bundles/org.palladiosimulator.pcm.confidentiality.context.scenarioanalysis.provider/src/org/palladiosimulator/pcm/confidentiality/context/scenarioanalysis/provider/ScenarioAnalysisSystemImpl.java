@@ -33,9 +33,9 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
             for (var systemCall : systemCalls) {
                 var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
-                var checkOperation = new CheckOperation(pcm, context, tmpRequestor, result, scenario);
+                var checkOperation = new CheckOperation(pcm, context, result, scenario);
                 var walker = new SystemWalker(checkOperation);
-                walker.propagationBySeff(systemCall, pcm.getSystem());
+                walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
 
             // set positiv return value if no error happened

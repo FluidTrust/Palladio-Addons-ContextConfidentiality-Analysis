@@ -1,7 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
