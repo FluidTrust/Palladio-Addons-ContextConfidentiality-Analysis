@@ -52,6 +52,7 @@ public abstract class AbstractModelTest extends BaseTest {
         return list;
     }
     
+    @Override
     protected void assignValues(List<Resource> list) {
         this.assembly = this.getModel(list, System.class);
         this.environment = this.getModel(list, ResourceEnvironment.class);
