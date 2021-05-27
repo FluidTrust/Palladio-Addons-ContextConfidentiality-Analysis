@@ -29,14 +29,14 @@ import edu.kit.ipd.sdq.kamp4attack.tests.AbstractModelTest;
 public abstract class AbstractChangeTests extends AbstractModelTest {
 
     public AbstractChangeTests() {
-        this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/My.attacker";
-        this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newAssembly.system";
-        this.PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newAllocation.allocation";
-        this.PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/My.context";
-        this.PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/My.kamp4attackmodificationmarks";
-        this.PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newRepository.repository";
-        this.PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newUsageModel.usagemodel";
-        this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PropagationUnitTests/newResourceEnvironment.resourceenvironment";
+        this.PATH_ATTACKER = "simpleAttackmodels/PropagationUnitTests/My.attacker";
+        this.PATH_ASSEMBLY = "simpleAttackmodels/PropagationUnitTests/newAssembly.system";
+        this.PATH_ALLOCATION = "simpleAttackmodels/PropagationUnitTests/newAllocation.allocation";
+        this.PATH_CONTEXT = "simpleAttackmodels/PropagationUnitTests/My.context";
+        this.PATH_MODIFICATION = "simpleAttackmodels/PropagationUnitTests/My.kamp4attackmodificationmarks";
+        this.PATH_REPOSITORY = "simpleAttackmodels/PropagationUnitTests/newRepository.repository";
+        this.PATH_USAGE = "simpleAttackmodels/PropagationUnitTests/newUsageModel.usagemodel";
+        this.PATH_RESOURCES = "simpleAttackmodels/PropagationUnitTests/newResourceEnvironment.resourceenvironment";
     }
 
     private void addPolicy(final ContextSet contextSet, final SystemPolicySpecification policyAssembly) {
@@ -186,11 +186,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         var attack = createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
-    }
-    
-    @Override
-    protected void execute() {
-
     }
 
 }

@@ -22,4 +22,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.pcm.confidentiality.attacker;bundle-version="0.1.0",
  edu.kit.ipd.sdq.kamp4attack,
- org.palladiosimulator.generator.fluent_api;bundle-version="5.0.0"
+ org.palladiosimulator.generator.fluent_api;bundle-version="5.0.0",
+ org.palladiosimulator.pcm.confidentiality.context.analysis.testframework

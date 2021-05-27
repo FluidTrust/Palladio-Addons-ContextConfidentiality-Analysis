@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Testmodels
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.testframework
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.testframework
+Require-Bundle: org.eclipse.core.runtime;bundle-version="3.20.0",
+ tools.mdsd.library.standalone.initialization,
+ tools.mdsd.library.standalone.initialization.log4j,
+ org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels;bundle-version="1.0.0",
+ org.junit.jupiter.api
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.testframework

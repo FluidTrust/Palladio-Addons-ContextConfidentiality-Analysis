@@ -20,4 +20,5 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel;bundle-version="0.1.0",
- org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels;bundle-version="1.0.0"
+ org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels;bundle-version="1.0.0",
+ org.palladiosimulator.pcm.confidentiality.context.analysis.testframework

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 
+import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class AttackPreStepTest extends AbstractModelTest {
@@ -14,28 +15,25 @@ class AttackPreStepTest extends AbstractModelTest {
     private String contextID;
 
     AttackPreStepTest() {
-        this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/My.attacker";
-        this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newAssembly.system";
-        this.PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newAllocation.allocation";
-        this.PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/My.context";
-        this.PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/My.kamp4attackmodificationmarks";
-        this.PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newRepository.repository";
-        this.PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newUsageModel.usagemodel";
-        this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/PreStepTest/newResourceEnvironment.resourceenvironment";
+        this.PATH_ATTACKER = "simpleAttackmodels/PreStepTest/My.attacker";
+        this.PATH_ASSEMBLY = "simpleAttackmodels/PreStepTest/newAssembly.system";
+        this.PATH_ALLOCATION = "simpleAttackmodels/PreStepTest/newAllocation.allocation";
+        this.PATH_CONTEXT = "simpleAttackmodels/PreStepTest/My.context";
+        this.PATH_MODIFICATION = "simpleAttackmodels/PreStepTest/My.kamp4attackmodificationmarks";
+        this.PATH_REPOSITORY = "simpleAttackmodels/PreStepTest/newRepository.repository";
+        this.PATH_USAGE = "simpleAttackmodels/PreStepTest/newUsageModel.usagemodel";
+        this.PATH_RESOURCES = "simpleAttackmodels/PreStepTest/newResourceEnvironment.resourceenvironment";
     }
 
-    @Override
+    
     protected void execute() {
-        final var testContext = ModelFactory.eINSTANCE.createSingleAttributeContext();
-        testContext.setEntityName("TestValue");
-        this.contextID = testContext.getId();
-        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
-        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(testContext);
+        final var wrapper = this.getBlackboardWrapper();
+        (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
 
     @Test
     void testNoNullValue() {
-        super.execute();
+        execute();
         final var steps = this.modification.getChangePropagationSteps();
         assertNotNull(steps);
     }
@@ -43,7 +41,7 @@ class AttackPreStepTest extends AbstractModelTest {
     @Test
     void testOnlyStartAssembly() {
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
-        super.execute();
+        execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
@@ -59,7 +57,12 @@ class AttackPreStepTest extends AbstractModelTest {
     @Test
     void testOnlyStartContext() {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
-        super.execute();
+        final var testContext = ModelFactory.eINSTANCE.createSingleAttributeContext();
+        testContext.setEntityName("TestValue");
+        this.contextID = testContext.getId();
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
+        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(testContext);
+        execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         assertEquals(1, steps.size());
@@ -78,7 +81,7 @@ class AttackPreStepTest extends AbstractModelTest {
         final var dbResource = this.environment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(e -> e.getEntityName().equals("DatabaseMachine")).findAny().get();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources().add(dbResource);
-        super.execute();
+        execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         final var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();

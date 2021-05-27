@@ -6,22 +6,32 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.stream.Collectors;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 
+import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class ModelsTest extends AbstractModelTest {
 
     ModelsTest() {
-        this.PATH_ATTACKER = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.attacker";
-        this.PATH_ASSEMBLY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newAssembly.system";
-        this.PATH_ALLOCATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newAllocation.allocation";
-        this.PATH_CONTEXT = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.context";
-        this.PATH_MODIFICATION = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/My.kamp4attackmodificationmarks";
-        this.PATH_REPOSITORY = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newRepository.repository";
-        this.PATH_USAGE = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newUsageModel.usagemodel";
-        this.PATH_RESOURCES = "platform:/plugin/edu.kit.ipd.sdq.kamp4attack.tests/models/SimpleModelTest/newResourceEnvironment.resourceenvironment";
+        this.PATH_ATTACKER = "simpleAttackmodels/SimpleModelTest/My.attacker";
+        this.PATH_ASSEMBLY = "simpleAttackmodels/SimpleModelTest/newAssembly.system";
+        this.PATH_ALLOCATION = "simpleAttackmodels/SimpleModelTest/newAllocation.allocation";
+        this.PATH_CONTEXT = "simpleAttackmodels/SimpleModelTest/My.context";
+        this.PATH_MODIFICATION = "simpleAttackmodels/SimpleModelTest/My.kamp4attackmodificationmarks";
+        this.PATH_REPOSITORY = "simpleAttackmodels/SimpleModelTest/newRepository.repository";
+        this.PATH_USAGE = "simpleAttackmodels/SimpleModelTest/newUsageModel.usagemodel";
+        this.PATH_RESOURCES = "simpleAttackmodels/SimpleModelTest/newResourceEnvironment.resourceenvironment";
+    }
+    
+    @BeforeEach
+    protected void execute() {
+        attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
+        final var wrapper = this.getBlackboardWrapper();
+        (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
 
     @Test
