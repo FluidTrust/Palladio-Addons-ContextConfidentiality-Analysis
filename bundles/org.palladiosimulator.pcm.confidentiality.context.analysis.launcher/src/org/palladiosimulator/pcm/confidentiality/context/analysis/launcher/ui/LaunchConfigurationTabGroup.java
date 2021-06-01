@@ -8,18 +8,18 @@ import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
  * Parent Group of the tab configuration.
- * 
+ *
  * @author Mirko Sowa
  *
  */
 public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabGroup {
 
-	/**
-	 * Opens to tabs, {@link ModelInputTab} (the main tab) and a {@link TranslatorSettingsTab}
-	 */
-	@Override
-	public void createTabs(ILaunchConfigurationDialog dialog, String mode) {
-		setTabs(new ILaunchConfigurationTab[] { new ModelInputTab(), new CommonTab()});
-	}
+    /**
+     * Opens to tabs, {@link ModelInputTab} (the main tab) and a {@link TranslatorSettingsTab}
+     */
+    @Override
+    public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
+        this.setTabs(new ILaunchConfigurationTab[] { new ModelInputTab(), new CommonTab() });
+    }
 
 }

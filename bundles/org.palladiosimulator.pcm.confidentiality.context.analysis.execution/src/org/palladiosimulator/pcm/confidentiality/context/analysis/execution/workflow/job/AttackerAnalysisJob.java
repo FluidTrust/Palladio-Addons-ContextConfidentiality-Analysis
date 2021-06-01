@@ -1,8 +1,8 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
 
+import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_ATTACK;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_CONTEXT;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
-import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_ATTACK;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
@@ -48,18 +48,19 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 ////        var dataModel = dataPartition.getDataspecification();
 //        analysis.runAttackerAnalysis(pcmPartition.getMiddlewareRepository(), contextPartition.getContextSpecification(),
 //                null);
-        var modificationPartition = ((ModificationMarkPartition) blackboard
+        final var modificationPartition = ((ModificationMarkPartition) this.blackboard
                 .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
-        var system =  pcmPartition.getSystem();
-        var environment = pcmPartition.getResourceEnvironment();
-        var allocation = pcmPartition.getAllocation();
+        final var system = pcmPartition.getSystem();
+        final var environment = pcmPartition.getResourceEnvironment();
+        final var allocation = pcmPartition.getAllocation();
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
-        var specification =  contextPartition.getContextSpecification().getPcmspecificationcontainer();
+        final var specification = contextPartition.getContextSpecification().getPcmspecificationcontainer();
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
-        var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
-        var wrapper = new BlackboardWrapper(modificationPartition, system, environment,allocation,specification, vulnerabilitySpecification);
-        var propagation = new AttackPropagationAnalysis();
+        final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
+        final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
+                vulnerabilitySpecification);
+        final var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
     }
 

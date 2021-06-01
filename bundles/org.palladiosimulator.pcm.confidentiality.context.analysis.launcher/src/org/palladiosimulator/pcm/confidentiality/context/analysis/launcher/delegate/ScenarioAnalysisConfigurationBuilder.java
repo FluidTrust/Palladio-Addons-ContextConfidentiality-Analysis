@@ -10,25 +10,27 @@ import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguratio
 /**
  * This class can build an Attacker analysis specific configuration objects out of a given Eclipse
  * Launch Configuration.
- * 
+ *
  * @author majuwa
  *
  */
 public class ScenarioAnalysisConfigurationBuilder extends ContextAnalysisConfigurationBuilder {
 
-    public ScenarioAnalysisConfigurationBuilder(ILaunchConfiguration configuration, String mode) throws CoreException {
+    public ScenarioAnalysisConfigurationBuilder(final ILaunchConfiguration configuration, final String mode)
+            throws CoreException {
         super(configuration, mode);
     }
 
     @Override
-    public void fillConfiguration(AbstractWorkflowBasedRunConfiguration configuration) throws CoreException {
+    public void fillConfiguration(final AbstractWorkflowBasedRunConfiguration configuration) throws CoreException {
         super.fillConfiguration(configuration);
-        if (!configuration.getClass().equals(ScenarioAnalysisWorkflowConfig.class))
+        if (!configuration.getClass().equals(ScenarioAnalysisWorkflowConfig.class)) {
             throw new IllegalArgumentException("configuration is from type " + configuration.getClass() + ", but "
                     + ScenarioAnalysisWorkflowConfig.class + " expected");
-        var config = (ScenarioAnalysisWorkflowConfig) configuration;
-        config.setUsage(getURI(Constants.USAGE_MODEL_LABEL.getConstant()));
-        
+        }
+        final var config = (ScenarioAnalysisWorkflowConfig) configuration;
+        config.setUsage(this.getURI(Constants.USAGE_MODEL_LABEL.getConstant()));
+
     }
 
 }

@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -42,14 +40,15 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
         final var wrapper = this.getBlackboardWrapper();
         final var contextChange = new ResourceContainerPropagationContext(wrapper);
         contextChange.calculateResourceContainerToLinkingResourcePropagation(change);
-//        final var contextChange = new 
+//        final var contextChange = new
 //        contextChange.calculateContextToLinkingPropagation(change);
     }
+
     private void runAssemblyToLinkingPropagation(final CredentialChange change) {
         final var wrapper = this.getBlackboardWrapper();
         final var contextChange = new AssemblyContextPropagationContext(wrapper);
         contextChange.calculateAssemblyContextToLinkingResourcePropagation(change);
-//        final var contextChange = new 
+//        final var contextChange = new
 //        contextChange.calculateContextToLinkingPropagation(change);
     }
 

@@ -10,7 +10,7 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 /**
  * Interface for storing the results of the scenario analysis
- * 
+ *
  * @author majuwa
  *
  */
@@ -19,7 +19,7 @@ public interface ScenarioResultStorage {
     /**
      * Adds a negative result for a {@link UsageScenario}. By adding it checks, whether a positive
      * result was already stored for UsageScenario.
-     * 
+     *
      * @param scenario
      * @param operationInterface
      * @param signature
@@ -33,7 +33,7 @@ public interface ScenarioResultStorage {
             OperationSignature signature, Connector connector, ContextSet requestor, List<ContextSet> policies);
 
     /**
-     * 
+     *
      * @param scenario
      * @throws IllegalStateException
      *             if a negative result was stored previously

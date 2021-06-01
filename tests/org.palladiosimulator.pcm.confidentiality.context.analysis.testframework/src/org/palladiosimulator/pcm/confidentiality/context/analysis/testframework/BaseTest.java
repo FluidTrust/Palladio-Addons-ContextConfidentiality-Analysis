@@ -22,46 +22,45 @@ public abstract class BaseTest {
     static void init() throws StandaloneInitializationException {
         TestInitializer.init();
     }
-    
+
     private Resource loadResource(final ResourceSet resourceSet, final URI path) {
         return resourceSet.getResource(path, true);
     }
 
     /**
      * Gives a list with the relative path as {@link String} to the models used for testing
-     * 
+     *
      * @return {@link List} of Strings
      */
     protected abstract List<String> getModelsPath();
-    
-    
+
     /**
      * Method to assign loaded resources to values
-     * 
+     *
      */
     protected abstract void assignValues(List<Resource> list);
-    
-    protected <T extends EObject> T getModel(List<Resource> resources, Class<T> classObject){
-        var object = resources.stream().filter(e-> classObject.isInstance(e.getContents().get(0))).findAny();
-        if(object.isEmpty())
+
+    protected <T extends EObject> T getModel(final List<Resource> resources, final Class<T> classObject) {
+        final var object = resources.stream().filter(e -> classObject.isInstance(e.getContents().get(0))).findAny();
+        if (object.isEmpty()) {
             fail("Class not found " + classObject);
+        }
         return classObject.cast(object.get().getContents().get(0));
     }
 
     @BeforeEach
     protected void loadModels() throws IOException {
-        var listResources = new ArrayList<Resource>();
+        final var listResources = new ArrayList<Resource>();
         final var resourceSet = new ResourceSetImpl();
 
-        var listModels = getModelsPath();
-        for(var model : listModels) {
-            listResources.add(loadResource(resourceSet, TestInitializer.getModelURI(model)));
+        final var listModels = this.getModelsPath();
+        for (final var model : listModels) {
+            listResources.add(this.loadResource(resourceSet, TestInitializer.getModelURI(model)));
         }
-        
-        assignValues(listResources);
-        
+
+        this.assignValues(listResources);
+
         EcoreUtil.resolveAll(resourceSet);
     }
-    
-    
+
 }

@@ -77,19 +77,18 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     private ResourceContainer getResourceContainer(final AssemblyContext component) {
         final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
-                .filter(allocation ->
-                EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component)
-                )
+                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
                 .findAny();
         if (allocationOPT.isEmpty()) {
-            throw new IllegalStateException("No Allocation for assemblycontext " + component.getEntityName() + " found");
+            throw new IllegalStateException(
+                    "No Allocation for assemblycontext " + component.getEntityName() + " found");
         }
         final var resource = allocationOPT.get().getResourceContainer_AllocationContext();
         return resource;
     }
 
     protected abstract ResourceContainerHandler getLocalResourceHandler();
-    
+
     protected abstract ResourceContainerHandler getRemoteResourceHandler();
 
     @Override
@@ -111,10 +110,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var targetConnectors = this.getTargetedConnectors(component, system);
 
         final var targetComponents = targetConnectors.stream()
-                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector).filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
 
-        targetComponents.addAll(targetConnectors.stream()
-                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector).filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+        targetComponents
+                .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
         return targetComponents;
     }
 

@@ -15,22 +15,22 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class AssemblyContextContext extends AssemblyContextHandler {
 
-    public AssemblyContextContext(BlackboardWrapper modelStorage, DataHandlerAttacker dataHandler) {
+    public AssemblyContextContext(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
         super(modelStorage, dataHandler);
     }
 
     @Override
-    protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
-            EObject source) {
-        var credentials = this.getCredentials(change);
-        var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), component);
-        
+    protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
+            final CredentialChange change, final EObject source) {
+        final var credentials = this.getCredentials(change);
+        final var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), component);
+
         if (policies.stream().anyMatch(policy -> policy.checkAccessRight(credentials))) {
-            var sourceList = this.createSource(source, credentials);
-            var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
+            final var sourceList = this.createSource(source, credentials);
+            final var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
             return Optional.of(compromised);
         }
-        //TODO: Add data handling
+        // TODO: Add data handling
         return Optional.empty();
     }
 

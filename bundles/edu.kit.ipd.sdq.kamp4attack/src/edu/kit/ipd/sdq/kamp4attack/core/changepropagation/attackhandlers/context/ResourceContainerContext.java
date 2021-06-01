@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
@@ -16,19 +15,19 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class ResourceContainerContext extends ResourceContainerHandler {
 
-    public ResourceContainerContext(BlackboardWrapper modelStorage, DataHandlerAttacker dataHandler) {
+    public ResourceContainerContext(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
         super(modelStorage, dataHandler);
     }
 
     @Override
-    protected Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
-            CredentialChange change, EObject source) {
-        var credentials = this.getCredentials(change);
-        var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), container);
+    protected Optional<CompromisedResource> attackResourceContainer(final ResourceContainer container,
+            final CredentialChange change, final EObject source) {
+        final var credentials = this.getCredentials(change);
+        final var policies = PolicyHelper.getPolicy(this.getModelStorage().getSpecification(), container);
 
         if (policies.stream().anyMatch(policy -> policy.checkAccessRight(credentials))) {
-            var sourceList = this.createSource(source, credentials);
-            var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, sourceList);
+            final var sourceList = this.createSource(source, credentials);
+            final var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, sourceList);
             return Optional.of(compromised);
         }
         return Optional.empty();

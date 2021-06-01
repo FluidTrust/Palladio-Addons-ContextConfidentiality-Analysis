@@ -21,7 +21,8 @@ public class LoadAttackerModel extends AbstractLoadModelJob {
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var attackPartition = new AttackPartition();
-        this.loadModel2Partition(attackPartition, new URI[] { ((AttackerAnalysisWorkflowConfig)configuration).getAttackModel() },
+        this.loadModel2Partition(attackPartition,
+                new URI[] { ((AttackerAnalysisWorkflowConfig) this.configuration).getAttackModel() },
                 new EPackage[] { AttackerPackage.eINSTANCE }, PARTITION_ID_ATTACK);
     }
 

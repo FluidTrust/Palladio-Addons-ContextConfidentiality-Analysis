@@ -2,8 +2,8 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.par
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
-public class DataAttackPartition extends ResourceSetPartition{
-    //FIXME
+public class DataAttackPartition extends ResourceSetPartition {
+    // FIXME
 //    public Adversaries getAdversaryModel() {
 //        //TODO handle multiple Adversaries
 //        return ((Adversaries) getElement(AdversaryPackage.eINSTANCE.getAdversaries()).get(0));

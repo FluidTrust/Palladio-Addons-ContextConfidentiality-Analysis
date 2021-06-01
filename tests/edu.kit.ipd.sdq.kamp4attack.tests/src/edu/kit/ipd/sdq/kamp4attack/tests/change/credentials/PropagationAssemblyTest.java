@@ -13,7 +13,6 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.context.model.SingleAttributeContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -69,7 +68,7 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
     private void runAssemblyResourcePropagation(final CredentialChange change) {
         final var wrapper = this.getBlackboardWrapper();
-        final var assemblyChange = new AssemblyContextPropagationContext(wrapper); 
+        final var assemblyChange = new AssemblyContextPropagationContext(wrapper);
         assemblyChange.calculateAssemblyContextToLocalResourcePropagation(change);
     }
 

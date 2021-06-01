@@ -6,59 +6,56 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class ResourceContainerHandler extends AttackHandler {
 
-    public ResourceContainerHandler(BlackboardWrapper modelStorage, DataHandlerAttacker dataHandler) {
+    public ResourceContainerHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
         super(modelStorage, dataHandler);
     }
 
-    public void attackResourceContainer(Collection<ResourceContainer> containers, CredentialChange change,
-            EObject source) {
-        var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
+    public void attackResourceContainer(final Collection<ResourceContainer> containers, final CredentialChange change,
+            final EObject source) {
+        final var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
             change.getCompromisedresource().addAll(newCompromisedResources);
         }
     }
 
-    private void handleDataExtraction(Collection<CompromisedResource> resources) {
-        
+    private void handleDataExtraction(final Collection<CompromisedResource> resources) {
+
         Collection<ResourceContainer> filteredComponents = resources.stream()
                 .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
 
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-        var dataList = filteredComponents.stream()
-                .flatMap(resource -> DataHandler
-                        .getData(resource, getModelStorage().getAllocation()).stream())
+        final var dataList = filteredComponents.stream()
+                .flatMap(resource -> DataHandler.getData(resource, this.getModelStorage().getAllocation()).stream())
                 .distinct().collect(Collectors.toList());
-        getDataHandler().addData(dataList);
+        this.getDataHandler().addData(dataList);
     }
 
     protected abstract Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
             CredentialChange change, EObject source);
 
-    private Collection<CompromisedResource> filterExsiting(Collection<CompromisedResource> containers,
-            CredentialChange change) {
-        return containers.stream().filter(container -> !contains(container, change)).collect(Collectors.toList());
+    private Collection<CompromisedResource> filterExsiting(final Collection<CompromisedResource> containers,
+            final CredentialChange change) {
+        return containers.stream().filter(container -> !this.contains(container, change)).collect(Collectors.toList());
 
     }
 
-    private boolean contains(CompromisedResource resource, CredentialChange change) {
+    private boolean contains(final CompromisedResource resource, final CredentialChange change) {
         return change.getCompromisedresource().stream().anyMatch(referenceContainer -> EcoreUtil
                 .equals(referenceContainer.getAffectedElement(), resource.getAffectedElement()));
     }

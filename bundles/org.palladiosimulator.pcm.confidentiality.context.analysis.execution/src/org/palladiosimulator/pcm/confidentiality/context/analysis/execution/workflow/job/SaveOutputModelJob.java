@@ -1,12 +1,13 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_OUTPUT;
 
 import java.io.IOException;
 import java.util.Collections;
+
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.URI;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
@@ -24,26 +25,26 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
     }
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        var partitionOutput = blackboard.getPartition(PARTITION_ID_OUTPUT);
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        final var partitionOutput = this.blackboard.getPartition(PARTITION_ID_OUTPUT);
 
-        var test = configuration.getAllocationModel();
-        var segments = test.segments();
-        segments[test.segmentCount()-1] = "my.outputmodel";
-        var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
-        
-        var resource = partitionOutput.getResourceSet().createResource(testUri);
+        final var test = this.configuration.getAllocationModel();
+        final var segments = test.segments();
+        segments[test.segmentCount() - 1] = "my.outputmodel";
+        final var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
+
+        final var resource = partitionOutput.getResourceSet().createResource(testUri);
         try {
-           resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
+            resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
             resource.save(Collections.EMPTY_MAP);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Auto-generated method stub
 
     }
@@ -55,7 +56,7 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
     }
 
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 

@@ -12,22 +12,24 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 /**
  * This class wraps the MDSD Blackboard {@link MDSDBlackboard}
- * 
- * 
+ *
+ *
  * @author Maximilian Walter
  *
  */
 
 public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4attackModificationRepository<?>> {
 
-    private MDSDBlackboard blackboard;
-    private System assembly;
-    private ResourceEnvironment environment;
-    private Allocation allocation;
-    private PCMSpecificationContainer pcmSpecification;
-    private VulnerabilitySystemSpecification vulnerabilitySpecification;
-   
-    public BlackboardWrapper(AbstractKAMP4attackModificationRepository<?> blackboard, System assembly, ResourceEnvironment environment, Allocation allocation, PCMSpecificationContainer pcmSpecification, VulnerabilitySystemSpecification vulnerabilitySpecification) {
+    private final System assembly;
+    private final ResourceEnvironment environment;
+    private final Allocation allocation;
+    private final PCMSpecificationContainer pcmSpecification;
+    private final VulnerabilitySystemSpecification vulnerabilitySpecification;
+
+    public BlackboardWrapper(final AbstractKAMP4attackModificationRepository<?> blackboard, final System assembly,
+            final ResourceEnvironment environment, final Allocation allocation,
+            final PCMSpecificationContainer pcmSpecification,
+            final VulnerabilitySystemSpecification vulnerabilitySpecification) {
         super("", blackboard);
         this.assembly = assembly;
         this.environment = environment;
@@ -37,26 +39,26 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
     }
 
     /**
-     * Gets the {@link System} 
-     * @return Returns the system of the current PCM model 
+     * Gets the {@link System}
+     *
+     * @return Returns the system of the current PCM model
      */
     public System getAssembly() {
         return this.assembly;
     }
-    
+
     public ResourceEnvironment getResourceEnvironment() {
         return this.environment;
     }
-    
+
     public Allocation getAllocation() {
         return this.allocation;
     }
-    
-    
+
     public PCMSpecificationContainer getSpecification() {
         return this.pcmSpecification;
     }
-    
+
     public VulnerabilitySystemSpecification getVulnerabilitySpecification() {
         return this.vulnerabilitySpecification;
     }

@@ -15,36 +15,36 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class LinkingResourceHandler extends AttackHandler {
 
-    protected LinkingResourceHandler(BlackboardWrapper modelStorage, DataHandlerAttacker dataHandler) {
+    protected LinkingResourceHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
         super(modelStorage, dataHandler);
     }
-    
-    public void attackLinkingResource(Collection<LinkingResource> linking, CredentialChange change,
-            EObject source) {
-        var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source))
+
+    public void attackLinkingResource(final Collection<LinkingResource> linking, final CredentialChange change,
+            final EObject source) {
+        final var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
             change.getCompromisedlinkingresource().addAll(newCompromisedResources);
         }
     }
 
-    private void handleDataExtraction(Collection<CompromisedLinkingResource> linking) {
-        //extension possible
+    private void handleDataExtraction(final Collection<CompromisedLinkingResource> linking) {
+        // extension possible
     }
 
     protected abstract Optional<CompromisedLinkingResource> attackLinkingResource(LinkingResource linking,
             CredentialChange change, EObject source);
 
-    private Collection<CompromisedLinkingResource> filterExsiting(Collection<CompromisedLinkingResource> linkings,
-            CredentialChange change) {
-        return linkings.stream().filter(linking -> !contains(linking, change)).collect(Collectors.toList());
+    private Collection<CompromisedLinkingResource> filterExsiting(final Collection<CompromisedLinkingResource> linkings,
+            final CredentialChange change) {
+        return linkings.stream().filter(linking -> !this.contains(linking, change)).collect(Collectors.toList());
 
     }
 
-    private boolean contains(CompromisedLinkingResource linking, CredentialChange change) {
+    private boolean contains(final CompromisedLinkingResource linking, final CredentialChange change) {
         return change.getCompromisedlinkingresource().stream().anyMatch(referenceLinking -> EcoreUtil
                 .equals(referenceLinking.getAffectedElement(), linking.getAffectedElement()));
     }

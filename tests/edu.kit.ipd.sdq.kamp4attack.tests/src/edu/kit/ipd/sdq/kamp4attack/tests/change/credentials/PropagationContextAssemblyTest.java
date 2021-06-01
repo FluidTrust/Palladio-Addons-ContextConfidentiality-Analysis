@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
@@ -62,6 +61,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertFalse(change.isChanged());
 
     }
+
     @Disabled
     @Test
     void testContextToAssemblyPropagationDuplicate() {
@@ -141,6 +141,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertFalse(change.isChanged());
 
     }
+
     @Disabled
     @Test
     void testContextToAssemblyPropagationProvided() {
@@ -175,6 +176,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertTrue(change.isChanged());
 
     }
+
     @Disabled
     @Test
     void testContextToAssemblyPropagationRequired() {
@@ -211,6 +213,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertTrue(change.isChanged());
 
     }
+
     @Disabled
     @Test
     void testContextToAssemblyPropagationRequiredNoSpecificationThirdComponent() {
@@ -244,6 +247,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertTrue(change.isChanged());
 
     }
+
     @Disabled
     @Test
     void testContextToAssemblyPropagationRequiredSpecificationThirdComponentWrongContext() {

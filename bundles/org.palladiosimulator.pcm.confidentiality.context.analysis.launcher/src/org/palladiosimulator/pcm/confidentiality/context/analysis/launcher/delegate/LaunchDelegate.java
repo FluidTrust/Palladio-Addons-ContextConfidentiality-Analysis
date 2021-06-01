@@ -15,28 +15,28 @@ import de.uka.ipd.sdq.workflow.mdsd.AbstractWorkflowBasedMDSDLaunchConfiguration
 /**
  * Launches a given launch configuration with an usage model,an allocation model and a
  * characteristics model.
- * 
+ *
  * @author majuwa
  * @author Mirko Sowa
- * 
+ *
  */
 public class LaunchDelegate
         extends AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<ContextAnalysisWorkflowConfig> {
 
     @Override
-    protected ContextAnalysisWorkflowConfig deriveConfiguration(ILaunchConfiguration configuration, String mode)
-            throws CoreException {
-        var output = configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), "default");
+    protected ContextAnalysisWorkflowConfig deriveConfiguration(final ILaunchConfiguration configuration,
+            final String mode) throws CoreException {
+        final var output = configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), "default");
         ContextAnalysisWorkflowConfig config = null;
         switch (output) {
         case "Scenario":
             config = new ScenarioAnalysisWorkflowConfig();
-            var scenarioBuilder = new ScenarioAnalysisConfigurationBuilder(configuration, mode);
+            final var scenarioBuilder = new ScenarioAnalysisConfigurationBuilder(configuration, mode);
             scenarioBuilder.fillConfiguration(config);
             break;
         case "Insider":
             config = new AttackerAnalysisWorkflowConfig();
-            var attackBuilder = new AttackAnalysisConfigurationBuilder(configuration, mode);
+            final var attackBuilder = new AttackAnalysisConfigurationBuilder(configuration, mode);
             attackBuilder.fillConfiguration(config);
             break;
         case "Attack surface":
@@ -49,12 +49,14 @@ public class LaunchDelegate
     }
 
     @Override
-    protected IJob createWorkflowJob(ContextAnalysisWorkflowConfig config, ILaunch launch) throws CoreException {
-        
-        //TODO make better
-        if(config instanceof ScenarioAnalysisWorkflowConfig)
+    protected IJob createWorkflowJob(final ContextAnalysisWorkflowConfig config, final ILaunch launch)
+            throws CoreException {
+
+        // TODO make better
+        if (config instanceof ScenarioAnalysisWorkflowConfig) {
             return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
-        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); //FIXME
+        }
+        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); // FIXME
     }
 
 }

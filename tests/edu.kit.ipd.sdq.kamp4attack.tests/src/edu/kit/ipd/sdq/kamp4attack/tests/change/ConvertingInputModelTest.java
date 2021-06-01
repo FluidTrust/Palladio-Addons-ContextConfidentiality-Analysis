@@ -17,11 +17,11 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
                 .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
 
-        runAnalysis();
+        this.runAnalysis();
 
         assertEquals(1, this.modification.getChangePropagationSteps().size());
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
-        var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
+        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 
         assertTrue(change.getContextchange().isEmpty());
         assertTrue(change.getCompromisedresource().isEmpty());
@@ -39,11 +39,11 @@ class ConvertingInputModelTest extends AbstractChangeTests {
                 .add(this.environment.getResourceContainer_ResourceEnvironment().get(0));
         this.allocation.getAllocationContexts_Allocation().clear();
 
-        runAnalysis();
+        this.runAnalysis();
 
         assertEquals(1, this.modification.getChangePropagationSteps().size());
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
-        var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
+        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 
         assertTrue(change.getContextchange().isEmpty());
         assertTrue(change.getCompromisedassembly().isEmpty());
@@ -60,10 +60,10 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedLinkingResources()
                 .add(this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
-        runAnalysis();
+        this.runAnalysis();
         assertEquals(1, this.modification.getChangePropagationSteps().size());
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
-        var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
+        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 
         assertTrue(change.getContextchange().isEmpty());
         assertTrue(change.getCompromisedassembly().isEmpty());
@@ -77,14 +77,14 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     @Test
     void testTransformationContext() {
 
-        var context = this.createContext("Test");
+        final var context = this.createContext("Test");
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
 
-        runAnalysis();
+        this.runAnalysis();
 
         assertEquals(1, this.modification.getChangePropagationSteps().size());
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
-        var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
+        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertTrue(change.getCompromisedassembly().isEmpty());
@@ -98,17 +98,17 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     void testAllTransfomations() {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
                 .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        var context = this.createContext("Test");
+        final var context = this.createContext("Test");
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources()
                 .add(this.environment.getResourceContainer_ResourceEnvironment().get(0));
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedLinkingResources()
                 .add(this.environment.getLinkingResources__ResourceEnvironment().get(0));
 
-        runAnalysis();
+        this.runAnalysis();
 
         assertTrue(this.modification.getChangePropagationSteps().get(0) instanceof CredentialChange);
-        var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
+        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
 
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
@@ -126,7 +126,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
 
     private void runAnalysis() {
         final var board = this.getBlackboardWrapper();
-        var analysis = new AttackPropagationAnalysis();
+        final var analysis = new AttackPropagationAnalysis();
         analysis.runChangePropagationAnalysis(board);
     }
 }

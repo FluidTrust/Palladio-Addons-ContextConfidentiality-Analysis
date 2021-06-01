@@ -25,14 +25,14 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class CheckOperation {
-    private List<SystemPolicySpecification> policies;
-    private List<AttributeProvider> attributeProviders;
-    private ScenarioResultStorage storage;
-    private System system;
-    private UsageScenario scenario;
+    private final List<SystemPolicySpecification> policies;
+    private final List<AttributeProvider> attributeProviders;
+    private final ScenarioResultStorage storage;
+    private final System system;
+    private final UsageScenario scenario;
 
-    public CheckOperation(PCMBlackBoard pcm, ConfidentialAccessSpecification accessSpecificatoin,
-           ScenarioResultStorage storage, UsageScenario scenario) {
+    public CheckOperation(final PCMBlackBoard pcm, final ConfidentialAccessSpecification accessSpecificatoin,
+            final ScenarioResultStorage storage, final UsageScenario scenario) {
         // non null checks
         Objects.requireNonNull(pcm);
         Objects.requireNonNull(accessSpecificatoin);
@@ -48,86 +48,93 @@ public class CheckOperation {
         this.scenario = scenario;
     }
 
-    public Optional<ContextSet> performCheck(ExternalCallAction externalAction, AssemblyContext encapsulatedContext,
-            ContextSet requestorContext) {
-        var connector = getAssemblyConnector(externalAction, encapsulatedContext);
+    public Optional<ContextSet> performCheck(final ExternalCallAction externalAction,
+            final AssemblyContext encapsulatedContext, final ContextSet requestorContext) {
+        final var connector = this.getAssemblyConnector(externalAction, encapsulatedContext);
 
-        return performCheck(externalAction.getCalledService_ExternalService(), connector, requestorContext);
+        return this.performCheck(externalAction.getCalledService_ExternalService(), connector, requestorContext);
 
     }
 
-    public Optional<ContextSet> performCheck(EntryLevelSystemCall systemCall, AssemblyContext encapsulatedContext,
-            ContextSet requestorContext) {
-        var connector = getDelegationConnector(systemCall, encapsulatedContext);
-        return performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), connector, requestorContext);
+    public Optional<ContextSet> performCheck(final EntryLevelSystemCall systemCall,
+            final AssemblyContext encapsulatedContext, final ContextSet requestorContext) {
+        final var connector = this.getDelegationConnector(systemCall, encapsulatedContext);
+        return this.performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), connector, requestorContext);
     }
 
-    public Optional<ContextSet> performCheck(OperationSignature signature, Connector connector, ContextSet requestorContext) {
-        var setContexts = getContextSets(signature, connector, policies);
-        var listAttributeProvider = getAttributeProvider(signature, connector);
-        if (!checkContextSet(requestorContext, setContexts)) {
-            storage.storeNegativeResult(scenario, signature.getInterface__OperationSignature(), signature, connector,
-                    requestorContext, setContexts);
+    public Optional<ContextSet> performCheck(final OperationSignature signature, final Connector connector,
+            final ContextSet requestorContext) {
+        final var setContexts = this.getContextSets(signature, connector, this.policies);
+        final var listAttributeProvider = this.getAttributeProvider(signature, connector);
+        if (!this.checkContextSet(requestorContext, setContexts)) {
+            this.storage.storeNegativeResult(this.scenario, signature.getInterface__OperationSignature(), signature,
+                    connector, requestorContext, setContexts);
         }
-        if(listAttributeProvider.isEmpty())
+        if (listAttributeProvider.isEmpty()) {
             return Optional.empty();
-        if(listAttributeProvider.size()!=1)
-            throw new IllegalStateException("There exists more than one attribute provider for one method specification. Please recheck your model");
-        else
+        }
+        if (listAttributeProvider.size() != 1) {
+            throw new IllegalStateException(
+                    "There exists more than one attribute provider for one method specification. Please recheck your model");
+        } else {
             return Optional.of(listAttributeProvider.get(0));
+        }
     }
 
-    private ProvidedDelegationConnector getDelegationConnector(EntryLevelSystemCall systemCall,
-            AssemblyContext assemblyContext) {
+    private ProvidedDelegationConnector getDelegationConnector(final EntryLevelSystemCall systemCall,
+            final AssemblyContext assemblyContext) {
 
-        var connector = system.getConnectors__ComposedStructure().stream()
+        final var connector = this.system.getConnectors__ComposedStructure().stream()
                 .filter(ProvidedDelegationConnector.class::isInstance).map(ProvidedDelegationConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getAssemblyContext_ProvidedDelegationConnector(), assemblyContext))
                 .filter(e -> EcoreUtil.equals(e.getOuterProvidedRole_ProvidedDelegationConnector(),
                         systemCall.getProvidedRole_EntryLevelSystemCall()))
                 .findAny();
-        if (connector.isEmpty())
+        if (connector.isEmpty()) {
             throw new IllegalStateException(
                     "Connector entry level system call not found: " + systemCall.getEntityName());
+        }
         return connector.get();
     }
 
-    private boolean checkContextSet(ContextSet contextRequestor, List<ContextSet> policies) {
+    private boolean checkContextSet(final ContextSet contextRequestor, final List<ContextSet> policies) {
         return policies.stream().anyMatch(policy -> policy.checkAccessRight(contextRequestor));
     }
 
-    private List<ContextSet> getContextSets(Signature signature, Connector connector,
-            List<SystemPolicySpecification> policies) {
+    private List<ContextSet> getContextSets(final Signature signature, final Connector connector,
+            final List<SystemPolicySpecification> policies) {
         return policies.stream().filter(e -> e.getMethodspecification() != null)
-                .filter(e -> filterMethodspecification(signature, connector, e.getMethodspecification()))
+                .filter(e -> this.filterMethodspecification(signature, connector, e.getMethodspecification()))
                 .flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());
     }
 
-    private boolean filterMethodspecification(Signature signature, Connector connector,
-            MethodSpecification methodSpecification) {
+    private boolean filterMethodspecification(final Signature signature, final Connector connector,
+            final MethodSpecification methodSpecification) {
         return EcoreUtil.equals(methodSpecification.getSignature(), signature)
                 && EcoreUtil.equals(methodSpecification.getConnector(), connector);
     }
 
-    private List<ContextSet> getAttributeProvider(Signature signature, Connector connector) {
-        return attributeProviders.stream().filter(e -> e.getMethodspecification() != null)
-                .filter(e -> filterMethodspecification(signature, connector, e.getMethodspecification()))
+    private List<ContextSet> getAttributeProvider(final Signature signature, final Connector connector) {
+        return this.attributeProviders.stream().filter(e -> e.getMethodspecification() != null)
+                .filter(e -> this.filterMethodspecification(signature, connector, e.getMethodspecification()))
                 .map(AttributeProvider::getContextset).collect(Collectors.toList());
     }
 
-    private AssemblyConnector getAssemblyConnector(ExternalCallAction action, AssemblyContext assemblyContext) {
-        var signatureExternalCall = action.getCalledService_ExternalService();
+    private AssemblyConnector getAssemblyConnector(final ExternalCallAction action,
+            final AssemblyContext assemblyContext) {
+        final var signatureExternalCall = action.getCalledService_ExternalService();
 
-        var optConnector = system.getConnectors__ComposedStructure().stream()
+        final var optConnector = this.system.getConnectors__ComposedStructure().stream()
                 .filter(AssemblyConnector.class::isInstance).map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(
                         e.getProvidedRole_AssemblyConnector().getProvidedInterface__OperationProvidedRole(),
                         signatureExternalCall.getInterface__OperationSignature()))
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), assemblyContext))
                 .findAny();
-        if (optConnector.isEmpty())
+        if (optConnector.isEmpty()) {
             throw new IllegalArgumentException(
                     "Connector for external call not found. Please verify model: " + action.getEntityName());
+        }
 
         return optConnector.get();
     }

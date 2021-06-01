@@ -22,7 +22,7 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
     public void setAttackModel(final URI adversaryModel) {
         this.attackModel = adversaryModel;
     }
-    
+
     public URI getModificationModel() {
         return this.modificationModel;
     }

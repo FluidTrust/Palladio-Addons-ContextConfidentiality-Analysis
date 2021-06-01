@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerChange;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -31,7 +30,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 
     private void runResourceAssemblyPropagation(final CredentialChange change) {
         final var wrapper = this.getBlackboardWrapper();
-        final var resourceChange =  new ResourceContainerPropagationContext(wrapper);
+        final var resourceChange = new ResourceContainerPropagationContext(wrapper);
         resourceChange.calculateResourceContainerToLocalAssemblyContextPropagation(change);
     }
 

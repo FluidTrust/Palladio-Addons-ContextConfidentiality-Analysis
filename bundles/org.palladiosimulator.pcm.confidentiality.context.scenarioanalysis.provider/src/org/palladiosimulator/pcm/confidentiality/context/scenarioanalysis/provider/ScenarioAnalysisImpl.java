@@ -17,30 +17,28 @@ import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.specification.ContextSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.specification.PolicySpecification;
 import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
-import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
-import org.palladiosimulator.pcm.usagemodel.UsageModel;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 @Component
 public class ScenarioAnalysisImpl implements ScenarioAnalysis {
 
     @Override
-    public AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context) {
+    public AnalysisResults runScenarioAnalysis(final PCMBlackBoard pcm, final ConfidentialAccessSpecification context) {
 
-        var usage = pcm.getUsageModel();
+        final var usage = pcm.getUsageModel();
         if (context.getPcmspecificationcontainer().getPolicyspecification().stream()
                 .anyMatch(SystemPolicySpecification.class::isInstance)) {
             return new ScenarioAnalysisSystemImpl().runScenarioAnalysis(pcm, context);
         }
 
-        var result = OutputmodelFactory.eINSTANCE.createAnalysisResults();
-        for (var scenario : usage.getUsageScenario_UsageModel()) {
-            var visitor = new UsageModelVisitorScenarioRepository();
-            var seffs = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
+        final var result = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        for (final var scenario : usage.getUsageScenario_UsageModel()) {
+            final var visitor = new UsageModelVisitorScenarioRepository();
+            final var seffs = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
 
-            var output = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-            output.setResult(analysisScenario(scenario, seffs, context));
+            final var output = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+            output.setResult(this.analysisScenario(scenario, seffs, context));
             output.setScenario(scenario);
             result.getScenariooutput().add(output);
         }
@@ -48,61 +46,69 @@ public class ScenarioAnalysisImpl implements ScenarioAnalysis {
         return result;
     }
 
-    private boolean analysisScenario(UsageScenario scenario, Set<ResourceDemandingBehaviour> behaviour,
-            ConfidentialAccessSpecification context) {
+    private boolean analysisScenario(final UsageScenario scenario, final Set<ResourceDemandingBehaviour> behaviour,
+            final ConfidentialAccessSpecification context) {
 
-        var contextSet = getContextSet(context.getPcmspecificationcontainer().getContextspecification(), scenario);
-        var policyList = getContextSetsPolicy(context.getPcmspecificationcontainer().getPolicyspecification(),
-                behaviour);
+        final var contextSet = this.getContextSet(context.getPcmspecificationcontainer().getContextspecification(),
+                scenario);
+        final var policyList = this
+                .getContextSetsPolicy(context.getPcmspecificationcontainer().getPolicyspecification(), behaviour);
 
-        for (var policySeff : policyList) {
-            if (!checkContext(contextSet, policySeff))
+        for (final var policySeff : policyList) {
+            if (!this.checkContext(contextSet, policySeff)) {
                 return false;
+            }
         }
 
         return true;
     }
 
-    private boolean checkContext(ContextSet request, List<ContextSet> contextListPolicy) {
-        if (contextListPolicy.isEmpty())
+    private boolean checkContext(final ContextSet request, final List<ContextSet> contextListPolicy) {
+        if (contextListPolicy.isEmpty()) {
             return false;
-        if (request.getContexts().isEmpty())
+        }
+        if (request.getContexts().isEmpty()) {
             return false;
-        for (var policy : contextListPolicy) {
-            if (checkContextSet(policy, request))
+        }
+        for (final var policy : contextListPolicy) {
+            if (this.checkContextSet(policy, request)) {
                 return true;
+            }
         }
         return false;
     }
 
-    private boolean checkContextSet(ContextSet policy, ContextSet request) {
-        for (var policyItem : policy.getContexts()) {
-            if (!checkContextAttribute(policyItem, request))
+    private boolean checkContextSet(final ContextSet policy, final ContextSet request) {
+        for (final var policyItem : policy.getContexts()) {
+            if (!this.checkContextAttribute(policyItem, request)) {
                 return false;
+            }
         }
         return true;
     }
 
-    private boolean checkContextAttribute(ContextAttribute policy, ContextSet request) {
+    private boolean checkContextAttribute(final ContextAttribute policy, final ContextSet request) {
         return request.getContexts().stream().anyMatch(e -> !policy.checkAccessRight(e));
 
     }
 
-    private List<List<ContextSet>> getContextSetsPolicy(List<PolicySpecification> policySpecification,
-            Set<ResourceDemandingBehaviour> behaviour) {
-        return policySpecification.stream().filter(policy -> contains(policy, behaviour))
+    private List<List<ContextSet>> getContextSetsPolicy(final List<PolicySpecification> policySpecification,
+            final Set<ResourceDemandingBehaviour> behaviour) {
+        return policySpecification.stream().filter(policy -> this.contains(policy, behaviour))
                 .map(PolicySpecification::getPolicy).collect(Collectors.toList());
     }
 
-    private boolean contains(PolicySpecification policy, Set<ResourceDemandingBehaviour> behaviours) {
-        for (ResourceDemandingBehaviour behaviour : behaviours) {
-            if (EcoreUtil.equals(policy.getResourcedemandingbehaviour(), behaviour))
+    private boolean contains(final PolicySpecification policy, final Set<ResourceDemandingBehaviour> behaviours) {
+        for (final ResourceDemandingBehaviour behaviour : behaviours) {
+            if (EcoreUtil.equals(policy.getResourcedemandingbehaviour(), behaviour)) {
                 return true;
+            }
         }
         return false;
     }
 
-    private ContextSet getContextSet(List<ContextSpecification> contextSpecification, UsageScenario scenario) {
+    private ContextSet getContextSet(final List<ContextSpecification> contextSpecification,
+            final UsageScenario scenario) {
         return contextSpecification.stream().filter(usage -> EcoreUtil.equals(scenario, usage.getUsagescenario()))
                 .map(ContextSpecification::getContextset).findFirst().get();
     }

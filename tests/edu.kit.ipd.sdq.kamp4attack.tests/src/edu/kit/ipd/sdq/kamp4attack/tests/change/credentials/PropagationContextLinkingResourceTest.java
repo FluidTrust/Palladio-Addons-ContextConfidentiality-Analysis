@@ -8,7 +8,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ContextChanges;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -33,7 +32,7 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     }
 
     private void runContextLinkingToResourcePropagation(final CredentialChange change) {
-        final var contextChange = new LinkingPropagationContext(getBlackboardWrapper());
+        final var contextChange = new LinkingPropagationContext(this.getBlackboardWrapper());
         contextChange.calculateLinkingResourceToResourcePropagation(change);
     }
 

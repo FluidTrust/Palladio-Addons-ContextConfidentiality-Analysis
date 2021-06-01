@@ -10,7 +10,7 @@ public class AttackPartition extends ResourceSetPartition {
     public AttackerSpecification getAttackSpecification() {
         // FIXME solve Problem of not finding ContextContainer
 
-        return (AttackerSpecification) getElement(AttackerPackage.eINSTANCE.getAttackerSpecification()).get(0);
+        return (AttackerSpecification) this.getElement(AttackerPackage.eINSTANCE.getAttackerSpecification()).get(0);
         // return (ContextContainer)
     }
 }

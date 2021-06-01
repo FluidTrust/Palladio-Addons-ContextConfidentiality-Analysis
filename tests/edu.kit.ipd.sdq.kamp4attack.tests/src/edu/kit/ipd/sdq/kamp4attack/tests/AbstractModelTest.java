@@ -38,22 +38,22 @@ public abstract class AbstractModelTest extends BaseTest {
     }
 
     @Override
-    protected List<String> getModelsPath(){
-        var list = new ArrayList<String>();
-        
-        list.add(PATH_ASSEMBLY);
-        list.add(PATH_ALLOCATION);
-        list.add(PATH_RESOURCES);
-        list.add(PATH_USAGE);
-        list.add(PATH_CONTEXT);
-        list.add(PATH_ATTACKER);
-        list.add(PATH_MODIFICATION);
-        
+    protected List<String> getModelsPath() {
+        final var list = new ArrayList<String>();
+
+        list.add(this.PATH_ASSEMBLY);
+        list.add(this.PATH_ALLOCATION);
+        list.add(this.PATH_RESOURCES);
+        list.add(this.PATH_USAGE);
+        list.add(this.PATH_CONTEXT);
+        list.add(this.PATH_ATTACKER);
+        list.add(this.PATH_MODIFICATION);
+
         return list;
     }
-    
+
     @Override
-    protected void assignValues(List<Resource> list) {
+    protected void assignValues(final List<Resource> list) {
         this.assembly = this.getModel(list, System.class);
         this.environment = this.getModel(list, ResourceEnvironment.class);
         this.allocation = this.getModel(list, Allocation.class);
@@ -61,6 +61,5 @@ public abstract class AbstractModelTest extends BaseTest {
         this.attacker = this.getModel(list, AttackerSpecification.class);
         this.modification = this.getModel(list, AbstractKAMP4attackModificationRepository.class);
     }
-    
 
 }

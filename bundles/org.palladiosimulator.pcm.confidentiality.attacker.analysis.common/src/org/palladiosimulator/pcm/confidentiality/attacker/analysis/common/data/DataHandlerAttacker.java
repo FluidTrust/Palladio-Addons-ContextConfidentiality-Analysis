@@ -9,21 +9,22 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.CompromisedData;
 
 public class DataHandlerAttacker {
-    private Attacker attacker;
+    private final Attacker attacker;
 
-    public DataHandlerAttacker(Attacker attacker) {
+    public DataHandlerAttacker(final Attacker attacker) {
         Objects.requireNonNull(attacker);
         this.attacker = attacker;
     }
 
-    public void addData(Collection<CompromisedData> data) {
-        var newData = data.stream().filter(referenceData -> !contains(referenceData)).collect(Collectors.toList());
-        attacker.getCompromiseddata().addAll(newData);
+    public void addData(final Collection<CompromisedData> data) {
+        final var newData = data.stream().filter(referenceData -> !this.contains(referenceData))
+                .collect(Collectors.toList());
+        this.attacker.getCompromiseddata().addAll(newData);
 
     }
 
-    private boolean contains(CompromisedData referenceData) {
-        return attacker.getCompromiseddata().stream()
+    private boolean contains(final CompromisedData referenceData) {
+        return this.attacker.getCompromiseddata().stream()
                 .anyMatch(data -> Objects.equals(data.getReferenceName(), referenceData.getReferenceName())
                         && EcoreUtil.equals(data.getSource(), referenceData.getSource())
                         && EcoreUtil.equals(data.getDataType(), referenceData.getDataType()));

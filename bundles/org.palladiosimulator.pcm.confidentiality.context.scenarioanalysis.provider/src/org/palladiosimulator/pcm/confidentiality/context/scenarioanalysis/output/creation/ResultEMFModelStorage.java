@@ -16,20 +16,22 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenario {
 
-    private AnalysisResults results;
+    private final AnalysisResults results;
 
     public ResultEMFModelStorage() {
-        results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        this.results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
     }
 
     @Override
-    public void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface,
-            OperationSignature signature, Connector connector, ContextSet requestor, List<ContextSet> policies) {
+    public void storeNegativeResult(final UsageScenario scenario, final OperationInterface operationInterface,
+            final OperationSignature signature, final Connector connector, final ContextSet requestor,
+            final List<ContextSet> policies) {
 
         // checking if positve result exists
-        if (results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
-                .anyMatch(ScenarioOutput::isResult))
+        if (this.results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
+                .anyMatch(ScenarioOutput::isResult)) {
             throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
+        }
 
         // checking for null values
         Objects.requireNonNull(scenario);
@@ -39,7 +41,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         Objects.requireNonNull(requestor);
         Objects.requireNonNull(policies);
 
-        var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         scenarioResult.setResult(false);
         scenarioResult.setConnector(connector);
         scenarioResult.setOperationsignature(signature);
@@ -48,51 +50,53 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         scenarioResult.setScenario(scenario);
         scenarioResult.getRequiredSets().addAll(policies);
 
-        results.getScenariooutput().add(scenarioResult);
+        this.results.getScenariooutput().add(scenarioResult);
 
     }
 
     @Override
-    public void storePositiveResult(UsageScenario scenario) {
+    public void storePositiveResult(final UsageScenario scenario) {
         // checking for negative results
-        if (results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
-                .anyMatch(ScenarioOutput::isResult))
+        if (this.results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
+                .anyMatch(ScenarioOutput::isResult)) {
             throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
+        }
 
         Objects.requireNonNull(scenario);
 
-        var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         scenarioResult.setResult(true);
         scenarioResult.setScenario(scenario);
 
-        results.getScenariooutput().add(scenarioResult);
+        this.results.getScenariooutput().add(scenarioResult);
 
     }
 
     /**
      * Returns a a self-contained copy of the current internally used result model
-     * 
+     *
      * @return self-contained copy of the AnalysisResults
      */
     public AnalysisResults getResultModel() {
-        return EcoreUtil.copy(results);
+        return EcoreUtil.copy(this.results);
     }
 
     @Override
-    public void flip(UsageScenario scenario) {
+    public void flip(final UsageScenario scenario) {
         Objects.requireNonNull(scenario);
-        var outputScenario = results.getScenariooutput().stream()
+        final var outputScenario = this.results.getScenariooutput().stream()
                 .filter(e -> EcoreUtil.equals(scenario, e.getScenario())).collect(Collectors.toList());
-        if(outputScenario.isEmpty())
+        if (outputScenario.isEmpty()) {
             throw new IllegalArgumentException("Usage scenario not found");
-        
-        var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        }
+
+        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         scenarioResult.setResult(!outputScenario.get(0).isResult());
         scenarioResult.setScenario(scenario);
-        
-        results.getScenariooutput().removeAll(outputScenario);
-        results.getScenariooutput().add(scenarioResult);
-              
+
+        this.results.getScenariooutput().removeAll(outputScenario);
+        this.results.getScenariooutput().add(scenarioResult);
+
     }
 
 }

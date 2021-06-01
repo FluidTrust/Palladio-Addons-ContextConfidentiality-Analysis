@@ -32,3 +32,4 @@ Export-Package: edu.kit.ipd.sdq.kamp4attack.activator,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes
 Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
 Service-Component: OSGI-INF/edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis.xml
+Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack

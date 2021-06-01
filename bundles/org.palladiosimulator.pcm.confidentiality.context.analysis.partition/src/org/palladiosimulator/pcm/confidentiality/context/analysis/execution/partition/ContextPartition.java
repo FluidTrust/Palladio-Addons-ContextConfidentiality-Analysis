@@ -8,8 +8,8 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 public class ContextPartition extends ResourceSetPartition {
     public ConfidentialAccessSpecification getContextSpecification() {
         // FIXME solve Problem of not finding ContextContainer
-        return (ConfidentialAccessSpecification) getElement(
-                ContextPackage.eINSTANCE.getConfidentialAccessSpecification()).get(0);
+        return (ConfidentialAccessSpecification) this
+                .getElement(ContextPackage.eINSTANCE.getConfidentialAccessSpecification()).get(0);
         // return (ContextContainer)
     }
 }

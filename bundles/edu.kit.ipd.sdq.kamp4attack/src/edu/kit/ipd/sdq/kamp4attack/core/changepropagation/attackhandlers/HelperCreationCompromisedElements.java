@@ -17,25 +17,28 @@ public class HelperCreationCompromisedElements {
 
     }
 
-    public static CompromisedResource createCompromisedResource(ResourceContainer container,
-            Collection<? extends EObject> list) {
-        var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+    public static CompromisedResource createCompromisedResource(final ResourceContainer container,
+            final Collection<? extends EObject> list) {
+        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(container);
         compromisedResource.getCausingElements().addAll(list);
         return compromisedResource;
     }
-    public static CompromisedAssembly createCompromisedAssembly(AssemblyContext container,
-            Collection<? extends EObject> list) {
-        var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
+
+    public static CompromisedAssembly createCompromisedAssembly(final AssemblyContext container,
+            final Collection<? extends EObject> list) {
+        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(container);
         compromisedResource.getCausingElements().addAll(list);
         return compromisedResource;
     }
-    public static CompromisedLinkingResource createCompromisedLinking(LinkingResource linking,
-            Collection<? extends EObject> list) {
-        var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
+
+    public static CompromisedLinkingResource createCompromisedLinking(final LinkingResource linking,
+            final Collection<? extends EObject> list) {
+        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE
+                .createCompromisedLinkingResource();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(linking);
         compromisedResource.getCausingElements().addAll(list);

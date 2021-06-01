@@ -5,6 +5,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 
 /**
  * Loads the necessary PCM models for the attacker analysis
+ *
  * @author majuwa
  *
  */

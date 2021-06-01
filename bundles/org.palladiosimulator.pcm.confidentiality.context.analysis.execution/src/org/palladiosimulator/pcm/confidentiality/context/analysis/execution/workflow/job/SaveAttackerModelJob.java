@@ -25,26 +25,26 @@ public class SaveAttackerModelJob implements IBlackboardInteractingJob<MDSDBlack
     }
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        var partitionOutput = blackboard.getPartition(PARTITION_ID_ATTACK);
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+        final var partitionOutput = this.blackboard.getPartition(PARTITION_ID_ATTACK);
 
-        var test = configuration.getAttackModel();
-        var segments = test.segments();
-        segments[test.segmentCount()-1] = "attacker.output.attacker";
-        var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
-        
-        var resource = partitionOutput.getResourceSet().createResource(testUri);
+        final var test = this.configuration.getAttackModel();
+        final var segments = test.segments();
+        segments[test.segmentCount() - 1] = "attacker.output.attacker";
+        final var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
+
+        final var resource = partitionOutput.getResourceSet().createResource(testUri);
         try {
-           resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
+            resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
             resource.save(Collections.EMPTY_MAP);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Auto-generated method stub
 
     }
@@ -56,7 +56,7 @@ public class SaveAttackerModelJob implements IBlackboardInteractingJob<MDSDBlack
     }
 
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 

@@ -25,7 +25,6 @@ class AttackPreStepTest extends AbstractModelTest {
         this.PATH_RESOURCES = "simpleAttackmodels/PreStepTest/newResourceEnvironment.resourceenvironment";
     }
 
-    
     protected void execute() {
         final var wrapper = this.getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
@@ -33,7 +32,7 @@ class AttackPreStepTest extends AbstractModelTest {
 
     @Test
     void testNoNullValue() {
-        execute();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
         assertNotNull(steps);
     }
@@ -41,7 +40,7 @@ class AttackPreStepTest extends AbstractModelTest {
     @Test
     void testOnlyStartAssembly() {
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
-        execute();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
@@ -62,7 +61,7 @@ class AttackPreStepTest extends AbstractModelTest {
         this.contextID = testContext.getId();
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(testContext);
-        execute();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         assertEquals(1, steps.size());
@@ -81,7 +80,7 @@ class AttackPreStepTest extends AbstractModelTest {
         final var dbResource = this.environment.getResourceContainer_ResourceEnvironment().stream()
                 .filter(e -> e.getEntityName().equals("DatabaseMachine")).findAny().get();
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources().add(dbResource);
-        execute();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
 
         final var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();

@@ -1,7 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
 
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_CONTEXT;
-import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_KASTEL;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_OUTPUT;
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_PCM;
 
@@ -13,7 +12,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.DataAttackPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.OutputPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
@@ -46,7 +44,7 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
 
-        var pcm = new PCMBlackBoard(pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
+        final var pcm = new PCMBlackBoard(pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
                 pcmPartition.getUsageModel());
 
         final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification());

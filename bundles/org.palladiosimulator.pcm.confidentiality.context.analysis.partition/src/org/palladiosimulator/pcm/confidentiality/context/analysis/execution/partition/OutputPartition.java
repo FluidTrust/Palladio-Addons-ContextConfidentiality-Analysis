@@ -5,8 +5,8 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.Ou
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.ResourceSetPartition;
 
-public class OutputPartition extends ResourceSetPartition{
+public class OutputPartition extends ResourceSetPartition {
     public AnalysisResults getAnalysisResults() {
-        return (AnalysisResults)getElement(OutputmodelPackage.eINSTANCE.getAnalysisResults()).get(0);
+        return (AnalysisResults) this.getElement(OutputmodelPackage.eINSTANCE.getAnalysisResults()).get(0);
     }
 }

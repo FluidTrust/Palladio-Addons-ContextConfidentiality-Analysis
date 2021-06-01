@@ -28,7 +28,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override

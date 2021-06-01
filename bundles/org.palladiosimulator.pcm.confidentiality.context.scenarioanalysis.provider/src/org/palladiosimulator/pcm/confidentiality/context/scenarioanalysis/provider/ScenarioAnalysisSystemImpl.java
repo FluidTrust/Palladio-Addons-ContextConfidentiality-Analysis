@@ -20,21 +20,21 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
     @Override
-    public AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context) {
+    public AnalysisResults runScenarioAnalysis(final PCMBlackBoard pcm, final ConfidentialAccessSpecification context) {
 
-        var usage = pcm.getUsageModel();
-        var result = new ResultEMFModelStorage();
+        final var usage = pcm.getUsageModel();
+        final var result = new ResultEMFModelStorage();
 
-        for (var scenario : usage.getUsageScenario_UsageModel()) {
-            var requestor = this.getRequestorContexts(context, scenario);
+        for (final var scenario : usage.getUsageScenario_UsageModel()) {
+            final var requestor = this.getRequestorContexts(context, scenario);
 
-            var visitor = new UsageModelVisitorScenarioSystem();
-            var systemCalls = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
+            final var visitor = new UsageModelVisitorScenarioSystem();
+            final var systemCalls = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
 
-            for (var systemCall : systemCalls) {
-                var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
-                var checkOperation = new CheckOperation(pcm, context, result, scenario);
-                var walker = new SystemWalker(checkOperation);
+            for (final var systemCall : systemCalls) {
+                final var tmpRequestor = this.getRequestorContexts(context, systemCall, requestor);
+                final var checkOperation = new CheckOperation(pcm, context, result, scenario);
+                final var walker = new SystemWalker(checkOperation);
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
 
@@ -43,7 +43,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                     .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
                 result.storePositiveResult(scenario);
             }
-            if(isMisusage(context, scenario)) {
+            if (this.isMisusage(context, scenario)) {
                 result.flip(scenario);
             }
 
@@ -53,28 +53,30 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
     }
 
-    private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, UsageScenario scenario) {
-        var requestorStream = getSpecificationScenario(access, scenario);
-        var requestor = requestorStream.map(ContextSpecification::getContextset).findAny();
+    private ContextSet getRequestorContexts(final ConfidentialAccessSpecification access,
+            final UsageScenario scenario) {
+        final var requestorStream = this.getSpecificationScenario(access, scenario);
+        final var requestor = requestorStream.map(ContextSpecification::getContextset).findAny();
         return requestor.orElse(SetFactory.eINSTANCE.createContextSet());
     }
-    
-    private boolean isMisusage(ConfidentialAccessSpecification access, UsageScenario scenario) {
-        var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
-        if(scenarioSpecification.isPresent())
+
+    private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario scenario) {
+        final var scenarioSpecification = this.getSpecificationScenario(access, scenario).findAny();
+        if (scenarioSpecification.isPresent()) {
             return scenarioSpecification.get().isMissageUse();
+        }
         return false;
     }
 
-    private Stream<ContextSpecification> getSpecificationScenario(ConfidentialAccessSpecification access,
-            UsageScenario scenario) {
+    private Stream<ContextSpecification> getSpecificationScenario(final ConfidentialAccessSpecification access,
+            final UsageScenario scenario) {
         return access.getPcmspecificationcontainer().getContextspecification().stream()
                 .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
     }
 
-    private ContextSet getRequestorContexts(ConfidentialAccessSpecification access, EntryLevelSystemCall systemCall,
-            ContextSet oldSet) {
-        var requestor = access.getPcmspecificationcontainer().getContextspecification().stream()
+    private ContextSet getRequestorContexts(final ConfidentialAccessSpecification access,
+            final EntryLevelSystemCall systemCall, final ContextSet oldSet) {
+        final var requestor = access.getPcmspecificationcontainer().getContextspecification().stream()
                 .filter(e -> EcoreUtil.equals(e.getEntrylevelsystemcall(), systemCall))
                 .map(ContextSpecification::getContextset).findAny();
         return requestor.orElse(oldSet);

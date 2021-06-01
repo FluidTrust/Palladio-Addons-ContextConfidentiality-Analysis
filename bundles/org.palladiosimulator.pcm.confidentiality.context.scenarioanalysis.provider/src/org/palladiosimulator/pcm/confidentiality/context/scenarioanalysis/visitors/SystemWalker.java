@@ -16,55 +16,60 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 
 public class SystemWalker {
 
-    private CheckOperation operation;
+    private final CheckOperation operation;
 
-    public SystemWalker(CheckOperation operation) {
+    public SystemWalker(final CheckOperation operation) {
         Objects.requireNonNull(operation);
         this.operation = operation;
 
     }
 
-    public void propagationBySeff(EntryLevelSystemCall systemCall, System system, ContextSet context) {
-        var assemblyContext = getHandlingAssemblyContext(systemCall, system);
-        var encapsulatingContexts = new ArrayList<AssemblyContext>();
+    public void propagationBySeff(final EntryLevelSystemCall systemCall, final System system,
+            final ContextSet context) {
+        final var assemblyContext = this.getHandlingAssemblyContext(systemCall, system);
+        final var encapsulatingContexts = new ArrayList<AssemblyContext>();
         encapsulatingContexts.add(assemblyContext);
 
-        operation.performCheck(systemCall, assemblyContext, context);
+        this.operation.performCheck(systemCall, assemblyContext, context);
 
-        var seff = getSEFF(systemCall, system);
-        propagationBySeff(seff, encapsulatingContexts, context);
+        final var seff = this.getSEFF(systemCall, system);
+        this.propagationBySeff(seff, encapsulatingContexts, context);
     }
 
-    private void propagationBySeff(ServiceEffectSpecification seff, List<AssemblyContext> encapsulatingContexts, ContextSet context) {
-        var visitor2 = new SeffAssemblyContext();
-        var externalCallActions = visitor2.doSwitch(seff);
-        for (var externalAction : externalCallActions) {
-            var contextOpt = operation.performCheck(externalAction, encapsulatingContexts.get(encapsulatingContexts.size() - 1), context);
-            var service = PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts);
-            var nextSeff = getSEFF(externalAction.getCalledService_ExternalService(), service.get(service.size() - 1));
-            if(contextOpt.isPresent())
+    private void propagationBySeff(final ServiceEffectSpecification seff,
+            final List<AssemblyContext> encapsulatingContexts, ContextSet context) {
+        final var visitor2 = new SeffAssemblyContext();
+        final var externalCallActions = visitor2.doSwitch(seff);
+        for (final var externalAction : externalCallActions) {
+            final var contextOpt = this.operation.performCheck(externalAction,
+                    encapsulatingContexts.get(encapsulatingContexts.size() - 1), context);
+            final var service = PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts);
+            final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
+                    service.get(service.size() - 1));
+            if (contextOpt.isPresent()) {
                 context = contextOpt.get();
-            propagationBySeff(nextSeff,service, context);
+            }
+            this.propagationBySeff(nextSeff, service, context);
         }
     }
 
-    private ServiceEffectSpecification getSEFF(EntryLevelSystemCall call, System system) {
-        Signature sig = call.getOperationSignature__EntryLevelSystemCall();
+    private ServiceEffectSpecification getSEFF(final EntryLevelSystemCall call, final System system) {
+        final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        AssemblyContext ac = getHandlingAssemblyContext(call, system);
-        return getSEFF(sig, ac);
+        final AssemblyContext ac = this.getHandlingAssemblyContext(call, system);
+        return this.getSEFF(sig, ac);
     }
 
-    private AssemblyContext getHandlingAssemblyContext(EntryLevelSystemCall call, System system) {
-        List<AssemblyContext> acList = PCMInstanceHelper.getHandlingAssemblyContexts(call, system);
+    private AssemblyContext getHandlingAssemblyContext(final EntryLevelSystemCall call, final System system) {
+        final List<AssemblyContext> acList = PCMInstanceHelper.getHandlingAssemblyContexts(call, system);
         return acList.get(acList.size() - 1); // according to specification last element of list is
                                               // the actual assembly context
     }
 
-    private ServiceEffectSpecification getSEFF(Signature sig, AssemblyContext ac) {
-        BasicComponent bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
-        EList<ServiceEffectSpecification> seffList = bc.getServiceEffectSpecifications__BasicComponent();
-        for (ServiceEffectSpecification seff : seffList) {
+    private ServiceEffectSpecification getSEFF(final Signature sig, final AssemblyContext ac) {
+        final BasicComponent bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
+        final EList<ServiceEffectSpecification> seffList = bc.getServiceEffectSpecifications__BasicComponent();
+        for (final ServiceEffectSpecification seff : seffList) {
             if (seff.getDescribedService__SEFF().getEntityName().equals(sig.getEntityName())) {
                 return seff;
             }

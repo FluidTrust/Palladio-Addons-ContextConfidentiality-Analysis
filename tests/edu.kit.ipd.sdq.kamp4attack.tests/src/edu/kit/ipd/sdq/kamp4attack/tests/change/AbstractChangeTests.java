@@ -140,50 +140,52 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         change.getCompromisedresource().add(infectedResource);
         return infectedResource;
     }
-    
-    protected CWEID createCWEID(int id) {
-        var cweID = AttackSpecificationFactory.eINSTANCE.createCWEID();
+
+    protected CWEID createCWEID(final int id) {
+        final var cweID = AttackSpecificationFactory.eINSTANCE.createCWEID();
         cweID.setCweID(id);
         return cweID;
     }
 
-    protected CWEID createCWEID(int id, CWEID parent) {
-        var cweID = createCWEID(id);
+    protected CWEID createCWEID(final int id, final CWEID parent) {
+        final var cweID = this.createCWEID(id);
         parent.getChildren().add(cweID);
         return cweID;
     }
 
-    protected CVEID createCVEID(String id) {
-        var cweID = AttackSpecificationFactory.eINSTANCE.createCVEID();
+    protected CVEID createCVEID(final String id) {
+        final var cweID = AttackSpecificationFactory.eINSTANCE.createCVEID();
         cweID.setCveID(id);
         return cweID;
     }
 
-    protected CWEAttack createCWEAttack(CWEID id) {
-        var cweAttack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
+    protected CWEAttack createCWEAttack(final CWEID id) {
+        final var cweAttack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
         cweAttack.setCategory(id);
         return cweAttack;
     }
 
-    protected CWEVulnerability createCWEVulnerability(CWEID id, AttackVector vector, Privileges privileges,
-            ConfidentialityImpact impact, boolean takeOver, ContextSet requiredCredentials,
-            ContextSet gainedCredentials) {
-        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
+    protected CWEVulnerability createCWEVulnerability(final CWEID id, final AttackVector vector,
+            final Privileges privileges, final ConfidentialityImpact impact, final boolean takeOver,
+            final ContextSet requiredCredentials, final ContextSet gainedCredentials) {
+        final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
         vulnerability.getCweID().add(id);
         vulnerability.setAttackVector(vector);
         vulnerability.setPrivileges(privileges);
         vulnerability.setConfidentialityImpact(impact);
         vulnerability.setTakeOver(takeOver);
-        if (requiredCredentials != null)
+        if (requiredCredentials != null) {
             vulnerability.setRequiredCredentials(requiredCredentials);
-        if (gainedCredentials != null)
+        }
+        if (gainedCredentials != null) {
             vulnerability.getGainedPrivilege().add(gainedCredentials);
+        }
         return vulnerability;
     }
-    
+
     protected CWEID createSimpleAttack() {
-        var cweID = createCWEID(1);
-        var attack = createCWEAttack(cweID);
+        final var cweID = this.createCWEID(1);
+        final var attack = this.createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
     }

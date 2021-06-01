@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 
 import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
@@ -26,10 +25,10 @@ class ModelsTest extends AbstractModelTest {
         this.PATH_USAGE = "simpleAttackmodels/SimpleModelTest/newUsageModel.usagemodel";
         this.PATH_RESOURCES = "simpleAttackmodels/SimpleModelTest/newResourceEnvironment.resourceenvironment";
     }
-    
+
     @BeforeEach
     protected void execute() {
-        attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
+        this.attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
         final var wrapper = this.getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
