@@ -41,67 +41,67 @@
   </typeContainer>
   <pcmspecificationcontainer id="_n0tpsijqEeuoSrFTXjz8ug" entityName="PCM-Specification">
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_D1dQ8SpGEeu2k9cuIp092g" entityName="AccessOperationBookSelected" policy="_66f3YCphEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_kEQiUMOBEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_GmUUEMN1EeWPE-QAhbUzuQ"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_pokM8SjqEeuoSrFTXjz8ug" entityName="AccessOperationBookFlight" policy="_9EuTQCphEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:AssemblyConnector" href="../default.system#_85M4EMOAEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_hH_oISjsEeuoSrFTXjz8ug" entityName="AccessOperationReleaseCCD" policy="__0ynICphEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_fEC1cM5xEeWFJak7Wqvc0g"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_jergYN5bEeeel_96Qa_d5A"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_6ffugSpCEeu2k9cuIp092g" entityName="AccessOperationSetDeclassified" policy="_BVVM0CpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_fEC1cM5xEeWFJak7Wqvc0g"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_Mbgp8HZrEeaE4tGRMtTb7A"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_KWvUASpDEeu2k9cuIp092g" entityName="AccessOperationGetFlightOffers" policy="_EO1wkCpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_kEQiUMOBEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_602gYM5lEeWFJak7Wqvc0g"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_GlpykSpEEeu2k9cuIp092g" entityName="AccessOperationGetFlightOffersTravelplannerTravelAgency" policy="_F108gCpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:AssemblyConnector" href="../default.system#_nCPoUMN_EeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_qMDYYSpGEeu2k9cuIp092g" entityName="AccessOperationGetFlightOffersTravelAgencyAirline" policy="_HZnqgCpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:AssemblyConnector" href="../default.system#_jsvPoMOAEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_QEzYISpFEeu2k9cuIp092g" entityName="AccessOperationConfirmBooking" policy="_JPBF4CpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:AssemblyConnector" href="../default.system#_ozglIN5dEeeel_96Qa_d5A"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_iMBxUSpHEeu2k9cuIp092g" entityName="AccessOperationPayCommision" policy="_J1Tp0CpiEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:AssemblyConnector" href="../default.system#_i_gWMMOAEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_J87KMSphEeu2k9cuIp092g" entityName="AccessOperationSetAvailableFlights" policy="_k6_WUCplEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_yHXWIN5dEeeel_96Qa_d5A"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_ok8ZYM5wEeWFJak7Wqvc0g"/>
       </methodspecification>
     </policyspecification>
     <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_wlmgISphEeu2k9cuIp092g" entityName="AccessOperationSetCreditCardData" policy="_LnpNUCpmEeu2k9cuIp092g">
-      <methodspecification>
+      <methodspecification xsi:type="asembly:ConnectionRestriction">
         <connector xsi:type="composition:ProvidedDelegationConnector" href="../default.system#_y3iJYMOBEeWst9mTsticNA"/>
         <signature xsi:type="repository:OperationSignature" href="../default.repository#_N6idsMN3EeWPE-QAhbUzuQ"/>
       </methodspecification>

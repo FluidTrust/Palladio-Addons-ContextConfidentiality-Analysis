@@ -15,8 +15,12 @@ import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.model.HierarchicalContext;
 import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.model.RelatedContextSet;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
 import org.palladiosimulator.pcm.confidentiality.context.specification.ContextSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
@@ -31,6 +35,9 @@ public abstract class BaseTestScenario extends BaseTest {
     protected UsageModel usage;
     protected System assembly;
     protected ConfidentialAccessSpecification context;
+    protected PCMBlackBoard blackBoard;
+    protected ScenarioAnalysis analysis;
+    protected Configuration configuration;
 
     @Override
     protected List<String> getModelsPath() {
@@ -43,6 +50,8 @@ public abstract class BaseTestScenario extends BaseTest {
 
         return list;
     }
+
+    protected abstract void initLocal();
 
     @Override
     protected void assignValues(final List<Resource> list) {
@@ -70,8 +79,17 @@ public abstract class BaseTestScenario extends BaseTest {
         return specification.get();
     }
 
+    protected SystemPolicySpecification getPolicySpecificationByName(final String name) {
+        final var policySpecification = this.context.getPcmspecificationcontainer().getPolicyspecification().stream()
+                .filter(e -> name.equals(e.getEntityName())).findAny();
+        if (policySpecification.isEmpty()) {
+            fail("Policy with name " + name + " not found");
+        }
+        return policySpecification.get();
+    }
+
     protected boolean getScenarioResultByName(final AnalysisResults results, final String name) {
-        final var scenario = this.getScenarioByName(results, name);
+        final var scenario = getScenarioByName(results, name);
         return scenario.isResult();
     }
 
@@ -90,7 +108,7 @@ public abstract class BaseTestScenario extends BaseTest {
     }
 
     protected void clearContextSetByName(final String name) {
-        final var set = this.getContextSetByName(name);
+        final var set = getContextSetByName(name);
         set.getContexts().clear();
     }
 

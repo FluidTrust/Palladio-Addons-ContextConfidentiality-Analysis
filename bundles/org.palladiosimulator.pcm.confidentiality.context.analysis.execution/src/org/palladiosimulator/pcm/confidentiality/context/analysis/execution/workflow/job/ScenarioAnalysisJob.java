@@ -14,6 +14,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Acti
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.OutputPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
@@ -47,7 +48,7 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var pcm = new PCMBlackBoard(pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
                 pcmPartition.getUsageModel());
 
-        final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification());
+        final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification(), new Configuration(false));
         final var outputPartition = new OutputPartition();
         final var content = new ArrayList<EObject>(1);
         content.add(result);
