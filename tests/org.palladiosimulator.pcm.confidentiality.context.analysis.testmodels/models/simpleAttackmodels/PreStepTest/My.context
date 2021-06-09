@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asembly="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/assembly/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/0.1/" xmlns:model="http://www.palladiosimulator.org/pcm/confidentiality/context/model/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:asembly="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/assembly/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/0.1/" xmlns:model="http://www.palladiosimulator.org/pcm/confidentiality/context/model/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
   <setContainer id="_Oo7ycO29Eeq6pfPMAIqEqg">
     <policies id="_RTNAUO29Eeq6pfPMAIqEqg" entityName="accessHardware" contexts="_XE-xsO29Eeq6pfPMAIqEqg"/>
     <policies id="_TRgRQO6HEeq5scioEFym-g" entityName="QueryUserData" contexts="_OeIo4e6HEeq5scioEFym-g _v5vkYe6EEeq5scioEFym-g"/>
@@ -15,16 +15,17 @@
   </contextContainer>
   <typeContainer/>
   <pcmspecificationcontainer id="_fi2V4-29Eeq6pfPMAIqEqg">
-    <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_lryYIe2_Eeq6pfPMAIqEqg" entityName="hardwareAccess" policy="_RTNAUO29Eeq6pfPMAIqEqg">
+    <policyspecification id="_lryYIe2_Eeq6pfPMAIqEqg" entityName="hardwareAccess" policy="_RTNAUO29Eeq6pfPMAIqEqg">
       <resourcecontainer href="newResourceEnvironment.resourceenvironment#_Fg8BQe2_Eeq6pfPMAIqEqg"/>
     </policyspecification>
-    <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_x8kNQe2_Eeq6pfPMAIqEqg" entityName="AccessDB">
-      <methodspecification>
-        <connector xsi:type="composition:AssemblyConnector" href="newAssembly.system#_1oErIO2-Eeq6pfPMAIqEqg"/>
+    <policyspecification id="_x8kNQe2_Eeq6pfPMAIqEqg" entityName="AccessDB">
+      <methodspecification xsi:type="asembly:ProvidedRestriction">
         <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_J5tNwO2-Eeq6pfPMAIqEqg"/>
+        <providedrole xsi:type="repository:OperationProvidedRole" href="newRepository.repository#_OEhoYO2-Eeq6pfPMAIqEqg"/>
+        <assemblycontext href="newAssembly.system#_nhYdQO2-Eeq6pfPMAIqEqg"/>
       </methodspecification>
     </policyspecification>
-    <policyspecification xsi:type="asembly:SystemPolicySpecification" id="_pr6Pge6MEeq8PsSVKRGSHQ" entityName="policyUserTerminal" policy="_f7DZcO6MEeq8PsSVKRGSHQ">
+    <policyspecification id="_pr6Pge6MEeq8PsSVKRGSHQ" entityName="policyUserTerminal" policy="_f7DZcO6MEeq8PsSVKRGSHQ">
       <resourcecontainer href="newResourceEnvironment.resourceenvironment#_Fg8BQe2_Eeq6pfPMAIqEqg"/>
     </policyspecification>
     <attributeprovider id="_Gc8nYe6MEeq8PsSVKRGSHQ" entityName="ProvidingLocationContexts" contextset="_m1yeUO6JEeqJxIE3oSjITQ">

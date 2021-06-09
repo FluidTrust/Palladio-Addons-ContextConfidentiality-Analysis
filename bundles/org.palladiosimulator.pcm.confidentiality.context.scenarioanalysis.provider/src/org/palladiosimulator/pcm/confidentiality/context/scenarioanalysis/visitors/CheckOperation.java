@@ -87,13 +87,15 @@ public class CheckOperation {
     public Optional<ContextSet> performCheck(final EntryLevelSystemCall systemCall,
             final AssemblyContext encapsulatedContext, final ContextSet requestorContext) {
         final var connector = getDelegationConnector(systemCall, encapsulatedContext);
+        this.performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), encapsulatedContext, connector,
+                connector.getInnerProvidedRole_ProvidedDelegationConnector(), requestorContext);
         return this.performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), connector, requestorContext);
     }
 
     public Optional<ContextSet> performCheck(final OperationSignature signature, final Connector connector,
             final ContextSet requestorContext) {
         final var setContexts = getContextSets(signature, connector, this.policies);
-        if (!checkContextSet(requestorContext, setContexts)) {
+        if (!setContexts.isEmpty() && !checkContextSet(requestorContext, setContexts)) {
             this.storage.storeNegativeResult(this.scenario, signature.getInterface__OperationSignature(), signature,
                     connector, requestorContext, setContexts);
         }
@@ -113,7 +115,7 @@ public class CheckOperation {
         }
     }
 
-    public void performCheck(OperationSignature signature, AssemblyContext component, Connector connector,
+    private void performCheck(OperationSignature signature, AssemblyContext component, Connector connector,
             ProvidedRole role, ContextSet requestorContext) {
         final var setContexts = getContextSets(signature, role, component, this.policies);
         if (!checkContextSet(requestorContext, setContexts)) {
@@ -167,8 +169,8 @@ public class CheckOperation {
             List<SystemPolicySpecification> policies) {
         return policies.stream().filter(e -> e.getMethodspecification() != null)
                 .filter(e -> e.getMethodspecification() instanceof ProvidedRestriction).filter(e -> {
-                    var restriction = (ProvidedRestriction) e;
-                    return EcoreUtil.equals(restriction.getAssemblycontext(), signature)
+                    var restriction = (ProvidedRestriction) e.getMethodspecification();
+                    return EcoreUtil.equals(restriction.getSignature(), signature)
                             && EcoreUtil.equals(restriction.getProvidedrole(), role)
                             && EcoreUtil.equals(restriction.getAssemblycontext(), component);
                 }).flatMap(e -> e.getPolicy().stream()).collect(Collectors.toList());

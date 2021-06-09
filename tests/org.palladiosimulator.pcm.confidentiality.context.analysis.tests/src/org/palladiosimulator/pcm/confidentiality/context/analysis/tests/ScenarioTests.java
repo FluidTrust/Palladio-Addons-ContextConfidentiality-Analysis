@@ -32,6 +32,7 @@ class ScenarioTests extends BaseTestScenario {
         // clear existing policies
         this.context.getSetContainer().stream().flatMap(e -> e.getPolicies().stream())
                 .forEach(e -> e.getContexts().clear());
+        this.blackBoard.getUsageModel().getUsageScenario_UsageModel().remove(0);
 
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
         assertNotNull(output.getScenariooutput());
