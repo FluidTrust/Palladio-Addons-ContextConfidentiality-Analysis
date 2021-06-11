@@ -30,7 +30,6 @@ public class AssemblyContextContext extends AssemblyContextHandler {
             final var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
             return Optional.of(compromised);
         }
-        // TODO: Add data handling
         return Optional.empty();
     }
 

@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
@@ -36,16 +37,16 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
                 .filter(e -> listCompromisedLinkingResources.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getLinkingresource(), f)));
 
-        this.updateFromContextProviderStream(changes, streamAttributeProvider);
+        updateFromContextProviderStream(changes, streamAttributeProvider);
 
     }
 
     @Override
     public void calculateLinkingResourceToResourcePropagation(final CredentialChange changes) {
-        final var compromisedLinkingResources = this.getCompromisedLinkingResources(changes);
+        final var compromisedLinkingResources = getCompromisedLinkingResources(changes);
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
-            final var handler = this.getResourceContainerHandler();
+            final var handler = getResourceContainerHandler();
             handler.attackResourceContainer(reachableResources, changes, linking);
         }
 
@@ -57,18 +58,22 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
 
     @Override
     public void calculateLinkingResourceToAssemblyContextPropagation(final CredentialChange changes) {
-        final var compromisedLinkingResources = this.getCompromisedLinkingResources(changes);
+        final var compromisedLinkingResources = getCompromisedLinkingResources(changes);
 
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
             var reachableAssemblies = CollectionHelper.getAssemblyContext(reachableResources,
                     this.modelStorage.getAllocation());
-            final var handler = this.getAssemblyContextHandler();
+            final var handler = getAssemblyContextHandler();
             reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
             handler.attackAssemblyContext(reachableAssemblies, changes, linking);
+            handleSeff(changes, reachableAssemblies, linking);
 
         }
     }
+
+    protected abstract void handleSeff(CredentialChange changes, List<AssemblyContext> components,
+            LinkingResource source);
 
     protected List<LinkingResource> getCompromisedLinkingResources(final CredentialChange changes) {
         return changes.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
