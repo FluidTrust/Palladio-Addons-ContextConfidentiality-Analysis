@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyFactory;
+import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.ProvidedRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -39,37 +41,56 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToContextPropagation(final CredentialChange changes) {
-        final var listCompromisedAssemblyContexts = this.getCompromisedAssemblyContexts(changes);
+        final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts(changes);
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
                 .filter(e -> listCompromisedAssemblyContexts.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
-        this.updateFromContextProviderStream(changes, streamAttributeProvider);
+        updateFromContextProviderStream(changes, streamAttributeProvider);
 
     }
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation(final CredentialChange changes) {
-        final var listCompromisedContexts = this.getCompromisedAssemblyContexts(changes);
+        final var listCompromisedContexts = getCompromisedAssemblyContexts(changes);
 
         for (final var component : listCompromisedContexts) {
-            final var connected = this.getConnectedComponents(component);
-            final var containers = connected.stream().map(e -> this.getResourceContainer(e)).distinct()
+            final var connected = getConnectedComponents(component);
+            final var containers = connected.stream().map(this::getResourceContainer).distinct()
                     .collect(Collectors.toList());
-            final var handler = this.getRemoteResourceHandler();
+            final var handler = getRemoteResourceHandler();
             handler.attackResourceContainer(containers, changes, component);
         }
 
     }
 
+    private void handleSeff(CredentialChange changes, AssemblyContext component) {
+        final var system = this.modelStorage.getAssembly();
+        // TODO simplify stream expression directly to components!
+        final var targetConnectors = getTargetedConnectors(component, system);
+
+        final var specification = targetConnectors.stream()
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component))
+                .map(role -> {
+                    var methodspecification = AssemblyFactory.eINSTANCE.createProvidedRestriction();
+                    methodspecification.setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                    methodspecification.setProvidedrole(role.getProvidedRole_AssemblyConnector());
+                    return methodspecification;
+                }).collect(Collectors.toList());
+        handleSeff(changes, specification, component);
+    }
+
+    protected abstract void handleSeff(CredentialChange changes, List<ProvidedRestriction> components,
+            AssemblyContext source);
+
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation(final CredentialChange changes) {
-        final var listCompromisedContexts = this.getCompromisedAssemblyContexts(changes);
+        final var listCompromisedContexts = getCompromisedAssemblyContexts(changes);
 
         for (final var component : listCompromisedContexts) {
-            final var resource = this.getResourceContainer(component);
-            final var handler = this.getLocalResourceHandler();
+            final var resource = getResourceContainer(component);
+            final var handler = getLocalResourceHandler();
             handler.attackResourceContainer(List.of(resource), changes, component);
         }
 
@@ -93,13 +114,14 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation(final CredentialChange changes) {
-        final var listCompromisedContexts = this.getCompromisedAssemblyContexts(changes);
+        final var listCompromisedContexts = getCompromisedAssemblyContexts(changes);
         for (final var component : listCompromisedContexts) {
-            var targetComponents = this.getConnectedComponents(component);
+            var targetComponents = getConnectedComponents(component);
 
-            final var handler = this.getAssemblyHandler();
+            final var handler = getAssemblyHandler();
             targetComponents = CollectionHelper.removeDuplicates(targetComponents);
             handler.attackAssemblyContext(targetComponents, changes, component);
+            handleSeff(changes, component);
         }
 
     }
@@ -107,7 +129,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
-        final var targetConnectors = this.getTargetedConnectors(component, system);
+        final var targetConnectors = getTargetedConnectors(component, system);
 
         final var targetComponents = targetConnectors.stream()
                 .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
@@ -131,12 +153,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation(final CredentialChange changes) {
-        final var listCompromisedAssemblyContexts = this.getCompromisedAssemblyContexts(changes);
+        final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts(changes);
 
         for (final var component : listCompromisedAssemblyContexts) {
-            final var resource = this.getResourceContainer(component);
-            final var reachableLinkingResources = this.getLinkingResource(resource);
-            final var handler = this.getLinkingHandler();
+            final var resource = getResourceContainer(component);
+            final var reachableLinkingResources = getLinkingResource(resource);
+            final var handler = getLinkingHandler();
             handler.attackLinkingResource(reachableLinkingResources, changes, component);
         }
     }
