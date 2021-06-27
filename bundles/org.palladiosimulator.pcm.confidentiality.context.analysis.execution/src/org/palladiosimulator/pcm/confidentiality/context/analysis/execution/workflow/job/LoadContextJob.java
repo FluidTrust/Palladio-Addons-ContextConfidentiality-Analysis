@@ -5,7 +5,7 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
-import org.palladiosimulator.pcm.confidentiality.context.ContextPackage;
+import org.palladiosimulator.pcm.confidentiality.accessControl.ContextPackage;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 
@@ -21,7 +21,7 @@ public class LoadContextJob extends AbstractLoadModelJob {
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var contextPartition = new ContextPartition();
-        this.loadModel2Partition(contextPartition, new URI[] { this.configuration.getContextModel() },
+        loadModel2Partition(contextPartition, new URI[] { this.configuration.getContextModel() },
                 new EPackage[] { ContextPackage.eINSTANCE }, PARTITION_ID_CONTEXT);
     }
 

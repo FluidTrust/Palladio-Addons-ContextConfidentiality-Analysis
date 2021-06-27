@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Generation
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.xacml.generation
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.xacml.generation.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ org.palladiosimulator.pcm,
+ org.palladiosimulator.pcm.confidentiality.context;bundle-version="0.3.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.xacml.generation
+Bundle-ActivationPolicy: lazy
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api
