@@ -12,10 +12,11 @@ import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PC
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ScenarioResultStorage;
 import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AttributeProvider;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.ConnectionRestriction;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.ProvidedRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.AttributeProvider;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ProvidedRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
@@ -37,17 +38,17 @@ public class CheckOperation {
     private final UsageScenario scenario;
     private final Configuration configuration;
 
-    public CheckOperation(final PCMBlackBoard pcm, final ConfidentialAccessSpecification accessSpecificatoin,
+    public CheckOperation(final PCMBlackBoard pcm, final ConfidentialAccessSpecification accessSpecification,
             final ScenarioResultStorage storage, final UsageScenario scenario, Configuration configuration) {
         // non null checks
         Objects.requireNonNull(pcm);
-        Objects.requireNonNull(accessSpecificatoin);
+        Objects.requireNonNull(accessSpecification);
         Objects.requireNonNull(storage);
         Objects.requireNonNull(scenario);
         Objects.requireNonNull(configuration);
 
-        this.policies = accessSpecificatoin.getPcmspecificationcontainer().getPolicyspecification();
-        this.attributeProviders = accessSpecificatoin.getPcmspecificationcontainer().getAttributeprovider();
+        this.policies = accessSpecification.getPcmspecificationcontainer().getPolicyspecification();
+        this.attributeProviders = accessSpecification.getPcmspecificationcontainer().getAttributeprovider();
         this.storage = storage;
         this.system = pcm.getSystem();
         this.scenario = scenario;
@@ -55,7 +56,7 @@ public class CheckOperation {
     }
 
     public Optional<ContextSet> performCheck(final ExternalCallAction externalAction,
-            final AssemblyContext encapsulatedContext, final ContextSet requestorContext) {
+            final AssemblyContext encapsulatedContext, final List<? extends UsageSpecification> requestorContext) {
         final var connector = getAssemblyConnector(externalAction, encapsulatedContext);
 
         var listComponent = PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, List.of(encapsulatedContext));
@@ -85,7 +86,7 @@ public class CheckOperation {
     }
 
     public Optional<ContextSet> performCheck(final EntryLevelSystemCall systemCall,
-            final AssemblyContext encapsulatedContext, final ContextSet requestorContext) {
+            final AssemblyContext encapsulatedContext, final List<? extends UsageSpecification> requestorContext) {
         final var connector = getDelegationConnector(systemCall, encapsulatedContext);
         this.performCheck(systemCall.getOperationSignature__EntryLevelSystemCall(), encapsulatedContext, connector,
                 connector.getInnerProvidedRole_ProvidedDelegationConnector(), requestorContext);
@@ -93,7 +94,7 @@ public class CheckOperation {
     }
 
     public Optional<ContextSet> performCheck(final OperationSignature signature, final Connector connector,
-            final ContextSet requestorContext) {
+            final List<? extends UsageSpecification> requestorContext) {
         final var setContexts = getContextSets(signature, connector, this.policies);
         if (!setContexts.isEmpty() && !checkContextSet(requestorContext, setContexts)) {
             this.storage.storeNegativeResult(this.scenario, signature.getInterface__OperationSignature(), signature,
@@ -116,7 +117,7 @@ public class CheckOperation {
     }
 
     private void performCheck(OperationSignature signature, AssemblyContext component, Connector connector,
-            ProvidedRole role, ContextSet requestorContext) {
+            ProvidedRole role, List<? extends UsageSpecification> requestorContext) {
         final var setContexts = getContextSets(signature, role, component, this.policies);
         if (!checkContextSet(requestorContext, setContexts)) {
             this.storage.storeNegativeResult(this.scenario, signature.getInterface__OperationSignature(), signature,

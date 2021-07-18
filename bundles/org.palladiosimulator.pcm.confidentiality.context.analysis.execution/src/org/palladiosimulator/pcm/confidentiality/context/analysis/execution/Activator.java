@@ -6,6 +6,7 @@ import org.osgi.framework.ServiceReference;
 import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 
 /**
  * The activator class controls the plug-in life cycle
@@ -23,6 +24,8 @@ public class Activator extends AbstractUIPlugin {
 
     private XACMLGeneration xacmlGeneration;
 
+    public Evaluate generation;
+
     @Override
     public void start(final BundleContext context) throws Exception {
         super.start(context);
@@ -36,6 +39,9 @@ public class Activator extends AbstractUIPlugin {
 
         final ServiceReference<XACMLGeneration> xacmlReference = context.getServiceReference(XACMLGeneration.class);
         this.xacmlGeneration = context.getService(xacmlReference);
+
+        final ServiceReference<Evaluate> eval = context.getServiceReference(Evaluate.class);
+        this.generation = context.getService(eval);
 
         instance = this;
     }

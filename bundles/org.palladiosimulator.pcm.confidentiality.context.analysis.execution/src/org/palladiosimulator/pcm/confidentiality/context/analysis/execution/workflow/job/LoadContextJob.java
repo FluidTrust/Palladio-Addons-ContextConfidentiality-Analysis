@@ -5,7 +5,7 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EPackage;
-import org.palladiosimulator.pcm.confidentiality.accessControl.ContextPackage;
+import org.palladiosimulator.pcm.confidentiality.context.ContextPackage;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 

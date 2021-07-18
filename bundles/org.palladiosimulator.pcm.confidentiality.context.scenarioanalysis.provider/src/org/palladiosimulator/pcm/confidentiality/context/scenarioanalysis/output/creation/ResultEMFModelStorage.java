@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
-import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -24,8 +24,8 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
 
     @Override
     public void storeNegativeResult(final UsageScenario scenario, final OperationInterface operationInterface,
-            final OperationSignature signature, final Connector connector, final ContextSet requestor,
-            final List<ContextSet> policies) {
+            final OperationSignature signature, final Connector connector, final AttributeValue requestor,
+            final List<AttributeValue> policies) {
 
         // checking if positve result exists
         if (this.results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
@@ -46,9 +46,9 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         scenarioResult.setConnector(connector);
         scenarioResult.setOperationsignature(signature);
         scenarioResult.setOperationinterface(operationInterface);
-        scenarioResult.setRequestorSet(requestor);
+//        scenarioResult.setRequestorSet(requestor);
         scenarioResult.setScenario(scenario);
-        scenarioResult.getRequiredSets().addAll(policies);
+//        scenarioResult.getRequiredSets().addAll(policies);
 
         this.results.getScenariooutput().add(scenarioResult);
 

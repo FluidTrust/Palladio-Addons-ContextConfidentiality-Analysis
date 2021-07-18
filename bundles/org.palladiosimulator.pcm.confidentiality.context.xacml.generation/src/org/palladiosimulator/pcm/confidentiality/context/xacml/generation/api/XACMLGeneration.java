@@ -1,6 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api;
 
-import org.palladiosimulator.pcm.confidentiality.accessControl.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 
 public interface XACMLGeneration {
 

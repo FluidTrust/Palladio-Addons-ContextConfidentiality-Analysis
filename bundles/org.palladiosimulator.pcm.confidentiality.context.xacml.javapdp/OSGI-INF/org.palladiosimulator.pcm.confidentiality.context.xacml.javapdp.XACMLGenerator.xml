@@ -3,6 +3,6 @@
    <service>
       <provide interface="org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration"/>
    </service>
-   <reference cardinality="1..1" field="handler" interface="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicyHandler" name="handler"/>
+   <reference cardinality="1..1" field="setHandler" interface="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicySetHandler" name="setHandler"/>
    <implementation class="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator"/>
 </scr:component>

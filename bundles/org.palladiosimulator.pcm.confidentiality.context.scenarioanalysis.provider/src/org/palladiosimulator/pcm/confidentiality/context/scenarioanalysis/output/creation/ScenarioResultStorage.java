@@ -2,7 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.outpu
 
 import java.util.List;
 
-import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -29,8 +29,8 @@ public interface ScenarioResultStorage {
      * @throws NullPointerException
      *             if one argument is null
      */
-    public void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface,
-            OperationSignature signature, Connector connector, ContextSet requestor, List<ContextSet> policies);
+    void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface,
+            OperationSignature signature, Connector connector, AttributeValue requestor, List<AttributeValue> policies);
 
     /**
      *
@@ -40,6 +40,6 @@ public interface ScenarioResultStorage {
      * @throws NullPointerException
      *             if the argument is null
      */
-    public void storePositiveResult(UsageScenario scenario);
+    void storePositiveResult(UsageScenario scenario);
 
 }

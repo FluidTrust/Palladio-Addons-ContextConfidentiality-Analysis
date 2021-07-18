@@ -9,8 +9,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.ProvidedRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ProvidedRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -34,7 +34,7 @@ public class CollectionHelper {
         for (var component : components) {
             for (var role : component.getEncapsulatedComponent__AssemblyContext()
                     .getProvidedRoles_InterfaceProvidingEntity()) {
-                var specification = AssemblyFactory.eINSTANCE.createProvidedRestriction();
+                var specification = StructureFactory.eINSTANCE.createProvidedRestriction();
                 specification.setAssemblycontext(component);
                 specification.setProvidedrole(role);
                 listRestriction.add(specification);

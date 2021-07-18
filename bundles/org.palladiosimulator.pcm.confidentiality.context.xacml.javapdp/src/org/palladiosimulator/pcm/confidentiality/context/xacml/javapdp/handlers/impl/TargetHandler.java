@@ -16,7 +16,7 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.MatchType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
-@Component
+@Component(service = TargetHandler.class)
 public class TargetHandler implements ContextTypeConverter<TargetType, List<AnyOff>> {
 
     @Reference(service = MatchHandler.class)

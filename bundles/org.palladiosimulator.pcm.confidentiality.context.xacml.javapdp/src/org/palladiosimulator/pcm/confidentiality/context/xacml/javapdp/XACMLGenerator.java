@@ -1,42 +1,44 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp;
 
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
-import org.palladiosimulator.pcm.confidentiality.accessControl.ConfidentialAccessSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
+import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PolicySet;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicyHandler;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.io.XACMLPolicyWriter;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicySetHandler;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.util.XACMLPolicyWriter;
 
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicySetType;
-import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicyType;
 
-@Component
+@Component(service = XACMLGeneration.class)
 public class XACMLGenerator implements XACMLGeneration {
-    @Reference(service = PolicyHandler.class)
-    private ContextTypeConverter<PolicyType, Policy> handler;
 
-    public XACMLGenerator() {
-    }
+    @Reference(service = PolicySetHandler.class)
+    private ContextTypeConverter<PolicySetType, PolicySet> setHandler;
 
     @Override
     public void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification) {
-        var set = createPolicySet(pcm.getSystem().getEntityName());
+        // set root policyset with description
+        var set = this.setHandler.transform(confidentialitySpecification.getPolicyset());
+        set.setDescription("Policies for " + pcm.getSystem().getEntityName()
+                + ". Automatically created by Palladio-XACML-Integration");
 
-        XACMLPolicyWriter.writePolicyFile(Path.of("/home/majuwa/tmp/test.xml"), set);
-        this.handler.transform(confidentialitySpecification.getPolicyset().getPolicy().get(0));
-    }
+        // create child policy sets
+        var factory = new ObjectFactory();
+        var listChildSets = confidentialitySpecification.getPolicyset().getPolicyset().stream()
+                .map(this.setHandler::transform).map(factory::createPolicySet).collect(Collectors.toList());
 
-    private PolicySetType createPolicySet(String name) {
-        var set = new ObjectFactory().createPolicySetType();
+        set.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listChildSets);
 
-        set.setDescription("Policies for " + name + ". Automatically created by Palladio-XACML-Integration");
-        return set;
+        var objectFactory = new ObjectFactory();
+        var policySetElement = objectFactory.createPolicySet(set);
+        XACMLPolicyWriter.writeXACMLFile(Path.of("/home/majuwa/tmp/test.xml"), policySetElement, PolicySetType.class);
     }
 
 }

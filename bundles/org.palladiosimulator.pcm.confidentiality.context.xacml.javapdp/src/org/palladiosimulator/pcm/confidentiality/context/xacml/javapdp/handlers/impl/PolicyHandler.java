@@ -7,6 +7,7 @@ import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
+import org.palladiosimulator.pcm.confidentiality.context.policy.VariableDefinitions;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
 
 import com.att.research.xacml.api.XACML3;
@@ -15,14 +16,18 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicyType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.RuleType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
+import oasis.names.tc.xacml._3_0.core.schema.wd_17.VariableDefinitionType;
 
-@Component(name = "PolicyHandler", service = PolicyHandler.class)
+@Component(service = PolicyHandler.class)
 public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
     @Reference(service = TargetHandler.class)
     private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
     @Reference(service = RuleHandler.class)
     private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler;
+
+    @Reference(service = VariableDefinitionHandler.class)
+    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler;
 
     @Override
     public PolicyType transform(Policy policy) {
@@ -62,9 +67,17 @@ public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
         }
         var target = this.targetHandler.transform(policy.getTarget());
         policyType.setTarget(target);
+        policyType.setVersion("0.0.1");
 
         var rules = this.ruleHandler.transform(policy.getRule());
-        policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
+        if (rules != null) {
+            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
+        }
+
+        var variableDefintions = this.variableHandler.transform(policy.getVariabledefinitions());
+        if (variableDefintions != null) {
+            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
+        }
 
         return policyType;
     }

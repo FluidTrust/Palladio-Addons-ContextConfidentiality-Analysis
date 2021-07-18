@@ -31,4 +31,5 @@ Import-Package: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackM
  org.palladiosimulator.analyzer.workflow,
  org.palladiosimulator.analyzer.workflow.blackboard,
  org.palladiosimulator.analyzer.workflow.configurations,
- org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api
+ org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api,
+ org.palladiosimulator.pcm.confidentiality.context.xacml.pdp

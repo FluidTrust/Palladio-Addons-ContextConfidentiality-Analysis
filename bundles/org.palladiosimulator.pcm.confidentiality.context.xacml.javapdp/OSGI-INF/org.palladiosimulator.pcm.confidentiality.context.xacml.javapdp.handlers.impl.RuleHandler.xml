@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.RuleHandler">
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.3.0" name="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.RuleHandler">
    <service>
       <provide interface="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.RuleHandler"/>
    </service>
+   <reference cardinality="1..1" field="conditionHandler" interface="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.ConditionHandler" name="conditionHandler"/>
+   <reference cardinality="1..1" field="targetHandler" interface="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.TargetHandler" name="targetHandler"/>
    <implementation class="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.RuleHandler"/>
 </scr:component>
