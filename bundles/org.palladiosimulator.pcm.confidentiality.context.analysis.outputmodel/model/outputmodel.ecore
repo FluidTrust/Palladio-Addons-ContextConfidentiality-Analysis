@@ -3,17 +3,18 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="outputmodel" nsURI="http://www.palladiosimulator.org/pcm/confidentiality/scenario/0.1/"
     nsPrefix="outputmodel">
   <eClassifiers xsi:type="ecore:EClass" name="ScenarioOutput">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="result" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/UsageScenario"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operationsignature" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationSignature"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operationinterface" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationInterface"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requestorSet" eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//systemcontext/Attributes"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="requiredSets" upperBound="-1"
-        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//systemcontext/Attributes"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decision" lowerBound="1"
+        eType="#//Result"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="policyIDs" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnalysisResults">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenariooutput" upperBound="-1"
         eType="#//ScenarioOutput" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Result" instanceClassName="org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType"/>
 </ecore:EPackage>

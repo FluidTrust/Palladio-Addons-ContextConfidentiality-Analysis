@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
@@ -34,6 +35,7 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
                 .map(CompromisedLinkingResource::getAffectedElement).collect(Collectors.toList());
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
                 .filter(e -> listCompromisedLinkingResources.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getLinkingresource(), f)));
 

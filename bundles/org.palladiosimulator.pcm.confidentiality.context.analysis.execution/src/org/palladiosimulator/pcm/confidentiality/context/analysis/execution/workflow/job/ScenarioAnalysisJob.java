@@ -51,8 +51,8 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         var environment = new ArrayList<AttributeValue>();
         environment.add(contextPartition.getContextSpecification().getAttributes().getAttribute().get(0)
                 .getAttributevalue().get(0));
-        Activator.getInstance().generation.evaluate(new ArrayList<AttributeValue>(), environment,
-                new ArrayList<AttributeValue>(), new ArrayList<AttributeValue>());
+//        Activator.getInstance().generation.evaluate(new ArrayList<AttributeValue>(), environment,
+//                new ArrayList<AttributeValue>(), new ArrayList<AttributeValue>());
 
 //        final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification(),
 //                new Configuration(false));

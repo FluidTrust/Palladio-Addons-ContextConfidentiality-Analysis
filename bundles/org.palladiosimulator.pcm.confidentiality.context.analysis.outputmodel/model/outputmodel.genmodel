@@ -15,14 +15,14 @@
   <testsDirectory xsi:nil="true"/>
   <genPackages prefix="Outputmodel" basePackage="org.palladiosimulator.pcm.confidentiality.context.analysis"
       disposableProviderFactory="true" ecorePackage="outputmodel.ecore#/">
+    <genDataTypes ecoreDataType="outputmodel.ecore#//Result"/>
     <genClasses ecoreClass="outputmodel.ecore#//ScenarioOutput">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/result"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/scenario"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationsignature"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationinterface"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/connector"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/requestorSet"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/requiredSets"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/decision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/policyIDs"/>
     </genClasses>
     <genClasses ecoreClass="outputmodel.ecore#//AnalysisResults">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//AnalysisResults/scenariooutput"/>

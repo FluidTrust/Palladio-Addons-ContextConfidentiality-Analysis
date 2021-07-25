@@ -1,13 +1,11 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl;
 
-import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Expression;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
 
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ConditionType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 
-@Component(service = ConditionHandler.class)
 public class ConditionHandler implements ContextTypeConverter<ConditionType, Expression> {
     private ObjectFactory factory = new ObjectFactory();
 

@@ -1,7 +1,11 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
@@ -10,9 +14,11 @@ import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.AttributeSwitch;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.util.XACMLPolicyWriter;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 
-import com.att.research.xacml.api.Decision;
 import com.att.research.xacml.api.XACML3;
+import com.att.research.xacml.api.pdp.PDPEngine;
 import com.att.research.xacml.api.pdp.PDPException;
 import com.att.research.xacml.std.dom.DOMRequest;
 import com.att.research.xacml.std.dom.DOMStructureException;
@@ -27,13 +33,21 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.RequestType;
 @Component(service = Evaluate.class)
 public class XACMLPDP implements Evaluate {
 
+    private static final Logger LOGGER = Logger.getLogger(XACMLPolicyWriter.class.getName());
     private ObjectFactory factory = new ObjectFactory();
 
+    private PDPEngine engine;
+
     @Override
-    public boolean evaluate(List<UsageSpecification> subject, List<UsageSpecification> environment,
-            List<UsageSpecification> resource, List<UsageSpecification> operation) {
+    public Optional<PDPResult> evaluate(List<UsageSpecification> subject, List<UsageSpecification> environment,
+            List<UsageSpecification> resource, List<UsageSpecification> operation,
+            List<UsageSpecification> xacmlAttribute) {
+        if (this.engine == null) {
+            throw new IllegalStateException("Engine not initialized");
+        }
 
         var request = this.factory.createRequestType();
+        request.setReturnPolicyIdList(true);
 
         request.getAttributes().add(assignAttributes(XACML3.ID_SUBJECT_CATEGORY_ACCESS_SUBJECT.stringValue(), subject));
         request.getAttributes()
@@ -41,48 +55,58 @@ public class XACMLPDP implements Evaluate {
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.stringValue(), operation));
 
-        var properties = new Properties();
-        properties.put("xacml.dataTypeFactory", "com.att.research.xacml.std.StdDataTypeFactory");
-        properties.put("xacml.pdpEngineFactory", "com.att.research.xacmlatt.pdp.ATTPDPEngineFactory");
-        properties.put("xacml.pepEngineFactory", "com.att.research.xacml.std.pep.StdEngineFactory");
-        properties.put("xacml.pipFinderFactory", "com.att.research.xacml.std.pip.StdPIPFinderFactory");
-        properties.put("xacml.att.evaluationContextFactory",
-                "com.att.research.xacmlatt.pdp.std.StdEvaluationContextFactory");
-        properties.put("xacml.att.combiningAlgorithmFactory",
-                "com.att.research.xacmlatt.pdp.std.StdCombiningAlgorithmFactory");
-        properties.put("xacml.att.functionDefinitionFactory",
-                "com.att.research.xacmlatt.pdp.std.StdFunctionDefinitionFactory");
-        properties.put("xacml.att.policyFinderFactory", "com.att.research.xacmlatt.pdp.std.StdPolicyFinderFactory");
-        properties.put("xacml.att.stdPolicyFinderFactory.rootPolicyFile", "properties");
-        properties.put("xacml.rootPolicies", "properties");
-        properties.put("xacml.referencedPolicies", "properties");
-        properties.put("properties.file", "/home/majuwa/tmp/test.xml");
         try {
-            var engine = ATTPDPEngineFactory.newInstance().newEngine(properties);
 
             var requestString = XACMLPolicyWriter.createXMLString(this.factory.createRequest(request),
                     RequestType.class);
             if (requestString.isPresent()) {
                 var string = requestString.get();
                 var actualRequest = DOMRequest.load(string);
-                var response = engine.decide(actualRequest);
-                engine.shutdown();
-                var decision = response.getResults().iterator().next().getDecision();
-                return response.getResults().iterator().next().getDecision().equals(Decision.PERMIT);
+                var response = this.engine.decide(actualRequest);
+
+                if (response.getResults().size() != 1) {
+                    throw new IllegalStateException("Unexpected Result Amount");
+                }
+                var result = response.getResults().iterator().next();
+
+                var listPolicyID = result.getPolicyIdentifiers().stream().map(Object::toString)
+                        .collect(Collectors.toList());
+
+                DecisionType decision;
+                switch (result.getDecision()) {
+                case DENY:
+                    decision = DecisionType.DENY;
+                    break;
+                case INDETERMINATE:
+
+                case INDETERMINATE_DENY:
+
+                case INDETERMINATE_DENYPERMIT:
+
+                case INDETERMINATE_PERMIT:
+                    decision = DecisionType.INDETERMINATE;
+                    break;
+                case NOTAPPLICABLE:
+                    decision = DecisionType.NOT_APPLICABLE;
+                    break;
+                case PERMIT:
+                    decision = DecisionType.PERMIT;
+                    break;
+                default:
+                    throw new IllegalStateException("Unknown Decision type");
+                }
+                return Optional.of(new PDPResult(decision, listPolicyID));
 
             }
 
-        } catch (FactoryException e) {
-            e.printStackTrace();
         } catch (PDPException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
+
         } catch (DOMStructureException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, e.getMessage());
         }
 
-        return false;
+        return Optional.empty();
     }
 
     private AttributesType assignAttributes(String category, List<UsageSpecification> attributeValues) {
@@ -104,6 +128,44 @@ public class XACMLPDP implements Evaluate {
         attributeSwitch.doSwitch(attributeValue.eContainer());
 
         return attribute;
+    }
+
+    @Override
+    public boolean initialize(String pathXACMLFile) {
+        var properties = new Properties();
+        properties.put("xacml.dataTypeFactory", "com.att.research.xacml.std.StdDataTypeFactory");
+        properties.put("xacml.pdpEngineFactory", "com.att.research.xacmlatt.pdp.ATTPDPEngineFactory");
+        properties.put("xacml.pepEngineFactory", "com.att.research.xacml.std.pep.StdEngineFactory");
+        properties.put("xacml.pipFinderFactory", "com.att.research.xacml.std.pip.StdPIPFinderFactory");
+        properties.put("xacml.att.evaluationContextFactory",
+                "com.att.research.xacmlatt.pdp.std.StdEvaluationContextFactory");
+        properties.put("xacml.att.combiningAlgorithmFactory",
+                "com.att.research.xacmlatt.pdp.std.StdCombiningAlgorithmFactory");
+        properties.put("xacml.att.functionDefinitionFactory",
+                "com.att.research.xacmlatt.pdp.std.StdFunctionDefinitionFactory");
+        properties.put("xacml.att.policyFinderFactory", "com.att.research.xacmlatt.pdp.std.StdPolicyFinderFactory");
+        properties.put("xacml.att.stdPolicyFinderFactory.rootPolicyFile", "properties");
+        properties.put("xacml.rootPolicies", "properties");
+        properties.put("xacml.referencedPolicies", "properties");
+        properties.put("properties.file", pathXACMLFile);
+
+        try {
+            var engine = ATTPDPEngineFactory.newInstance().newEngine(properties);
+        } catch (FactoryException e) {
+            LOGGER.log(Level.SEVERE, e.getMessage());
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void shutdown() {
+        if (this.engine == null) {
+            throw new IllegalStateException("Engine not correctly initialized. Shutdown not possible");
+        }
+        this.engine.shutdown();
+        this.engine = null;
     }
 
 }

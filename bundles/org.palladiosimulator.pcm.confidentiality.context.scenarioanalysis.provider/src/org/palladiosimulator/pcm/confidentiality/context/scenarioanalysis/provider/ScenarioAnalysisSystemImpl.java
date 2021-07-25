@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
@@ -18,15 +19,20 @@ import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visito
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.UsageModelVisitorScenarioSystem;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.usage.PCMUsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 @Component
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
+    @Reference(service = Evaluate.class)
+    private Evaluate eval;
 
     @Override
     public AnalysisResults runScenarioAnalysis(final PCMBlackBoard pcm, final ConfidentialAccessSpecification context,
             Configuration configuration) {
+
+        this.eval.initialize("/home/majuwa/tmp/test.xml");
 
         final var usage = pcm.getUsageModel();
         final var result = new ResultEMFModelStorage();
@@ -39,7 +45,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
             for (final var systemCall : systemCalls) {
                 final var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
-                final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration);
+                final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration, this.eval);
                 final var walker = new SystemWalker(checkOperation);
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
@@ -47,7 +53,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
             // set positiv return value if no error happened
             if (result.getResultModel().getScenariooutput().stream()
                     .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
-                result.storePositiveResult(scenario);
+                result.storePositiveResult(scenario, null);
             }
 //            if (isMisusage(context, scenario)) {
 //                result.flip(scenario);
@@ -55,6 +61,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
         }
 
+        this.eval.shutdown();
         return result.getResultModel();
 
     }

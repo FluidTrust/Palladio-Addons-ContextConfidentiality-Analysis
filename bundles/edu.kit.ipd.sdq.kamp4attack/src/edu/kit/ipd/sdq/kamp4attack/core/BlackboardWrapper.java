@@ -1,8 +1,9 @@
 package edu.kit.ipd.sdq.kamp4attack.core;
 
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.VulnerabilitySystemSpecification;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemSpecificationContainer;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
@@ -24,18 +25,20 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
     private final ResourceEnvironment environment;
     private final Allocation allocation;
     private final SystemSpecificationContainer pcmSpecification;
-    private final VulnerabilitySystemSpecification vulnerabilitySpecification;
+    private final AttackerSystemSpecificationContainer vulnerabilitySpecification;
+    private final Evaluate eval;
 
     public BlackboardWrapper(final AbstractKAMP4attackModificationRepository<?> blackboard, final System assembly,
             final ResourceEnvironment environment, final Allocation allocation,
             final SystemSpecificationContainer pcmSpecification,
-            final VulnerabilitySystemSpecification vulnerabilitySpecification) {
+            final AttackerSystemSpecificationContainer vulnerabilitySpecification, final Evaluate eval) {
         super("", blackboard);
         this.assembly = assembly;
         this.environment = environment;
         this.allocation = allocation;
         this.pcmSpecification = pcmSpecification;
         this.vulnerabilitySpecification = vulnerabilitySpecification;
+        this.eval = eval;
     }
 
     /**
@@ -59,8 +62,12 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
         return this.pcmSpecification;
     }
 
-    public VulnerabilitySystemSpecification getVulnerabilitySpecification() {
+    public AttackerSystemSpecificationContainer getVulnerabilitySpecification() {
         return this.vulnerabilitySpecification;
+    }
+
+    public Evaluate getEval() {
+        return this.eval;
     }
 
 }

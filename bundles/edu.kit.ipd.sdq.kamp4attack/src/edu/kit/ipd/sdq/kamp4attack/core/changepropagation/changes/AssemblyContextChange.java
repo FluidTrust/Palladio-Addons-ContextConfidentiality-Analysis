@@ -3,14 +3,18 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.ProvidedRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
@@ -44,6 +48,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts(changes);
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
                 .filter(e -> listCompromisedAssemblyContexts.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
@@ -72,16 +77,36 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         final var specification = targetConnectors.stream()
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component))
-                .map(role -> {
-                    var methodspecification = AssemblyFactory.eINSTANCE.createProvidedRestriction();
-                    methodspecification.setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
-                    methodspecification.setProvidedrole(role.getProvidedRole_AssemblyConnector());
-                    return methodspecification;
+                .flatMap(role -> {
+
+                    var signatures = role.getProvidedRole_AssemblyConnector()
+                            .getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface();
+
+                    var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
+                            .getEncapsulatedComponent__AssemblyContext();
+
+                    if (componentRepository instanceof BasicComponent) {
+                        var basicComponent = (BasicComponent) componentRepository;
+                        return basicComponent.getServiceEffectSpecifications__BasicComponent().stream()
+                                .filter(seff -> signatures.stream().anyMatch( // find only seff of
+                                                                              // role
+                                        signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
+
+                                .map(seff -> {
+                                    var methodspecification = StructureFactory.eINSTANCE.createServiceRestriction();
+                                    methodspecification
+                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                                    methodspecification.setService((ResourceDemandingSEFF) seff);
+                                    return methodspecification;
+                                });
+
+                    }
+                    return Stream.empty();
                 }).collect(Collectors.toList());
         handleSeff(changes, specification, component);
     }
 
-    protected abstract void handleSeff(CredentialChange changes, List<ProvidedRestriction> components,
+    protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> components,
             AssemblyContext source);
 
     @Override

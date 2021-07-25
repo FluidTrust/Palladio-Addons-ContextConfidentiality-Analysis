@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -32,7 +32,7 @@ public class HelperUpdateCredentialChange {
         }
     }
 
-    public static ContextChange createContextChange(final ContextAttribute e,
+    public static ContextChange createContextChange(final UsageSpecification e,
             final Collection<? extends EObject> sources) {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         change.setToolderived(true);

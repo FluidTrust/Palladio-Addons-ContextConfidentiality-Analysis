@@ -6,9 +6,7 @@ import java.util.Objects;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.ui.console.ConsolePlugin;
-import org.eclipse.ui.console.IConsoleManager;
 import org.eclipse.ui.console.MessageConsole;
-import org.eclipse.ui.console.MessageConsoleStream;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.OutputPartition;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
@@ -32,13 +30,13 @@ public class OutputScenarioJob implements IBlackboardInteractingJob<MDSDBlackboa
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var partition = (OutputPartition) this.blackboard.getPartition(PARTITION_ID_OUTPUT);
-        final MessageConsole myConsole = this.findConsole("pcm.confidentiality.context.analysis.launcher.console");
-        final MessageConsoleStream out = myConsole.newMessageStream();
+        final var myConsole = findConsole("pcm.confidentiality.context.analysis.launcher.console");
+        final var out = myConsole.newMessageStream();
 
         for (final var result : partition.getAnalysisResults().getScenariooutput()) {
             out.print(result.getScenario().getEntityName());
             out.print(": ");
-            out.println(Boolean.toString(result.isResult()));
+//            out.println(Boolean.toString(result.isResult()));
         }
 
 //		if (blackboard.getSolution() != null) {
@@ -69,15 +67,15 @@ public class OutputScenarioJob implements IBlackboardInteractingJob<MDSDBlackboa
     }
 
     private MessageConsole findConsole(final String name) {
-        final ConsolePlugin plugin = ConsolePlugin.getDefault();
-        final IConsoleManager conMan = plugin.getConsoleManager();
+        final var plugin = ConsolePlugin.getDefault();
+        final var conMan = plugin.getConsoleManager();
         for (final org.eclipse.ui.console.IConsole console1 : conMan.getConsoles()) {
             if (Objects.equals(name, console1.getName())) {
                 return (MessageConsole) console1;
             }
         }
         /* no console found, so create a new one */
-        final MessageConsole myConsole = new MessageConsole(name, null);
+        final var myConsole = new MessageConsole(name, null);
         conMan.addConsoles(new org.eclipse.ui.console.IConsole[] { myConsole });
         return myConsole;
     }

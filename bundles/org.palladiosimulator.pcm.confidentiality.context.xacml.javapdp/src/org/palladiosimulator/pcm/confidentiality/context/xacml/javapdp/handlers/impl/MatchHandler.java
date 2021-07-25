@@ -1,7 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl;
 
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,21 +10,22 @@ import java.util.stream.Stream;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
 
-import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Match;
 import org.palladiosimulator.pcm.confidentiality.context.policy.XMLString;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.GenericMatch;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.HierarchicalContext;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodMatch;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ProvidedRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.util.StructureSwitch;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemEntityAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.util.EnumHelpers;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.att.research.xacml.api.Identifier;
@@ -33,10 +33,10 @@ import com.att.research.xacml.api.XACML3;
 import com.sun.xml.bind.v2.ContextFactory;
 
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.AttributeDesignatorType;
+import oasis.names.tc.xacml._3_0.core.schema.wd_17.AttributeValueType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.MatchType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 
-@Component(service = MatchHandler.class)
 public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<Match>> {
 
     private static final Logger LOGGER = Logger.getLogger(MatchHandler.class.getName());
@@ -57,15 +57,23 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
             }
 
-            private void setResource(Entity entity, final MatchType matchType, Category category) {
+            private void setResource(Entity entity, final MatchType matchType, Category category,
+                    HierarchicalContext context) {
                 createResourceDesignatorInMatch(matchType, category);
 
                 var value = factory.createAttributeValueType();
                 value.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
+                if (entity instanceof AssemblyContext || entity instanceof Connector) {
+                    addHierachy(context, value);
+                }
                 value.getContent().add(entity.getId());
                 value.getContent().add(entity.getEntityName());
 
                 matchType.setAttributeValue(value);
+            }
+
+            private void setResource(Entity entity, final MatchType matchType, Category category) {
+                setResource(entity, matchType, category, null);
             }
 
             private void createResourceDesignatorInMatch(final MatchType matchType, Category category) {
@@ -129,21 +137,27 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 matchResourceType.setMatchId(match.getId() + match.getEntityName());
                 if (match.getMethodspecification() instanceof ConnectionRestriction) {
                     var restriction = (ConnectionRestriction) match.getMethodspecification();
-                    setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE);
+                    setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE, match);
 
-                } else if (match.getMethodspecification() instanceof ProvidedRestriction) {
-                    var restriction = (ProvidedRestriction) match.getMethodspecification();
+                } else if (match.getMethodspecification() instanceof ServiceRestriction) {
+                    var restriction = (ServiceRestriction) match.getMethodspecification();
                     createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                    getComponentHierarchy(restriction.getAssemblycontext()).stream().map(AssemblyContext::getId)
-                            .forEach(resourceValue.getContent()::add);
-                    resourceValue.getContent().add(restriction.getProvidedrole().getId());
+                    addHierachy(match, resourceValue);
+                    resourceValue.getContent().add(restriction.getService().getId());
                     matchResourceType.setAttributeValue(resourceValue);
                 }
 
                 return Stream.of(matchActionType, matchResourceType);
 
+            }
+
+            private void addHierachy(HierarchicalContext context, AttributeValueType resourceValue) {
+                if (context == null) {
+                    return;
+                }
+                context.getHierachy().stream().map(AssemblyContext::getId).forEach(resourceValue.getContent()::add);
             }
 
             @Override
@@ -162,16 +176,6 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     throw new IllegalStateException(e.getMessage());
                 }
 
-            }
-
-            private List<AssemblyContext> getComponentHierarchy(AssemblyContext context) {
-                var contextStack = new ArrayList<AssemblyContext>();
-
-                while (context.getParentStructure__AssemblyContext() instanceof AssemblyContext) {
-                    context = (AssemblyContext) context.getParentStructure__AssemblyContext();
-                    contextStack.add(context);
-                }
-                return contextStack;
             }
 
             private AttributeDesignatorType createDesignator(Identifier attributeID, Category category) {

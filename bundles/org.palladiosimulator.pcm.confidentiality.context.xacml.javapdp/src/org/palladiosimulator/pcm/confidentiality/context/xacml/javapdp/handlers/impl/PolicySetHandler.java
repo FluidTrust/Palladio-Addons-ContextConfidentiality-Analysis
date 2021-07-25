@@ -5,8 +5,6 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBElement;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicySet;
@@ -19,15 +17,12 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicySetType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicyType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
-@Component(service = PolicySetHandler.class)
 public class PolicySetHandler implements ContextTypeConverter<PolicySetType, PolicySet> {
     private ObjectFactory factory = new ObjectFactory();
 
-    @Reference(service = TargetHandler.class)
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
+    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler = new TargetHandler();
 
-    @Reference(service = PolicyHandler.class)
-    private ContextTypeConverter<PolicyType, Policy> handler;
+    private ContextTypeConverter<PolicyType, Policy> handler = new PolicyHandler();
 
     @Override
     public PolicySetType transform(PolicySet inputModel) {

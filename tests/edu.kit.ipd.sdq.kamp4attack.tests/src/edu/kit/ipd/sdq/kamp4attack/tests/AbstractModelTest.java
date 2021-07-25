@@ -8,6 +8,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
@@ -32,9 +33,14 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected AbstractKAMP4attackModificationRepository<?> modification;
 
+    protected Evaluate eval;
+
     final protected BlackboardWrapper getBlackboardWrapper() {
-        return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
-                this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration());
+        if (this.eval != null) {
+            return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
+                    this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
+        }
+        return null;
     }
 
     @Override

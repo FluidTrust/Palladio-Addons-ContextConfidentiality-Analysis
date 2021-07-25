@@ -3,8 +3,6 @@ package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Match;
@@ -16,11 +14,9 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.MatchType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
-@Component(service = TargetHandler.class)
 public class TargetHandler implements ContextTypeConverter<TargetType, List<AnyOff>> {
 
-    @Reference(service = MatchHandler.class)
-    private ContextTypeConverter<List<MatchType>, List<Match>> matchHandler;
+    private ContextTypeConverter<List<MatchType>, List<Match>> matchHandler = new MatchHandler();
 
     @Override
     public TargetType transform(List<AnyOff> inputModel) {

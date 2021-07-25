@@ -2,8 +2,6 @@ package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers
 
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
@@ -18,16 +16,12 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.RuleType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.VariableDefinitionType;
 
-@Component(service = PolicyHandler.class)
 public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
-    @Reference(service = TargetHandler.class)
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
-    @Reference(service = RuleHandler.class)
-    private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler;
+    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler = new TargetHandler();
+    private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler = new RuleHandler();
 
-    @Reference(service = VariableDefinitionHandler.class)
-    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler;
+    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler = new VariableDefinitionHandler();
 
     @Override
     public PolicyType transform(Policy policy) {
