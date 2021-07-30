@@ -29,7 +29,7 @@ class ModelsTest extends AbstractModelTest {
     @BeforeEach
     protected void execute() {
         this.attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
-        final var wrapper = this.getBlackboardWrapper();
+        final var wrapper = getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
 
@@ -66,10 +66,10 @@ class ModelsTest extends AbstractModelTest {
         final var context0 = contexts.get(0);
         final var context1 = contexts.get(1);
 
-        assertTrue((context0.getId().equals("_XE-xsO29Eeq6pfPMAIqEqg")
-                && context1.getId().equals("_abPi4O29Eeq6pfPMAIqEqg"))
-                || (context1.getId().equals("_XE-xsO29Eeq6pfPMAIqEqg")
-                        && context0.getId().equals("_abPi4O29Eeq6pfPMAIqEqg")));
+        assertTrue((context0.getId().equals("_sKKUUe4ZEeu1msiU_4h_hw")
+                && context1.getId().equals("_0SaqUe4YEeu1msiU_4h_hw"))
+                || (context1.getId().equals("_sKKUUe4ZEeu1msiU_4h_hw")
+                        && context0.getId().equals("_0SaqUe4YEeu1msiU_4h_hw")));
 
     }
 

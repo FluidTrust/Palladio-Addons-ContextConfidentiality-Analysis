@@ -11,6 +11,9 @@ import org.palladiosimulator.pcm.confidentiality.context.policy.Apply;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeDesignator;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeValueReference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.FunctionReference;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
+import org.palladiosimulator.pcm.confidentiality.context.policy.SimpleAttributeCondition;
 import org.palladiosimulator.pcm.confidentiality.context.policy.VariableReference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.XMLString;
 import org.palladiosimulator.pcm.confidentiality.context.policy.util.PolicySwitch;
@@ -62,7 +65,7 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
     public JAXBElement<?> caseAttributeValueReference(AttributeValueReference object) {
         var attributeValue = this.factory.createAttributeValueType();
         EnumHelpers.extractAndSetDataType(object.getAttributevalue().getType(), attributeValue::setDataType);
-        attributeValue.getContent().add(object.getAttributevalue().getValue());
+        attributeValue.getContent().addAll(object.getAttributevalue().getValues());
 
         return this.factory.createAttributeValue(attributeValue);
 
@@ -100,6 +103,23 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
         }
         return null;
 
+    }
+
+    @Override
+    public JAXBElement<?> caseSimpleAttributeCondition(SimpleAttributeCondition object) {
+        var applyObject = PolicyFactory.eINSTANCE.createApply();
+        applyObject.setEntityName(object.getEntityName());
+        applyObject.setId(object.getId() + "Apply");
+        if (object.isOnly()) {
+            applyObject.setOperation(Operations.STRING_EQUAL);
+        } else {
+            applyObject.setOperation(Operations.STRING_IS_IN);
+        }
+
+        var valueReference = PolicyFactory.eINSTANCE.createAttributeValueReference();
+        valueReference.setAttributevalue(object.getAttribute().getAttributevalue());
+
+        return caseApply(applyObject);
     }
 
 }

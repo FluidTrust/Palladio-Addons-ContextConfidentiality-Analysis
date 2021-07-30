@@ -39,13 +39,13 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
             this.changePropagationDueToCredential.setChanged(false);
             this.calculateAndMarkLinkingPropagation(board);
             this.calculateAndMarkResourcePropagation(board);
-            this.calculateAndMarkToAssemblyPropagation(board);
+            this.calculateAndMarkAssemblyPropagation(board);
 
         } while (this.changePropagationDueToCredential.isChanged());
 
     }
 
-    private void calculateAndMarkToAssemblyPropagation(final BlackboardWrapper board) {
+    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<AssemblyContextPropagation>();
         list.add(new AssemblyContextPropagationContext(board));
         list.add(new AssemblyContextPropagationVulnerability(board));

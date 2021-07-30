@@ -27,6 +27,11 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
     @Override
     public PolicySetType transform(PolicySet inputModel) {
         var setType = createPolicySet();
+
+        if (inputModel == null) {
+            return setType;
+        }
+
         addPoliciesToSet(setType, inputModel);
         this.factory.createPolicyCombinerParametersType();
 
@@ -73,8 +78,10 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
     }
 
     private void addPoliciesToSet(PolicySetType xacmlPolicySet, PolicySet set) {
-        var listPolicy = createPolicy(set.getPolicy());
-        xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
+        if (set != null) {
+            var listPolicy = createPolicy(set.getPolicy());
+            xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
+        }
     }
 
     private List<JAXBElement<PolicyType>> createPolicy(List<Policy> policies) {

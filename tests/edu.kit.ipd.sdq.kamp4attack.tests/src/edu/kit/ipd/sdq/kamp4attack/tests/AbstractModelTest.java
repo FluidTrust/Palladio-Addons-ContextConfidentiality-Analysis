@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLPDP;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
@@ -36,11 +41,9 @@ public abstract class AbstractModelTest extends BaseTest {
     protected Evaluate eval;
 
     final protected BlackboardWrapper getBlackboardWrapper() {
-        if (this.eval != null) {
-            return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
-                    this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
-        }
-        return null;
+
+        return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
+                this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
 
     @Override
@@ -66,6 +69,23 @@ public abstract class AbstractModelTest extends BaseTest {
         this.context = this.getModel(list, ConfidentialAccessSpecification.class);
         this.attacker = this.getModel(list, AttackerSpecification.class);
         this.modification = this.getModel(list, AbstractKAMP4attackModificationRepository.class);
+    }
+
+    @BeforeEach
+    protected void initEval() {
+        this.eval = new XACMLPDP();
+
+        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
+        var generator = new XACMLGenerator();
+
+        generator.generateXACML(blackboard, this.context);
+
+        this.eval.initialize("/home/majuwa/tmp/test.xml");
+    }
+
+    @AfterEach
+    protected void shutdownEval() {
+        this.eval.shutdown();
     }
 
 }

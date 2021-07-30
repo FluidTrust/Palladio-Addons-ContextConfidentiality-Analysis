@@ -12,13 +12,14 @@ import javax.xml.bind.JAXBException;
 
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Match;
-import org.palladiosimulator.pcm.confidentiality.context.policy.XMLString;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.GenericMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.HierarchicalContext;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.XMLMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.util.StructureSwitch;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemEntityAttribute;
@@ -49,7 +50,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
             @Override
             public Stream<MatchType> caseEntityMatch(EntityMatch match) {
                 final var matchType = factory.createMatchType();
-                matchType.setMatchId(match.getId());
+                matchType.setMatchId(XACML3.ID_FUNCTION_STRING_EQUAL.stringValue());
 
                 setResource(match.getEntity(), matchType, match.getCategory());
 
@@ -86,7 +87,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
             @Override
             public Stream<MatchType> caseGenericMatch(GenericMatch object) {
                 final var matchType = factory.createMatchType();
-                matchType.setMatchId(object.getId());
+                EnumHelpers.extractAndSetFunction(object.getOperation(), matchType::setMatchId);
                 var designator = factory.createAttributeDesignatorType();
 
                 // get the attribute id
@@ -110,7 +111,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
                 }
 
-                value.getContent().add(object.getAttributevalue().getValue());
+                value.getContent().addAll(object.getAttributevalue().getValues());
 
                 matchType.setAttributeDesignator(designator);
                 matchType.setAttributeValue(value);
@@ -126,7 +127,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 matchActionType.setAttributeDesignator(designator);
                 match.getMethodspecification();
                 designator.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                matchActionType.setMatchId(match.getId());
+                EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchActionType::setMatchId);
 
                 var value = factory.createAttributeValueType();
                 value.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
@@ -134,7 +135,8 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 matchActionType.setAttributeValue(value);
 
                 var matchResourceType = factory.createMatchType();
-                matchResourceType.setMatchId(match.getId() + match.getEntityName());
+                EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchResourceType::setMatchId);
+
                 if (match.getMethodspecification() instanceof ConnectionRestriction) {
                     var restriction = (ConnectionRestriction) match.getMethodspecification();
                     setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE, match);
@@ -161,13 +163,13 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
             }
 
             @Override
-            public Stream<MatchType> caseXMLString(XMLString match) {
+            public Stream<MatchType> caseXMLMatch(XMLMatch match) {
                 MatchType matchType;
                 try {
                     var context = ContextFactory.createContext(new Class[] { MatchType.class }, null);
                     var unmarshall = context.createUnmarshaller();
                     var privateObject = (JAXBElement<MatchType>) unmarshall
-                            .unmarshal(new StringReader(match.getString()));
+                            .unmarshal(new StringReader(match.getXmlString()));
                     matchType = privateObject.getValue();
                     return Stream.of(matchType);
 

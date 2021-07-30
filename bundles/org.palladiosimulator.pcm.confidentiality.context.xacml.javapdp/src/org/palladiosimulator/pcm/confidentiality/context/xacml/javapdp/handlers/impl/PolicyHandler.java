@@ -70,7 +70,7 @@ public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
         var variableDefintions = this.variableHandler.transform(policy.getVariabledefinitions());
         if (variableDefintions != null) {
-            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
+            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(variableDefintions);
         }
 
         return policyType;

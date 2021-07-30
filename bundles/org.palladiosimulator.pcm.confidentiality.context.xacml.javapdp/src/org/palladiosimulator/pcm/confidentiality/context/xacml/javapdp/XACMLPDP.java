@@ -6,11 +6,9 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.AttributeSwitch;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.util.XACMLPolicyWriter;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
@@ -49,7 +47,7 @@ public class XACMLPDP implements Evaluate {
         var request = this.factory.createRequestType();
         request.setReturnPolicyIdList(true);
 
-        request.getAttributes().add(assignAttributes(XACML3.ID_SUBJECT_CATEGORY_ACCESS_SUBJECT.stringValue(), subject));
+        request.getAttributes().add(assignAttributes(XACML3.ID_SUBJECT.stringValue(), subject));
         request.getAttributes()
                 .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
@@ -113,20 +111,16 @@ public class XACMLPDP implements Evaluate {
         var attributes = this.factory.createAttributesType();
         attributes.setCategory(category);
 
-        attributeValues.stream().flatMap(this::convertUsage).forEach(attributes.getAttribute()::add);
+        attributeValues.stream().map(this::convertUsage).forEach(attributes.getAttribute()::add);
 
         return attributes;
     }
 
-    private Stream<AttributeType> convertUsage(UsageSpecification usageSpecification) {
-        return usageSpecification.getAttributevalue().stream().map(this::convertAttributeValue);
-    }
+    private AttributeType convertUsage(UsageSpecification usageSpecification) {
 
-    private AttributeType convertAttributeValue(AttributeValue attributeValue) {
         var attribute = this.factory.createAttributeType();
-        var attributeSwitch = new AttributeSwitch(attribute);
-        attributeSwitch.doSwitch(attributeValue.eContainer());
-
+        var attributeSwitch = new AttributeSwitch(attribute, usageSpecification.getAttributevalue());
+        attributeSwitch.doSwitch(usageSpecification.getAttribute());
         return attribute;
     }
 
@@ -150,7 +144,7 @@ public class XACMLPDP implements Evaluate {
         properties.put("properties.file", pathXACMLFile);
 
         try {
-            var engine = ATTPDPEngineFactory.newInstance().newEngine(properties);
+            this.engine = ATTPDPEngineFactory.newInstance().newEngine(properties);
         } catch (FactoryException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
             return false;
