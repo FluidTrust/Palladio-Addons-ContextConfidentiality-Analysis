@@ -9,10 +9,12 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ProvidedRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
+import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 
 public class CollectionHelper {
     private CollectionHelper() {
@@ -28,16 +30,20 @@ public class CollectionHelper {
 
     }
 
-    public static List<ProvidedRestriction> getProvidedRestrictions(final List<AssemblyContext> components) {
-        var listRestriction = new ArrayList<ProvidedRestriction>();
+    public static List<ServiceRestriction> getProvidedRestrictions(final List<AssemblyContext> components) {
+        var listRestriction = new ArrayList<ServiceRestriction>();
 
         for (var component : components) {
-            for (var role : component.getEncapsulatedComponent__AssemblyContext()
-                    .getProvidedRoles_InterfaceProvidingEntity()) {
-                var specification = StructureFactory.eINSTANCE.createProvidedRestriction();
-                specification.setAssemblycontext(component);
-                specification.setProvidedrole(role);
-                listRestriction.add(specification);
+            var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
+            if (repoComponent instanceof BasicComponent) {
+                for (var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
+                    if (seff instanceof ResourceDemandingSEFF) {
+                        var specification = StructureFactory.eINSTANCE.createServiceRestriction();
+                        specification.setAssemblycontext(component);
+                        specification.setService((ResourceDemandingSEFF) seff);
+                        listRestriction.add(specification);
+                    }
+                }
             }
         }
 

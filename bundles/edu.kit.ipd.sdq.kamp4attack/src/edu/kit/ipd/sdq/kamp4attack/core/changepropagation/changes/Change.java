@@ -7,16 +7,11 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
-import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
-import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
-import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AttributeProvider;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.AttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class Change<T> {
@@ -28,36 +23,33 @@ public abstract class Change<T> {
     public Change(final BlackboardWrapper v) {
         this.modelStorage = v;
         this.initialMarkedItems = this.loadInitialMarkedItems();
+
     }
 
     protected abstract Collection<T> loadInitialMarkedItems();
 
-    protected final Stream<SystemPolicySpecification> getPolicyStream() {
-        return this.modelStorage.getSpecification().getPolicyspecification().stream()
-                .filter(SystemPolicySpecification.class::isInstance).map(SystemPolicySpecification.class::cast);
-    }
+//    protected final Stream<SystemPolicySpecification> getPolicyStream() {
+//        return this.modelStorage.getSpecification().getPolicyspecification().stream()
+//                .filter(SystemPolicySpecification.class::isInstance).map(SystemPolicySpecification.class::cast);
+//    }
 
     protected void updateFromContextProviderStream(final CredentialChange changes,
-            final Stream<AttributeProvider> streamAttributeProvider) {
-        final var streamContextChange = streamAttributeProvider.flatMap(e -> e.getContextset().getContexts().stream())
-                .map(e -> {
-                    return HelperUpdateCredentialChange.createContextChange(e, null);
-                });
+            final Stream<? extends AttributeProvider> streamAttributeProvider) {
+        final var streamContextChange = streamAttributeProvider
+                .map(e -> HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null));
 
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }
 
-    protected final ContextSet getCredentials(final CredentialChange changes) {
-        final var contexts = changes.getContextchange().stream().map(ContextChange::getAffectedElement)
-                .collect(Collectors.toList());
-        return this.createContextSet(contexts);
-    }
+//    protected final List<UsageSpecification> getCredentials(final CredentialChange changes) {
+//        return changes.getContextchange().stream().map(ContextChange::getAffectedElement).collect(Collectors.toList());
+//    }
 
-    protected final ContextSet createContextSet(final List<ContextAttribute> contexts) {
-        final var set = SetFactory.eINSTANCE.createContextSet();
-        set.getContexts().addAll(contexts);
-        return set;
-    }
+//    protected final ContextSet createContextSet(final List<ContextAttribute> contexts) {
+//        final var set = SetFactory.eINSTANCE.createContextSet();
+//        set.getContexts().addAll(contexts);
+//        return set;
+//    }
 
     protected Attacker getAttacker() {
         if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().isEmpty()) {

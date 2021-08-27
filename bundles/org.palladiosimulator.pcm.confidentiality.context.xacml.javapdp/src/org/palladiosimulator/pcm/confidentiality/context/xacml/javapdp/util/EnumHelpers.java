@@ -28,8 +28,9 @@ public class EnumHelpers {
             break;
         case ACTION:
             assign.accept(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.toString());
+            break;
         default:
-            throw new IllegalStateException("Unkonw Attribute Category");
+            throw new IllegalStateException("Unkonw Attribute Category: " + object);
         }
     }
 
@@ -51,7 +52,7 @@ public class EnumHelpers {
             consumer.accept(XACML3.ID_DATATYPE_STRING.stringValue());
             break;
         default:
-            throw new IllegalStateException("Unkonw Datatype");
+            throw new IllegalStateException("Unkonw Datatype: " + object);
         }
     }
 

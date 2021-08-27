@@ -8,14 +8,15 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
-import org.palladiosimulator.pcm.confidentiality.context.model.ContextAttribute;
-import org.palladiosimulator.pcm.confidentiality.context.model.ModelFactory;
-import org.palladiosimulator.pcm.confidentiality.context.model.SingleAttributeContext;
-import org.palladiosimulator.pcm.confidentiality.context.set.ContextSet;
-import org.palladiosimulator.pcm.confidentiality.context.set.SetFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.AssemblyFactory;
-import org.palladiosimulator.pcm.confidentiality.context.specification.assembly.SystemPolicySpecification;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PermitType;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
+import org.palladiosimulator.pcm.confidentiality.context.policy.RuleCombiningAlgorihtm;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -39,9 +40,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.PATH_RESOURCES = "simpleAttackmodels/PropagationUnitTests/newResourceEnvironment.resourceenvironment";
     }
 
-    private void addPolicy(final ContextSet contextSet, final SystemPolicySpecification policyAssembly) {
-        policyAssembly.getPolicy().add(contextSet);
-        this.context.getPcmspecificationcontainer().getPolicyspecification().add(policyAssembly);
+    private void addPolicy(final Policy policy) {
+        this.context.getPolicyset().getPolicy().add(policy);
     }
 
     protected CompromisedAssembly createAssembly(final CredentialChange change) {
@@ -57,46 +57,40 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return infectedAssembly;
     }
 
-    protected void createAttributeProvider(final ContextSet contextSet, final AssemblyContext component) {
-        final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
+    protected void createAttributeProvider(final UsageSpecification contextSet, final AssemblyContext component) {
+        final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setAssemblycontext(component);
-        attributeProvider.setContextset(contextSet);
+        attributeProvider.setAttribute(contextSet);
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected void createAttributeProvider(final ContextSet contextSet, final LinkingResource resource) {
-        final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
+    protected void createAttributeProvider(final UsageSpecification contextSet, final LinkingResource resource) {
+        final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setLinkingresource(resource);
-        attributeProvider.setContextset(contextSet);
+        attributeProvider.setAttribute(contextSet);
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected void createAttributeProvider(final ContextSet contextSet, final ResourceContainer resource) {
-        final var attributeProvider = AssemblyFactory.eINSTANCE.createAttributeProvider();
+    protected void createAttributeProvider(final UsageSpecification contextSet, final ResourceContainer resource) {
+        final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setResourcecontainer(resource);
-        attributeProvider.setContextset(contextSet);
+        attributeProvider.setAttribute(contextSet);
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected SingleAttributeContext createContext(final String name) {
-        final var contextAccess = ModelFactory.eINSTANCE.createSingleAttributeContext();
-        contextAccess.setEntityName(name);
-        this.context.getContextContainer().get(0).getContext().add(contextAccess);
-        return contextAccess;
-    }
 
-    protected void createContextChange(final ContextAttribute context, final CredentialChange change) {
+    protected void createContextChange(final UsageSpecification context, final CredentialChange change) {
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);
         change.getContextchange().add(contextChange);
     }
 
-    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
-        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
-        contextSetAccessResource.getContexts().add(contextAccess);
-        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
-        return contextSetAccessResource;
-    }
+    //    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
+    //        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
+    //        contextSetAccessResource.getContexts().add(contextAccess);
+    //        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
+    //        return contextSetAccessResource;
+    //    }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
         return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
@@ -110,23 +104,41 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return linkingChange;
     }
 
-    protected void createPolicyAssembly(final ContextSet contextSet, final AssemblyContext assemblyComponent) {
-        final var policyAssembly = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-        policyAssembly.setAssemblycontext(assemblyComponent);
-        this.addPolicy(contextSet, policyAssembly);
-    }
+    protected void createPolicyEntity(final UsageSpecification usageSpecification, final Entity entity) {
+        final var policy = PolicyFactory.eINSTANCE.createPolicy();
+        policy.setCombiningAlgorithm(RuleCombiningAlgorihtm.DENY_UNLESS_PERMIT);
 
-    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
-        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-        policyLinking.setLinkingresource(linking);
-        this.addPolicy(contextSet, policyLinking);
-    }
+        var match = StructureFactory.eINSTANCE.createEntityMatch();
+        match.setCategory(Category.RESOURCE);
+        match.setEntity(entity);
+        var allOff = PolicyFactory.eINSTANCE.createAllOf();
+        allOff.getMatch().add(match);
+        policy.getTarget().add(allOff);
 
-    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
-        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-        policyResource.setResourcecontainer(resource);
-        this.addPolicy(contextSet, policyResource);
+        var rule = PolicyFactory.eINSTANCE.createRule();
+
+        var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
+        simpleExpression.setAttribute(usageSpecification);
+
+        rule.setCondition(simpleExpression);
+        rule.setPermit(PermitType.PERMIT);
+
+        policy.getRule().add(rule);
+
+        addPolicy(policy);
     }
+    //
+    //    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
+    //        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
+    //        policyLinking.setLinkingresource(linking);
+    //        addPolicy(contextSet, policyLinking);
+    //    }
+    //
+    //    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
+    //        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
+    //        policyResource.setResourcecontainer(resource);
+    //        addPolicy(contextSet, policyResource);
+    //    }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
         return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
@@ -167,25 +179,22 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
     protected CWEVulnerability createCWEVulnerability(final CWEID id, final AttackVector vector,
             final Privileges privileges, final ConfidentialityImpact impact, final boolean takeOver,
-            final ContextSet requiredCredentials, final ContextSet gainedCredentials) {
+            final UsageSpecification gainedAttributes) {
         final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
         vulnerability.getCweID().add(id);
         vulnerability.setAttackVector(vector);
         vulnerability.setPrivileges(privileges);
         vulnerability.setConfidentialityImpact(impact);
         vulnerability.setTakeOver(takeOver);
-        if (requiredCredentials != null) {
-            vulnerability.setRequiredCredentials(requiredCredentials);
-        }
-        if (gainedCredentials != null) {
-            vulnerability.getGainedPrivilege().add(gainedCredentials);
+        if (gainedAttributes != null) {
+            vulnerability.getGainedAttributes().add(gainedAttributes);
         }
         return vulnerability;
     }
 
     protected CWEID createSimpleAttack() {
         final var cweID = this.createCWEID(1);
-        final var attack = this.createCWEAttack(cweID);
+        final var attack = createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
     }

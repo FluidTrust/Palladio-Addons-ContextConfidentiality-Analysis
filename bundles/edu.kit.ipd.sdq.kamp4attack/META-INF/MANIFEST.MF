@@ -21,7 +21,8 @@ Require-Bundle: org.eclipse.ui,
  org.palladiosimulator.pcm.confidentiality.attacker,
  org.palladiosimulator.pcm,
  org.palladiosimulator.pcm.confidentiality.context,
- org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0"
+ org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0",
+ org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-11

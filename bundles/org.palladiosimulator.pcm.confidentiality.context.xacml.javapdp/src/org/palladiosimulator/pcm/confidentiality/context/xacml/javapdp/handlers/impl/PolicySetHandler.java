@@ -5,9 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBElement;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicySet;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
@@ -19,19 +17,21 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicySetType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicyType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
-@Component(service = PolicySetHandler.class)
 public class PolicySetHandler implements ContextTypeConverter<PolicySetType, PolicySet> {
     private ObjectFactory factory = new ObjectFactory();
 
-    @Reference(service = TargetHandler.class)
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
+    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
-    @Reference(service = PolicyHandler.class)
-    private ContextTypeConverter<PolicyType, Policy> handler;
+    private ContextTypeConverter<PolicyType, Policy> handler = new PolicyHandler();
 
     @Override
     public PolicySetType transform(PolicySet inputModel) {
         var setType = createPolicySet();
+
+        if (inputModel == null) {
+            return setType;
+        }
+
         addPoliciesToSet(setType, inputModel);
         this.factory.createPolicyCombinerParametersType();
 
@@ -78,8 +78,10 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
     }
 
     private void addPoliciesToSet(PolicySetType xacmlPolicySet, PolicySet set) {
-        var listPolicy = createPolicy(set.getPolicy());
-        xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
+        if (set != null) {
+            var listPolicy = createPolicy(set.getPolicy());
+            xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
+        }
     }
 
     private List<JAXBElement<PolicyType>> createPolicy(List<Policy> policies) {

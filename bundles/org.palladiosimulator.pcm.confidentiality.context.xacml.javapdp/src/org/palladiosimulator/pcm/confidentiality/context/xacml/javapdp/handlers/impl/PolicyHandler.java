@@ -1,10 +1,11 @@
+/*
+ *
+ */
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl;
 
 import java.util.List;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
 import org.palladiosimulator.pcm.confidentiality.context.policy.VariableDefinitions;
@@ -18,17 +19,27 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.RuleType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.VariableDefinitionType;
 
-@Component(service = PolicyHandler.class)
+// TODO: Auto-generated Javadoc
+/**
+ * The Class PolicyHandler.
+ */
 public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
-    @Reference(service = TargetHandler.class)
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
-    @Reference(service = RuleHandler.class)
-    private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler;
+    /** The target handler. */
+    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
-    @Reference(service = VariableDefinitionHandler.class)
-    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler;
+    /** The rule handler. */
+    private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler = new RuleHandler();
 
+    /** The variable handler. */
+    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler = new VariableDefinitionHandler();
+
+    /**
+     * Transform.
+     *
+     * @param policy the policy
+     * @return the policy type
+     */
     @Override
     public PolicyType transform(Policy policy) {
         var policyType = (new ObjectFactory()).createPolicyType();
@@ -76,7 +87,7 @@ public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
         var variableDefintions = this.variableHandler.transform(policy.getVariabledefinitions());
         if (variableDefintions != null) {
-            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
+            policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(variableDefintions);
         }
 
         return policyType;

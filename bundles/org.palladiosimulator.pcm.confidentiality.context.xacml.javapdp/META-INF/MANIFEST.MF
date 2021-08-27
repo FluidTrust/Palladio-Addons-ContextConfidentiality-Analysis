@@ -20,14 +20,7 @@ Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.MatchHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.TargetHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.RuleHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicyHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.PolicySetHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.ConditionHandler.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLPDP.xml,
- OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl.VariableDefinitionHandler.xml
+ OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLPDP.xml
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp,
  org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers,
  org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl

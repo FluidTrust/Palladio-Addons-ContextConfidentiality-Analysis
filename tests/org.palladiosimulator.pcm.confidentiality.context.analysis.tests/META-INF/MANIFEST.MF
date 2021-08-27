@@ -5,20 +5,13 @@ Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.emf.compare;bundle-version="1.2.2",
- org.eclipse.core.resources;bundle-version="3.7.101",
- org.eclipse.emf.compare.rcp;bundle-version="2.3.0",
- org.junit.jupiter.api,
+Require-Bundle: org.junit.jupiter.api,
  org.junit,
- org.apache.log4j,
- org.eclipse.emf.ecore,
  org.palladiosimulator.pcm.confidentiality.context,
- org.palladiosimulator.generator.fluent_api;bundle-version="5.0.0",
- tools.mdsd.library.standalone.initialization;bundle-version="0.2.0",
- tools.mdsd.library.standalone.initialization.log4j;bundle-version="0.2.0",
  org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;bundle-version="1.0.0",
- org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel;bundle-version="0.1.0",
- org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels;bundle-version="1.0.0",
- org.palladiosimulator.pcm.confidentiality.context.analysis.testframework
+ org.palladiosimulator.pcm.confidentiality.context.analysis.testframework,
+ org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
+ org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp,
+ org.palladiosimulator.pcm.confidentiality.context.xacml.generation,
+ org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel

@@ -24,7 +24,7 @@ public class Activator extends AbstractUIPlugin {
 
     private XACMLGeneration xacmlGeneration;
 
-    public Evaluate generation;
+    private Evaluate evaluate;
 
     @Override
     public void start(final BundleContext context) throws Exception {
@@ -41,7 +41,7 @@ public class Activator extends AbstractUIPlugin {
         this.xacmlGeneration = context.getService(xacmlReference);
 
         final ServiceReference<Evaluate> eval = context.getServiceReference(Evaluate.class);
-        this.generation = context.getService(eval);
+        this.evaluate = context.getService(eval);
 
         instance = this;
     }
@@ -71,6 +71,10 @@ public class Activator extends AbstractUIPlugin {
 
     public XACMLGeneration getXACMLGenerator() {
         return this.xacmlGeneration;
+    }
+
+    public Evaluate getEvaluate() {
+        return this.evaluate;
     }
 
     /**

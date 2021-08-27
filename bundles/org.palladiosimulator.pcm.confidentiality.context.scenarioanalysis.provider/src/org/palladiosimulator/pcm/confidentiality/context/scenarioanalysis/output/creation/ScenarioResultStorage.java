@@ -1,12 +1,11 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation;
 
-import java.util.List;
-
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
-import org.palladiosimulator.pcm.core.composition.Connector;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.repository.OperationInterface;
-import org.palladiosimulator.pcm.repository.OperationSignature;
+import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 /**
  * Interface for storing the results of the scenario analysis
@@ -29,8 +28,8 @@ public interface ScenarioResultStorage {
      * @throws NullPointerException
      *             if one argument is null
      */
-    void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface,
-            OperationSignature signature, Connector connector, AttributeValue requestor, List<AttributeValue> policies);
+    void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface, Signature signature,
+            Identifier connector, PDPResult requestor);
 
     /**
      *
@@ -40,6 +39,8 @@ public interface ScenarioResultStorage {
      * @throws NullPointerException
      *             if the argument is null
      */
+    void storePositiveResult(UsageScenario scenario, PDPResult requestor);
+
     void storePositiveResult(UsageScenario scenario);
 
 }

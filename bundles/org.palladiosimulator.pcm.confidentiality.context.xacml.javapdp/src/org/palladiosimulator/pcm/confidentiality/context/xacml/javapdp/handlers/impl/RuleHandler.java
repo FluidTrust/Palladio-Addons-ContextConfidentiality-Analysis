@@ -1,11 +1,12 @@
+/*
+ *
+ */
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
-import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Expression;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
@@ -16,16 +17,13 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.RuleType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
-@Component(service = RuleHandler.class)
 public class RuleHandler implements ContextTypeConverter<List<RuleType>, List<Rule>> {
 
     private ObjectFactory factory = new ObjectFactory();
 
-    @Reference(service = TargetHandler.class)
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler;
+    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
-    @Reference(service = ConditionHandler.class)
-    private ContextTypeConverter<ConditionType, Expression> conditionHandler;
+    private ContextTypeConverter<ConditionType, Expression> conditionHandler = new ConditionHandler();
 
     @Override
     public List<RuleType> transform(List<Rule> inputModel) {

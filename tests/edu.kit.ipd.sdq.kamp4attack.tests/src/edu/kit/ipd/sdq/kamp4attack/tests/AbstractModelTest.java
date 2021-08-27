@@ -8,6 +8,12 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
+import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
@@ -32,9 +38,12 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected AbstractKAMP4attackModificationRepository<?> modification;
 
+    private String pathXACML = "test.xml";
+
     final protected BlackboardWrapper getBlackboardWrapper() {
+
         return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
-                this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration());
+                this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
 
     @Override
@@ -61,5 +70,30 @@ public abstract class AbstractModelTest extends BaseTest {
         this.attacker = this.getModel(list, AttackerSpecification.class);
         this.modification = this.getModel(list, AbstractKAMP4attackModificationRepository.class);
     }
+
+    @Override
+    protected void generateXML() {
+        var generator = new XACMLGenerator();
+        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
+        generator.generateXACML(blackboard, this.context, this.pathXACML);
+    }
+
+    protected UsageSpecification createContext(final String name) {
+        final var contextAccess = SystemFactory.eINSTANCE.createUsageSpecification();
+
+        final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
+        var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        attributeValue.getValues().add(name);
+        attributeValue.setType(DataTypes.STRING);
+        attribute.getAttributevalue().add(attributeValue);
+
+        contextAccess.setEntityName(name);
+        contextAccess.setAttribute(attribute);
+        contextAccess.setAttributevalue(attributeValue);
+        this.context.getAttributes().getAttribute().add(attribute);
+        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
+        return contextAccess;
+    }
+
 
 }

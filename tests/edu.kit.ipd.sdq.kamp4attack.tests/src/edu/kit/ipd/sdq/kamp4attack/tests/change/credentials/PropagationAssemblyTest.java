@@ -10,7 +10,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.context.model.SingleAttributeContext;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
@@ -22,7 +22,7 @@ import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 class PropagationAssemblyTest extends AbstractChangeTests {
 
     private void contextChangePropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
-            final SingleAttributeContext contextAccess) {
+            final UsageSpecification contextAccess) {
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertTrue(change.getCompromisedresource().isEmpty());
         assertEquals(1, change.getContextchange().size());
@@ -42,8 +42,8 @@ class PropagationAssemblyTest extends AbstractChangeTests {
     }
 
     private void isContextPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
-            final SingleAttributeContext contextAccess) {
-        this.contextChangePropagation(change, infectedAssembly, contextAccess);
+            final UsageSpecification contextAccess) {
+        contextChangePropagation(change, infectedAssembly, contextAccess);
 
         assertTrue(change.isChanged());
 
@@ -67,13 +67,16 @@ class PropagationAssemblyTest extends AbstractChangeTests {
     }
 
     private void runAssemblyResourcePropagation(final CredentialChange change) {
-        final var wrapper = this.getBlackboardWrapper();
+        generateXML();
+        final var wrapper = getBlackboardWrapper();
         final var assemblyChange = new AssemblyContextPropagationContext(wrapper);
         assemblyChange.calculateAssemblyContextToLocalResourcePropagation(change);
+
     }
 
     private void runAssemblyToContext(final CredentialChange change) {
-        final var wrapper = this.getBlackboardWrapper();
+        generateXML();
+        final var wrapper = getBlackboardWrapper();
         final var assemblyChange = new AssemblyContextPropagationContext(wrapper);
         assemblyChange.calculateAssemblyContextToContextPropagation(change);
     }
@@ -85,13 +88,9 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         final var infectedAssembly = this.createAssembly(change);
 
-        // create Context and Contextset
-        final var contextAccess = this.createContext("Test");
-        this.createContextSet(contextAccess);
+        runAssemblyToContext(change);
 
-        this.runAssemblyToContext(change);
-
-        this.isNoPropagation(change, infectedAssembly);
+        isNoPropagation(change, infectedAssembly);
 
     }
 
@@ -103,14 +102,13 @@ class PropagationAssemblyTest extends AbstractChangeTests {
         final var infectedAssembly = this.createAssembly(change);
 
         // create Context and Contextset
-        final var contextAccess = this.createContext("Test");
-        final var contextSet = this.createContextSet(contextAccess);
+        final var contextSet = createContext("Test");
 
         this.createAttributeProvider(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
 
-        this.runAssemblyToContext(change);
+        runAssemblyToContext(change);
 
-        this.isNoPropagation(change, infectedAssembly);
+        isNoPropagation(change, infectedAssembly);
 
     }
 
@@ -122,14 +120,13 @@ class PropagationAssemblyTest extends AbstractChangeTests {
         final var infectedAssembly = this.createAssembly(change);
 
         // create Context and Contextset
-        final var contextAccess = this.createContext("Test");
-        final var contextSet = this.createContextSet(contextAccess);
+        final var contextSet = createContext("Test");
 
         this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
 
-        this.runAssemblyToContext(change);
+        runAssemblyToContext(change);
 
-        this.isContextPropagation(change, infectedAssembly, contextAccess);
+        isContextPropagation(change, infectedAssembly, contextSet);
 
     }
 
@@ -141,18 +138,17 @@ class PropagationAssemblyTest extends AbstractChangeTests {
         final var infectedAssembly = this.createAssembly(change);
 
         // create Context and Contextset
-        final var contextAccess = this.createContext("Test");
-        final var contextSet = this.createContextSet(contextAccess);
+        final var contextSet = createContext("Test");
 
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(contextAccess);
+        contextChange.setAffectedElement(contextSet);
         change.getContextchange().add(contextChange);
 
         this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
 
-        this.runAssemblyToContext(change);
+        runAssemblyToContext(change);
 
-        this.contextChangePropagation(change, infectedAssembly, contextAccess);
+        contextChangePropagation(change, infectedAssembly, contextSet);
 
     }
 
@@ -164,18 +160,18 @@ class PropagationAssemblyTest extends AbstractChangeTests {
         final var infectedAssembly = this.createAssembly(change);
 
         // create Context and Contextset
-        final var contextAccess = this.createContext("Test");
-        final var contextSet = this.createContextSet(contextAccess);
 
-        final var contextOtherComponent = this.createContext("Other");
-        final var otherSet = this.createContextSet(contextOtherComponent);
+        final var contextSet = createContext("Test");
+
+        final var contextOtherComponent = createContext("Other");
 
         this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
-        this.createAttributeProvider(otherSet, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createAttributeProvider(contextOtherComponent,
+                this.assembly.getAssemblyContexts__ComposedStructure().get(2));
 
-        this.runAssemblyToContext(change);
+        runAssemblyToContext(change);
 
-        this.isContextPropagation(change, infectedAssembly, contextAccess);
+        isContextPropagation(change, infectedAssembly, contextSet);
 
     }
 
@@ -186,20 +182,20 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         final var infectedAssembly = this.createAssembly(change);
 
-        final var resourceOpt = this.getResource(infectedAssembly);
+        final var resourceOpt = getResource(infectedAssembly);
 
         // create Context and Contextset and add to containers
-        final var contextAccess = this.createContext("Test");
-        final var contextSetAccessResource = this.createContextSet(contextAccess);
+        final var contextAccess = createContext("Test");
 
-        this.createPolicyResource(contextSetAccessResource, resourceOpt.get());
+
+        createPolicyEntity(contextAccess, resourceOpt.get());
 
         // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(contextAccess);
         change.getContextchange().add(contextChange);
 
-        this.runAssemblyResourcePropagation(change);
+        runAssemblyResourcePropagation(change);
 
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertEquals(1, change.getContextchange().size());
@@ -220,24 +216,23 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         final var infectedAssembly = this.createAssembly(change);
 
-        final var resourceOpt = this.getResource(infectedAssembly);
+        final var resourceOpt = getResource(infectedAssembly);
 
         final var resourceChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         resourceChange.setAffectedElement(resourceOpt.get());
         change.getCompromisedresource().add(resourceChange);
 
         // create Context and Contextset and add to containers
-        final var contextAccess = this.createContext("Test");
-        final var contextSetAccessResource = this.createContextSet(contextAccess);
+        final var contextAccess = createContext("Test");
 
-        this.createPolicyResource(contextSetAccessResource, resourceOpt.get());
+        createPolicyEntity(contextAccess, resourceOpt.get());
 
         // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(contextAccess);
         change.getContextchange().add(contextChange);
 
-        this.runAssemblyResourcePropagation(change);
+        runAssemblyResourcePropagation(change);
 
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertEquals(1, change.getContextchange().size());
@@ -261,17 +256,16 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         infectedAssembly.getAffectedElement();
 
-        final var resourceOpt = this.getResource(infectedAssembly);
+        final var resourceOpt = getResource(infectedAssembly);
 
         // create Context and Contextset and add to containers
-        final var contextAccess = this.createContext("Test");
-        final var contextSetAccessResource = this.createContextSet(contextAccess);
+        final var contextAccess = createContext("Test");
 
-        this.createPolicyResource(contextSetAccessResource, resourceOpt.get());
+        createPolicyEntity(contextAccess, resourceOpt.get());
 
-        this.runAssemblyResourcePropagation(change);
+        runAssemblyResourcePropagation(change);
 
-        this.isNoAssemblyPropagation(change, infectedAssembly);
+        isNoAssemblyPropagation(change, infectedAssembly);
         assertTrue(change.getContextchange().isEmpty());
     }
 
@@ -281,9 +275,9 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         final var infectedAssembly = this.createAssembly(change);
 
-        this.runAssemblyResourcePropagation(change);
+        runAssemblyResourcePropagation(change);
 
-        this.isNoAssemblyPropagation(change, infectedAssembly);
+        isNoAssemblyPropagation(change, infectedAssembly);
         assertTrue(change.getContextchange().isEmpty());
     }
 
@@ -295,23 +289,22 @@ class PropagationAssemblyTest extends AbstractChangeTests {
 
         infectedAssembly.getAffectedElement();
 
-        final var resourceOpt = this.getResource(infectedAssembly);
+        final var resourceOpt = getResource(infectedAssembly);
 
         // create Context and Contextset and add to containers
-        final var contextAccess = this.createContext("Test");
-        final var contextSetAccessResource = this.createContextSet(contextAccess);
+        final var contextAccess = createContext("Test");
 
-        this.createPolicyResource(contextSetAccessResource, resourceOpt.get());
+        createPolicyEntity(contextAccess, resourceOpt.get());
 
-        final var attackerContext = this.createContext("Attacker");
+        final var attackerContext = createContext("Attacker");
         // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(attackerContext);
         change.getContextchange().add(contextChange);
 
-        this.runAssemblyResourcePropagation(change);
+        runAssemblyResourcePropagation(change);
 
-        this.isNoAssemblyPropagation(change, infectedAssembly);
+        isNoAssemblyPropagation(change, infectedAssembly);
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
     }

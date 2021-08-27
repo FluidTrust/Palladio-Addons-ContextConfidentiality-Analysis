@@ -2,11 +2,14 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.wor
 
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_OUTPUT;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.HashMap;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
@@ -28,15 +31,29 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var partitionOutput = this.blackboard.getPartition(PARTITION_ID_OUTPUT);
 
-        final var test = this.configuration.getAllocationModel();
-        final var segments = test.segments();
-        segments[test.segmentCount() - 1] = "my.outputmodel";
-        final var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
+        final var test = this.configuration.getContextModel();
 
+
+        final var segments = test.segments();
+        segments[test.segmentCount() - 1] = "my" + System.currentTimeMillis();
+
+        var outputString = new StringBuilder();
+
+        for (var i = 1; i < segments.length-1; i++) {
+            outputString.append(segments[i]);
+            outputString.append(File.separator);
+        }
+        outputString.append("my" + System.currentTimeMillis() + ".outputmodel");
+
+
+        final var testUri = URI.createPlatformResourceURI(outputString.toString(), true);
         final var resource = partitionOutput.getResourceSet().createResource(testUri);
         try {
             resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
-            resource.save(Collections.EMPTY_MAP);
+            var saveMap = new HashMap<>();
+            saveMap.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+            saveMap.put(XMLResource.OPTION_URI_HANDLER, new URIHandlerImpl.AbsoluteCrossBundleAware());
+            resource.save(saveMap);
         } catch (final IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

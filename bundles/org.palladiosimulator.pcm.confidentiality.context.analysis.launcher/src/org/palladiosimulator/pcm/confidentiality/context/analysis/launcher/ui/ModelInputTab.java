@@ -5,7 +5,6 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -16,7 +15,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Text;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.Activator;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.launchconfig.tabs.TabHelper;
@@ -44,12 +42,6 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
     private Combo analysisCombo;
 
     public ModelInputTab() {
-
-        final Activator sharedInstance = Activator.getInstance();
-        if (sharedInstance != null) {
-//			proversMap = sharedInstance.getProverManagerInstance().getProvers();
-//			queryMap = sharedInstance.getQueryManagerInstance().getQueries();
-        }
     }
 
     @Override
@@ -64,9 +56,9 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
 
     @Override
     public boolean isValid(final ILaunchConfiguration launchConfig) {
-//        return !repositoryTextField.getText().isEmpty() && !allocationTextField.getText().isEmpty()
-//                && !contextTextField.getText().isEmpty() && isURIexistent(repositoryTextField.getText())
-//                && isURIexistent(allocationTextField.getText()) && isURIexistent(contextTextField.getText());
+        //        return !repositoryTextField.getText().isEmpty() && !allocationTextField.getText().isEmpty()
+        //                && !contextTextField.getText().isEmpty() && isURIexistent(repositoryTextField.getText())
+        //                && isURIexistent(allocationTextField.getText()) && isURIexistent(contextTextField.getText());
         // FIXME
         return true;
     }
@@ -77,7 +69,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
             configuration.setAttribute(Constants.REPOSITORY_MODEL_LABEL.getConstant(), "");
             configuration.setAttribute(Constants.ALLOCATION_MODEL_LABEL.getConstant(), "");
             configuration.setAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), "");
-            // ProverInformation
+
         });
     }
 
@@ -90,18 +82,18 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
 
             try {
                 this.repositoryTextField
-                        .setText(configuration.getAttribute(Constants.REPOSITORY_MODEL_LABEL.getConstant(), ""));
+                .setText(configuration.getAttribute(Constants.REPOSITORY_MODEL_LABEL.getConstant(), ""));
                 this.allocationTextField
-                        .setText(configuration.getAttribute(Constants.ALLOCATION_MODEL_LABEL.getConstant(), ""));
+                .setText(configuration.getAttribute(Constants.ALLOCATION_MODEL_LABEL.getConstant(), ""));
                 this.contextTextField
-                        .setText(configuration.getAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), ""));
+                .setText(configuration.getAttribute(Constants.CONTEXT_MODEL_LABEL.getConstant(), ""));
                 this.dataTextField.setText(configuration.getAttribute(Constants.DATA_MODEL_LABEL.getConstant(), ""));
                 this.adversaryTextField
-                        .setText(configuration.getAttribute(Constants.ATTACKER_MODEL_LABEL.getConstant(), ""));
+                .setText(configuration.getAttribute(Constants.ATTACKER_MODEL_LABEL.getConstant(), ""));
                 this.usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL.getConstant(), ""));
                 this.analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), ""));
                 this.modificationTextField
-                        .setText(configuration.getAttribute(Constants.MODIFIACTION_MODEL_LABEL.getConstant(), ""));
+                .setText(configuration.getAttribute(Constants.MODIFIACTION_MODEL_LABEL.getConstant(), ""));
 
             } catch (final CoreException e) {
                 // TODO expection handling
@@ -126,16 +118,11 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
     public void createControl(final Composite parent) {
 
         /* Modify listener for text input changes, sets dirty */
-        final ModifyListener modifyListener = new ModifyListener() {
-
-            @Override
-            public void modifyText(final ModifyEvent e) {
-                if (!ModelInputTab.this.initTaskExecutor.isInitTaskRunning()) {
-                    ModelInputTab.this.setDirty(true);
-                    ModelInputTab.this.updateLaunchConfigurationDialog();
-                }
+        final ModifyListener modifyListener = e -> {
+            if (!ModelInputTab.this.initTaskExecutor.isInitTaskRunning()) {
+                ModelInputTab.this.setDirty(true);
+                ModelInputTab.this.updateLaunchConfigurationDialog();
             }
-
         };
         final SelectionListener selectionListener = new SelectionListener() {
 
@@ -154,9 +141,9 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         };
 
         this.comp = new Composite(parent, SWT.NONE);
-        final GridLayout layout = new GridLayout();
+        final var layout = new GridLayout();
         this.comp.setLayout(layout);
-        this.setControl(this.comp);
+        setControl(this.comp);
 
         final var analysisGroup = new Group(this.comp, SWT.NONE);
         analysisGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -165,7 +152,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
 
         this.analysisCombo = new Combo(analysisGroup, SWT.DROP_DOWN);
 
-        final String[] items = new String[] { "Scenario", "Insider", "Attack surface" };
+        final var items = new String[] { "Scenario", "Insider", "Attack surface" };
 
         this.analysisCombo.setItems(items);
 

@@ -6,6 +6,7 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.palladiosimulator.analyzer.workflow.blackboard.PCMResourceSetPartition;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.AttackPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ContextPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
@@ -59,7 +60,7 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
         final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
-                vulnerabilitySpecification);
+                vulnerabilitySpecification, Activator.getInstance().getEvaluate());
         final var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
     }

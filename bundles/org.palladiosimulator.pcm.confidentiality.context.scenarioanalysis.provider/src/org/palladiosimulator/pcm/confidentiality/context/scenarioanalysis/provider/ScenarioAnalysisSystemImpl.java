@@ -24,9 +24,12 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 @Component
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
+
     @Override
     public AnalysisResults runScenarioAnalysis(final PCMBlackBoard pcm, final ConfidentialAccessSpecification context,
             Configuration configuration) {
+
+        var eval = configuration.getEvaluate();
 
         final var usage = pcm.getUsageModel();
         final var result = new ResultEMFModelStorage();
@@ -39,7 +42,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
             for (final var systemCall : systemCalls) {
                 final var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
-                final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration);
+                final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration, eval);
                 final var walker = new SystemWalker(checkOperation);
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
@@ -49,9 +52,9 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                     .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
                 result.storePositiveResult(scenario);
             }
-//            if (isMisusage(context, scenario)) {
-//                result.flip(scenario);
-//            }
+            //            if (isMisusage(context, scenario)) {
+            //                result.flip(scenario);
+            //            }
 
         }
 
@@ -64,13 +67,13 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
         return getSpecificationScenario(access, scenario).collect(Collectors.toList());
     }
 
-//    private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario scenario) {
-//        final var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
-//        if (scenarioSpecification.isPresent()) {
-//            return scenarioSpecification.get().isMissageUse();
-//        }
-//        return false;
-//    }
+    //    private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario scenario) {
+    //        final var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
+    //        if (scenarioSpecification.isPresent()) {
+    //            return scenarioSpecification.get().isMissageUse();
+    //        }
+    //        return false;
+    //    }
 
     private Stream<? extends UsageSpecification> getSpecificationScenario(final ConfidentialAccessSpecification access,
             final EObject scenario) {

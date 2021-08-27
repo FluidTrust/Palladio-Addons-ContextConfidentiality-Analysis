@@ -25,6 +25,8 @@ import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelPackage;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
 
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
+
 /**
  * This is the item provider adapter for a {@link org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput} object.
  * <!-- begin-user-doc -->
@@ -64,38 +66,14 @@ public class ScenarioOutputItemProvider
 		{
 			super.getPropertyDescriptors(object);
 
-			addResultPropertyDescriptor(object);
 			addScenarioPropertyDescriptor(object);
 			addOperationsignaturePropertyDescriptor(object);
 			addOperationinterfacePropertyDescriptor(object);
 			addConnectorPropertyDescriptor(object);
-			addRequestorSetPropertyDescriptor(object);
-			addRequiredSetsPropertyDescriptor(object);
+			addDecisionPropertyDescriptor(object);
+			addPolicyIDsPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Result feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addResultPropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_ScenarioOutput_result_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_result_feature", "_UI_ScenarioOutput_type"),
-				 OutputmodelPackage.Literals.SCENARIO_OUTPUT__RESULT,
-				 true,
-				 false,
-				 false,
-				 ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE,
-				 null,
-				 null));
 	}
 
 	/**
@@ -191,47 +169,47 @@ public class ScenarioOutputItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Requestor Set feature.
+	 * This adds a property descriptor for the Decision feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRequestorSetPropertyDescriptor(Object object)
+	protected void addDecisionPropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ScenarioOutput_requestorSet_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_requestorSet_feature", "_UI_ScenarioOutput_type"),
-				 OutputmodelPackage.Literals.SCENARIO_OUTPUT__REQUESTOR_SET,
+				 getString("_UI_ScenarioOutput_decision_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_decision_feature", "_UI_ScenarioOutput_type"),
+				 OutputmodelPackage.Literals.SCENARIO_OUTPUT__DECISION,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Required Sets feature.
+	 * This adds a property descriptor for the Policy IDs feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRequiredSetsPropertyDescriptor(Object object)
+	protected void addPolicyIDsPropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_ScenarioOutput_requiredSets_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_requiredSets_feature", "_UI_ScenarioOutput_type"),
-				 OutputmodelPackage.Literals.SCENARIO_OUTPUT__REQUIRED_SETS,
+				 getString("_UI_ScenarioOutput_policyIDs_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_ScenarioOutput_policyIDs_feature", "_UI_ScenarioOutput_type"),
+				 OutputmodelPackage.Literals.SCENARIO_OUTPUT__POLICY_IDS,
 				 true,
 				 false,
-				 true,
-				 null,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
 				 null,
 				 null));
 	}
@@ -268,8 +246,11 @@ public class ScenarioOutputItemProvider
 	@Override
 	public String getText(Object object)
 	{
-		ScenarioOutput scenarioOutput = (ScenarioOutput)object;
-		return getString("_UI_ScenarioOutput_type") + " " + scenarioOutput.isResult();
+		DecisionType labelValue = ((ScenarioOutput)object).getDecision();
+		String label = labelValue == null ? null : labelValue.toString();
+		return label == null || label.length() == 0 ?
+			getString("_UI_ScenarioOutput_type") :
+			getString("_UI_ScenarioOutput_type") + " " + label;
 	}
 
 
@@ -287,7 +268,8 @@ public class ScenarioOutputItemProvider
 
 		switch (notification.getFeatureID(ScenarioOutput.class))
 		{
-			case OutputmodelPackage.SCENARIO_OUTPUT__RESULT:
+			case OutputmodelPackage.SCENARIO_OUTPUT__DECISION:
+			case OutputmodelPackage.SCENARIO_OUTPUT__POLICY_IDS:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
 		}
