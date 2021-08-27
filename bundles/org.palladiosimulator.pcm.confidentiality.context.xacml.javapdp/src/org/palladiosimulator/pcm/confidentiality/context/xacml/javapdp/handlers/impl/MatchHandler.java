@@ -146,8 +146,9 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
+                    resourceValue.getContent().add(restriction.getAssemblycontext().getId());
                     addHierachy(match, resourceValue);
-                    resourceValue.getContent().add(restriction.getService().getId());
+                    resourceValue.getContent().add(restriction.getAssemblycontext().getEntityName());
                     matchResourceType.setAttributeValue(resourceValue);
                 }
 
@@ -168,8 +169,9 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 try {
                     var context = ContextFactory.createContext(new Class[] { MatchType.class }, null);
                     var unmarshall = context.createUnmarshaller();
+                    @SuppressWarnings("unchecked")
                     var privateObject = (JAXBElement<MatchType>) unmarshall
-                            .unmarshal(new StringReader(match.getXmlString()));
+                    .unmarshal(new StringReader(match.getXmlString()));
                     matchType = privateObject.getValue();
                     return Stream.of(matchType);
 

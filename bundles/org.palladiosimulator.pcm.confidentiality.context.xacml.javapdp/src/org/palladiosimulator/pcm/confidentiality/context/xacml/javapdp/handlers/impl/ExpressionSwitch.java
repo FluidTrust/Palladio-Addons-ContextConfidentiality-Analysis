@@ -10,6 +10,7 @@ import javax.xml.bind.JAXBException;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Apply;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeDesignator;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeValueReference;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.FunctionReference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
@@ -111,13 +112,32 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
         applyObject.setEntityName(object.getEntityName());
         applyObject.setId(object.getId() + "Apply");
         if (object.isOnly()) {
-            applyObject.setOperation(Operations.STRING_EQUAL);
+            applyObject.setOperation(Operations.ALL_OF);
         } else {
-            applyObject.setOperation(Operations.STRING_IS_IN);
+            applyObject.setOperation(Operations.ANY_OF);
         }
+
+        // create bag comparision acording to
+        // https://docs.oasis-open.org/xacml/3.0/xacml-3.0-core-spec-os-en.html#_Toc325047251
+        // 1. Functionreference, 2. AttributeValue, 3. Bag of values
+
+        var functionReference = PolicyFactory.eINSTANCE.createFunctionReference();
+        functionReference.setFunction(Operations.STRING_EQUAL);
+        applyObject.getParameters().add(functionReference);
 
         var valueReference = PolicyFactory.eINSTANCE.createAttributeValueReference();
         valueReference.setAttributevalue(object.getAttribute().getAttributevalue());
+        applyObject.getParameters().add(valueReference);
+
+
+        var selector = PolicyFactory.eINSTANCE.createAttributeDesignator();
+        selector.setCategory(Category.SUBJECT);
+        selector.setAttribute(object.getAttribute().getAttribute());
+
+
+
+        applyObject.getParameters().add(selector);
+
 
         return caseApply(applyObject);
     }

@@ -9,15 +9,14 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PermitType;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
 import org.palladiosimulator.pcm.confidentiality.context.policy.RuleCombiningAlgorihtm;
-import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -79,19 +78,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-    protected UsageSpecification createContext(final String name) {
-        final var contextAccess = SystemFactory.eINSTANCE.createUsageSpecification();
-
-        final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
-        var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
-        attributeValue.getValues().add(name);
-        attributeValue.setType(DataTypes.STRING);
-
-        contextAccess.setEntityName(name);
-        this.context.getAttributes().getAttribute().add(attribute);
-        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
-        return contextAccess;
-    }
 
     protected void createContextChange(final UsageSpecification context, final CredentialChange change) {
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
@@ -99,12 +85,12 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         change.getContextchange().add(contextChange);
     }
 
-//    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
-//        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
-//        contextSetAccessResource.getContexts().add(contextAccess);
-//        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
-//        return contextSetAccessResource;
-//    }
+    //    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
+    //        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
+    //        contextSetAccessResource.getContexts().add(contextAccess);
+    //        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
+    //        return contextSetAccessResource;
+    //    }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
         return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
@@ -118,35 +104,41 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return linkingChange;
     }
 
-    protected void createPolicyAssembly(final UsageSpecification contextSet, final AssemblyContext assemblyComponent) {
+    protected void createPolicyEntity(final UsageSpecification usageSpecification, final Entity entity) {
         final var policy = PolicyFactory.eINSTANCE.createPolicy();
-        policy.setCombiningAlgorithm(RuleCombiningAlgorihtm.DENY_OVERRIDES);
+        policy.setCombiningAlgorithm(RuleCombiningAlgorihtm.DENY_UNLESS_PERMIT);
 
         var match = StructureFactory.eINSTANCE.createEntityMatch();
         match.setCategory(Category.RESOURCE);
-        match.setEntity(assemblyComponent);
-        var anyOff = PolicyFactory.eINSTANCE.createAnyOff();
+        match.setEntity(entity);
         var allOff = PolicyFactory.eINSTANCE.createAllOf();
         allOff.getMatch().add(match);
-        anyOff.getAllof().add(allOff);
-        policy.getTarget().add(anyOff);
+        policy.getTarget().add(allOff);
 
         var rule = PolicyFactory.eINSTANCE.createRule();
 
+        var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
+        simpleExpression.setAttribute(usageSpecification);
+
+        rule.setCondition(simpleExpression);
+        rule.setPermit(PermitType.PERMIT);
+
+        policy.getRule().add(rule);
+
         addPolicy(policy);
     }
-//
-//    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
-//        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-//        policyLinking.setLinkingresource(linking);
-//        addPolicy(contextSet, policyLinking);
-//    }
-//
-//    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
-//        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-//        policyResource.setResourcecontainer(resource);
-//        addPolicy(contextSet, policyResource);
-//    }
+    //
+    //    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
+    //        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
+    //        policyLinking.setLinkingresource(linking);
+    //        addPolicy(contextSet, policyLinking);
+    //    }
+    //
+    //    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
+    //        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
+    //        policyResource.setResourcecontainer(resource);
+    //        addPolicy(contextSet, policyResource);
+    //    }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
         return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));

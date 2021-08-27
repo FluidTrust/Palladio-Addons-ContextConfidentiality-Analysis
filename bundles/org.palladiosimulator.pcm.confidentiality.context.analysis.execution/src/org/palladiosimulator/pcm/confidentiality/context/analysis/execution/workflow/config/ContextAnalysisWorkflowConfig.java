@@ -19,6 +19,7 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
     private URI repositoryModel;
     private URI allocationModel;
     private URI contextModel;
+    private URI outputXACML;
 
     public URI getRepositoryModel() {
         return this.repositoryModel;
@@ -42,6 +43,14 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
 
     public void setContextModel(final URI contextModel) {
         this.contextModel = contextModel;
+    }
+
+    public URI getOutputXACML() {
+        return this.outputXACML;
+    }
+
+    public void setOutputXACML(URI outputXACML) {
+        this.outputXACML = outputXACML;
     }
 
     @Override

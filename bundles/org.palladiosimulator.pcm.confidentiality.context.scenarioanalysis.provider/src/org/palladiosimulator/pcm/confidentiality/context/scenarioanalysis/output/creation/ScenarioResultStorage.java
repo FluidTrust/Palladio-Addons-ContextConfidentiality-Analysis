@@ -41,4 +41,6 @@ public interface ScenarioResultStorage {
      */
     void storePositiveResult(UsageScenario scenario, PDPResult requestor);
 
+    void storePositiveResult(UsageScenario scenario);
+
 }

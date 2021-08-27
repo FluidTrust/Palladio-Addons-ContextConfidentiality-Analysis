@@ -6,10 +6,11 @@
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license.epl2"
       license-feature-version="1.0.0">
-   
+
    <requires>
-      <import plugin="org.palladiosimulator.analyzer.workflow" version="3.10.0" match="greaterOrEqual"/>
-   </requires> 
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature" version="0.1.0.qualifier"/>
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.editor.feature" version="0.2.0.qualifier"/>
+   </requires>
 
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.api"
@@ -17,56 +18,93 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.provider"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.editor"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.launcher"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.analysis.execution"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+
    <plugin
          id="org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.palladiosimulator.pcm.confidentiality.attacker.analysis.common"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.palladiosimulator.pcm.confidentiality.context.xacml.generation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.palladiosimulator.pcm.confidentiality.context.xacml.pdp"
          download-size="0"
          install-size="0"
          version="0.0.0"

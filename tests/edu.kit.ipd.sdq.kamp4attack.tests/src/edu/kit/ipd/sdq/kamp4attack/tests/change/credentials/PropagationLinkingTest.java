@@ -15,7 +15,8 @@ import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 class PropagationLinkingTest extends AbstractChangeTests {
 
     private void runLinkingToContextPropagation(final CredentialChange change) {
-        final var wrapper = this.getBlackboardWrapper();
+        generateXML();
+        final var wrapper = getBlackboardWrapper();
         final var linkingChange = new LinkingPropagationContext(wrapper);
         linkingChange.calculateLinkingResourceToContextPropagation(change);
     }
@@ -25,11 +26,10 @@ class PropagationLinkingTest extends AbstractChangeTests {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         final var linkingChange = this.createLinkingChange(change);
-        final var context = this.createContext("Test");
-        final var contextSet = this.createContextSet(context);
-        this.createAttributeProvider(contextSet, linkingChange.getAffectedElement());
+        final var context = createContext("Test");
+        this.createAttributeProvider(context, linkingChange.getAffectedElement());
 
-        this.runLinkingToContextPropagation(change);
+        runLinkingToContextPropagation(change);
 
         assertEquals(1, change.getCompromisedlinkingresource().size());
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0), linkingChange));
@@ -46,15 +46,14 @@ class PropagationLinkingTest extends AbstractChangeTests {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         final var linkingChange = this.createLinkingChange(change);
-        final var context = this.createContext("Test");
-        final var contextSet = this.createContextSet(context);
-        this.createAttributeProvider(contextSet, linkingChange.getAffectedElement());
+        final var context = createContext("Test");
+        this.createAttributeProvider(context, linkingChange.getAffectedElement());
 
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);
         change.getContextchange().add(contextChange);
 
-        this.runLinkingToContextPropagation(change);
+        runLinkingToContextPropagation(change);
 
         assertEquals(1, change.getCompromisedlinkingresource().size());
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0), linkingChange));
@@ -71,16 +70,15 @@ class PropagationLinkingTest extends AbstractChangeTests {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         final var linkingChange = this.createLinkingChange(change);
-        final var contextOriginal = this.createContext("Own");
-        final var context = this.createContext("Test");
-        final var contextSet = this.createContextSet(context);
-        this.createAttributeProvider(contextSet, linkingChange.getAffectedElement());
+        final var contextOriginal = createContext("Own");
+        final var context = createContext("Test");
+        this.createAttributeProvider(context, linkingChange.getAffectedElement());
 
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(contextOriginal);
         change.getContextchange().add(contextChange);
 
-        this.runLinkingToContextPropagation(change);
+        runLinkingToContextPropagation(change);
 
         assertEquals(1, change.getCompromisedlinkingresource().size());
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0), linkingChange));
@@ -99,10 +97,8 @@ class PropagationLinkingTest extends AbstractChangeTests {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         final var linkingChange = this.createLinkingChange(change);
-        final var context = this.createContext("Test");
-        this.createContextSet(context);
 
-        this.runLinkingToContextPropagation(change);
+        runLinkingToContextPropagation(change);
 
         assertEquals(1, change.getCompromisedlinkingresource().size());
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0), linkingChange));
@@ -118,11 +114,10 @@ class PropagationLinkingTest extends AbstractChangeTests {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         final var linkingChange = this.createLinkingChange(change);
-        final var context = this.createContext("Test");
-        final var contextSet = this.createContextSet(context);
-        this.createAttributeProvider(contextSet, this.environment.getLinkingResources__ResourceEnvironment().get(1));
+        final var context = createContext("Test");
+        this.createAttributeProvider(context, this.environment.getLinkingResources__ResourceEnvironment().get(1));
 
-        this.runLinkingToContextPropagation(change);
+        runLinkingToContextPropagation(change);
 
         assertEquals(1, change.getCompromisedlinkingresource().size());
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0), linkingChange));

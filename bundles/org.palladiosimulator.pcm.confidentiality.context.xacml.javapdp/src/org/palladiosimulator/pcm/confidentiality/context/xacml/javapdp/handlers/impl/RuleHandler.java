@@ -1,9 +1,12 @@
+/*
+ *
+ */
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Expression;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
@@ -18,7 +21,7 @@ public class RuleHandler implements ContextTypeConverter<List<RuleType>, List<Ru
 
     private ObjectFactory factory = new ObjectFactory();
 
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler = new TargetHandler();
+    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
     private ContextTypeConverter<ConditionType, Expression> conditionHandler = new ConditionHandler();
 

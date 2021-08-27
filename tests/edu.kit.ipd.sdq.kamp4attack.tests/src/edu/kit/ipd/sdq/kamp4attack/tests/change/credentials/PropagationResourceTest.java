@@ -29,12 +29,14 @@ class PropagationResourceTest extends AbstractChangeTests {
     }
 
     private void runResourceAssemblyPropagation(final CredentialChange change) {
+        generateXML();
         final var wrapper = getBlackboardWrapper();
         final var resourceChange = new ResourceContainerPropagationContext(wrapper);
         resourceChange.calculateResourceContainerToLocalAssemblyContextPropagation(change);
     }
 
     private void runResourceContextPropagation(final CredentialChange change) {
+        generateXML();
         final var wrapper = getBlackboardWrapper();
         final var resourceChange = new ResourceContainerPropagationContext(wrapper);
         resourceChange.calculateResourceContainerToContextPropagation(change);
@@ -48,9 +50,8 @@ class PropagationResourceTest extends AbstractChangeTests {
         final var resource = resourceChange.getAffectedElement();
 
         final var context = createContext("Test");
-        final var contextSet = this.createContextSet(context);
 
-        this.createPolicyAssembly(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
 
         runResourceAssemblyPropagation(change);
 
@@ -70,12 +71,11 @@ class PropagationResourceTest extends AbstractChangeTests {
         final var resource = resourceChange.getAffectedElement();
 
         final var context = createContext("Test");
-        final var contextSet = this.createContextSet(context);
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);
         change.getContextchange().add(contextChange);
 
-        this.createPolicyAssembly(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
         this.createAttributeProvider(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
 
         runResourceAssemblyPropagation(change);
@@ -97,9 +97,8 @@ class PropagationResourceTest extends AbstractChangeTests {
         final var resource = resourceChange.getAffectedElement();
 
         final var context = createContext("Test");
-        final var contextSet = this.createContextSet(context);
 
-        this.createPolicyAssembly(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
         this.createAttributeProvider(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
 
         runResourceAssemblyPropagation(change);

@@ -21,7 +21,8 @@ public class XACMLGenerator implements XACMLGeneration {
     private ContextTypeConverter<PolicySetType, PolicySet> setHandler = new PolicySetHandler();
 
     @Override
-    public void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification) {
+    public void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification,
+            String path) {
         // set root policyset with description
         var set = this.setHandler.transform(confidentialitySpecification.getPolicyset());
         set.setDescription("Policies for " + pcm.getSystem().getEntityName()
@@ -38,7 +39,7 @@ public class XACMLGenerator implements XACMLGeneration {
 
         var objectFactory = new ObjectFactory();
         var policySetElement = objectFactory.createPolicySet(set);
-        XACMLPolicyWriter.writeXACMLFile(Path.of("/home/majuwa/tmp/test.xml"), policySetElement, PolicySetType.class);
+        XACMLPolicyWriter.writeXACMLFile(Path.of(path), policySetElement, PolicySetType.class);
     }
 
 }

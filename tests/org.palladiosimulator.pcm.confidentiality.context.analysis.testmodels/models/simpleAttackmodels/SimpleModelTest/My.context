@@ -15,11 +15,9 @@
     <policy id="_NiP5Me4AEeuUMoY75qRdSg">
       <rule id="_Ptj6MO4AEeuUMoY75qRdSg" entityName="access User Terminal" permit="PERMIT">
         <target>
-          <allof>
             <match xsi:type="structure:EntityMatch" id="_SE498O4AEeuUMoY75qRdSg" entityName="UserTerminal">
               <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_Fg8BQe2_Eeq6pfPMAIqEqg"/>
             </match>
-          </allof>
         </target>
         <condition xsi:type="Apply" id="_lJVzYO4NEeuHWuGCDwkq6w" operation="STRING_IS_IN">
           <parameters xsi:type="AttributeValueReference" id="_oUvYZu4NEeuHWuGCDwkq6w" attributevalue="_dlTaMO4NEeuHWuGCDwkq6w"/>
@@ -30,7 +28,6 @@
     <policy id="_f4n-Iu4BEeuUMoY75qRdSg" entityName="access DB over Seff">
       <rule id="_ggG04O4BEeuUMoY75qRdSg" permit="PERMIT">
         <target>
-          <allof>
             <match xsi:type="structure:MethodMatch" id="_j7n5gu4BEeuUMoY75qRdSg" entityName="AccessDB">
               <methodspecification xsi:type="structure:ServiceRestriction" id="_o9kwce4BEeuUMoY75qRdSg">
                 <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_J5tNwO2-Eeq6pfPMAIqEqg"/>
@@ -38,7 +35,6 @@
                 <service href="newRepository.repository#_OE1xcO2-Eeq6pfPMAIqEqg"/>
               </methodspecification>
             </match>
-          </allof>
         </target>
       </rule>
     </policy>

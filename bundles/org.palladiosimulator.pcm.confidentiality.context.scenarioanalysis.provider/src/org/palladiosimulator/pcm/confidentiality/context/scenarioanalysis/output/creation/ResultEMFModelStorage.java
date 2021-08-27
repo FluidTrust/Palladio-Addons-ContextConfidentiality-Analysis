@@ -9,6 +9,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.Ou
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.repository.OperationInterface;
+import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
@@ -27,6 +28,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
             final Signature signature, final Identifier connector, final PDPResult policies) {
 
         // checking if positve result exists
+
         if (this.results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
                 .anyMatch(e -> e.getDecision().equals(DecisionType.PERMIT))) {
             throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
@@ -34,17 +36,20 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
 
         // checking for null values
         Objects.requireNonNull(scenario);
-        Objects.requireNonNull(operationInterface);
+        //        Objects.requireNonNull(operationInterface);
         Objects.requireNonNull(signature);
         Objects.requireNonNull(connector);
         Objects.requireNonNull(policies);
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
 
-//        scenarioResult.setConnector(connector);
-//        scenarioResult.setOperationsignature(signature);
+        //        scenarioResult.setConnector(connector);
+        //        scenarioResult.setOperationsignature(signature);
         scenarioResult.setOperationinterface(operationInterface);
         scenarioResult.setScenario(scenario);
+        scenarioResult.setDecision(policies.getDecision());
+        scenarioResult.getPolicyIDs().addAll(policies.getPolicyIdentifiers());
+        scenarioResult.setOperationsignature((OperationSignature) signature);
 
         this.results.getScenariooutput().add(scenarioResult);
 
@@ -83,12 +88,22 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         }
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-//        scenarioResult.setResult(!outputScenario.get(0).isResult());
+        //        scenarioResult.setResult(!outputScenario.get(0).isResult());
         scenarioResult.setScenario(scenario);
 
         this.results.getScenariooutput().removeAll(outputScenario);
         this.results.getScenariooutput().add(scenarioResult);
         throw new IllegalStateException("flip operation not implemented yet " + scenario);
+    }
+
+    @Override
+    public void storePositiveResult(UsageScenario scenario) {
+        // TODO Auto-generated method stub
+        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        scenarioResult.setDecision(DecisionType.PERMIT);
+        scenarioResult.setScenario(scenario);
+
+        this.results.getScenariooutput().add(scenarioResult);
     }
 
 }

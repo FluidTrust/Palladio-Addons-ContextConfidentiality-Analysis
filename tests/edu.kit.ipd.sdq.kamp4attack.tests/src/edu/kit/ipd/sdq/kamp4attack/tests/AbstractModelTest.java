@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
+import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLPDP;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
@@ -38,7 +38,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected AbstractKAMP4attackModificationRepository<?> modification;
 
-    protected Evaluate eval;
+    private String pathXACML = "test.xml";
 
     final protected BlackboardWrapper getBlackboardWrapper() {
 
@@ -71,21 +71,29 @@ public abstract class AbstractModelTest extends BaseTest {
         this.modification = this.getModel(list, AbstractKAMP4attackModificationRepository.class);
     }
 
-    @BeforeEach
-    protected void initEval() {
-        this.eval = new XACMLPDP();
-
-        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
+    @Override
+    protected void generateXML() {
         var generator = new XACMLGenerator();
-
-        generator.generateXACML(blackboard, this.context);
-
-        this.eval.initialize("/home/majuwa/tmp/test.xml");
+        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
+        generator.generateXACML(blackboard, this.context, this.pathXACML);
     }
 
-    @AfterEach
-    protected void shutdownEval() {
-        this.eval.shutdown();
+    protected UsageSpecification createContext(final String name) {
+        final var contextAccess = SystemFactory.eINSTANCE.createUsageSpecification();
+
+        final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
+        var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        attributeValue.getValues().add(name);
+        attributeValue.setType(DataTypes.STRING);
+        attribute.getAttributevalue().add(attributeValue);
+
+        contextAccess.setEntityName(name);
+        contextAccess.setAttribute(attribute);
+        contextAccess.setAttributevalue(attributeValue);
+        this.context.getAttributes().getAttribute().add(attribute);
+        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
+        return contextAccess;
     }
+
 
 }

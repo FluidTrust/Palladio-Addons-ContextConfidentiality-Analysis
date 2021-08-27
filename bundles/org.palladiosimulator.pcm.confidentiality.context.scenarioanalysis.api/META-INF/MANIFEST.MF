@@ -9,5 +9,6 @@ Require-Bundle: org.palladiosimulator.pcm.confidentiality.context.analysis.api;v
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.commons;bundle-version="4.3.0",
  org.apache.log4j,
- org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel;bundle-version="0.1.0"
+ org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel;bundle-version="0.1.0",
+ org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api

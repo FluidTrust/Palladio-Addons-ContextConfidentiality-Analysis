@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBElement;
 
-import org.palladiosimulator.pcm.confidentiality.context.policy.AnyOff;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicySet;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers.ContextTypeConverter;
@@ -20,7 +20,7 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 public class PolicySetHandler implements ContextTypeConverter<PolicySetType, PolicySet> {
     private ObjectFactory factory = new ObjectFactory();
 
-    private ContextTypeConverter<TargetType, List<AnyOff>> targetHandler = new TargetHandler();
+    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
     private ContextTypeConverter<PolicyType, Policy> handler = new PolicyHandler();
 

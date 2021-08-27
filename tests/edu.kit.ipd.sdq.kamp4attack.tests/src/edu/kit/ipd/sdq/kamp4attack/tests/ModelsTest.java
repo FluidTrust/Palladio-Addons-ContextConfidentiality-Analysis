@@ -28,6 +28,7 @@ class ModelsTest extends AbstractModelTest {
 
     @BeforeEach
     protected void execute() {
+        generateXML();
         this.attacker.getAttackers().getAttacker().get(0).getCompromiseddata().clear();
         final var wrapper = getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);

@@ -46,10 +46,10 @@ public class SystemWalker {
                     PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts));
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
                     service.get(service.size() - 1));
-            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), encapsulatingContexts, nextSeff, context);
-//            if (contextOpt.isPresent()) {
-//                context = contextOpt.get();
-//            }
+            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), service, nextSeff, context);
+            //            if (contextOpt.isPresent()) {
+            //                context = contextOpt.get();
+            //            }
             this.propagationBySeff(nextSeff, service, context);
         }
     }
@@ -64,7 +64,7 @@ public class SystemWalker {
     private AssemblyContext getHandlingAssemblyContext(final EntryLevelSystemCall call, final System system) {
         final var acList = PCMInstanceHelper.getHandlingAssemblyContexts(call, system);
         return acList.get(acList.size() - 1); // according to specification last element of list is
-                                              // the actual assembly context
+        // the actual assembly context
     }
 
     private ResourceDemandingSEFF getSEFF(final Signature sig, final AssemblyContext ac) {

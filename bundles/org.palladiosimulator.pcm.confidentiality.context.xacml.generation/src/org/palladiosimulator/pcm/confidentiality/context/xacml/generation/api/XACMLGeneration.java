@@ -4,5 +4,5 @@ import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpeci
 
 public interface XACMLGeneration {
 
-    void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification);
+    void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification, String path);
 }
