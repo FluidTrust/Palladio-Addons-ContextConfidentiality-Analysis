@@ -17,7 +17,7 @@ This repository contains multiple Eclipse plugins to analyse confidentiality pro
     * misusage scenarios are supported (similar to misusage diagrams)
 2. Attacker propagation
     * propagation based on CVE and CWE vulnerabilites
-    * supports different authorization leves and gaining of new credentials
+    * supports different authorization levels and gaining of new credentials
 ## Installation
 ### Dependencies
 * Java 11
