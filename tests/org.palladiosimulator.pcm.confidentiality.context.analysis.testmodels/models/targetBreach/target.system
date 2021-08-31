@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_HLj5EAo9EeyKMtWTxnyP1g" entityName="Supermarket">
+  <assemblyContexts__ComposedStructure id="_MHdyYAo9EeyKMtWTxnyP1g" entityName="Assembly_BusinessServiceComponent">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="target.repository#_3w5XUAo7EeyKMtWTxnyP1g"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_QTPPQAo9EeyKMtWTxnyP1g" entityName="Assembly_POSComponent">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="target.repository#_33huUAo8EeyKMtWTxnyP1g"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_SZFhcAo9EeyKMtWTxnyP1g" entityName="Assembly_ExternalSupplier">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="target.repository#_CtGwwAo9EeyKMtWTxnyP1g"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_T1oX8Ao9EeyKMtWTxnyP1g" entityName="Assembly_FTPComponent">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="target.repository#_9jd9cAo8EeyKMtWTxnyP1g"/>
+  </assemblyContexts__ComposedStructure>
+</system:System>
