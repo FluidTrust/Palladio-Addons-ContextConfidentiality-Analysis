@@ -23,26 +23,27 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
     @Override
     protected ResourceContainerHandler getLocalResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected ResourceContainerHandler getRemoteResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
-    protected void handleSeff(CredentialChange changes, List<ServiceRestriction> components, AssemblyContext source) {
+    protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> components,
+            final AssemblyContext source) {
         // intentional blank
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
+  <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
+    <attackcomponent>
+      <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_-XvFQAo3EeyKMtWTxnyP1g"/>
+    </attackcomponent>
+  </seedModifications>
+  <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
+    <compromisedassembly>
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+    </compromisedassembly>
+    <contextchange toolderived="true">
+      <affectedElement xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+    </contextchange>
+  </changePropagationSteps>
+</KAMP4attackModificationmarks:KAMP4attackModificationRepository>

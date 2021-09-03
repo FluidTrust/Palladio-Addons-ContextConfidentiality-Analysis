@@ -26,12 +26,12 @@ public class ResourceContainerContext extends ResourceContainerHandler {
     @Override
     protected Optional<CompromisedResource> attackResourceContainer(final ResourceContainer container,
             final CredentialChange change, final EObject source) {
-        final List<? extends UsageSpecification> credentials = getCredentials(change);
+        final List<? extends UsageSpecification> credentials = this.getCredentials(change);
 
-        var result = queryAccessForEntity(container, credentials);
+        final var result = this.queryAccessForEntity(container, credentials);
 
         if (result.isPresent() && Objects.equal(result.get().getDecision(), DecisionType.PERMIT)) {
-            final var sourceList = createSource(source, credentials);
+            final var sourceList = this.createSource(source, credentials);
             final var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, sourceList);
             return Optional.of(compromised);
         }

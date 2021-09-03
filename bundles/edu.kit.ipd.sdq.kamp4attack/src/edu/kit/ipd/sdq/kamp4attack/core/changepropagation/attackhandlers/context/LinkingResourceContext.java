@@ -26,12 +26,12 @@ public class LinkingResourceContext extends LinkingResourceHandler {
     @Override
     protected Optional<CompromisedLinkingResource> attackLinkingResource(final LinkingResource linking,
             final CredentialChange change, final EObject source) {
-        final List<? extends UsageSpecification> credentials = getCredentials(change);
+        final List<? extends UsageSpecification> credentials = this.getCredentials(change);
 
-        var result = queryAccessForEntity(linking, credentials);
+        final var result = this.queryAccessForEntity(linking, credentials);
 
         if (result.isPresent() && Objects.equal(result.get().getDecision(), DecisionType.PERMIT)) {
-            final var sourceList = createSource(source, credentials);
+            final var sourceList = this.createSource(source, credentials);
             final var compromised = HelperCreationCompromisedElements.createCompromisedLinking(linking, sourceList);
             return Optional.of(compromised);
         }

@@ -85,13 +85,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         change.getContextchange().add(contextChange);
     }
 
-    //    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
-    //        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
-    //        contextSetAccessResource.getContexts().add(contextAccess);
-    //        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
-    //        return contextSetAccessResource;
-    //    }
-
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
         return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
     }
@@ -127,18 +120,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
         addPolicy(policy);
     }
-    //
-    //    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
-    //        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-    //        policyLinking.setLinkingresource(linking);
-    //        addPolicy(contextSet, policyLinking);
-    //    }
-    //
-    //    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
-    //        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-    //        policyResource.setResourcecontainer(resource);
-    //        addPolicy(contextSet, policyResource);
-    //    }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
         return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));

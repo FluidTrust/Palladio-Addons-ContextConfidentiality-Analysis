@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_oioC4AyXEeyaBLrK9rfqSA">
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_65cpMAyXEeyaBLrK9rfqSA" entityName="AttributeProviderExternalSupplier">
+      <attribute id="_UPJtMAyYEeyaBLrK9rfqSA" entityName="UsageSupplier" attributevalue="_y0IH4AyXEeyaBLrK9rfqSA" attribute="_sd7a0gyXEeyaBLrK9rfqSA"/>
+      <assemblycontext href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+    </attributeprovider>
+  </pcmspecificationcontainer>
+  <policyset id="_caMcAQyYEeyaBLrK9rfqSA" entityName="PolicySet - Target">
+    <policyset id="_Br-3gAyZEeyZbopQ38PZkA" entityName="Target Business">
+      <policy id="_gbmb8QyYEeyaBLrK9rfqSA">
+        <rule id="_8j_C8AyYEeyZbopQ38PZkA" entityName="Billing">
+          <condition xsi:type="SimpleAttributeCondition" id="_TNb8FwyZEeyZbopQ38PZkA" entityName="SupplierCredentialCheck" attribute="_UPJtMAyYEeyaBLrK9rfqSA"/>
+          <target>
+            <match xsi:type="structure:MethodMatch" id="_GdLVogyZEeyZbopQ38PZkA" entityName="MatchBillingService">
+              <methodspecification xsi:type="structure:ServiceRestriction" id="_H4kVkQyZEeyZbopQ38PZkA">
+                <signature xsi:type="repository:OperationSignature" href="target.repository#_YGBd0Ao3EeyKMtWTxnyP1g"/>
+                <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+                <service href="target.repository#_-xba0Ao7EeyKMtWTxnyP1g"/>
+              </methodspecification>
+            </match>
+          </target>
+        </rule>
+      </policy>
+    </policyset>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_sd7a0gyXEeyaBLrK9rfqSA" entityName="Credentials">
+      <attributevalue id="_w0HX8AyXEeyaBLrK9rfqSA" entityName="DomainAdmin">
+        <values>DomainAdmin</values>
+      </attributevalue>
+      <attributevalue id="_y0IH4AyXEeyaBLrK9rfqSA" entityName="Supplier">
+        <values>Supplier</values>
+      </attributevalue>
+      <attributevalue id="_3Jha0AyXEeyaBLrK9rfqSA" entityName="POSCredentials">
+        <values>POS</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

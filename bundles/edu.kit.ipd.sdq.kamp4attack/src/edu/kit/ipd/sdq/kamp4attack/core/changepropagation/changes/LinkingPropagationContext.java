@@ -21,17 +21,17 @@ public class LinkingPropagationContext extends LinkingChange {
 
     @Override
     protected ResourceContainerHandler getResourceContainerHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyContextHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected void handleSeff(final CredentialChange change, final List<AssemblyContext> components,
-            LinkingResource source) {
+            final LinkingResource source) {
         // intentional blank
 
     }

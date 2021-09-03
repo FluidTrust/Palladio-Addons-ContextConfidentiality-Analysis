@@ -23,11 +23,11 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 
     public void attackAssemblyContext(final Collection<AssemblyContext> components, final CredentialChange change,
             final EObject source) {
-        final var compromisedComponent = components.stream().map(e -> attackComponent(e, change, source))
+        final var compromisedComponent = components.stream().map(e -> this.attackComponent(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList());
-        final var newCompromisedComponent = filterExsiting(compromisedComponent, change);
+        final var newCompromisedComponent = this.filterExsiting(compromisedComponent, change);
         if (!newCompromisedComponent.isEmpty()) {
-            handleDataExtraction(newCompromisedComponent);
+            this.handleDataExtraction(newCompromisedComponent);
             change.setChanged(true);
             change.getCompromisedassembly().addAll(newCompromisedComponent);
         }
@@ -43,7 +43,7 @@ public abstract class AssemblyContextHandler extends AttackHandler {
         final var dataList = filteredComponents.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
                 .distinct().flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
-        getDataHandler().addData(dataList);
+        this.getDataHandler().addData(dataList);
     }
 
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
@@ -51,7 +51,7 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 
     private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
             final CredentialChange change) {
-        return components.stream().filter(component -> !contains(component, change)).collect(Collectors.toList());
+        return components.stream().filter(component -> !this.contains(component, change)).collect(Collectors.toList());
 
     }
 

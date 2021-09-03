@@ -14,27 +14,27 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public class CompromisedElementHelper {
 
     private CompromisedElementHelper() {
-        // TODO Auto-generated constructor stub
+        // intentional
     }
 
-    public static boolean isHacked(PCMElement element, CredentialChange change) {
+    public static boolean isHacked(final PCMElement element, final CredentialChange change) {
 
         return isHacked(element.getAssemblycontext(), change) && isHacked(element.getLinkingresource(), change)
                 && isHacked(element.getResourcecontainer(), change);
 
     }
 
-    public static boolean isHacked(AssemblyContext component, CredentialChange change) {
+    public static boolean isHacked(final AssemblyContext component, final CredentialChange change) {
         return change.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
                 .anyMatch(e -> EcoreUtil.equals(component, e));
     }
 
-    public static boolean isHacked(ResourceContainer container, CredentialChange change) {
+    public static boolean isHacked(final ResourceContainer container, final CredentialChange change) {
         return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .anyMatch(e -> EcoreUtil.equals(container, e));
     }
 
-    public static boolean isHacked(LinkingResource container, CredentialChange change) {
+    public static boolean isHacked(final LinkingResource container, final CredentialChange change) {
         return change.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
                 .anyMatch(e -> EcoreUtil.equals(container, e));
     }

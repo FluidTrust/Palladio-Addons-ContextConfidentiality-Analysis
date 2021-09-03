@@ -70,43 +70,46 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     }
 
-    private void handleSeff(CredentialChange changes, AssemblyContext component) {
+    private void handleSeff(final CredentialChange changes, final AssemblyContext soureComponent) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
-        final var targetConnectors = getTargetedConnectors(component, system);
+        final var targetConnectors = getTargetedConnectors(soureComponent, system);
 
         final var specification = targetConnectors.stream()
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component))
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), soureComponent))
                 .flatMap(role -> {
 
-                    var signatures = role.getProvidedRole_AssemblyConnector()
+                    final var signatures = role.getProvidedRole_AssemblyConnector()
                             .getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface();
 
-                    var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
+                    final var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
                             .getEncapsulatedComponent__AssemblyContext();
 
                     if (componentRepository instanceof BasicComponent) {
-                        var basicComponent = (BasicComponent) componentRepository;
+                        final var basicComponent = (BasicComponent) componentRepository;
                         return basicComponent.getServiceEffectSpecifications__BasicComponent().stream()
                                 .filter(seff -> signatures.stream().anyMatch( // find only seff of
-                                                                              // role
+                                        // role
                                         signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
 
                                 .map(seff -> {
-                                    var methodspecification = StructureFactory.eINSTANCE.createServiceRestriction();
+                                    final var methodspecification = StructureFactory.eINSTANCE
+                                            .createServiceRestriction();
                                     methodspecification
-                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                                    .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
                                     methodspecification.setService((ResourceDemandingSEFF) seff);
+                                    methodspecification
+                                            .setSignature(methodspecification.getService().getDescribedService__SEFF());
                                     return methodspecification;
                                 });
 
                     }
                     return Stream.empty();
                 }).collect(Collectors.toList());
-        handleSeff(changes, specification, component);
+        this.handleSeff(changes, specification, soureComponent);
     }
 
-    protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> components,
+    protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> services,
             AssemblyContext source);
 
     @Override
@@ -146,7 +149,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             final var handler = getAssemblyHandler();
             targetComponents = CollectionHelper.removeDuplicates(targetComponents);
             handler.attackAssemblyContext(targetComponents, changes, component);
-            handleSeff(changes, component);
+            this.handleSeff(changes, component);
         }
 
     }
@@ -161,8 +164,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
 
         targetComponents
-                .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+        .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
         return targetComponents;
     }
 

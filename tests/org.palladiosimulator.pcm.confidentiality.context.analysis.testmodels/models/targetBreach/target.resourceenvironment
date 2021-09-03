@@ -6,7 +6,7 @@
       <throughput_CommunicationLinkResourceSpecification/>
     </communicationLinkResourceSpecifications_LinkingResource>
   </linkingResources__ResourceEnvironment>
-  <linkingResources__ResourceEnvironment id="_kVyXkAo9EeyKMtWTxnyP1g" entityName="Intranet" connectedResourceContainers_LinkingResource="_csC_AAo9EeyKMtWTxnyP1g _fUZhUAo9EeyKMtWTxnyP1g _gl3JMAo9EeyKMtWTxnyP1g _tV4fEAo9EeyKMtWTxnyP1g">
+  <linkingResources__ResourceEnvironment id="_kVyXkAo9EeyKMtWTxnyP1g" entityName="Intranet" connectedResourceContainers_LinkingResource="_csC_AAo9EeyKMtWTxnyP1g _fUZhUAo9EeyKMtWTxnyP1g _gl3JMAo9EeyKMtWTxnyP1g _tV4fEAo9EeyKMtWTxnyP1g _X6PkYAsjEeya1aH-ZcM-RA">
     <communicationLinkResourceSpecifications_LinkingResource id="_kVy-oAo9EeyKMtWTxnyP1g">
       <latency_CommunicationLinkResourceSpecification/>
       <throughput_CommunicationLinkResourceSpecification/>
@@ -17,4 +17,5 @@
   <resourceContainer_ResourceEnvironment id="_fUZhUAo9EeyKMtWTxnyP1g" entityName="POS1"/>
   <resourceContainer_ResourceEnvironment id="_gl3JMAo9EeyKMtWTxnyP1g" entityName="POS2"/>
   <resourceContainer_ResourceEnvironment id="_tV4fEAo9EeyKMtWTxnyP1g" entityName="StorageServer"/>
+  <resourceContainer_ResourceEnvironment id="_X6PkYAsjEeya1aH-ZcM-RA" entityName="POS3"/>
 </resourceenvironment:ResourceEnvironment>

@@ -25,9 +25,9 @@ public abstract class ResourceContainerHandler extends AttackHandler {
             final EObject source) {
         final var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        final var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
             change.getCompromisedresource().addAll(newCompromisedResources);
         }
@@ -41,9 +41,9 @@ public abstract class ResourceContainerHandler extends AttackHandler {
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
         final var dataList = filteredComponents.stream()
-                .flatMap(resource -> DataHandler.getData(resource, getModelStorage().getAllocation()).stream())
+                .flatMap(resource -> DataHandler.getData(resource, this.getModelStorage().getAllocation()).stream())
                 .distinct().collect(Collectors.toList());
-        getDataHandler().addData(dataList);
+        this.getDataHandler().addData(dataList);
     }
 
     protected abstract Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
@@ -51,7 +51,7 @@ public abstract class ResourceContainerHandler extends AttackHandler {
 
     private Collection<CompromisedResource> filterExsiting(final Collection<CompromisedResource> containers,
             final CredentialChange change) {
-        return containers.stream().filter(container -> !contains(container, change)).collect(Collectors.toList());
+        return containers.stream().filter(container -> !this.contains(container, change)).collect(Collectors.toList());
 
     }
 

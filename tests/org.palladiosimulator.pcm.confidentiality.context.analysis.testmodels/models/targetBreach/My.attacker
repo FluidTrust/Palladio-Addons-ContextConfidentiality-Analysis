@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
-    <attacker id="_-XvFQAo3EeyKMtWTxnyP1g"/>
+    <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker">
+      <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+    </attacker>
   </attackers>
   <vulnerabilites>
     <vulnerability xsi:type="attack:CWEVulnerability" id="__G2OAAo3EeyKMtWTxnyP1g" entityName="Default Password" attackVector="Network" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>

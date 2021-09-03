@@ -27,6 +27,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
 
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
+
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_ABs0EAo1EeyKMtWTxnyP1g" entityName="Target Repository">
   <components__Repository xsi:type="repository:BasicComponent" id="_3w5XUAo7EeyKMtWTxnyP1g" entityName="BusinessServiceComponent">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-w1k8Ao7EeyKMtWTxnyP1g" entityName="BusinessServiceComponent.BusinessServices.OperationProvidedRole1" providedInterface__OperationProvidedRole="_L6y3EAo3EeyKMtWTxnyP1g"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_EPI6gApZEeyKMtWTxnyP1g" entityName="BusinessServiceComponent.FTPServer.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_H9qvoAo2EeyKMtWTxnyP1g"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_wA3IsAprEeyKMtWTxnyP1g" entityName="BusinessServiceComponent.BIAnalyze.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_Vgu48AprEeyKMtWTxnyP1g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_-w1k8Ao7EeyKMtWTxnyP1g" entityName="provideExternalAccess" providedInterface__OperationProvidedRole="_L6y3EAo3EeyKMtWTxnyP1g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_MM0QwAsfEeya1aH-ZcM-RA" entityName="provideInternatlData" providedInterface__OperationProvidedRole="__-Eb8AseEeya1aH-ZcM-RA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_EPI6gApZEeyKMtWTxnyP1g" entityName="storeDataFTP" requiredInterface__OperationRequiredRole="_H9qvoAo2EeyKMtWTxnyP1g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_wA3IsAprEeyKMtWTxnyP1g" entityName="getDataDatabase" requiredInterface__OperationRequiredRole="_Vgu48AprEeyKMtWTxnyP1g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_-xba0Ao7EeyKMtWTxnyP1g" describedService__SEFF="_YGBd0Ao3EeyKMtWTxnyP1g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_-xcB4Ao7EeyKMtWTxnyP1g" successor_AbstractAction="_GpOXUApZEeyKMtWTxnyP1g"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_-xcB4Qo7EeyKMtWTxnyP1g" predecessor_AbstractAction="_GpOXUApZEeyKMtWTxnyP1g"/>
       <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_GpOXUApZEeyKMtWTxnyP1g" entityName="ExternalCallAction1" predecessor_AbstractAction="_-xcB4Ao7EeyKMtWTxnyP1g" successor_AbstractAction="_-xcB4Qo7EeyKMtWTxnyP1g" calledService_ExternalService="_-L17UApYEeyKMtWTxnyP1g" role_ExternalService="_EPI6gApZEeyKMtWTxnyP1g"/>
     </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_MNzIMAsfEeya1aH-ZcM-RA" describedService__SEFF="_FPn1IAsfEeya1aH-ZcM-RA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_MNzvQAsfEeya1aH-ZcM-RA" successor_AbstractAction="_MNzvQQsfEeya1aH-ZcM-RA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_MNzvQQsfEeya1aH-ZcM-RA" predecessor_AbstractAction="_MNzvQAsfEeya1aH-ZcM-RA"/>
+    </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_33huUAo8EeyKMtWTxnyP1g" entityName="POSComponent">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_7zPV8Ao8EeyKMtWTxnyP1g" entityName="POSComponent.POS.OperationProvidedRole1" providedInterface__OperationProvidedRole="_VedQkAo1EeyKMtWTxnyP1g"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NbM8QAprEeyKMtWTxnyP1g" entityName="POSComponent.DataStorage.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_2ypbAApqEeyKMtWTxnyP1g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_NbM8QAprEeyKMtWTxnyP1g" entityName="storeData.PosComponent" requiredInterface__OperationRequiredRole="_2ypbAApqEeyKMtWTxnyP1g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_7zf0oAo8EeyKMtWTxnyP1g" describedService__SEFF="_WERTYAo1EeyKMtWTxnyP1g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_7zf0oQo8EeyKMtWTxnyP1g" successor_AbstractAction="_Ol-GQAprEeyKMtWTxnyP1g"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_7zf0ogo8EeyKMtWTxnyP1g" predecessor_AbstractAction="_Ol-GQAprEeyKMtWTxnyP1g"/>
@@ -20,11 +25,11 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_9jd9cAo8EeyKMtWTxnyP1g" entityName="FTPComponent">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uqb4YApXEeyKMtWTxnyP1g" entityName="FTPComponent.FTPServer.OperationProvidedRole1" providedInterface__OperationProvidedRole="_H9qvoAo2EeyKMtWTxnyP1g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uqb4YApXEeyKMtWTxnyP1g" entityName="provideStorage" providedInterface__OperationProvidedRole="_H9qvoAo2EeyKMtWTxnyP1g"/>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_CtGwwAo9EeyKMtWTxnyP1g" entityName="ExternalSupplier">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6vuPMApXEeyKMtWTxnyP1g" entityName="ExternalSupplier.ExternalSupplier.OperationProvidedRole1" providedInterface__OperationProvidedRole="_uDl90Ao2EeyKMtWTxnyP1g"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7x9IQApXEeyKMtWTxnyP1g" entityName="ExternalSupplier.BusinessServices.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_L6y3EAo3EeyKMtWTxnyP1g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_7x9IQApXEeyKMtWTxnyP1g" entityName="connectBillingSystem" requiredInterface__OperationRequiredRole="_L6y3EAo3EeyKMtWTxnyP1g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_6vzHsApXEeyKMtWTxnyP1g" describedService__SEFF="_2ktAQApXEeyKMtWTxnyP1g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_6vzHsQpXEeyKMtWTxnyP1g" successor_AbstractAction="_KOKTIApYEeyKMtWTxnyP1g"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_6vzHsgpXEeyKMtWTxnyP1g" predecessor_AbstractAction="_GvxgsApYEeyKMtWTxnyP1g"/>
@@ -33,8 +38,8 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_0wO3UApqEeyKMtWTxnyP1g" entityName="Database">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_LbgVYAprEeyKMtWTxnyP1g" entityName="Database.DataStorage.OperationProvidedRole1" providedInterface__OperationProvidedRole="_2ypbAApqEeyKMtWTxnyP1g"/>
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_bCQn0AprEeyKMtWTxnyP1g" entityName="Database.Interface6.OperationProvidedRole2" providedInterface__OperationProvidedRole="_Vgu48AprEeyKMtWTxnyP1g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_LbgVYAprEeyKMtWTxnyP1g" entityName="storeData" providedInterface__OperationProvidedRole="_2ypbAApqEeyKMtWTxnyP1g"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_bCQn0AprEeyKMtWTxnyP1g" entityName="getData" providedInterface__OperationProvidedRole="_Vgu48AprEeyKMtWTxnyP1g"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Lb-PcAprEeyKMtWTxnyP1g" describedService__SEFF="_9nyt4ApqEeyKMtWTxnyP1g">
       <steps_Behaviour xsi:type="seff:StartAction" id="_Lb-PcQprEeyKMtWTxnyP1g" successor_AbstractAction="_Lb-PcgprEeyKMtWTxnyP1g"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_Lb-PcgprEeyKMtWTxnyP1g" predecessor_AbstractAction="_Lb-PcQprEeyKMtWTxnyP1g"/>
@@ -56,9 +61,8 @@
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_uDl90Ao2EeyKMtWTxnyP1g" entityName="ExternalSupplier">
     <signatures__OperationInterface id="_2ktAQApXEeyKMtWTxnyP1g" entityName="creaeteExternalBilling"/>
   </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_L6y3EAo3EeyKMtWTxnyP1g" entityName="BusinessServices">
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_L6y3EAo3EeyKMtWTxnyP1g" entityName="BusinessServicesExternal">
     <signatures__OperationInterface id="_YGBd0Ao3EeyKMtWTxnyP1g" entityName="billing"/>
-    <signatures__OperationInterface id="_mlgokAprEeyKMtWTxnyP1g" entityName="analzyeData"/>
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_2ypbAApqEeyKMtWTxnyP1g" entityName="DataStorage">
     <signatures__OperationInterface id="_9nyt4ApqEeyKMtWTxnyP1g" entityName="store">
@@ -68,6 +72,9 @@
   </interfaces__Repository>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_Vgu48AprEeyKMtWTxnyP1g" entityName="BIAnalyze">
     <signatures__OperationInterface id="_WU45wAprEeyKMtWTxnyP1g" entityName="getData" returnType__OperationSignature="_pN9RgAprEeyKMtWTxnyP1g"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="__-Eb8AseEeya1aH-ZcM-RA" entityName="BusinessServicesInternal">
+    <signatures__OperationInterface id="_FPn1IAsfEeya1aH-ZcM-RA" entityName="analyzeData"/>
   </interfaces__Repository>
   <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_NS02cAo2EeyKMtWTxnyP1g" entityName="CreditCard">
     <innerDeclaration_CompositeDataType entityName="CardNumber">

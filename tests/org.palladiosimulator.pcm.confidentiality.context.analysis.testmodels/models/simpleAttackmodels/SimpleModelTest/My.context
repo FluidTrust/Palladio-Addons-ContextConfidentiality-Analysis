@@ -11,41 +11,46 @@
     </attributeprovider>
     <usagespecification id="_sKKUUe4ZEeu1msiU_4h_hw" attributevalue="_dlTaMO4NEeuHWuGCDwkq6w" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
   </pcmspecificationcontainer>
-  <policyset id="_Lmv10O4AEeuUMoY75qRdSg" combiningAlgorithm="DENY_OVERRIDES">
+  <policyset id="_Lmv10O4AEeuUMoY75qRdSg">
     <policy id="_NiP5Me4AEeuUMoY75qRdSg">
       <rule id="_Ptj6MO4AEeuUMoY75qRdSg" entityName="access User Terminal" permit="PERMIT">
+        <condition xsi:type="SimpleAttributeCondition" id="_l6UO9wy6EeyG_Kid0W_Zow" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
         <target>
-            <match xsi:type="structure:EntityMatch" id="_SE498O4AEeuUMoY75qRdSg" entityName="UserTerminal">
-              <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_Fg8BQe2_Eeq6pfPMAIqEqg"/>
-            </match>
+          <match xsi:type="structure:EntityMatch" id="_SE498O4AEeuUMoY75qRdSg" entityName="UserTerminal">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_Fg8BQe2_Eeq6pfPMAIqEqg"/>
+          </match>
         </target>
-        <condition xsi:type="Apply" id="_lJVzYO4NEeuHWuGCDwkq6w" operation="STRING_IS_IN">
-          <parameters xsi:type="AttributeValueReference" id="_oUvYZu4NEeuHWuGCDwkq6w" attributevalue="_dlTaMO4NEeuHWuGCDwkq6w"/>
-          <parameters xsi:type="AttributeDesignator" id="_qDn8E-4NEeuHWuGCDwkq6w" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
-        </condition>
       </rule>
     </policy>
     <policy id="_f4n-Iu4BEeuUMoY75qRdSg" entityName="access DB over Seff">
       <rule id="_ggG04O4BEeuUMoY75qRdSg" permit="PERMIT">
+        <condition xsi:type="SimpleAttributeCondition" id="_TpWKRwzAEeyG_Kid0W_Zow" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
         <target>
-            <match xsi:type="structure:MethodMatch" id="_j7n5gu4BEeuUMoY75qRdSg" entityName="AccessDB">
-              <methodspecification xsi:type="structure:ServiceRestriction" id="_o9kwce4BEeuUMoY75qRdSg">
-                <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_J5tNwO2-Eeq6pfPMAIqEqg"/>
-                <assemblycontext href="newAssembly.system#_nhYdQO2-Eeq6pfPMAIqEqg"/>
-                <service href="newRepository.repository#_OE1xcO2-Eeq6pfPMAIqEqg"/>
-              </methodspecification>
-            </match>
+          <match xsi:type="structure:MethodMatch" id="_j7n5gu4BEeuUMoY75qRdSg" entityName="AccessDB">
+            <methodspecification xsi:type="structure:ServiceRestriction" id="_o9kwce4BEeuUMoY75qRdSg">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_J5tNwO2-Eeq6pfPMAIqEqg"/>
+              <assemblycontext href="newAssembly.system#_nhYdQO2-Eeq6pfPMAIqEqg"/>
+              <service href="newRepository.repository#_OE1xcO2-Eeq6pfPMAIqEqg"/>
+            </methodspecification>
+          </match>
         </target>
       </rule>
     </policy>
   </policyset>
   <attributes>
     <attribute xsi:type="systemcontext:ExternalSystemAttribute" id="_MmRGMe4NEeuHWuGCDwkq6w" entityName="Location" externalName="Employee">
-      <attributevalue id="_PnxIUO4NEeuHWuGCDwkq6w" entityName="A" values="Location A"/>
+      <attributevalue id="_PnxIUO4NEeuHWuGCDwkq6w" entityName="A">
+        <values>Location</values>
+        <values>A</values>
+      </attributevalue>
     </attribute>
     <attribute xsi:type="systemcontext:SimpleAttribute" id="_aOt44u4NEeuHWuGCDwkq6w" entityName="Role">
-      <attributevalue id="_bc-bwO4NEeuHWuGCDwkq6w" values="Maintenance"/>
-      <attributevalue id="_dlTaMO4NEeuHWuGCDwkq6w" values="root"/>
+      <attributevalue id="_bc-bwO4NEeuHWuGCDwkq6w">
+        <values>Maintenance</values>
+      </attributevalue>
+      <attributevalue id="_dlTaMO4NEeuHWuGCDwkq6w">
+        <values>root</values>
+      </attributevalue>
     </attribute>
   </attributes>
 </context:ConfidentialAccessSpecification>

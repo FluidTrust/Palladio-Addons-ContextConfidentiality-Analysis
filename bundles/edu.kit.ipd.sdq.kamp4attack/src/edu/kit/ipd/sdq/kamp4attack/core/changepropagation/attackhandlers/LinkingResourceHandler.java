@@ -23,9 +23,9 @@ public abstract class LinkingResourceHandler extends AttackHandler {
             final EObject source) {
         final var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        final var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
             change.getCompromisedlinkingresource().addAll(newCompromisedResources);
         }
@@ -40,7 +40,7 @@ public abstract class LinkingResourceHandler extends AttackHandler {
 
     private Collection<CompromisedLinkingResource> filterExsiting(final Collection<CompromisedLinkingResource> linkings,
             final CredentialChange change) {
-        return linkings.stream().filter(linking -> !contains(linking, change)).collect(Collectors.toList());
+        return linkings.stream().filter(linking -> !this.contains(linking, change)).collect(Collectors.toList());
 
     }
 

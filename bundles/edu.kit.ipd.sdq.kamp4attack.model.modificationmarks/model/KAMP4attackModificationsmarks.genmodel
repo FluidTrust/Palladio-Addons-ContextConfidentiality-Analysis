@@ -22,7 +22,7 @@
     <genClasses image="false" ecoreClass="KAMP4attackModificationsmarks.ecore#//ModifyEntity">
       <genTypeParameters ecoreTypeParameter="KAMP4attackModificationsmarks.ecore#//ModifyEntity/T"/>
     </genClasses>
-    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//AttackComponent"/>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//AttackerSelection"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CredentialChange">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedresource"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedassembly"/>

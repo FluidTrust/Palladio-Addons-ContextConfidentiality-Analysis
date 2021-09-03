@@ -26,6 +26,7 @@ class AttackPreStepTest extends AbstractModelTest {
     }
 
     protected void execute() {
+        generateXML();
         final var wrapper = getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
