@@ -23,8 +23,19 @@ import com.sun.xml.bind.v2.ContextFactory;
 
 public class XACMLPolicyWriter {
 
+    private XACMLPolicyWriter() {
+        // intentional
+    }
+
     private static final Logger LOGGER = Logger.getLogger(XACMLPolicyWriter.class.getName());
 
+    /**
+     * Write current policies to an XACML-file
+     *
+     * @param outputFile
+     * @param rootElement
+     * @param rootClass
+     */
     public static void writeXACMLFile(Path outputFile, JAXBElement<?> rootElement, Class<?> rootClass) {
         LOGGER.info(
                 String.format("Transformation output will be written to %s", outputFile.toAbsolutePath().toString()));

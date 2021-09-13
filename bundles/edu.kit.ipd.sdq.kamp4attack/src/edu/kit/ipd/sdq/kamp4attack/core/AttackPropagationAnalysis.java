@@ -18,7 +18,12 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
-//TODO This is probably the interesting component.
+/**
+ * Entry point for attack propagation
+ *
+ * @author majuwa
+ *
+ */
 
 @Component
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {

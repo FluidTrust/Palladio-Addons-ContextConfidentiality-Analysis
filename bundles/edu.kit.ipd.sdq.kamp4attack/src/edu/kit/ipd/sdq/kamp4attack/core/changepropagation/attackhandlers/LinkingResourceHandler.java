@@ -33,6 +33,7 @@ public abstract class LinkingResourceHandler extends AttackHandler {
 
     private void handleDataExtraction(final Collection<CompromisedLinkingResource> linking) {
         // extension possible
+        // consider dataflow
     }
 
     protected abstract Optional<CompromisedLinkingResource> attackLinkingResource(LinkingResource linking,

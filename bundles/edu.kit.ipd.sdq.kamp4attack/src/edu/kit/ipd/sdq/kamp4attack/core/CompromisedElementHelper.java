@@ -11,6 +11,12 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
+/**
+ * Helper class for identifying already compromised system elements
+ *
+ * @author majuwa
+ *
+ */
 public class CompromisedElementHelper {
 
     private CompromisedElementHelper() {

@@ -92,7 +92,7 @@ public abstract class AttackHandler {
      * @see Evaluate#initialize(String)
      */
     protected Optional<PDPResult> queryAccessForEntity(final Entity target,
-            final List<? extends UsageSpecification> credentials, Signature signature) {
+            final List<? extends UsageSpecification> credentials, final Signature signature) {
         final var listComponent = new LinkedList<>(Arrays.asList(target));
         final var listSubject = new ArrayList<UsageSpecification>();
         final var listEnvironment = new ArrayList<UsageSpecification>();
@@ -103,8 +103,7 @@ public abstract class AttackHandler {
         if (signature == null) {
             PolicyHelper.createRequestAttributes(listComponent, credentials, listSubject, listEnvironment, listResource,
                     listXML);
-        }
-        else {
+        } else {
             PolicyHelper.createRequestAttributes(signature, listComponent, credentials, listSubject, listEnvironment,
                     listResource, listOperation, listXML);
         }
@@ -122,8 +121,8 @@ public abstract class AttackHandler {
     // TODO: Think about better location
     /**
      * Checks whether the current vulnerabilities of a system entity (e.g. AssemblyContext,
-     * ResourceContainers ...) can be exploitet by the capabilities of an attacker. It thereby
-     * considers the authorization and the actual attack capabilities of the attacker
+     * ResourceContainers ...) can be exploited by the capabilities of an attacker. It thereby
+     * considers the authorisation and the actual attack capabilities of the attacker
      *
      * @param entity
      *            attacked system entity
@@ -143,14 +142,14 @@ public abstract class AttackHandler {
     protected Vulnerability checkVulnerability(final Entity entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
-        final var result = queryAccessForEntity(entity, credentials);
-        return checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
+        final var result = this.queryAccessForEntity(entity, credentials);
+        return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
     }
 
     /**
      * Checks whether the current vulnerabilities of a system entity (e.g. AssemblyContext,
-     * ResourceContainers ...) can be exploitet by the capabilities of an attacker. It thereby
-     * considers the authorization and the actual attack capabilities of the attacker
+     * ResourceContainers ...) can be exploited by the capabilities of an attacker. It thereby
+     * considers the authorisation and the actual attack capabilities of the attacker
      *
      * @param change
      *            container with compromised entities

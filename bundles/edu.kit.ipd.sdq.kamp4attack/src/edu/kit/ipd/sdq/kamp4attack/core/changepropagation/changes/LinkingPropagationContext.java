@@ -21,12 +21,12 @@ public class LinkingPropagationContext extends LinkingChange {
 
     @Override
     protected ResourceContainerHandler getResourceContainerHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyContextHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override

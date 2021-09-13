@@ -12,6 +12,12 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
+/**
+ * Helper class for creating compromised system elements in the result.
+ *
+ * @author majuwa
+ *
+ */
 public class HelperCreationCompromisedElements {
     private HelperCreationCompromisedElements() {
 

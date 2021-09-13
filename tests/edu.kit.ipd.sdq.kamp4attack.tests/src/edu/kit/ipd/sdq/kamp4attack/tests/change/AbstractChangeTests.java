@@ -33,7 +33,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.PATH_ATTACKER = "simpleAttackmodels/PropagationUnitTests/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels/PropagationUnitTests/newAssembly.system";
         this.PATH_ALLOCATION = "simpleAttackmodels/PropagationUnitTests/newAllocation.allocation";
-        this.PATH_CONTEXT = "simpleAttackmodels/PropagationUnitTests/My.context";
+        this.PATH_CONTEXT = "simpleAttackmodels/SimpleModelTest/My.context";
         this.PATH_MODIFICATION = "simpleAttackmodels/PropagationUnitTests/My.kamp4attackmodificationmarks";
         this.PATH_REPOSITORY = "simpleAttackmodels/PropagationUnitTests/newRepository.repository";
         this.PATH_USAGE = "simpleAttackmodels/PropagationUnitTests/newUsageModel.usagemodel";

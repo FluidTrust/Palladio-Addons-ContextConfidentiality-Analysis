@@ -2,8 +2,6 @@ package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.handlers
 
 import java.io.StringReader;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -40,7 +38,6 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 
 public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<Match>> {
 
-    private static final Logger LOGGER = Logger.getLogger(MatchHandler.class.getName());
 
     @Override
     public List<MatchType> transform(List<Match> inputModel) {
@@ -107,7 +104,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     matchType.setMatchId(XACML3.ID_FUNCTION_STRING_EQUAL.stringValue());
                     break;
                 default:
-                    break;
+                    throw new IllegalStateException("Method " + object.getOperation() + " not implemented yet");
 
                 }
 
@@ -176,7 +173,6 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     return Stream.of(matchType);
 
                 } catch (JAXBException e) {
-                    LOGGER.log(Level.SEVERE, e.getMessage());
                     throw new IllegalStateException(e.getMessage());
                 }
 
