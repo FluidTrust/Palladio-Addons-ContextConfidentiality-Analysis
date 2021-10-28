@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CompromisedElementHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
@@ -25,7 +26,6 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CompromisedElementHelper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 

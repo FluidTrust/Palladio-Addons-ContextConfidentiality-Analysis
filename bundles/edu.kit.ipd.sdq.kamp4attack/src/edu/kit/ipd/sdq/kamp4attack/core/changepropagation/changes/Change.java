@@ -54,4 +54,11 @@ public abstract class Change<T> {
                         .anyMatch(f -> EcoreUtil.equals(f, container)))
                 .collect(Collectors.toList());
     }
+
+    protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
+        final var resources = this.getLinkingResource(resource).stream()
+                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
+                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+        return resources;
+    }
 }

@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 
-import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class ConvertingInputModelTest extends AbstractChangeTests {
@@ -124,10 +123,5 @@ class ConvertingInputModelTest extends AbstractChangeTests {
 
     }
 
-    private void runAnalysis() {
-        generateXML();
-        final var board = getBlackboardWrapper();
-        final var analysis = new AttackPropagationAnalysis();
-        analysis.runChangePropagationAnalysis(board);
-    }
+
 }

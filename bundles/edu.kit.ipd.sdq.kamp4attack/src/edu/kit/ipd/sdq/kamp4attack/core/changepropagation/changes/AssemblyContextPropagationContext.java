@@ -12,6 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Linking
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.LinkingResourceContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.MethodContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.ResourceContainerContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -23,28 +24,29 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
     @Override
     protected ResourceContainerHandler getLocalResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override
     protected ResourceContainerHandler getRemoteResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
     }
 
     @Override
-    protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> components,
+    protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
             final AssemblyContext source) {
-        // intentional blank
+        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        handler.attackService(services, changes, source);
     }
 
 }

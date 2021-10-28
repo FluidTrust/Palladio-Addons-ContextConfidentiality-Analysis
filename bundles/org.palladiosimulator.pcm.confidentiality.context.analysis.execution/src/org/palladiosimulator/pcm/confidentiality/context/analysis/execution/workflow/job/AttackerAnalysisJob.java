@@ -48,9 +48,17 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var specification = contextPartition.getContextSpecification().getPcmspecificationcontainer();
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
         final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
+
+        final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
+                pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
+                pcmPartition.getResourceEnvironment());
+
+        Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
+                "test.xacml");
         Activator.getInstance().getEvaluate().initialize("test.xacml");
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
                 vulnerabilitySpecification, Activator.getInstance().getEvaluate());
+
         final var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
         Activator.getInstance().getEvaluate().shutdown();

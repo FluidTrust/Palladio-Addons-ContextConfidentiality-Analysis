@@ -20,6 +20,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
@@ -178,6 +179,13 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var attack = createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
+    }
+
+    protected void runAnalysis() {
+        generateXML();
+        final var board = getBlackboardWrapper();
+        final var analysis = new AttackPropagationAnalysis();
+        analysis.runChangePropagationAnalysis(board);
     }
 
 }

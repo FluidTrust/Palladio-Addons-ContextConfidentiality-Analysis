@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.core;
+package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;

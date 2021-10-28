@@ -45,6 +45,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="changed" eType="ecore:EDataType ../../org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="compromisedlinkingresource"
         upperBound="-1" eType="#//CompromisedLinkingResource" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compromisedservice" upperBound="-1"
+        eType="#//CompromisedService" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="servicerestrictioncontainer"
+        eType="#//ServiceRestrictionContainer" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
@@ -65,5 +69,15 @@
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
       <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
     </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompromisedService">
+    <eGenericSuperTypes eClassifier="#//ModifyEntity">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceRestriction"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceRestrictionContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="servicerestriction" upperBound="-1"
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceRestriction"
+        containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

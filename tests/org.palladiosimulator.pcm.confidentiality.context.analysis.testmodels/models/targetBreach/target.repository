@@ -26,6 +26,10 @@
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_9jd9cAo8EeyKMtWTxnyP1g" entityName="FTPComponent">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uqb4YApXEeyKMtWTxnyP1g" entityName="provideStorage" providedInterface__OperationProvidedRole="_H9qvoAo2EeyKMtWTxnyP1g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Etj68DgDEeyQ_oZ5YyVHCg" describedService__SEFF="_-L17UApYEeyKMtWTxnyP1g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_FF47YDgDEeyQ_oZ5YyVHCg" successor_AbstractAction="_FF47YTgDEeyQ_oZ5YyVHCg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_FF47YTgDEeyQ_oZ5YyVHCg" predecessor_AbstractAction="_FF47YDgDEeyQ_oZ5YyVHCg"/>
+    </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_CtGwwAo9EeyKMtWTxnyP1g" entityName="ExternalSupplier">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_6vuPMApXEeyKMtWTxnyP1g" entityName="ExternalSupplier.ExternalSupplier.OperationProvidedRole1" providedInterface__OperationProvidedRole="_uDl90Ao2EeyKMtWTxnyP1g"/>

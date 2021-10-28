@@ -19,4 +19,6 @@ public interface AssemblyContextPropagation {
 
     void calculateAssemblyContextToLinkingResourcePropagation(CredentialChange changes);
 
+    void calculateAssemblyContextToGlobalAssemblyContextPropagation(CredentialChange changePropagationDueToCredential);
+
 }

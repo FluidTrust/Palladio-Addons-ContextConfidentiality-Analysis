@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -23,14 +23,17 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 
     public void attackAssemblyContext(final Collection<AssemblyContext> components, final CredentialChange change,
             final EObject source) {
-        final var compromisedComponent = components.stream().map(e -> this.attackComponent(e, change, source))
+        final var compromisedComponent = components.stream().map(e -> attackComponent(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList());
-        final var newCompromisedComponent = this.filterExsiting(compromisedComponent, change);
+        final var newCompromisedComponent = filterExsitingComponent(compromisedComponent, change);
         if (!newCompromisedComponent.isEmpty()) {
-            this.handleDataExtraction(newCompromisedComponent);
+            handleDataExtraction(newCompromisedComponent);
             change.setChanged(true);
             change.getCompromisedassembly().addAll(newCompromisedComponent);
+            CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
+                    change);
         }
+
     }
 
     private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
@@ -43,19 +46,25 @@ public abstract class AssemblyContextHandler extends AttackHandler {
         final var dataList = filteredComponents.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
                 .distinct().flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
-        this.getDataHandler().addData(dataList);
+        getDataHandler().addData(dataList);
     }
+
 
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
             EObject source);
 
-    private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
+
+
+    private Collection<CompromisedAssembly> filterExsitingComponent(final Collection<CompromisedAssembly> components,
             final CredentialChange change) {
-        return components.stream().filter(component -> !this.contains(component, change)).collect(Collectors.toList());
+        return components.stream().filter(component -> !containsComponent(component, change))
+                .collect(Collectors.toList());
 
     }
 
-    private boolean contains(final CompromisedAssembly component, final CredentialChange change) {
+
+
+    private boolean containsComponent(final CompromisedAssembly component, final CredentialChange change) {
         return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil
                 .equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
     }

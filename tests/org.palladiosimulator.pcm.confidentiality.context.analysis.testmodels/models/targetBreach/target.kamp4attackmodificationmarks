@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
     <attackcomponent>
       <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_-XvFQAo3EeyKMtWTxnyP1g"/>
@@ -9,8 +9,132 @@
     <compromisedassembly>
       <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
     </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#_owpDMApGEeyKMtWTxnyP1g"/>
+    </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#_66uiMDfyEey5OtKYIVrxdg"/>
+    </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>
+    </compromisedassembly>
     <contextchange toolderived="true">
       <affectedElement xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
     </contextchange>
+    <contextchange toolderived="true">
+      <affectedElement xsi:type="system:UsageSpecification" href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>
+    </contextchange>
+    <compromisedservice toolderived="true">
+      <affectedElement xsi:type="structure:ServiceRestriction" href="My.attacker#_Dl5dETb3Eey63pKqNC__Dg"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jaSRgTgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#_owpDMApGEeyKMtWTxnyP1g"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jbRI8DgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jbRI8TgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jbRI8jgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jbRI8zgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="attack:CWEVulnerability" href="My.attacker#_66uiMDfyEey5OtKYIVrxdg"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jaSRgjgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_jaSRgzgEEeyQ_oZ5YyVHCg" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+      <causingElements xsi:type="system:UsageSpecification" href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>
+    </compromisedservice>
+    <servicerestrictioncontainer>
+      <servicerestriction id="_jaSRgTgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_FPn1IAsfEeya1aH-ZcM-RA"/>
+        <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+        <service href="target.repository#_MNzIMAsfEeya1aH-ZcM-RA"/>
+      </servicerestriction>
+      <servicerestriction id="_jaSRgjgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_9nyt4ApqEeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+        <service href="target.repository#_Lb-PcAprEeyKMtWTxnyP1g"/>
+      </servicerestriction>
+      <servicerestriction id="_jaSRgzgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_WU45wAprEeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+        <service href="target.repository#_bCc1EAprEeyKMtWTxnyP1g"/>
+      </servicerestriction>
+      <servicerestriction id="_jbRI8DgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_WERTYAo1EeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <service href="target.repository#_7zf0oAo8EeyKMtWTxnyP1g"/>
+      </servicerestriction>
+      <servicerestriction id="_jbRI8TgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_-L17UApYEeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+        <service href="target.repository#_Etj68DgDEeyQ_oZ5YyVHCg"/>
+      </servicerestriction>
+      <servicerestriction id="_jbRI8jgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_WERTYAo1EeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+        <service href="target.repository#_7zf0oAo8EeyKMtWTxnyP1g"/>
+      </servicerestriction>
+      <servicerestriction id="_jbRI8zgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_WERTYAo1EeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+        <service href="target.repository#_7zf0oAo8EeyKMtWTxnyP1g"/>
+      </servicerestriction>
+      <servicerestriction id="_jbRI9DgEEeyQ_oZ5YyVHCg">
+        <signature xsi:type="repository:OperationSignature" href="target.repository#_2ktAQApXEeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+        <service href="target.repository#_6vzHsApXEeyKMtWTxnyP1g"/>
+      </servicerestriction>
+    </servicerestrictioncontainer>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>

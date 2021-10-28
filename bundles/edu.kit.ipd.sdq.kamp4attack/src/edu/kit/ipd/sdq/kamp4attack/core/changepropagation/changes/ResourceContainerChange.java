@@ -6,7 +6,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -14,7 +15,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.HelperCreationCompromisedElements;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
@@ -87,8 +87,9 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                             .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
                     .collect(Collectors.toList());
 
-            changes.getCompromisedassembly().addAll(listChanges);
             if (!listChanges.isEmpty()) {
+                changes.getCompromisedassembly().addAll(listChanges);
+                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), changes);
                 changes.setChanged(true);
             }
         }
@@ -105,13 +106,6 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             handler.attackResourceContainer(resources, changes, resource);
         }
 
-    }
-
-    private List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
-        final var resources = this.getLinkingResource(resource).stream()
-                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
-                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
-        return resources;
     }
 
     protected abstract ResourceContainerHandler getResourceHandler();
