@@ -74,6 +74,7 @@
     <semanticResources>models/powerGrid/My.context</semanticResources>
     <semanticResources>models/powerGrid/My.kamp4attackmodificationmarks</semanticResources>
     <semanticResources>models/targetBreach/target.allocation</semanticResources>
+    <semanticResources>models/travelplanner/Attacker_Propagation_Accuracy/01/test_scenarios.context</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_uMlsYPXrEeueBowf28vA5g">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.repository/description/repository.odesign#//@ownedViewpoints[name='Repository']"/>
       <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_uNrRgPXrEeueBowf28vA5g" name="Repository Diagram" repPath="#_uM2yIPXrEeueBowf28vA5g" changeId="bc1fd256-8cd1-486b-980b-6086429c8af3">

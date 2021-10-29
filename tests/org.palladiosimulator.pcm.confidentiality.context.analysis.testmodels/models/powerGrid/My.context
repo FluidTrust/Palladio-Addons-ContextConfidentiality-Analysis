@@ -13,43 +13,47 @@
       <attribute id="_R3dMsC8sEeylPOrRpUZy4w" entityName="VPNGateway" attributevalue="_GNARYC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
       <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_XUiGwDirEeyW5vhrbaBM1w">
+      <attribute id="_YpxbYDirEeyW5vhrbaBM1w" entityName="BackofficeAdmin" attributevalue="_XsEwUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+      <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+    </attributeprovider>
     <usagespecification id="_lqiu8S8nEeylPOrRpUZy4w" entityName="ICSUser" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
     <usagespecification id="_F4KloS8rEeylPOrRpUZy4w" entityName="BackOfficeUser" attributevalue="_-E3soC8jEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
   </pcmspecificationcontainer>
-  <policyset id="_7C0Q4S8jEeylPOrRpUZy4w">
+  <policyset id="_7C0Q4S8jEeylPOrRpUZy4w" entityName="PowerGridRules">
     <policy id="_PZE_YS8kEeylPOrRpUZy4w" entityName="BackOffice">
       <rule id="_UFfrMC8kEeylPOrRpUZy4w" entityName="BackOfficeAdmin">
         <condition xsi:type="SimpleAttributeCondition" id="_TAbEFy8lEeylPOrRpUZy4w" entityName="BackOfficeRoleCondition" attribute="_hpKEgi8kEeylPOrRpUZy4w"/>
         <target>
-          <match xsi:type="structure:EntityMatch" id="_rnPeQC8kEeylPOrRpUZy4w" category="SUBJECT">
+          <match xsi:type="structure:EntityMatch" id="_rnPeQC8kEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
           </match>
         </target>
         <target>
-          <match xsi:type="structure:EntityMatch" id="_9kBz8C8kEeylPOrRpUZy4w" category="SUBJECT">
+          <match xsi:type="structure:EntityMatch" id="_9kBz8C8kEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
           </match>
         </target>
         <target>
-          <match xsi:type="structure:EntityMatch" id="_BA7_sC8lEeylPOrRpUZy4w" category="SUBJECT">
+          <match xsi:type="structure:EntityMatch" id="_BA7_sC8lEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
           </match>
         </target>
         <target>
-          <match xsi:type="structure:EntityMatch" id="_IbnBgC8lEeylPOrRpUZy4w" category="SUBJECT">
+          <match xsi:type="structure:EntityMatch" id="_IbnBgC8lEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:LinkingResource" href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
           </match>
         </target>
         <target>
-          <match xsi:type="structure:EntityMatch" id="_NKOFsC8lEeylPOrRpUZy4w" category="SUBJECT">
+          <match xsi:type="structure:EntityMatch" id="_NKOFsC8lEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
           </match>
         </target>
       </rule>
     </policy>
     <policy id="_apPPkS8lEeylPOrRpUZy4w" entityName="ICS">
-      <rule id="_b4-ZIC8lEeylPOrRpUZy4w">
-        <condition xsi:type="SimpleAttributeCondition" id="_kflXty8nEeylPOrRpUZy4w" attribute="_lqiu8S8nEeylPOrRpUZy4w"/>
+      <rule id="_b4-ZIC8lEeylPOrRpUZy4w" entityName="ICS BreakerExecution">
+        <condition xsi:type="SimpleAttributeCondition" id="_kflXty8nEeylPOrRpUZy4w" entityName="Only ICSUser" attribute="_lqiu8S8nEeylPOrRpUZy4w"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_t6G78i8oEeylPOrRpUZy4w">
             <methodspecification xsi:type="structure:ServiceRestriction" id="_vRMDoS8oEeylPOrRpUZy4w">

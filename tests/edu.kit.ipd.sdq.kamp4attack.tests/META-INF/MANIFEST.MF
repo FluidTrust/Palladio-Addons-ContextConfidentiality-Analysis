@@ -16,4 +16,6 @@ Require-Bundle: edu.kit.ipd.sdq.kamp,
  org.palladiosimulator.pcm.confidentiality.context.analysis.testframework,
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
  org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp,
- org.palladiosimulator.pcm.confidentiality.context.xacml.generation
+ org.palladiosimulator.pcm.confidentiality.context.xacml.generation,
+ org.slf4j.api;bundle-version="1.7.30",
+ org.apache.log4j;bundle-version="1.2.15"
