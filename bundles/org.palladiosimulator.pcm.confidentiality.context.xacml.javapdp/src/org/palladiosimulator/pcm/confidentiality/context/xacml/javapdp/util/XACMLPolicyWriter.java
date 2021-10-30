@@ -44,7 +44,7 @@ public class XACMLPolicyWriter {
             var marshaller = createMarshaller(rootClass);
             marshaller.marshal(rootElement, outputFile.toFile());
             if (Files.exists(outputFile)) {
-                msg = String.format("Output file %s could be written successfully",
+                msg = String.format("Output file %s  written successfully",
                         outputFile.toAbsolutePath().toString());
                 LOGGER.info(msg);
             } else {
