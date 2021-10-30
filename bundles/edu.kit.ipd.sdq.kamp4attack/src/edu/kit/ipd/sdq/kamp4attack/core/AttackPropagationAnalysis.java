@@ -18,7 +18,12 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
-//TODO This is probably the interesting component.
+/**
+ * Entry point for attack propagation
+ *
+ * @author majuwa
+ *
+ */
 
 @Component
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
@@ -27,19 +32,20 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
 
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
+
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
         // prepare
 
-        this.createInitialStructure(board);
+        createInitialStructure(board);
 
         // Calculate
         do {
             this.changePropagationDueToCredential.setChanged(false);
-            this.calculateAndMarkLinkingPropagation(board);
-            this.calculateAndMarkResourcePropagation(board);
-            this.calculateAndMarkAssemblyPropagation(board);
+            calculateAndMarkLinkingPropagation(board);
+            calculateAndMarkResourcePropagation(board);
+            calculateAndMarkAssemblyPropagation(board);
 
         } while (this.changePropagationDueToCredential.isChanged());
 
@@ -52,6 +58,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         for (final var analysis : list) {
             analysis.calculateAssemblyContextToContextPropagation(this.changePropagationDueToCredential);
             analysis.calculateAssemblyContextToAssemblyContextPropagation(this.changePropagationDueToCredential);
+            analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation(this.changePropagationDueToCredential);
             analysis.calculateAssemblyContextToLinkingResourcePropagation(this.changePropagationDueToCredential);
             analysis.calculateAssemblyContextToLocalResourcePropagation(this.changePropagationDueToCredential);
             analysis.calculateAssemblyContextToRemoteResourcePropagation(this.changePropagationDueToCredential);

@@ -23,21 +23,22 @@ public class ResourceContainerPropagationContext extends ResourceContainerChange
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected ResourceContainerHandler getResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.getAttacker()));
     }
 
     @Override
-    protected void handleSeff(CredentialChange changes, List<AssemblyContext> components, ResourceContainer source) {
+    protected void handleSeff(final CredentialChange changes, final List<AssemblyContext> components,
+            final ResourceContainer source) {
         // intentional blank
 
     }

@@ -16,4 +16,4 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.pcm.confidentiality.attacker;bundle-version="0.1.0",
  org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0",
- org.palladiosimulator.generator.fluent_api;bundle-version="5.0.0"
+ org.palladiosimulator.generator.fluent;bundle-version="5.0.0"

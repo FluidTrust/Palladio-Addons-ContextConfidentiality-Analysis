@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="ASCII"?>
+<resourceenvironment:ResourceEnvironment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" entityName="New ResourceEnvironment">
+  <linkingResources__ResourceEnvironment id="_cIPHUAo9EeyKMtWTxnyP1g" entityName="Internet" connectedResourceContainers_LinkingResource="_csC_AAo9EeyKMtWTxnyP1g _bnkDMAo9EeyKMtWTxnyP1g">
+    <communicationLinkResourceSpecifications_LinkingResource id="_cIPHUQo9EeyKMtWTxnyP1g">
+      <latency_CommunicationLinkResourceSpecification/>
+      <throughput_CommunicationLinkResourceSpecification/>
+    </communicationLinkResourceSpecifications_LinkingResource>
+  </linkingResources__ResourceEnvironment>
+  <linkingResources__ResourceEnvironment id="_kVyXkAo9EeyKMtWTxnyP1g" entityName="Intranet" connectedResourceContainers_LinkingResource="_csC_AAo9EeyKMtWTxnyP1g _fUZhUAo9EeyKMtWTxnyP1g _gl3JMAo9EeyKMtWTxnyP1g _tV4fEAo9EeyKMtWTxnyP1g _X6PkYAsjEeya1aH-ZcM-RA">
+    <communicationLinkResourceSpecifications_LinkingResource id="_kVy-oAo9EeyKMtWTxnyP1g">
+      <latency_CommunicationLinkResourceSpecification/>
+      <throughput_CommunicationLinkResourceSpecification/>
+    </communicationLinkResourceSpecifications_LinkingResource>
+  </linkingResources__ResourceEnvironment>
+  <resourceContainer_ResourceEnvironment id="_bnkDMAo9EeyKMtWTxnyP1g" entityName="SupplierMachine"/>
+  <resourceContainer_ResourceEnvironment id="_csC_AAo9EeyKMtWTxnyP1g" entityName="BusinessServer"/>
+  <resourceContainer_ResourceEnvironment id="_fUZhUAo9EeyKMtWTxnyP1g" entityName="POS1"/>
+  <resourceContainer_ResourceEnvironment id="_gl3JMAo9EeyKMtWTxnyP1g" entityName="POS2"/>
+  <resourceContainer_ResourceEnvironment id="_tV4fEAo9EeyKMtWTxnyP1g" entityName="StorageServer"/>
+  <resourceContainer_ResourceEnvironment id="_X6PkYAsjEeya1aH-ZcM-RA" entityName="POS3"/>
+</resourceenvironment:ResourceEnvironment>

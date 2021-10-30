@@ -20,6 +20,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
@@ -33,7 +34,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.PATH_ATTACKER = "simpleAttackmodels/PropagationUnitTests/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels/PropagationUnitTests/newAssembly.system";
         this.PATH_ALLOCATION = "simpleAttackmodels/PropagationUnitTests/newAllocation.allocation";
-        this.PATH_CONTEXT = "simpleAttackmodels/PropagationUnitTests/My.context";
+        this.PATH_CONTEXT = "simpleAttackmodels/SimpleModelTest/My.context";
         this.PATH_MODIFICATION = "simpleAttackmodels/PropagationUnitTests/My.kamp4attackmodificationmarks";
         this.PATH_REPOSITORY = "simpleAttackmodels/PropagationUnitTests/newRepository.repository";
         this.PATH_USAGE = "simpleAttackmodels/PropagationUnitTests/newUsageModel.usagemodel";
@@ -85,13 +86,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         change.getContextchange().add(contextChange);
     }
 
-    //    protected ContextSet createContextSet(final SingleAttributeContext contextAccess) {
-    //        final var contextSetAccessResource = SetFactory.eINSTANCE.createContextSet();
-    //        contextSetAccessResource.getContexts().add(contextAccess);
-    //        this.context.getSetContainer().get(0).getPolicies().add(contextSetAccessResource);
-    //        return contextSetAccessResource;
-    //    }
-
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
         return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
     }
@@ -127,18 +121,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
         addPolicy(policy);
     }
-    //
-    //    protected void createPolicyLinking(final ContextSet contextSet, final LinkingResource linking) {
-    //        final var policyLinking = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-    //        policyLinking.setLinkingresource(linking);
-    //        addPolicy(contextSet, policyLinking);
-    //    }
-    //
-    //    protected void createPolicyResource(final ContextSet contextSet, final ResourceContainer resource) {
-    //        final var policyResource = AssemblyFactory.eINSTANCE.createSystemPolicySpecification();
-    //        policyResource.setResourcecontainer(resource);
-    //        addPolicy(contextSet, policyResource);
-    //    }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
         return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
@@ -197,6 +179,13 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var attack = createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
+    }
+
+    protected void runAnalysis() {
+        generateXML();
+        final var board = getBlackboardWrapper();
+        final var analysis = new AttackPropagationAnalysis();
+        analysis.runChangePropagationAnalysis(board);
     }
 
 }

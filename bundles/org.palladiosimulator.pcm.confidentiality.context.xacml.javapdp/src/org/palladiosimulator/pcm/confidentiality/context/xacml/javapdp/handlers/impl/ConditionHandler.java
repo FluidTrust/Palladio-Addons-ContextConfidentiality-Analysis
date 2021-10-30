@@ -15,10 +15,6 @@ public class ConditionHandler implements ContextTypeConverter<ConditionType, Exp
 
         var conditionSwitch = new ExpressionSwitch();
 
-//        var newInput = EcoreUtil.copy(inputModel);
-//
-//        new ExpressionPreCalculation().doSwitch(newInput);
-
         var expressionType = conditionSwitch.doSwitch(inputModel);
 
         conditionType.setExpression(expressionType);

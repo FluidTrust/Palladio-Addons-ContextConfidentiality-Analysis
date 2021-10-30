@@ -31,7 +31,7 @@ public class LinkingPropagationContext extends LinkingChange {
 
     @Override
     protected void handleSeff(final CredentialChange change, final List<AssemblyContext> components,
-            LinkingResource source) {
+            final LinkingResource source) {
         // intentional blank
 
     }

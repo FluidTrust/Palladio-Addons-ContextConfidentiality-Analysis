@@ -49,7 +49,7 @@ public class XACMLPDP implements Evaluate {
 
         request.getAttributes().add(assignAttributes(XACML3.ID_SUBJECT.stringValue(), subject));
         request.getAttributes()
-                .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
+        .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.stringValue(), operation));
 
@@ -97,10 +97,7 @@ public class XACMLPDP implements Evaluate {
 
             }
 
-        } catch (PDPException e) {
-            LOGGER.log(Level.SEVERE, e.getMessage());
-
-        } catch (DOMStructureException e) {
+        } catch (PDPException | DOMStructureException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
 

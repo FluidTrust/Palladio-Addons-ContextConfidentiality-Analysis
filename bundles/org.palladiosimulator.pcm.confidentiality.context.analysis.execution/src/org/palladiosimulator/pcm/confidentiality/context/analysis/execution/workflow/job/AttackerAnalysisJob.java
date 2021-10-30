@@ -38,17 +38,6 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-//        final var analysis = Activator.getInstance().getAttackerAnalysis();
-
-//        final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
-//        final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
-//        final var dataPartition = (DataAttackPartition) this.blackboard.getPartition(PARTITION_ID_KASTEL);
-//
-//        // Fix someday
-////        var attackerModel = dataPartition.getAdversaryModel();
-////        var dataModel = dataPartition.getDataspecification();
-//        analysis.runAttackerAnalysis(pcmPartition.getMiddlewareRepository(), contextPartition.getContextSpecification(),
-//                null);
         final var modificationPartition = ((ModificationMarkPartition) this.blackboard
                 .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
@@ -59,10 +48,20 @@ public class AttackerAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var specification = contextPartition.getContextSpecification().getPcmspecificationcontainer();
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
         final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
+
+        final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
+                pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
+                pcmPartition.getResourceEnvironment());
+
+        Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
+                "test.xacml");
+        Activator.getInstance().getEvaluate().initialize("test.xacml");
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
                 vulnerabilitySpecification, Activator.getInstance().getEvaluate());
+
         final var propagation = new AttackPropagationAnalysis();
         propagation.runChangePropagationAnalysis(wrapper);
+        Activator.getInstance().getEvaluate().shutdown();
     }
 
     @Override

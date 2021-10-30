@@ -28,11 +28,6 @@ public abstract class Change<T> {
 
     protected abstract Collection<T> loadInitialMarkedItems();
 
-//    protected final Stream<SystemPolicySpecification> getPolicyStream() {
-//        return this.modelStorage.getSpecification().getPolicyspecification().stream()
-//                .filter(SystemPolicySpecification.class::isInstance).map(SystemPolicySpecification.class::cast);
-//    }
-
     protected void updateFromContextProviderStream(final CredentialChange changes,
             final Stream<? extends AttributeProvider> streamAttributeProvider) {
         final var streamContextChange = streamAttributeProvider
@@ -40,16 +35,6 @@ public abstract class Change<T> {
 
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }
-
-//    protected final List<UsageSpecification> getCredentials(final CredentialChange changes) {
-//        return changes.getContextchange().stream().map(ContextChange::getAffectedElement).collect(Collectors.toList());
-//    }
-
-//    protected final ContextSet createContextSet(final List<ContextAttribute> contexts) {
-//        final var set = SetFactory.eINSTANCE.createContextSet();
-//        set.getContexts().addAll(contexts);
-//        return set;
-//    }
 
     protected Attacker getAttacker() {
         if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().isEmpty()) {
@@ -68,5 +53,12 @@ public abstract class Change<T> {
                 .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
                         .anyMatch(f -> EcoreUtil.equals(f, container)))
                 .collect(Collectors.toList());
+    }
+
+    protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
+        final var resources = this.getLinkingResource(resource).stream()
+                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
+                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+        return resources;
     }
 }

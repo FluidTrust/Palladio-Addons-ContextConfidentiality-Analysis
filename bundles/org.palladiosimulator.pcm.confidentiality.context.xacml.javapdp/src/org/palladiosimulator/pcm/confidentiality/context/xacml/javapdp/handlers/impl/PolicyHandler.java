@@ -19,7 +19,6 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.RuleType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.VariableDefinitionType;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class PolicyHandler.
  */

@@ -12,6 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Linking
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.LinkingResourceContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.MethodContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.ResourceContainerContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -42,8 +43,10 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     }
 
     @Override
-    protected void handleSeff(CredentialChange changes, List<ServiceRestriction> components, AssemblyContext source) {
-        // intentional blank
+    protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
+            final AssemblyContext source) {
+        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        handler.attackService(services, changes, source);
     }
 
 }

@@ -6,13 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.generator.fluent.repository.api.Repo;
+import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
+import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
-
-import apiControlFlowInterfaces.Repo;
-import factory.FluentRepositoryFactory;
-import repositoryStructure.internals.Primitive;
 
 class DataTest {
 
@@ -33,24 +32,22 @@ class DataTest {
         final var operationSignature = this.create.newOperationSignature().withName("test").withParameter("test",
                 this.create.fetchOfDataType("TestDataType"), ParameterModifier.NONE);
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(1, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return e.getReferenceName().equals("test")
-                    && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
+                && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType")))));
 
     }
 
@@ -62,23 +59,21 @@ class DataTest {
         final var operationSignature = this.create.newOperationSignature().withName("test")
                 .withReturnType(Primitive.BOOLEAN);
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(1, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.BOOLEAN));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.BOOLEAN)))));
 
     }
 
@@ -90,23 +85,21 @@ class DataTest {
         final var operationSignature = this.create.newOperationSignature().withName("test")
                 .withReturnType(this.create.fetchOfDataType("TestDataType"));
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(1, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType("TestDataType")))));
 
     }
 
@@ -118,23 +111,21 @@ class DataTest {
         final var operationSignature = this.create.newOperationSignature().withName("test")
                 .withReturnType(this.create.fetchOfDataType(Primitive.INTEGER));
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(1, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER)))));
 
     }
 
@@ -147,29 +138,25 @@ class DataTest {
                 .withParameter("test", this.create.fetchOfDataType("TestDataType"), ParameterModifier.NONE)
                 .withReturnType(this.create.fetchOfDataType(Primitive.INTEGER));
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(2, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return e.getReferenceName().equals("test")
-                    && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
+                && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER)))));
 
     }
 
@@ -182,13 +169,13 @@ class DataTest {
                 .withParameter("test", this.create.fetchOfDataType("TestDataType"), ParameterModifier.NONE)
                 .withReturnType(this.create.fetchOfDataType(Primitive.INTEGER));
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .withServiceEffectSpecification(
-                                this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
-                        .provides(this.create.fetchOfOperationInterface("Test")))
-                .createRepositoryNow();
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .withServiceEffectSpecification(
+                        this.create.newSeff().onSignature(this.create.fetchOfSignature("test")))
+                .provides(this.create.fetchOfOperationInterface("Test")))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler
@@ -196,16 +183,12 @@ class DataTest {
 
         assertEquals(2, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return e.getReferenceName().equals("test")
-                    && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
+                && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER)))));
 
     }
 
@@ -222,10 +205,10 @@ class DataTest {
                 .withReturnType(this.create.fetchOfDataType(Primitive.STRING));
 
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(
+                this.create.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
 
         final var seff = this.create.newSeff().onSignature(this.create.fetchOfSignature("test")).withSeffBehaviour()
                 .withStartAction().followedBy().externalCallAction()
@@ -233,10 +216,10 @@ class DataTest {
                 .createBehaviourNow();
 
         this.repo
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .provides(this.create.fetchOfOperationInterface("Test"))
-                        .requires(this.create.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
-                .createRepositoryNow();
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .provides(this.create.fetchOfOperationInterface("Test"))
+                .requires(this.create.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler
@@ -244,21 +227,15 @@ class DataTest {
 
         assertEquals(3, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return e.getReferenceName().equals("test")
-                    && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
+                && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER)))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("secret"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.STRING));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("secret"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.STRING)))));
 
     }
 
@@ -275,10 +252,10 @@ class DataTest {
                 .withReturnType(this.create.fetchOfDataType(Primitive.STRING));
 
         this.repo
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-                .addToRepository(
-                        this.create.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
+        .addToRepository(
+                this.create.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
+        .addToRepository(
+                this.create.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
 
         final var seff = this.create.newSeff().onSignature(this.create.fetchOfSignature("test")).withSeffBehaviour()
                 .withStartAction().followedBy().externalCallAction()
@@ -286,31 +263,25 @@ class DataTest {
                 .createBehaviourNow();
 
         this.repo
-                .addToRepository(this.create.newBasicComponent().withName("TestComponent")
-                        .provides(this.create.fetchOfOperationInterface("Test"))
-                        .requires(this.create.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
-                .createRepositoryNow();
+        .addToRepository(this.create.newBasicComponent().withName("TestComponent")
+                .provides(this.create.fetchOfOperationInterface("Test"))
+                .requires(this.create.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
+        .createRepositoryNow();
 
         final var component = this.create.fetchOfBasicComponent("TestComponent");
         final var data = DataHandler.getData(component);
 
         assertEquals(3, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return e.getReferenceName().equals("test")
-                    && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType"));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
+                && EcoreUtil.equals(e.getSource(), this.create.fetchOfComponent("TestComponent"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("test"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.INTEGER)))));
 
-        assertTrue(data.stream().anyMatch(e -> {
-            return EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("secret"))
-                    && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.STRING));
-        }));
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.create.fetchOfSignature("secret"))
+                && EcoreUtil.equals(e.getDataType(), this.create.fetchOfDataType(Primitive.STRING)))));
 
     }
 

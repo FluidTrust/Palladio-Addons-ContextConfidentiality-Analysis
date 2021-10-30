@@ -2,6 +2,12 @@ package org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result;
 
 import java.util.List;
 
+/**
+ * Wrapper object for access decision from the PDP
+ *
+ * @author majuwa
+ *
+ */
 public final class PDPResult {
 
     private final DecisionType decision;
@@ -17,6 +23,10 @@ public final class PDPResult {
         return this.decision;
     }
 
+    /**
+     * 
+     * @return list with identifcation strings of policies used for the decision
+     */
     public List<String> getPolicyIdentifiers() {
         return this.policyIdentifiers;
     }

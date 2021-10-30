@@ -12,8 +12,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 class AttackPreStepTest extends AbstractModelTest {
 
-    private String contextID;
-
     AttackPreStepTest() {
         this.PATH_ATTACKER = "simpleAttackmodels/SimpleModelTest/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels/SimpleModelTest/newAssembly.system";
@@ -26,6 +24,7 @@ class AttackPreStepTest extends AbstractModelTest {
     }
 
     protected void execute() {
+        generateXML();
         final var wrapper = getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
