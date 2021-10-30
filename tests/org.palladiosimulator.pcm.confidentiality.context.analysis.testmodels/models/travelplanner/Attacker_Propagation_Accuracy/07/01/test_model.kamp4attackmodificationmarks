@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
     <attackcomponent>
       <affectedElement xsi:type="attacker:Attacker" href="test_model.attacker#_e5aL8Kd4EeuyobD7xRWqAQ"/>
@@ -9,5 +9,22 @@
     <compromisedassembly>
       <affectedElement xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
     </compromisedassembly>
+    <servicerestrictioncontainer>
+      <servicerestriction id="_jQixcDmKEey_G8LnpqYMRA">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
+        <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <service href="../../../default.repository#_1NGIAMOAEeWst9mTsticNA"/>
+      </servicerestriction>
+      <servicerestriction id="_jQtJgTmKEey_G8LnpqYMRA">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_ok8ZYM5wEeWFJak7Wqvc0g"/>
+        <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <service href="../../../default.repository#_y4dQkM5wEeWFJak7Wqvc0g"/>
+      </servicerestriction>
+      <servicerestriction id="_jQtJgjmKEey_G8LnpqYMRA">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
+        <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <service href="../../../default.repository#_z-Ul0N5fEeeel_96Qa_d5A"/>
+      </servicerestriction>
+    </servicerestrictioncontainer>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>
