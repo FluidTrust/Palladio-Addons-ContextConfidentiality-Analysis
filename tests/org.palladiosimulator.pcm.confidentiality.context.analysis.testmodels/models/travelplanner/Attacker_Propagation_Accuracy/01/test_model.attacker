@@ -13,7 +13,7 @@
   <vulnerabilites>
     <vulnerability xsi:type="attack:CWEVulnerability" id="_px3jQKd4EeuyobD7xRWqAQ" entityName="Vulnerability Travelplanner" attackVector="AdjacentNetwork" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
     <vulnerability xsi:type="attack:CWEVulnerability" id="_6TslgKg2Eeu41LgoiPSZgg" entityName="Smartphone" attackVector="Local" confidentialityImpact="High" cweID="//@categoryspecification/@categories.3">
-      <gainedAttributes href="test_scenarios.context#_cYY84fXpEeub3tcXgMY_nQ"/>
+      <gainedAttributes href="test_model.context#_cYY84fXpEeub3tcXgMY_nQ"/>
     </vulnerability>
     <vulnerability xsi:type="attack:CWEVulnerability" id="_DE78MKg4EeuBy83MqQpiOw" entityName="Vulnerability TravelAgency" attackVector="AdjacentNetwork" privileges="Low" takeOver="true" cweID="//@categoryspecification/@categories.1"/>
     <vulnerability xsi:type="attack:CWEVulnerability" id="_oBdkwDl0EeyxuvclpmtFmA" entityName="Airline Resource Container" attackVector="Network" takeOver="true" cweID="//@categoryspecification/@categories.4"/>
