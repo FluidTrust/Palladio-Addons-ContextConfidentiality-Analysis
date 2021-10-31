@@ -24,8 +24,8 @@
     </usagespecification>
   </pcmspecificationcontainer>
   <policyset id="_SmfacfXoEeub3tcXgMY_nQ" entityName="Travelplaner Case Study">
-    <policy id="_7wxKcfXoEeub3tcXgMY_nQ" entityName="Travelplanner" combiningAlgorithm="DENY_UNLESS_PERMIT">
-      <rule id="_PAypoPXpEeub3tcXgMY_nQ" entityName="bookSelected" permit="PERMIT">
+    <policy id="_7wxKcfXoEeub3tcXgMY_nQ" entityName="Travelplanner">
+      <rule id="_PAypoPXpEeub3tcXgMY_nQ" entityName="bookSelected">
         <condition xsi:type="SimpleAttributeCondition" id="_RlpzF_XpEeub3tcXgMY_nQ" entityName="customerAuthenticated" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="__475svXoEeub3tcXgMY_nQ">
@@ -37,7 +37,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_ZQtDMAZQEeyAI7-VwtP_pw" entityName="getFlightOffers" permit="PERMIT">
+      <rule id="_ZQtDMAZQEeyAI7-VwtP_pw" entityName="getFlightOffers">
         <condition xsi:type="SimpleAttributeCondition" id="_Zr-p9wZQEeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_oYJjcgZQEeyAI7-VwtP_pw">
@@ -49,7 +49,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_wVAFQAZQEeyAI7-VwtP_pw" entityName="confirmBooking" permit="PERMIT">
+      <rule id="_wVAFQAZQEeyAI7-VwtP_pw" entityName="confirmBooking">
         <condition xsi:type="SimpleAttributeCondition" id="_8pBbpwZQEeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_BHM3IgZREeyAI7-VwtP_pw">
@@ -68,7 +68,7 @@
       </target>
     </policy>
     <policy id="_lwaKQfXrEeueBowf28vA5g" entityName="TravelAgency">
-      <rule id="_mM7uMPXrEeueBowf28vA5g" entityName="getFlightOffers" permit="PERMIT">
+      <rule id="_mM7uMPXrEeueBowf28vA5g" entityName="getFlightOffers">
         <condition xsi:type="SimpleAttributeCondition" id="_TrfW1_XsEeueBowf28vA5g" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_NPx3ovXsEeueBowf28vA5g">
@@ -80,7 +80,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_bm01sPXsEeueBowf28vA5g" entityName="payCommsion" permit="PERMIT">
+      <rule id="_bm01sPXsEeueBowf28vA5g" entityName="payCommsion">
         <condition xsi:type="SimpleAttributeCondition" id="_ngekR_XsEeueBowf28vA5g" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_ib0XkvXsEeueBowf28vA5g">
@@ -98,8 +98,8 @@
         </match>
       </target>
     </policy>
-    <policy id="_WOs1UQZREeyAI7-VwtP_pw" entityName="Airline" combiningAlgorithm="DENY_UNLESS_PERMIT">
-      <rule id="_WhfOcAZREeyAI7-VwtP_pw" entityName="bookFlight" permit="PERMIT">
+    <policy id="_WOs1UQZREeyAI7-VwtP_pw" entityName="Airline">
+      <rule id="_WhfOcAZREeyAI7-VwtP_pw" entityName="bookFlight">
         <condition xsi:type="SimpleAttributeCondition" id="_i5S4pwZREeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_ni_AkQZREeyAI7-VwtP_pw">
@@ -111,7 +111,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_rlksQAZREeyAI7-VwtP_pw" entityName="getFlightOffers" permit="PERMIT">
+      <rule id="_rlksQAZREeyAI7-VwtP_pw" entityName="getFlightOffers">
         <condition xsi:type="SimpleAttributeCondition" id="_ynGORwZREeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_173KogZREeyAI7-VwtP_pw">
@@ -129,8 +129,8 @@
         </match>
       </target>
     </policy>
-    <policy id="_hUMUUQZXEeyAI7-VwtP_pw" entityName="CreditCard" combiningAlgorithm="DENY_UNLESS_PERMIT">
-      <rule id="_mn1YMAZXEeyAI7-VwtP_pw" entityName="declassifyCCD" permit="PERMIT">
+    <policy id="_hUMUUQZXEeyAI7-VwtP_pw" entityName="CreditCard">
+      <rule id="_mn1YMAZXEeyAI7-VwtP_pw" entityName="declassifyCCD">
         <condition xsi:type="Apply" id="_ycKh4AZXEeyAI7-VwtP_pw" operation="AND">
           <parameters xsi:type="SimpleAttributeCondition" id="_6O8htwZXEeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
           <parameters xsi:type="SimpleAttributeCondition" id="_GuPT9wZYEeyAI7-VwtP_pw" attribute="_Kpsc4QZYEeyAI7-VwtP_pw"/>
@@ -145,7 +145,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_PHSCgAZYEeyAI7-VwtP_pw" entityName="releaseCCD" permit="PERMIT">
+      <rule id="_PHSCgAZYEeyAI7-VwtP_pw" entityName="releaseCCD">
         <condition xsi:type="Apply" id="_l2oIQAZYEeyAI7-VwtP_pw" operation="AND">
           <parameters xsi:type="SimpleAttributeCondition" id="_oV5nFwZYEeyAI7-VwtP_pw" attribute="_SIYQMfXqEeub3tcXgMY_nQ"/>
           <parameters xsi:type="SimpleAttributeCondition" id="_smUTZwZYEeyAI7-VwtP_pw" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
@@ -160,7 +160,7 @@
           </match>
         </target>
       </rule>
-      <rule id="_WuI6kAcmEeyfdfV5US28Ng" entityName="setCreditCard" permit="PERMIT">
+      <rule id="_WuI6kAcmEeyfdfV5US28Ng" entityName="setCreditCard">
         <condition xsi:type="SimpleAttributeCondition" id="_dyo4FwcmEeyfdfV5US28Ng" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_aPwnMQcmEeyfdfV5US28Ng">

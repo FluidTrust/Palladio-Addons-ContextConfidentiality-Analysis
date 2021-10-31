@@ -36,7 +36,7 @@ public class TargetCaseStudyTests extends AbstractChangeTests {
         runAnalysis();
         final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
         assertEquals(7, change.getCompromisedassembly().size());
-        assertEquals(8, change.getCompromisedservice().size());
+        assertEquals(9, change.getCompromisedservice().size());
         assertEquals(2, change.getContextchange().size());
         assertEquals(0, change.getCompromisedlinkingresource().size());
         assertEquals(0, change.getCompromisedresource().size());

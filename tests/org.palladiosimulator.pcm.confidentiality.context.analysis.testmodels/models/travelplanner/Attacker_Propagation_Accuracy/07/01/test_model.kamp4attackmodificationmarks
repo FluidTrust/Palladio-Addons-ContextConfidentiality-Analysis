@@ -8,19 +8,44 @@
   <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
     <compromisedassembly>
       <affectedElement xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
     </compromisedassembly>
+    <compromisedservice affectedElement="_xuN5ujo_EeyetrjwtKBt7g" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_xuN5uzo_EeyetrjwtKBt7g" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_xuN5vDo_EeyetrjwtKBt7g" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+    </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_jQixcDmKEey_G8LnpqYMRA">
+      <servicerestriction id="_xuN5ujo_EeyetrjwtKBt7g">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
+        <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+        <service href="../../../default.repository#_nUbBQNT3Eee-_bZGhm8PwA"/>
+      </servicerestriction>
+      <servicerestriction id="_xuN5uzo_EeyetrjwtKBt7g">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_602gYM5lEeWFJak7Wqvc0g"/>
+        <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+        <service href="../../../default.repository#_Jo_X8N5fEeeel_96Qa_d5A"/>
+      </servicerestriction>
+      <servicerestriction id="_xuN5vDo_EeyetrjwtKBt7g">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_GmUUEMN1EeWPE-QAhbUzuQ"/>
+        <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+        <service href="../../../default.repository#_LFOscN5fEeeel_96Qa_d5A"/>
+      </servicerestriction>
+      <servicerestriction id="_xubVEDo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_1NGIAMOAEeWst9mTsticNA"/>
       </servicerestriction>
-      <servicerestriction id="_jQtJgTmKEey_G8LnpqYMRA">
+      <servicerestriction id="_xup-kTo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_ok8ZYM5wEeWFJak7Wqvc0g"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_y4dQkM5wEeWFJak7Wqvc0g"/>
       </servicerestriction>
-      <servicerestriction id="_jQtJgjmKEey_G8LnpqYMRA">
+      <servicerestriction id="_xup-kjo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_z-Ul0N5fEeeel_96Qa_d5A"/>

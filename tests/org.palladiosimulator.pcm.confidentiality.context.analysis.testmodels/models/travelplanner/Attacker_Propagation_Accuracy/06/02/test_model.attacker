@@ -63,6 +63,14 @@
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
         <source href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
       </compromiseddata>
+      <compromiseddata id="_ELNO4To_EeyetrjwtKBt7g" referenceName="requestData">
+        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
+        <source href="../../../default.repository#_SaUYgMNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
+      <compromiseddata id="_ELNO4jo_EeyetrjwtKBt7g" referenceName="offerId">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+        <source href="../../../default.repository#_SaUYgMNzEeWPE-QAhbUzuQ"/>
+      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>

@@ -5,9 +5,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedService;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
@@ -41,7 +49,47 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
                 .map(AssemblyContext::getEntityName).allMatch(this::assemblyNameMatch);
     }
 
+    protected boolean checkResource(CredentialChange change) {
+        return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
+                .map(ResourceContainer::getEntityName).allMatch(this::resourceNameMatch);
+    }
+
+    protected boolean checkLining(CredentialChange change) {
+        return change.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
+                .map(LinkingResource::getEntityName).allMatch(this::linkingResourceNameMatch);
+    }
+
+    protected boolean checkContext(CredentialChange change) {
+        return change.getContextchange().stream().map(ContextChange::getAffectedElement)
+                .allMatch(this::checkAttributeUsage);
+    }
+
+    protected boolean checkServiceRestriction(CredentialChange change) {
+        return change.getCompromisedservice().stream().map(CompromisedService::getAffectedElement)
+                .allMatch(this::checkServiceRestriction);
+    }
+
     protected boolean assemblyNameMatch(String name) {
+        fail();
+        return false;
+    }
+
+    protected boolean resourceNameMatch(String name) {
+        fail();
+        return false;
+    }
+
+    protected boolean checkAttributeUsage(UsageSpecification usage) {
+        fail();
+        return false;
+    }
+
+    protected boolean checkServiceRestriction(ServiceRestriction servicerestriction1) {
+        fail();
+        return false;
+    }
+
+    protected boolean linkingResourceNameMatch(String name) {
         fail();
         return false;
     }

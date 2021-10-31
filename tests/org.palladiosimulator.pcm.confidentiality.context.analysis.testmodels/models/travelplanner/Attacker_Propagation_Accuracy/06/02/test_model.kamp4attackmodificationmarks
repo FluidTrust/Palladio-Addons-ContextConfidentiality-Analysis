@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
     <attackcomponent>
       <affectedElement xsi:type="attacker:Attacker" href="test_model.attacker#_e5aL8Kd4EeuyobD7xRWqAQ"/>
@@ -8,19 +8,32 @@
   <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
     <compromisedassembly>
       <affectedElement xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
     </compromisedassembly>
+    <compromisedservice toolderived="true">
+      <affectedElement xsi:type="structure:ServiceRestriction" href="test_model.attacker#_xI_UgTl1EeyxuvclpmtFmA"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+    </compromisedservice>
+    <compromisedservice affectedElement="_ELNO5zo_EeyetrjwtKBt7g" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+    </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_3oOjoDmHEey_G8LnpqYMRA">
+      <servicerestriction id="_ELNO5zo_EeyetrjwtKBt7g">
+        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
+        <assemblycontext href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+        <service href="../../../default.repository#_KubVAC2VEeuHsNng7h4KwA"/>
+      </servicerestriction>
+      <servicerestriction id="_ELaqQDo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_z-Ul0N5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_3oXtkDmHEey_G8LnpqYMRA">
+      <servicerestriction id="_ELfiwDo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_1NGIAMOAEeWst9mTsticNA"/>
       </servicerestriction>
-      <servicerestriction id="_3oXtkTmHEey_G8LnpqYMRA">
+      <servicerestriction id="_ELfiwTo_EeyetrjwtKBt7g">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_ok8ZYM5wEeWFJak7Wqvc0g"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_y4dQkM5wEeWFJak7Wqvc0g"/>

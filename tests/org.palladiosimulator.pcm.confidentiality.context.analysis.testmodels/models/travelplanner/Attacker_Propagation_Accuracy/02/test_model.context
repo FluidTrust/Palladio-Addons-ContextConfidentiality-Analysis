@@ -19,11 +19,12 @@
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_B49j0gcYEeyqV_N5s8UnKQ" entityName="release Role" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
       <entrylevelsystemcall href="../../default.usagemodel#_WtNmwN5gEeeel_96Qa_d5A"/>
     </usagespecification>
-    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_iikK4AcmEeyfdfV5US28Ng" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_iikK4AcmEeyfdfV5US28Ng" entityName="creditCard" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
       <usagescenario href="../../default.usagemodel#_J_S84C4_EeuiX-NTW4lBww"/>
     </usagespecification>
     <usagespecification id="_Feug0TjBEey9mszNksodxw" entityName="AdminAgency" attributevalue="_-GM0EDjAEey9mszNksodxw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
     <usagespecification id="_8bMY4TjCEeySeoNo6py9pw" entityName="AirlineAdmin" attributevalue="_z126wDjCEeySeoNo6py9pw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
+    <usagespecification id="_2rnzoTmWEey9DpUgqaC4Ew" entityName="User" attributevalue="_cvu-oDjAEey9mszNksodxw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
   </pcmspecificationcontainer>
   <policyset id="_SmfacfXoEeub3tcXgMY_nQ" entityName="Travelplaner Case Study">
     <policy id="_7wxKcfXoEeub3tcXgMY_nQ" entityName="Travelplanner">
@@ -63,7 +64,8 @@
           </match>
         </target>
       </rule>
-      <rule id="_f6ylYDjAEey9mszNksodxw" entityName="ComponentAccess">
+      <rule id="_f6ylYDjAEey9mszNksodxw" entityName="AccessSmartphone">
+        <condition xsi:type="SimpleAttributeCondition" id="_h71UNzl9Eey_G8LnpqYMRA" attribute="_2rnzoTmWEey9DpUgqaC4Ew"/>
         <target>
           <match xsi:type="structure:EntityMatch" id="_oiOVQDjAEey9mszNksodxw">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="../../default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
@@ -73,6 +75,11 @@
       <target>
         <match xsi:type="structure:EntityMatch" id="_Pi5rsAZREeyAI7-VwtP_pw">
           <entity xsi:type="composition:AssemblyContext" href="../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+        </match>
+      </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_BO4McDmWEey9DpUgqaC4Ew">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="../../default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
         </match>
       </target>
     </policy>
@@ -114,6 +121,11 @@
           <entity xsi:type="composition:AssemblyContext" href="../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
         </match>
       </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_kYHAADmWEey9DpUgqaC4Ew">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="../../default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+        </match>
+      </target>
     </policy>
     <policy id="_WOs1UQZREeyAI7-VwtP_pw" entityName="Airline">
       <rule id="_WhfOcAZREeyAI7-VwtP_pw" entityName="bookFlight">
@@ -153,6 +165,11 @@
           <entity xsi:type="composition:AssemblyContext" href="../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         </match>
       </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_rS3LoDmWEey9DpUgqaC4Ew">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+        </match>
+      </target>
     </policy>
     <policy id="_hUMUUQZXEeyAI7-VwtP_pw" entityName="CreditCard">
       <rule id="_mn1YMAZXEeyAI7-VwtP_pw" entityName="declassifyCCD">
@@ -186,7 +203,10 @@
         </target>
       </rule>
       <rule id="_WuI6kAcmEeyfdfV5US28Ng" entityName="setCreditCard">
-        <condition xsi:type="SimpleAttributeCondition" id="_dyo4FwcmEeyfdfV5US28Ng" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
+        <condition xsi:type="Apply" id="_RZsYgDo2EeyetrjwtKBt7g" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_VCuUtzo2EeyetrjwtKBt7g" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_Yj7xpzo2EeyetrjwtKBt7g" attribute="_Kpsc4QZYEeyAI7-VwtP_pw"/>
+        </condition>
         <target>
           <match xsi:type="structure:MethodMatch" id="_aPwnMQcmEeyfdfV5US28Ng">
             <methodspecification xsi:type="structure:ServiceRestriction" id="_bG5DgQcmEeyfdfV5US28Ng">

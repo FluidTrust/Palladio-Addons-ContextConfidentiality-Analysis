@@ -203,7 +203,10 @@
         </target>
       </rule>
       <rule id="_WuI6kAcmEeyfdfV5US28Ng" entityName="setCreditCard">
-        <condition xsi:type="SimpleAttributeCondition" id="_dyo4FwcmEeyfdfV5US28Ng" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
+        <condition xsi:type="Apply" id="_RZsYgDo2EeyetrjwtKBt7g" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_VCuUtzo2EeyetrjwtKBt7g" attribute="_cYY84fXpEeub3tcXgMY_nQ"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_Yj7xpzo2EeyetrjwtKBt7g" attribute="_Kpsc4QZYEeyAI7-VwtP_pw"/>
+        </condition>
         <target>
           <match xsi:type="structure:MethodMatch" id="_aPwnMQcmEeyfdfV5US28Ng">
             <methodspecification xsi:type="structure:ServiceRestriction" id="_bG5DgQcmEeyfdfV5US28Ng">

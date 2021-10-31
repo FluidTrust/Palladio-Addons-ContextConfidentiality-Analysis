@@ -166,6 +166,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             var connectedContainers = getConnectedResourceContainers(resourceContainer);
             var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
                     this.modelStorage.getAllocation());
+            reachableAssemblies.addAll(
+                    CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
             final var handler = getAssemblyHandler();
             reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
             handler.attackAssemblyContext(reachableAssemblies, changes, component);
