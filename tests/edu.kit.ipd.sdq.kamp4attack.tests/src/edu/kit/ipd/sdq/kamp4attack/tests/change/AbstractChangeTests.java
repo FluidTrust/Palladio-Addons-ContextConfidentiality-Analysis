@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.kamp4attack.tests.change;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEID;
@@ -21,6 +22,7 @@ import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
+import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
@@ -186,6 +188,11 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var board = getBlackboardWrapper();
         final var analysis = new AttackPropagationAnalysis();
         analysis.runChangePropagationAnalysis(board);
+    }
+
+    @BeforeEach
+    void clearCache() {
+        CachePDP.instance().clearCache();
     }
 
 }

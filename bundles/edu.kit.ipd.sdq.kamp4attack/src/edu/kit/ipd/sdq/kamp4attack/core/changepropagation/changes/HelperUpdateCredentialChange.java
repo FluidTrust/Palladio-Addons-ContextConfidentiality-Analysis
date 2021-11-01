@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 
+import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -45,6 +46,7 @@ public class HelperUpdateCredentialChange {
         changes.getContextchange().addAll(listChanges);
 
         if (!listChanges.isEmpty()) {
+            CachePDP.instance().clearCache();
             changes.setChanged(true);
         }
     }

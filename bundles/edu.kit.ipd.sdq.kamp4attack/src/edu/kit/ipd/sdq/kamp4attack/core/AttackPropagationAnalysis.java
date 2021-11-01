@@ -41,7 +41,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
 
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-
+        CachePDP.instance().clearCache();
         // prepare
 
         createInitialStructure(board);
@@ -54,7 +54,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
             calculateAndMarkAssemblyPropagation(board);
 
         } while (this.changePropagationDueToCredential.isChanged());
-
+        CachePDP.instance().clearCache();
     }
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {

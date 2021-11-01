@@ -27,6 +27,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -105,18 +106,33 @@ public abstract class AttackHandler {
             PolicyHelper.createRequestAttributes(listComponent, credentials, listSubject, listEnvironment, listResource,
                     listXML);
         } else {
+            var result = CachePDP.instance().get(target, signature);
+            if (result.isPresent()) {
+                return result;
+            }
             PolicyHelper.createRequestAttributes(signature, listComponent, credentials, listSubject, listEnvironment,
                     listResource, listOperation, listXML);
         }
 
         final var result = getModelStorage().getEval().evaluate(listSubject, listEnvironment, listResource,
                 listOperation, listXML);
+        if (result.isPresent() && signature != null) {
+            CachePDP.instance().insert(target, signature, result.get());
+        }
         return result;
     }
 
     protected Optional<PDPResult> queryAccessForEntity(final Entity target,
             final List<? extends UsageSpecification> credentials) {
-        return this.queryAccessForEntity(target, credentials, null);
+        var result = CachePDP.instance().get(target);
+        if (result.isPresent()) {
+            return result;
+        }
+        result = this.queryAccessForEntity(target, credentials, null);
+        if (result.isPresent()) {
+            CachePDP.instance().insert(target, result.get());
+        }
+        return result;
     }
 
     // TODO: Think about better location
