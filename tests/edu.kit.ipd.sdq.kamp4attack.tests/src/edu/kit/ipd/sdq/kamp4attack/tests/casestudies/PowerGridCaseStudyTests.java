@@ -42,9 +42,9 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
     void defaultCaseCorrectAssemblyNumber() {
         runAnalysis();
         final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
-        assertEquals(4, change.getCompromisedresource().size());
-        assertEquals(6, change.getCompromisedassembly().size());
-        assertEquals(9, change.getCompromisedservice().size());
+        assertEquals(5, change.getCompromisedresource().size());
+        assertEquals(7, change.getCompromisedassembly().size());
+        assertEquals(10, change.getCompromisedservice().size());
         assertEquals(4, change.getContextchange().size());
         assertEquals(1, change.getCompromisedlinkingresource().size());
 
@@ -75,12 +75,12 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
 
     private boolean assemblyNameMatch(String name) {
         var set = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
-                "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights");
+                "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights", "ExternalVPNBridge");
         return set.contains(name);
     }
 
     private boolean resourceNameMatch(String name) {
-        var set = Set.of("Workstation01", "CallCenter", "DataCenter", "Workstation02");
+        var set = Set.of("Workstation01", "CallCenter", "DataCenter", "Workstation02", "VPNBridgeExternal");
         return set.contains(name);
     }
 
@@ -102,7 +102,7 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
     private boolean checkServiceRestriction(ServiceRestriction restriction) {
         var setAssembly = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
                 "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights",
-                "Assembly_DMSClientApplication", "Assembly_DMSServerApplication");
+                "Assembly_DMSClientApplication", "Assembly_DMSServerApplication", "ExternalVPNBridge");
 
         var equalAssembly = setAssembly.contains(restriction.getAssemblycontext().getEntityName());
         if (!equalAssembly) {

@@ -38,8 +38,8 @@ public class TargetCaseStudyTests extends AbstractChangeTests {
         assertEquals(7, change.getCompromisedassembly().size());
         assertEquals(9, change.getCompromisedservice().size());
         assertEquals(2, change.getContextchange().size());
-        assertEquals(0, change.getCompromisedlinkingresource().size());
-        assertEquals(0, change.getCompromisedresource().size());
+        assertEquals(1, change.getCompromisedlinkingresource().size());
+        assertEquals(5, change.getCompromisedresource().size());
 
         var containsAllAssemblies = change.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).map(AssemblyContext::getEntityName)

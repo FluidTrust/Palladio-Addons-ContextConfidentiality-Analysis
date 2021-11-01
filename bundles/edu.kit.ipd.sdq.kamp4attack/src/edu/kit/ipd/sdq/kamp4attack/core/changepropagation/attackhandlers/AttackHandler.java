@@ -15,6 +15,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.helper.PolicyHelper;
@@ -142,7 +143,14 @@ public abstract class AttackHandler {
     protected Vulnerability checkVulnerability(final Entity entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
-        final var result = this.queryAccessForEntity(entity, credentials);
+        Optional<PDPResult> result;
+        var authenticatedNeeded = vulnerabilityList.stream().anyMatch(
+                e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
+        if (authenticatedNeeded) {
+            result = this.queryAccessForEntity(entity, credentials);
+        } else {
+            result = Optional.empty();
+        }
         return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
     }
 

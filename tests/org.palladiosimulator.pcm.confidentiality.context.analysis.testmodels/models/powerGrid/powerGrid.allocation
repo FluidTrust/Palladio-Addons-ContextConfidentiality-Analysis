@@ -34,4 +34,8 @@
     <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
     <assemblyContext_AllocationContext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
   </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_-JN7YDr7EeyaGdbmVfHw9A" entityName="Allocation_ExternalVPNBridge">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>

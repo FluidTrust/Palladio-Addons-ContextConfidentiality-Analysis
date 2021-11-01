@@ -1,6 +1,8 @@
 package org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -34,6 +36,8 @@ public class XACMLPDP implements Evaluate {
     private static final Logger LOGGER = Logger.getLogger(XACMLPolicyWriter.class.getName());
     private ObjectFactory factory = new ObjectFactory();
 
+    private Map<String, PDPResult> cache = new HashMap<>();
+
     private PDPEngine engine;
 
     @Override
@@ -52,13 +56,15 @@ public class XACMLPDP implements Evaluate {
         .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
         request.getAttributes().add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.stringValue(), operation));
-
         try {
 
             var requestString = XACMLPolicyWriter.createXMLString(this.factory.createRequest(request),
                     RequestType.class);
             if (requestString.isPresent()) {
                 var string = requestString.get();
+                if (this.cache.containsKey(string)) {
+                    return Optional.of(this.cache.get(string));
+                }
                 var actualRequest = DOMRequest.load(string);
                 var response = this.engine.decide(actualRequest);
 
@@ -93,7 +99,10 @@ public class XACMLPDP implements Evaluate {
                 default:
                     throw new IllegalStateException("Unknown Decision type");
                 }
-                return Optional.of(new PDPResult(decision, listPolicyID));
+
+                var resultWrapper = new PDPResult(decision, listPolicyID);
+                this.cache.put(string, resultWrapper);
+                return Optional.of(resultWrapper);
 
             }
 

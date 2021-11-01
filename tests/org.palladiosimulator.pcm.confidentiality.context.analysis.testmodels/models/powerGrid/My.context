@@ -49,6 +49,11 @@
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
           </match>
         </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_GvP9EDr8EeyaGdbmVfHw9A">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
       </rule>
     </policy>
     <policy id="_apPPkS8lEeylPOrRpUZy4w" entityName="ICS">
