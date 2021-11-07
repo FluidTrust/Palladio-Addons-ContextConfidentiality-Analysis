@@ -20,6 +20,7 @@ import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
@@ -145,10 +146,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     public void calculateAssemblyContextToAssemblyContextPropagation(final CredentialChange changes) {
         final var listCompromisedContexts = getCompromisedAssemblyContexts(changes);
         for (final var component : listCompromisedContexts) {
-            var targetComponents = getConnectedComponents(component);
+            var targetComponents = getConnectedComponents(component).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
 
             final var handler = getAssemblyHandler();
-            targetComponents = CollectionHelper.removeDuplicates(targetComponents);
+            targetComponents = CollectionHelper.removeDuplicates(targetComponents).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handler.attackAssemblyContext(targetComponents, changes, component);
             this.handleSeff(changes, component);
         }
@@ -169,10 +172,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             reachableAssemblies.addAll(
                     CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
             final var handler = getAssemblyHandler();
-            reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
+            reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handler.attackAssemblyContext(reachableAssemblies, changes, component);
 
-            var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies);
+            var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handleSeff(changes, listServices, component);
         }
 
@@ -214,7 +219,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         for (final var component : listCompromisedAssemblyContexts) {
             final var resource = getResourceContainer(component);
-            final var reachableLinkingResources = getLinkingResource(resource);
+            final var reachableLinkingResources = getLinkingResource(resource).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             final var handler = getLinkingHandler();
             handler.attackLinkingResource(reachableLinkingResources, changes, component);
         }

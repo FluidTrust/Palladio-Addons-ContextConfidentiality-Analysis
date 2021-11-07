@@ -28,6 +28,7 @@ import org.palladiosimulator.pcm.repository.Signature;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
+import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -159,6 +160,9 @@ public abstract class AttackHandler {
     protected Vulnerability checkVulnerability(final Entity entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
+        if (CacheVulnerability.instance().checkedBefore(entity)) {
+            return null;
+        }
         Optional<PDPResult> result;
         var authenticatedNeeded = vulnerabilityList.stream().anyMatch(
                 e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
@@ -167,6 +171,7 @@ public abstract class AttackHandler {
         } else {
             result = Optional.empty();
         }
+        CacheVulnerability.instance().addEntity(entity);
         return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
     }
 
