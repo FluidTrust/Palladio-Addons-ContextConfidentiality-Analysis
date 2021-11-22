@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
   <attackers>
     <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker" attacks="_QQUWsDb2EeynPbsdxI5kRA _EpyogDfzEey5OtKYIVrxdg _MXEvMDfxEey5OtKYIVrxdg">
       <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
@@ -31,9 +31,9 @@
     <attack xsi:type="attack:CWEAttack" id="_EpyogDfzEey5OtKYIVrxdg" entityName="DefaultPassword" category="//@categoryspecification/@categories.0"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="__G2OAAo3EeyKMtWTxnyP1g" entityName="Default Password" attackVector="Network" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_owpDMApGEeyKMtWTxnyP1g" entityName="AttackerBusiness" attackVector="Network" privileges="Low" takeOver="true" cweID="//@categoryspecification/@categories.3"/>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_66uiMDfyEey5OtKYIVrxdg" entityName="WeakPassword" attackVector="Network" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.2"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="__G2OAAo3EeyKMtWTxnyP1g" entityName="Default Password" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_owpDMApGEeyKMtWTxnyP1g" entityName="AttackerBusiness" privileges="Low" takeOver="true" cweID="//@categoryspecification/@categories.3"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_66uiMDfyEey5OtKYIVrxdg" entityName="WeakPassword" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.2"/>
   </vulnerabilites>
   <categoryspecification>
     <categories xsi:type="attack:CWEID" entityName="Use of Hard-coded Credentials" cweID="798" parents="//@categoryspecification/@categories.1"/>
@@ -42,34 +42,23 @@
     <categories xsi:type="attack:CWEID" entityName="Improper Privilege Management" cweID="269"/>
   </categoryspecification>
   <systemintegration>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4Kuy0AprEeyKMtWTxnyP1g" vulnerability="_owpDMApGEeyKMtWTxnyP1g">
-      <pcmelement id="_6PgG8AprEeyKMtWTxnyP1g">
-        <methodspecification xsi:type="structure:ServiceRestriction" id="_Dl5dETb3Eey63pKqNC__Dg" entityName="BillingMethod">
+    <assemblyVulnerabilities value="__G2OAAo3EeyKMtWTxnyP1g">
+      <key href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+    </assemblyVulnerabilities>
+    <assemblyVulnerabilities value="__G2OAAo3EeyKMtWTxnyP1g">
+      <key href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+    </assemblyVulnerabilities>
+    <assemblyVulnerabilities value="__G2OAAo3EeyKMtWTxnyP1g">
+      <key href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+    </assemblyVulnerabilities>
+    <assemblyVulnerabilities value="_66uiMDfyEey5OtKYIVrxdg">
+      <key href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+    </assemblyVulnerabilities>
+    <methodVulnerabilities key="_E9ZaoUtzEeyvqYq1MWvwmg" value="_owpDMApGEeyKMtWTxnyP1g"/>
+    <methods xsi:type="structure:ServiceRestriction" id="_E9ZaoUtzEeyvqYq1MWvwmg">
           <signature xsi:type="repository:OperationSignature" href="target.repository#_YGBd0Ao3EeyKMtWTxnyP1g"/>
           <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
           <service href="target.repository#_-xba0Ao7EeyKMtWTxnyP1g"/>
-        </methodspecification>
-      </pcmelement>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_xm0G0DfyEey5OtKYIVrxdg" vulnerability="__G2OAAo3EeyKMtWTxnyP1g">
-      <pcmelement id="_x12oYDfyEey5OtKYIVrxdg">
-        <assemblycontext href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
-      </pcmelement>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_0iZuMDfyEey5OtKYIVrxdg" vulnerability="__G2OAAo3EeyKMtWTxnyP1g">
-      <pcmelement id="_1dyYYDfyEey5OtKYIVrxdg">
-        <assemblycontext href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
-      </pcmelement>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_JQ0eADfzEey5OtKYIVrxdg" vulnerability="__G2OAAo3EeyKMtWTxnyP1g">
-      <pcmelement id="_8GKlIDfzEey5OtKYIVrxdg">
-        <assemblycontext href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
-      </pcmelement>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_FpB6IDgCEeyQ_oZ5YyVHCg" vulnerability="_66uiMDfyEey5OtKYIVrxdg">
-      <pcmelement id="_HWuLADgCEeyQ_oZ5YyVHCg">
-        <assemblycontext href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
-      </pcmelement>
-    </vulnerabilities>
+    </methods>
   </systemintegration>
 </attacker:AttackerSpecification>
