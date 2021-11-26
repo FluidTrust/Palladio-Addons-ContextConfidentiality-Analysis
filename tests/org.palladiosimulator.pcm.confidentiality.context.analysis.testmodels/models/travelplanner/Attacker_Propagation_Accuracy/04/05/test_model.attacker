@@ -89,20 +89,29 @@
     <categories xsi:type="attack:CWEID" entityName="Improper Access Control" cweID="284"/>
   </categoryspecification>
   <systemintegration>
-      <assemblyVulnerabilities value="_px3jQKd4EeuyobD7xRWqAQ">
-      <key href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
-    </assemblyVulnerabilities>
-    <resourceVulnerabilities value="_oBdkwDl0EeyxuvclpmtFmA">
-      <key href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ" />
-    </resourceVulnerabilities>
-    <linkingVulnerabilities value="_89t8QDl0EeyxuvclpmtFmA">
-      <key href="../../../default.resourceenvironment#_67lcMMN9EeWPE-QAhbUzuQ"/>
-    </linkingVulnerabilities>
-    <methodVulnerabilities value="_DE78MKg4EeuBy83MqQpiOw" key="_xI_UgTl1EeyxuvclpmtFmA" />
-    <methods xsi:type="structure:ServiceRestriction" id="_xI_UgTl1EeyxuvclpmtFmA">
-        <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
-        <assemblycontext href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
-        <service href="../../../default.repository#_brO1YN5fEeeel_96Qa_d5A"/>
-    </methods>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_F_zfgDi_Eey9mszNksodxw" vulnerability="_px3jQKd4EeuyobD7xRWqAQ">
+      <pcmelement id="_Mz7nADl1EeyxuvclpmtFmA">
+        <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_MIzmYDl1EeyxuvclpmtFmA" vulnerability="_oBdkwDl0EeyxuvclpmtFmA">
+      <pcmelement id="_NnKawDl1EeyxuvclpmtFmA">
+        <resourcecontainer href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_N9TC0Dl1EeyxuvclpmtFmA" vulnerability="_89t8QDl0EeyxuvclpmtFmA">
+      <pcmelement id="_OVv_EDl1EeyxuvclpmtFmA">
+        <linkingresource href="../../../default.resourceenvironment#_67lcMMN9EeWPE-QAhbUzuQ"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_pihSYDl1EeyxuvclpmtFmA" vulnerability="_DE78MKg4EeuBy83MqQpiOw">
+      <pcmelement id="_p8eqgDl1EeyxuvclpmtFmA">
+        <methodspecification xsi:type="structure:ServiceRestriction" id="_xI_UgTl1EeyxuvclpmtFmA">
+          <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
+          <assemblycontext href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+          <service href="../../../default.repository#_brO1YN5fEeeel_96Qa_d5A"/>
+        </methodspecification>
+      </pcmelement>
+    </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

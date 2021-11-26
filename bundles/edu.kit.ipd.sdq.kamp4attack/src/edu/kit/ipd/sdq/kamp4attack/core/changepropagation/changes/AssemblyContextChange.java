@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
@@ -183,11 +184,9 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     private boolean isGlobalElement(AssemblyContext assemblyContext) {
-        var global = this.modelStorage.getVulnerabilitySpecification().getGlobal().get(assemblyContext.getId());
-        if (global == null) {
-            return true;
-        }
-        return global;
+        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream().filter(
+                systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext(), assemblyContext))
+                .noneMatch(NonGlobalCommunication.class::isInstance);
     }
 
     private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {

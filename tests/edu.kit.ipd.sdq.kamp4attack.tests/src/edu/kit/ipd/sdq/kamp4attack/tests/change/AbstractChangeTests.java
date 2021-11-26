@@ -191,7 +191,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var analysis = new AttackPropagationAnalysis();
         analysis.runChangePropagationAnalysis(board);
     }
-    
 
     @BeforeEach
     void clearCache() {

@@ -10,6 +10,8 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -70,7 +72,11 @@ public class CollectionHelper {
 
     public static ServiceRestriction findOrCreateServiceRestriction(ServiceRestriction service,
             AttackerSystemSpecificationContainer attackerSpecification, CredentialChange change) {
-        var listMethodSpecification = attackerSpecification.getMethodVulnerabilities().keySet().stream()
+        var listMethodSpecification = attackerSpecification.getVulnerabilities().stream()
+                .filter(VulnerabilitySystemIntegration.class::isInstance)
+                .map(VulnerabilitySystemIntegration.class::cast)
+                .filter(e -> e.getPcmelement().getMethodspecification() != null)
+                .map(VulnerabilitySystemIntegration::getPcmelement).map(PCMElement::getMethodspecification)
                 .filter(ServiceRestriction.class::isInstance).map(ServiceRestriction.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
                         && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))

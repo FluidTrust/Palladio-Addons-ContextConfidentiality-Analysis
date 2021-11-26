@@ -17,6 +17,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.helper.PolicyHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
@@ -200,10 +201,12 @@ public abstract class AttackHandler {
             authenticated = DecisionType.PERMIT.equals(result.get().getDecision());
         }
 
-        var hackedEntities = CompromisedElementHelper.getHacked(change);
+        final var roleSpecification = VulnerabilityHelper
+                .getRoles(getModelStorage().getVulnerabilitySpecification());
 
-        final var roles = VulnerabilityHelper.getRoles(getModelStorage().getVulnerabilitySpecification(),
-                hackedEntities);
+        final var roles = roleSpecification.stream()
+                .filter(e -> CompromisedElementHelper.isHacked(e.getPcmelement(), change))
+                .map(RoleSystemIntegration::getRole).collect(Collectors.toList());
 
         final var vulnerability = VulnerabilityHelper.checkAttack(authenticated, vulnerabilityList, attacks,
                 attackVector, roles);
