@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/">
+  <attackers>
+    <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test">
+      <compromisedComponents href="newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
+      <credentials href="My.context#_sKKUUe4ZEeu1msiU_4h_hw"/>
+    </attacker>
+  </attackers>
+  <vulnerabilites/>
+  <categoryspecification/>
+  <systemintegration/>
+</attacker:AttackerSpecification>
