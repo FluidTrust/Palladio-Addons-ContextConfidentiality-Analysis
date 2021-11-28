@@ -49,6 +49,11 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_Hj6FslBcEeyXHY01PFJiNw" predecessor_AbstractAction="_Hj6FsVBcEeyXHY01PFJiNw"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_0UF9sFBiEeyGXqZbGaQ79w" entityName="Component P.2.1">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_4NzaMFBiEeyGXqZbGaQ79w" entityName="Component P.2.1.InterfaceCriticalP1.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_n7g-oCHbEd62GabW1zGSBw"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_FfvKUFBjEeyGXqZbGaQ79w" entityName="Component 3.1"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_JCEooVBjEeyGXqZbGaQ79w" entityName="Component 4.1"/>
   <interfaces__Repository xsi:type="repository:OperationInterface" id="_n7g-oCHbEd62GabW1zGSBw" entityName="InterfaceCriticalP1">
     <signatures__OperationInterface id="_KjhikgzkEeCFg86gxKwVPw" entityName="operationSignatureCriticalP1"/>
   </interfaces__Repository>
