@@ -40,7 +40,7 @@ public class LaunchDelegate
             attackBuilder.fillConfiguration(config);
             break;
         case "Attack surface":
-            throw new UnsupportedOperationException();
+            throw new UnsupportedOperationException(); //TODO implement
         default:
             assert false;
         }
