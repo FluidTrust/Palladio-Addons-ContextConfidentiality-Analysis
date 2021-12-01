@@ -4,6 +4,7 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.AttackerAnalysisJob;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.CreateGraphJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadAttackerModel;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadContextJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadModifacationMarkJob;
@@ -29,6 +30,7 @@ public class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob
         this.add(new LoadAttackerModel(config));
         this.add(new LoadModifacationMarkJob(config));
         this.add(new AttackerAnalysisJob(config));
+        this.add(new CreateGraphJob(config));
         this.add(new SavePartitionToDiskJob(PARTITION_ID_MODIFICATION));
     }
 }

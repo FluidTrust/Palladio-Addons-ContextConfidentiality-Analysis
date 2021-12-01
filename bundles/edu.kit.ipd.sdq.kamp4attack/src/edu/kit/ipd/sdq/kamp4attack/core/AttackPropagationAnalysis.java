@@ -62,6 +62,8 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
         CachePDP.instance().clearCache();
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
+
+
     }
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {

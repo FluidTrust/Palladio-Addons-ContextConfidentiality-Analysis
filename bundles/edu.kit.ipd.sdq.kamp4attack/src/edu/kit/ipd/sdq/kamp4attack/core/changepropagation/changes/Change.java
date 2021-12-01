@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
-import org.palladiosimulator.pcm.confidentiality.context.system.AttributeProvider;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -29,9 +29,23 @@ public abstract class Change<T> {
     protected abstract Collection<T> loadInitialMarkedItems();
 
     protected void updateFromContextProviderStream(final CredentialChange changes,
-            final Stream<? extends AttributeProvider> streamAttributeProvider) {
+            final Stream<? extends PCMAttributeProvider> streamAttributeProvider) {
         final var streamContextChange = streamAttributeProvider
-                .map(e -> HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null));
+                .map(e -> {
+                    if (e.getAssemblycontext() != null) {
+                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                                List.of(e.getAssemblycontext()));
+                    }
+                    if (e.getLinkingresource() != null) {
+                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                                List.of(e.getLinkingresource()));
+                    }
+                    if (e.getResourcecontainer() != null) {
+                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                                List.of(e.getResourcecontainer()));
+                    }
+                    return HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null);
+                });
 
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }

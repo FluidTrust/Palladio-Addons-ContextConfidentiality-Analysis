@@ -111,8 +111,8 @@ public class CollectionHelper {
         for (final var component : compromisedAssemblies) {
             final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(component.getAffectedElement());
 
-            final var causingElement = component.getCausingElements();
-            causingElement.add(0, component.getAffectedElement());
+            final var causingElement = new ArrayList<AssemblyContext>();
+            causingElement.add(component.getAffectedElement());
 
             var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {
                 var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service, container, change);

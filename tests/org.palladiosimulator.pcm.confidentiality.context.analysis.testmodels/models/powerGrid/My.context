@@ -79,7 +79,7 @@
         </target>
       </rule>
       <rule id="_NHHXQC85EeykYdnERVaxtw" entityName="ICSBride">
-        <condition xsi:type="Apply" id="_aR-PAC85EeykYdnERVaxtw" operation="BOOLEAN_EQUAL">
+        <condition xsi:type="Apply" id="_aR-PAC85EeykYdnERVaxtw" operation="AND">
           <parameters xsi:type="SimpleAttributeCondition" id="_fQJZNy85EeykYdnERVaxtw" attribute="_lqiu8S8nEeylPOrRpUZy4w"/>
           <parameters xsi:type="SimpleAttributeCondition" id="_iA1YJy85EeykYdnERVaxtw" attribute="_R3dMsC8sEeylPOrRpUZy4w"/>
         </condition>
