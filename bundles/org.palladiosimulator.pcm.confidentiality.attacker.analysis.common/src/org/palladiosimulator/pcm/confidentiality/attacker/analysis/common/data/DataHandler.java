@@ -9,13 +9,13 @@ import java.util.stream.Stream;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.CompromisedData;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.DatamodelAttacker;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Parameter;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
@@ -26,14 +26,16 @@ public class DataHandler {
 
     }
 
-    public static Collection<CompromisedData> getData(final RepositoryComponent component) {
+    public static Collection<DatamodelAttacker> getData(final AssemblyContext assemblyContext) {
+
+        var component = assemblyContext.getEncapsulatedComponent__AssemblyContext();
         final var interfacesList = component.getProvidedRoles_InterfaceProvidingEntity().stream()
                 .filter(OperationProvidedRole.class::isInstance).map(OperationProvidedRole.class::cast)
                 .map(OperationProvidedRole::getProvidedInterface__OperationProvidedRole)
                 .collect(Collectors.toUnmodifiableList());
         final var parameters = interfacesList.stream().flatMap(e -> e.getSignatures__OperationInterface().stream())
                 .flatMap(e -> e.getParameters__OperationSignature().stream());
-        final var listDataParameter = createDataFromParameter(component, parameters);
+        final var listDataParameter = createDataFromParameter(parameters);
 
         var interfacesRequired = component.getRequiredRoles_InterfaceRequiringEntity().stream()
                 .filter(OperationRequiredRole.class::isInstance).map(OperationRequiredRole.class::cast)
@@ -41,48 +43,50 @@ public class DataHandler {
 
         interfacesRequired = Stream.concat(interfacesList.stream(), interfacesRequired);
         final var listDataReturnTypes = interfacesRequired.flatMap(e -> e.getSignatures__OperationInterface().stream())
-                .map(returnType -> {
-                    return createDataReturnValue(returnType);
-                }).flatMap(Optional::stream).collect(Collectors.toList());
+                .map(DataHandler::createDataReturnValue).flatMap(Optional::stream).collect(Collectors.toList());
 
         listDataParameter.addAll(listDataReturnTypes);
+        listDataParameter.stream().forEach(data -> data.setSource(assemblyContext));
         return listDataParameter;
 
     }
 
-    private static Optional<CompromisedData> createDataReturnValue(final OperationSignature signature) {
+    private static Optional<DatamodelAttacker> createDataReturnValue(final OperationSignature signature) {
         if (signature.getReturnType__OperationSignature() == null) {
             return Optional.empty();
         }
-        final var data = AttackerFactory.eINSTANCE.createCompromisedData();
+        final var data = AttackerFactory.eINSTANCE.createDatamodelAttacker();
         data.setDataType(signature.getReturnType__OperationSignature());
         data.setSource(signature);
         return Optional.of(data);
     }
 
-    private static Collection<CompromisedData> createDataFromParameter(final RepositoryComponent component,
+    private static Collection<DatamodelAttacker> createDataFromParameter(
             final Stream<Parameter> parameters) {
         return parameters.map(parameter -> {
-            final var data = AttackerFactory.eINSTANCE.createCompromisedData();
+            final var data = AttackerFactory.eINSTANCE.createDatamodelAttacker();
             data.setDataType(parameter.getDataType__Parameter());
             data.setReferenceName(parameter.getParameterName());
-            data.setSource(component);
             return data;
         }).collect(Collectors.toList());
     }
 
-    public static List<CompromisedData> getData(final ResourceContainer resource, final Allocation allocation) {
+    public static List<DatamodelAttacker> getData(final ResourceContainer resource, final Allocation allocation) {
         final var assemblyContexts = CollectionHelper.getAssemblyContext(List.of(resource), allocation);
-        return assemblyContexts.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
-                .flatMap(e -> getData(e).stream()).collect(Collectors.toList());
+        return assemblyContexts.stream().flatMap(e -> getData(e).stream()).collect(Collectors.toList());
     }
 
-    public static Collection<CompromisedData> getData(final ResourceDemandingSEFF seff) {
-        final var component = seff.getBasicComponent_ServiceEffectSpecification();
+    public static Collection<DatamodelAttacker> getData(ServiceRestriction serviceRestriction) {
+        var dataList = getData(serviceRestriction.getService());
+        dataList.stream().forEach(data -> data.setSource(serviceRestriction));
+        return dataList;
+    }
+
+    private static Collection<DatamodelAttacker> getData(final ResourceDemandingSEFF seff) {
         final var parameterStream = ((OperationSignature) seff.getDescribedService__SEFF())
                 .getParameters__OperationSignature().stream();
 
-        final var dataSignatureList = DataHandler.createDataFromParameter(component, parameterStream);
+        final var dataSignatureList = DataHandler.createDataFromParameter(parameterStream);
 
         final var seffList = seff.getSteps_Behaviour().stream().filter(ExternalCallAction.class::isInstance)
                 .map(ExternalCallAction.class::cast).map(ExternalCallAction::getCalledService_ExternalService)

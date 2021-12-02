@@ -3,66 +3,6 @@
   <attackers>
     <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="AttackerResource2Resource&amp;Linking" attacks="_y29cwDl2EeyxuvclpmtFmA">
       <compromisedResources href="../../../default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      <compromiseddata id="_RJT1YDmBEey_G8LnpqYMRA" referenceName="flightOffer">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_QuDIrc5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YTmBEey_G8LnpqYMRA" referenceName="cc_decl">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YjmBEey_G8LnpqYMRA" referenceName="requestData">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YzmBEey_G8LnpqYMRA" referenceName="offerId">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZDmBEey_G8LnpqYMRA" referenceName="airline">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZTmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_GmUUEMN1EeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZjmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_602gYM5lEeWFJak7Wqvc0g"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZzmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1aDmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1aTmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_rHe8sDmDEey_G8LnpqYMRA" referenceName="requestData">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_rHe8sTmDEey_G8LnpqYMRA" referenceName="offerId">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
-        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_rHe8sjmDEey_G8LnpqYMRA" referenceName="ccd_decl">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_rHe8szmDEey_G8LnpqYMRA" referenceName="flights">
-        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_rHe8tjmDEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
-      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>

@@ -18,34 +18,34 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
-    public AssemblyContextPropagationContext(final BlackboardWrapper v) {
-        super(v);
+    public AssemblyContextPropagationContext(final BlackboardWrapper v, CredentialChange change) {
+        super(v, change);
     }
 
     @Override
     protected ResourceContainerHandler getLocalResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected ResourceContainerHandler getRemoteResourceHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
             final AssemblyContext source) {
-        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(this.changes));
         handler.attackService(services, changes, source);
     }
 

@@ -6,6 +6,7 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
     private URI dataModel;
     private URI attackModel;
     private URI modificationModel;
+    private boolean generateGraph = false;
 
     public URI getDataModel() {
         return this.dataModel;
@@ -29,6 +30,10 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
 
     public void setModificationModel(final URI adversaryModel) {
         this.modificationModel = adversaryModel;
+    }
+
+    public boolean getGenerateGraph() {
+        return this.generateGraph;
     }
 
 }

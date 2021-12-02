@@ -28,8 +28,8 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     private void runContextToAssemblyPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var contextChange = new AssemblyContextPropagationContext(wrapper);
-        contextChange.calculateAssemblyContextToRemoteResourcePropagation(change);
+        final var contextChange = new AssemblyContextPropagationContext(wrapper, change);
+        contextChange.calculateAssemblyContextToRemoteResourcePropagation();
     }
 
     @Test

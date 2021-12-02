@@ -68,40 +68,39 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationContext(board));
-        list.add(new AssemblyContextPropagationVulnerability(board));
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential));
+        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential));
         for (final var analysis : list) {
-            analysis.calculateAssemblyContextToContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateAssemblyContextToAssemblyContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateAssemblyContextToLinkingResourcePropagation(this.changePropagationDueToCredential);
-            analysis.calculateAssemblyContextToLocalResourcePropagation(this.changePropagationDueToCredential);
-            analysis.calculateAssemblyContextToRemoteResourcePropagation(this.changePropagationDueToCredential);
+            analysis.calculateAssemblyContextToContextPropagation();
+            analysis.calculateAssemblyContextToAssemblyContextPropagation();
+            analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation();
+            analysis.calculateAssemblyContextToLinkingResourcePropagation();
+            analysis.calculateAssemblyContextToLocalResourcePropagation();
+            analysis.calculateAssemblyContextToRemoteResourcePropagation();
         }
     }
 
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationContext(board));
-        list.add(new ResourceContainerPropagationVulnerability(board));
+        list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential));
+        list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential));
         for (final var analysis : list) {
-            analysis.calculateResourceContainerToContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateResourceContainerToLinkingResourcePropagation(this.changePropagationDueToCredential);
-            analysis.calculateResourceContainerToLocalAssemblyContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateResourceContainerToRemoteAssemblyContextPropagation(
-                    this.changePropagationDueToCredential);
-            analysis.calculateResourceContainerToResourcePropagation(this.changePropagationDueToCredential);
+            analysis.calculateResourceContainerToContextPropagation();
+            analysis.calculateResourceContainerToLinkingResourcePropagation();
+            analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
+            analysis.calculateResourceContainerToRemoteAssemblyContextPropagation();
+            analysis.calculateResourceContainerToResourcePropagation();
         }
     }
 
     private void calculateAndMarkLinkingPropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<LinkingPropagation>();
-        list.add(new LinkingPropagationContext(board));
-        list.add(new LinkingPropagationVulnerability(board));
+        list.add(new LinkingPropagationContext(board, this.changePropagationDueToCredential));
+        list.add(new LinkingPropagationVulnerability(board, this.changePropagationDueToCredential));
         for (final var analysis : list) {
-            analysis.calculateLinkingResourceToContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateLinkingResourceToAssemblyContextPropagation(this.changePropagationDueToCredential);
-            analysis.calculateLinkingResourceToResourcePropagation(this.changePropagationDueToCredential);
+            analysis.calculateLinkingResourceToContextPropagation();
+            analysis.calculateLinkingResourceToAssemblyContextPropagation();
+            analysis.calculateLinkingResourceToResourcePropagation();
         }
     }
 
@@ -140,7 +139,8 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
             // convert affectedAssemblyContexts to changes
-            var assemblyHandler = new AssemblyContextHandler(board, new DataHandlerAttacker(localAttacker)) {
+            var assemblyHandler = new AssemblyContextHandler(board,
+                    new DataHandlerAttacker(this.changePropagationDueToCredential)) {
                 @Override
                 protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
                         EObject source){

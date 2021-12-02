@@ -1,7 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps;
 
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
-
 /**
  * Interface for attacker propagation from a compromised resource container
  *
@@ -10,14 +8,14 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 public interface ResourceContainerPropagation {
 
-    void calculateResourceContainerToContextPropagation(CredentialChange changes);
+    void calculateResourceContainerToContextPropagation();
 
-    void calculateResourceContainerToRemoteAssemblyContextPropagation(CredentialChange changes);
+    void calculateResourceContainerToRemoteAssemblyContextPropagation();
 
-    void calculateResourceContainerToLocalAssemblyContextPropagation(CredentialChange changes);
+    void calculateResourceContainerToLocalAssemblyContextPropagation();
 
-    void calculateResourceContainerToResourcePropagation(CredentialChange changes);
+    void calculateResourceContainerToResourcePropagation();
 
-    void calculateResourceContainerToLinkingResourcePropagation(CredentialChange changes);
+    void calculateResourceContainerToLinkingResourcePropagation();
 
 }

@@ -3,26 +3,6 @@
   <attackers>
     <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker" attacks="_QQUWsDb2EeynPbsdxI5kRA _EpyogDfzEey5OtKYIVrxdg _MXEvMDfxEey5OtKYIVrxdg">
       <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
-      <compromiseddata id="_L7lVoDb3Eey63pKqNC__Dg">
-        <dataType xsi:type="repository:CollectionDataType" href="target.repository#_pN9RgAprEeyKMtWTxnyP1g"/>
-        <source href="target.repository#_WU45wAprEeyKMtWTxnyP1g"/>
-      </compromiseddata>
-      <compromiseddata id="_agINMDf0Eey5OtKYIVrxdg" referenceName="card">
-        <dataType xsi:type="repository:CompositeDataType" href="target.repository#_NS02cAo2EeyKMtWTxnyP1g"/>
-        <source href="target.repository#_33huUAo8EeyKMtWTxnyP1g"/>
-      </compromiseddata>
-      <compromiseddata id="_agINMTf0Eey5OtKYIVrxdg">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="target.repository#_WERTYAo1EeyKMtWTxnyP1g"/>
-      </compromiseddata>
-      <compromiseddata id="_agINMjf0Eey5OtKYIVrxdg">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="target.repository#_9nyt4ApqEeyKMtWTxnyP1g"/>
-      </compromiseddata>
-      <compromiseddata id="_jcxk0DgEEeyQ_oZ5YyVHCg" referenceName="data">
-        <dataType xsi:type="repository:CompositeDataType" href="target.repository#_DTgTgAprEeyKMtWTxnyP1g"/>
-        <source href="target.repository#_0wO3UApqEeyKMtWTxnyP1g"/>
-      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>

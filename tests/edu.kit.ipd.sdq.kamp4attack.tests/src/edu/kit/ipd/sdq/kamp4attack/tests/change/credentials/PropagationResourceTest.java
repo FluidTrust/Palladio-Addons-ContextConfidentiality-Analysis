@@ -31,15 +31,15 @@ class PropagationResourceTest extends AbstractChangeTests {
     private void runResourceAssemblyPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var resourceChange = new ResourceContainerPropagationContext(wrapper);
-        resourceChange.calculateResourceContainerToLocalAssemblyContextPropagation(change);
+        final var resourceChange = new ResourceContainerPropagationContext(wrapper, change);
+        resourceChange.calculateResourceContainerToLocalAssemblyContextPropagation();
     }
 
     private void runResourceContextPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var resourceChange = new ResourceContainerPropagationContext(wrapper);
-        resourceChange.calculateResourceContainerToContextPropagation(change);
+        final var resourceChange = new ResourceContainerPropagationContext(wrapper, change);
+        resourceChange.calculateResourceContainerToContextPropagation();
     }
 
     @Test

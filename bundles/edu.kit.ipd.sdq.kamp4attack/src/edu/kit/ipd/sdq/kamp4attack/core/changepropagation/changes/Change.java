@@ -20,9 +20,12 @@ public abstract class Change<T> {
 
     protected BlackboardWrapper modelStorage;
 
-    public Change(final BlackboardWrapper v) {
+    protected CredentialChange changes;
+
+    public Change(final BlackboardWrapper v, CredentialChange change) {
         this.modelStorage = v;
         this.initialMarkedItems = this.loadInitialMarkedItems();
+        this.changes = change;
 
     }
 
