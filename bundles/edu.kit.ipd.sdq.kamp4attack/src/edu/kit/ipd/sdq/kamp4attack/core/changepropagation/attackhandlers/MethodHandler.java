@@ -48,8 +48,8 @@ public abstract class MethodHandler extends AttackHandler {
 
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-        final var dataList = filteredComponents.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
-                .distinct().flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+        final var dataList = filteredComponents.stream().distinct()
+                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
         getDataHandler().addData(dataList);
     }

@@ -15,18 +15,18 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class LinkingPropagationContext extends LinkingChange {
 
-    public LinkingPropagationContext(final BlackboardWrapper v) {
-        super(v);
+    public LinkingPropagationContext(final BlackboardWrapper v, CredentialChange change) {
+        super(v, change);
     }
 
     @Override
     protected ResourceContainerHandler getResourceContainerHandler() {
-        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyContextHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override

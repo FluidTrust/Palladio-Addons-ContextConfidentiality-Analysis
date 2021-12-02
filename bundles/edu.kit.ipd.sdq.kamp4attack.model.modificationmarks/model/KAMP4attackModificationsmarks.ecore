@@ -49,6 +49,10 @@
         eType="#//CompromisedService" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="servicerestrictioncontainer"
         eType="#//ServiceRestrictionContainer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="compromiseddata" upperBound="-1"
+        eType="#//CompromisedData" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datamodelcontainer" eType="#//DatamodelContainer"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
@@ -78,6 +82,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="ServiceRestrictionContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="servicerestriction" upperBound="-1"
         eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceRestriction"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CompromisedData">
+    <eGenericSuperTypes eClassifier="#//ModifyEntity">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DatamodelContainer">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datamodelattacker" upperBound="-1"
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

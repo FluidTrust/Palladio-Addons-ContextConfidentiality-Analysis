@@ -5,26 +5,43 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.CompromisedData;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.DatamodelAttacker;
+
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.DatamodelContainer;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public class DataHandlerAttacker {
-    private final Attacker attacker;
+    private final DatamodelContainer datamodel;
+    private final CredentialChange change;
 
-    public DataHandlerAttacker(final Attacker attacker) {
-        Objects.requireNonNull(attacker);
-        this.attacker = attacker;
+    public DataHandlerAttacker(final CredentialChange change) {
+        Objects.requireNonNull(change);
+        if (change.getDatamodelcontainer() == null) {
+            change.setDatamodelcontainer(KAMP4attackModificationmarksFactory.eINSTANCE.createDatamodelContainer());
+        }
+        this.datamodel = change.getDatamodelcontainer();
+        this.change = change;
     }
 
-    public void addData(final Collection<CompromisedData> data) {
-        final var newData = data.stream().filter(referenceData -> !this.contains(referenceData))
+    public void addData(final Collection<DatamodelAttacker> data) {
+        var newData = data.stream().filter(referenceData -> !contains(referenceData))
                 .collect(Collectors.toList());
-        this.attacker.getCompromiseddata().addAll(newData);
+        this.datamodel.getDatamodelattacker().addAll(newData);
+
+
+        newData.stream().forEach(orgininalData -> {
+            final var compromisedData = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedData();
+            compromisedData.setAffectedElement(orgininalData);
+            compromisedData.getCausingElements().add(orgininalData.getSource());
+            this.change.getCompromiseddata().add(compromisedData);
+        });
+
 
     }
 
-    private boolean contains(final CompromisedData referenceData) {
-        return this.attacker.getCompromiseddata().stream()
+    private boolean contains(final DatamodelAttacker referenceData) {
+        return this.datamodel.getDatamodelattacker().stream()
                 .anyMatch(data -> Objects.equals(data.getReferenceName(), referenceData.getReferenceName())
                         && EcoreUtil.equals(data.getSource(), referenceData.getSource())
                         && EcoreUtil.equals(data.getDataType(), referenceData.getDataType()));

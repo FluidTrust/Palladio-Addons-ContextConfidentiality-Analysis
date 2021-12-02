@@ -30,7 +30,9 @@ public class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob
         this.add(new LoadAttackerModel(config));
         this.add(new LoadModifacationMarkJob(config));
         this.add(new AttackerAnalysisJob(config));
-        this.add(new CreateGraphJob(config));
+        if (config.getGenerateGraph()) {
+            this.add(new CreateGraphJob(config));
+        }
         this.add(new SavePartitionToDiskJob(PARTITION_ID_MODIFICATION));
     }
 }

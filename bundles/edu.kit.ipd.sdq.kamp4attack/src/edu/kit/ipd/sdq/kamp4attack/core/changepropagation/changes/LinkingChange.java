@@ -20,8 +20,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class LinkingChange extends Change<LinkingResource> implements LinkingPropagation {
 
-    public LinkingChange(final BlackboardWrapper v) {
-        super(v);
+    public LinkingChange(final BlackboardWrapper v, CredentialChange change) {
+        super(v, change);
     }
 
     @Override
@@ -30,8 +30,8 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
     }
 
     @Override
-    public void calculateLinkingResourceToContextPropagation(final CredentialChange changes) {
-        final var listCompromisedLinkingResources = changes.getCompromisedlinkingresource().stream()
+    public void calculateLinkingResourceToContextPropagation() {
+        final var listCompromisedLinkingResources = this.changes.getCompromisedlinkingresource().stream()
                 .map(CompromisedLinkingResource::getAffectedElement).collect(Collectors.toList());
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -39,17 +39,17 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
                 .filter(e -> listCompromisedLinkingResources.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getLinkingresource(), f)));
 
-        this.updateFromContextProviderStream(changes, streamAttributeProvider);
+        updateFromContextProviderStream(this.changes, streamAttributeProvider);
 
     }
 
     @Override
-    public void calculateLinkingResourceToResourcePropagation(final CredentialChange changes) {
-        final var compromisedLinkingResources = this.getCompromisedLinkingResources(changes);
+    public void calculateLinkingResourceToResourcePropagation() {
+        final var compromisedLinkingResources = getCompromisedLinkingResources();
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
-            final var handler = this.getResourceContainerHandler();
-            handler.attackResourceContainer(reachableResources, changes, linking);
+            final var handler = getResourceContainerHandler();
+            handler.attackResourceContainer(reachableResources, this.changes, linking);
         }
 
     }
@@ -59,17 +59,17 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
     protected abstract AssemblyContextHandler getAssemblyContextHandler();
 
     @Override
-    public void calculateLinkingResourceToAssemblyContextPropagation(final CredentialChange changes) {
-        final var compromisedLinkingResources = this.getCompromisedLinkingResources(changes);
+    public void calculateLinkingResourceToAssemblyContextPropagation() {
+        final var compromisedLinkingResources = getCompromisedLinkingResources();
 
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
             var reachableAssemblies = CollectionHelper.getAssemblyContext(reachableResources,
                     this.modelStorage.getAllocation());
-            final var handler = this.getAssemblyContextHandler();
+            final var handler = getAssemblyContextHandler();
             reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
-            handler.attackAssemblyContext(reachableAssemblies, changes, linking);
-            this.handleSeff(changes, reachableAssemblies, linking);
+            handler.attackAssemblyContext(reachableAssemblies, this.changes, linking);
+            handleSeff(this.changes, reachableAssemblies, linking);
 
         }
     }
@@ -77,8 +77,8 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
     protected abstract void handleSeff(CredentialChange changes, List<AssemblyContext> components,
             LinkingResource source);
 
-    protected List<LinkingResource> getCompromisedLinkingResources(final CredentialChange changes) {
-        return changes.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
+    protected List<LinkingResource> getCompromisedLinkingResources() {
+        return this.changes.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
                 .collect(Collectors.toList());
     }
 

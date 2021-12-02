@@ -4,10 +4,6 @@
     <attacker id="_CcLR0C8pEeylPOrRpUZy4w" entityName="PowerGridCompromiser" attacks="_UwN_AC8rEeylPOrRpUZy4w">
       <compromisedResources href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
       <credentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
-      <compromiseddata id="_GD5UcC_vEeykvpw6YDmDLA" referenceName="user">
-        <dataType xsi:type="repository:CompositeDataType" href="../simpleAttackmodels/PropagationUnitTests/newRepository.repository#_LIlH0KaeEeuF7tmdK8jWKA"/>
-        <source href="powerGrid.repository#_u1qZ8CwiEeylP6vhO63XvA"/>
-      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>

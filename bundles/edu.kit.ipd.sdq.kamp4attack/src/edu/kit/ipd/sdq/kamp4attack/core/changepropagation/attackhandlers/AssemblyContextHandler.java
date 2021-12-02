@@ -43,17 +43,14 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-        final var dataList = filteredComponents.stream().map(AssemblyContext::getEncapsulatedComponent__AssemblyContext)
-                .distinct().flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+        final var dataList = filteredComponents.stream().distinct()
+                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
         getDataHandler().addData(dataList);
     }
 
-
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
             EObject source);
-
-
 
     private Collection<CompromisedAssembly> filterExsitingComponent(final Collection<CompromisedAssembly> components,
             final CredentialChange change) {
@@ -61,8 +58,6 @@ public abstract class AssemblyContextHandler extends AttackHandler {
                 .collect(Collectors.toList());
 
     }
-
-
 
     private boolean containsComponent(final CompromisedAssembly component, final CredentialChange change) {
         return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil

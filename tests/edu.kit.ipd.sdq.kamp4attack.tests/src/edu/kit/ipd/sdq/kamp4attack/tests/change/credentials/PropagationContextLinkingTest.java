@@ -39,8 +39,8 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
     private void runResourceToLinkingPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var contextChange = new ResourceContainerPropagationContext(wrapper);
-        contextChange.calculateResourceContainerToLinkingResourcePropagation(change);
+        final var contextChange = new ResourceContainerPropagationContext(wrapper, change);
+        contextChange.calculateResourceContainerToLinkingResourcePropagation();
         //        final var contextChange = new
         //        contextChange.calculateContextToLinkingPropagation(change);
     }
@@ -48,8 +48,8 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
     private void runAssemblyToLinkingPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var contextChange = new AssemblyContextPropagationContext(wrapper);
-        contextChange.calculateAssemblyContextToLinkingResourcePropagation(change);
+        final var contextChange = new AssemblyContextPropagationContext(wrapper, change);
+        contextChange.calculateAssemblyContextToLinkingResourcePropagation();
         //        final var contextChange = new
         //        contextChange.calculateContextToLinkingPropagation(change);
     }

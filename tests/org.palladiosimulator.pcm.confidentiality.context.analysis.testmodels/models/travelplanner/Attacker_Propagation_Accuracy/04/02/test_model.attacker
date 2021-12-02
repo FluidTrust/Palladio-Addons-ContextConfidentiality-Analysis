@@ -4,58 +4,6 @@
     <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="AttackerPropagationComponent2Component" attacks="_ynkV4Dl2EeyxuvclpmtFmA">
       <compromisedComponents href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
       <credentials href="test_model.context#_cYY84fXpEeub3tcXgMY_nQ"/>
-      <compromiseddata id="_RJT1YDmBEey_G8LnpqYMRA" referenceName="flightOffer">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_QuDIrc5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YTmBEey_G8LnpqYMRA" referenceName="cc_decl">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YjmBEey_G8LnpqYMRA" referenceName="requestData">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1YzmBEey_G8LnpqYMRA" referenceName="offerId">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZDmBEey_G8LnpqYMRA" referenceName="airline">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
-        <source href="../../../default.repository#_5EaVoMNxEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZTmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_GmUUEMN1EeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZjmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_602gYM5lEeWFJak7Wqvc0g"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1ZzmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1aDmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_RJT1aTmBEey_G8LnpqYMRA">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_w0broDo3EeyetrjwtKBt7g" referenceName="requestData">
-        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
-        <source href="../../../default.repository#_SaUYgMNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_w0broTo3EeyetrjwtKBt7g" referenceName="offerId">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
-        <source href="../../../default.repository#_SaUYgMNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_w0brozo3EeyetrjwtKBt7g">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
-      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>
