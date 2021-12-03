@@ -57,7 +57,7 @@ public class DataHandler {
         }
         final var data = AttackerFactory.eINSTANCE.createDatamodelAttacker();
         data.setDataType(signature.getReturnType__OperationSignature());
-        data.setSource(signature);
+        data.setMethod(signature);
         return Optional.of(data);
     }
 
