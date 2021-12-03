@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.generator.fluent.repository.api.Repo;
 import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositoryFactory;
@@ -173,7 +172,6 @@ class DataTest {
 
     }
 
-    @Disabled
     @Test
     void testExtractionSEFFParametersReturnValue() {
 
@@ -199,15 +197,15 @@ class DataTest {
         assertEquals(2, data.size());
 
         assertTrue(data.stream().anyMatch(e -> ("test".equals(e.getReferenceName())
-                && EcoreUtil.equals(e.getSource(), component)
+                && EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.repositoryFactory.fetchOfSignature("test"))
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
     }
 
-    @Disabled
+
     @Test
     void testExtractionSEFFExternalCallParametersReturnValue() {
 
@@ -248,10 +246,14 @@ class DataTest {
                 && EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.repositoryFactory.fetchOfSignature("test"))
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
+                this.repositoryFactory.fetchOfSignature("test")) && EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.repositoryFactory.fetchOfSignature("secret"))
+
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
+                this.repositoryFactory.fetchOfSignature("secret"))
+                && EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
 
     }
@@ -266,7 +268,7 @@ class DataTest {
         return serviceRestriction;
     }
 
-    @Disabled
+
     @Test
     void testExtractionExternalCallParametersReturnValue() {
 
@@ -306,10 +308,13 @@ class DataTest {
                 && EcoreUtil.equals(e.getSource(), component)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.repositoryFactory.fetchOfSignature("test"))
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
+                this.repositoryFactory.fetchOfSignature("test")) && EcoreUtil.equals(e.getSource(), component)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), this.repositoryFactory.fetchOfSignature("secret"))
+        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
+                this.repositoryFactory.fetchOfSignature("secret"))
+                && EcoreUtil.equals(e.getSource(), component)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
 
     }
