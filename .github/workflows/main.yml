@@ -1,0 +1,53 @@
+# This is a basic workflow to help you get started with Actions
+
+name: bench
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  updateBench:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+        with:
+          path: ./Palladio-Addons-ContextConfidentiality-Analysis 
+      
+      
+      - name: Checkout Bench Repository
+        uses: actions/checkout@v2
+        with:
+          repository: FluidTrust/Palladio-Bench-Product-AttackerPropagation
+          path: ./Palladio-Bench-Product-AttackerAnalysis
+          token: ${{ secrets.PUSH_SECRET }}
+      - run: |
+          cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
+          cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/edu.kit.ipd.sdq.kamp4attack.tests Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
+          cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/org.palladiosimulator.pcm.confidentiality.context.analysis.testframework Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
+          ls
+          cd Palladio-Bench-Product-AttackerAnalysis
+          git status --porcelain
+          git status
+          cd products/org.palladiosimulator.product/workspace/
+          ls
+          if [[ $(git status --porcelain) != '' ]]; then
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "Updated Models from Github changes"
+            git push
+          else
+            echo "no change"
+          fi
