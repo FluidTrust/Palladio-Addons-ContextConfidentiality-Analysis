@@ -37,6 +37,7 @@ jobs:
           cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
           cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/edu.kit.ipd.sdq.kamp4attack.tests Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
           cp -r Palladio-Addons-ContextConfidentiality-Analysis/tests/org.palladiosimulator.pcm.confidentiality.context.analysis.testframework Palladio-Bench-Product-AttackerAnalysis/products/org.palladiosimulator.product/workspace
+          cd Palladio-Bench-Product-AttackerAnalysis
           if [[ $(git status --porcelain) != '' ]]; then
             git config user.name github-actions
             git config user.email github-actions@github.com
