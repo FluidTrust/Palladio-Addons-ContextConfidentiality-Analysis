@@ -11,12 +11,14 @@ import java.util.stream.Collectors;
 import org.apache.log4j.Logger;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.DatamodelAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.repository.PrimitiveDataType;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
@@ -47,6 +49,7 @@ public class GraphCreation implements AttackGraphCreation {
             fillGraph(graph, change.getCompromisedlinkingresource());
             fillGraph(graph, change.getCompromisedservice());
             fillGraph(graph, change.getContextchange());
+            fillGraph(graph, change.getCompromiseddata());
             var dot = new DotCreation();
             var dotString = dot.createOutputFormat(graph);
 
@@ -132,9 +135,30 @@ public class GraphCreation implements AttackGraphCreation {
         else if (entity instanceof ServiceRestriction) {
             return getString((ServiceRestriction) entity);
         }
+        else if (entity instanceof DatamodelAttacker) {
+            return getString((DatamodelAttacker) entity);
+        }
         return entity.getEntityName();
     }
 
+    private String getString(DatamodelAttacker datamodel) {
+        var datatype = "";
+        if (datamodel.getDataType() != null && datamodel.getDataType() instanceof Entity) {
+            var tmpEntityDatatype = (Entity) datamodel.getDataType();
+            datatype = tmpEntityDatatype.getEntityName();
+        }
+        if (datamodel.getDataType() != null && datamodel.getDataType() instanceof PrimitiveDataType) {
+            var tmpDatatype = (PrimitiveDataType) datamodel.getDataType();
+            datatype = tmpDatatype.getType() != null ? tmpDatatype.getType().toString() : "INT";
+        }
+        var referenceName = datamodel.getReferenceName();
+        if (referenceName != null) {
+            return String.format("%s:%s", referenceName, datatype);
+        }
+        return String.format("%s from %s:%s", datatype, datamodel.getMethod().getEntityName(),
+                datamodel.getMethod().getInterface__OperationSignature().getEntityName());
+
+    }
     private String getString(ResourceContainer entity) {
         return getString("ResourceContainer", entity);
     }

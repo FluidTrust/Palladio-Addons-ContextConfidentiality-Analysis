@@ -7,28 +7,22 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.cons
  * @author Mirko Sowa
  *
  */
-public enum Constants {
-    // FIXME convert to String constants
-    NAME("Attacker Analysis Modelling Launcher"), BUTTON_BROWSE_TEXT("Browse..."), BUTTON_DIR_BROWSE_TEXT(
-            "Working Directory..."), ANALYSIS_TYPE_LABEL("Select Analysis Type"), PROLOG_INTERPRETER_LABEL(
-                    "Select PROLOG Interpreter"), REPOSITORY_MODEL_LABEL(
-                            "Select Repository Model"), ALLOCATION_MODEL_LABEL(
-                                    "Select Allocation Model"), MODIFIACTION_MODEL_LABEL(
-                                            "Select Modifiaction Model"), CONTEXT_MODEL_LABEL(
-                                                    "Select Context Model"), DATA_MODEL_LABEL(
-                                                            "Select Data Model"), ATTACKER_MODEL_LABEL(
-                                                                    "Select Attacker Model"), USAGE_MODEL_LABEL(
-                                                                            "Select Usage Model"), CONSOLE_ID(
-                                                                                    "pcm.dataprocessing.context.analysis.launcher.console"), DEFAULT_CONFIG_VALUE(
-                                                                                            "default");
+public class Constants {
+    public static final String NAME = "Attacker Analysis Modelling Launcher";
 
-    private final String attr;
+    public static final String BUTTON_BROWSE_TEXT = "Browse...";
+    public static final String BUTTON_DIR_BROWSE_TEXT = "Working Directory...";
+    public static final String ANALYSIS_TYPE_LABEL = "Select Analysis Type";
+    public static final String PROLOG_INTERPRETER_LABEL = "Select PROLOG Interpreter";
+    public static final String REPOSITORY_MODEL_LABEL = "Select Repository Model";
+    public static final String ALLOCATION_MODEL_LABEL = "Select Allocation Model";
+    public static final String MODIFIACTION_MODEL_LABEL = "Select Modifiaction Model";
+    public static final String CONTEXT_MODEL_LABEL = "Select Context Model";
+    public static final String DATA_MODEL_LABEL = "Select Data Model";
+    public static final String ATTACKER_MODEL_LABEL = "Select Attacker Model";
+    public static final String USAGE_MODEL_LABEL = "Select Usage Model";
+    public static final String CONSOLE_ID = "pcm.dataprocessing.context.analysis.launcher.console";
+    public static final String DEFAULT_CONFIG_VALUE = "default";
+    public static final String GRAPH_CREATION_LABEL = "Graph Creation";
 
-    Constants(final String attr) {
-        this.attr = attr;
-    }
-
-    public String getConstant() {
-        return this.attr;
-    }
 }
