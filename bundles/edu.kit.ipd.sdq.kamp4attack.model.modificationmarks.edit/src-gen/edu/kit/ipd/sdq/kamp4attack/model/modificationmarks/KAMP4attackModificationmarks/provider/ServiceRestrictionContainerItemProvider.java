@@ -62,8 +62,7 @@ public class ServiceRestrictionContainerItemProvider
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null)
-		{
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
@@ -81,8 +80,7 @@ public class ServiceRestrictionContainerItemProvider
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
 	{
-		if (childrenFeatures == null)
-		{
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION);
 		}
@@ -140,8 +138,7 @@ public class ServiceRestrictionContainerItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(ServiceRestrictionContainer.class))
-		{
+		switch (notification.getFeatureID(ServiceRestrictionContainer.class)) {
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

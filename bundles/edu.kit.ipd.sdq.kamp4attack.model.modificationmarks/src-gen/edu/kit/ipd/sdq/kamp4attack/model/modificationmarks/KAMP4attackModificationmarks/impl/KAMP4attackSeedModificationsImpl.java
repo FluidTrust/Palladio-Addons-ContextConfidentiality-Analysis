@@ -73,8 +73,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	 */
 	public EList<AttackerSelection> getAttackcomponent()
 	{
-		if (attackcomponent == null)
-		{
+		if (attackcomponent == null) {
 			attackcomponent = new EObjectContainmentEList<AttackerSelection>(AttackerSelection.class, this, KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT);
 		}
 		return attackcomponent;
@@ -88,8 +87,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				return ((InternalEList<?>)getAttackcomponent()).basicRemove(otherEnd, msgs);
 		}
@@ -104,8 +102,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				return getAttackcomponent();
 		}
@@ -121,8 +118,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				getAttackcomponent().clear();
 				getAttackcomponent().addAll((Collection<? extends AttackerSelection>)newValue);
@@ -139,8 +135,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				getAttackcomponent().clear();
 				return;
@@ -156,8 +151,7 @@ public class KAMP4attackSeedModificationsImpl extends AbstractSeedModificationsI
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				return attackcomponent != null && !attackcomponent.isEmpty();
 		}

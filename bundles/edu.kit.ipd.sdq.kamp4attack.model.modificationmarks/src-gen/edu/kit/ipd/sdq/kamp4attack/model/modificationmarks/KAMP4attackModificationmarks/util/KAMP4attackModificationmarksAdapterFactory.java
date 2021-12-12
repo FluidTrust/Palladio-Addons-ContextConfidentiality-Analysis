@@ -45,8 +45,7 @@ public class KAMP4attackModificationmarksAdapterFactory extends AdapterFactoryIm
 	 */
 	public KAMP4attackModificationmarksAdapterFactory()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = KAMP4attackModificationmarksPackage.eINSTANCE;
 		}
 	}
@@ -62,12 +61,10 @@ public class KAMP4attackModificationmarksAdapterFactory extends AdapterFactoryIm
 	@Override
 	public boolean isFactoryForType(Object object)
 	{
-		if (object == modelPackage)
-		{
+		if (object == modelPackage) {
 			return true;
 		}
-		if (object instanceof EObject)
-		{
+		if (object instanceof EObject) {
 			return ((EObject)object).eClass().getEPackage() == modelPackage;
 		}
 		return false;
@@ -80,106 +77,85 @@ public class KAMP4attackModificationmarksAdapterFactory extends AdapterFactoryIm
 	 * @generated
 	 */
 	protected KAMP4attackModificationmarksSwitch<Adapter> modelSwitch =
-		new KAMP4attackModificationmarksSwitch<Adapter>()
-		{
+		new KAMP4attackModificationmarksSwitch<Adapter>() {
 			@Override
-			public <T extends KAMP4attackSeedModifications> Adapter caseAbstractKAMP4attackModificationRepository(AbstractKAMP4attackModificationRepository<T> object)
-			{
+			public <T extends KAMP4attackSeedModifications> Adapter caseAbstractKAMP4attackModificationRepository(AbstractKAMP4attackModificationRepository<T> object) {
 				return createAbstractKAMP4attackModificationRepositoryAdapter();
 			}
 			@Override
-			public Adapter caseKAMP4attackModificationRepository(KAMP4attackModificationRepository object)
-			{
+			public Adapter caseKAMP4attackModificationRepository(KAMP4attackModificationRepository object) {
 				return createKAMP4attackModificationRepositoryAdapter();
 			}
 			@Override
-			public Adapter caseKAMP4attackSeedModifications(KAMP4attackSeedModifications object)
-			{
+			public Adapter caseKAMP4attackSeedModifications(KAMP4attackSeedModifications object) {
 				return createKAMP4attackSeedModificationsAdapter();
 			}
 			@Override
-			public <T extends Entity> Adapter caseModifyEntity(ModifyEntity<T> object)
-			{
+			public <T extends Entity> Adapter caseModifyEntity(ModifyEntity<T> object) {
 				return createModifyEntityAdapter();
 			}
 			@Override
-			public Adapter caseAttackerSelection(AttackerSelection object)
-			{
+			public Adapter caseAttackerSelection(AttackerSelection object) {
 				return createAttackerSelectionAdapter();
 			}
 			@Override
-			public Adapter caseCredentialChange(CredentialChange object)
-			{
+			public Adapter caseCredentialChange(CredentialChange object) {
 				return createCredentialChangeAdapter();
 			}
 			@Override
-			public Adapter caseCompromisedResource(CompromisedResource object)
-			{
+			public Adapter caseCompromisedResource(CompromisedResource object) {
 				return createCompromisedResourceAdapter();
 			}
 			@Override
-			public Adapter caseCompromisedAssembly(CompromisedAssembly object)
-			{
+			public Adapter caseCompromisedAssembly(CompromisedAssembly object) {
 				return createCompromisedAssemblyAdapter();
 			}
 			@Override
-			public Adapter caseContextChange(ContextChange object)
-			{
+			public Adapter caseContextChange(ContextChange object) {
 				return createContextChangeAdapter();
 			}
 			@Override
-			public Adapter caseCompromisedLinkingResource(CompromisedLinkingResource object)
-			{
+			public Adapter caseCompromisedLinkingResource(CompromisedLinkingResource object) {
 				return createCompromisedLinkingResourceAdapter();
 			}
 			@Override
-			public Adapter caseCompromisedService(CompromisedService object)
-			{
+			public Adapter caseCompromisedService(CompromisedService object) {
 				return createCompromisedServiceAdapter();
 			}
 			@Override
-			public Adapter caseServiceRestrictionContainer(ServiceRestrictionContainer object)
-			{
+			public Adapter caseServiceRestrictionContainer(ServiceRestrictionContainer object) {
 				return createServiceRestrictionContainerAdapter();
 			}
 			@Override
-			public Adapter caseCompromisedData(CompromisedData object)
-			{
+			public Adapter caseCompromisedData(CompromisedData object) {
 				return createCompromisedDataAdapter();
 			}
 			@Override
-			public Adapter caseDatamodelContainer(DatamodelContainer object)
-			{
+			public Adapter caseDatamodelContainer(DatamodelContainer object) {
 				return createDatamodelContainerAdapter();
 			}
 			@Override
-			public <S extends AbstractSeedModifications, T extends AbstractChangePropagationStep> Adapter caseAbstractModificationRepository(AbstractModificationRepository<S, T> object)
-			{
+			public <S extends AbstractSeedModifications, T extends AbstractChangePropagationStep> Adapter caseAbstractModificationRepository(AbstractModificationRepository<S, T> object) {
 				return createAbstractModificationRepositoryAdapter();
 			}
 			@Override
-			public Adapter caseAbstractSeedModifications(AbstractSeedModifications object)
-			{
+			public Adapter caseAbstractSeedModifications(AbstractSeedModifications object) {
 				return createAbstractSeedModificationsAdapter();
 			}
 			@Override
-			public <S, T> Adapter caseAbstractModification(AbstractModification<S, T> object)
-			{
+			public <S, T> Adapter caseAbstractModification(AbstractModification<S, T> object) {
 				return createAbstractModificationAdapter();
 			}
 			@Override
-			public Adapter caseAbstractChangePropagationStep(AbstractChangePropagationStep object)
-			{
+			public Adapter caseAbstractChangePropagationStep(AbstractChangePropagationStep object) {
 				return createAbstractChangePropagationStepAdapter();
 			}
 			@Override
-			public Adapter caseChangePropagationStep(ChangePropagationStep object)
-			{
+			public Adapter caseChangePropagationStep(ChangePropagationStep object) {
 				return createChangePropagationStepAdapter();
 			}
 			@Override
-			public Adapter defaultCase(EObject object)
-			{
+			public Adapter defaultCase(EObject object) {
 				return createEObjectAdapter();
 			}
 		};

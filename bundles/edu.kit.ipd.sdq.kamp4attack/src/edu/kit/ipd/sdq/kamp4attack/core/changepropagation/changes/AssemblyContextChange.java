@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
@@ -39,7 +40,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, AssemblyContext.class);
     }
 
-    protected List<AssemblyContext> getCompromisedAssemblyContexts() {
+    protected List<AssemblyContextDetail> getCompromisedAssemblyContexts() {
         return this.changes.getCompromisedassembly().stream()
                 .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
     }

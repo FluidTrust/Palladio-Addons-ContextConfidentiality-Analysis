@@ -28,16 +28,13 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	 */
 	public static KAMP4attackModificationmarksFactory init()
 	{
-		try
-		{
+		try {
 			KAMP4attackModificationmarksFactory theKAMP4attackModificationmarksFactory = (KAMP4attackModificationmarksFactory)EPackage.Registry.INSTANCE.getEFactory(KAMP4attackModificationmarksPackage.eNS_URI);
-			if (theKAMP4attackModificationmarksFactory != null)
-			{
+			if (theKAMP4attackModificationmarksFactory != null) {
 				return theKAMP4attackModificationmarksFactory;
 			}
 		}
-		catch (Exception exception)
-		{
+		catch (Exception exception) {
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new KAMP4attackModificationmarksFactoryImpl();
@@ -62,8 +59,7 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID())
-		{
+		switch (eClass.getClassifierID()) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_MODIFICATION_REPOSITORY: return createKAMP4attackModificationRepository();
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS: return createKAMP4attackSeedModifications();
 			case KAMP4attackModificationmarksPackage.ATTACKER_SELECTION: return createAttackerSelection();

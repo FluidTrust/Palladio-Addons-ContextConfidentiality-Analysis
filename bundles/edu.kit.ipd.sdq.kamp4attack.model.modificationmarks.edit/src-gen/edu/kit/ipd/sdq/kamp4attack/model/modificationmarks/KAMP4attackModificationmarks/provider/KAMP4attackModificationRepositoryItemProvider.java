@@ -39,8 +39,7 @@ public class KAMP4attackModificationRepositoryItemProvider extends AbstractKAMP4
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null)
-		{
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}

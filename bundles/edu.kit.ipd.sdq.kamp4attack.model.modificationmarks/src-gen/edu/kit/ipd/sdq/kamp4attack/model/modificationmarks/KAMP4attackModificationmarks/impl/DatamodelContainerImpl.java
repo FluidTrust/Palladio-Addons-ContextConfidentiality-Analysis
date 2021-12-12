@@ -74,8 +74,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	 */
 	public EList<DatamodelAttacker> getDatamodelattacker()
 	{
-		if (datamodelattacker == null)
-		{
+		if (datamodelattacker == null) {
 			datamodelattacker = new EObjectContainmentEList<DatamodelAttacker>(DatamodelAttacker.class, this, KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER);
 		}
 		return datamodelattacker;
@@ -89,8 +88,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				return ((InternalEList<?>)getDatamodelattacker()).basicRemove(otherEnd, msgs);
 		}
@@ -105,8 +103,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				return getDatamodelattacker();
 		}
@@ -122,8 +119,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				getDatamodelattacker().clear();
 				getDatamodelattacker().addAll((Collection<? extends DatamodelAttacker>)newValue);
@@ -140,8 +136,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				getDatamodelattacker().clear();
 				return;
@@ -157,8 +152,7 @@ public class DatamodelContainerImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID)
-		{
+		switch (featureID) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				return datamodelattacker != null && !datamodelattacker.isEmpty();
 		}
