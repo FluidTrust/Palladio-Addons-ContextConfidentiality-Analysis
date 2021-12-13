@@ -2,6 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -9,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
@@ -27,6 +29,14 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public class CollectionHelper {
     private CollectionHelper() {
 
+    }
+    
+    public static List<AssemblyContextDetail> assemblyContextToList (final List<AssemblyContext> contexts) {
+    	List<AssemblyContextDetail> assemblyDetails = new LinkedList<>();
+    	for (AssemblyContext context : contexts) {
+    		assemblyDetails.add((AssemblyContextDetail) context);
+    	}
+    	return assemblyDetails;
     }
 
     public static List<AssemblyContext> getAssemblyContext(final List<ResourceContainer> reachableResources,
