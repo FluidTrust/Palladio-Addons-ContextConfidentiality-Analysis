@@ -91,7 +91,9 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     .collect(Collectors.toList());
 
             if (!listChanges.isEmpty()) {
-                this.changes.getCompromisedassembly().addAll(listChanges);
+            	//TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
+				//Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie bisher die neuen kompromittierten Komponenten
+                this.changes.getCompromisedassembly().get(0).getAffectedElements().addAll(listChanges);
                 CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
                 this.changes.setChanged(true);
             }

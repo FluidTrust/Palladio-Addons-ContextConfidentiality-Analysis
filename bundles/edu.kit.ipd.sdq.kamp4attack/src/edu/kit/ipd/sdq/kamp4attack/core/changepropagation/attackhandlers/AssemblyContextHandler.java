@@ -32,7 +32,9 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 			if (!newCompromisedComponent.isEmpty()) {
 				handleDataExtraction(newCompromisedComponent);
 				change.setChanged(true);
-				change.getCompromisedassembly().addAll(newCompromisedComponent);
+				//TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
+				//Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie bisher die neuen kompromittierten Komponenten
+				change.getCompromisedassembly().get(0).getAffectedElements().addAll(newCompromisedComponent);
 				CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
 						change);
 			}
