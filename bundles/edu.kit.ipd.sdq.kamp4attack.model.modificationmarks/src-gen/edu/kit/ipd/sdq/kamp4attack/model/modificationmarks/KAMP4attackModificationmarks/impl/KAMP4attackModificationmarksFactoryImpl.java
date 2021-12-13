@@ -72,6 +72,7 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER: return createServiceRestrictionContainer();
 			case KAMP4attackModificationmarksPackage.COMPROMISED_DATA: return createCompromisedData();
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER: return createDatamodelContainer();
+			case KAMP4attackModificationmarksPackage.COMPROMISED_ASSEMBLY_CONTAINER: return createCompromisedAssemblyContainer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -207,6 +208,16 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	{
 		DatamodelContainerImpl datamodelContainer = new DatamodelContainerImpl();
 		return datamodelContainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public CompromisedAssemblyContainer createCompromisedAssemblyContainer() {
+		CompromisedAssemblyContainerImpl compromisedAssemblyContainer = new CompromisedAssemblyContainerImpl();
+		return compromisedAssemblyContainer;
 	}
 
 	/**

@@ -25,7 +25,6 @@
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//AttackerSelection"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CredentialChange">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedresource"/>
-      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedassembly"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/contextchange"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute KAMP4attackModificationsmarks.ecore#//CredentialChange/changed"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedlinkingresource"/>
@@ -33,6 +32,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/servicerestrictioncontainer"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromiseddata"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/datamodelcontainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromisedassembly"/>
     </genClasses>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedResource"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedAssembly"/>
@@ -45,6 +45,9 @@
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedData"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//DatamodelContainer">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//DatamodelContainer/datamodelattacker"/>
+    </genClasses>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedAssemblyContainer">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CompromisedAssemblyContainer/affectedElements"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

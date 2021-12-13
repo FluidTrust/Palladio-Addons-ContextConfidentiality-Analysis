@@ -354,22 +354,13 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	int CREDENTIAL_CHANGE__COMPROMISEDRESOURCE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Compromisedassembly</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 1;
-
-	/**
 	 * The feature id for the '<em><b>Contextchange</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__CONTEXTCHANGE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 2;
+	int CREDENTIAL_CHANGE__CONTEXTCHANGE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Changed</b></em>' attribute.
@@ -378,7 +369,7 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__CHANGED = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 3;
+	int CREDENTIAL_CHANGE__CHANGED = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Compromisedlinkingresource</b></em>' containment reference list.
@@ -387,7 +378,7 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 4;
+	int CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Compromisedservice</b></em>' containment reference list.
@@ -396,7 +387,7 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__COMPROMISEDSERVICE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 5;
+	int CREDENTIAL_CHANGE__COMPROMISEDSERVICE = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Servicerestrictioncontainer</b></em>' containment reference.
@@ -405,7 +396,7 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__SERVICERESTRICTIONCONTAINER = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 6;
+	int CREDENTIAL_CHANGE__SERVICERESTRICTIONCONTAINER = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Compromiseddata</b></em>' containment reference list.
@@ -414,7 +405,7 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__COMPROMISEDDATA = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 7;
+	int CREDENTIAL_CHANGE__COMPROMISEDDATA = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Datamodelcontainer</b></em>' containment reference.
@@ -423,7 +414,16 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE__DATAMODELCONTAINER = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 8;
+	int CREDENTIAL_CHANGE__DATAMODELCONTAINER = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 7;
+
+	/**
+	 * The feature id for the '<em><b>Compromisedassembly</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Credential Change</em>' class.
@@ -957,6 +957,44 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 
 
 	/**
+	 * The meta object id for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyContainerImpl <em>Compromised Assembly Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyContainerImpl
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getCompromisedAssemblyContainer()
+	 * @generated
+	 */
+	int COMPROMISED_ASSEMBLY_CONTAINER = 14;
+
+	/**
+	 * The feature id for the '<em><b>Affected Elements</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPROMISED_ASSEMBLY_CONTAINER__AFFECTED_ELEMENTS = 0;
+
+	/**
+	 * The number of structural features of the '<em>Compromised Assembly Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPROMISED_ASSEMBLY_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Compromised Assembly Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPROMISED_ASSEMBLY_CONTAINER_OPERATION_COUNT = 0;
+
+
+	/**
 	 * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository <em>Abstract KAMP 4attack Modification Repository</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1229,6 +1267,27 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	EReference getDatamodelContainer_Datamodelattacker();
 
 	/**
+	 * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer <em>Compromised Assembly Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Compromised Assembly Container</em>'.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer
+	 * @generated
+	 */
+	EClass getCompromisedAssemblyContainer();
+
+	/**
+	 * Returns the meta object for the reference list '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer#getAffectedElements <em>Affected Elements</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Affected Elements</em>'.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer#getAffectedElements()
+	 * @see #getCompromisedAssemblyContainer()
+	 * @generated
+	 */
+	EReference getCompromisedAssemblyContainer_AffectedElements();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1487,6 +1546,24 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 		 * @generated
 		 */
 		EReference DATAMODEL_CONTAINER__DATAMODELATTACKER = eINSTANCE.getDatamodelContainer_Datamodelattacker();
+
+		/**
+		 * The meta object literal for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyContainerImpl <em>Compromised Assembly Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyContainerImpl
+		 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getCompromisedAssemblyContainer()
+		 * @generated
+		 */
+		EClass COMPROMISED_ASSEMBLY_CONTAINER = eINSTANCE.getCompromisedAssemblyContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Affected Elements</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPROMISED_ASSEMBLY_CONTAINER__AFFECTED_ELEMENTS = eINSTANCE.getCompromisedAssemblyContainer_AffectedElements();
 
 	}
 

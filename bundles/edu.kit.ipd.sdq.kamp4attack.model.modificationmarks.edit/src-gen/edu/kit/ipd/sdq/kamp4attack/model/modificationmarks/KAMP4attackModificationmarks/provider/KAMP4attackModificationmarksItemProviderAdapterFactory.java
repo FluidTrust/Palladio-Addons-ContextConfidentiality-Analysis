@@ -362,6 +362,29 @@ public class KAMP4attackModificationmarksItemProviderAdapterFactory extends KAMP
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected CompromisedAssemblyContainerItemProvider compromisedAssemblyContainerItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createCompromisedAssemblyContainerAdapter() {
+		if (compromisedAssemblyContainerItemProvider == null) {
+			compromisedAssemblyContainerItemProvider = new CompromisedAssemblyContainerItemProvider(this);
+		}
+
+		return compromisedAssemblyContainerItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -481,6 +504,7 @@ public class KAMP4attackModificationmarksItemProviderAdapterFactory extends KAMP
 		if (serviceRestrictionContainerItemProvider != null) serviceRestrictionContainerItemProvider.dispose();
 		if (compromisedDataItemProvider != null) compromisedDataItemProvider.dispose();
 		if (datamodelContainerItemProvider != null) datamodelContainerItemProvider.dispose();
+		if (compromisedAssemblyContainerItemProvider != null) compromisedAssemblyContainerItemProvider.dispose();
 	}
 
 }

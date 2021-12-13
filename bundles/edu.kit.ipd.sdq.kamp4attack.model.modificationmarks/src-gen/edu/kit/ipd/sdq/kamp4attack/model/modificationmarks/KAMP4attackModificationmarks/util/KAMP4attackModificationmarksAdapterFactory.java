@@ -135,6 +135,10 @@ public class KAMP4attackModificationmarksAdapterFactory extends AdapterFactoryIm
 				return createDatamodelContainerAdapter();
 			}
 			@Override
+			public Adapter caseCompromisedAssemblyContainer(CompromisedAssemblyContainer object) {
+				return createCompromisedAssemblyContainerAdapter();
+			}
+			@Override
 			public <S extends AbstractSeedModifications, T extends AbstractChangePropagationStep> Adapter caseAbstractModificationRepository(AbstractModificationRepository<S, T> object) {
 				return createAbstractModificationRepositoryAdapter();
 			}
@@ -382,6 +386,20 @@ public class KAMP4attackModificationmarksAdapterFactory extends AdapterFactoryIm
 	 */
 	public Adapter createDatamodelContainerAdapter()
 	{
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer <em>Compromised Assembly Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer
+	 * @generated
+	 */
+	public Adapter createCompromisedAssemblyContainerAdapter() {
 		return null;
 	}
 

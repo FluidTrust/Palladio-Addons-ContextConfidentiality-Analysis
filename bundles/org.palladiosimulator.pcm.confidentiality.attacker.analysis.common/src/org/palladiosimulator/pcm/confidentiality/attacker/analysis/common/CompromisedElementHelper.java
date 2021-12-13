@@ -19,30 +19,35 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 public class CompromisedElementHelper {
 
-    private CompromisedElementHelper() {
-        // intentional
-    }
+	private CompromisedElementHelper() {
+		// intentional
+	}
 
-    public static boolean isHacked(final PCMElement element, final CredentialChange change) {
+	public static boolean isHacked(final PCMElement element, final CredentialChange change) {
 
-        return isHacked(element.getAssemblycontext(), change) && isHacked(element.getLinkingresource(), change)
-                && isHacked(element.getResourcecontainer(), change);
+		return isHacked(element.getAssemblycontext(), change) && isHacked(element.getLinkingresource(), change)
+				&& isHacked(element.getResourcecontainer(), change);
 
-    }
+	}
+	
+	public static boolean isHacked(final AssemblyContext component, final CredentialChange change) {
+		for (int i = 0; i < change.getCompromisedassembly().size(); i++) {
+			if (change.getCompromisedassembly().get(i).getAffectedElements().stream()
+					.map(CompromisedAssembly::getAffectedElement).anyMatch(e -> EcoreUtil.equals(component, e))) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    public static boolean isHacked(final AssemblyContext component, final CredentialChange change) {
-        return change.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
-                .anyMatch(e -> EcoreUtil.equals(component, e));
-    }
+	public static boolean isHacked(final ResourceContainer container, final CredentialChange change) {
+		return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
+				.anyMatch(e -> EcoreUtil.equals(container, e));
+	}
 
-    public static boolean isHacked(final ResourceContainer container, final CredentialChange change) {
-        return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
-                .anyMatch(e -> EcoreUtil.equals(container, e));
-    }
-
-    public static boolean isHacked(final LinkingResource container, final CredentialChange change) {
-        return change.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
-                .anyMatch(e -> EcoreUtil.equals(container, e));
-    }
+	public static boolean isHacked(final LinkingResource container, final CredentialChange change) {
+		return change.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
+				.anyMatch(e -> EcoreUtil.equals(container, e));
+	}
 
 }
