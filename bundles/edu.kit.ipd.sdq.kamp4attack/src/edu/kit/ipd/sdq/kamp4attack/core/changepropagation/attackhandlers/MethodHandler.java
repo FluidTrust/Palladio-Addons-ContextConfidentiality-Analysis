@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
@@ -23,58 +23,70 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class MethodHandler extends AttackHandler {
 
-    public MethodHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
-        super(modelStorage, dataHandler);
-    }
+	public MethodHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler) {
+		super(modelStorage, dataHandler);
+	}
 
-    public void attackService(final Collection<ServiceRestriction> services, final CredentialChange change,
-            final EObject source) {
-        final var compromisedComponent = services.stream().map(e -> attackComponent(e, change, source))
-                .flatMap(Optional::stream).collect(Collectors.toList());
-        final var newCompromisedComponent = filterExsiting(compromisedComponent, change);
-        if (!newCompromisedComponent.isEmpty()) {
-            handleDataExtraction(newCompromisedComponent);
-            change.setChanged(true);
-            //TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
-			//Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie bisher die neuen kompromittierten Komponenten
-            change.getCompromisedassembly().get(0).getAffectedElements().addAll(newCompromisedComponent);
-            CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
-                    change);
-        }
-    }
+	public void attackService(final Collection<ServiceRestriction> services, final CredentialChange change,
+			final EObject source) {
+		final var compromisedComponent = services.stream().map(e -> attackComponent(e, change, source))
+				.flatMap(Optional::stream).collect(Collectors.toList());
+		final var newCompromisedComponent = filterExsiting(compromisedComponent, change);
+		if (!newCompromisedComponent.isEmpty()) {
+			handleDataExtraction(newCompromisedComponent);
+			change.setChanged(true);
+			// TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
+			// Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie
+			// bisher die neuen kompromittierten Komponenten
+			change.getCompromisedassembly().get(0).getAffectedElements().addAll(newCompromisedComponent);
+			CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
+					change);
+		}
+	}
 
-    private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
+	private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
 
-        Collection<AssemblyContext> filteredComponents = components.stream()
-                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+		Collection<AssemblyContext> filteredComponents = components.stream()
+				.map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
 
-        filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
+		filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-        final var dataList = filteredComponents.stream().distinct()
-                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+		final var dataList = filteredComponents.stream().distinct()
+				.flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
 
-        getDataHandler().addData(dataList);
-    }
+		getDataHandler().addData(dataList);
+	}
 
-    protected abstract Optional<CompromisedAssembly> attackComponent(ServiceRestriction component,
-            CredentialChange change, EObject source);
+	protected abstract Optional<CompromisedAssembly> attackComponent(ServiceRestriction component,
+			CredentialChange change, EObject source);
 
-    private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
-            final CredentialChange change) {
-        return components.stream().filter(component -> !contains(component, change)).collect(Collectors.toList());
+	private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
+			final CredentialChange change) {
+		return components.stream().filter(component -> !contains(component, change)).collect(Collectors.toList());
 
-    }
+	}
 
-    private boolean contains(final CompromisedAssembly component, final CredentialChange change) {
-        return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil
-                .equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
-    }
+	private boolean contains(final CompromisedAssembly component, final CredentialChange change) {
+		return change.getCompromisedassembly().stream()
+				.anyMatch(referenceComponent -> equalsForAny(referenceComponent.getAffectedElements(),
+						component.getAffectedElement()));
+	}
 
-    protected Vulnerability checkVulnerability(final ServiceRestriction entity, final CredentialChange change,
-            final List<UsageSpecification> credentials, final List<Attack> attacks,
-            final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
-        final var result = this.queryAccessForEntity(entity.getAssemblycontext(), credentials, entity.getSignature());
-        return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
-    }
+	private static boolean equalsForAny(List<CompromisedAssembly> assemblyList, AssemblyContext assembly) {
+		EqualityHelper equalityHelper = new EqualityHelper();
+		for (CompromisedAssembly compAssembly : assemblyList) {
+			if (equalityHelper.equals(compAssembly, assembly)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	protected Vulnerability checkVulnerability(final ServiceRestriction entity, final CredentialChange change,
+			final List<UsageSpecification> credentials, final List<Attack> attacks,
+			final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
+		final var result = this.queryAccessForEntity(entity.getAssemblycontext(), credentials, entity.getSignature());
+		return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
+	}
 
 }

@@ -1,11 +1,13 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
@@ -63,10 +65,21 @@ public abstract class AssemblyContextHandler extends AttackHandler {
 				.collect(Collectors.toList());
 
 	}
-
+	
 	private boolean containsComponent(final CompromisedAssembly component, final CredentialChange change) {
-		return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil
-				.equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
+		return change.getCompromisedassembly().stream()
+				.anyMatch(referenceComponent -> equalsForAny(referenceComponent.getAffectedElements(),
+						component.getAffectedElement()));
+	}
+	
+	private static boolean equalsForAny(List<CompromisedAssembly> assemblyList, AssemblyContext assembly) {
+		EqualityHelper equalityHelper = new EqualityHelper();
+		for (CompromisedAssembly compAssembly : assemblyList) {
+			if (equalityHelper.equals(compAssembly, assembly)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
