@@ -76,7 +76,7 @@ class PropagationContextLinkingTest extends AbstractChangeTests {
         assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(),
                 this.environment.getLinkingResources__ResourceEnvironment().get(0)));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(), assemblyComponent));
+        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0), assemblyComponent));
         assertTrue(change.isChanged());
     }
 

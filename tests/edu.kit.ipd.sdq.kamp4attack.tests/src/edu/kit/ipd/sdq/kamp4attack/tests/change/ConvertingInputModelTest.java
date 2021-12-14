@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -14,7 +15,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     void testTransformationAssembly() {
 
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
-        .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        .add((AssemblyContextDetail) this.assembly.getAssemblyContexts__ComposedStructure().get(0));
 
         runAnalysis();
 
@@ -26,7 +27,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         assertTrue(change.getCompromisedresource().isEmpty());
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 
     }
@@ -96,7 +97,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
     @Test
     void testAllTransfomations() {
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents()
-        .add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        .add((AssemblyContextDetail) this.assembly.getAssemblyContexts__ComposedStructure().get(0));
         final var context = createContext("Test");
         this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
         this.attacker.getAttackers().getAttacker().get(0).getCompromisedResources()
@@ -118,7 +119,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(),
                 this.environment.getResourceContainer_ResourceEnvironment().get(0)));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 
     }

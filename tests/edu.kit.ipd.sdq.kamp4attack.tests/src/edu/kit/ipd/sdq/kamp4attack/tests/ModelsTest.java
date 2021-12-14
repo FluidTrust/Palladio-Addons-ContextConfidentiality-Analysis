@@ -56,7 +56,7 @@ class ModelsTest extends AbstractModelTest {
         final var steps = this.modification.getChangePropagationSteps();
 
         final var resource = ((CredentialChange) steps.get(0)).getCompromisedresource().get(0).getAffectedElement();
-        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
+        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElements().get(0);
 
         final var contexts = ((CredentialChange) steps.get(0)).getContextchange().stream()
                 .map(ContextChange::getAffectedElement).collect(Collectors.toList());
