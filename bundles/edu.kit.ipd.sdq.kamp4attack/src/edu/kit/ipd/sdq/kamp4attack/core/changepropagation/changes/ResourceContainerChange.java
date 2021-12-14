@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
@@ -19,6 +20,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Assembl
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -61,7 +63,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getAssemblyHandler();
             assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handler.attackAssemblyContext(assemblycontext, this.changes, resource);
+            handler.attackAssemblyContext(CollectionHelper.assemblyContextToList(assemblycontext), this.changes, resource);
             handleSeff(this.changes, assemblycontext, resource);
         }
 
@@ -87,7 +89,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
             final var listChanges = streamChanges
                     .filter(e -> this.changes.getCompromisedassembly().stream()
-                            .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
+                            .noneMatch(f -> equalsForAny(f.getAffectedElements(), e.getAffectedElement())))
                     .collect(Collectors.toList());
 
             if (!listChanges.isEmpty()) {
@@ -99,6 +101,16 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             }
         }
     }
+    
+	private static boolean equalsForAny(List<CompromisedAssembly> assemblyList, AssemblyContext assembly) {
+		EqualityHelper equalityHelper = new EqualityHelper();
+		for (CompromisedAssembly compAssembly : assemblyList) {
+			if (equalityHelper.equals(compAssembly, assembly)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
     @Override
     public void calculateResourceContainerToResourcePropagation() {

@@ -15,6 +15,7 @@ import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.Se
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
@@ -70,11 +71,13 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
 		for (final var component : listCompromisedContexts) {
 			for (AssemblyContext comp : component.getAssemblyList()) {
-				final var connected = getConnectedComponents(comp);
+				final var connected = getConnectedComponents(component);
 				final var containers = connected.stream().map(this::getResourceContainer).distinct()
 						.collect(Collectors.toList());
 				final var handler = getRemoteResourceHandler();
-				handler.attackResourceContainer(containers, this.changes, comp);
+				for (List<ResourceContainer> container : containers) {
+					handler.attackResourceContainer(container, this.changes, comp);
+				}
 			}
 		}
 	}
@@ -156,13 +159,15 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 		final var listCompromisedContexts = getCompromisedAssemblyContexts();
 		for (final var component : listCompromisedContexts) {
 			var targetComponents = getConnectedComponents(component).stream()
-					.filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
+					.filter(e -> !CacheCompromised.instance().compromised((Entity) e)).collect(Collectors.toList());
 
 			final var handler = getAssemblyHandler();
 			targetComponents = CollectionHelper.removeDuplicates(targetComponents).stream()
-					.filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-			handler.attackAssemblyContext(targetComponents, this.changes, component);
-			this.handleSeff(component);
+					.filter(e -> !CacheCompromised.instance().compromised((Entity) e)).collect(Collectors.toList());
+			for (AssemblyContext context : component.getAssemblyList()) {
+				handler.attackAssemblyContext(targetComponents, this.changes, component);
+				this.handleSeff(context);
+			}
 		}
 
 	}
@@ -178,16 +183,19 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 				var connectedContainers = getConnectedResourceContainers(resource);
 				var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
 						this.modelStorage.getAllocation());
-				reachableAssemblies.addAll(CollectionHelper.getAssemblyContext(List.of(resource),
-						this.modelStorage.getAllocation()));
+				reachableAssemblies.addAll(
+						CollectionHelper.getAssemblyContext(List.of(resource), this.modelStorage.getAllocation()));
 				final var handler = getAssemblyHandler();
 				reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
 						.filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-				handler.attackAssemblyContext(CollectionHelper.assemblyContextToList(reachableAssemblies), this.changes, component);
+				handler.attackAssemblyContext(CollectionHelper.assemblyContextToList(reachableAssemblies), this.changes,
+						component);
 
 				var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
 						.filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-				handleSeff(this.changes, listServices, CollectionHelper.assemblyContextToList(component));
+				for (AssemblyContext comp : component.getAssemblyList()) {
+					handleSeff(this.changes, listServices, comp);
+				}
 			}
 		}
 
@@ -199,18 +207,24 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 				.noneMatch(NonGlobalCommunication.class::isInstance);
 	}
 
-	private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
+	private List<AssemblyContextDetail> getConnectedComponents(final AssemblyContextDetail component) {
 		final var system = this.modelStorage.getAssembly();
-		final var targetConnectors = getTargetedConnectors(component, system);
+		List<AssemblyContextDetail> assemblies = new LinkedList<>();
 
-		final var targetComponents = targetConnectors.stream()
-				.map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-				.filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+		for (AssemblyContext context : component.getAssemblyList()) {
+			final var targetConnectors = getTargetedConnectors(context, system);
 
-		targetComponents
-				.addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-						.filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
-		return targetComponents;
+			final var targetComponents = targetConnectors.stream()
+					.map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+					.filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+
+			targetComponents.addAll(
+					targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+							.filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+
+			assemblies.addAll(CollectionHelper.assemblyContextToList(targetComponents));
+		}
+		return assemblies;
 	}
 
 	private List<AssemblyConnector> getTargetedConnectors(final AssemblyContext component, final System system) {
