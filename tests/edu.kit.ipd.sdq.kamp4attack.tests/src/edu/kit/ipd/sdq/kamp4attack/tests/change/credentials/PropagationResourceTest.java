@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
@@ -137,7 +136,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 
 		final var assemblyChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
 		assemblyChange.setAffectedElement(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-		change.getCompromisedassembly().add(assemblyChange);
+		change.getCompromisedassembly().get(0).getAffectedElements().add(assemblyChange); //TODO: Zuteilung bisher nicht korrekt
 
 		runResourceAssemblyPropagation(change);
 		isNoResourceLinkingPropagation(change, resource);
