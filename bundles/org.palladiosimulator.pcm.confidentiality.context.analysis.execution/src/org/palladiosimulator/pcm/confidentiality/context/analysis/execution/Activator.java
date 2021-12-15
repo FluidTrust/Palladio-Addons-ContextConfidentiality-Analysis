@@ -3,6 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout.RolloutImpl;
 import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
@@ -30,6 +31,8 @@ public class Activator implements BundleActivator {
 
     private AttackGraphCreation graph;
 
+    private RolloutImpl roll;
+
     @Override
     public void start(BundleContext context) throws Exception {
         setInstance(instance);
@@ -48,6 +51,9 @@ public class Activator implements BundleActivator {
 
         final ServiceReference<AttackGraphCreation> graph = context.getServiceReference(AttackGraphCreation.class);
         this.graph = context.getService(graph);
+
+        final ServiceReference<RolloutImpl> roll = context.getServiceReference(RolloutImpl.class);
+        this.roll = context.getService(roll);
 
         instance = this;
     }
@@ -84,6 +90,10 @@ public class Activator implements BundleActivator {
 
     public AttackGraphCreation getGraphCreation() {
         return this.graph;
+    }
+
+    public RolloutImpl getRollOut() {
+        return this.roll;
     }
 
     /**

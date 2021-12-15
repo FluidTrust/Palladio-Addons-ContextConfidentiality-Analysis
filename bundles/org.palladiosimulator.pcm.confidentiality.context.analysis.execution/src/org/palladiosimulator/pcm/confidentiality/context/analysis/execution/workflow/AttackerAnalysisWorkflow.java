@@ -9,6 +9,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadContextJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadModifacationMarkJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadPCMAttack;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.VulnerabilityRollOutComponentsJob;
 
 import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
@@ -28,6 +29,7 @@ public class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob
         this.add(new LoadPCMAttack(config));
         this.add(new LoadContextJob(config));
         this.add(new LoadAttackerModel(config));
+        this.add(new VulnerabilityRollOutComponentsJob());
         this.add(new LoadModifacationMarkJob(config));
         this.add(new AttackerAnalysisJob(config));
         if (config.getGenerateGraph()) {
