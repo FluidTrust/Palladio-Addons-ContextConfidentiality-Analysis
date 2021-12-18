@@ -28,13 +28,16 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	 */
 	public static KAMP4attackModificationmarksFactory init()
 	{
-		try {
+		try
+		{
 			KAMP4attackModificationmarksFactory theKAMP4attackModificationmarksFactory = (KAMP4attackModificationmarksFactory)EPackage.Registry.INSTANCE.getEFactory(KAMP4attackModificationmarksPackage.eNS_URI);
-			if (theKAMP4attackModificationmarksFactory != null) {
+			if (theKAMP4attackModificationmarksFactory != null)
+			{
 				return theKAMP4attackModificationmarksFactory;
 			}
 		}
-		catch (Exception exception) {
+		catch (Exception exception)
+		{
 			EcorePlugin.INSTANCE.log(exception);
 		}
 		return new KAMP4attackModificationmarksFactoryImpl();
@@ -59,7 +62,8 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	@Override
 	public EObject create(EClass eClass)
 	{
-		switch (eClass.getClassifierID()) {
+		switch (eClass.getClassifierID())
+		{
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_MODIFICATION_REPOSITORY: return createKAMP4attackModificationRepository();
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS: return createKAMP4attackSeedModifications();
 			case KAMP4attackModificationmarksPackage.ATTACKER_SELECTION: return createAttackerSelection();
@@ -72,7 +76,6 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER: return createServiceRestrictionContainer();
 			case KAMP4attackModificationmarksPackage.COMPROMISED_DATA: return createCompromisedData();
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER: return createDatamodelContainer();
-			case KAMP4attackModificationmarksPackage.COMPROMISED_ASSEMBLY_CONTAINER: return createCompromisedAssemblyContainer();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -208,16 +211,6 @@ public class KAMP4attackModificationmarksFactoryImpl extends EFactoryImpl implem
 	{
 		DatamodelContainerImpl datamodelContainer = new DatamodelContainerImpl();
 		return datamodelContainer;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public CompromisedAssemblyContainer createCompromisedAssemblyContainer() {
-		CompromisedAssemblyContainerImpl compromisedAssemblyContainer = new CompromisedAssemblyContainerImpl();
-		return compromisedAssemblyContainer;
 	}
 
 	/**

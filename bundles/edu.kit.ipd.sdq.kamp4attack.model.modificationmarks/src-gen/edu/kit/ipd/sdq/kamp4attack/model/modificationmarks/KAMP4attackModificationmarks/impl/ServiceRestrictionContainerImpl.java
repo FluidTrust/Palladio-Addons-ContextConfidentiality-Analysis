@@ -74,7 +74,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	 */
 	public EList<ServiceRestriction> getServicerestriction()
 	{
-		if (servicerestriction == null) {
+		if (servicerestriction == null)
+		{
 			servicerestriction = new EObjectContainmentEList<ServiceRestriction>(ServiceRestriction.class, this, KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION);
 		}
 		return servicerestriction;
@@ -88,7 +89,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				return ((InternalEList<?>)getServicerestriction()).basicRemove(otherEnd, msgs);
 		}
@@ -103,7 +105,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				return getServicerestriction();
 		}
@@ -119,7 +122,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				getServicerestriction().clear();
 				getServicerestriction().addAll((Collection<? extends ServiceRestriction>)newValue);
@@ -136,7 +140,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				getServicerestriction().clear();
 				return;
@@ -152,7 +157,8 @@ public class ServiceRestrictionContainerImpl extends MinimalEObjectImpl.Containe
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER__SERVICERESTRICTION:
 				return servicerestriction != null && !servicerestriction.isEmpty();
 		}

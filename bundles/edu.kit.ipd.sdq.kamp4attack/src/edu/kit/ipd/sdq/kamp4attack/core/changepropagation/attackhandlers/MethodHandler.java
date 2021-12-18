@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
@@ -35,10 +36,7 @@ public abstract class MethodHandler extends AttackHandler {
 		if (!newCompromisedComponent.isEmpty()) {
 			handleDataExtraction(newCompromisedComponent);
 			change.setChanged(true);
-			// TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
-			// Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie
-			// bisher die neuen kompromittierten Komponenten
-			change.getCompromisedassembly().get(0).getAffectedElements().addAll(newCompromisedComponent);
+			change.getCompromisedassembly().addAll(newCompromisedComponent);
 			CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
 					change);
 		}
@@ -68,18 +66,8 @@ public abstract class MethodHandler extends AttackHandler {
 
 	private boolean contains(final CompromisedAssembly component, final CredentialChange change) {
 		return change.getCompromisedassembly().stream()
-				.anyMatch(referenceComponent -> equalsForAny(referenceComponent.getAffectedElements(),
+				.anyMatch(referenceComponent -> EcoreUtil.equals(referenceComponent,
 						component.getAffectedElement()));
-	}
-
-	private static boolean equalsForAny(List<CompromisedAssembly> assemblyList, AssemblyContext assembly) {
-		EqualityHelper equalityHelper = new EqualityHelper();
-		for (CompromisedAssembly compAssembly : assemblyList) {
-			if (equalityHelper.equals(compAssembly, assembly)) {
-				return true;
-			}
-		}
-		return false;
 	}
 
 	protected Vulnerability checkVulnerability(final ServiceRestriction entity, final CredentialChange change,

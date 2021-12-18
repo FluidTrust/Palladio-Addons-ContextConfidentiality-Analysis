@@ -62,7 +62,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 		for (AssemblyContext concreteContext : assemblyContext.getAssemblyList()) {
 			infectedAssembly.setAffectedElement(concreteContext);
 		}
-		change.getCompromisedassembly().get(0).getAffectedElements().add(infectedAssembly);
+		change.getCompromisedassembly().add(infectedAssembly);
 		return infectedAssembly;
 	}
 

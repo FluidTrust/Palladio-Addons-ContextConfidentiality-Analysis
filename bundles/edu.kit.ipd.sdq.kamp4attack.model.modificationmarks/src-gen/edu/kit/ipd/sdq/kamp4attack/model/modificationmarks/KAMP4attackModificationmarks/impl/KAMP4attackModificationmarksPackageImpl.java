@@ -15,7 +15,6 @@ import edu.kit.ipd.sdq.kamp.model.modificationmarks.ModificationmarksPackage;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackerSelection;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedData;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
@@ -161,13 +160,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 	 * @generated
 	 */
 	private EClass datamodelContainerEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass compromisedAssemblyContainerEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -328,16 +320,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getCredentialChange_Compromisedassembly()
-	{
-		return (EReference)credentialChangeEClass.getEStructuralFeatures().get(8);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EReference getCredentialChange_Contextchange()
 	{
 		return (EReference)credentialChangeEClass.getEStructuralFeatures().get(1);
@@ -401,6 +383,16 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 	public EReference getCredentialChange_Datamodelcontainer()
 	{
 		return (EReference)credentialChangeEClass.getEStructuralFeatures().get(7);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getCredentialChange_Compromisedassembly()
+	{
+		return (EReference)credentialChangeEClass.getEStructuralFeatures().get(8);
 	}
 
 	/**
@@ -508,24 +500,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getCompromisedAssemblyContainer() {
-		return compromisedAssemblyContainerEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getCompromisedAssemblyContainer_AffectedElements() {
-		return (EReference)compromisedAssemblyContainerEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public KAMP4attackModificationmarksFactory getKAMP4attackModificationmarksFactory()
 	{
 		return (KAMP4attackModificationmarksFactory)getEFactoryInstance();
@@ -590,9 +564,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 
 		datamodelContainerEClass = createEClass(DATAMODEL_CONTAINER);
 		createEReference(datamodelContainerEClass, DATAMODEL_CONTAINER__DATAMODELATTACKER);
-
-		compromisedAssemblyContainerEClass = createEClass(COMPROMISED_ASSEMBLY_CONTAINER);
-		createEReference(compromisedAssemblyContainerEClass, COMPROMISED_ASSEMBLY_CONTAINER__AFFECTED_ELEMENTS);
 	}
 
 	/**
@@ -708,7 +679,7 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 		initEReference(getCredentialChange_Servicerestrictioncontainer(), this.getServiceRestrictionContainer(), null, "servicerestrictioncontainer", null, 0, 1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCredentialChange_Compromiseddata(), this.getCompromisedData(), null, "compromiseddata", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getCredentialChange_Datamodelcontainer(), this.getDatamodelContainer(), null, "datamodelcontainer", null, 0, 1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getCredentialChange_Compromisedassembly(), this.getCompromisedAssemblyContainer(), null, "compromisedassembly", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getCredentialChange_Compromisedassembly(), this.getCompromisedAssembly(), null, "compromisedassembly", null, 0, -1, CredentialChange.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(compromisedResourceEClass, CompromisedResource.class, "CompromisedResource", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -727,9 +698,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 
 		initEClass(datamodelContainerEClass, DatamodelContainer.class, "DatamodelContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDatamodelContainer_Datamodelattacker(), theAttackerPackage.getDatamodelAttacker(), null, "datamodelattacker", null, 0, -1, DatamodelContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(compromisedAssemblyContainerEClass, CompromisedAssemblyContainer.class, "CompromisedAssemblyContainer", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getCompromisedAssemblyContainer_AffectedElements(), this.getCompromisedAssembly(), null, "affectedElements", null, 1, -1, CompromisedAssemblyContainer.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

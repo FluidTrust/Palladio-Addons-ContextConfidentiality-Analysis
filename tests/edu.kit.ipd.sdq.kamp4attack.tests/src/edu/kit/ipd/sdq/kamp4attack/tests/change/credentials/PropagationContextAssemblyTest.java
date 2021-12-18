@@ -58,7 +58,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange().get(0).getAffectedElement()));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElements().get(0)));
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
         assertFalse(change.isChanged());
 
     }
@@ -87,7 +87,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElements().get(0),
+        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
         assertFalse(change.isChanged());
 
@@ -136,7 +136,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         isNoContextChangeNoResourceNoLinking(change);
 
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElements().get(0)));
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
         assertFalse(change.isChanged());
 
     }
@@ -167,9 +167,9 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
         assertEquals(2, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElements().get(0),
+        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElements().get(0),
+        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(2))));
         assertTrue(change.isChanged());
 
@@ -307,7 +307,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         assertEquals(1, change.getContextchange().size());
         assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange().get(0).getAffectedElement()));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElements().get(0)));
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
         assertFalse(change.isChanged());
 
     }

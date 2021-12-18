@@ -27,7 +27,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         assertTrue(change.getCompromisedresource().isEmpty());
         assertTrue(change.getCompromisedlinkingresource().isEmpty());
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 
     }
@@ -119,7 +119,7 @@ class ConvertingInputModelTest extends AbstractChangeTests {
         assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(),
                 this.environment.getResourceContainer_ResourceEnvironment().get(0)));
         assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
                 this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 
     }

@@ -44,11 +44,7 @@ public class GraphCreation implements AttackGraphCreation {
 
 			MutableValueGraph<String, String> graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
 
-			// TODO: Ich möchte hier ungern etwas ändern -> for-Schleife iteriert über
-			// Container, welche (wie bisher) affectedElements zurück gibt
-			for (int i = 0; i < change.getCompromisedassembly().size(); i++) {
-				fillGraph(graph, change.getCompromisedassembly().get(i).getAffectedElements());
-			}
+			fillGraph(graph, change.getCompromisedassembly());
 			fillGraph(graph, change.getCompromisedresource());
 			fillGraph(graph, change.getCompromisedlinkingresource());
 			fillGraph(graph, change.getCompromisedservice());

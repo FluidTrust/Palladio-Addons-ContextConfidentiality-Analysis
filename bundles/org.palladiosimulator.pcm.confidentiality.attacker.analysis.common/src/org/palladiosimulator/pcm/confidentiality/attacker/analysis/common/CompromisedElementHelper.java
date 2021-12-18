@@ -31,14 +31,10 @@ public class CompromisedElementHelper {
 	}
 	
 	public static boolean isHacked(final AssemblyContext component, final CredentialChange change) {
-		for (int i = 0; i < change.getCompromisedassembly().size(); i++) {
-			if (change.getCompromisedassembly().get(i).getAffectedElements().stream()
-					.map(CompromisedAssembly::getAffectedElement).anyMatch(e -> EcoreUtil.equals(component, e))) {
-				return true;
-			}
-		}
-		return false;
-	}
+        return change.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
+                .anyMatch(e -> EcoreUtil.equals(component, e));
+    }
+
 
 	public static boolean isHacked(final ResourceContainer container, final CredentialChange change) {
 		return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)

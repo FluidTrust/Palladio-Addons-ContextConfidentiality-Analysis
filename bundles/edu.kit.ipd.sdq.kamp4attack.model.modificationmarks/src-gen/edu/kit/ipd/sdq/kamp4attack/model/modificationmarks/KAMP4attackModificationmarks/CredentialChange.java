@@ -45,18 +45,6 @@ public interface CredentialChange extends ChangePropagationStep
 	EList<CompromisedResource> getCompromisedresource();
 
 	/**
-	 * Returns the value of the '<em><b>Compromisedassembly</b></em>' containment reference list.
-	 * The list contents are of type {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssemblyContainer}.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Compromisedassembly</em>' containment reference list.
-	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange_Compromisedassembly()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<CompromisedAssemblyContainer> getCompromisedassembly();
-
-	/**
 	 * Returns the value of the '<em><b>Contextchange</b></em>' containment reference list.
 	 * The list contents are of type {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange}.
 	 * <!-- begin-user-doc -->
@@ -169,5 +157,17 @@ public interface CredentialChange extends ChangePropagationStep
 	 * @generated
 	 */
 	void setDatamodelcontainer(DatamodelContainer value);
+
+	/**
+	 * Returns the value of the '<em><b>Compromisedassembly</b></em>' containment reference list.
+	 * The list contents are of type {@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Compromisedassembly</em>' containment reference list.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange_Compromisedassembly()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<CompromisedAssembly> getCompromisedassembly();
 
 } // CredentialChange

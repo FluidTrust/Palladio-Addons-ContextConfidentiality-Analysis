@@ -58,7 +58,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -84,7 +84,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 		assertEquals(1, change.getContextchange().size());
 		assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -106,7 +106,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -122,7 +122,7 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -136,13 +136,13 @@ class PropagationResourceTest extends AbstractChangeTests {
 
 		final var assemblyChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
 		assemblyChange.setAffectedElement(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-		change.getCompromisedassembly().get(0).getAffectedElements().add(assemblyChange); //TODO: Zuteilung bisher nicht korrekt
+		change.getCompromisedassembly().add(assemblyChange);
 
 		runResourceAssemblyPropagation(change);
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElements().get(0),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertFalse(change.isChanged());
 	}

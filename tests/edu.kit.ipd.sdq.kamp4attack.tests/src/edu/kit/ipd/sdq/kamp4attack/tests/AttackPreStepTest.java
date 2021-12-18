@@ -42,7 +42,7 @@ class AttackPreStepTest extends AbstractModelTest {
         execute();
         final var steps = this.modification.getChangePropagationSteps();
 
-        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElements().get(0);
+        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
 
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
         assertEquals(1, steps.size());

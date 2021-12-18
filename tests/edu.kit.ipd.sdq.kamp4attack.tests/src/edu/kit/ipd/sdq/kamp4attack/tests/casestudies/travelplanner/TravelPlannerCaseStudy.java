@@ -45,10 +45,9 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
 	}
 
 	protected boolean checkAssembly(CredentialChange change) {
-		return change.getCompromisedassembly().get(0).getAffectedElements().stream()
-				.map(CompromisedAssembly::getAffectedElement).map(AssemblyContext::getEntityName)
-				.allMatch(this::assemblyNameMatch);
-	}
+        return change.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
+                .map(AssemblyContext::getEntityName).allMatch(this::assemblyNameMatch);
+    }
 
 	protected boolean checkResource(CredentialChange change) {
 		return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)

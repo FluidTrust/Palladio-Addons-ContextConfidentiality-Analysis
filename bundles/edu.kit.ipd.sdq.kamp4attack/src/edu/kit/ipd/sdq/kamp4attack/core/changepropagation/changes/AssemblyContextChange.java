@@ -45,7 +45,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 	protected List<AssemblyContextDetail> getCompromisedAssemblyContexts() {
 		List<AssemblyContextDetail> assemblies = new LinkedList<>();
 		for (int i = 0; i < this.changes.getCompromisedassembly().size(); i++) {
-			assemblies.add((AssemblyContextDetail) this.changes.getCompromisedassembly().get(i).getAffectedElements()
+			assemblies.add((AssemblyContextDetail) this.changes.getCompromisedassembly()
 					.stream().map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList()));
 		}
 		return assemblies;

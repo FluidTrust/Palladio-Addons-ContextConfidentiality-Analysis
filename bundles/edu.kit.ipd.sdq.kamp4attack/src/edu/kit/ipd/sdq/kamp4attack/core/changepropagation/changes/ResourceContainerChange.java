@@ -89,28 +89,18 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
             final var listChanges = streamChanges
                     .filter(e -> this.changes.getCompromisedassembly().stream()
-                            .noneMatch(f -> equalsForAny(f.getAffectedElements(), e.getAffectedElement())))
+                            .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
                     .collect(Collectors.toList());
 
             if (!listChanges.isEmpty()) {
             	//TODO: Die Zuteilung muss wieder auf die korrekten Kompoenten erfolgen
 				//Aktuelle Konvention: Die übergeordnete Komponente (Index 0) bekommt wie bisher die neuen kompromittierten Komponenten
-                this.changes.getCompromisedassembly().get(0).getAffectedElements().addAll(listChanges);
+                this.changes.getCompromisedassembly().addAll(listChanges);
                 CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
                 this.changes.setChanged(true);
             }
         }
     }
-    
-	private static boolean equalsForAny(List<CompromisedAssembly> assemblyList, AssemblyContext assembly) {
-		EqualityHelper equalityHelper = new EqualityHelper();
-		for (CompromisedAssembly compAssembly : assemblyList) {
-			if (equalityHelper.equals(compAssembly, assembly)) {
-				return true;
-			}
-		}
-		return false;
-	}
 
     @Override
     public void calculateResourceContainerToResourcePropagation() {

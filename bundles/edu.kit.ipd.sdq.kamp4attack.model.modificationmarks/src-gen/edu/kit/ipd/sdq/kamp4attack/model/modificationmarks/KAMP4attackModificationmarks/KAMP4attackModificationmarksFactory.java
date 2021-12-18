@@ -131,15 +131,6 @@ public interface KAMP4attackModificationmarksFactory extends EFactory
 	DatamodelContainer createDatamodelContainer();
 
 	/**
-	 * Returns a new object of class '<em>Compromised Assembly Container</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Compromised Assembly Container</em>'.
-	 * @generated
-	 */
-	CompromisedAssemblyContainer createCompromisedAssemblyContainer();
-
-	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

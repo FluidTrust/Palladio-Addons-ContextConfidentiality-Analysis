@@ -46,8 +46,5 @@
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//DatamodelContainer">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//DatamodelContainer/datamodelattacker"/>
     </genClasses>
-    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedAssemblyContainer">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CompromisedAssemblyContainer/affectedElements"/>
-    </genClasses>
   </genPackages>
 </genmodel:GenModel>
