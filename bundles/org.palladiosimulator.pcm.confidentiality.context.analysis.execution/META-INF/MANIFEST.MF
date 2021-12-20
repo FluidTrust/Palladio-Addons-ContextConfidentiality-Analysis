@@ -26,7 +26,8 @@ Automatic-Module-Name: pcm.dataprocessing.analysis.wfe
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job
-Import-Package: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks,
+Import-Package: edu.kit.ipd.sdq.attacksurface.core,
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks,
  org.osgi.service.component.annotations;version="1.2.0",
  org.palladiosimulator.analyzer.workflow,
  org.palladiosimulator.analyzer.workflow.blackboard,

@@ -3,6 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackSurfaceAnalysisWorkflow;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
@@ -18,7 +19,7 @@ import de.uka.ipd.sdq.workflow.mdsd.AbstractWorkflowBasedMDSDLaunchConfiguration
  *
  * @author majuwa
  * @author Mirko Sowa
- *
+ * @author ugnwq
  */
 public class LaunchDelegate
         extends AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<ContextAnalysisWorkflowConfig> {
@@ -40,7 +41,10 @@ public class LaunchDelegate
             attackBuilder.fillConfiguration(config);
             break;
         case "Attack surface":
-            throw new UnsupportedOperationException(); //TODO implement
+        	config = new AttackerAnalysisWorkflowConfig();
+            final var attackSurfaceBuilder = new AttackSurfaceAnalysisConfigurationBuilder(configuration, mode);
+        	attackSurfaceBuilder.fillConfiguration(config);
+            break;
         default:
             assert false;
         }
@@ -52,11 +56,15 @@ public class LaunchDelegate
     protected IJob createWorkflowJob(final ContextAnalysisWorkflowConfig config, final ILaunch launch)
             throws CoreException {
 
-        // TODO make better
+        // TODO make better: maybe add abstract method [createWorkflowJob(final ILaunch launch) : IJob] in ContextAnalysisWorkflowConfig
         if (config instanceof ScenarioAnalysisWorkflowConfig) {
             return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
+        } 
+        final AttackerAnalysisWorkflowConfig attackerConfig = (AttackerAnalysisWorkflowConfig) config;
+        if (attackerConfig.isSurface()) {
+        	return new AttackSurfaceAnalysisWorkflow(attackerConfig);
         }
-        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); // FIXME
+        return new AttackerAnalysisWorkflow(attackerConfig); // FIXME
     }
 
 }

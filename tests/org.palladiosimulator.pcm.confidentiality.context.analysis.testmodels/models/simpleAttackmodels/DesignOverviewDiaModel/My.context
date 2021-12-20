@@ -10,10 +10,18 @@
   </pcmspecificationcontainer>
   <policyset id="_0ebDkVUyEey1v6YwDRIdig">
     <policy id="_Dh0CcVWwEeyAu8-8Lz7_vA" entityName="terminal login">
-      <rule id="_K55DQFWwEeyAu8-8Lz7_vA">
+      <rule id="_K55DQFWwEeyAu8-8Lz7_vA" entityName="rootLoginRuleTerminal">
         <condition xsi:type="SimpleAttributeCondition" id="_Pkz6R1WwEeyAu8-8Lz7_vA" attribute="_fmYV4VWvEeyAu8-8Lz7_vA"/>
         <target>
           <match xsi:type="structure:EntityMatch" id="_nSkJAFWwEeyAu8-8Lz7_vA" entityName="User Terminal">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_Q_7vsFBmEeyFsrOVaGVGfg"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_35_WgFmbEeyF5auxXPb5GQ" entityName="maintenanceLoginRuleTerminal">
+        <condition xsi:type="SimpleAttributeCondition" id="_9c3JN1mbEeyF5auxXPb5GQ" attribute="_EydQAVmXEeyYJNGe-i7GBA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_AU0NwFmcEeyF5auxXPb5GQ" entityName="User Terminal">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_Q_7vsFBmEeyFsrOVaGVGfg"/>
           </match>
         </target>
