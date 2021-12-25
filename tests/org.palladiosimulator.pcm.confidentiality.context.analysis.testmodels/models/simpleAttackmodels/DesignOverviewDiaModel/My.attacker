@@ -3,7 +3,9 @@
   <attackers>
     <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker">
       <compromisedComponents href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
+      <compromisedComponents href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
       <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
+      <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </attacker>
   </attackers>
   <vulnerabilites/>

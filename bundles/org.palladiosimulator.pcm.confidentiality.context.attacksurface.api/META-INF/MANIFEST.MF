@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Api
+Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.attacksurface.api
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.api
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.attacksurface.api
+Import-Package: org.eclipse.emf.common.util
+Require-Bundle: org.palladiosimulator.pcm.confidentiality.context,
+ org.palladiosimulator.pcm.confidentiality.attacker,
+ org.palladiosimulator.pcm.confidentiality.context.analysis.api;bundle-version="1.0.0";visibility:=reexport

@@ -4,6 +4,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
+import org.palladiosimulator.pcm.confidentiality.context.attacksurface.api.AttackSurfaceAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
@@ -20,6 +21,7 @@ public class Activator extends AbstractUIPlugin {
     private static Activator instance;
 
     private AttackerAnalysis attackerAnalysis;
+    //private AttackSurfaceAnalysis attackSurfaceAnalysis; //TODO
     private ScenarioAnalysis scenarioAnalysis;
 
     private XACMLGeneration xacmlGeneration;
@@ -33,6 +35,9 @@ public class Activator extends AbstractUIPlugin {
         final ServiceReference<AttackerAnalysis> attackerReference = context
                 .getServiceReference(AttackerAnalysis.class);
         this.attackerAnalysis = context.getService(attackerReference);
+        /*TODO final ServiceReference<AttackSurfaceAnalysis> attackSurfaceReference = context
+        		.getServiceReference(AttackSurfaceAnalysis.class);
+        this.attackSurfaceAnalysis = context.getService(attackSurfaceReference);*/
         final ServiceReference<ScenarioAnalysis> scenarioReference = context
                 .getServiceReference(ScenarioAnalysis.class);
         this.scenarioAnalysis = context.getService(scenarioReference);
@@ -60,7 +65,11 @@ public class Activator extends AbstractUIPlugin {
         return this.attackerAnalysis;
     }
 
-    /**
+    /*TODO public AttackSurfaceAnalysis getAttackSurfaceAnalysis() {
+		return this.attackSurfaceAnalysis;
+	}*/
+
+	/**
      * Returns the scenario analyis returns null in case of no scenario analysis
      *
      * @return

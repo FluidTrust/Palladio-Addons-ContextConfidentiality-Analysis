@@ -62,7 +62,8 @@ public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDB
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
                 vulnerabilitySpecification, Activator.getInstance().getEvaluate());
 
-        final var propagation = new AttackSurfaceAnalysis();
+        final var propagation = new AttackSurfaceAnalysis();//TODO inject // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
+        		//.getInstance().getAttackSurfaceAnalysis();//TODO inject
         propagation.runChangePropagationAnalysis(wrapper);
         Activator.getInstance().getEvaluate().shutdown();
     }
@@ -70,7 +71,7 @@ public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDB
     @Override
     public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Provide clean up Operations
-
+    	// TODO cleanup xacml in the end and save it (per configuration)
     }
 
     @Override
