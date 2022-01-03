@@ -3,6 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -34,7 +35,7 @@ public class HelperCreationCompromisedElements {
         return compromisedResource;
     }
 
-    public static CompromisedAssembly createCompromisedAssembly(final AssemblyContext container,
+    public static CompromisedAssembly createCompromisedAssembly(final AssemblyContextDetail container,
             final Collection<? extends EObject> list) {
         final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
         compromisedResource.setToolderived(true);

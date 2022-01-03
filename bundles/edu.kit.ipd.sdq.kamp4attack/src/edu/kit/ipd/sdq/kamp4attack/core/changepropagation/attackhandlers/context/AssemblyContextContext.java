@@ -6,9 +6,9 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.base.Objects;
 
@@ -24,7 +24,7 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     }
 
     @Override
-    protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
+    protected Optional<CompromisedAssembly> attackComponent(final AssemblyContextDetail component,
             final CredentialChange change, final EObject source) {
         final List<? extends UsageSpecification> credentials = this.getCredentials(change);
 

@@ -69,8 +69,7 @@ public abstract class AbstractKAMP4attackModificationRepositoryImpl<T extends KA
 	@Override
 	public EList<ChangePropagationStep> getChangePropagationSteps()
 	{
-		if (changePropagationSteps == null)
-		{
+		if (changePropagationSteps == null) {
 			changePropagationSteps = new EObjectContainmentEList<ChangePropagationStep>(ChangePropagationStep.class, this, KAMP4attackModificationmarksPackage.ABSTRACT_KAMP_4ATTACK_MODIFICATION_REPOSITORY__CHANGE_PROPAGATION_STEPS);
 		}
 		return changePropagationSteps;

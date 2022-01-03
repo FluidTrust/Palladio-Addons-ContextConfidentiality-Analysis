@@ -63,8 +63,7 @@ public class DatamodelContainerItemProvider
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null)
-		{
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addDatamodelattackerPropertyDescriptor(object);
@@ -106,8 +105,7 @@ public class DatamodelContainerItemProvider
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
 	{
-		if (childrenFeatures == null)
-		{
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.DATAMODEL_CONTAINER__DATAMODELATTACKER);
 		}
@@ -165,8 +163,7 @@ public class DatamodelContainerItemProvider
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(DatamodelContainer.class))
-		{
+		switch (notification.getFeatureID(DatamodelContainer.class)) {
 			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER__DATAMODELATTACKER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

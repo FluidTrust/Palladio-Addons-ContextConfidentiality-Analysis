@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
@@ -142,7 +143,7 @@ public class AttackPropagationAnalysis implements AbstractChangePropagationAnaly
             var assemblyHandler = new AssemblyContextHandler(board,
                     new DataHandlerAttacker(this.changePropagationDueToCredential)) {
                 @Override
-                protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
+                protected Optional<CompromisedAssembly> attackComponent(AssemblyContextDetail component, CredentialChange change,
                         EObject source){
                     final var compromisedComponent = KAMP4attackModificationmarksFactory.eINSTANCE
                             .createCompromisedAssembly();

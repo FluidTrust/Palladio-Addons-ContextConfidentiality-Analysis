@@ -48,8 +48,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 	 */
 	public KAMP4attackModificationmarksSwitch()
 	{
-		if (modelPackage == null)
-		{
+		if (modelPackage == null) {
 			modelPackage = KAMP4attackModificationmarksPackage.eINSTANCE;
 		}
 	}
@@ -78,18 +77,15 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 	@Override
 	protected T1 doSwitch(int classifierID, EObject theEObject)
 	{
-		switch (classifierID)
-		{
-			case KAMP4attackModificationmarksPackage.ABSTRACT_KAMP_4ATTACK_MODIFICATION_REPOSITORY:
-			{
+		switch (classifierID) {
+			case KAMP4attackModificationmarksPackage.ABSTRACT_KAMP_4ATTACK_MODIFICATION_REPOSITORY: {
 				AbstractKAMP4attackModificationRepository<?> abstractKAMP4attackModificationRepository = (AbstractKAMP4attackModificationRepository<?>)theEObject;
 				T1 result = caseAbstractKAMP4attackModificationRepository(abstractKAMP4attackModificationRepository);
 				if (result == null) result = caseAbstractModificationRepository(abstractKAMP4attackModificationRepository);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_MODIFICATION_REPOSITORY:
-			{
+			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_MODIFICATION_REPOSITORY: {
 				KAMP4attackModificationRepository kamp4attackModificationRepository = (KAMP4attackModificationRepository)theEObject;
 				T1 result = caseKAMP4attackModificationRepository(kamp4attackModificationRepository);
 				if (result == null) result = caseAbstractKAMP4attackModificationRepository(kamp4attackModificationRepository);
@@ -97,24 +93,21 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS:
-			{
+			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS: {
 				KAMP4attackSeedModifications kamp4attackSeedModifications = (KAMP4attackSeedModifications)theEObject;
 				T1 result = caseKAMP4attackSeedModifications(kamp4attackSeedModifications);
 				if (result == null) result = caseAbstractSeedModifications(kamp4attackSeedModifications);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.MODIFY_ENTITY:
-			{
+			case KAMP4attackModificationmarksPackage.MODIFY_ENTITY: {
 				ModifyEntity<?> modifyEntity = (ModifyEntity<?>)theEObject;
 				T1 result = caseModifyEntity(modifyEntity);
 				if (result == null) result = caseAbstractModification(modifyEntity);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.ATTACKER_SELECTION:
-			{
+			case KAMP4attackModificationmarksPackage.ATTACKER_SELECTION: {
 				AttackerSelection attackerSelection = (AttackerSelection)theEObject;
 				T1 result = caseAttackerSelection(attackerSelection);
 				if (result == null) result = caseModifyEntity(attackerSelection);
@@ -122,8 +115,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE:
-			{
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE: {
 				CredentialChange credentialChange = (CredentialChange)theEObject;
 				T1 result = caseCredentialChange(credentialChange);
 				if (result == null) result = caseChangePropagationStep(credentialChange);
@@ -131,8 +123,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.COMPROMISED_RESOURCE:
-			{
+			case KAMP4attackModificationmarksPackage.COMPROMISED_RESOURCE: {
 				CompromisedResource compromisedResource = (CompromisedResource)theEObject;
 				T1 result = caseCompromisedResource(compromisedResource);
 				if (result == null) result = caseModifyEntity(compromisedResource);
@@ -140,8 +131,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.COMPROMISED_ASSEMBLY:
-			{
+			case KAMP4attackModificationmarksPackage.COMPROMISED_ASSEMBLY: {
 				CompromisedAssembly compromisedAssembly = (CompromisedAssembly)theEObject;
 				T1 result = caseCompromisedAssembly(compromisedAssembly);
 				if (result == null) result = caseModifyEntity(compromisedAssembly);
@@ -149,8 +139,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.CONTEXT_CHANGE:
-			{
+			case KAMP4attackModificationmarksPackage.CONTEXT_CHANGE: {
 				ContextChange contextChange = (ContextChange)theEObject;
 				T1 result = caseContextChange(contextChange);
 				if (result == null) result = caseModifyEntity(contextChange);
@@ -158,8 +147,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.COMPROMISED_LINKING_RESOURCE:
-			{
+			case KAMP4attackModificationmarksPackage.COMPROMISED_LINKING_RESOURCE: {
 				CompromisedLinkingResource compromisedLinkingResource = (CompromisedLinkingResource)theEObject;
 				T1 result = caseCompromisedLinkingResource(compromisedLinkingResource);
 				if (result == null) result = caseModifyEntity(compromisedLinkingResource);
@@ -167,8 +155,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.COMPROMISED_SERVICE:
-			{
+			case KAMP4attackModificationmarksPackage.COMPROMISED_SERVICE: {
 				CompromisedService compromisedService = (CompromisedService)theEObject;
 				T1 result = caseCompromisedService(compromisedService);
 				if (result == null) result = caseModifyEntity(compromisedService);
@@ -176,15 +163,13 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER:
-			{
+			case KAMP4attackModificationmarksPackage.SERVICE_RESTRICTION_CONTAINER: {
 				ServiceRestrictionContainer serviceRestrictionContainer = (ServiceRestrictionContainer)theEObject;
 				T1 result = caseServiceRestrictionContainer(serviceRestrictionContainer);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.COMPROMISED_DATA:
-			{
+			case KAMP4attackModificationmarksPackage.COMPROMISED_DATA: {
 				CompromisedData compromisedData = (CompromisedData)theEObject;
 				T1 result = caseCompromisedData(compromisedData);
 				if (result == null) result = caseModifyEntity(compromisedData);
@@ -192,8 +177,7 @@ public class KAMP4attackModificationmarksSwitch<T1> extends Switch<T1>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER:
-			{
+			case KAMP4attackModificationmarksPackage.DATAMODEL_CONTAINER: {
 				DatamodelContainer datamodelContainer = (DatamodelContainer)theEObject;
 				T1 result = caseDatamodelContainer(datamodelContainer);
 				if (result == null) result = defaultCase(theEObject);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_-E_zYGx3EeySe86kIoZ3GA" attacks="_torK4Wx3EeySe86kIoZ3GA">
+      <compromisedLinkingResources href="../powerGrid/powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
+      <compromisedLinkingResources href="../powerGrid/powerGrid.resourceenvironment#_HyUlcCwbEeylP6vhO63XvA"/>
+    </attacker>
+  </attackers>
+  <attacks>
+    <attack xsi:type="attack:CVEAttack" id="_torK4Wx3EeySe86kIoZ3GA" category="//@categoryspecification/@categories.0"/>
+  </attacks>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1" attackVector="AdjacentNetwork" cveID="//@categoryspecification/@categories.0"/>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" cveID="1"/>
+    <categories xsi:type="attack:CWEID" cweID="2"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_mWKcAGx2Eey6CrF4tCuGpA" vulnerability="//@vulnerabilites/@vulnerability.0">
+      <pcmelement id="_XZGKUGx3EeySe86kIoZ3GA">
+        <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_krB6cWx3EeySe86kIoZ3GA">
+      <pcmelement id="_mDW_UGx3EeySe86kIoZ3GA">
+        <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

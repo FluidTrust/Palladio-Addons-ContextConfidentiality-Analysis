@@ -48,10 +48,17 @@ public class CollectionHelper {
 
     }
 
-    public static List<ServiceRestriction> getProvidedRestrictions(final List<AssemblyContext> components) {
-
-        return components.stream().flatMap(component -> CollectionHelper.getProvidedRestrictions(component).stream())
-                .collect(Collectors.toList());
+    public static List<ServiceRestriction> getProvidedRestrictions(final List<AssemblyContextDetail> components) {
+    	//TODO: anschauen ob eine Liste an ServiceRestrictions reicht oder verschachtelte Liste notwendig
+        //return components.stream().flatMap(component -> CollectionHelper.getProvidedRestrictions(component).stream())
+        //        .collect(Collectors.toList());
+    	LinkedList<ServiceRestriction> restrinctions = new LinkedList<>();
+    	for (AssemblyContextDetail assemblyDetail : components) {
+    		for (AssemblyContext context : assemblyDetail.getAssemblyList()) {
+    			restrinctions.addAll(CollectionHelper.getProvidedRestrictions(context).stream().collect(Collectors.toList()));
+    		}
+    	}
+    	return restrinctions;
     }
 
     public static List<ServiceRestriction> getProvidedRestrictions(AssemblyContext component) {
@@ -117,11 +124,16 @@ public class CollectionHelper {
 
     public static void addService(final Collection<CompromisedAssembly> compromisedAssemblies,
             AttackerSystemSpecificationContainer container, final CredentialChange change) {
+    	
+    	List<AssemblyContextDetail> assemblies = new LinkedList<>();
+    	for (CompromisedAssembly component : compromisedAssemblies) {
+    		assemblies.add(component.getAffectedElement());
+    	}
 
-        for (final var component : compromisedAssemblies) {
-            final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(component.getAffectedElement());
+        for (CompromisedAssembly component : compromisedAssemblies) {
+            final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(assemblies);
 
-            final var causingElement = new ArrayList<AssemblyContext>();
+            final var causingElement = new ArrayList<AssemblyContextDetail>();
             causingElement.add(component.getAffectedElement());
 
             var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {

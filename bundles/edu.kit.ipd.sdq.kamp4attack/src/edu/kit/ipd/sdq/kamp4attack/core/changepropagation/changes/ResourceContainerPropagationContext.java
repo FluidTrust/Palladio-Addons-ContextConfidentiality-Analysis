@@ -3,7 +3,7 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -37,7 +37,7 @@ public class ResourceContainerPropagationContext extends ResourceContainerChange
     }
 
     @Override
-    protected void handleSeff(final CredentialChange changes, final List<AssemblyContext> components,
+    protected void handleSeff(final CredentialChange changes, final List<AssemblyContextDetail> components,
             final ResourceContainer source) {
         // intentional blank
 

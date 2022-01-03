@@ -1,22 +1,23 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.DatamodelAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -44,14 +45,18 @@ public abstract class MethodHandler extends AttackHandler {
 
 	private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
 
-		Collection<AssemblyContext> filteredComponents = components.stream()
+		Collection<AssemblyContextDetail> filteredComponents = components.stream()
 				.map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
 
 		filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-		final var dataList = filteredComponents.stream().distinct()
-				.flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+		List<DatamodelAttacker> dataList = new LinkedList<>(); 
 
+		for (AssemblyContextDetail assemblyDetail : filteredComponents) {
+			dataList.addAll(assemblyDetail.getAssemblyList().stream().distinct()
+					.flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList()));
+		}
+		
 		getDataHandler().addData(dataList);
 	}
 

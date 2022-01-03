@@ -48,9 +48,6 @@ import org.palladiosimulator.pcm.confidentiality.context.ContextPackage;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemPackage;
 
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructurePackage;
-
-import org.palladiosimulator.pcm.core.composition.CompositionPackage;
-
 import org.palladiosimulator.pcm.core.entity.EntityPackage;
 
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentPackage;
@@ -596,7 +593,6 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 		AttackerPackage theAttackerPackage = (AttackerPackage)EPackage.Registry.INSTANCE.getEPackage(AttackerPackage.eNS_URI);
 		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		ResourceenvironmentPackage theResourceenvironmentPackage = (ResourceenvironmentPackage)EPackage.Registry.INSTANCE.getEPackage(ResourceenvironmentPackage.eNS_URI);
-		CompositionPackage theCompositionPackage = (CompositionPackage)EPackage.Registry.INSTANCE.getEPackage(CompositionPackage.eNS_URI);
 		SystemPackage theSystemPackage = (SystemPackage)EPackage.Registry.INSTANCE.getEPackage(SystemPackage.eNS_URI);
 		StructurePackage theStructurePackage = (StructurePackage)EPackage.Registry.INSTANCE.getEPackage(StructurePackage.eNS_URI);
 
@@ -638,7 +634,7 @@ public class KAMP4attackModificationmarksPackageImpl extends EPackageImpl implem
 		g1.getETypeArguments().add(g2);
 		compromisedResourceEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getModifyEntity());
-		g2 = createEGenericType(theCompositionPackage.getAssemblyContext());
+		g2 = createEGenericType(theAttackerPackage.getAssemblyContextDetail());
 		g1.getETypeArguments().add(g2);
 		compromisedAssemblyEClass.getEGenericSuperTypes().add(g1);
 		g1 = createEGenericType(this.getModifyEntity());

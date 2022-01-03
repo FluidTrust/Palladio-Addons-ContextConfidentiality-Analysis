@@ -2,7 +2,7 @@
  */
 package edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks;
 
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 
 /**
  * <!-- begin-user-doc -->
@@ -14,6 +14,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
  * @model
  * @generated
  */
-public interface CompromisedAssembly extends ModifyEntity<AssemblyContext>
+public interface CompromisedAssembly extends ModifyEntity<AssemblyContextDetail>
 {
 } // CompromisedAssembly

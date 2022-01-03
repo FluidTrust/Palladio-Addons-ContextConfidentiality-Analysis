@@ -50,8 +50,7 @@ public class KAMP4attackSeedModificationsItemProvider extends AbstractSeedModifi
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null)
-		{
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 		}
@@ -69,8 +68,7 @@ public class KAMP4attackSeedModificationsItemProvider extends AbstractSeedModifi
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
 	{
-		if (childrenFeatures == null)
-		{
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT);
 		}
@@ -128,8 +126,7 @@ public class KAMP4attackSeedModificationsItemProvider extends AbstractSeedModifi
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(KAMP4attackSeedModifications.class))
-		{
+		switch (notification.getFeatureID(KAMP4attackSeedModifications.class)) {
 			case KAMP4attackModificationmarksPackage.KAMP_4ATTACK_SEED_MODIFICATIONS__ATTACKCOMPONENT:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;

@@ -59,8 +59,7 @@ public final class KAMP4attackModificationsmarksEditorPlugin extends EMFPlugin
 	public KAMP4attackModificationsmarksEditorPlugin()
 	{
 		super
-			(new ResourceLocator [] 
-			{
+			(new ResourceLocator [] {
 				AttackerEditPlugin.INSTANCE,
 				ContextEditPlugin.INSTANCE,
 				EcoreEditPlugin.INSTANCE,

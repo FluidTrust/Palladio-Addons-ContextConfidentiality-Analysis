@@ -57,7 +57,7 @@ public abstract class AbstractModelTest extends BaseTest {
         list.add(this.PATH_CONTEXT);
         list.add(this.PATH_ATTACKER);
         list.add(this.PATH_MODIFICATION);
-
+        java.lang.System.out.println("added");
         return list;
     }
 
@@ -74,11 +74,8 @@ public abstract class AbstractModelTest extends BaseTest {
     @Override
     protected void generateXML() {
         var generator = new XACMLGenerator();
-        java.lang.System.out.println("Zeile 1");
         var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
-        java.lang.System.out.println("Zeile 2");
         generator.generateXACML(blackboard, this.context, this.pathXACML);
-        java.lang.System.out.println("Zeile 3");
     }
 
     protected UsageSpecification createContext(final String name) {

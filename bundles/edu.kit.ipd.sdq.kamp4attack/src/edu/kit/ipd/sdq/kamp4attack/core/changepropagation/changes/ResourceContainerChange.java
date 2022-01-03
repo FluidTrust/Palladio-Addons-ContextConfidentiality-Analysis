@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil.EqualityHelper;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -69,7 +70,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     }
 
-    protected abstract void handleSeff(CredentialChange changes, List<AssemblyContext> components,
+    protected abstract void handleSeff(CredentialChange changes, List<AssemblyContextDetail> components,
             ResourceContainer source);
 
     protected abstract AssemblyContextHandler getAssemblyHandler();

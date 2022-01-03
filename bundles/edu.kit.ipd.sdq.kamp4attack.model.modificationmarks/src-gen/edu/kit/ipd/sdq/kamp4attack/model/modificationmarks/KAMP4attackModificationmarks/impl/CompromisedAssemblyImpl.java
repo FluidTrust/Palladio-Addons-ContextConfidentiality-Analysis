@@ -6,8 +6,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage;
 
 import org.eclipse.emf.ecore.EClass;
-
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 
 /**
  * <!-- begin-user-doc -->
@@ -16,7 +15,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
  *
  * @generated
  */
-public class CompromisedAssemblyImpl extends ModifyEntityImpl<AssemblyContext> implements CompromisedAssembly
+public class CompromisedAssemblyImpl extends ModifyEntityImpl<AssemblyContextDetail> implements CompromisedAssembly
 {
 	/**
 	 * <!-- begin-user-doc -->

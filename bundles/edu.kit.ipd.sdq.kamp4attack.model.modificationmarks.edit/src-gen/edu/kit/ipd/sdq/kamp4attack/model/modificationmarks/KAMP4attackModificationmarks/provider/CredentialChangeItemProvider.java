@@ -52,8 +52,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null)
-		{
+		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
 			addCompromisedresourcePropertyDescriptor(object);
@@ -215,8 +214,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
 	{
-		if (childrenFeatures == null)
-		{
+		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__CONTEXTCHANGE);
@@ -282,8 +280,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CredentialChange.class))
-		{
+		switch (notification.getFeatureID(CredentialChange.class)) {
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
