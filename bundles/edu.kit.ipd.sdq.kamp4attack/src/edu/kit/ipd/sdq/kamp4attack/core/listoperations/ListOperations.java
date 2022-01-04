@@ -22,37 +22,30 @@ public class ListOperations {
 	 * Constructor of ListOperations
 	 */
 	public ListOperations() {
-		runningTimes = 1;
+		runningTimes = 0;
 	}
 
 	
 	/**
-	 * Generates a list of all lists of a certain length
-	 * @param data : list to be subdivided
-	 * @param len : desired length of the sublists
-	 * @return List of partial lists with length len
+	 * Generates a list of all combinations of certain length
 	 */
-	private List<List<Object>> getCombinationsOfN(List<Object> data, int len) {
-		//if (data.size() == 0 || len == 0) {
-		if (len == 0) {
-			System.out.println("Hier");
-			return Collections.emptyList();
-		}
-
-		List<List<Object>> combinations = new ArrayList<List<Object>>();
-		List<Object> element = new ArrayList<Object>(data);
-		element.remove(data.iterator().next());
-
-		List<List<Object>> subSet = getCombinationsOfN(element, len - 1);
-
-		for (List<Object> elem : subSet) {
-			List<Object> newElement = new ArrayList<Object>(elem);
-			newElement.add(0, data.iterator().next());
-		}
-
-		combinations.addAll(getCombinationsOfN(element, len));
-
-		return combinations;
+	private void helper(List<int[]> combinations, int data[], int start, int end, int index) {
+		if (index == data.length) {
+	        int[] combination = data.clone();
+	        combinations.add(combination);
+	    } else {
+	        int max = Math.min(end, end + 1 - data.length + index);
+	        for (int i = start; i <= max; i++) {
+	            data[index] = i;
+	            helper(combinations, data, i + 1, end, index + 1);
+	        }
+	    }
+	}
+	
+	private List<int[]> generate(int n, int r) {
+	    List<int[]> combinations = new ArrayList<>();
+	    helper(combinations, new int[r], 0, n-1, 0);
+	    return combinations;
 	}
 
 	/**
@@ -132,10 +125,18 @@ public class ListOperations {
 					return Collections.emptyList();
 				}
 				else {
-					System.out.println("Test");
 					runningTimes++;
 					returnedAllElements = false;
-					return getCombinationsOfN(elements, elements.size() - runningTimes);
+					List<int[]> combinations = generate(elements.size(), runningTimes);
+					List<List<Object>> returnList = new ArrayList<>();
+					for (int[] combination : combinations) {
+					    List<Object> elementPartList = new ArrayList<>();
+					    for (int index : combination) {
+					    	elementPartList.add(elements.get(index));
+					    }
+					    returnList.add(elementPartList);
+					}
+					return returnList;
 				}
 			} else if (timeLimits[i] != 0) {
 				break;
