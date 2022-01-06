@@ -31,7 +31,7 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/KAMP4aPSModificationsmarks.ecore#/"/>
       </ownedRepresentationDescriptors>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_aJivQeklEeqxncfK2dp-RQ" name="KAMP4attackModificationmarks class diagram" repPath="#_aItBwOklEeqxncfK2dp-RQ" changeId="eb62cade-1aef-4381-8dab-776abfe8bb3b">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_aJivQeklEeqxncfK2dp-RQ" name="KAMP4attackModificationmarks class diagram" repPath="#_aItBwOklEeqxncfK2dp-RQ" changeId="8155ad8f-8498-4f24-87c7-4034de37aaf1">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']"/>
         <target xmi:type="ecore:EPackage" href="model/KAMP4attackModificationsmarks.ecore#/"/>
       </ownedRepresentationDescriptors>
@@ -2092,6 +2092,10 @@
               <styles xmi:type="notation:FontStyle" xmi:id="_b4uswVKsEeyXINj6G2zZFA" fontName="Ubuntu" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Location" xmi:id="_b4uswlKsEeyXINj6G2zZFA"/>
             </children>
+            <children xmi:type="notation:Node" xmi:id="_kN5rkFv6EeyU_qMEkjD6Yw" type="3010" element="_kNc_oVv6EeyU_qMEkjD6Yw">
+              <styles xmi:type="notation:FontStyle" xmi:id="_kN5rkVv6EeyU_qMEkjD6Yw" fontName="Ubuntu" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_kN5rklv6EeyU_qMEkjD6Yw"/>
+            </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_b4teolKsEeyXINj6G2zZFA"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_b4teo1KsEeyXINj6G2zZFA"/>
           </children>
@@ -3013,6 +3017,14 @@
         <target xmi:type="ecore:EReference" href="platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker/source"/>
         <semanticElements xmi:type="ecore:EReference" href="platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker/source"/>
         <ownedStyle xmi:type="diagram:BundledImage" uid="_b4nYAVKsEeyXINj6G2zZFA" labelAlignment="LEFT" color="114,159,207">
+          <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>
+      </ownedElements>
+      <ownedElements xmi:type="diagram:DNodeListElement" uid="_kNc_oVv6EeyU_qMEkjD6Yw" name=" method : OperationSignature" tooltipText="">
+        <target xmi:type="ecore:EReference" href="platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker/method"/>
+        <semanticElements xmi:type="ecore:EReference" href="platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker/method"/>
+        <ownedStyle xmi:type="diagram:BundledImage" uid="_kNdmsFv6EeyU_qMEkjD6Yw" labelAlignment="LEFT" color="114,159,207">
           <description xmi:type="style:BundledImageDescription" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.eclipse.emf.ecoretools.design/description/ecore.odesign#//@ownedViewpoints[name='Design']/@ownedRepresentations[name='Entities']/@defaultLayer/@containerMappings[name='EC%20EClass']/@subNodeMappings[name='EC%20EReferenceNode']"/>

@@ -16,12 +16,10 @@
     </compromisedresource>
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
-      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
       <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
     </compromisedassembly>
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
-      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
       <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
     </compromisedassembly>
     <contextchange toolderived="true">
@@ -32,75 +30,132 @@
     <compromisedservice toolderived="true">
       <affectedElement xsi:type="structure:ServiceRestriction" href="test_model.attacker#_xI_UgTl1EeyxuvclpmtFmA"/>
       <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_hu190To9EeyetrjwtKBt7g" toolderived="true">
+    <compromisedservice affectedElement="_Yf24sW7VEeyXKr4qHCQ8VA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_hvHDkDo9EeyetrjwtKBt7g" toolderived="true">
+    <compromisedservice affectedElement="_Yf-0gG7VEeyXKr4qHCQ8VA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_hvHDkTo9EeyetrjwtKBt7g" toolderived="true">
+    <compromisedservice affectedElement="_Yf-0gW7VEeyXKr4qHCQ8VA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_hvHDkjo9EeyetrjwtKBt7g" toolderived="true">
+    <compromisedservice affectedElement="_Yf-0gm7VEeyXKr4qHCQ8VA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="../../../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_hu190To9EeyetrjwtKBt7g">
+      <servicerestriction id="_Yf24sW7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
         <service href="../../../default.repository#_KubVAC2VEeuHsNng7h4KwA"/>
       </servicerestriction>
-      <servicerestriction id="_hvHDkDo9EeyetrjwtKBt7g">
+      <servicerestriction id="_Yf-0gG7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_1NGIAMOAEeWst9mTsticNA"/>
       </servicerestriction>
-      <servicerestriction id="_hvHDkTo9EeyetrjwtKBt7g">
+      <servicerestriction id="_Yf-0gW7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_ok8ZYM5wEeWFJak7Wqvc0g"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_y4dQkM5wEeWFJak7Wqvc0g"/>
       </servicerestriction>
-      <servicerestriction id="_hvHDkjo9EeyetrjwtKBt7g">
+      <servicerestriction id="_Yf-0gm7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
         <service href="../../../default.repository#_z-Ul0N5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGUjo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNQG7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
         <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
         <service href="../../../default.repository#_nUbBQNT3Eee-_bZGhm8PwA"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGUzo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNQW7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_602gYM5lEeWFJak7Wqvc0g"/>
         <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
         <service href="../../../default.repository#_Jo_X8N5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGVDo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNQm7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_GmUUEMN1EeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
         <service href="../../../default.repository#_LFOscN5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGVTo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNQ27VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_jergYN5bEeeel_96Qa_d5A"/>
         <assemblycontext href="../../../default.system#_XOyEsMOBEeWst9mTsticNA"/>
         <service href="../../../default.repository#_YtkKYN5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGVjo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNRG7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_Mbgp8HZrEeaE4tGRMtTb7A"/>
         <assemblycontext href="../../../default.system#_XOyEsMOBEeWst9mTsticNA"/>
         <service href="../../../default.repository#_ZdekYN5fEeeel_96Qa_d5A"/>
       </servicerestriction>
-      <servicerestriction id="_hxXGVzo9EeyetrjwtKBt7g">
+      <servicerestriction id="_YgtNRW7VEeyXKr4qHCQ8VA">
         <signature xsi:type="repository:OperationSignature" href="../../../default.repository#_N6idsMN3EeWPE-QAhbUzuQ"/>
         <assemblycontext href="../../../default.system#_XOyEsMOBEeWst9mTsticNA"/>
         <service href="../../../default.repository#_aJze4N5fEeeel_96Qa_d5A"/>
       </servicerestriction>
     </servicerestrictioncontainer>
+    <compromiseddata affectedElement="_YgOsIG7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsIW7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsIm7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsI27VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsJG7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsJW7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsJm7VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <compromiseddata affectedElement="_YgOsJ27VEeyXKr4qHCQ8VA">
+      <causingElements xsi:type="composition:AssemblyContext" href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+    </compromiseddata>
+    <datamodelcontainer>
+      <datamodelattacker id="_YgOsIG7VEeyXKr4qHCQ8VA" referenceName="requestData">
+        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsIW7VEeyXKr4qHCQ8VA" referenceName="offerId">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsIm7VEeyXKr4qHCQ8VA" referenceName="ccd_decl">
+        <dataType xsi:type="repository:CompositeDataType" href="../../../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsI27VEeyXKr4qHCQ8VA" referenceName="flights">
+        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsJG7VEeyXKr4qHCQ8VA">
+        <dataType xsi:type="repository:CollectionDataType" href="../../../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <method href="../../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsJW7VEeyXKr4qHCQ8VA">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <method href="../../../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsJm7VEeyXKr4qHCQ8VA">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <method href="../../../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
+      </datamodelattacker>
+      <datamodelattacker id="_YgOsJ27VEeyXKr4qHCQ8VA">
+        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
+        <source href="../../../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+        <method href="../../../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
+      </datamodelattacker>
+    </datamodelcontainer>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>
