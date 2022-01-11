@@ -1,21 +1,24 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution;
 
-import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout.RolloutImpl;
 import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.attacksurface.api.AttackSurfaceAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 
+import edu.kit.kastel.sdq.kamp4attack.graph.api.AttackGraphCreation;
+
 /**
  * The activator class controls the plug-in life cycle
  */
-public class Activator extends AbstractUIPlugin {
+public class Activator implements BundleActivator {
 
     // The plug-in ID
-    public static final String PLUGIN_ID = "pcm.dataprocessing.analysis.wfe"; //$NON-NLS-1$
+    public static final String PLUGIN_ID = "org.palladiosimulator.pcm.confidentiality.context.wfe";
 
     // The shared instance
     private static Activator instance;
@@ -28,9 +31,12 @@ public class Activator extends AbstractUIPlugin {
 
     private Evaluate evaluate;
 
+    private AttackGraphCreation graph;
+
+    private RolloutImpl roll;
+
     @Override
-    public void start(final BundleContext context) throws Exception {
-        super.start(context);
+    public void start(BundleContext context) throws Exception {
         setInstance(instance);
         final ServiceReference<AttackerAnalysis> attackerReference = context
                 .getServiceReference(AttackerAnalysis.class);
@@ -48,13 +54,18 @@ public class Activator extends AbstractUIPlugin {
         final ServiceReference<Evaluate> eval = context.getServiceReference(Evaluate.class);
         this.evaluate = context.getService(eval);
 
+        final ServiceReference<AttackGraphCreation> graph = context.getServiceReference(AttackGraphCreation.class);
+        this.graph = context.getService(graph);
+
+        final ServiceReference<RolloutImpl> roll = context.getServiceReference(RolloutImpl.class);
+        this.roll = context.getService(roll);
+
         instance = this;
     }
 
     @Override
     public void stop(final BundleContext context) throws Exception {
         setInstance(null);
-        super.stop(context);
     }
 
     private static void setInstance(final Activator instance) {
@@ -84,6 +95,14 @@ public class Activator extends AbstractUIPlugin {
 
     public Evaluate getEvaluate() {
         return this.evaluate;
+    }
+
+    public AttackGraphCreation getGraphCreation() {
+        return this.graph;
+    }
+
+    public RolloutImpl getRollOut() {
+        return this.roll;
     }
 
     /**

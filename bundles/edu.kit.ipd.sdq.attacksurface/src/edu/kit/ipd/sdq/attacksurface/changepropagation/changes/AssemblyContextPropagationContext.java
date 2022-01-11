@@ -20,8 +20,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
     private final AttackDAG attackDAG;
     
-    public AssemblyContextPropagationContext(final BlackboardWrapper v, final AttackDAG attackDAG) {
-        super(v);
+    public AssemblyContextPropagationContext(final BlackboardWrapper v, final CredentialChange changes, final AttackDAG attackDAG) {
+        super(v, changes);
         this.attackDAG = attackDAG;
     }
 
@@ -33,7 +33,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(changes));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     @Override
     protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
             final AssemblyContext source) {
-        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+        final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(changes));
         handler.attackService(services, changes, source);
         
         //TODO maybe add this somewhere else or write new

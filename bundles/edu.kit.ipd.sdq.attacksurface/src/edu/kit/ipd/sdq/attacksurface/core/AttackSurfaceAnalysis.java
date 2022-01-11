@@ -125,7 +125,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
             // convert affectedAssemblyContexts to changes
-            var assemblyHandler = new AssemblyContextHandler(board, new DataHandlerAttacker(localAttacker)) {
+            var assemblyHandler = new AssemblyContextHandler(board, new DataHandlerAttacker(this.changePropagationDueToCredential)) {
                 @Override
                 protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
                         EObject source){
@@ -164,10 +164,10 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 		
 		//TODO adapt to new analysis
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
-        list.add(new AssemblyContextPropagationContext(board, this.attackDAG));
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
         //list.add(new AssemblyContextPropagationVulnerability(board)); //TODO add vuln.
         for (final var analysis : list) { //TODO adapt
-            analysis.calculateAssemblyContextToAssemblyContextPropagation(this.changePropagationDueToCredential); 
+            analysis.calculateAssemblyContextToAssemblyContextPropagation(); 
             //TODO add others
         }
     }

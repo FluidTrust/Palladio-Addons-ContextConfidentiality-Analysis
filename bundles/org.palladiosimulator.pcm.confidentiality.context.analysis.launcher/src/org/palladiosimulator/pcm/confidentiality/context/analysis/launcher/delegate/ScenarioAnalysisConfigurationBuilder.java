@@ -29,7 +29,7 @@ public class ScenarioAnalysisConfigurationBuilder extends ContextAnalysisConfigu
                     + ScenarioAnalysisWorkflowConfig.class + " expected");
         }
         final var config = (ScenarioAnalysisWorkflowConfig) configuration;
-        config.setUsage(this.getURI(Constants.USAGE_MODEL_LABEL.getConstant()));
+        config.setUsage(getURI(Constants.USAGE_MODEL_LABEL));
 
     }
 

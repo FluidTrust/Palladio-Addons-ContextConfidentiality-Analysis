@@ -7,6 +7,7 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
     private URI attackModel;
     private URI modificationModel;
     private boolean isSurface;
+    private boolean generateGraph;
 
     public URI getDataModel() {
         return this.dataModel;
@@ -39,4 +40,11 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
 	public void setSurface(final boolean isSurface) {
 		this.isSurface = isSurface;
 	}
+    public void setGenerateGraph(boolean generateGraph) {
+        this.generateGraph = generateGraph;
+    }
+
+    public boolean getGenerateGraph() {
+        return this.generateGraph;
+    }
 }

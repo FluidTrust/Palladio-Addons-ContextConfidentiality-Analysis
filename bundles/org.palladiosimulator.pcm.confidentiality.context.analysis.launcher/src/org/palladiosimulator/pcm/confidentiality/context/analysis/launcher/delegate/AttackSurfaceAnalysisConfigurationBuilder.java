@@ -29,8 +29,8 @@ public class AttackSurfaceAnalysisConfigurationBuilder extends ContextAnalysisCo
                     + AttackerAnalysisWorkflowConfig.class + " expected");
         }
         final var config = (AttackerAnalysisWorkflowConfig) configuration;
-        config.setModificationModel(this.getURI(Constants.MODIFIACTION_MODEL_LABEL.getConstant()));
-        config.setAttackModel(this.getURI(Constants.ATTACKER_MODEL_LABEL.getConstant()));
+        config.setModificationModel(this.getURI(Constants.MODIFIACTION_MODEL_LABEL));
+        config.setAttackModel(this.getURI(Constants.ATTACKER_MODEL_LABEL));
         config.setSurface(true);
     }
 

@@ -25,8 +25,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
         implements ResourceContainerPropagation {
 
-    public ResourceContainerChange(final BlackboardWrapper v) {
-        super(v);
+    public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change) {
+        super(v, change);
     }
 
     @Override
@@ -34,26 +34,26 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, ResourceContainer.class);
     }
 
-    protected List<ResourceContainer> getInfectedResourceContainers(final CredentialChange changes) {
-        return changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
+    protected List<ResourceContainer> getInfectedResourceContainers() {
+        return this.changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public void calculateResourceContainerToContextPropagation(final CredentialChange changes) {
-        final var listInfectedContainer = getInfectedResourceContainers(changes);
+    public void calculateResourceContainerToContextPropagation() {
+        final var listInfectedContainer = getInfectedResourceContainers();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
                 .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
                 .filter(e -> listInfectedContainer.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
 
-        updateFromContextProviderStream(changes, streamAttributeProvider);
+        updateFromContextProviderStream(this.changes, streamAttributeProvider);
     }
 
     @Override
-    public void calculateResourceContainerToRemoteAssemblyContextPropagation(final CredentialChange changes) {
-        final var listInfectedContainer = getInfectedResourceContainers(changes);
+    public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
+        final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var resources = getConnectedResourceContainers(resource);
@@ -61,8 +61,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getAssemblyHandler();
             assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handler.attackAssemblyContext(assemblycontext, changes, resource);
-            handleSeff(changes, assemblycontext, resource);
+            handler.attackAssemblyContext(assemblycontext, this.changes, resource);
+            handleSeff(this.changes, assemblycontext, resource);
         }
 
     }
@@ -73,8 +73,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     protected abstract AssemblyContextHandler getAssemblyHandler();
 
     @Override
-    public void calculateResourceContainerToLocalAssemblyContextPropagation(final CredentialChange changes) {
-        final var listInfectedContainer = getInfectedResourceContainers(changes);
+    public void calculateResourceContainerToLocalAssemblyContextPropagation() {
+        final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
@@ -86,28 +86,28 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(resource)));
 
             final var listChanges = streamChanges
-                    .filter(e -> changes.getCompromisedassembly().stream()
+                    .filter(e -> this.changes.getCompromisedassembly().stream()
                             .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
                     .collect(Collectors.toList());
 
             if (!listChanges.isEmpty()) {
-                changes.getCompromisedassembly().addAll(listChanges);
-                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), changes);
-                changes.setChanged(true);
+                this.changes.getCompromisedassembly().addAll(listChanges);
+                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
+                this.changes.setChanged(true);
             }
         }
     }
 
     @Override
-    public void calculateResourceContainerToResourcePropagation(final CredentialChange changes) {
-        final var listInfectedContainer = getInfectedResourceContainers(changes);
+    public void calculateResourceContainerToResourcePropagation() {
+        final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var resources = getConnectedResourceContainers(resource).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
 
             final var handler = getResourceHandler();
-            handler.attackResourceContainer(resources, changes, resource);
+            handler.attackResourceContainer(resources, this.changes, resource);
         }
 
     }
@@ -115,14 +115,14 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     protected abstract ResourceContainerHandler getResourceHandler();
 
     @Override
-    public void calculateResourceContainerToLinkingResourcePropagation(final CredentialChange changes) {
-        final var listInfectedContainer = getInfectedResourceContainers(changes);
+    public void calculateResourceContainerToLinkingResourcePropagation() {
+        final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var linkinResources = getLinkingResource(resource).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             final var handler = getLinkingHandler();
-            handler.attackLinkingResource(linkinResources, changes, resource);
+            handler.attackLinkingResource(linkinResources, this.changes, resource);
         }
 
     }

@@ -32,7 +32,7 @@ public class EmptyAttackTests extends TravelPlannerCaseStudy {
                 .getAttackcomponent().get(0).getAffectedElement();
 
 
-        assertEquals(10, attacker.getCompromiseddata().size());
+        assertEquals(10, change.getCompromiseddata().size());
 
 
     }

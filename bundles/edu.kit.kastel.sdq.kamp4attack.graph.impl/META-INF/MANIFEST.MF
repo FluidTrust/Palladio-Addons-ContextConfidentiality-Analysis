@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Impl
+Bundle-SymbolicName: edu.kit.kastel.sdq.kamp4attack.graph.impl
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: edu.kit.kastel.sdq.kamp4attack.graph.impl.Activator
+Require-Bundle: org.eclipse.core.runtime,
+ edu.kit.kastel.sdq.kamp4attack.graph.api;bundle-version="1.0.0",
+ org.eclipse.osgi.services;bundle-version="3.8.0",
+ edu.kit.ipd.sdq.kamp.model.modificationmarks;bundle-version="1.0.0",
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
+ org.apache.log4j;bundle-version="1.2.15"
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Automatic-Module-Name: edu.kit.kastel.sdq.kamp4attack.graph.impl
+Bundle-ActivationPolicy: lazy
+Service-Component: OSGI-INF/edu.kit.kastel.sdq.kamp4attack.graph.impl.GraphCreation.xml

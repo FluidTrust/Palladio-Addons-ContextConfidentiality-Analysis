@@ -29,8 +29,8 @@ class PropagationContextResourceTest extends AbstractChangeTests {
         final var wrapper = getBlackboardWrapper();
         //        final var resourceChange = new ContextChanges(wrapper);
         //        resourceChange.calculateContextToResourcePropagation(change);
-        final var resourceChange = new ResourceContainerPropagationContext(wrapper);
-        resourceChange.calculateResourceContainerToResourcePropagation(change);
+        final var resourceChange = new ResourceContainerPropagationContext(wrapper, change);
+        resourceChange.calculateResourceContainerToResourcePropagation();
 
     }
 

@@ -25,7 +25,7 @@ public class TestInitializer {
                         "org.glassfish.hk2.osgi-resource-locator")
                 .registerProjectURI(javax.xml.bind.JAXB.class, "jakarta.xml.bind")
                 .registerProjectURI(com.sun.xml.bind.v2.ClassFactory.class, "com.sun.xml.bind")
-                .registerProjectURI(com.att.research.xacmlatt.pdp.policy.PolicySet.class, "external-dependencies")
+//                .registerProjectURI(com.att.research.xacmlatt.pdp.policy.PolicySet.class, "external-dependencies")
                 .registerProjectURI(Marshaller.class, "external-dependencies")
                 .addCustomTask(new Log4jInitilizationTask()).build().init();
     }

@@ -17,8 +17,8 @@ class PropagationLinkingTest extends AbstractChangeTests {
     private void runLinkingToContextPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
-        final var linkingChange = new LinkingPropagationContext(wrapper);
-        linkingChange.calculateLinkingResourceToContextPropagation(change);
+        final var linkingChange = new LinkingPropagationContext(wrapper, change);
+        linkingChange.calculateLinkingResourceToContextPropagation();
     }
 
     @Test

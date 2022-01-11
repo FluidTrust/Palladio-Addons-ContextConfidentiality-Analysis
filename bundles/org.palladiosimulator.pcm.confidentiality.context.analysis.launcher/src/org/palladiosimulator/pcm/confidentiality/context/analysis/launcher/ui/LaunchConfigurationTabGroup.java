@@ -4,7 +4,6 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.ui;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTabGroup;
 import org.eclipse.debug.ui.CommonTab;
 import org.eclipse.debug.ui.ILaunchConfigurationDialog;
-import org.eclipse.debug.ui.ILaunchConfigurationTab;
 
 /**
  * Parent Group of the tab configuration.
@@ -19,7 +18,7 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
      */
     @Override
     public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
-        this.setTabs(new ILaunchConfigurationTab[] { new ModelInputTab(), new CommonTab() });
+        setTabs(new ModelInputTab(), new AttackerAnalysisConfigurationTab(), new CommonTab());
     }
 
 }

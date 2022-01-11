@@ -27,7 +27,7 @@ public class LaunchDelegate
     @Override
     protected ContextAnalysisWorkflowConfig deriveConfiguration(final ILaunchConfiguration configuration,
             final String mode) throws CoreException {
-        final var output = configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL.getConstant(), "default");
+        final var output = configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL, "default");
         ContextAnalysisWorkflowConfig config = null;
         switch (output) {
         case "Scenario":

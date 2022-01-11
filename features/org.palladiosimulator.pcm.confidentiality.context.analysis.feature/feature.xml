@@ -148,4 +148,25 @@
          version="0.0.0"
          unpack="false"/>
 
+   <plugin
+         id="edu.kit.kastel.sdq.kamp4attack.graph.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.kit.kastel.sdq.kamp4attack.graph.impl"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+   
+   <plugin
+         id="org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>            
+
 </feature>

@@ -3,38 +3,6 @@
   <attackers>
     <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="EmptyAttacker" attacks="_y29cwDl2EeyxuvclpmtFmA">
       <compromisedResources href="../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
-      <compromiseddata id="_YT8HoDpTEey1ttoD6zpJDw" referenceName="requestData">
-        <dataType xsi:type="repository:CompositeDataType" href="../default.repository#_0D_NYM5hEeWFJak7Wqvc0g"/>
-        <source href="../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8HoTpTEey1ttoD6zpJDw" referenceName="offerId">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
-        <source href="../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8HojpTEey1ttoD6zpJDw" referenceName="ccd_decl">
-        <dataType xsi:type="repository:CompositeDataType" href="../default.repository#_WVGGLc5iEeWFJak7Wqvc0g"/>
-        <source href="../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8HozpTEey1ttoD6zpJDw" referenceName="flights">
-        <dataType xsi:type="repository:CollectionDataType" href="../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../default.repository#_j3xt4MNzEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8usDpTEey1ttoD6zpJDw">
-        <dataType xsi:type="repository:CollectionDataType" href="../default.repository#_XfY5nM5jEeWFJak7Wqvc0g"/>
-        <source href="../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8usTpTEey1ttoD6zpJDw">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../default.repository#_00dt8MNyEeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8usjpTEey1ttoD6zpJDw">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../default.repository#_nXaBAMN0EeWPE-QAhbUzuQ"/>
-      </compromiseddata>
-      <compromiseddata id="_YT8uszpTEey1ttoD6zpJDw">
-        <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.2"/>
-        <source href="../default.repository#_JstSUNTzEee-_bZGhm8PwA"/>
-      </compromiseddata>
     </attacker>
   </attackers>
   <attacks>
