@@ -30,7 +30,9 @@ Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.kamp4attack.activator,
  edu.kit.ipd.sdq.kamp4attack.core,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers,
- edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context,
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes,
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps
 Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
 Service-Component: OSGI-INF/edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis.xml
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack
