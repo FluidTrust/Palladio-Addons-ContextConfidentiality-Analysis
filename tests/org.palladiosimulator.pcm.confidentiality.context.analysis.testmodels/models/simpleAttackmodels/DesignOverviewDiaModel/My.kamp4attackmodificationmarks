@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
     <attackcomponent>
       <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_NxbyoFmWEeyYJNGe-i7GBA"/>
     </attackcomponent>
   </seedModifications>
-  <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange"/>
+  <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
+    <compromisedassembly>
+      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
+    </compromisedassembly>
+    <compromisedassembly>
+      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+    </compromisedassembly>
+    <contextchange>
+      <affectedElement xsi:type="system:UsageSpecification" href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
+    </contextchange>
+    <contextchange>
+      <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
+    </contextchange>
+    <compromisedservice affectedElement="_d0NeAHd3EeyhRP0p7t0bSA" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+    </compromisedservice>
+    <servicerestrictioncontainer>
+      <servicerestriction id="_d0NeAHd3EeyhRP0p7t0bSA">
+        <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
+        <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
+      </servicerestriction>
+    </servicerestrictioncontainer>
+    <datamodelcontainer/>
+  </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>
