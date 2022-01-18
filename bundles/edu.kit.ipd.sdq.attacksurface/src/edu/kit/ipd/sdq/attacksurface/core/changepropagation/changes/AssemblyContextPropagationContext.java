@@ -1,5 +1,7 @@
-package edu.kit.ipd.sdq.attacksurface.changepropagation.changes;
+package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
@@ -8,21 +10,27 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
-import edu.kit.ipd.sdq.attacksurface.attackhandlers.context.AssemblyContextContext;
+import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.MethodContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
-    private final AttackDAG attackDAG;
+    private final AssemblyContext criticalAssemblyContext;
     
-    public AssemblyContextPropagationContext(final BlackboardWrapper v, final CredentialChange changes, final AttackDAG attackDAG) {
+    public AssemblyContextPropagationContext(final BlackboardWrapper v, final CredentialChange changes, 
+            final AssemblyContext criticalAssemblyContext) {
         super(v, changes);
-        this.attackDAG = attackDAG;
+        this.criticalAssemblyContext = criticalAssemblyContext;
+    }
+    
+    @Override
+    protected Collection<AssemblyContext> loadInitialMarkedItems() {
+        return Arrays.asList(this.criticalAssemblyContext); //TODO ok? are this the initial items?
     }
 
     @Override
@@ -53,33 +61,6 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
             final AssemblyContext source) {
         final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(changes));
         handler.attackService(services, changes, source);
-        
-        //TODO maybe add this somewhere else or write new
-        final boolean isSourceCompromised = 
-                changes.getCompromisedassembly()
-                    .stream()
-                    .map(c -> c.getAffectedElement())
-                    .anyMatch(a -> a.getId().equals(source.getId()));
-        //TODO evtl. anders aufbauen generell ^: die analyse muss ein anderes interface verwenden und die elemente durchgehen
-        if (isSourceCompromised) {
-            final AttackStatusDescriptorNodeContent nodeContent = new AttackStatusDescriptorNodeContent(source);
-            final AttackStatusDescriptorNodeContent foundNodeContent;
-            if (this.attackDAG.contains(nodeContent)) {
-                foundNodeContent = this.attackDAG.find(nodeContent).getContent();
-            } else {
-                foundNodeContent = nodeContent;
-                this.attackDAG.addToContextParentNode(foundNodeContent);
-            }
-            foundNodeContent.setCompromised(true);
-            adaptDAG(changes, foundNodeContent);
-            //TODO loop
-        }
-    }
-
-    private void adaptDAG(final CredentialChange changes, 
-            final AttackStatusDescriptorNodeContent compromisedNodeContent) {
-        // TODO implement: decide wether to attack elements closer or more far away from root (critical)
-        
     }
 
 }

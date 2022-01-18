@@ -13,18 +13,18 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
-import edu.kit.ipd.sdq.attacksurface.changepropagation.changes.AssemblyContextPropagationContext;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.LinkingPropagationContext;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.LinkingPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationVulnerability;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -62,7 +62,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 
         createInitialStructure(board); //TODO implement
         
-        //TODO adapt, just for initial testing ////////////////
+        //TODO adapt to get critical element from surface attacker, this is just for initial testing ////////////////
         this.criticalAssembly = board.getAssembly().getAssemblyContexts__ComposedStructure()
         		.stream()
         		.filter(a -> a.getEntityName().equals("Assembly_Critical"))
@@ -72,7 +72,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         	throw new IllegalStateException("no \"Assembly_Critical\" assembly context found!");
         }
         this.changePropagationDueToCredential.getCompromisedassembly(); //TODO how to compromise component
-        ///////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
         
         this.attackDAG = new AttackDAG(this.criticalAssembly);
         
@@ -94,11 +94,11 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
     }
 
     private void createInitialStructure(BlackboardWrapper board) {
-    	//TODO adapt! //TODO local attacker not read correctly
+    	//TODO adapt!
     	
     	final var repository = board.getModificationMarkRepository();
         final var seedModification = repository.getSeedModifications();
-        final var attackers = seedModification.getAttackcomponent();
+        final var attackers = seedModification.getSurfaceattackcomponent();
         if (attackers == null) {
             throw new IllegalStateException("No seed modification found");
         }
@@ -108,7 +108,9 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         for (final var attacker : attackers) {
             final var localAttacker = attacker.getAffectedElement();
 
-            final var listCredentialChanges = localAttacker.getCredentials().stream().map(context -> {
+            final var listCredentialChanges = localAttacker.getAttacker().getCredentials()
+                    .stream()
+                    .map(context -> {
                 final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
                 change.setAffectedElement(context);
                 return change;
@@ -117,7 +119,8 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
 
             // convert affectedResources to changes
-            final var affectedRessourcesList = localAttacker.getCompromisedResources().stream().map(resource -> {
+            final var affectedRessourcesList = localAttacker.getAttacker().
+                    getCompromisedResources().stream().map(resource -> {
                 final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(resource);
                 return change;
@@ -136,14 +139,14 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
                 }
             };
 
-            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents(),
+            assemblyHandler.attackAssemblyContext(localAttacker.getAttacker().getCompromisedComponents(),
                     this.changePropagationDueToCredential, null);
 
 
 
 
             // convert affectedLinkingResources to changes
-            final var affectedLinkingList = localAttacker.getCompromisedLinkingResources().stream()
+            final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
                     .map(linkingResource -> {
                         final var change = KAMP4attackModificationmarksFactory.eINSTANCE
                                 .createCompromisedLinkingResource();
@@ -159,12 +162,10 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 
 	private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
 		//TODO implement
-	    
-	    
 		
 		//TODO adapt to new analysis
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.criticalAssembly));
         //list.add(new AssemblyContextPropagationVulnerability(board)); //TODO add vuln.
         for (final var analysis : list) { //TODO adapt
             analysis.calculateAssemblyContextToAssemblyContextPropagation(); 

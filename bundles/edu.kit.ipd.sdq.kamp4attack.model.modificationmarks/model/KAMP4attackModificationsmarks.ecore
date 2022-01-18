@@ -20,6 +20,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="KAMP4attackSeedModifications" eSuperTypes="../../edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.ecore#//AbstractSeedModifications">
     <eStructuralFeatures xsi:type="ecore:EReference" name="attackcomponent" upperBound="-1"
         eType="#//AttackerSelection" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="surfaceattackcomponent"
+        upperBound="-1" eType="#//SurfaceAttackerSelection" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifyEntity" abstract="true">
     <eTypeParameters name="T">
@@ -93,5 +95,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="datamodelattacker" upperBound="-1"
         eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//DatamodelAttacker"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SurfaceAttackerSelection">
+    <eGenericSuperTypes eClassifier="#//ModifyEntity">
+      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//SurfaceAttacker"/>
+    </eGenericSuperTypes>
   </eClassifiers>
 </ecore:EPackage>
