@@ -8,7 +8,7 @@ public class AttackStatusDescriptorNodeContent implements NodeContent {
     private final AssemblyContext containedAssembly; // TODO adapt ++ this is the (critical) element (see also core main class
     
     //compromisation status
-    private boolean compromised;
+    private boolean compromised; //TODO at the moment takeover == compromised
     //TODO private boolean takeOver;
     
     public AttackStatusDescriptorNodeContent(final AssemblyContext containedAssembly) {

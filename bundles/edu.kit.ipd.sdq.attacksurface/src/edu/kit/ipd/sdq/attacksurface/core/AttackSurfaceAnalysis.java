@@ -2,14 +2,36 @@ package edu.kit.ipd.sdq.attacksurface.core;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
@@ -26,9 +48,11 @@ import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AttackPathImpl;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyImpl;
 
 /**
@@ -58,24 +82,10 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
         CacheCompromised.instance().register(this.changePropagationDueToCredential);
+        
         // prepare
-
-        createInitialStructure(board); //TODO implement
-        
-        //TODO adapt to get critical element from surface attacker, this is just for initial testing ////////////////
-        this.criticalAssembly = board.getAssembly().getAssemblyContexts__ComposedStructure()
-        		.stream()
-        		.filter(a -> a.getEntityName().equals("Assembly_Critical"))
-        		.findAny()
-        		.orElse(null);
-        if (this.criticalAssembly == null) {
-        	throw new IllegalStateException("no \"Assembly_Critical\" assembly context found!");
-        }
-        this.changePropagationDueToCredential.getCompromisedassembly(); //TODO how to compromise component
-        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
+        createInitialStructure(board);
         this.attackDAG = new AttackDAG(this.criticalAssembly);
-        
         
         //TODO adapt
         // Calculate
@@ -84,7 +94,6 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             /*TODO calculateAndMarkLinkingPropagation(board);
             calculateAndMarkResourcePropagation(board);*/
             calculateAndMarkAssemblyPropagation(board);
-
         } while (this.changePropagationDueToCredential.isChanged()); 
 
         // Clear caches
@@ -105,8 +114,9 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 
         repository.getChangePropagationSteps().clear();
 
-        for (final var attacker : attackers) {
+        for (final var attacker : attackers) { //TODO at the moment only one attacker allowed
             final var localAttacker = attacker.getAffectedElement();
+            this.criticalAssembly = localAttacker.getCriticalElement().getAssemblycontext(); //TODO more general
 
             final var listCredentialChanges = localAttacker.getAttacker().getCredentials()
                     .stream()
@@ -139,12 +149,8 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
                 }
             };
 
-            assemblyHandler.attackAssemblyContext(localAttacker.getAttacker().getCompromisedComponents(),
-                    this.changePropagationDueToCredential, null);
-
-
-
-
+            assemblyHandler.attackAssemblyContext(Arrays.asList(this.criticalAssembly), this.changePropagationDueToCredential, null);
+            
             // convert affectedLinkingResources to changes
             final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
                     .map(linkingResource -> {
@@ -159,13 +165,13 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
 		
 	}
-
-	private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
+	
+    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
 		//TODO implement
 		
 		//TODO adapt to new analysis
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.criticalAssembly));
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
         //list.add(new AssemblyContextPropagationVulnerability(board)); //TODO add vuln.
         for (final var analysis : list) { //TODO adapt
             analysis.calculateAssemblyContextToAssemblyContextPropagation(); 

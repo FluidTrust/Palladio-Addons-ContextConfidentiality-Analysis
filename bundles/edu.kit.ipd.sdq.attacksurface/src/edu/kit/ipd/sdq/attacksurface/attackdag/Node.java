@@ -20,8 +20,10 @@ public class Node<T extends NodeContent> {
         return this.content;
     }
 
-    public void addChild (T childContent) {
-        this.childNodes.add(new Node<T>(Objects.requireNonNull(childContent), this));
+    public Node<T> addChild (T childContent) {
+        final Node<T> ret = new Node<T>(Objects.requireNonNull(childContent), this);
+        this.childNodes.add(ret);
+        return ret;
     }
     
     public boolean isRoot() {

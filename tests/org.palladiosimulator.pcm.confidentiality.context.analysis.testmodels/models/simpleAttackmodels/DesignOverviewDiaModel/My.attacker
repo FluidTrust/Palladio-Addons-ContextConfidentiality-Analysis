@@ -12,7 +12,7 @@
   </attackers>
   <attacks/>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" cveID="//@categoryspecification/@categories.0">
+    <vulnerability xsi:type="attack:CVEVulnerability" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
       <requiredCredentials href="My.context#_Dh0CcVWwEeyAu8-8Lz7_vA"/>
     </vulnerability>
   </vulnerabilites>

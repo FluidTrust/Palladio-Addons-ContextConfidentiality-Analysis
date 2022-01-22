@@ -1,23 +1,34 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
+import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
+import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
+import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
@@ -26,13 +37,17 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Linking
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.Change;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
-
-    protected AssemblyContextChange(final BlackboardWrapper v, CredentialChange change) {
+    private AttackDAG attackDAG;
+    
+    protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change, final AttackDAG attackDAG) {
         super(v, change);
+        this.attackDAG = attackDAG;
     }
 
     @Override
@@ -73,13 +88,13 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     }
 
-    private void handleSeff(final AssemblyContext soureComponent) {
+    private void handleSeff(final AssemblyContext sourceComponent) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
-        final var targetConnectors = getTargetedConnectors(soureComponent, system);
+        final var targetConnectors = getSourcedConnectors(sourceComponent, system);
 
         final var specification = targetConnectors.stream()
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), soureComponent))
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), sourceComponent))
                 .flatMap(role -> {
 
                     final var signatures = role.getProvidedRole_AssemblyConnector()
@@ -109,7 +124,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                     }
                     return Stream.empty();
                 }).collect(Collectors.toList());
-        this.handleSeff(this.changes, specification, soureComponent);
+        this.handleSeff(this.changes, specification, sourceComponent);
     }
 
     protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> services,
@@ -144,19 +159,75 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
-        //TODO adapt
-        final var listCompromisedContexts = getCompromisedAssemblyContexts();
-        for (final var component : listCompromisedContexts) {
-            var targetComponents = getConnectedComponents(component).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-
+        final var criticalAssembly = this.attackDAG.getRootNode().getContent().getContainedAssembly();
+        
+        final var selectedNode = this.attackDAG.getSelectedNode();
+        final var selectedComponent = selectedNode.getContent().getContainedAssembly();
+        var sourceComponents = getConnectedComponents(selectedComponent)/*.stream()
+                   .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())*/; //TODO
+        AttackPath path = null;
+        for (final var sourceComponent : sourceComponents) {
             final var handler = getAssemblyHandler();
-            targetComponents = CollectionHelper.removeDuplicates(targetComponents).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handler.attackAssemblyContext(targetComponents, this.changes, component);
-            this.handleSeff(component);
+            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, sourceComponent); //TODO
+            this.handleSeff(sourceComponent);
+            
+            // continue building the DAG
+            final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(sourceComponent));
+            
+            //TODO do not allow circles!!
+            // select the child node and recursively call the propagation call if the selectedComponent is not yet attacked
+            if (!CacheCompromised.instance().compromised(selectedComponent)) {
+                this.attackDAG.setSelectedNode(childNode);
+                this.calculateAssemblyContextToAssemblyContextPropagation();
+                this.attackDAG.setSelectedNode(selectedNode);
+            } else {
+                //handle AttackPath addition //TODO connection DAG <--> path!
+                path = addToAttackPathIfNecessary(this.modelStorage, this.changes, 
+                            path, selectedComponent, toPCMElement(criticalAssembly)); //TODO this is not correct like this
+            }
         }
-
+    }
+    
+    private static PCMElement toPCMElement(final AssemblyContext assembly) {
+        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
+        pcmElement.setAssemblycontext(assembly);
+        return pcmElement;
+    }
+    
+    private static AttackPath addToAttackPathIfNecessary(final BlackboardWrapper board, final CredentialChange changes,
+            final AttackPath pathArg, final Entity entity, final PCMElement criticalPCMElement) {
+        AttackPath path = pathArg;
+        if (CacheCompromised.instance().compromised(entity)) {
+            if (path == null) {
+                path = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
+                path.setCriticalElement(criticalPCMElement);
+            }
+            //TODO later: find out which vuln. lead to it somehow and set the vulnerability respectively
+            final var systemIntegration = board.getVulnerabilitySpecification().getVulnerabilities()
+                    .stream()
+                    .filter(getElementIdEqualityPredicate(entity))
+                    .findAny()
+                    .orElse(null);
+            if (systemIntegration != null) {
+                systemIntegration.setPcmelement(path.getCriticalElement());
+                path.getPath().add(systemIntegration);
+                if (pathArg == null) {
+                    changes.getAttackpaths().add(path);
+                }
+                return path;
+            }
+        }
+        return null;
+    }
+    
+    private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
+        return s -> {
+            final Set<String> ids = new HashSet<>();
+            final var pcmElement = s.getPcmelement();
+            ids.add(pcmElement.getAssemblycontext().getId());
+            //TODO adapt for other entity types as well and also check for null before!
+            return ids.contains(entity.getId());
+        };
     }
 
     @Override
@@ -190,29 +261,31 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
-        //TODO hier evtl. anpassen: relevant connected components (s.u.)
         final var system = this.modelStorage.getAssembly();
-        final var targetConnectors = getTargetedConnectors(component, system);
+        final var sourceConnectors = getSourcedConnectors(component, system);
 
-        final var targetComponents = targetConnectors.stream()
+        final var sourceComponents = sourceConnectors
+                .stream()
                 .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+                .filter(e -> !EcoreUtil.equals(e, component))
+                .distinct() //TODO geht das so?
+                .collect(Collectors.toList());
+        /* TODO remove v (s.u.)
+          final var sourceComponents = sourceConnectors.stream()
+                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
                 .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
 
-        targetComponents
-        .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
-        return targetComponents;
+        sourceComponents
+            .addAll(sourceConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));*/
+        return sourceComponents;
     }
 
-    private List<AssemblyConnector> getTargetedConnectors(final AssemblyContext component, final System system) {
-        //TODO hier anpassen: relevant targeted connectors, also die targeted connectors, die zum critical element hinfuehren (dafuer wird der graph benoetigt)
-        //TODO anpassen generell: welche sind verbunden mit den eingaengen
-        //TODO wie kann ich das element angreifen
-        //TODO vulnerability ausnutzen
+    private List<AssemblyConnector> getSourcedConnectors(final AssemblyContext component, final System system) {
         return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
+                        /*|| EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component)*/) //TODO providing too?
                 .collect(Collectors.toList());
     }
 

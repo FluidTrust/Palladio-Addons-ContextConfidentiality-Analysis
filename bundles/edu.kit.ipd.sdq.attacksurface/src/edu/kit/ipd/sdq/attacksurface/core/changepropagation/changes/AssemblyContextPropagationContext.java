@@ -16,44 +16,36 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Assembl
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.AssemblyContextContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.LinkingResourceContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.MethodContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.ResourceContainerContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
-    private final AssemblyContext criticalAssemblyContext;
     
     public AssemblyContextPropagationContext(final BlackboardWrapper v, final CredentialChange changes, 
-            final AssemblyContext criticalAssemblyContext) {
-        super(v, changes);
-        this.criticalAssemblyContext = criticalAssemblyContext;
-    }
-    
-    @Override
-    protected Collection<AssemblyContext> loadInitialMarkedItems() {
-        return Arrays.asList(this.criticalAssemblyContext); //TODO ok? are this the initial items?
+            final AttackDAG attackDAG) {
+        super(v, changes, attackDAG);
     }
 
     @Override
     protected ResourceContainerHandler getLocalResourceHandler() {
-    	return null; //TODO
-        //TODO return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+    	return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected AssemblyContextHandler getAssemblyHandler() {
-        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(changes));
+        return new AssemblyContextContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected LinkingResourceHandler getLinkingHandler() {
-    	return null; //TODO
-        //TODO return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+    	 return new LinkingResourceContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
     protected ResourceContainerHandler getRemoteResourceHandler() {
-    	return null; //TODO
-        //TODO return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(getAttacker()));
+    	return new ResourceContainerContext(this.modelStorage, new DataHandlerAttacker(this.changes));
     }
 
     @Override
