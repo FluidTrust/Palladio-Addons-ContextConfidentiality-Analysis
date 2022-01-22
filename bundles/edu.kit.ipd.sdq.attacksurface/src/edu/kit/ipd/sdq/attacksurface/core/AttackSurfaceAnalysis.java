@@ -85,7 +85,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             calculateAndMarkResourcePropagation(board);*/
             calculateAndMarkAssemblyPropagation(board);
 
-        } while (this.changePropagationDueToCredential.isChanged());
+        } while (this.changePropagationDueToCredential.isChanged()); 
 
         // Clear caches
         CachePDP.instance().clearCache();

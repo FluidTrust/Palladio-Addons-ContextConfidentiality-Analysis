@@ -190,6 +190,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
+        //TODO hier evtl. anpassen: relevant connected components (s.u.)
         final var system = this.modelStorage.getAssembly();
         final var targetConnectors = getTargetedConnectors(component, system);
 
@@ -204,6 +205,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     private List<AssemblyConnector> getTargetedConnectors(final AssemblyContext component, final System system) {
+        //TODO hier anpassen: relevant targeted connectors, also die targeted connectors, die zum critical element hinfuehren (dafuer wird der graph benoetigt)
+        //TODO anpassen generell: welche sind verbunden mit den eingaengen
+        //TODO wie kann ich das element angreifen
+        //TODO vulnerability ausnutzen
         return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
