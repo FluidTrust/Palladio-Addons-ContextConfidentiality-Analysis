@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
+    <attackcomponent>
+      <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_NxbyoFmWEeyYJNGe-i7GBA"/>
+    </attackcomponent>
     <surfaceattackcomponent>
-      <affectedElement xsi:type="attacker:SurfaceAttacker" href="My.attacker#_rBar0HhLEeyd6uUMLQnNTQ"/>
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="My.attacker#_1bldUXxsEeyzIsMa4XGEVQ"/>
     </surfaceattackcomponent>
   </seedModifications>
   <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
-    <compromisedassembly>
+    <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
     </compromisedassembly>
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
@@ -15,20 +20,30 @@
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </contextchange>
-    <compromisedservice affectedElement="_Cy_fMHuwEeyhyOzIhQVRyQ" toolderived="true">
+    <compromisedservice affectedElement="_aS5RYHxvEeyWTvKuTHmVIA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_Cy_fMHuwEeyhyOzIhQVRyQ">
+      <servicerestriction id="_aS5RYHxvEeyWTvKuTHmVIA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
+      </servicerestriction>
+      <servicerestriction id="_aS8UsHxvEeyWTvKuTHmVIA">
+        <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
+        <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
+      </servicerestriction>
+      <servicerestriction id="_aS87wHxvEeyWTvKuTHmVIA">
+        <signature xsi:type="repository:OperationSignature" href="My.repository#_qra3cFBbEeyXHY01PFJiNw"/>
+        <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        <service href="My.repository#_Hj6FsFBcEeyXHY01PFJiNw"/>
       </servicerestriction>
     </servicerestrictioncontainer>
     <datamodelcontainer/>
     <attackpaths>
       <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_GCaokHuwEeyhyOzIhQVRyQ"/>
+      <criticalElement href="My.attacker#_hXAjcHxmEeyxKt7G5MH1AQ"/>
     </attackpaths>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>

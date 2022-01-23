@@ -25,7 +25,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModifyEntity" abstract="true">
     <eTypeParameters name="T">
-      <eBounds eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity"/>
+      <eBounds eClassifier="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity"/>
     </eTypeParameters>
     <eGenericSuperTypes eClassifier="ecore:EClass ../../edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.ecore#//AbstractModification">
       <eTypeArguments eTypeParameter="#//ModifyEntity/T"/>
@@ -60,12 +60,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
-      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
+      <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/ResourceContainer"/>
     </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedAssembly">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
-      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+      <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
     </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ContextChange">
@@ -75,7 +75,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedLinkingResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
-      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
+      <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//resourceenvironment/LinkingResource"/>
     </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedService">

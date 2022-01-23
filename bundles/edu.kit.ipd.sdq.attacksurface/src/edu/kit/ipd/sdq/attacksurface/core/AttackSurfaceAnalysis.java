@@ -138,7 +138,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
             // convert affectedAssemblyContexts to changes
-            var assemblyHandler = new AssemblyContextHandler(board, new DataHandlerAttacker(this.changePropagationDueToCredential)) {
+            /*var assemblyHandler = new AssemblyContextHandler(board, new DataHandlerAttacker(this.changePropagationDueToCredential)) {
                 @Override
                 protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
                         EObject source){
@@ -150,6 +150,9 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             };
 
             assemblyHandler.attackAssemblyContext(Arrays.asList(this.criticalAssembly), this.changePropagationDueToCredential, null);
+            */ //TODO remove ^ 
+            
+            //TODO add all possible attacks to the attack container and the attacker
             
             // convert affectedLinkingResources to changes
             final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
@@ -171,8 +174,8 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 		
 		//TODO adapt to new analysis
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
-        //list.add(new AssemblyContextPropagationVulnerability(board)); //TODO add vuln.
+        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
+        //list.add(new AssemblyContextPropagationContext(board));
         for (final var analysis : list) { //TODO adapt
             analysis.calculateAssemblyContextToAssemblyContextPropagation(); 
             //TODO add others

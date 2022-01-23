@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
@@ -28,6 +29,7 @@ import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
+import edu.kit.ipd.sdq.attacksurface.attackdag.Node;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -44,10 +46,13 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
     private AttackDAG attackDAG;
-    
-    protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change, final AttackDAG attackDAG) {
+    private int index;
+
+    protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
+            final AttackDAG attackDAG) {
         super(v, change);
         this.attackDAG = attackDAG;
+        this.index = 0;
     }
 
     @Override
@@ -56,8 +61,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     protected List<AssemblyContext> getCompromisedAssemblyContexts() {
-        return this.changes.getCompromisedassembly().stream()
-                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+        return this.changes.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -72,7 +77,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         updateFromContextProviderStream(this.changes, streamAttributeProvider);
 
     }
-
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
@@ -114,10 +118,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                                     final var methodspecification = StructureFactory.eINSTANCE
                                             .createServiceRestriction();
                                     methodspecification
-                                    .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
                                     methodspecification.setService((ResourceDemandingSEFF) seff);
                                     methodspecification
-                                    .setSignature(methodspecification.getService().getDescribedService__SEFF());
+                                            .setSignature(methodspecification.getService().getDescribedService__SEFF());
                                     return methodspecification;
                                 });
 
@@ -160,80 +164,128 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
         final var criticalAssembly = this.attackDAG.getRootNode().getContent().getContainedAssembly();
-        
+        final var criticalElement = toPCMElement(this.modelStorage, criticalAssembly);
+
         final var selectedNode = this.attackDAG.getSelectedNode();
         final var selectedComponent = selectedNode.getContent().getContainedAssembly();
-        var sourceComponents = getConnectedComponents(selectedComponent)/*.stream()
-                   .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())*/; //TODO
-        AttackPath path = null;
+        var sourceComponents = getConnectedComponents(
+                selectedComponent)/*
+                                   * .stream() .filter(e ->
+                                   * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())
+                                   */; // TODO
+        final var handler = getAssemblyHandler();
+        handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent); // TODO
+        if (CacheCompromised.instance().compromised(selectedComponent)) {
+            this.handleSeff(selectedComponent);
+            generateAttackPath(selectedNode, criticalElement);
+        }
+
         for (final var sourceComponent : sourceComponents) {
-            final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, sourceComponent); //TODO
-            this.handleSeff(sourceComponent);
-            
             // continue building the DAG
             final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(sourceComponent));
-            
-            //TODO do not allow circles!!
-            // select the child node and recursively call the propagation call if the selectedComponent is not yet attacked
-            if (!CacheCompromised.instance().compromised(selectedComponent)) {
-                this.attackDAG.setSelectedNode(childNode);
-                this.calculateAssemblyContextToAssemblyContextPropagation();
-                this.attackDAG.setSelectedNode(selectedNode);
+
+            // TODO do not allow circles!!
+            final var childComponent = childNode.getContent().getContainedAssembly();
+            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent); // TODO
+            if (CacheCompromised.instance().compromised(selectedComponent)) {
+                this.handleSeff(childComponent);
+                generateAttackPath(selectedNode, criticalElement);
             } else {
-                //handle AttackPath addition //TODO connection DAG <--> path!
-                path = addToAttackPathIfNecessary(this.modelStorage, this.changes, 
-                            path, selectedComponent, toPCMElement(criticalAssembly)); //TODO this is not correct like this
+                // select the child node and recursively call the propagation call if the
+                // selectedComponent is not yet attacked
+                this.attackDAG.setSelectedNode(childNode);
+                this.index++;
+                this.calculateAssemblyContextToAssemblyContextPropagation();
+                this.index--;
+                this.attackDAG.setSelectedNode(selectedNode);
+            }
+        }
+
+    }
+
+    private void generateAttackPath(final Node<AttackStatusDescriptorNodeContent> selectedNode,
+            final PCMElement criticalElement) {
+        // handle AttackPath adaption (connection DAG <--> path)
+        selectedNode.getContent().setCompromised(true);
+
+        final var subPath = this.attackDAG.getSubPaths().size() <= this.index ? new ArrayList<>()
+                : this.attackDAG.getSubPaths().get(this.index);
+        if ((selectedNode.isRoot() || subPath.contains(selectedNode.getParent())) && !subPath.contains(selectedNode)) {
+            this.attackDAG.addNodeToSubPath(this.index, selectedNode);
+            convertToAttackPath(this.modelStorage, this.attackDAG.getSubPaths().get(this.index), criticalElement);
+        }
+    }
+
+    private void convertToAttackPath(final BlackboardWrapper board,
+            final List<Node<AttackStatusDescriptorNodeContent>> selectedPath, final PCMElement criticalPCMElement) {
+        if (!selectedPath.isEmpty()) {
+            final AttackPath path = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
+            path.setCriticalElement(criticalPCMElement);
+
+            for (final var node : selectedPath) {
+                final var nodeContent = node.getContent();
+                if (nodeContent.isCompromised()) {
+                    final AssemblyContext assembly = nodeContent.getContainedAssembly(); // TODO more general
+                    final PCMElement element = toPCMElement(board, assembly);
+
+                    // TODO call method defined in sub-class for vuln. or something similar
+                    final var systemIntegration = board.getVulnerabilitySpecification().getVulnerabilities().stream()
+                            .filter(getElementIdEqualityPredicate(assembly)).findAny().orElse(null);
+                    if (systemIntegration != null && !contains(path, systemIntegration)) {
+                        systemIntegration.setPcmelement(element);
+                        path.getPath().add(systemIntegration);
+                    }
+                } else {
+                    break; // TODO: later maybe adapt for paths with gaps
+                }
+            }
+
+            final boolean isPathAlreadyThere = this.changes.getAttackpaths().contains(path); // TODO does this work like
+                                                                                             // this
+            if (!isPathAlreadyThere) {
+                this.changes.getAttackpaths().add(path);
             }
         }
     }
-    
-    private static PCMElement toPCMElement(final AssemblyContext assembly) {
+
+    private static boolean contains(AttackPath path, SystemIntegration systemIntegration) {
+        if (path != null && systemIntegration != null) {
+            return path.getPath().contains(systemIntegration); // TODO does this work like this?
+        }
+        return false;
+    }
+
+    private static PCMElement toPCMElement(final BlackboardWrapper board, final AssemblyContext assembly) {
+        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
+        if (container.stream().anyMatch(getElementIdEqualityPredicate(assembly))) {
+            final var sysIntegration = container.stream().filter(getElementIdEqualityPredicate(assembly)).findAny()
+                    .orElse(null);
+            return sysIntegration.getPcmelement();
+        }
         final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
         pcmElement.setAssemblycontext(assembly);
+        final var sysIntegration = PcmIntegrationFactory.eINSTANCE.createRoleSystemIntegration(); // TODO maybe use
+                                                                                                  // other system
+                                                                                                  // integration
+        container.add(sysIntegration);
         return pcmElement;
     }
-    
-    private static AttackPath addToAttackPathIfNecessary(final BlackboardWrapper board, final CredentialChange changes,
-            final AttackPath pathArg, final Entity entity, final PCMElement criticalPCMElement) {
-        AttackPath path = pathArg;
-        if (CacheCompromised.instance().compromised(entity)) {
-            if (path == null) {
-                path = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
-                path.setCriticalElement(criticalPCMElement);
-            }
-            //TODO later: find out which vuln. lead to it somehow and set the vulnerability respectively
-            final var systemIntegration = board.getVulnerabilitySpecification().getVulnerabilities()
-                    .stream()
-                    .filter(getElementIdEqualityPredicate(entity))
-                    .findAny()
-                    .orElse(null);
-            if (systemIntegration != null) {
-                systemIntegration.setPcmelement(path.getCriticalElement());
-                path.getPath().add(systemIntegration);
-                if (pathArg == null) {
-                    changes.getAttackpaths().add(path);
-                }
-                return path;
-            }
-        }
-        return null;
-    }
-    
+
     private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
         return s -> {
             final Set<String> ids = new HashSet<>();
             final var pcmElement = s.getPcmelement();
-            ids.add(pcmElement.getAssemblycontext().getId());
-            //TODO adapt for other entity types as well and also check for null before!
+            if (pcmElement != null && pcmElement.getAssemblycontext() != null)
+                ids.add(pcmElement.getAssemblycontext().getId());
+            // TODO adapt for other entity types as well and also check for null before!
             return ids.contains(entity.getId());
         };
     }
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream()
-                .filter(this::isGlobalElement).collect(Collectors.toList());
+        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
+                .collect(Collectors.toList());
 
         for (var component : listCompromisedContexts) {
             var resourceContainer = getResourceContainer(component);
@@ -264,20 +316,19 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var system = this.modelStorage.getAssembly();
         final var sourceConnectors = getSourcedConnectors(component, system);
 
-        final var sourceComponents = sourceConnectors
-                .stream()
+        final var sourceComponents = sourceConnectors.stream()
                 .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component))
-                .distinct() //TODO geht das so?
+                .filter(e -> !EcoreUtil.equals(e, component)).distinct() // TODO geht das so?
                 .collect(Collectors.toList());
-        /* TODO remove v (s.u.)
-          final var sourceComponents = sourceConnectors.stream()
-                .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
-
-        sourceComponents
-            .addAll(sourceConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));*/
+        /*
+         * TODO remove v (s.u.) final var sourceComponents = sourceConnectors.stream()
+         * .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+         * .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+         * 
+         * sourceComponents .addAll(sourceConnectors.stream().map(AssemblyConnector::
+         * getRequiringAssemblyContext_AssemblyConnector) .filter(e ->
+         * !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+         */
         return sourceComponents;
     }
 
@@ -285,7 +336,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                        /*|| EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component)*/) //TODO providing too?
+                /*
+                 * || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(),
+                 * component)
+                 */) // TODO providing too?
                 .collect(Collectors.toList());
     }
 

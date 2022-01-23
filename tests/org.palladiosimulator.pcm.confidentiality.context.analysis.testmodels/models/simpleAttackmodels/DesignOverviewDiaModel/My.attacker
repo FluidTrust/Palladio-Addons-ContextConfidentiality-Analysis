@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
-    <surfaceattacker id="_rBar0HhLEeyd6uUMLQnNTQ" entityName="TestSurfaceAttacker" criticalElement="_zD3rAHkqEeyDU_KjGfSNZw">
-      <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker">
-        <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
-        <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
-        <compromisedComponents href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
-        <compromisedComponents href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
-      </attacker>
-    </surfaceattacker>
+    <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker" attacks="_zlkeQXxpEeyn1NhAoZRRiA">
+      <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
+      <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
+      <compromisedComponents href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
+      <compromisedComponents href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+    </attacker>
+    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_hXAjcHxmEeyxKt7G5MH1AQ" attacker="_NxbyoFmWEeyYJNGe-i7GBA"/>
   </attackers>
-  <attacks/>
+  <attacks>
+    <attack xsi:type="attack:CVEAttack" id="_zlkeQXxpEeyn1NhAoZRRiA" entityName="CVEID Test Attack" category="//@categoryspecification/@categories.0"/>
+  </attacks>
   <vulnerabilites>
     <vulnerability xsi:type="attack:CVEVulnerability" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
       <requiredCredentials href="My.context#_Dh0CcVWwEeyAu8-8Lz7_vA"/>
@@ -21,7 +22,7 @@
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_sW6DwHkqEeyDU_KjGfSNZw" entityName="Critical Test Vulnerability Integration" vulnerability="//@vulnerabilites/@vulnerability.0">
-      <pcmelement id="_zD3rAHkqEeyDU_KjGfSNZw" entityName="PCMElement critical assembly">
+      <pcmelement id="_hXAjcHxmEeyxKt7G5MH1AQ" entityName="criticalPCMelement vuln">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
