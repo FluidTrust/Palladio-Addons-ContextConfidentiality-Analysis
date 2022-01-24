@@ -4,6 +4,13 @@ import java.util.Objects;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
+/**
+ * Represents a {@link NodeContent} containing the attack status for an element.
+ * TODO: at the moment only for {@link AssemblyContext}s.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public class AttackStatusDescriptorNodeContent implements NodeContent {
     private final AssemblyContext containedAssembly; // TODO adapt ++ this is the (critical) element (see also core main class
     

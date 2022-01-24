@@ -5,6 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Represents a node of a DAG.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ * @param <T> - the {@link NodeContent} implementation 
+ */
 public class Node<T extends NodeContent> {
     private final T content;
     private final Node<T> parent;

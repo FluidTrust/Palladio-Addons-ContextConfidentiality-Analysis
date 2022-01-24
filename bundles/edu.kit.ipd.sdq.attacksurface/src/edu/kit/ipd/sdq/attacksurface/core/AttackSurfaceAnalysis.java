@@ -169,11 +169,18 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 		
 	}
 	
+    /**
+     * Calculates the propagation starting from {@link AssemblyContext}s. 
+     * The analyses start from the critical element and try to calculate back possible attack paths to it. <br/>
+     * TODO: consider credentials and propagation to other model elements except assembly contexts 
+     * 
+     * @param board - the model storage
+     */
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
-		//TODO implement
         this.changePropagationDueToCredential.setChanged(false);
 		
-		//TODO adapt to new analysis
+        //TODO complete implementation
+        
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
         list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
         //list.add(new AssemblyContextPropagationContext(board));
