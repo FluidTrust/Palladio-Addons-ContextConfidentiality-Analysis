@@ -14,27 +14,35 @@
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
     </compromisedassembly>
+    <compromisedassembly toolderived="true">
+      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </compromisedassembly>
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
     </contextchange>
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </contextchange>
-    <compromisedservice affectedElement="_aS5RYHxvEeyWTvKuTHmVIA" toolderived="true">
+    <compromisedservice affectedElement="_Rb58IH0rEey8X6DiGg8rWA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
+    <compromisedservice affectedElement="_Rb_bsH0rEey8X6DiGg8rWA" toolderived="true">
+      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+    </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_aS5RYHxvEeyWTvKuTHmVIA">
+      <servicerestriction id="_Rb58IH0rEey8X6DiGg8rWA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
       </servicerestriction>
-      <servicerestriction id="_aS8UsHxvEeyWTvKuTHmVIA">
+      <servicerestriction id="_Rb_bsH0rEey8X6DiGg8rWA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
       </servicerestriction>
-      <servicerestriction id="_aS87wHxvEeyWTvKuTHmVIA">
+      <servicerestriction id="_RcAp0H0rEey8X6DiGg8rWA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_qra3cFBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_Hj6FsFBcEeyXHY01PFJiNw"/>
@@ -42,6 +50,11 @@
     </servicerestrictioncontainer>
     <datamodelcontainer/>
     <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
+      <criticalElement href="My.attacker#_hXAjcHxmEeyxKt7G5MH1AQ"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_5QT_IHkqEeyDU_KjGfSNZw"/>
       <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
       <criticalElement href="My.attacker#_hXAjcHxmEeyxKt7G5MH1AQ"/>
     </attackpaths>

@@ -171,6 +171,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 	
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
 		//TODO implement
+        this.changePropagationDueToCredential.setChanged(false);
 		
 		//TODO adapt to new analysis
 		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok

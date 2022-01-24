@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -163,6 +164,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
+
         final var criticalAssembly = this.attackDAG.getRootNode().getContent().getContainedAssembly();
         final var criticalElement = toPCMElement(this.modelStorage, criticalAssembly);
 
@@ -174,12 +176,17 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                                    * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())
                                    */; // TODO
         final var handler = getAssemblyHandler();
-        handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent); // TODO
-        if (CacheCompromised.instance().compromised(selectedComponent)) {
-            this.handleSeff(selectedComponent);
-            generateAttackPath(selectedNode, criticalElement);
+        boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
+        if (isNotCompromisedBefore) {
+            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent); // TODO
         }
 
+        if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
+            this.handleSeff(selectedComponent);
+            compromise(selectedNode);
+        }
+
+        isNotCompromisedBefore = !isCompromised(selectedComponent);
         for (final var sourceComponent : sourceComponents) {
             // continue building the DAG
             final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(sourceComponent));
@@ -187,43 +194,65 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             // TODO do not allow circles!!
             final var childComponent = childNode.getContent().getContainedAssembly();
             handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent); // TODO
-            if (CacheCompromised.instance().compromised(selectedComponent)) {
+            if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
                 this.handleSeff(childComponent);
-                generateAttackPath(selectedNode, criticalElement);
-            } else {
-                // select the child node and recursively call the propagation call if the
-                // selectedComponent is not yet attacked
-                this.attackDAG.setSelectedNode(childNode);
-                this.index++;
-                this.calculateAssemblyContextToAssemblyContextPropagation();
-                this.index--;
-                this.attackDAG.setSelectedNode(selectedNode);
+                compromise(selectedNode);
             }
+            
+            // select the child node and recursively call the propagation call
+            this.attackDAG.setSelectedNode(childNode);
+            this.index++;
+            this.calculateAssemblyContextToAssemblyContextPropagation();
+            this.index--;
+            this.attackDAG.setSelectedNode(selectedNode);
         }
-
+    }
+    
+    private void compromise(final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        selectedNode.getContent().setCompromised(true);
+        this.changes.setChanged(true);
+        generateAllFoundAttackPaths(this.attackDAG.getRootNode());
     }
 
-    private void generateAttackPath(final Node<AttackStatusDescriptorNodeContent> selectedNode,
-            final PCMElement criticalElement) {
-        // handle AttackPath adaption (connection DAG <--> path)
-        selectedNode.getContent().setCompromised(true);
+    private static final boolean isCompromised(final Entity entity) {
+        return CacheCompromised.instance().compromised(entity);
+    }
 
-        final var subPath = this.attackDAG.getSubPaths().size() <= this.index ? new ArrayList<>()
-                : this.attackDAG.getSubPaths().get(this.index);
-        if ((selectedNode.isRoot() || subPath.contains(selectedNode.getParent())) && !subPath.contains(selectedNode)) {
-            this.attackDAG.addNodeToSubPath(this.index, selectedNode);
-            convertToAttackPath(this.modelStorage, this.attackDAG.getSubPaths().get(this.index), criticalElement);
+    // TODO: these methods need to be somewhere else to be more reusable!
+    private List<List<AttackStatusDescriptorNodeContent>> generateAllFoundAttackPaths(
+            final Node<AttackStatusDescriptorNodeContent> root) { // TODO also partial paths?
+        List<List<AttackStatusDescriptorNodeContent>> allPaths = new ArrayList<>();
+        final var rootContent = root.getContent();
+        if (rootContent.isCompromised()) {
+            final var childrenOfRoot = root.getChildNodes();
+            for (final var childNode : childrenOfRoot) {
+                allPaths.addAll(generateAllFoundAttackPaths(childNode));
+            }
+
+            if (allPaths.isEmpty()) {
+                allPaths.add(new ArrayList<>(Arrays.asList(rootContent)));
+            } else {
+                allPaths.forEach(p -> p.add(rootContent));
+            }
+            // only at the end of the recursion create the actual output attack paths
+            if (root.equals(this.attackDAG.getRootNode())) {
+                allPaths = allPaths.stream().distinct().collect(Collectors.toList());
+                for (final var path : allPaths) {
+                    final var criticalElement = root.getContent().getContainedAssembly();
+                    convertToAttackPath(this.modelStorage, path, toPCMElement(this.modelStorage, criticalElement));
+                }
+            }
         }
+        return allPaths;
     }
 
     private void convertToAttackPath(final BlackboardWrapper board,
-            final List<Node<AttackStatusDescriptorNodeContent>> selectedPath, final PCMElement criticalPCMElement) {
+            final List<AttackStatusDescriptorNodeContent> selectedPath, final PCMElement criticalPCMElement) {
         if (!selectedPath.isEmpty()) {
             final AttackPath path = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
             path.setCriticalElement(criticalPCMElement);
 
-            for (final var node : selectedPath) {
-                final var nodeContent = node.getContent();
+            for (final var nodeContent : selectedPath) {
                 if (nodeContent.isCompromised()) {
                     final AssemblyContext assembly = nodeContent.getContainedAssembly(); // TODO more general
                     final PCMElement element = toPCMElement(board, assembly);
@@ -240,10 +269,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 }
             }
 
-            final boolean isPathAlreadyThere = this.changes.getAttackpaths().contains(path); // TODO does this work like
-                                                                                             // this
+            final boolean isPathAlreadyThere = this.attackDAG.getAlreadyFoundPaths().contains(selectedPath);
             if (!isPathAlreadyThere) {
                 this.changes.getAttackpaths().add(path);
+                this.attackDAG.addAlreadyFoundPath(selectedPath);
             }
         }
     }
