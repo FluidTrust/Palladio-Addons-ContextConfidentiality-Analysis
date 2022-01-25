@@ -5,7 +5,7 @@
       <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
       <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </attacker>
-    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_hXAjcHxmEeyxKt7G5MH1AQ" attacker="_NxbyoFmWEeyYJNGe-i7GBA"/>
+    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_7eVo0H3_Eey-TsPPA-bKMw" attacker="_NxbyoFmWEeyYJNGe-i7GBA"/>
   </attackers>
   <attacks>
     <attack xsi:type="attack:CVEAttack" id="_zlkeQXxpEeyn1NhAoZRRiA" entityName="CVEID Test Attack" category="//@categoryspecification/@categories.0"/>
@@ -27,6 +27,11 @@
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_5QT_IHkqEeyDU_KjGfSNZw" entityName="R11 Test Vulnerability Integration" vulnerability="//@vulnerabilites/@vulnerability.0">
       <pcmelement id="__-4I4HkqEeyDU_KjGfSNZw" entityName="PCMElement R.1.1">
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_3Si90X3_Eey-TsPPA-bKMw" entityName="critical element default system integration">
+      <pcmelement id="_7eVo0H3_Eey-TsPPA-bKMw" entityName="pcm element assembly critical default for attacker">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
   </systemintegration>

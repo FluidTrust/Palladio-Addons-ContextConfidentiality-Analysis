@@ -56,7 +56,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="datamodelcontainer" eType="#//DatamodelContainer"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attackpaths" upperBound="-1"
-        eType="#//AttackPath" containment="true"/>
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//AttackPath"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
@@ -102,10 +103,5 @@
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
       <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//SurfaceAttacker"/>
     </eGenericSuperTypes>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AttackPath">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="path" upperBound="-1" eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//pcmIntegration/SystemIntegration"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="criticalElement" lowerBound="1"
-        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//pcmIntegration/PCMElement"/>
   </eClassifiers>
 </ecore:EPackage>

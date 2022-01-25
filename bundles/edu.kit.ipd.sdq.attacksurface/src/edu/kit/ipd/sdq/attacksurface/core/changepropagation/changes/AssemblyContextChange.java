@@ -13,6 +13,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
@@ -40,7 +42,6 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Linking
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.Change;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -68,6 +69,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
+        //TODO adapt
+        
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -81,6 +84,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
+        //TODO adapt
+        
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
@@ -137,6 +142,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
+        //TODO adapt
+        
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
@@ -164,7 +171,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
-
         final var criticalAssembly = this.attackDAG.getRootNode().getContent().getContainedAssembly();
         final var criticalElement = toPCMElement(this.modelStorage, criticalAssembly);
 
@@ -178,7 +184,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var handler = getAssemblyHandler();
         boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
         if (isNotCompromisedBefore) {
-            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent); // TODO
+            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent);
         }
 
         if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
@@ -193,7 +199,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
             // TODO do not allow circles!!
             final var childComponent = childNode.getContent().getContainedAssembly();
-            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent); // TODO
+            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
             if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
                 this.handleSeff(childComponent);
                 compromise(selectedNode);
@@ -249,7 +255,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     private void convertToAttackPath(final BlackboardWrapper board,
             final List<AttackStatusDescriptorNodeContent> selectedPath, final PCMElement criticalPCMElement) {
         if (!selectedPath.isEmpty()) {
-            final AttackPath path = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
+            final AttackPath path = AttackerFactory.eINSTANCE.createAttackPath();
             path.setCriticalElement(criticalPCMElement);
 
             for (final var nodeContent : selectedPath) {
@@ -313,6 +319,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
+        //TODO adapt
+        
         final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
                 .collect(Collectors.toList());
 
@@ -376,6 +384,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
+        //TODO adapt
+        
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedAssemblyContexts) {

@@ -48,11 +48,9 @@ import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AttackPathImpl;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedAssemblyImpl;
 
 /**
@@ -68,7 +66,6 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
     private CredentialChange changePropagationDueToCredential;
     
     //TODO more general: "element", i.e. NamedEntity, ModifyEntity ?
-    //TODO move this "element" to the meta
     private AssemblyContext criticalAssembly; 
     
     private AttackDAG attackDAG;
@@ -152,7 +149,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             assemblyHandler.attackAssemblyContext(Arrays.asList(this.criticalAssembly), this.changePropagationDueToCredential, null);
             */ //TODO remove ^ 
             
-            //TODO add all possible attacks to the attack container and the attacker
+            //TODO add all possible attacks to the attack container and the attacker (??)
             
             // convert affectedLinkingResources to changes
             final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
@@ -181,7 +178,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 		
         //TODO complete implementation
         
-		final var list = new ArrayList<AssemblyContextPropagation>(); //TODO export ok? so far ok
+		final var list = new ArrayList<AssemblyContextPropagation>();
         list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
         //list.add(new AssemblyContextPropagationContext(board));
         for (final var analysis : list) { //TODO adapt
