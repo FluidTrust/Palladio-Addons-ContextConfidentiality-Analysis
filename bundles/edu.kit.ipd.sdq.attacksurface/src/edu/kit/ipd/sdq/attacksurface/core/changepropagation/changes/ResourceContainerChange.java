@@ -54,6 +54,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
+        //TODO adapt
+        
         final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
@@ -75,6 +77,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
+        //TODO adapt
+        
         final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {

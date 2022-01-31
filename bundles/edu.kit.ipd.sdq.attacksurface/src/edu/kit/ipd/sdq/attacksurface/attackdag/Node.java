@@ -27,12 +27,40 @@ public class Node<T extends NodeContent> {
         return this.content;
     }
 
-    public Node<T> addChild (T childContent) {
-        final Node<T> ret = new Node<T>(Objects.requireNonNull(childContent), this);
-        this.childNodes.add(ret);
-        return ret;
+    /**
+     * Adds the given content as a new child node to this node iff it would not create a semantic circle. <br/>
+     * See: {@link #wouldCreateSemanticCircle(NodeContent)}
+     * 
+     * @param childContent
+     * @return the child node or {@code null} if the added node content would create a 
+     */
+    public Node<T> addChild (final T childContent) {
+        if (!wouldCreateSemanticCircle(childContent)) {
+            final Node<T> ret = new Node<>(Objects.requireNonNull(childContent), this);
+            this.childNodes.add(ret);
+            return ret;
+        }
+        return null;
     }
     
+    /**
+     * Determines whether adding the given content for a child node of this node would create a semantic circle,
+     * i.e. a circle concerning the contents.
+     * 
+     * @param childContent - the content of the child node
+     * @return whether adding the given content for a child node of this node would create a semantic circle
+     */
+    public boolean wouldCreateSemanticCircle(final T childContent) {
+        Objects.requireNonNull(childContent);
+        
+        for (var localNode = this; localNode != null; localNode = localNode.getParent()) {
+            if (localNode.getContent().equals(childContent)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public boolean isRoot() {
         return this.parent == null;
     }

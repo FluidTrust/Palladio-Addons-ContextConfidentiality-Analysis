@@ -88,9 +88,10 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         // Calculate
         do {
             this.changePropagationDueToCredential.setChanged(false);
-            /*TODO calculateAndMarkLinkingPropagation(board);
-            calculateAndMarkResourcePropagation(board);*/
+            
             calculateAndMarkAssemblyPropagation(board);
+            calculateAndMarkResourcePropagation(board);
+            /*TODO calculateAndMarkLinkingPropagation(board);*/
         } while (this.changePropagationDueToCredential.isChanged()); 
 
         // Clear caches
@@ -185,6 +186,12 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             analysis.calculateAssemblyContextToAssemblyContextPropagation(); 
             //TODO add others
         }
+    }
+    
+
+    private void calculateAndMarkResourcePropagation(BlackboardWrapper board) {
+        // TODO implement
+        
     }
 
 }

@@ -69,8 +69,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
-        //TODO adapt
-        
+        // TODO adapt
+
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -84,8 +84,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
-        //TODO adapt
-        
+        // TODO adapt
+
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
@@ -101,7 +101,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     private void handleSeff(final AssemblyContext sourceComponent) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
-        final var targetConnectors = getSourcedConnectors(sourceComponent, system);
+        final var targetConnectors = getConnectedConnectors(sourceComponent, system);
 
         final var specification = targetConnectors.stream()
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), sourceComponent))
@@ -142,8 +142,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
-        //TODO adapt
-        
+        // TODO adapt
+
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
@@ -176,7 +176,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         final var selectedNode = this.attackDAG.getSelectedNode();
         final var selectedComponent = selectedNode.getContent().getContainedAssembly();
-        var sourceComponents = getConnectedComponents(
+        var connectedComponents = getConnectedComponents(
                 selectedComponent)/*
                                    * .stream() .filter(e ->
                                    * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())
@@ -193,27 +193,27 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         }
 
         isNotCompromisedBefore = !isCompromised(selectedComponent);
-        for (final var sourceComponent : sourceComponents) {
+        for (final var connectedComponent : connectedComponents) {
             // continue building the DAG
-            final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(sourceComponent));
+            final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(connectedComponent));
+            if (childNode != null) {
+                final var childComponent = childNode.getContent().getContainedAssembly();
+                handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
+                if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
+                    this.handleSeff(childComponent);
+                    compromise(selectedNode);
+                }
 
-            // TODO do not allow circles!!
-            final var childComponent = childNode.getContent().getContainedAssembly();
-            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
-            if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
-                this.handleSeff(childComponent);
-                compromise(selectedNode);
+                // select the child node and recursively call the propagation call
+                this.attackDAG.setSelectedNode(childNode);
+                this.index++;
+                this.calculateAssemblyContextToAssemblyContextPropagation();
+                this.index--;
+                this.attackDAG.setSelectedNode(selectedNode);
             }
-            
-            // select the child node and recursively call the propagation call
-            this.attackDAG.setSelectedNode(childNode);
-            this.index++;
-            this.calculateAssemblyContextToAssemblyContextPropagation();
-            this.index--;
-            this.attackDAG.setSelectedNode(selectedNode);
         }
     }
-    
+
     private void compromise(final Node<AttackStatusDescriptorNodeContent> selectedNode) {
         selectedNode.getContent().setCompromised(true);
         this.changes.setChanged(true);
@@ -319,8 +319,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        //TODO adapt
-        
+        // TODO adapt
+
         final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
                 .collect(Collectors.toList());
 
@@ -351,32 +351,24 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
         final var system = this.modelStorage.getAssembly();
-        final var sourceConnectors = getSourcedConnectors(component, system);
+        final var connectedConnectors = getConnectedConnectors(component, system);
 
-        final var sourceComponents = sourceConnectors.stream()
-                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).distinct() // TODO geht das so?
-                .collect(Collectors.toList());
-        /*
-         * TODO remove v (s.u.) final var sourceComponents = sourceConnectors.stream()
-         * .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-         * .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
-         * 
-         * sourceComponents .addAll(sourceConnectors.stream().map(AssemblyConnector::
-         * getRequiringAssemblyContext_AssemblyConnector) .filter(e ->
-         * !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
-         */
-        return sourceComponents;
+        final var connectedComponents = 
+                connectedConnectors.stream().map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+
+        connectedComponents.addAll(
+                connectedConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+
+        return CollectionHelper.removeDuplicates(connectedComponents);
     }
 
-    private List<AssemblyConnector> getSourcedConnectors(final AssemblyContext component, final System system) {
+    private List<AssemblyConnector> getConnectedConnectors(final AssemblyContext component, final System system) {
         return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                /*
-                 * || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(),
-                 * component)
-                 */) // TODO providing too?
+                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
                 .collect(Collectors.toList());
     }
 
@@ -384,8 +376,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
-        //TODO adapt
-        
+        // TODO adapt
+
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedAssemblyContexts) {

@@ -7,5 +7,9 @@ package edu.kit.ipd.sdq.attacksurface.attackdag;
  * @version 1.0
  */
 public interface NodeContent {
-    //TODO implement, if necessary
+    @Override
+    int hashCode();
+    
+    @Override
+    boolean equals(final Object other);
 }
