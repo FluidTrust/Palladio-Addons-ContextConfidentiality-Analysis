@@ -2,7 +2,12 @@ package edu.kit.ipd.sdq.attacksurface.attackdag;
 
 import java.util.Objects;
 
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
  * Represents a {@link NodeContent} containing the attack status for an element.
@@ -11,19 +16,52 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
  * @author ugnwq
  * @version 1.0
  */
-public class AttackStatusDescriptorNodeContent implements NodeContent {
-    private final AssemblyContext containedAssembly; // TODO adapt ++ this is the (critical) element (see also core main class
+public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
+    private final Entity containedElement;
+    private final PCMElementType type;
+    private final PCMElement asPcmElement;
     
     //compromisation status
     private boolean compromised; //TODO at the moment takeover == compromised
     //TODO private boolean takeOver;
     
-    public AttackStatusDescriptorNodeContent(final AssemblyContext containedAssembly) {
-        this.containedAssembly = Objects.requireNonNull(containedAssembly);
+    public AttackStatusDescriptorNodeContent(final Entity containedEntity) {
+        this.containedElement = Objects.requireNonNull(containedEntity);
+        this.type = PCMElementType.typeOf(containedEntity);
+        if (this.type == null) {
+            throw new IllegalArgumentException("unknown entity type for class \"" + 
+                    containedEntity.getClass().getName() + "\"");
+        }
+        this.asPcmElement = this.type.toPCMElement(this.containedElement);
     }
 
+    @Override
+    public Entity getContainedElement() {
+        return this.containedElement;
+    }
+    
+    public PCMElement getContainedElementAsPCMElement() {
+        return this.asPcmElement;
+    }
+    
+    public PCMElementType getTypeOfContainedElement() {
+        return this.type;
+    }
+    
+    public ResourceContainer getContainedResourceContainer() {
+        return this.asPcmElement.getResourcecontainer();
+    }
+    
+    public LinkingResource getContainedLinkingResource() {
+        return this.asPcmElement.getLinkingresource();
+    }
+    
     public AssemblyContext getContainedAssembly() {
-        return this.containedAssembly;
+        return this.asPcmElement.getAssemblycontext();
+    }
+    
+    public MethodSpecification getContainedMethodSpecification() {
+        return this.asPcmElement.getMethodspecification();
     }
     
     public boolean isCompromised() {
@@ -36,7 +74,7 @@ public class AttackStatusDescriptorNodeContent implements NodeContent {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.containedAssembly.getId());
+        return Objects.hash(this.containedElement.getId());
     }
     
     @Override
@@ -49,7 +87,7 @@ public class AttackStatusDescriptorNodeContent implements NodeContent {
         }
         if (other instanceof AttackStatusDescriptorNodeContent) {
             final AttackStatusDescriptorNodeContent otherContent = (AttackStatusDescriptorNodeContent)other;
-            return otherContent.containedAssembly.getId().equals(this.containedAssembly.getId());
+            return otherContent.containedElement.getId().equals(this.containedElement.getId());
         }
         return false;
     }

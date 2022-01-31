@@ -12,7 +12,7 @@ import java.util.Objects;
  * @version 1.0
  * @param <T> - the {@link NodeContent} implementation 
  */
-public class Node<T extends NodeContent> {
+public class Node<T extends NodeContent<?>> {
     private final T content;
     private final Node<T> parent;
     private final List<Node<T>> childNodes;

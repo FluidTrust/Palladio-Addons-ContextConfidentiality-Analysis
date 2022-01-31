@@ -6,6 +6,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.D
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
@@ -13,13 +14,13 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Resourc
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.LinkingResourceContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context.ResourceContainerContext;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public class ResourceContainerPropagationContext extends ResourceContainerChange {
 
-    public ResourceContainerPropagationContext(final BlackboardWrapper v, CredentialChange change) {
-        super(v, change);
+    public ResourceContainerPropagationContext(final BlackboardWrapper v, final CredentialChange change,
+            final AttackDAG attackDAG) {
+        super(v, change, attackDAG);
     }
 
     @Override

@@ -12,12 +12,12 @@
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </compromisedassembly>
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </compromisedassembly>
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
@@ -25,24 +25,24 @@
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </contextchange>
-    <compromisedservice affectedElement="_kHFlQIKDEeyEnIqaCmCb2A" toolderived="true">
+    <compromisedservice affectedElement="_b0LMsIKrEeyp57aAaByWgw" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_kHGzYIKDEeyEnIqaCmCb2A" toolderived="true">
+    <compromisedservice affectedElement="_b0QFMIKrEeyp57aAaByWgw" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_kHFlQIKDEeyEnIqaCmCb2A">
+      <servicerestriction id="_b0LMsIKrEeyp57aAaByWgw">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
       </servicerestriction>
-      <servicerestriction id="_kHGzYIKDEeyEnIqaCmCb2A">
+      <servicerestriction id="_b0QFMIKrEeyp57aAaByWgw">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
       </servicerestriction>
-      <servicerestriction id="_kHGzYYKDEeyEnIqaCmCb2A">
+      <servicerestriction id="_b0QsQIKrEeyp57aAaByWgw">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_qra3cFBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_Hj6FsFBcEeyXHY01PFJiNw"/>

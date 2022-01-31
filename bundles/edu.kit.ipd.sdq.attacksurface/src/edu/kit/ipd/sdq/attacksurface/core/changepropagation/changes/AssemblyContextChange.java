@@ -33,6 +33,7 @@ import org.palladiosimulator.pcm.system.System;
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
 import edu.kit.ipd.sdq.attacksurface.attackdag.Node;
+import edu.kit.ipd.sdq.attacksurface.attackdag.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -40,21 +41,18 @@ import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.Change;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
-    private AttackDAG attackDAG;
-    private int index;
+    private int stackIndex;
 
     protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
             final AttackDAG attackDAG) {
-        super(v, change);
-        this.attackDAG = attackDAG;
-        this.index = 0;
+        super(v, change, attackDAG);
+        this.stackIndex = 0;
     }
 
     @Override
@@ -171,16 +169,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
-        final var criticalAssembly = this.attackDAG.getRootNode().getContent().getContainedAssembly();
-        final var criticalElement = toPCMElement(this.modelStorage, criticalAssembly);
-
         final var selectedNode = this.attackDAG.getSelectedNode();
         final var selectedComponent = selectedNode.getContent().getContainedAssembly();
         var connectedComponents = getConnectedComponents(
-                selectedComponent)/*
-                                   * .stream() .filter(e ->
-                                   * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList())
-                                   */; // TODO
+                selectedComponent);
         final var handler = getAssemblyHandler();
         boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
         if (isNotCompromisedBefore) {
@@ -206,9 +198,9 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
                 // select the child node and recursively call the propagation call
                 this.attackDAG.setSelectedNode(childNode);
-                this.index++;
+                this.stackIndex++;
                 this.calculateAssemblyContextToAssemblyContextPropagation();
-                this.index--;
+                this.stackIndex--;
                 this.attackDAG.setSelectedNode(selectedNode);
             }
         }
@@ -220,101 +212,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         generateAllFoundAttackPaths(this.attackDAG.getRootNode());
     }
 
-    private static final boolean isCompromised(final Entity entity) {
+    private static boolean isCompromised(final Entity entity) {
         return CacheCompromised.instance().compromised(entity);
-    }
-
-    // TODO: these methods need to be somewhere else to be more reusable!
-    private List<List<AttackStatusDescriptorNodeContent>> generateAllFoundAttackPaths(
-            final Node<AttackStatusDescriptorNodeContent> root) { // TODO also partial paths?
-        List<List<AttackStatusDescriptorNodeContent>> allPaths = new ArrayList<>();
-        final var rootContent = root.getContent();
-        if (rootContent.isCompromised()) {
-            final var childrenOfRoot = root.getChildNodes();
-            for (final var childNode : childrenOfRoot) {
-                allPaths.addAll(generateAllFoundAttackPaths(childNode));
-            }
-
-            if (allPaths.isEmpty()) {
-                allPaths.add(new ArrayList<>(Arrays.asList(rootContent)));
-            } else {
-                allPaths.forEach(p -> p.add(rootContent));
-            }
-            // only at the end of the recursion create the actual output attack paths
-            if (root.equals(this.attackDAG.getRootNode())) {
-                allPaths = allPaths.stream().distinct().collect(Collectors.toList());
-                for (final var path : allPaths) {
-                    final var criticalElement = root.getContent().getContainedAssembly();
-                    convertToAttackPath(this.modelStorage, path, toPCMElement(this.modelStorage, criticalElement));
-                }
-            }
-        }
-        return allPaths;
-    }
-
-    private void convertToAttackPath(final BlackboardWrapper board,
-            final List<AttackStatusDescriptorNodeContent> selectedPath, final PCMElement criticalPCMElement) {
-        if (!selectedPath.isEmpty()) {
-            final AttackPath path = AttackerFactory.eINSTANCE.createAttackPath();
-            path.setCriticalElement(criticalPCMElement);
-
-            for (final var nodeContent : selectedPath) {
-                if (nodeContent.isCompromised()) {
-                    final AssemblyContext assembly = nodeContent.getContainedAssembly(); // TODO more general
-                    final PCMElement element = toPCMElement(board, assembly);
-
-                    // TODO call method defined in sub-class for vuln. or something similar
-                    final var systemIntegration = board.getVulnerabilitySpecification().getVulnerabilities().stream()
-                            .filter(getElementIdEqualityPredicate(assembly)).findAny().orElse(null);
-                    if (systemIntegration != null && !contains(path, systemIntegration)) {
-                        systemIntegration.setPcmelement(element);
-                        path.getPath().add(systemIntegration);
-                    }
-                } else {
-                    break; // TODO: later maybe adapt for paths with gaps
-                }
-            }
-
-            final boolean isPathAlreadyThere = this.attackDAG.getAlreadyFoundPaths().contains(selectedPath);
-            if (!isPathAlreadyThere) {
-                this.changes.getAttackpaths().add(path);
-                this.attackDAG.addAlreadyFoundPath(selectedPath);
-            }
-        }
-    }
-
-    private static boolean contains(AttackPath path, SystemIntegration systemIntegration) {
-        if (path != null && systemIntegration != null) {
-            return path.getPath().contains(systemIntegration); // TODO does this work like this?
-        }
-        return false;
-    }
-
-    private static PCMElement toPCMElement(final BlackboardWrapper board, final AssemblyContext assembly) {
-        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
-        if (container.stream().anyMatch(getElementIdEqualityPredicate(assembly))) {
-            final var sysIntegration = container.stream().filter(getElementIdEqualityPredicate(assembly)).findAny()
-                    .orElse(null);
-            return sysIntegration.getPcmelement();
-        }
-        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        pcmElement.setAssemblycontext(assembly);
-        final var sysIntegration = PcmIntegrationFactory.eINSTANCE.createRoleSystemIntegration(); // TODO maybe use
-                                                                                                  // other system
-                                                                                                  // integration
-        container.add(sysIntegration);
-        return pcmElement;
-    }
-
-    private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
-        return s -> {
-            final Set<String> ids = new HashSet<>();
-            final var pcmElement = s.getPcmelement();
-            if (pcmElement != null && pcmElement.getAssemblycontext() != null)
-                ids.add(pcmElement.getAssemblycontext().getId());
-            // TODO adapt for other entity types as well and also check for null before!
-            return ids.contains(entity.getId());
-        };
     }
 
     @Override

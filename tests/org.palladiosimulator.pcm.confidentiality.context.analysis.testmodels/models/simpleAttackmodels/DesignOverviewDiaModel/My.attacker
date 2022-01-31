@@ -11,7 +11,7 @@
     <attack xsi:type="attack:CVEAttack" id="_zlkeQXxpEeyn1NhAoZRRiA" entityName="CVEID Test Attack" category="//@categoryspecification/@categories.0"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
+    <vulnerability xsi:type="attack:CVEVulnerability" id="TestVulnerabilityId123456" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
       <requiredCredentials href="My.context#_Dh0CcVWwEeyAu8-8Lz7_vA"/>
     </vulnerability>
   </vulnerabilites>
@@ -19,12 +19,12 @@
     <categories xsi:type="attack:CVEID" entityName="Test" cveID="0"/>
   </categoryspecification>
   <systemintegration>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_sW6DwHkqEeyDU_KjGfSNZw" entityName="Critical Test Vulnerability Integration" vulnerability="//@vulnerabilites/@vulnerability.0">
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_sW6DwHkqEeyDU_KjGfSNZw" entityName="Critical Test Vulnerability Integration" vulnerability="TestVulnerabilityId123456">
       <pcmelement id="_hXAjcHxmEeyxKt7G5MH1AQ" entityName="criticalPCMelement vuln">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_5QT_IHkqEeyDU_KjGfSNZw" entityName="R11 Test Vulnerability Integration" vulnerability="//@vulnerabilites/@vulnerability.0">
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_5QT_IHkqEeyDU_KjGfSNZw" entityName="R11 Test Vulnerability Integration" vulnerability="TestVulnerabilityId123456">
       <pcmelement id="__-4I4HkqEeyDU_KjGfSNZw" entityName="PCMElement R.1.1">
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
       </pcmelement>
