@@ -25,19 +25,19 @@
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </contextchange>
-    <compromisedservice affectedElement="_OsR9kINUEeykNaC7wlWOtA" toolderived="true">
+    <compromisedservice affectedElement="_RO-oMINyEeyVzcMW1iWQeA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_OsWPAINUEeykNaC7wlWOtA" toolderived="true">
+    <compromisedservice affectedElement="_RPFV4INyEeyVzcMW1iWQeA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_OsR9kINUEeykNaC7wlWOtA">
+      <servicerestriction id="_RO-oMINyEeyVzcMW1iWQeA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
       </servicerestriction>
-      <servicerestriction id="_OsWPAINUEeykNaC7wlWOtA">
+      <servicerestriction id="_RPFV4INyEeyVzcMW1iWQeA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
@@ -46,12 +46,12 @@
     <datamodelcontainer/>
     <attackpaths>
       <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_hXAjcHxmEeyxKt7G5MH1AQ"/>
+      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
     </attackpaths>
     <attackpaths>
       <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_5QT_IHkqEeyDU_KjGfSNZw"/>
       <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_hXAjcHxmEeyxKt7G5MH1AQ"/>
+      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
     </attackpaths>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>

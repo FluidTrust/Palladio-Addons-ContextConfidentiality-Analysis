@@ -90,6 +90,10 @@ public enum PCMElementType {
     }
     
     public Entity getEntity(final PCMElement pcmElement) {
+        if (pcmElement == null) {
+            return null;
+        }
+        
         Entity ret = null;
         switch(this) {
             case RESOURCE_CONTAINER:
@@ -120,9 +124,9 @@ public enum PCMElementType {
     public Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
         return s -> {
             final var pcmElement = s.getPcmelement();
-            if (pcmElement != null && getEntity(pcmElement) != null) {
-                final var entityOfPcmElement = getEntity(pcmElement);
-                return entityOfPcmElement.getId().equals(entity.getId());
+            final var entityOfPcmElement = getEntity(pcmElement);
+            if (entityOfPcmElement != null) {
+                return Objects.equals(entityOfPcmElement.getId(), entity.getId());
             }
             return false;
         };

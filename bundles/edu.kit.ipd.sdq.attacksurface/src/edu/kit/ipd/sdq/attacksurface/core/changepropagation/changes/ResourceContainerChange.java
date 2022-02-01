@@ -76,8 +76,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     @Override
     public void calculateResourceContainerToContextPropagation() {
         //TODO adapt
-        /*
-        final var listInfectedContainer = getInfectedResourceContainers();
+        
+        /*final var listInfectedContainer = getInfectedResourceContainers();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
                 .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)

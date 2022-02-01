@@ -143,7 +143,7 @@ public abstract class Change<T> {
                 allPaths = allPaths.stream().distinct().collect(Collectors.toList());
                 for (final var path : allPaths) {
                     final var criticalElement = root.getContent().getContainedAssembly();
-                    convertToAttackPath(this.modelStorage, path, toPCMElement(this.modelStorage, criticalElement));
+                    convertToAttackPath(this.modelStorage, path, toPCMElement(this.modelStorage, criticalElement, true));
                 }
             }
         }
@@ -159,7 +159,7 @@ public abstract class Change<T> {
             for (final var nodeContent : selectedPath) {
                 if (nodeContent.isCompromised()) {
                     final Entity entity = nodeContent.getContainedElement();
-                    final PCMElement element = toPCMElement(board, entity);
+                    final PCMElement element = toPCMElement(board, entity, false);
 
                     // TODO call method defined in sub-class for vuln. or something similar
                     final var systemIntegration = board.getVulnerabilitySpecification().getVulnerabilities().stream()
@@ -204,12 +204,12 @@ public abstract class Change<T> {
         return false;
     }
 
-    protected static PCMElement toPCMElement(final BlackboardWrapper board, final Entity entity) {
+    protected static PCMElement toPCMElement(final BlackboardWrapper board, final Entity entity, final boolean isDefault) {
         final var container = board.getVulnerabilitySpecification().getVulnerabilities();
         if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
             final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
                     .collect(Collectors.toList());
-            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations);
+            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, isDefault);
             if (sysIntegration != null) {
                 return sysIntegration.getPcmelement();
             }
@@ -223,51 +223,40 @@ public abstract class Change<T> {
     }
 
     private static SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
-            final List<SystemIntegration> sysIntegrations) {
+            final List<SystemIntegration> sysIntegrations, final boolean isDefault) {
         if (!sysIntegrations.isEmpty()) {
+            if (isDefault) {
+                return getDefaultOrFirst(sysIntegrations);
+            }
+            
             for(String id = CacheLastCompromisationCausingElements.instance().popLastCauseId(); 
                     id != null; 
                     id = CacheLastCompromisationCausingElements.instance().popLastCauseId()) {
                 final String lastId = id;
-                final VulnerabilitySystemIntegration vulnerabilityFoundById = findVulnerabilityById(sysIntegrations, lastId);
-                final RoleSystemIntegration roleFoundById = findRoleById(sysIntegrations, lastId);
-                if (vulnerabilityFoundById != null) {
-                    return vulnerabilityFoundById;
-                } else if (roleFoundById != null) {
-                    return roleFoundById;
+                final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, lastId);
+                //TODO non-global communication
+                if (systemIntegrationById != null) {
+                    return systemIntegrationById;
                 }
-                //TODO credential & non-global communication
             }
             return getDefaultOrFirst(sysIntegrations);
         }
         return null; 
     }
 
-    private static VulnerabilitySystemIntegration findVulnerabilityById(final List<SystemIntegration> sysIntegrations,
+    private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
             final String id) {
         return sysIntegrations
                     .stream()
-                    .filter(VulnerabilitySystemIntegration.class::isInstance)
-                    .map(VulnerabilitySystemIntegration.class::cast)
-                    .filter(v -> v.getVulnerability().getId().equals(id))
-                    .findAny().orElse(null);
-    }
-    
-    private static RoleSystemIntegration findRoleById(final List<SystemIntegration> sysIntegrations,
-            final String id) {
-        return sysIntegrations
-                    .stream()
-                    .filter(RoleSystemIntegration.class::isInstance)
-                    .map(RoleSystemIntegration.class::cast)
-                    .filter(r -> r.getRole().getId().equals(id))
+                    .filter(v -> id.equals(v.getIdOfContent()))
                     .findAny().orElse(null);
     }
 
     private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
         return sysIntegrations
                 .stream()
-                /*.filter(DefaultSystemIntegration.class::isInstance)*/ //TODO does not work
-                .findFirst()
+                .filter(DefaultSystemIntegration.class::isInstance)
+                .findAny()
                 .orElse(sysIntegrations.get(0));
     }
 }
