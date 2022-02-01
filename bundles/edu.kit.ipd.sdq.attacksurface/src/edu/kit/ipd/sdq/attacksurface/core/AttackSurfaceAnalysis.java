@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
+import edu.kit.ipd.sdq.attacksurface.attackdag.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
@@ -32,8 +34,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 
     private CredentialChange changePropagationDueToCredential;
     
-    //TODO more general: "element", i.e. NamedEntity, ModifyEntity ?
-    private AssemblyContext criticalAssembly; 
+    private Entity crtitcalEntity; 
     
     private AttackDAG attackDAG;
 
@@ -51,15 +52,16 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         
         // prepare
         createInitialStructure(board);
-        this.attackDAG = new AttackDAG(this.criticalAssembly);
+        this.attackDAG = new AttackDAG(this.crtitcalEntity);
         
         //TODO adapt
         // Calculate
         do {
             this.changePropagationDueToCredential.setChanged(false);
             
-            calculateAndMarkAssemblyPropagation(board);
             calculateAndMarkResourcePropagation(board);
+            calculateAndMarkAssemblyPropagation(board);
+            
             /*TODO calculateAndMarkLinkingPropagation(board);*/
         } while (this.changePropagationDueToCredential.isChanged()); 
 
@@ -82,7 +84,8 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
 
         for (final var attacker : attackers) { //TODO at the moment only one attacker allowed
             final var localAttacker = attacker.getAffectedElement();
-            this.criticalAssembly = localAttacker.getCriticalElement().getAssemblycontext(); //TODO more general
+            final var criticalPCMElement = localAttacker.getCriticalElement();
+            this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
 
             final var listCredentialChanges = localAttacker.getAttacker().getCredentials()
                     .stream()

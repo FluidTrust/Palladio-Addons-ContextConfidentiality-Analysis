@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resourceenvironment:ResourceEnvironment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
-  <linkingResources__ResourceEnvironment id="_uvnMAFBjEeyGXqZbGaQ79w" entityName="LinkingResource1" connectedResourceContainers_LinkingResource="_hYTMoFBjEeyGXqZbGaQ79w _GAeeUCpXEeKNWc2UWjbmuw _fxqJglBkEeyGXqZbGaQ79w _0Bd1QFBlEeyFsrOVaGVGfg _Bc1OMFBmEeyFsrOVaGVGfg">
+  <linkingResources__ResourceEnvironment id="_uvnMAFBjEeyGXqZbGaQ79w" entityName="LinkingResource1" connectedResourceContainers_LinkingResource="_GAeeUCpXEeKNWc2UWjbmuw _fxqJglBkEeyGXqZbGaQ79w _hYTMoFBjEeyGXqZbGaQ79w _Bc1OMFBmEeyFsrOVaGVGfg _0Bd1QFBlEeyFsrOVaGVGfg">
     <communicationLinkResourceSpecifications_LinkingResource id="_uvrdcFBjEeyGXqZbGaQ79w">
       <latency_CommunicationLinkResourceSpecification/>
       <throughput_CommunicationLinkResourceSpecification/>

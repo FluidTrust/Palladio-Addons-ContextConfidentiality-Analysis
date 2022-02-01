@@ -32,6 +32,7 @@ import edu.kit.ipd.sdq.attacksurface.attackdag.Node;
 import edu.kit.ipd.sdq.attacksurface.attackdag.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.core.CacheLastCompromisationCausingElements;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.HelperUpdateCredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -85,6 +86,26 @@ public abstract class Change<T> {
         }
         return this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().get(0)
                 .getAffectedElement();
+    }
+    
+    protected void compromise(final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        selectedNode.getContent().setCompromised(true);
+        generateAllFoundAttackPaths(this.attackDAG.getRootNode());
+    }
+
+    protected static boolean isCompromised(final Entity entity) {
+        return CacheCompromised.instance().compromised(entity);
+    }
+    
+    protected ResourceContainer getResourceContainer(final AssemblyContext component) {
+        final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
+                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
+                .findAny();
+        if (allocationOPT.isEmpty()) {
+            throw new IllegalStateException(
+                    "No Allocation for assemblycontext " + component.getEntityName() + " found");
+        }
+        return allocationOPT.get().getResourceContainer_AllocationContext();
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {

@@ -91,4 +91,9 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
         }
         return false;
     }
+    
+    @Override
+    public String toString() {
+        return "(id= " + containedElement.getId() + "name = " + containedElement.getEntityName() + ")";
+    }
 }

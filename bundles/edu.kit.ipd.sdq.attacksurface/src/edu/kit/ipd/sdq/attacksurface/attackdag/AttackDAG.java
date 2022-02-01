@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 /**
  * Represents a DAG, even a tree for saving the compromisation status of the model elements in order
@@ -17,19 +18,19 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
  * @author ugnwq
  * @version 1.0
  */
-public class AttackDAG { // it is even a tree
+public class AttackDAG {
     private final Node<AttackStatusDescriptorNodeContent> rootNode;
 
     private Node<AttackStatusDescriptorNodeContent> selectedNode;
     private Set<List<AttackStatusDescriptorNodeContent>> alreadyFoundPaths;
 
     /**
-     * Creates a new {@link AttackDAG} for the given root critical assembly.
+     * Creates a new {@link AttackDAG} for the given root critical entity.
      *  
-     * @param rootAssembly - the root assembly
+     * @param rootAssembly - the root entity
      */
-    public AttackDAG(final AssemblyContext rootAssembly) { // TODO adapt: more general (see core main)
-        this.rootNode = new Node<AttackStatusDescriptorNodeContent>(new AttackStatusDescriptorNodeContent(rootAssembly),
+    public AttackDAG(final Entity rootEntity) {
+        this.rootNode = new Node<AttackStatusDescriptorNodeContent>(new AttackStatusDescriptorNodeContent(rootEntity),
                 null);
         this.selectedNode = this.rootNode;
         this.alreadyFoundPaths = new HashSet<>();
@@ -113,6 +114,11 @@ public class AttackDAG { // it is even a tree
     private Node<AttackStatusDescriptorNodeContent> find(final AttackStatusDescriptorNodeContent nodeContent,
             final Node<AttackStatusDescriptorNodeContent> parentNode) {
         return this.rootNode.find(nodeContent, parentNode);
+    }
+    
+    @Override
+    public String toString() {
+        return this.rootNode.toString();
     }
 
 }

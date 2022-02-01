@@ -152,17 +152,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     }
 
-    private ResourceContainer getResourceContainer(final AssemblyContext component) {
-        final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
-                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
-                .findAny();
-        if (allocationOPT.isEmpty()) {
-            throw new IllegalStateException(
-                    "No Allocation for assemblycontext " + component.getEntityName() + " found");
-        }
-        return allocationOPT.get().getResourceContainer_AllocationContext();
-    }
-
     protected abstract ResourceContainerHandler getLocalResourceHandler();
 
     protected abstract ResourceContainerHandler getRemoteResourceHandler();
@@ -177,10 +166,10 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
         if (isNotCompromisedBefore) {
             handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent);
+            this.handleSeff(selectedComponent);
         }
 
-        if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
-            this.handleSeff(selectedComponent);
+        if (/*isNotCompromisedBefore &&*/ isCompromised(selectedComponent)) {
             compromise(selectedNode);
         }
 
@@ -190,9 +179,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             final var childNode = selectedNode.addChild(new AttackStatusDescriptorNodeContent(connectedComponent));
             if (childNode != null) {
                 final var childComponent = childNode.getContent().getContainedAssembly();
-                handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
-                if (isNotCompromisedBefore && isCompromised(selectedComponent)) {
+                if (isNotCompromisedBefore) {
+                    handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
                     this.handleSeff(childComponent);
+                }
+                if (/*isNotCompromisedBefore &&*/ isCompromised(selectedComponent)) {
                     compromise(selectedNode);
                 }
 
@@ -204,16 +195,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 this.attackDAG.setSelectedNode(selectedNode);
             }
         }
-    }
-
-    private void compromise(final Node<AttackStatusDescriptorNodeContent> selectedNode) {
-        selectedNode.getContent().setCompromised(true);
-        this.changes.setChanged(true);
-        generateAllFoundAttackPaths(this.attackDAG.getRootNode());
-    }
-
-    private static boolean isCompromised(final Entity entity) {
-        return CacheCompromised.instance().compromised(entity);
     }
 
     @Override

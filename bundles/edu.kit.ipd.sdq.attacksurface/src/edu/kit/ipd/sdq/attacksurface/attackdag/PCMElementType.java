@@ -120,7 +120,7 @@ public enum PCMElementType {
     public Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
         return s -> {
             final var pcmElement = s.getPcmelement();
-            if (pcmElement != null) {
+            if (pcmElement != null && getEntity(pcmElement) != null) {
                 final var entityOfPcmElement = getEntity(pcmElement);
                 return entityOfPcmElement.getId().equals(entity.getId());
             }

@@ -1,5 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,6 +15,8 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
+import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
+import edu.kit.ipd.sdq.attacksurface.attackdag.Node;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
@@ -25,8 +29,11 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
         implements ResourceContainerPropagation {  
+    private int stackIndex;
+    
     public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change, final AttackDAG attackDAG) {
         super(v, change, attackDAG);
+        this.stackIndex = 0;
     }
 
     @Override
@@ -34,13 +41,42 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, ResourceContainer.class);
     }
 
-    protected List<ResourceContainer> getInfectedResourceContainers() {
+    /*protected List<ResourceContainer> getInfectedResourceContainers() {
         return this.changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .collect(Collectors.toList());
+    }*/
+    
+    protected ResourceContainer getResourceContainerConnectedToElement( 
+            final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        //TODO maybe do not return list but only one element
+        final var selectedNodeContent = selectedNode.getContent();
+        final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
+        final var selectedPCMElement = selectedNodeContent.getContainedElementAsPCMElement();
+        
+        final ResourceContainer ret;
+        switch (selectedElementType) {
+            case ASSEMBLY_CONTEXT:
+                final var selectedAssembly = selectedPCMElement.getAssemblycontext();
+                final var containerOfSelected = getResourceContainer(selectedAssembly);
+                ret = containerOfSelected;
+                break;
+            case RESOURCE_CONTAINER:
+                final var selectedContainer = selectedPCMElement.getResourcecontainer();
+                ret = selectedContainer;
+                break;
+            default:
+                //TODO implement all possible cases
+                
+                ret = null; //TODO
+                break;
+        }
+        return ret;
     }
 
     @Override
     public void calculateResourceContainerToContextPropagation() {
+        //TODO adapt
+        /*
         final var listInfectedContainer = getInfectedResourceContainers();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -48,26 +84,44 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                 .filter(e -> listInfectedContainer.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
 
-        updateFromContextProviderStream(this.changes, streamAttributeProvider);
+        updateFromContextProviderStream(this.changes, streamAttributeProvider);*/
     }
 
     @Override
-    public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
-        //TODO adapt
-        final var criticalElement = this.attackDAG.getRootNode().getContent().getContainedElement(); //TODO
+    public void calculateResourceContainerToRemoteAssemblyContextPropagation() { 
+        final var selectedNode = this.attackDAG.getSelectedNode();
+        final var selectedEntity = selectedNode.getContent().getContainedElement();
         
-        final var listInfectedContainer = getInfectedResourceContainers();
+        final var relevantResourceContainer = getResourceContainerConnectedToElement(selectedNode);
+        
+        final var resources = getConnectedResourceContainers(relevantResourceContainer);
+        var assemblycontext = CollectionHelper.getAssemblyContext(
+                Arrays.asList(relevantResourceContainer), this.modelStorage.getAllocation());
+        final var handler = getAssemblyHandler();
+        assemblycontext = CollectionHelper.removeDuplicates(assemblycontext);
+        for (final var resource :  resources) {
+            final var childNode = selectedNode.addChild(
+                    new AttackStatusDescriptorNodeContent(resource));
+            if (childNode != null) {
+                final boolean isNotCompromisedBefore = !isCompromised(selectedEntity);
+                // attack all, so that maybe in the next iteration of assembly contexts propagation 
+                // more attacks are possible
+                if (isNotCompromisedBefore) { //TODO geht das auch ohne diese abfrage??
+                        handler.attackAssemblyContext(assemblycontext, this.changes, resource);
+                }
+                if (/*isNotCompromisedBefore &&*/ isCompromised(selectedEntity)) {
+                    //handleSeff(this.changes, assemblycontext, resource);
+                    compromise(selectedNode);
+                }
 
-        for (final var resource : listInfectedContainer) {
-            final var resources = getConnectedResourceContainers(resource);
-            var assemblycontext = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
-            final var handler = getAssemblyHandler();
-            assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handler.attackAssemblyContext(assemblycontext, this.changes, resource);
-            handleSeff(this.changes, assemblycontext, resource);
+                // select the child node and recursively call the propagation call
+                this.attackDAG.setSelectedNode(childNode);
+                this.stackIndex++;
+                this.calculateResourceContainerToRemoteAssemblyContextPropagation();
+                this.stackIndex--;
+                this.attackDAG.setSelectedNode(selectedNode);
+            }
         }
-
     }
 
     protected abstract void handleSeff(CredentialChange changes, List<AssemblyContext> components,
@@ -79,7 +133,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
         //TODO adapt
         
-        final var listInfectedContainer = getInfectedResourceContainers();
+        /*final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
@@ -100,12 +154,14 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                 CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
                 this.changes.setChanged(true);
             }
-        }
+        }*/
     }
 
     @Override
     public void calculateResourceContainerToResourcePropagation() {
-        final var listInfectedContainer = getInfectedResourceContainers();
+        
+    //TODO adapt
+        /*final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
             final var resources = getConnectedResourceContainers(resource).stream()
@@ -114,13 +170,15 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getResourceHandler();
             handler.attackResourceContainer(resources, this.changes, resource);
         }
-
+         */
     }
 
     protected abstract ResourceContainerHandler getResourceHandler();
 
     @Override
     public void calculateResourceContainerToLinkingResourcePropagation() {
+      //TODO adapt
+        /*
         final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
@@ -129,7 +187,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getLinkingHandler();
             handler.attackLinkingResource(linkinResources, this.changes, resource);
         }
-
+         */
     }
 
     protected abstract LinkingResourceHandler getLinkingHandler();

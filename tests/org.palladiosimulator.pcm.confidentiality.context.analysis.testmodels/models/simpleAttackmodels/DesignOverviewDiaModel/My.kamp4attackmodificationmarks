@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <seedModifications xsi:type="KAMP4attackModificationmarks:KAMP4attackSeedModifications">
     <attackcomponent>
       <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_NxbyoFmWEeyYJNGe-i7GBA"/>
@@ -11,12 +11,12 @@
   <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
       <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </compromisedassembly>
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
       <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </compromisedassembly>
     <contextchange>
@@ -25,27 +25,22 @@
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </contextchange>
-    <compromisedservice affectedElement="_b0LMsIKrEeyp57aAaByWgw" toolderived="true">
+    <compromisedservice affectedElement="_OsR9kINUEeykNaC7wlWOtA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_b0QFMIKrEeyp57aAaByWgw" toolderived="true">
+    <compromisedservice affectedElement="_OsWPAINUEeykNaC7wlWOtA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_b0LMsIKrEeyp57aAaByWgw">
+      <servicerestriction id="_OsR9kINUEeykNaC7wlWOtA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
       </servicerestriction>
-      <servicerestriction id="_b0QFMIKrEeyp57aAaByWgw">
+      <servicerestriction id="_OsWPAINUEeykNaC7wlWOtA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
-      </servicerestriction>
-      <servicerestriction id="_b0QsQIKrEeyp57aAaByWgw">
-        <signature xsi:type="repository:OperationSignature" href="My.repository#_qra3cFBbEeyXHY01PFJiNw"/>
-        <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
-        <service href="My.repository#_Hj6FsFBcEeyXHY01PFJiNw"/>
       </servicerestriction>
     </servicerestrictioncontainer>
     <datamodelcontainer/>

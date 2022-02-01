@@ -34,5 +34,10 @@
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_oI5i4INJEeyAiIXYWVg1vA" entityName="resContainerCriticalVuln" vulnerability="TestVulnerabilityId123456">
+      <pcmelement id="_rHIOkINJEeyAiIXYWVg1vA" entityName="pcm elem res container critical">
+        <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      </pcmelement>
+    </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

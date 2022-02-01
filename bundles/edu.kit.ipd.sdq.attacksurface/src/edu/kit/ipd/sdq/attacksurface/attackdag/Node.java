@@ -110,4 +110,9 @@ public class Node<T extends NodeContent<?>> {
         }
         return false;
     }
+    
+    @Override
+    public String toString() {
+        return content.toString() + " | children= " + this.childNodes;
+    }
 }
