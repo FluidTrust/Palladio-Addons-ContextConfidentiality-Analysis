@@ -46,7 +46,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                 .collect(Collectors.toList());
     }*/
     
-    protected ResourceContainer getResourceContainerConnectedToElement( 
+    protected ResourceContainer getResourceContainerForElement( 
             final Node<AttackStatusDescriptorNodeContent> selectedNode) {
         //TODO maybe do not return list but only one element
         final var selectedNodeContent = selectedNode.getContent();
@@ -92,7 +92,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var selectedNode = this.attackDAG.getSelectedNode();
         final var selectedEntity = selectedNode.getContent().getContainedElement();
         
-        final var relevantResourceContainer = getResourceContainerConnectedToElement(selectedNode);
+        final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
         
         final var resources = getConnectedResourceContainers(relevantResourceContainer);
         var assemblycontext = CollectionHelper.getAssemblyContext(
@@ -131,30 +131,46 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
-        //TODO adapt
+        final var selectedNode = this.attackDAG.getSelectedNode();
+        final var selectedEntity = selectedNode.getContent().getContainedElement();
         
-        /*final var listInfectedContainer = getInfectedResourceContainers();
+        final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
+        
+        final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
+                .filter(e -> EcoreUtil.equals(relevantResourceContainer, e.getResourceContainer_AllocationContext()))
+                .map(AllocationContext::getAssemblyContext_AllocationContext)
+                .filter(e -> !CacheCompromised.instance().compromised(e));
+        
+        final var streamChanges = localComponents
+                .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(relevantResourceContainer)));
 
-        for (final var resource : listInfectedContainer) {
-            final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
-                    .filter(e -> EcoreUtil.equals(resource, e.getResourceContainer_AllocationContext()))
-                    .map(AllocationContext::getAssemblyContext_AllocationContext)
-                    .filter(e -> !CacheCompromised.instance().compromised(e));
+        final var listChanges = streamChanges
+                .filter(e -> this.changes.getCompromisedassembly().stream()
+                        .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
+                .collect(Collectors.toList());
 
-            final var streamChanges = localComponents
-                    .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(resource)));
-
-            final var listChanges = streamChanges
-                    .filter(e -> this.changes.getCompromisedassembly().stream()
-                            .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
-                    .collect(Collectors.toList());
-
-            if (!listChanges.isEmpty()) {
-                this.changes.getCompromisedassembly().addAll(listChanges);
-                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
-                this.changes.setChanged(true);
+        if (!listChanges.isEmpty()) {
+            this.changes.getCompromisedassembly().addAll(listChanges);
+            CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
+            this.changes.setChanged(true);
+            if (/*isNotCompromisedBefore &&*/ isCompromised(selectedEntity)) {
+                //handleSeff(this.changes, assemblycontext, resource);
+                compromise(selectedNode);
             }
-        }*/
+        }
+        
+        final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
+        for (final var resource : connectedResourceContainers) {
+            final var childNode = selectedNode.addChild(
+                    new AttackStatusDescriptorNodeContent(resource));
+            if (childNode != null) {
+                this.attackDAG.setSelectedNode(childNode);
+                this.stackIndex++;
+                calculateResourceContainerToLocalAssemblyContextPropagation();
+                this.stackIndex--;
+                this.attackDAG.setSelectedNode(selectedNode);
+            }
+        }
     }
 
     @Override

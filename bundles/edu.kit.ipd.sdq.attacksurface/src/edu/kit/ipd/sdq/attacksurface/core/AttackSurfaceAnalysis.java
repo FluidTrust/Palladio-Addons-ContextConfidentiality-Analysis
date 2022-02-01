@@ -59,8 +59,11 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         do {
             this.changePropagationDueToCredential.setChanged(false);
             
-            calculateAndMarkResourcePropagation(board);
+            //TODO contain default system integrations correctly!
+            //TODO look if this is correct like this
             calculateAndMarkAssemblyPropagation(board);
+            calculateAndMarkResourcePropagation(board);
+            
             
             /*TODO calculateAndMarkLinkingPropagation(board);*/
         } while (this.changePropagationDueToCredential.isChanged()); 
@@ -150,7 +153,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
         //list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
         for (final var analysis : list) { //TODO adapt
-            //TODO analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
+            analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
             analysis.calculateResourceContainerToRemoteAssemblyContextPropagation();
             //TODO add others
         }
