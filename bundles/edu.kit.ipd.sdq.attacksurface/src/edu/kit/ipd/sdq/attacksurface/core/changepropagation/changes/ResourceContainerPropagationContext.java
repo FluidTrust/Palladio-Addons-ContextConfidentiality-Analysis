@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
@@ -43,6 +44,12 @@ public class ResourceContainerPropagationContext extends ResourceContainerChange
             final ResourceContainer source) {
         // intentional blank
 
+    }
+
+    @Override
+    protected String getLastCauseId(final Entity affectedElement) {
+        // TODO implement causing usage spec if attack succeeded
+        return null;
     }
 
 }

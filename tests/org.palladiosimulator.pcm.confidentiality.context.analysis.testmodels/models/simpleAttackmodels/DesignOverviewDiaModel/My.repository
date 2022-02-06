@@ -42,7 +42,7 @@
       <steps_Behaviour xsi:type="seff:StopAction" id="_FX3r8lBcEeyXHY01PFJiNw" predecessor_AbstractAction="_FX3r8VBcEeyXHY01PFJiNw"/>
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_1dyN0VBbEeyXHY01PFJiNw" entityName="Component R.2.1">
+  <components__Repository xsi:type="repository:BasicComponent" id="_1dyN0VBbEeyXHY01PFJiNw" entityName="Component R.1.2">
     <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hj5eoFBcEeyXHY01PFJiNw" entityName="Component R.2.1.Interface R12P.OperationProvidedRole1" providedInterface__OperationProvidedRole="_qraQYVBbEeyXHY01PFJiNw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Hj6FsFBcEeyXHY01PFJiNw" describedService__SEFF="_qra3cFBbEeyXHY01PFJiNw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_Hj6FsVBcEeyXHY01PFJiNw" successor_AbstractAction="_Hj6FslBcEeyXHY01PFJiNw"/>

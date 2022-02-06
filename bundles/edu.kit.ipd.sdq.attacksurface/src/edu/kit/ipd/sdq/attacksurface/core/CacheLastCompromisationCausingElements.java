@@ -11,7 +11,9 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
-public class CacheLastCompromisationCausingElements { 
+//TODO remove
+
+/*public class CacheLastCompromisationCausingElements { 
     //TODO temporary, maybe implement rather a helper class for finding the causing elements of a compromisation
 
     private Stack<String> causes = new Stack<>();
@@ -69,4 +71,4 @@ public class CacheLastCompromisationCausingElements {
         change.eAdapters().add(adapter);
     }
 
-}
+}*/

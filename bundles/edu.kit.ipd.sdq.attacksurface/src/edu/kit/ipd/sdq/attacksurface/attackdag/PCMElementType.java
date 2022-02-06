@@ -3,8 +3,10 @@ package edu.kit.ipd.sdq.attacksurface.attackdag;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
@@ -52,6 +54,11 @@ public enum PCMElementType {
             }
         }
         return null;
+    }
+    
+    public static PCMElement copy(final PCMElement original) {
+        final var type = PCMElementType.typeOf(original);
+        return type != null ? type.toPCMElement(type.getEntity(original)) : null;
     }
     
     public PCMElement toPCMElement(final Entity entity) {

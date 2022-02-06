@@ -1,6 +1,8 @@
 package edu.kit.ipd.sdq.attacksurface.attackdag;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodSpecification;
@@ -22,8 +24,11 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
     private final PCMElement asPcmElement;
     
     //compromisation status
-    private boolean compromised; //TODO at the moment takeover == compromised
+    private boolean isCompromised; //TODO at the moment takeover == compromised
     //TODO private boolean takeOver;
+    private Set<AttackStatusDescriptorNodeContent> attackSourceOfSet;
+    
+    private String causeId;
     
     public AttackStatusDescriptorNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
@@ -33,6 +38,7 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
                     containedEntity.getClass().getName() + "\"");
         }
         this.asPcmElement = this.type.toPCMElement(this.containedElement);
+        this.attackSourceOfSet = new HashSet<>();
     }
 
     @Override
@@ -48,28 +54,28 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
         return this.type;
     }
     
-    public ResourceContainer getContainedResourceContainer() {
-        return this.asPcmElement.getResourcecontainer();
-    }
-    
-    public LinkingResource getContainedLinkingResource() {
-        return this.asPcmElement.getLinkingresource();
-    }
-    
-    public AssemblyContext getContainedAssembly() {
-        return this.asPcmElement.getAssemblycontext();
-    }
-    
-    public MethodSpecification getContainedMethodSpecification() {
-        return this.asPcmElement.getMethodspecification();
-    }
-    
     public boolean isCompromised() {
-        return this.compromised;
+        return this.isCompromised;
     }
 
-    public void setCompromised(final boolean compromised) {
-        this.compromised = compromised;
+    public void setCompromised(final boolean isCompromised) {
+        this.isCompromised = isCompromised;
+    }
+    
+    public boolean isAttackSourceOf(final AttackStatusDescriptorNodeContent target) {
+        return this.attackSourceOfSet.contains(target);
+    }
+
+    public void setAttackSourceOf(final AttackStatusDescriptorNodeContent target) {
+        this.attackSourceOfSet.add(target);
+    }
+
+    public String getCauseId() {
+        return this.causeId;
+    }
+
+    public void setCauseId(String causeId) {
+        this.causeId = causeId;
     }
 
     @Override

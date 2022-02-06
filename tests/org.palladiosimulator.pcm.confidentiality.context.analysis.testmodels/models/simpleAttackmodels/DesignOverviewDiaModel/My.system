@@ -6,7 +6,7 @@
   <assemblyContexts__ComposedStructure id="_p71bUFBgEeyGXqZbGaQ79w" entityName="Assembly_Component R.1.1">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="My.repository#_QdUL0FBbEeyXHY01PFJiNw"/>
   </assemblyContexts__ComposedStructure>
-  <assemblyContexts__ComposedStructure id="_wc2RQFBgEeyGXqZbGaQ79w" entityName="Assembly_Component R.2.1">
+  <assemblyContexts__ComposedStructure id="_wc2RQFBgEeyGXqZbGaQ79w" entityName="Assembly_Component R.1.2">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="My.repository#_1dyN0VBbEeyXHY01PFJiNw"/>
   </assemblyContexts__ComposedStructure>
   <assemblyContexts__ComposedStructure id="_P3JDAFBjEeyGXqZbGaQ79w" entityName="Assembly_Component P.2.1">

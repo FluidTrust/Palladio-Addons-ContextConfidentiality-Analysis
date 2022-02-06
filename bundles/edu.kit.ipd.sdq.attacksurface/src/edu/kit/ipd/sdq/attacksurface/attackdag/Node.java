@@ -42,6 +42,22 @@ public class Node<T extends NodeContent<?>> {
         }
         return null;
     }
+
+    /**
+     * Adds the given content as a new child node to this node iff it would not create a semantic circle. <br/>
+     * See: {@link #wouldCreateSemanticCircle(NodeContent)}. <br/>
+     * Otherwise {@link #find(NodeContent, Node)}
+     * 
+     * @param childContent
+     * @return the child node or  if the added node content would create a 
+     */
+    public Node<T> addOrFindChild(T attackStatusDescriptorNodeContent) {
+        var childNode = addChild(attackStatusDescriptorNodeContent);
+        if (childNode == null) {
+            childNode = find(attackStatusDescriptorNodeContent, this);
+        }
+        return childNode;
+    }
     
     /**
      * Determines whether adding the given content for a child node of this node would create a semantic circle,
@@ -78,8 +94,15 @@ public class Node<T extends NodeContent<?>> {
                 getChildNodes().stream().anyMatch(n -> n.contains(nodeContent));
     }
     
+    /**
+     * Finds the node with the given content under and including the given parent node.
+     * 
+     * @param nodeContent - the given content
+     * @param parentNode - the parent node
+     * @return the node with the given content under the given parent node or {@code null} if no such node is found
+     */
     public Node<T> find(final T nodeContent, final Node<T> parentNode) {
-        final Node<T> toFind = new Node<T>(nodeContent, parentNode);
+        final Node<T> toFind = new Node<>(nodeContent, parentNode);
         if (this.equals(toFind)) {
             return this;
         }

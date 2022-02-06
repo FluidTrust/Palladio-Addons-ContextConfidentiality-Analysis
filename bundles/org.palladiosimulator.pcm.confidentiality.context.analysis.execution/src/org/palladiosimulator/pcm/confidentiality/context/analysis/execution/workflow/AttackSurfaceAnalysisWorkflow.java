@@ -15,11 +15,10 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 
 /**
- * Workflow for AttackerAnalysis
+ * Workflow for AttackSurfaceAnalysis
  *
  * @author majuwa
- *
- *
+ * @author ugnwq
  */
 public class AttackSurfaceAnalysisWorkflow extends SequentialBlackboardInteractingJob<MDSDBlackboard> {
 

@@ -22,7 +22,8 @@ public class AttackDAG {
     private final Node<AttackStatusDescriptorNodeContent> rootNode;
 
     private Node<AttackStatusDescriptorNodeContent> selectedNode;
-    private Set<List<AttackStatusDescriptorNodeContent>> alreadyFoundPaths;
+    
+    private Set<AttackPathSurface> alreadyFoundPaths;
 
     /**
      * Creates a new {@link AttackDAG} for the given root critical entity.
@@ -74,12 +75,12 @@ public class AttackDAG {
     /**
      * 
      * @return gets the set of already found paths
-     * @see #addAlreadyFoundPath(List)
+     * @see #addAlreadyFoundPath(AttackPathSurface)
      */
-    public Set<List<AttackStatusDescriptorNodeContent>> getAlreadyFoundPaths() {
+    public Set<AttackPathSurface> getAlreadyFoundPaths() {
         return Collections.unmodifiableSet(this.alreadyFoundPaths
                 .stream()
-                .map(Collections::unmodifiableList)
+                .map(AttackPathSurface::getUnmodifiableCopy)
                 .collect(Collectors.toSet()));
     }
 
@@ -87,7 +88,7 @@ public class AttackDAG {
      * 
      * @param path - the path list containing of {@link AttackStatusDescriptorNodeContent}
      */
-    public void addAlreadyFoundPath(final List<AttackStatusDescriptorNodeContent> path) {
+    public void addAlreadyFoundPath(final AttackPathSurface path) {
         this.alreadyFoundPaths.add(path);
     }
 

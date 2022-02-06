@@ -9,6 +9,11 @@
     </surfaceattackcomponent>
   </seedModifications>
   <changePropagationSteps xsi:type="KAMP4attackModificationmarks:CredentialChange">
+    <compromisedresource toolderived="true">
+      <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </compromisedresource>
     <compromisedassembly toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
@@ -20,48 +25,34 @@
       <causingElements xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </compromisedassembly>
     <compromisedassembly toolderived="true">
-      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
     </compromisedassembly>
     <compromisedassembly toolderived="true">
-      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
-    </compromisedassembly>
-    <compromisedassembly toolderived="true">
-      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_cKQacFBjEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_KlAToFBmEeyFsrOVaGVGfg"/>
-    </compromisedassembly>
-    <compromisedassembly toolderived="true">
-      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
-      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_Q_7vsFBmEeyFsrOVaGVGfg"/>
+      <affectedElement xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      <causingElements xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
     </compromisedassembly>
     <contextchange>
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
     </contextchange>
-    <contextchange>
-      <affectedElement xsi:type="system:UsageSpecification" href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
-    </contextchange>
-    <compromisedservice affectedElement="_xT_gAIN2EeyW8JUCXnBDAQ" toolderived="true">
+    <compromisedservice affectedElement="_adsl8IdhEeyLOsiYtysHDA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_xUE_kIN2EeyW8JUCXnBDAQ" toolderived="true">
+    <compromisedservice affectedElement="_adw3YIdhEeyLOsiYtysHDA" toolderived="true">
       <causingElements xsi:type="composition:AssemblyContext" href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
     </compromisedservice>
-    <compromisedservice affectedElement="_xUFmoIN2EeyW8JUCXnBDAQ" toolderived="true">
-      <causingElements xsi:type="composition:AssemblyContext" href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
-    </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_xT_gAIN2EeyW8JUCXnBDAQ">
+      <servicerestriction id="_adsl8IdhEeyLOsiYtysHDA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_KjhikgzkEeCFg86gxKwVPw"/>
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         <service href="My.repository#12345"/>
       </servicerestriction>
-      <servicerestriction id="_xUE_kIN2EeyW8JUCXnBDAQ">
+      <servicerestriction id="_adw3YIdhEeyLOsiYtysHDA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_h-sX4FBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_FX3r8FBcEeyXHY01PFJiNw"/>
       </servicerestriction>
-      <servicerestriction id="_xUFmoIN2EeyW8JUCXnBDAQ">
+      <servicerestriction id="_adxecIdhEeyLOsiYtysHDA">
         <signature xsi:type="repository:OperationSignature" href="My.repository#_qra3cFBbEeyXHY01PFJiNw"/>
         <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
         <service href="My.repository#_Hj6FsFBcEeyXHY01PFJiNw"/>
@@ -69,23 +60,39 @@
     </servicerestrictioncontainer>
     <datamodelcontainer/>
     <attackpaths>
-      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_ae9xQIdhEeyLOsiYtysHDA" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_ae9xQYdhEeyLOsiYtysHDA">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
     </attackpaths>
     <attackpaths>
-      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_5QT_IHkqEeyDU_KjGfSNZw"/>
-      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_ae-YUYdhEeyLOsiYtysHDA" entityName="generated default sys integration for Assembly_Component R.1.1">
+        <pcmelement id="_ae-YUIdhEeyLOsiYtysHDA">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_ae-_YIdhEeyLOsiYtysHDA" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_ae-_YYdhEeyLOsiYtysHDA">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
     </attackpaths>
     <attackpaths>
-      <path xsi:type="pcmIntegration:DefaultSystemIntegration" href="My.attacker#_xWpLZIN2EeyW8JUCXnBDAQ"/>
-      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
-    </attackpaths>
-    <attackpaths>
-      <path xsi:type="pcmIntegration:DefaultSystemIntegration" href="My.attacker#_xWpycYN2EeyW8JUCXnBDAQ"/>
-      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" href="My.attacker#_sW6DwHkqEeyDU_KjGfSNZw"/>
-      <criticalElement href="My.attacker#_7eVo0H3_Eey-TsPPA-bKMw"/>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_afANgIdhEeyLOsiYtysHDA" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_afANgYdhEeyLOsiYtysHDA">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_afANgodhEeyLOsiYtysHDA" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_afANg4dhEeyLOsiYtysHDA">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
     </attackpaths>
   </changePropagationSteps>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>

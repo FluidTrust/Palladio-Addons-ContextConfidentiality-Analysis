@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
@@ -44,11 +45,11 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         CachePDP.instance().clearCache();
-        CacheLastCompromisationCausingElements.instance().reset();
+        //TODO remove CacheLastCompromisationCausingElements.instance().reset();
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
         CacheCompromised.instance().register(this.changePropagationDueToCredential);
-        CacheLastCompromisationCausingElements.instance().register(this.changePropagationDueToCredential);
+        //TODO remove CacheLastCompromisationCausingElements.instance().register(this.changePropagationDueToCredential);
         
         // prepare
         createInitialStructure(board);
@@ -61,18 +62,19 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             
             //TODO contain default system integrations correctly!
             //TODO look if this is correct like this
-            calculateAndMarkAssemblyPropagation(board);
-            calculateAndMarkResourcePropagation(board);
+            
+            calculateAndMarkAssemblyPropagation(board); //TODO 2. add other kinds of analysis
+            calculateAndMarkResourcePropagation(board); //TODO 1. adapt implementation
             
             
             /*TODO calculateAndMarkLinkingPropagation(board);*/
         } while (this.changePropagationDueToCredential.isChanged()); 
-
+        
         // Clear caches
         CachePDP.instance().clearCache();
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
-        CacheLastCompromisationCausingElements.instance().reset();
+        //TODO remove CacheLastCompromisationCausingElements.instance().reset();
     }
 
     private void createInitialStructure(BlackboardWrapper board) {

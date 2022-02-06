@@ -3,9 +3,8 @@
   <attackers>
     <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker" attacks="_zlkeQXxpEeyn1NhAoZRRiA">
       <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
-      <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </attacker>
-    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_7eVo0H3_Eey-TsPPA-bKMw" attacker="_NxbyoFmWEeyYJNGe-i7GBA"/>
+    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_zFUkYIQeEey4SLIftZhi_g" attacker="_NxbyoFmWEeyYJNGe-i7GBA"/>
   </attackers>
   <attacks>
     <attack xsi:type="attack:CVEAttack" id="_zlkeQXxpEeyn1NhAoZRRiA" entityName="CVEID Test Attack" category="//@categoryspecification/@categories.0"/>
@@ -20,7 +19,7 @@
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_sW6DwHkqEeyDU_KjGfSNZw" entityName="Critical Test Vulnerability Integration" vulnerability="TestVulnerabilityId123456">
-      <pcmelement id="_hXAjcHxmEeyxKt7G5MH1AQ" entityName="criticalPCMelement vuln">
+      <pcmelement id="_cijw0IQYEeyq0MAOx1_owA" entityName="critcal pcm elem vuln">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
@@ -29,14 +28,14 @@
         <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_3Si90X3_Eey-TsPPA-bKMw" entityName="critical element default system integration">
-      <pcmelement id="_7eVo0H3_Eey-TsPPA-bKMw" entityName="pcm element assembly critical default for attacker">
-        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </pcmelement>
-    </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_oI5i4INJEeyAiIXYWVg1vA" entityName="resContainerCriticalVuln" vulnerability="TestVulnerabilityId123456">
       <pcmelement id="_rHIOkINJEeyAiIXYWVg1vA" entityName="pcm elem res container critical">
         <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_wosJ4YQeEey4SLIftZhi_g" entityName="critcal default">
+      <pcmelement id="_zFUkYIQeEey4SLIftZhi_g" entityName="critical default pcm">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
     </vulnerabilities>
   </systemintegration>

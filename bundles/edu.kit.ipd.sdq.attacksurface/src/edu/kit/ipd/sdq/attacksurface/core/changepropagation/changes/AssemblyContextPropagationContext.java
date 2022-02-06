@@ -7,6 +7,7 @@ import java.util.List;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
 import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
@@ -55,4 +56,9 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
         handler.attackService(services, changes, source);
     }
 
+    @Override
+    protected String getLastCauseId(final Entity affectedElement) {
+        // TODO implement causing usage spec if attack succeeded
+        return null;
+    }
 }
