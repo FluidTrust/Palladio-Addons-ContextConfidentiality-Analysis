@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,12 +49,9 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
-    private int stackIndex;
-
     protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
             final AttackDAG attackDAG) {
         super(v, change, attackDAG);
-        this.stackIndex = 0;
     }
 
     @Override
@@ -83,18 +81,18 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
-        // TODO adapt
+        final var finalSelectedNode = this.attackDAG.getSelectedNode();
+        final var relevantResourceContainer = getResourceContainerForElement(finalSelectedNode);
+        final var relevantResourceContainerNode = getResourceContainerNode(relevantResourceContainer,
+                finalSelectedNode);
 
-        /*final var listCompromisedContexts = getCompromisedAssemblyContexts();
-
-        for (final var component : listCompromisedContexts) {
-            final var connected = getConnectedComponents(component);
-            final var containers = connected.stream().map(this::getResourceContainer).distinct()
-                    .collect(Collectors.toList());
-            final var handler = getRemoteResourceHandler();
-            handler.attackResourceContainer(containers, this.changes, component);
+        if (relevantResourceContainerNode != null) {
+            final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
+            final var allConnectedComponents = connectedResourceContainers.stream().map(this::getAllContainedAssemblies)
+                    .flatMap(List::stream).collect(Collectors.toList());
+            this.calculateResourceContainerPropagation(relevantResourceContainerNode, allConnectedComponents,
+                    finalSelectedNode, this::calculateAssemblyContextToRemoteResourcePropagation, true);
         }
-         */
     }
 
     private void handleSeff(final AssemblyContext sourceComponent) {
@@ -141,16 +139,49 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
-        // TODO adapt
+        final var finalSelectedNode = this.attackDAG.getSelectedNode();
+        final var relevantResourceContainer = getResourceContainerForElement(finalSelectedNode);
+        final var relevantResourceContainerNode = getResourceContainerNode(relevantResourceContainer,
+                finalSelectedNode);
 
-        final var listCompromisedContexts = getCompromisedAssemblyContexts();
+        if (relevantResourceContainerNode != null) {
+            final var containedComponents = getAllContainedAssemblies(relevantResourceContainer);
+            this.calculateResourceContainerPropagation(relevantResourceContainerNode, containedComponents,
+                    finalSelectedNode, this::calculateAssemblyContextToLocalResourcePropagation, false);
+        }
+    }
 
-        for (final var component : listCompromisedContexts) {
-            final var resource = getResourceContainer(component);
-            final var handler = getLocalResourceHandler();
-            handler.attackResourceContainer(List.of(resource), this.changes, component);
+    private void calculateResourceContainerPropagation(
+            final Node<AttackStatusDescriptorNodeContent> relevantResourceContainerNode,
+            final List<AssemblyContext> components, final Node<AttackStatusDescriptorNodeContent> finalSelectedNode,
+            final Runnable recursionCall, final boolean isRemote) {
+        final var relevantResourceContainer = relevantResourceContainerNode.getContent()
+                .getContainedElementAsPCMElement().getResourcecontainer();
+        final var finalSelectedEntity = finalSelectedNode.getContent().getContainedElement();
+        for (var component : components) {
+            final var handler = isRemote ? getRemoteResourceHandler() : getLocalResourceHandler();
+            final var containedNode = relevantResourceContainerNode
+                    .addOrFindChild(new AttackStatusDescriptorNodeContent(component));
+            handler.attackResourceContainer(List.of(relevantResourceContainer), this.changes, component);
+            if (containedNode != null && isCompromised(relevantResourceContainer)) { // TODO
+                this.compromise(relevantResourceContainerNode, getLastCauseId(relevantResourceContainer),
+                        containedNode);
+            }
         }
 
+        // attack connected resource containers from the inside if the element to be
+        // attacked is not yet compromised
+        if (!isCompromised(finalSelectedEntity)) {
+            final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
+            for (final var connectedContainer : connectedResourceContainers) {
+                // continue building the DAG
+                final var childNode = relevantResourceContainerNode
+                        .addChild(new AttackStatusDescriptorNodeContent(connectedContainer));
+                if (childNode != null) {
+                    this.callRecursion(childNode, recursionCall, finalSelectedNode);
+                }
+            }
+        }
     }
 
     protected abstract ResourceContainerHandler getLocalResourceHandler();
@@ -160,7 +191,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
         final var finalSelectedNode = this.attackDAG.getSelectedNode();
-        final var selectedComponents = getAssemmblyContexts(finalSelectedNode.getContent());
+        final var selectedComponents = getRelevantAssemblyContexts(finalSelectedNode.getContent());
         for (var selectedComponent : selectedComponents) {
             final var selectedNode = findSelectedNode(finalSelectedNode, selectedComponents, selectedComponent);
             if (selectedNode != null) {
@@ -169,12 +200,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         }
         this.attackDAG.setSelectedNode(finalSelectedNode);
     }
-    
-    private void handleSelectedNodePropagation(final Node<AttackStatusDescriptorNodeContent> selectedNode, 
+
+    private void handleSelectedNodePropagation(final Node<AttackStatusDescriptorNodeContent> selectedNode,
             final AssemblyContext selectedComponent) {
         this.attackDAG.setSelectedNode(selectedNode);
-        var connectedComponents = getConnectedComponents(
-                selectedComponent);
+        var connectedComponents = getConnectedComponents(selectedComponent);
         final var handler = getAssemblyHandler();
         boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
         if (isNotCompromisedBefore) {
@@ -186,12 +216,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             compromise(selectedNode, getLastCauseId(selectedComponent), selectedNode);
         }
 
-        handleConnectedComponentsPropagation(selectedNode, selectedComponent,
-                isNotCompromisedBefore, connectedComponents, handler);        
+        handleConnectedComponentsPropagation(selectedNode, selectedComponent, isNotCompromisedBefore,
+                connectedComponents, handler);
     }
-    
-    private void handleConnectedComponentsPropagation(final Node<AttackStatusDescriptorNodeContent> selectedNode, 
-            final AssemblyContext selectedComponent, final boolean isNotCompromisedBefore, 
+
+    private void handleConnectedComponentsPropagation(final Node<AttackStatusDescriptorNodeContent> selectedNode,
+            final AssemblyContext selectedComponent, final boolean isNotCompromisedBefore,
             final List<AssemblyContext> connectedComponents, final AssemblyContextHandler handler) {
         for (final var connectedComponent : connectedComponents) {
             // continue building the DAG
@@ -207,18 +237,14 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 }
 
                 // select the child node and recursively call the propagation call
-                this.attackDAG.setSelectedNode(childNode);
-                this.stackIndex++;
-                this.calculateAssemblyContextToAssemblyContextPropagation();
-                this.stackIndex--;
-                this.attackDAG.setSelectedNode(selectedNode);
+                this.callRecursion(childNode, this::calculateAssemblyContextToAssemblyContextPropagation, selectedNode);
             }
         }
     }
-    
-    
-    private Node<AttackStatusDescriptorNodeContent> findSelectedNode(Node<AttackStatusDescriptorNodeContent> finalSelectedNode,
-            List<AssemblyContext> selectedComponents, AssemblyContext selectedComponent) {
+
+    private Node<AttackStatusDescriptorNodeContent> findSelectedNode(
+            Node<AttackStatusDescriptorNodeContent> finalSelectedNode, List<AssemblyContext> selectedComponents,
+            AssemblyContext selectedComponent) {
         if (selectedComponents.isEmpty() || selectedComponents.size() == 1) {
             return finalSelectedNode;
         }
@@ -226,56 +252,79 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         return childNode;
     }
 
-    private List<AssemblyContext> getAssemmblyContexts(AttackStatusDescriptorNodeContent nodeContent) { //TODO rename
+    private List<AssemblyContext> getRelevantAssemblyContexts(AttackStatusDescriptorNodeContent nodeContent) { // TODO
+                                                                                                               // rename
         final List<AssemblyContext> assemblies = new ArrayList<>();
-        
-        switch(nodeContent.getTypeOfContainedElement()) {
-            case ASSEMBLY_CONTEXT:
-                assemblies.add(nodeContent.getContainedElementAsPCMElement().getAssemblycontext());
-                break;
-            case RESOURCE_CONTAINER:
-                assemblies.addAll(getAllContainedAssemblies(nodeContent.getContainedElementAsPCMElement().getResourcecontainer()));
-                break;
-            default:
-                //TODO implement other cases if necessary
-                break;
+
+        switch (nodeContent.getTypeOfContainedElement()) {
+        case ASSEMBLY_CONTEXT:
+            assemblies.add(nodeContent.getContainedElementAsPCMElement().getAssemblycontext());
+            break;
+        case RESOURCE_CONTAINER:
+            assemblies.addAll(
+                    getAllContainedAssemblies(nodeContent.getContainedElementAsPCMElement().getResourcecontainer()));
+            break;
+        default:
+            // TODO implement other cases if necessary
+            break;
         }
-        
+
         return assemblies;
     }
 
     private List<AssemblyContext> getAllContainedAssemblies(final ResourceContainer resourcecontainer) {
-        return this.modelStorage.getAllocation().getAllocationContexts_Allocation()
-                    .stream()
-                    .filter(a -> EcoreUtil.equals(a.getResourceContainer_AllocationContext(), resourcecontainer))
-                    .map(AllocationContext::getAssemblyContext_AllocationContext)
-                    .collect(Collectors.toList());
+        return this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
+                .filter(a -> EcoreUtil.equals(a.getResourceContainer_AllocationContext(), resourcecontainer))
+                .map(AllocationContext::getAssemblyContext_AllocationContext).collect(Collectors.toList());
     }
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        // TODO adapt
+        final var finalSelectedNode = this.attackDAG.getSelectedNode();
 
-        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
-                .collect(Collectors.toList());
+        final var listRelevantContexts = getRelevantAssemblyContexts(finalSelectedNode.getContent()).stream()
+                .filter(this::isGlobalElement).collect(Collectors.toList());
 
-        for (var component : listCompromisedContexts) {
-            var resourceContainer = getResourceContainer(component);
-            var connectedContainers = getConnectedResourceContainers(resourceContainer);
-            var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
-                    this.modelStorage.getAllocation());
-            reachableAssemblies.addAll(
-                    CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
-            final var handler = getAssemblyHandler();
-            reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
+        final var resourceContainer = this.getResourceContainerForElement(finalSelectedNode);
+        final var resourceContainerNode = this.getResourceContainerNode(resourceContainer, finalSelectedNode);
+        final var connectedContainers = getConnectedResourceContainers(resourceContainer);
+        var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
+                this.modelStorage.getAllocation());
+        reachableAssemblies.addAll(
+                CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
 
-            var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-            handleSeff(this.changes, listServices, component);
+        reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
+                .filter(e -> !isCompromised(e)).collect(Collectors.toList());
+        for (var component : listRelevantContexts) {
+            final var componentNode = finalSelectedNode
+                    .addOrFindChild(new AttackStatusDescriptorNodeContent(component));
+            if (componentNode != null) {
+                final var handler = getAssemblyHandler();
+                handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
+                for (final var assembly : reachableAssemblies) {
+                    final var assemblyNode = componentNode
+                            .addOrFindChild(new AttackStatusDescriptorNodeContent(assembly));
+                    if (isCompromised(assembly)) {
+                        compromise(assemblyNode, getLastCauseId(assembly), componentNode);
+                    }
+                }
+
+                var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
+                        .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
+                handleSeff(this.changes, listServices, component);
+            }
         }
 
+        // recursion for attacking assemblies inside other connected containers
+        if (resourceContainerNode != null) {
+            for (final var container : connectedContainers) {
+                final var childNode = this.getResourceContainerNode(container, finalSelectedNode);
+                if (childNode != null) {
+                    this.callRecursion(childNode, this::calculateAssemblyContextToGlobalAssemblyContextPropagation,
+                            finalSelectedNode);
+                }
+            }
+        }
     }
 
     private boolean isGlobalElement(AssemblyContext assemblyContext) {
@@ -286,20 +335,18 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     private List<AssemblyContext> getConnectedComponents(AssemblyContext component) {
         final var system = this.modelStorage.getAssembly();
-        
+
         final var connectedConnectors = getConnectedConnectors(component, system);
 
         final List<AssemblyContext> connectedComponents = new ArrayList<>();
-        connectedComponents.addAll(connectedConnectors
-                            .stream()
-                            .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-                            .filter(e -> !EcoreUtil.equals(e, component))
-                            .collect(Collectors.toList()));
+        connectedComponents.addAll(
+                connectedConnectors.stream().map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
 
         connectedComponents.addAll(
-                    connectedConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                            .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
-            
+                connectedConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
+
         return CollectionHelper.removeDuplicates(connectedComponents);
     }
 

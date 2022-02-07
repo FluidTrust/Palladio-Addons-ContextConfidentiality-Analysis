@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.Callable;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,12 +49,15 @@ public abstract class Change<T> {
     protected CredentialChange changes;
 
     protected AttackDAG attackDAG;
+    
+    private int stackIndex;
 
     public Change(final BlackboardWrapper v, final CredentialChange change, final AttackDAG attackDAG) {
         this.modelStorage = v;
         this.initialMarkedItems = this.loadInitialMarkedItems();
         this.changes = change;
         this.attackDAG = attackDAG;
+        this.stackIndex = 0;
     }
 
     protected abstract Collection<T> loadInitialMarkedItems();
@@ -110,6 +114,42 @@ public abstract class Change<T> {
     protected static boolean isCompromised(final Entity... entities) {
         return Arrays.stream(entities).anyMatch(e -> CacheCompromised.instance().compromised(e));
     }
+    
+    protected void callRecursion(final Node<AttackStatusDescriptorNodeContent> childNode, 
+            final Runnable recursionMethod, final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        // select the child node and recursively call the propagation call
+        this.attackDAG.setSelectedNode(childNode);
+        this.stackIndex++;
+        recursionMethod.run();
+        this.stackIndex--;
+        this.attackDAG.setSelectedNode(selectedNode);
+    }
+    
+    protected ResourceContainer getResourceContainerForElement(
+            final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        final var selectedNodeContent = selectedNode.getContent();
+        final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
+        final var selectedPCMElement = selectedNodeContent.getContainedElementAsPCMElement();
+
+        final ResourceContainer ret;
+        switch (selectedElementType) {
+        case ASSEMBLY_CONTEXT:
+            final var selectedAssembly = selectedPCMElement.getAssemblycontext();
+            final var containerOfSelected = getResourceContainer(selectedAssembly);
+            ret = containerOfSelected;
+            break;
+        case RESOURCE_CONTAINER:
+            final var selectedContainer = selectedPCMElement.getResourcecontainer();
+            ret = selectedContainer;
+            break;
+        default:
+            // TODO implement all possible cases
+
+            ret = null; // TODO
+            break;
+        }
+        return ret;
+    }
 
     protected ResourceContainer getResourceContainer(final AssemblyContext component) {
         final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
@@ -120,6 +160,16 @@ public abstract class Change<T> {
                     "No Allocation for assemblycontext " + component.getEntityName() + " found");
         }
         return allocationOPT.get().getResourceContainer_AllocationContext();
+    }
+    
+    protected Node<AttackStatusDescriptorNodeContent> getResourceContainerNode(final ResourceContainer resourceContainer,
+            final Node<AttackStatusDescriptorNodeContent> selectedNode) {
+        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContent()
+                .getContainedElement().getId()
+                .equals(resourceContainer.getId());
+        return isSelectedNodeAlreadyResourceContainerNode 
+                    ? selectedNode
+                    : selectedNode.addOrFindChild(new AttackStatusDescriptorNodeContent(resourceContainer));
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
