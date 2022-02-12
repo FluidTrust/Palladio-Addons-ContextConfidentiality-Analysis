@@ -24,7 +24,7 @@ Require-Bundle: org.eclipse.ui,
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks;bundle-version="1.0.0",
  edu.kit.kastel.sdq.kamp4attack.graph.api,
  org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: pcm.dataprocessing.analysis.wfe
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config,

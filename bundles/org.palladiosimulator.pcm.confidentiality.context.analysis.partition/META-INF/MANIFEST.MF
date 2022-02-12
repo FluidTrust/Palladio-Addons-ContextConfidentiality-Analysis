@@ -9,7 +9,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context,
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.partition
 Bundle-ActivationPolicy: lazy
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition

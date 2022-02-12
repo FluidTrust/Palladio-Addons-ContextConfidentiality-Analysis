@@ -16,7 +16,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp;bundle-version="1.0.0",
  org.eclipse.osgi.util;bundle-version="3.5.300",
  org.glassfish.hk2.osgi-resource-locator;bundle-version="2.5.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp
 Bundle-ActivationPolicy: lazy
 Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator.xml,

@@ -4,7 +4,7 @@ Bundle-Name: Tests
 Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack.tests
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.tests
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: edu.kit.ipd.sdq.kamp,
  edu.kit.ipd.sdq.kamp.model.modificationmarks,
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
