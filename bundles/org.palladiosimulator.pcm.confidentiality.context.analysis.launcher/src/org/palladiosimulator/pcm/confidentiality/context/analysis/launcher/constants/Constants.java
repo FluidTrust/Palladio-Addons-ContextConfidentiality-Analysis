@@ -24,5 +24,6 @@ public class Constants {
     public static final String CONSOLE_ID = "pcm.dataprocessing.context.analysis.launcher.console";
     public static final String DEFAULT_CONFIG_VALUE = "default";
     public static final String GRAPH_CREATION_LABEL = "Graph Creation";
+    public static final String VARIATION_MODEL_LABEL = "Variation Model";
 
 }

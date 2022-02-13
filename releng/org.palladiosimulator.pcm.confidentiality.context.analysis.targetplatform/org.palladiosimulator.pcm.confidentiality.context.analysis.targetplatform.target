@@ -95,6 +95,10 @@
 			<repository location="https://updatesite.mdsd.tools/library-emfeditutils/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
+			<unit id="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.workflow" version="0.0.0"/>
+			<repository location="https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-uncertainty-variationcreation/nightly/"/>
+		</location>
+		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
 			
 			<unit id="jakarta.activation" version="2.0.0.v20201118-1818"/>
 			<unit id="com.sun.xml.bind" version="2.3.3"/>
