@@ -1,4 +1,4 @@
-package org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.dataflow;
+package org.palladiosimulator.pcm.confidentiality.attacker.variation;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;

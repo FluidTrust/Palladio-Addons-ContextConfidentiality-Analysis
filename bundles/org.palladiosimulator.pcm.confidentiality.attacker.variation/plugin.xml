@@ -4,7 +4,7 @@
    <extension
          point="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.statehandler_implementation">
       <StateHandlerImplementation
-            class="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm.AttackStateHandler"
+            class="org.palladiosimulator.pcm.confidentiality.attacker.variation.statehandler.pcm.AttackStateHandler"
             id="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm.AttackerStateHandler"
             name="AttackerStateHandler">
          <VaryingSubjectDefinition>

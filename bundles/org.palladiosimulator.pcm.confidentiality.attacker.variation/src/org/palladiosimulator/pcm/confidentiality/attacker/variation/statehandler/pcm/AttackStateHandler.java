@@ -1,4 +1,4 @@
-package org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm;
+package org.palladiosimulator.pcm.confidentiality.attacker.variation.statehandler.pcm;
 
 import java.util.Arrays;
 import java.util.List;
