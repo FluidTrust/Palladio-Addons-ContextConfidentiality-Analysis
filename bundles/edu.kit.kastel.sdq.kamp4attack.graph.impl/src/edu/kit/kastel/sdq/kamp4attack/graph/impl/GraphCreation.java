@@ -25,8 +25,8 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
 
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 import edu.kit.kastel.sdq.kamp4attack.graph.api.AttackGraphCreation;
 import edu.kit.kastel.sdq.kamp4attack.graph.impl.output.DotCreation;
@@ -37,7 +37,7 @@ public class GraphCreation implements AttackGraphCreation {
     private final Logger logger = Logger.getLogger(GraphCreation.class);
 
     @Override
-    public Optional<Path> createAttackGraph(AbstractKAMP4attackModificationRepository<?> modificationPartition) {
+    public Optional<Path> createAttackGraph(KAMP4attackModificationRepository modificationPartition) {
         if (modificationPartition.getChangePropagationSteps().size() == 1) {
 
             var change = (CredentialChange) modificationPartition.getChangePropagationSteps().get(0);

@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -16,39 +15,33 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class Change<T> {
 
-    protected Collection<T> initialMarkedItems;
-
     protected BlackboardWrapper modelStorage;
 
     protected CredentialChange changes;
 
     public Change(final BlackboardWrapper v, CredentialChange change) {
         this.modelStorage = v;
-        this.initialMarkedItems = this.loadInitialMarkedItems();
         this.changes = change;
 
     }
 
-    protected abstract Collection<T> loadInitialMarkedItems();
-
     protected void updateFromContextProviderStream(final CredentialChange changes,
             final Stream<? extends PCMAttributeProvider> streamAttributeProvider) {
-        final var streamContextChange = streamAttributeProvider
-                .map(e -> {
-                    if (e.getAssemblycontext() != null) {
-                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
-                                List.of(e.getAssemblycontext()));
-                    }
-                    if (e.getLinkingresource() != null) {
-                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
-                                List.of(e.getLinkingresource()));
-                    }
-                    if (e.getResourcecontainer() != null) {
-                        return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
-                                List.of(e.getResourcecontainer()));
-                    }
-                    return HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null);
-                });
+        final var streamContextChange = streamAttributeProvider.map(e -> {
+            if (e.getAssemblycontext() != null) {
+                return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                        List.of(e.getAssemblycontext()));
+            }
+            if (e.getLinkingresource() != null) {
+                return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                        List.of(e.getLinkingresource()));
+            }
+            if (e.getResourcecontainer() != null) {
+                return HelperUpdateCredentialChange.createContextChange(e.getAttribute(),
+                        List.of(e.getResourcecontainer()));
+            }
+            return HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null);
+        });
 
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }

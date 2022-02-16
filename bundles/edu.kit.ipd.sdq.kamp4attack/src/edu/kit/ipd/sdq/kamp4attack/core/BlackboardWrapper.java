@@ -8,8 +8,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-import edu.kit.ipd.sdq.kamp.architecture.AbstractArchitectureVersion;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 
 /**
  * This class wraps the MDSD Blackboard {@link MDSDBlackboard}
@@ -19,7 +18,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  *
  */
 
-public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4attackModificationRepository<?>> {
+public class BlackboardWrapper {
 
     private final System assembly;
     private final ResourceEnvironment environment;
@@ -27,18 +26,19 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
     private final SystemSpecificationContainer pcmSpecification;
     private final AttackerSystemSpecificationContainer vulnerabilitySpecification;
     private final Evaluate eval;
+    private final KAMP4attackModificationRepository modificationMarkRepository;
 
-    public BlackboardWrapper(final AbstractKAMP4attackModificationRepository<?> blackboard, final System assembly,
+    public BlackboardWrapper(final KAMP4attackModificationRepository blackboard, final System assembly,
             final ResourceEnvironment environment, final Allocation allocation,
             final SystemSpecificationContainer pcmSpecification,
             final AttackerSystemSpecificationContainer vulnerabilitySpecification, final Evaluate eval) {
-        super("", blackboard);
         this.assembly = assembly;
         this.environment = environment;
         this.allocation = allocation;
         this.pcmSpecification = pcmSpecification;
         this.vulnerabilitySpecification = vulnerabilitySpecification;
         this.eval = eval;
+        this.modificationMarkRepository = blackboard;
     }
 
     /**
@@ -68,6 +68,10 @@ public class BlackboardWrapper extends AbstractArchitectureVersion<AbstractKAMP4
 
     public Evaluate getEval() {
         return this.eval;
+    }
+
+    public KAMP4attackModificationRepository getModificationMarkRepository() {
+        return this.modificationMarkRepository;
     }
 
 }

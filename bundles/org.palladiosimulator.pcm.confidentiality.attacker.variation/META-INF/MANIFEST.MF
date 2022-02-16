@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: UncertaintyVariationModelGenPcm
+Bundle-SymbolicName: org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.dataflow;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Automatic-Module-Name: org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.dataflow
+Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-ActivationPolicy: lazy
+Bundle-Activator: org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.dataflow.Activator
+Import-Package: org.osgi.framework
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.emf.ecore,
+ de.uka.ipd.sdq.identifier;bundle-version="5.0.0",
+ org.palladiosimulator.pcm;bundle-version="5.0.0",
+ org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel;bundle-version="0.1.0",
+ edu.kit.ipd.sdq.kamp4attack.model.modificationmarks
+Export-Package: org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.dataflow

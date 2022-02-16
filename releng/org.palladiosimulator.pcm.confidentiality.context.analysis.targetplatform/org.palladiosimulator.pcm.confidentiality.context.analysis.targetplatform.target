@@ -82,10 +82,12 @@
 			<unit id="org.palladiosimulator.pcm.confidentiality.context.editor.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-contextconfidentiality-metamodel/nightly/"/>
 		</location>
+		<!--
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" refresh="true">
 			<unit id="edu.kit.ipd.sdq.kamp.feature.feature.group" version="0.0.0"/>
 			<repository location="https://raw.githubusercontent.com/KAMP-Research/KAMP/gh-pages"/>
 		</location>
+		-->
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" refresh="true">
 			<unit id="org.palladiosimulator.generator.fluent.feature.feature.group" version="0.0.0"/>
 			<repository location="https://updatesite.palladio-simulator.com/palladio-addons-fluentapimodelgenerator/nightly/"/>

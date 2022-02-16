@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,7 +17,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
-import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
@@ -32,11 +30,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     protected AssemblyContextChange(final BlackboardWrapper v, CredentialChange change) {
         super(v, change);
-    }
-
-    @Override
-    protected Collection<AssemblyContext> loadInitialMarkedItems() {
-        return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, AssemblyContext.class);
     }
 
     protected List<AssemblyContext> getCompromisedAssemblyContexts() {

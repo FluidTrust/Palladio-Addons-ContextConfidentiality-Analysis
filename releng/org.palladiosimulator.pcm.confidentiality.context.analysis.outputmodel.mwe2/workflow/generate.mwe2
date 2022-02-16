@@ -108,16 +108,6 @@ Workflow {
 			onStandalone = "platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore"
 		}
 		
-		uriMap = ContextDependentMapping {
-			onRunningPlatform = "platform:/plugin/edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.genmodel"
-			onStandalone = "platform:/resource/edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.genmodel"
-		}
-		
-		uriMap = ContextDependentMapping {
-			onRunningPlatform = "platform:/plugin/edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.ecore"
-			onStandalone = "platform:/resource/edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.ecore"
-		}
-		
 		
 		
 		registerGenModelFile = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
@@ -131,7 +121,6 @@ Workflow {
 		registerGenModelFile = "platform:/resource/de.uka.ipd.sdq.stoex/model/stoex.genmodel"
 		registerGenModelFile = "platform:/resource/org.palladiosimulator.pcm.confidentiality.context/model/context.genmodel"
 		registerGenModelFile = "platform:/resource/org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.genmodel"
-		registerGenModelFile = "platform:/resource/edu.kit.ipd.sdq.kamp.model.modificationmarks/model/Modificationmarks.genmodel"
 		
 		
 		logResourceUriMap = true
