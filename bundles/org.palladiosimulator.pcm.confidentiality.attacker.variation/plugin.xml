@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.statehandler_implementation">
+      <StateHandlerImplementation
+            class="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm.AttackStateHandler"
+            id="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm.AttackerStateHandler"
+            name="AttackerStateHandler">
+         <VaryingSubjectDefinition>
+            <Type
+                  type="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackerSelection">
+            </Type>
+         </VaryingSubjectDefinition>
+         <VariationDescriptionDefinition>
+            <Type
+                  type="org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker">
+            </Type>
+         </VariationDescriptionDefinition>
+      </StateHandlerImplementation>
+   </extension>
+
+</plugin>

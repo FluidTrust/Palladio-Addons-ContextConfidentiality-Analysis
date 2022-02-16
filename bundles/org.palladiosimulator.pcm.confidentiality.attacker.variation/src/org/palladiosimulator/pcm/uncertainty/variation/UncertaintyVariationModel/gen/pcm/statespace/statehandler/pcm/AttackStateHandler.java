@@ -12,6 +12,7 @@ import UncertaintyVariationModel.PrimitiveValue;
 import UncertaintyVariationModel.VariationPoint;
 import UncertaintyVariationModel.statehandler.GenericStateHandler;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackerSelection;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 
 public class AttackStateHandler extends GenericStateHandler {
 
@@ -27,7 +28,7 @@ public class AttackStateHandler extends GenericStateHandler {
             final int variationIdx) {
         final var desc = variationPoint.getVariationDescription();
         for (final EObject container : models.get(MODEL_TYPE1)) {
-            final var attacker = (AttackerSelection) container;
+            final var attacker = (KAMP4attackModificationRepository) container;
             final var vals = (PrimitiveValue) desc.getTargetVariations()
                 .get(variationIdx);
             final var resolvedVariations = this.resolve(models.get(MODEL_TYPE2), vals.getLink());
