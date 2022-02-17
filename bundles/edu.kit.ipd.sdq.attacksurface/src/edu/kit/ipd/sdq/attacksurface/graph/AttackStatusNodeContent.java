@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.attackdag;
+package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -18,19 +18,21 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
  * @author ugnwq
  * @version 1.0
  */
-public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
+public class AttackStatusNodeContent implements NodeContent<Entity> {
+    //TODO adapt
+    
     private final Entity containedElement;
     private final PCMElementType type;
     private final PCMElement asPcmElement;
     
+    //visitation status
+    private boolean visited;
+    
     //compromisation status
     private boolean isCompromised; //TODO at the moment takeover == compromised
     //TODO private boolean takeOver;
-    private Set<AttackStatusDescriptorNodeContent> attackSourceOfSet;
     
-    private String causeId;
-    
-    public AttackStatusDescriptorNodeContent(final Entity containedEntity) {
+    public AttackStatusNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
         this.type = PCMElementType.typeOf(containedEntity);
         if (this.type == null) {
@@ -38,7 +40,6 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
                     containedEntity.getClass().getName() + "\"");
         }
         this.asPcmElement = this.type.toPCMElement(this.containedElement);
-        this.attackSourceOfSet = new HashSet<>();
     }
 
     @Override
@@ -61,21 +62,13 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
     public void setCompromised(final boolean isCompromised) {
         this.isCompromised = isCompromised;
     }
-    
-    public boolean isAttackSourceOf(final AttackStatusDescriptorNodeContent target) {
-        return this.attackSourceOfSet.contains(target);
+
+    public boolean isVisited() {
+        return this.visited;
     }
 
-    public void setAttackSourceOf(final AttackStatusDescriptorNodeContent target) {
-        this.attackSourceOfSet.add(target);
-    }
-
-    public String getCauseId() {
-        return this.causeId;
-    }
-
-    public void setCauseId(String causeId) {
-        this.causeId = causeId;
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     @Override
@@ -91,8 +84,8 @@ public class AttackStatusDescriptorNodeContent implements NodeContent<Entity> {
         if (other == null) {
             return false;
         }
-        if (other instanceof AttackStatusDescriptorNodeContent) {
-            final AttackStatusDescriptorNodeContent otherContent = (AttackStatusDescriptorNodeContent)other;
+        if (other instanceof AttackStatusNodeContent) {
+            final AttackStatusNodeContent otherContent = (AttackStatusNodeContent)other;
             return otherContent.containedElement.getId().equals(this.containedElement.getId());
         }
         return false;

@@ -3,7 +3,6 @@ package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
@@ -30,13 +29,11 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
-import edu.kit.ipd.sdq.attacksurface.attackdag.AttackPathSurface;
-import edu.kit.ipd.sdq.attacksurface.attackdag.AttackStatusDescriptorNodeContent;
-import edu.kit.ipd.sdq.attacksurface.attackdag.Node;
-import edu.kit.ipd.sdq.attacksurface.attackdag.PCMElementType;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.HelperUpdateCredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -48,24 +45,26 @@ public abstract class Change<T> {
 
     protected CredentialChange changes;
 
-    protected AttackDAG attackDAG;
+    protected AttackGraph attackGraph;
     
     private int stackIndex;
 
-    public Change(final BlackboardWrapper v, final CredentialChange change, final AttackDAG attackDAG) {
+    public Change(final BlackboardWrapper v, final CredentialChange change, final AttackGraph attackGraph) {
         this.modelStorage = v;
         this.initialMarkedItems = this.loadInitialMarkedItems();
         this.changes = change;
-        this.attackDAG = attackDAG;
+        this.attackGraph = attackGraph;
         this.stackIndex = 0;
     }
 
     protected abstract Collection<T> loadInitialMarkedItems();
 
-    protected abstract String getLastCauseId(final Entity affectedElement);
-
     public CredentialChange getChanges() {
         return this.changes;
+    }
+
+    protected AttackGraph getAttackGraph() {
+        return this.attackGraph;
     }
 
     protected void updateFromContextProviderStream(final CredentialChange changes,
@@ -100,34 +99,36 @@ public abstract class Change<T> {
                 .getAffectedElement();
     }
 
-    protected void compromise(final Node<AttackStatusDescriptorNodeContent> selectedNode, final String causeId,
-            final Node<AttackStatusDescriptorNodeContent> attackSource) {
+    /*TODO remove protected void compromise(final AttackStatusNodeContent selectedNode, final String causeId,
+            final AttackStatusNodeContent attackSource) { //TODO do in handlers! //TODO remove here, is now in graph
         Objects.requireNonNull(selectedNode);
         Objects.requireNonNull(attackSource);
 
-        selectedNode.getContent().setCompromised(true);
-        selectedNode.getContent().setCauseId(causeId);
-        attackSource.getContent().setAttackSourceOf(selectedNode.getContent());
-        generateAllFoundAttackPaths(this.attackDAG.getRootNode());
-    }
+        selectedNode.setCompromised(true);
+        //TODO attackSource.setAttackSourceOf(selectedNode); //TODO s.above
+        generateAllFoundAttackPaths(this.attackGraph.getRootNodeContent());
+    }*/
 
-    protected static boolean isCompromised(final Entity... entities) {
-        return Arrays.stream(entities).anyMatch(e -> CacheCompromised.instance().compromised(e));
+    protected boolean isCompromised(final Entity... entities) {
+        return this.attackGraph.isAnyCompromised(entities);
     }
     
-    protected void callRecursion(final Node<AttackStatusDescriptorNodeContent> childNode, 
-            final Runnable recursionMethod, final Node<AttackStatusDescriptorNodeContent> selectedNode) {
-        // select the child node and recursively call the propagation call
-        this.attackDAG.setSelectedNode(childNode);
-        this.stackIndex++;
-        recursionMethod.run();
-        this.stackIndex--;
-        this.attackDAG.setSelectedNode(selectedNode);
+    protected void callRecursionIfNecessary(final AttackStatusNodeContent childNode, 
+            final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
+        selectedNode.setVisited(true);
+        if (childNode != null && !childNode.isVisited()) {
+            // select the child node and recursively call the propagation call
+            this.attackGraph.setSelectedNode(childNode);
+            this.stackIndex++;
+            recursionMethod.run();
+            childNode.setVisited(true);
+            this.stackIndex--;
+            this.attackGraph.setSelectedNode(selectedNode);
+        }
     }
     
     protected ResourceContainer getResourceContainerForElement(
-            final Node<AttackStatusDescriptorNodeContent> selectedNode) {
-        final var selectedNodeContent = selectedNode.getContent();
+            final AttackStatusNodeContent selectedNodeContent) {
         final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
         final var selectedPCMElement = selectedNodeContent.getContainedElementAsPCMElement();
 
@@ -162,14 +163,14 @@ public abstract class Change<T> {
         return allocationOPT.get().getResourceContainer_AllocationContext();
     }
     
-    protected Node<AttackStatusDescriptorNodeContent> getResourceContainerNode(final ResourceContainer resourceContainer,
-            final Node<AttackStatusDescriptorNodeContent> selectedNode) {
-        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContent()
+    protected AttackStatusNodeContent getResourceContainerNode(final ResourceContainer resourceContainer,
+            final AttackStatusNodeContent selectedNode) {
+        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode
                 .getContainedElement().getId()
                 .equals(resourceContainer.getId());
         return isSelectedNodeAlreadyResourceContainerNode 
                     ? selectedNode
-                    : selectedNode.addOrFindChild(new AttackStatusDescriptorNodeContent(resourceContainer));
+                    : this.getAttackGraph().addOrFindChild(selectedNode, new AttackStatusNodeContent(resourceContainer));
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
@@ -185,178 +186,5 @@ public abstract class Change<T> {
                 .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
                 .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
         return resources;
-    }
-
-    protected List<AttackPathSurface> generateAllFoundAttackPaths(
-            final Node<AttackStatusDescriptorNodeContent> root) { // TODO                                                                 // paths?
-        List<AttackPathSurface> allPaths = new ArrayList<>();
-        final var rootContent = root.getContent();
-        final var childrenOfRoot = root.getChildNodes();
-        for (final var childNode : childrenOfRoot) {
-            final var childContent = childNode.getContent();
-            allPaths.addAll(generateAllFoundAttackPaths(childNode));
-        }
-
-        // add compromised elements to the path
-        if (rootContent.isCompromised()) {
-            if (allPaths.isEmpty()) {
-                allPaths.add(new AttackPathSurface(new ArrayList<>(Arrays.asList(root))));
-            } else {
-                allPaths.forEach(p -> p.add(root));
-            }
-        }
-        
-        // only at the end of the recursion create the actual output attack paths
-        if (root.equals(this.attackDAG.getRootNode())) {
-            for (final var path : allPaths) {
-                // add the attack sources
-                final var firstContent = path.get(0);
-                final var childrenOfFirst = path.getNode(0).getChildNodes();
-                System.out.println(firstContent + ": " + childrenOfFirst); //TODO
-                for (final var childNode : childrenOfFirst) {
-                    final var childContent = childNode.getContent();
-                    if (childContent.isAttackSourceOf(firstContent)) {
-                        allPaths.forEach(p -> p.addFirst(childNode));
-                    }
-                }
-                
-                // generate the attack paths
-                final var criticalContent = root.getContent();
-                final var criticalPCMElement = criticalContent.getContainedElementAsPCMElement();
-                convertToAttackPath(this.modelStorage, path, criticalPCMElement);
-            }
-        }
-        return allPaths;
-    }
-
-    private void convertToAttackPath(final BlackboardWrapper board, final AttackPathSurface selectedPath,
-            final PCMElement criticalPCMElement) {
-        if (!selectedPath.isEmpty()) {
-            final AttackPath path = AttackerFactory.eINSTANCE.createAttackPath();
-            path.setCriticalElement(criticalPCMElement);
-
-            int index = 0;
-            for (final var nodeContent : selectedPath) {
-                if (nodeContent.isCompromised()) {
-                    final Entity entity = nodeContent.getContainedElement();
-                    final var systemIntegration = findCorrectSystemIntegration(board, entity, nodeContent.getCauseId());
-                    final var element = systemIntegration.getPcmelement();
-                    systemIntegration.setPcmelement(element);
-                    path.getPath().add(systemIntegration);
-                } else if (index == 0) { // is attack source of attacked element
-                    final Entity entity = nodeContent.getContainedElement();
-                    final var systemIntegration = generateDefaultSystemIntegration(entity);
-                    path.getPath().add(systemIntegration);
-                } else {
-                    break; // TODO: later maybe adapt for paths with gaps
-                }
-                index++;
-            }
-
-            //TODO add attack paths that do not succeed (s.above) (??)
-            final var paths = this.changes.getAttackpaths();
-            if (!contains(paths, path)) {
-                paths.add(path);
-                this.attackDAG.addAlreadyFoundPath(selectedPath);
-            }
-        }
-    }
-
-    protected static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
-        return PCMElementType.typeOf(entity).getElementIdEqualityPredicate(entity);
-    }
-
-    private static boolean contains(final List<AttackPath> attackpaths, final AttackPath path) {
-        final var pathList = path.getPath();
-        final var size = pathList.size();
-        for (final var nowPath : attackpaths) {
-            final var nowPathList = nowPath.getPath();
-            if (size != nowPathList.size()) {
-                continue;
-            }
-            boolean isContained = true;
-            for (int i = 0; i < size && isContained; i++) {
-                final var pcmEql = pcmElementEquals(pathList.get(i).getPcmelement(), nowPathList.get(i).getPcmelement());
-                isContained = pcmEql 
-                        ? vulnerabilityClassAndInnerIdEquals(pathList.get(i), nowPathList.get(i))
-                        : false;
-            }
-            if (isContained) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private static boolean vulnerabilityClassAndInnerIdEquals(SystemIntegration systemIntegration,
-            SystemIntegration systemIntegrationTwo) {
-        return Arrays.equals(systemIntegration.getClass().getInterfaces(), 
-                systemIntegration.getClass().getInterfaces())
-                && Objects.equals(systemIntegration.getIdOfContent(), systemIntegrationTwo.getIdOfContent());
-    }
-
-    private static boolean pcmElementEquals(final PCMElement first, final PCMElement second) {
-        final var typeFirst = PCMElementType.typeOf(first);
-        final var typeSecond = PCMElementType.typeOf(second);
-        if (typeFirst != null && typeFirst.equals(typeSecond)) {
-            return typeFirst.getEntity(first).getId().equals(typeSecond.getEntity(second).getId());
-        }
-        return false;
-    }
-
-    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
-            String causeId) {
-        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
-        if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
-            final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
-                    .collect(Collectors.toList());
-            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, causeId);
-            if (sysIntegration != null) {
-                return sysIntegration;
-            }
-        }
-        // create a new default system integration if no matching was found
-        return generateDefaultSystemIntegration(entity);
-    }
-
-    private SystemIntegration generateDefaultSystemIntegration(final Entity entity) {
-        final var pcmElement = PCMElementType.typeOf(entity).toPCMElement(entity);
-        final var sysIntegration = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
-        sysIntegration.setEntityName("generated default sys integration for " + entity.getEntityName());
-        sysIntegration.setPcmelement(pcmElement);
-        return sysIntegration;
-    }
-
-    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
-            final List<SystemIntegration> sysIntegrations, final String causeId) {
-        if (!sysIntegrations.isEmpty()) {
-            final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, causeId);
-            // TODO non-global communication
-            if (systemIntegrationById != null) {
-                return systemIntegrationById;
-            }
-            return getDefaultOrFirst(sysIntegrations);
-        }
-        return null;
-    }
-
-    private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
-            final String id) {
-        return copySystemIntegration(
-                sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
-    }
-
-    private static SystemIntegration copySystemIntegration(final SystemIntegration original) {
-        if (original != null) {
-            final SystemIntegration sysIntegration = original.getCopyExceptElement();
-            sysIntegration.setPcmelement(PCMElementType.copy(original.getPcmelement()));
-            return sysIntegration;
-        }
-        return original;
-    }
-
-    private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
-        return sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
-                .orElse(sysIntegrations.get(0));
     }
 }

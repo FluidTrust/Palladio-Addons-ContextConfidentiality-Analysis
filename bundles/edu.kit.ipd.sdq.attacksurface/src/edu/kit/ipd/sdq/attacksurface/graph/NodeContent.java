@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.attackdag;
+package edu.kit.ipd.sdq.attacksurface.graph;
 
 /**
  * Interface for a content of a graph node.

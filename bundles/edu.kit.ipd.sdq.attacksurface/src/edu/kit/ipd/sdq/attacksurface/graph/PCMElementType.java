@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.attackdag;
+package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.HashSet;
 import java.util.Objects;

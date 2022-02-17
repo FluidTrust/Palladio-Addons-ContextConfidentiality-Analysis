@@ -1,21 +1,30 @@
 package edu.kit.ipd.sdq.attacksurface.core;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Callable;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
-import edu.kit.ipd.sdq.attacksurface.attackdag.AttackDAG;
-import edu.kit.ipd.sdq.attacksurface.attackdag.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
@@ -37,7 +46,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
     
     private Entity crtitcalEntity; 
     
-    private AttackDAG attackDAG;
+    private AttackGraph attackGraph;
 
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
@@ -45,36 +54,140 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         CachePDP.instance().clearCache();
-        //TODO remove CacheLastCompromisationCausingElements.instance().reset();
-        CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
-        CacheCompromised.instance().register(this.changePropagationDueToCredential);
-        //TODO remove CacheLastCompromisationCausingElements.instance().register(this.changePropagationDueToCredential);
         
         // prepare
         createInitialStructure(board);
-        this.attackDAG = new AttackDAG(this.crtitcalEntity);
+        this.attackGraph = new AttackGraph(this.crtitcalEntity);
         
         //TODO adapt
         // Calculate
         do {
             this.changePropagationDueToCredential.setChanged(false);
-            
-            //TODO contain default system integrations correctly!
-            //TODO look if this is correct like this
+            this.attackGraph.resetVisitations();
             
             calculateAndMarkAssemblyPropagation(board); //TODO 2. add other kinds of analysis
-            calculateAndMarkResourcePropagation(board); //TODO 1. adapt implementation
+            //calculateAndMarkResourcePropagation(board); //TODO 1. adapt implementation
             
             
             /*TODO calculateAndMarkLinkingPropagation(board);*/
         } while (this.changePropagationDueToCredential.isChanged()); 
         
+        // create all attack paths
+        this.attackGraph.resetVisitations();
+        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths();
+        this.changePropagationDueToCredential.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
+        
         // Clear caches
         CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
-        //TODO remove CacheLastCompromisationCausingElements.instance().reset();
+    }
+
+    private Collection<AttackPath> toAttackPaths(final BlackboardWrapper board,
+            final List<AttackPathSurface> allAttackPathsSurface) {
+        final List<AttackPath> allPaths = new ArrayList<>();
+        
+        for (final var pathSurface : allAttackPathsSurface) {
+            final AttackPath path = AttackerFactory.eINSTANCE.createAttackPath();
+            path.setCriticalElement(findCorrectSystemIntegration(board, this.crtitcalEntity, null).getPcmelement());
+            
+            path.getCredentialsInitiallyNecessary(); //TODO implement, adapt toAttackPath
+            path.getVulnerabilitesUsed(); //TODO implement, adapt toAttackPath
+            
+            path.getPath().addAll(toAttackPath(board, pathSurface));
+            allPaths.add(path);
+        }
+        
+        return allPaths;
+    }
+    
+    private Collection<SystemIntegration> toAttackPath(BlackboardWrapper board,
+            AttackPathSurface pathSurface) {
+        final List<SystemIntegration> path = new ArrayList<>();
+        
+        for (final var edge : pathSurface) {
+            final var nodes = edge.getNodes();
+            final var attacked = nodes.source();
+            final var attacker = nodes.target();
+            final var edgeContent = edge.getContent();
+            final var iter = edgeContent.getContainedSetVIterator(); //TODO also for C
+            while (iter.hasNext()) {
+                final var set = iter.next();
+                for (final var cause : set) {
+                    final var causeId = cause.getCauseId();
+                    final var sysInteg = 
+                            findCorrectSystemIntegration(board, attacked.getContainedElement(), causeId);
+                    path.add(sysInteg); //TODO != null maybe
+                }
+            }
+            if (!attacker.isCompromised()) {
+                // add default system integration (start of attack)
+                final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                path.add(sysInteg);
+            }
+        }
+        
+        return path;
+    }
+
+    private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
+        return PCMElementType.typeOf(entity).getElementIdEqualityPredicate(entity);
+    }
+
+    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
+            String causeId) {
+        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
+        if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
+            final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
+                    .collect(Collectors.toList());
+            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, causeId);
+            if (sysIntegration != null) {
+                return sysIntegration;
+            }
+        }
+        // create a new default system integration if no matching was found
+        return generateDefaultSystemIntegration(entity);
+    }
+
+    private SystemIntegration generateDefaultSystemIntegration(final Entity entity) {
+        final var pcmElement = PCMElementType.typeOf(entity).toPCMElement(entity);
+        final var sysIntegration = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
+        sysIntegration.setEntityName("generated default sys integration for " + entity.getEntityName());
+        sysIntegration.setPcmelement(pcmElement);
+        return sysIntegration;
+    }
+
+    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
+            final List<SystemIntegration> sysIntegrations, final String causeId) {
+        if (!sysIntegrations.isEmpty()) {
+            final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, causeId);
+            // TODO non-global communication
+            if (systemIntegrationById != null) {
+                return systemIntegrationById;
+            }
+            return getDefaultOrFirst(sysIntegrations);
+        }
+        return null;
+    }
+
+    private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
+            final String id) {
+        return copySystemIntegration(
+                sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
+    }
+
+    private static SystemIntegration copySystemIntegration(final SystemIntegration original) {
+        if (original != null) {
+            final SystemIntegration sysIntegration = original.getCopyExceptElement();
+            sysIntegration.setPcmelement(PCMElementType.copy(original.getPcmelement()));
+            return sysIntegration;
+        }
+        return original;
+    }
+
+    private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
+        return sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
+                .orElse(sysIntegrations.get(0));
     }
 
     private void createInitialStructure(BlackboardWrapper board) {
@@ -139,28 +252,33 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         //TODO complete implementation
         
 		final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
+        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackGraph));
         //list.add(new AssemblyContextPropagationContext(board));
         for (final var analysis : list) { //TODO adapt
-            analysis.calculateAssemblyContextToAssemblyContextPropagation(); 
-            analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation();
-            analysis.calculateAssemblyContextToLocalResourcePropagation();
-            analysis.calculateAssemblyContextToRemoteResourcePropagation();
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
+            /*TODO callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation); 
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);*/
             //TODO add others
         }
     }
     
+    private void callMethodAfterResettingVisitations(final Runnable runnable) {
+        this.attackGraph.resetVisitations();
+        runnable.run();
+    }
 
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
         // TODO complete implementation
         
         final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackDAG));
+        list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential, this.attackGraph));
         //list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential, this.attackDAG));
         for (final var analysis : list) { //TODO adapt
-            analysis.calculateResourceContainerToResourcePropagation();
-            analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
-            analysis.calculateResourceContainerToRemoteAssemblyContextPropagation();
+            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
+            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
+            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
             //TODO add others
         }
     }

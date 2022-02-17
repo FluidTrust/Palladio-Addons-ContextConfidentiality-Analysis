@@ -10,19 +10,19 @@ import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PC
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.Change;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class LinkingChange extends Change<LinkingResource> implements LinkingPropagation {
 
-    public LinkingChange(final BlackboardWrapper v, CredentialChange change) {
-        super(v, change);
+    public LinkingChange(final BlackboardWrapper v, CredentialChange change, final AttackGraph attackGraph) {
+        super(v, change, attackGraph);
     }
 
     @Override
