@@ -3,7 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.ClassicalAttackerAnalysisWorkflow;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
@@ -56,7 +56,7 @@ public class LaunchDelegate
         if (config instanceof ScenarioAnalysisWorkflowConfig) {
             return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
         }
-        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); // FIXME
+        return new ClassicalAttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); // FIXME
     }
 
 }

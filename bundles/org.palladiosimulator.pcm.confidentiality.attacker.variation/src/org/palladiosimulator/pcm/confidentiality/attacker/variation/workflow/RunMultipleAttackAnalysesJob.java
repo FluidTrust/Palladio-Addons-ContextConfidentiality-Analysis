@@ -1,4 +1,4 @@
-package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
+package org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -11,14 +11,16 @@ import java.util.ArrayList;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
+import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.AttackerComponentPathDTO;
+import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.VariationOutputBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.VariationWorkflowConfig;
+
+import com.google.gson.Gson;
 
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.SequentialJob;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 
 public class RunMultipleAttackAnalysesJob extends SequentialJob {
     private VariationWorkflowConfig config;
@@ -41,7 +43,7 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
             Files.walk(path, 1).map(Path::getFileName).map(Path::toString).forEach(listConfigurations::add);
 
             listConfigurations.remove(SCENARIO_FOLDER);
-
+            var listPaths = new ArrayList<AttackerComponentPathDTO>();
             for (var scneario : listConfigurations) {
                 var configurationURI = scenariosFolderURI.appendSegment(scneario);
                 var attackerConfig = new AttackerAnalysisWorkflowConfig();
@@ -52,12 +54,18 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
                 attackerConfig.setModificationModel(getURI(configurationURI, "kamp4attackmodificationmarks"));
                 attackerConfig.setRepositoryModel(getURI(configurationURI, "repository"));
 
-                var attackerWorkflow = new AttackerAnalysisWorkflow(attackerConfig);
-                var blackboard = new MDSDBlackboard();
+                var attackerWorkflow = new FluidAttackerWorkflow(attackerConfig);
+
+
+                var blackboard = new VariationOutputBlackBoard();
                 attackerWorkflow.setBlackboard(blackboard);
                 attackerWorkflow.execute(monitor);
+                listPaths.add(blackboard.getAttackerPath());
 
             }
+            var gson = new Gson();
+            var outputString = gson.toJson(listPaths);
+            System.out.println(outputString);
 
         } catch (URISyntaxException | IOException e) {
             throw new JobFailedException("Problems transforming url", e);

@@ -1,6 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow;
 
-import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_MODIFICATION;
+import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.AttackerAnalysisJob;
@@ -11,9 +11,9 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.LoadPCMAttack;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.VulnerabilityRollOutComponentsJob;
 
+import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 
 /**
  * Workflow for AttackerAnalysis
@@ -22,7 +22,7 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
  *
  *
  */
-public class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob<MDSDBlackboard> {
+public abstract class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob<MDSDBlackboard> {
 
     public AttackerAnalysisWorkflow(final AttackerAnalysisWorkflowConfig config) {
         super(false);
@@ -35,6 +35,8 @@ public class AttackerAnalysisWorkflow extends SequentialBlackboardInteractingJob
         if (config.getGenerateGraph()) {
             this.add(new CreateGraphJob(config));
         }
-        this.add(new SavePartitionToDiskJob(PARTITION_ID_MODIFICATION));
+        getOutputJob().stream().forEach(this::add);
     }
+
+    protected abstract List<IJob> getOutputJob();
 }
