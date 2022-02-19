@@ -5,7 +5,7 @@ import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow.VariationWorkflow;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.VariationWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow.VariationWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.jobs.IJob;

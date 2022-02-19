@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="pcm.dataprocessing.context.attackeranalysis.launcher.config">
-    <booleanAttribute key="Graph Creation" value="true"/>
+    <booleanAttribute key="Graph Creation" value="false"/>
     <stringAttribute key="Select Allocation Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/powerGrid/powerGrid.allocation"/>
     <stringAttribute key="Select Analysis Type" value="Insider"/>
     <stringAttribute key="Select Attacker Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/powerGrid/My.attacker"/>

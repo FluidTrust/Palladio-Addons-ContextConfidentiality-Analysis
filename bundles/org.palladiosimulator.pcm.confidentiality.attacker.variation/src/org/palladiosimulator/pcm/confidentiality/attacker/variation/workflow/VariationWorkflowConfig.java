@@ -1,4 +1,4 @@
-package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config;
+package org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow;
 
 import org.eclipse.emf.common.util.URI;
 

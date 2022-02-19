@@ -19,7 +19,8 @@ Require-Bundle: org.eclipse.core.resources,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution,
  com.google.gson,
  org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.workflow,
- org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
+ org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition,
+ de.uka.ipd.sdq.workflow.launchconfig
 Export-Package: org.palladiosimulator.pcm.confidentiality.attacker.variation,
  org.palladiosimulator.pcm.confidentiality.attacker.variation.output,
  org.palladiosimulator.pcm.confidentiality.attacker.variation.statehandler.pcm,

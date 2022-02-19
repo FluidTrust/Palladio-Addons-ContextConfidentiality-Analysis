@@ -14,7 +14,6 @@ import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.AttackerComponentPathDTO;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.VariationOutputBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.VariationWorkflowConfig;
 
 import com.google.gson.Gson;
 
