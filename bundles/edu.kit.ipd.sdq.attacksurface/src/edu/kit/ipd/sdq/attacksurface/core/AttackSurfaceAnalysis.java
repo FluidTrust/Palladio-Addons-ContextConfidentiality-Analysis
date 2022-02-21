@@ -94,8 +94,11 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
             path.getCredentialsInitiallyNecessary(); //TODO implement, adapt toAttackPath
             path.getVulnerabilitesUsed(); //TODO implement, adapt toAttackPath
             
-            path.getPath().addAll(toAttackPath(board, pathSurface));
-            allPaths.add(path);
+            final var attackPathPath = toAttackPath(board, pathSurface);
+            if (!attackPathPath.isEmpty()) {
+                path.getPath().addAll(attackPathPath);
+                allPaths.add(path);
+            }
         }
         
         return allPaths;
@@ -107,8 +110,17 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         
         for (final var edge : pathSurface) {
             final var nodes = edge.getNodes();
-            final var attacked = nodes.source();
-            final var attacker = nodes.target();
+            // the edges in the attack path are reversed, 
+            // so that the attacked is the target and the attacker the source
+            final var attacked = nodes.target();
+            final var attacker = nodes.source();
+
+            if (!attacker.isCompromised()) {
+                 // add default system integration (start of attack)
+                final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                path.add(sysInteg);
+            }
+            
             final var edgeContent = edge.getContent();
             final var iter = edgeContent.getContainedSetVIterator(); //TODO also for C
             while (iter.hasNext()) {
@@ -119,11 +131,6 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
                             findCorrectSystemIntegration(board, attacked.getContainedElement(), causeId);
                     path.add(sysInteg); //TODO != null maybe
                 }
-            }
-            if (!attacker.isCompromised()) {
-                // add default system integration (start of attack)
-                final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
-                path.add(sysInteg);
             }
         }
         

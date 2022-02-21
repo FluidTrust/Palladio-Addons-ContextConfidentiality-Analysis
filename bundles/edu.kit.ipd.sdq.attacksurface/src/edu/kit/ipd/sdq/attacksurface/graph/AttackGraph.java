@@ -3,6 +3,7 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +13,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableValueGraph;
+import com.google.common.graph.Traverser;
 import com.google.common.graph.ValueGraphBuilder;
 
 import de.uka.ipd.sdq.identifier.Identifier;
@@ -91,12 +93,7 @@ public class AttackGraph {
         final var edgeContent = this.graph.edgeValue(EndpointPair.ordered(this.selectedNode, attackSource))
                 .orElse(new AttackStatusEdgeContent());
         if (!causes.isEmpty()) {
-            final boolean isC = causes.iterator().next().isC();
-            if (isC) {
-                edgeContent.addSet(causes);
-            } else {
-                edgeContent.addSet(causes);
-            }
+            edgeContent.addSet(causes);
         }
         appendEdge(this.selectedNode, edgeContent, attackSource);
     }
@@ -123,78 +120,111 @@ public class AttackGraph {
         this.graph.nodes().forEach(n -> n.setVisited(false));
     }
 
-    public List<AttackPathSurface> findAllAttackPaths() { 
-        //TODO: in handlers: fix cause finding and adding to set + here or in the end: fix ordering, maybe it is necessary to revert paths in the end 
-        
-        
+    public Set<String> getCompromisationCauseIds(final AttackStatusNodeContent node) {
+        return this.graph.edges().stream().filter(e -> e.source().equals(node)).map(e -> this.graph.edgeValue(e))
+                .map(e -> e.orElse(null)).filter(Objects::nonNull).map(AttackStatusEdgeContent::getCauseIds)
+                .flatMap(Set::stream).collect(Collectors.toSet());
+    }
+
+    public List<AttackPathSurface> findAllAttackPaths() {
         final List<AttackPathSurface> allPaths = new ArrayList<>();
 
-        this.selectedNode = this.root;
-        while (!this.selectedNode.isVisited()) {
-            if (this.selectedNode.isCompromised()) { //TODO partial paths?
-                final var children = getChildrenOfNode(this.selectedNode);
+        Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(this.graph);
+        final var bfsIterable = traverser.depthFirstPreOrder(this.root);
+        for (final var nodeContent : bfsIterable) {
+            if (nodeContent.isCompromised()) {
+                // TODO remove > final int level = getLevel(nodeContent);
+                
+                final var children = this.getChildrenOfNode(nodeContent);
                 for (final var child : children) {
-                    if (!this.selectedNode.equals(child)) {
-                        final var edgeValue = this.graph.edgeValue(this.selectedNode, child).orElse(null);
-                        final var edge = new AttackStatusEdge(edgeValue, 
-                                EndpointPair.ordered(this.selectedNode, child));
-                        addEdge(allPaths, edge);
-                        if (child.isCompromised()) {
-                            final var selectedNodeBefore = this.selectedNode;
-                            this.selectedNode.setVisited(true); // so that circles are not possible
-                            this.selectedNode = child;
-                            allPaths.addAll(findAllAttackPaths());
-                            this.selectedNode = selectedNodeBefore;
-                        }
-                    }
+                    final var edgeValue = this.graph.edgeValue(nodeContent, child).orElse(null);
+                    final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(nodeContent, child));
+                    final boolean isAttackerCompromised = child.isCompromised();
+                    addEdge(allPaths, edge, isAttackerCompromised);
                 }
-                
-                final var hasSelfLoop = this.graph.hasEdgeConnecting(this.selectedNode, this.selectedNode); 
-                if (hasSelfLoop) {
-                    final var selfLoopEdgeValue = this.graph.edgeValue(this.selectedNode, this.selectedNode).orElse(null);
-                    final var selfLoopEdge = 
-                            new AttackStatusEdge(selfLoopEdgeValue, EndpointPair.ordered(this.selectedNode, this.selectedNode));
-                    addEdge(allPaths, selfLoopEdge);
-                }
-                
-                
             }
-            this.selectedNode.setVisited(true);
         }
 
-        if (this.selectedNode.equals(this.root)) { 
-            // only at the end of the recursion
-            // remove duplicate paths
-            return allPaths.stream().distinct().collect(Collectors.toList());
-        }
-
-        return allPaths;
+        // remove duplicate paths
+        // and partial paths (??) TODO
+        return allPaths.stream()
+                .distinct()
+                .filter(p -> !p.isEmpty())
+                .filter(p -> p.get(p.size() - 1).getNodes().target().equals(this.root)) //TODO
+                .collect(Collectors.toList());
     }
-    
-    private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge) {
-        if (allPaths.isEmpty()) {
-            allPaths.add(new AttackPathSurface(Arrays.asList(edge)));
+
+    /*TODO remove private int getLevel(final AttackStatusNodeContent node) {
+        if (node.equals(this.root)) {
+            return 0;
+        }
+        var parents = this.getParentsOfNode(node);
+        if (parents.contains(this.root)) {
+            return 1;
         } else {
+            int minLevel = Integer.MAX_VALUE;
+            for (final var parent : parents) {
+                final var getLevelResult = getLevel(parent);
+                final var level = 1 + getLevelResult;
+                if (level < minLevel) {
+                    minLevel = level;
+                }
+                if (getLevelResult == 1) {
+                    return minLevel;
+                }
+            }
+            return minLevel;
+        }
+    }*/
+
+    private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge,
+            final boolean isAttackerCompromised) {
+        if (allPaths.isEmpty()) {
+            allPaths.add(new AttackPathSurface(Arrays.asList(edge.createReverseEdge())));
+        } else if (!isAttackerCompromised || !areCauseSetsEmpty(edge)) {
             final List<AttackPathSurface> newPaths = new ArrayList<>();
             allPaths.forEach(p -> {
-                final boolean isFitting = addEdgeIfFitting(p, edge);
-                if (!isFitting) {
-                    newPaths.add(new AttackPathSurface(Arrays.asList(edge)));
+                final var pathCopy = p.getCopy();
+                final boolean isFitting = addEdgeIfFitting(p, edge.createReverseEdge());
+                if (isFitting) {
+                    newPaths.add(pathCopy);
                 }
-                //TODO consider parts of paths (shorter paths)
             });
             allPaths.addAll(newPaths);
         }
     }
 
-    private boolean addEdgeIfFitting(final AttackPathSurface path, final AttackStatusEdge edge) {
-        final boolean isFitting = path.get(path.size() - 1) //TODO look if to reverse in the end
-                .getNodes().target()
-                .getContainedElement().getId()
-                .equals(edge.getNodes().source().getContainedElement().getId());
+    private boolean areCauseSetsEmpty(AttackStatusEdge edge) {
+        boolean ret = !edge.getContent().getContainedSetCIterator().hasNext() 
+                && !edge.getContent().getContainedSetVIterator().hasNext();
         
+        if (!ret) {
+            final var cIter = edge.getContent().getContainedSetCIterator();
+            while (cIter.hasNext()) {
+                final var set = cIter.next();
+                ret = set.isEmpty();
+                if (!ret) {
+                    return false;
+                }
+            }
+            final var vIter = edge.getContent().getContainedSetVIterator();
+            while (vIter.hasNext()) {
+                final var set = vIter.next();
+                ret = set.isEmpty();
+                if (!ret) {
+                    return false;
+                }
+            }
+        }
+        
+        return ret;
+    }
+
+    private boolean addEdgeIfFitting(final AttackPathSurface path, final AttackStatusEdge edge) {
+        final boolean isFitting = path.get(0).getNodes().source().equals(edge.getNodes().target());
+
         if (isFitting) {
-            path.add(edge);
+            path.addFirst(edge);
         }
         return isFitting;
     }

@@ -29,7 +29,10 @@ Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.attacksurface.activator,
- edu.kit.ipd.sdq.attacksurface.core
+ edu.kit.ipd.sdq.attacksurface.core,
+ edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers,
+ edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability,
+ edu.kit.ipd.sdq.attacksurface.graph
 Import-Package: 
  edu.kit.ipd.sdq.kamp4attack.core,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition

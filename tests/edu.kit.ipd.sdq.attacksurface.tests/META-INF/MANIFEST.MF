@@ -20,3 +20,4 @@ Require-Bundle: edu.kit.ipd.sdq.kamp,
  org.slf4j.api;bundle-version="1.7.30",
  org.apache.log4j;bundle-version="1.2.15",
  edu.kit.ipd.sdq.kamp4attack
+Import-Package: org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data

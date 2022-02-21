@@ -43,8 +43,8 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return this.path.isEmpty();
     }
     
-    public AttackPathSurface getUnmodifiableCopy() {
-        return new AttackPathSurface(Collections.unmodifiableList(this.path));
+    public AttackPathSurface getCopy() {
+        return new AttackPathSurface(new ArrayList<>(this.path));
     }
 
     @Override

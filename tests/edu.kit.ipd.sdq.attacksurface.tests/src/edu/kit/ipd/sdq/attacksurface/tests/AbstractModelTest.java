@@ -14,12 +14,17 @@ import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 //TODO
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AbstractModelTest extends BaseTest {
 
@@ -38,6 +43,9 @@ public abstract class AbstractModelTest extends BaseTest {
     protected ConfidentialAccessSpecification context;
     protected AttackerSpecification attacker;
     protected AbstractKAMP4attackModificationRepository<?> modification;
+    
+    private AttackGraph attackGraph;
+    private CredentialChange changes;
 
     private String pathXACML = "test.xml";
 
@@ -45,6 +53,24 @@ public abstract class AbstractModelTest extends BaseTest {
 
         return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
                 this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
+    }
+    
+    protected final AttackGraph getAttackGraph() {
+        return this.attackGraph;
+    }
+    
+    protected final void resetAttackGraphAndChanges() {
+        this.attackGraph = new AttackGraph(getCriticalElement());
+        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+    }
+
+    private Entity getCriticalElement() {
+        final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getCriticalElement();
+        return PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
+    }
+
+    protected final CredentialChange getChanges() {
+        return this.changes;
     }
 
     @Override
@@ -95,6 +121,4 @@ public abstract class AbstractModelTest extends BaseTest {
         this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
         return contextAccess;
     }
-
-
 }

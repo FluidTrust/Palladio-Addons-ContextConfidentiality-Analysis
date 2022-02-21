@@ -65,4 +65,9 @@ public interface EdgeContent<C extends CVSurface, V extends CVSurface> {
     
     @Override
     boolean equals(Object other);
+    
+
+    public static Iterable<Set<CVSurface>> toIterable(final Iterator<Set<CVSurface>> iterator) {
+        return () -> iterator;
+    }
 }

@@ -20,6 +20,10 @@ public class AttackStatusEdge {
     public EndpointPair<AttackStatusNodeContent> getNodes() {
         return nodes;
     }
+    
+    public AttackStatusEdge createReverseEdge() {
+        return new AttackStatusEdge(this.content, EndpointPair.ordered(this.nodes.target(), this.nodes.source()));
+    }
 
     @Override
     public int hashCode() {
