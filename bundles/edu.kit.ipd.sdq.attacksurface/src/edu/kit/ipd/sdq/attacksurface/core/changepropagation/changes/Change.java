@@ -47,14 +47,14 @@ public abstract class Change<T> {
 
     protected AttackGraph attackGraph;
     
-    private int stackIndex;
+    private int stackLevel;
 
     public Change(final BlackboardWrapper v, final CredentialChange change, final AttackGraph attackGraph) {
         this.modelStorage = v;
         this.initialMarkedItems = this.loadInitialMarkedItems();
         this.changes = change;
         this.attackGraph = attackGraph;
-        this.stackIndex = 0;
+        this.stackLevel = 0;
     }
 
     protected abstract Collection<T> loadInitialMarkedItems();
@@ -119,10 +119,10 @@ public abstract class Change<T> {
         if (childNode != null && !childNode.isVisited()) {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);
-            this.stackIndex++;
+            this.stackLevel++;
             recursionMethod.run();
             childNode.setVisited(true);
-            this.stackIndex--;
+            this.stackLevel--;
             this.attackGraph.setSelectedNode(selectedNode);
         }
     }
