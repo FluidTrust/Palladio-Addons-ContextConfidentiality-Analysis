@@ -20,11 +20,26 @@ public class AttackerComponentPathDTO {
 
     public AttackerComponentPathDTO(KAMP4attackModificationRepository repository) {
         this.data = new ArrayList<>();
-//        this.startComponent = repository.getSeedModifications().getAttackcomponent().get(0).get
 
         setAttackComplexity(repository);
         setStartComponent(repository);
         setData(repository);
+    }
+
+    public final String getAttackername() {
+        return this.attackername;
+    }
+
+    public final String getStartComponent() {
+        return this.startComponent;
+    }
+
+    public final String getAttackComplexity() {
+        return this.attackComplexity;
+    }
+
+    public final List<String> getData() {
+        return this.data;
     }
 
     private void setStartComponent(KAMP4attackModificationRepository repository) {
@@ -69,7 +84,7 @@ public class AttackerComponentPathDTO {
         var highComplexity = setSources.stream().filter(Vulnerability.class::isInstance).map(Vulnerability.class::cast)
                 .anyMatch(e -> e.getAttackComplexity() == AttackComplexity.HIGH);
 
-        this.attackComplexity = highComplexity ? AttackComplexity.LOW.toString() : AttackComplexity.HIGH.toString();
+        this.attackComplexity = highComplexity ? AttackComplexity.HIGH.toString() : AttackComplexity.LOW.toString();
 
     }
 
@@ -84,8 +99,8 @@ public class AttackerComponentPathDTO {
 
             var sourceName = data.getSource().getEntityName();
             var sourceID = data.getSource().getId();
-            var methodName = data.getMethod().toString();
-            var variableName = data.getReferenceName() == null ? data.getMethod().getEntityName()
+            var methodName = data.getMethod().getEntityName();
+            var variableName = data.getReferenceName() == null ? "RETURN"
                     : data.getReferenceName();
             return String.format("%s:%s:%s:%s", sourceName, sourceID, methodName, variableName);
 

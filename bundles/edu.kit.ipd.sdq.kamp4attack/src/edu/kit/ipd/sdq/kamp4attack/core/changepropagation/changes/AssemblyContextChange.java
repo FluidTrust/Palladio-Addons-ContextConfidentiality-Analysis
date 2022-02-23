@@ -163,8 +163,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             reachableAssemblies.addAll(
                     CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
             final var handler = getAssemblyHandler();
+
+            // Filter duplicates, cached and non Global Components
             reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).filter(this::isGlobalElement)
+                    .collect(Collectors.toList());
             handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
 
             var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()

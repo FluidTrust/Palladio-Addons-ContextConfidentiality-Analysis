@@ -34,6 +34,7 @@ public class DataHandlerAttacker {
             final var compromisedData = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedData();
             compromisedData.setAffectedElement(orgininalData);
             compromisedData.getCausingElements().add(orgininalData.getSource());
+            compromisedData.setToolderived(true);
             this.change.getCompromiseddata().add(compromisedData);
         });
 
