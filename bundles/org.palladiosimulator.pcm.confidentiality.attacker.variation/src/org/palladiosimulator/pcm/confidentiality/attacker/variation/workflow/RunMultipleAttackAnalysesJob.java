@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
+import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.blackboards.KeyValueMDSDBlackboard;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.AttackerComponentPathDTO;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.VariationOutputBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
@@ -18,12 +19,14 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.work
 import com.google.gson.Gson;
 
 import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
-import de.uka.ipd.sdq.workflow.jobs.SequentialJob;
+import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
-public class RunMultipleAttackAnalysesJob extends SequentialJob {
+public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard> {
     private VariationWorkflowConfig config;
-    private final static String SCENARIO_FOLDER = "scenarios";
+
+
+
 
     public RunMultipleAttackAnalysesJob(VariationWorkflowConfig config) {
         this.config = config;
@@ -34,14 +37,15 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
         var uri = this.config.getVariationModel();
         var rootFolder = uri.trimSegments(2);
         try {
-            var scenariosFolderURI = rootFolder.appendSegment(SCENARIO_FOLDER);
+            var scenariosFolderURI = this.config.getScenarioFolder();
 
             var path = getPath(scenariosFolderURI);
 
             var listConfigurations = new ArrayList<String>();
-            Files.walk(path, 1).map(Path::getFileName).map(Path::toString).forEach(listConfigurations::add);
-
-            listConfigurations.remove(SCENARIO_FOLDER);
+            Files.walk(path, 1).filter(content -> content.toFile().isDirectory()).map(Path::getFileName)
+                    .map(Path::toString)
+                    .forEach(listConfigurations::add);
+            listConfigurations.remove(scenariosFolderURI.lastSegment());
             var listPaths = new ArrayList<AttackerComponentPathDTO>();
             for (var scneario : listConfigurations) {
                 var configurationURI = scenariosFolderURI.appendSegment(scneario);
@@ -55,7 +59,6 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
 
                 var attackerWorkflow = new FluidAttackerWorkflow(attackerConfig);
 
-
                 var blackboard = new VariationOutputBlackBoard();
                 attackerWorkflow.setBlackboard(blackboard);
                 attackerWorkflow.execute(monitor);
@@ -64,7 +67,8 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
             }
             var gson = new Gson();
             var outputString = gson.toJson(listPaths);
-            System.out.println(outputString);
+            getBlackboard().put(VariationWorkflowConfig.ID_JSON_ATTACK_PATHS, outputString);
+
 
         } catch (URISyntaxException | IOException e) {
             throw new JobFailedException("Problems transforming url", e);
@@ -79,7 +83,7 @@ public class RunMultipleAttackAnalysesJob extends SequentialJob {
         return folder.appendSegment(modelFile);
     }
 
-    protected Path getPath(final URI uri) throws URISyntaxException, IOException {
+    private Path getPath(final URI uri) throws URISyntaxException, IOException {
         var url = new URL(uri.toString());
         return Paths.get(Platform.asLocalURL(url).toURI().getSchemeSpecificPart());
     }

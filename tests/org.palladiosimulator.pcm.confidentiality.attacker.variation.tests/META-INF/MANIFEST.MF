@@ -20,4 +20,5 @@ Require-Bundle: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
  tools.mdsd.library.standalone.initialization,
  org.palladiosimulator.pcm.confidentiality.attacker.variation;bundle-version="1.0.0",
  de.uka.ipd.sdq.workflow;bundle-version="5.1.0",
- de.uka.ipd.sdq.workflow.mdsd.blackboard;bundle-version="5.1.0"
+ de.uka.ipd.sdq.workflow.mdsd.blackboard;bundle-version="5.1.0",
+ org.palladiosimulator.dataflow.confidentiality.pcm.transformation;bundle-version="5.1.0"

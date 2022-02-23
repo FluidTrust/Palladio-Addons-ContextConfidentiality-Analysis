@@ -1,6 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.attacker.variation.tests;
 
-import org.eclipse.core.runtime.NullProgressMonitor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -27,6 +26,6 @@ class BasicTest {
         config.setVariationModel(variationURI);
 
         var flow = new VariationWorkflow(config);
-        flow.execute(new NullProgressMonitor());
+//        flow.execute(new NullProgressMonitor());
     }
 }

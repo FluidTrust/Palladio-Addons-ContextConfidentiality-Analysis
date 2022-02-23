@@ -67,6 +67,7 @@ public class DataHandler {
             final var data = AttackerFactory.eINSTANCE.createDatamodelAttacker();
             data.setDataType(parameter.getDataType__Parameter());
             data.setReferenceName(parameter.getParameterName());
+            data.setMethod(parameter.getOperationSignature__Parameter());
             return data;
         }).collect(Collectors.toList());
     }

@@ -4,7 +4,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow.VariationWorkflow;
+import org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow.VariationWorkFlowNoBoard;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.workflow.VariationWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
@@ -35,7 +35,7 @@ public class LaunchDelegateVariations
     @Override
     protected IJob createWorkflowJob(final VariationWorkflowConfig config, final ILaunch launch)
             throws CoreException {
-        return new VariationWorkflow(config);
+        return new VariationWorkFlowNoBoard(config);
     }
 
 }

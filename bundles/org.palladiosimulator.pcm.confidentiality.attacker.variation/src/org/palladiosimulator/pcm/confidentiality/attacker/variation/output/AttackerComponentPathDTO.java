@@ -84,9 +84,10 @@ public class AttackerComponentPathDTO {
 
             var sourceName = data.getSource().getEntityName();
             var sourceID = data.getSource().getId();
+            var methodName = data.getMethod().toString();
             var variableName = data.getReferenceName() == null ? data.getMethod().getEntityName()
                     : data.getReferenceName();
-            return String.format("%s:%s:%s", sourceName, sourceID, variableName);
+            return String.format("%s:%s:%s:%s", sourceName, sourceID, methodName, variableName);
 
         }).forEach(this.data::add);
 
