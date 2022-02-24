@@ -29,32 +29,32 @@ public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<Key
 
     protected static final String PCM_MODEL_PARTITION = "pcmModels";
 
-    private VariationWorkflowConfig config;
+    private final VariationWorkflowConfig config;
 
-    public RunCriticalityAnalysis(VariationWorkflowConfig config) {
+    public RunCriticalityAnalysis(final VariationWorkflowConfig config) {
         Objects.requireNonNull(config);
         this.config = config;
     }
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
-        var folderURI = this.config.getModelFolder();
-        var job = new SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard>();
+        final var folderURI = this.config.getModelFolder();
+        final var job = new SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard>();
         job.setBlackboard(new KeyValueMDSDBlackboard());
         try {
-            var usageModelLocation = new ModelLocation(PCM_MODEL_PARTITION, getURI(folderURI, "usagemodel"));
-            var allocationLocation = new ModelLocation(PCM_MODEL_PARTITION, getURI(folderURI, "allocation"));
-            var loadUsageModelJob = new LoadModelJob<KeyValueMDSDBlackboard>(
+            final var usageModelLocation = new ModelLocation(PCM_MODEL_PARTITION, this.getURI(folderURI, "usagemodel"));
+            final var allocationLocation = new ModelLocation(PCM_MODEL_PARTITION, this.getURI(folderURI, "allocation"));
+            final var loadUsageModelJob = new LoadModelJob<KeyValueMDSDBlackboard>(
                     Arrays.asList(usageModelLocation, allocationLocation));
             job.add(loadUsageModelJob);
-            var runAnalysisJob = new PropagateCharacteristicJob(usageModelLocation, allocationLocation, "test");
+            final var runAnalysisJob = new PropagateCharacteristicJob(usageModelLocation, allocationLocation, "test");
             job.add(runAnalysisJob);
             job.execute(monitor);
-            var data = job.getBlackboard().get("test");
-            var gson = new Gson();
-            var outputString = gson.toJson(data.get());
-            getBlackboard().put(VariationWorkflowConfig.ID_JSON_DATA, outputString);
+            final var data = job.getBlackboard().get("test");
+            final var gson = new Gson();
+            final var outputString = gson.toJson(data.get());
+            this.getBlackboard().put(VariationWorkflowConfig.ID_JSON_DATA, outputString);
 
         } catch (IOException | URISyntaxException e) {
             throw new JobFailedException("Failure finding models", e);
@@ -63,7 +63,7 @@ public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<Key
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Auto-generated method stub
 
     }
@@ -74,15 +74,15 @@ public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<Key
         return null;
     }
 
-    private URI getURI(URI folder, String modelFileExtension) throws IOException, URISyntaxException {
-        var path = getPath(folder);
-        var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny().get()
-                .getFileName().toString();
+    private URI getURI(final URI folder, final String modelFileExtension) throws IOException, URISyntaxException {
+        final var path = this.getPath(folder);
+        final var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny()
+                .get().getFileName().toString();
         return folder.appendSegment(modelFile);
     }
 
     private Path getPath(final URI uri) throws URISyntaxException, IOException {
-        var url = new URL(uri.toString());
+        final var url = new URL(uri.toString());
         return Paths.get(Platform.asLocalURL(url).toURI().getSchemeSpecificPart());
     }
 }

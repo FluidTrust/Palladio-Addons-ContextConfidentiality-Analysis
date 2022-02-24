@@ -18,7 +18,7 @@ public class SaveStringToDiskJob extends AbstractBlackboardInteractingJob<KeyVal
     private final File file;
     private final String ID;
 
-    public SaveStringToDiskJob(File file, String ID) {
+    public SaveStringToDiskJob(final File file, final String ID) {
         Objects.requireNonNull(file);
         Objects.requireNonNull(ID);
         this.file = file;
@@ -26,18 +26,18 @@ public class SaveStringToDiskJob extends AbstractBlackboardInteractingJob<KeyVal
     }
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         monitor.beginTask("Saving to Disk", 1);
-        if(!getBlackboard().get(this.ID).isPresent()) {
+        if (!this.getBlackboard().get(this.ID).isPresent()) {
             throw new JobFailedException("No string value to save present");
         }
-        if(!(getBlackboard().get(this.ID).get() instanceof String)) {
+        if (!(this.getBlackboard().get(this.ID).get() instanceof String)) {
             throw new JobFailedException("Value is not of expected type String");
         }
-        var stringValue = (String) getBlackboard().get(this.ID).get();
+        final var stringValue = (String) this.getBlackboard().get(this.ID).get();
         try {
             Files.writeString(this.file.toPath(), stringValue, StandardOpenOption.CREATE);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             throw new JobFailedException("Saving value as file failed", e);
         }
         monitor.worked(1);
@@ -45,7 +45,7 @@ public class SaveStringToDiskJob extends AbstractBlackboardInteractingJob<KeyVal
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Auto-generated method stub
 
     }

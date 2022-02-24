@@ -13,14 +13,13 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 
 public class FluidAttackerWorkflow extends AttackerAnalysisWorkflow {
 
-
-    public FluidAttackerWorkflow(AttackerAnalysisWorkflowConfig config) {
+    public FluidAttackerWorkflow(final AttackerAnalysisWorkflowConfig config) {
         super(config);
     }
 
     @Override
     protected List<IJob> getOutputJob() {
-        var outputJobs = new ArrayList<IJob>();
+        final var outputJobs = new ArrayList<IJob>();
         outputJobs.add(new DeSerializeJob());
         outputJobs.add(new SavePartitionToDiskJob(PARTITION_ID_MODIFICATION));
         return outputJobs;

@@ -14,7 +14,6 @@ public class VariationWorkflowConfig extends AbstractWorkflowBasedRunConfigurati
 
     private URI variationModel;
 
-
     public URI getVariationModel() {
         return this.variationModel;
     }
@@ -33,7 +32,7 @@ public class VariationWorkflowConfig extends AbstractWorkflowBasedRunConfigurati
         return this.variationModel.trimSegments(2).appendSegment(this.scenarioFolder);
     }
 
-    public void setVariationModel(URI variationModel) {
+    public void setVariationModel(final URI variationModel) {
         this.variationModel = variationModel;
     }
 

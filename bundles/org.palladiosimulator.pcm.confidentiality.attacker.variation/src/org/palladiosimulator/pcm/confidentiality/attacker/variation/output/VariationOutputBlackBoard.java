@@ -9,7 +9,7 @@ public class VariationOutputBlackBoard extends MDSDBlackboard {
         return this.attackerPath;
     }
 
-    public final void setAttackerPath(AttackerComponentPathDTO attackerPath) {
+    public final void setAttackerPath(final AttackerComponentPathDTO attackerPath) {
         this.attackerPath = attackerPath;
     }
 }

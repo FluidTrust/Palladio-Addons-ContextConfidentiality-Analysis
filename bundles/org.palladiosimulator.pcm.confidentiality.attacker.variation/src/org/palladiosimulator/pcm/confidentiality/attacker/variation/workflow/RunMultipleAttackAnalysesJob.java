@@ -23,52 +23,47 @@ import de.uka.ipd.sdq.workflow.jobs.SequentialBlackboardInteractingJob;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 
 public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard> {
-    private VariationWorkflowConfig config;
+    private final VariationWorkflowConfig config;
 
-
-
-
-    public RunMultipleAttackAnalysesJob(VariationWorkflowConfig config) {
+    public RunMultipleAttackAnalysesJob(final VariationWorkflowConfig config) {
         this.config = config;
     }
 
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        var uri = this.config.getVariationModel();
-        var rootFolder = uri.trimSegments(2);
+        final var uri = this.config.getVariationModel();
+        final var rootFolder = uri.trimSegments(2);
         try {
-            var scenariosFolderURI = this.config.getScenarioFolder();
+            final var scenariosFolderURI = this.config.getScenarioFolder();
 
-            var path = getPath(scenariosFolderURI);
+            final var path = this.getPath(scenariosFolderURI);
 
-            var listConfigurations = new ArrayList<String>();
+            final var listConfigurations = new ArrayList<String>();
             Files.walk(path, 1).filter(content -> content.toFile().isDirectory()).map(Path::getFileName)
-                    .map(Path::toString)
-                    .forEach(listConfigurations::add);
+                    .map(Path::toString).forEach(listConfigurations::add);
             listConfigurations.remove(scenariosFolderURI.lastSegment());
-            var listPaths = new ArrayList<AttackerComponentPathDTO>();
-            for (var scneario : listConfigurations) {
-                var configurationURI = scenariosFolderURI.appendSegment(scneario);
-                var attackerConfig = new AttackerAnalysisWorkflowConfig();
+            final var listPaths = new ArrayList<AttackerComponentPathDTO>();
+            for (final var scneario : listConfigurations) {
+                final var configurationURI = scenariosFolderURI.appendSegment(scneario);
+                final var attackerConfig = new AttackerAnalysisWorkflowConfig();
 
-                attackerConfig.setAllocationModel(getURI(configurationURI, "allocation"));
-                attackerConfig.setAttackModel(getURI(configurationURI, "attacker"));
-                attackerConfig.setContextModel(getURI(configurationURI, "context"));
-                attackerConfig.setModificationModel(getURI(configurationURI, "kamp4attackmodificationmarks"));
-                attackerConfig.setRepositoryModel(getURI(configurationURI, "repository"));
+                attackerConfig.setAllocationModel(this.getURI(configurationURI, "allocation"));
+                attackerConfig.setAttackModel(this.getURI(configurationURI, "attacker"));
+                attackerConfig.setContextModel(this.getURI(configurationURI, "context"));
+                attackerConfig.setModificationModel(this.getURI(configurationURI, "kamp4attackmodificationmarks"));
+                attackerConfig.setRepositoryModel(this.getURI(configurationURI, "repository"));
 
-                var attackerWorkflow = new FluidAttackerWorkflow(attackerConfig);
+                final var attackerWorkflow = new FluidAttackerWorkflow(attackerConfig);
 
-                var blackboard = new VariationOutputBlackBoard();
+                final var blackboard = new VariationOutputBlackBoard();
                 attackerWorkflow.setBlackboard(blackboard);
                 attackerWorkflow.execute(monitor);
                 listPaths.add(blackboard.getAttackerPath());
 
             }
-            var gson = new Gson();
-            var outputString = gson.toJson(listPaths);
-            getBlackboard().put(VariationWorkflowConfig.ID_JSON_ATTACK_PATHS, outputString);
-
+            final var gson = new Gson();
+            final var outputString = gson.toJson(listPaths);
+            this.getBlackboard().put(VariationWorkflowConfig.ID_JSON_ATTACK_PATHS, outputString);
 
         } catch (URISyntaxException | IOException e) {
             throw new JobFailedException("Problems transforming url", e);
@@ -76,15 +71,15 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
 
     }
 
-    private URI getURI(URI folder, String modelFileExtension) throws IOException, URISyntaxException {
-        var path = getPath(folder);
-        var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny().get()
-                .getFileName().toString();
+    private URI getURI(final URI folder, final String modelFileExtension) throws IOException, URISyntaxException {
+        final var path = this.getPath(folder);
+        final var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny()
+                .get().getFileName().toString();
         return folder.appendSegment(modelFile);
     }
 
     private Path getPath(final URI uri) throws URISyntaxException, IOException {
-        var url = new URL(uri.toString());
+        final var url = new URL(uri.toString());
         return Paths.get(Platform.asLocalURL(url).toURI().getSchemeSpecificPart());
     }
 

@@ -15,17 +15,15 @@ public class DeSerializeJob implements IBlackboardInteractingJob<VariationOutput
     private VariationOutputBlackBoard blackboard;
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var modificationPartition = ((ModificationMarkPartition) this.blackboard
                 .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
-
-
 
         this.blackboard.setAttackerPath(new AttackerComponentPathDTO(modificationPartition));
     }
 
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Auto-generated method stub
 
     }
@@ -37,7 +35,7 @@ public class DeSerializeJob implements IBlackboardInteractingJob<VariationOutput
     }
 
     @Override
-    public void setBlackboard(VariationOutputBlackBoard blackboard) {
+    public void setBlackboard(final VariationOutputBlackBoard blackboard) {
         this.blackboard = blackboard;
 
     }

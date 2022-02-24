@@ -19,8 +19,7 @@ public class AttackStateHandler extends GenericStateHandler {
     @Override
     public int getSizeOfDimension(final VariationPoint variationPoint) {
         final var desc = variationPoint.getVariationDescription();
-        return desc.getTargetVariations()
-            .size();
+        return desc.getTargetVariations().size();
     }
 
     @Override
@@ -29,13 +28,10 @@ public class AttackStateHandler extends GenericStateHandler {
         final var desc = variationPoint.getVariationDescription();
         for (final EObject container : models.get(MODEL_TYPE1)) {
             final var attacker = (KAMP4attackModificationRepository) container;
-            final var vals = (PrimitiveValue) desc.getTargetVariations()
-                .get(variationIdx);
+            final var vals = (PrimitiveValue) desc.getTargetVariations().get(variationIdx);
             final var resolvedVariations = this.resolve(models.get(MODEL_TYPE2), vals.getLink());
-            final var resolvedSubject = this.resolve(attacker,
-                    variationPoint.getVaryingSubjects()
-                .get(0));
-            resolvedSubject.ifPresent(subject -> patch(subject, resolvedVariations));
+            final var resolvedSubject = this.resolve(attacker, variationPoint.getVaryingSubjects().get(0));
+            resolvedSubject.ifPresent(subject -> this.patch(subject, resolvedVariations));
         }
 
     }

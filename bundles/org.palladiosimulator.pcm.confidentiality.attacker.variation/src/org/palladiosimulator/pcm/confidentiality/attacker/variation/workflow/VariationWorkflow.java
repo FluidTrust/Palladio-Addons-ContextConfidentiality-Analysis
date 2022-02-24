@@ -17,14 +17,14 @@ import tools.mdsd.library.standalone.initialization.StandaloneInitializationExce
 import tools.mdsd.library.standalone.initialization.emfprofiles.EMFProfileInitializationTask;
 
 public class VariationWorkflow extends SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard> {
-    public VariationWorkflow(VariationWorkflowConfig config) {
+    public VariationWorkflow(final VariationWorkflowConfig config) {
 
         IProfileRegistry.eINSTANCE.getClass();
 
         try {
             new EMFProfileInitializationTask("org.palladiosimulator.dataflow.confidentiality.pcm.model.profile",
                     "profile.emfprofile_diagram").initilizationWithoutPlatform();
-        } catch (StandaloneInitializationException e) {
+        } catch (final StandaloneInitializationException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -33,13 +33,12 @@ public class VariationWorkflow extends SequentialBlackboardInteractingJob<KeyVal
         this.add(new RunCriticalityAnalysis(config));
         this.add(new RunMultipleAttackAnalysesJob(config));
 
-
-
         try {
-            this.add(new SaveStringToDiskJob(getPath(config.getScenarioFolder().appendSegment("paths.json")).toFile(),
+            this.add(new SaveStringToDiskJob(
+                    this.getPath(config.getScenarioFolder().appendSegment("paths.json")).toFile(),
                     VariationWorkflowConfig.ID_JSON_ATTACK_PATHS));
             this.add(new SaveStringToDiskJob(
-                    getPath(config.getScenarioFolder().appendSegment("critical_data.json")).toFile(),
+                    this.getPath(config.getScenarioFolder().appendSegment("critical_data.json")).toFile(),
                     VariationWorkflowConfig.ID_JSON_DATA));
 
         } catch (URISyntaxException | IOException e) {
@@ -49,7 +48,7 @@ public class VariationWorkflow extends SequentialBlackboardInteractingJob<KeyVal
     }
 
     private Path getPath(final URI uri) throws URISyntaxException, IOException {
-        var url = new URL(uri.toString());
+        final var url = new URL(uri.toString());
         return Paths.get(Platform.asLocalURL(url).toURI().getSchemeSpecificPart());
     }
 

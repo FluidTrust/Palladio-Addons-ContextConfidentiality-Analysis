@@ -20,12 +20,12 @@ class BasicTest {
     @Disabled
     @Test
     void test() throws JobFailedException, UserCanceledException {
-        var variationURI = TestInitializer.getModelURI("variations/models/port.uncertaintyvariationmodel");
+        final var variationURI = TestInitializer.getModelURI("variations/models/port.uncertaintyvariationmodel");
 
-        var config = new VariationWorkflowConfig();
+        final var config = new VariationWorkflowConfig();
         config.setVariationModel(variationURI);
 
-        var flow = new VariationWorkflow(config);
+        final var flow = new VariationWorkflow(config);
 //        flow.execute(new NullProgressMonitor());
     }
 }

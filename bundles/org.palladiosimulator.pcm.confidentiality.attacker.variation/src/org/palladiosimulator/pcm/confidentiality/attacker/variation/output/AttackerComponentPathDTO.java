@@ -16,14 +16,14 @@ public class AttackerComponentPathDTO {
     private String attackername;
     private String startComponent;
     private String attackComplexity;
-    private List<String> data;
+    private final List<String> data;
 
-    public AttackerComponentPathDTO(KAMP4attackModificationRepository repository) {
+    public AttackerComponentPathDTO(final KAMP4attackModificationRepository repository) {
         this.data = new ArrayList<>();
 
-        setAttackComplexity(repository);
-        setStartComponent(repository);
-        setData(repository);
+        this.setAttackComplexity(repository);
+        this.setStartComponent(repository);
+        this.setData(repository);
     }
 
     public final String getAttackername() {
@@ -42,12 +42,12 @@ public class AttackerComponentPathDTO {
         return this.data;
     }
 
-    private void setStartComponent(KAMP4attackModificationRepository repository) {
+    private void setStartComponent(final KAMP4attackModificationRepository repository) {
         if (repository.getSeedModifications().getAttackcomponent().size() != 1) {
             throw new IllegalStateException("Unsupported Number of attackers");
         }
 
-        var attacker = repository.getSeedModifications().getAttackcomponent().get(0).getAffectedElement();
+        final var attacker = repository.getSeedModifications().getAttackcomponent().get(0).getAffectedElement();
         if (attacker == null) {
             throw new IllegalStateException("Attacker is null");
         }
@@ -56,21 +56,19 @@ public class AttackerComponentPathDTO {
                 || !attacker.getCompromisedResources().isEmpty()) {
             throw new IllegalStateException("Unsupported number of starting points");
         }
-        var component = attacker.getCompromisedComponents().get(0);
+        final var component = attacker.getCompromisedComponents().get(0);
         this.startComponent = component.getEntityName();
         this.attackername = attacker.getEntityName();
     }
 
-    private void setAttackComplexity(KAMP4attackModificationRepository repository) {
+    private void setAttackComplexity(final KAMP4attackModificationRepository repository) {
         if (repository.getChangePropagationSteps().size() != 1) {
             throw new IllegalStateException("Unsupported number of changes");
         }
 
+        final var setSources = new HashSet<EObject>();
 
-
-        var setSources = new HashSet<EObject>();
-
-        var credentialChange = repository.getChangePropagationSteps().get(0);
+        final var credentialChange = repository.getChangePropagationSteps().get(0);
 
         credentialChange.getCompromisedassembly().stream().flatMap(e -> e.getCausingElements().stream())
                 .forEach(setSources::add);
@@ -81,27 +79,26 @@ public class AttackerComponentPathDTO {
         credentialChange.getCompromisedservice().stream().flatMap(e -> e.getCausingElements().stream())
                 .forEach(setSources::add);
 
-        var highComplexity = setSources.stream().filter(Vulnerability.class::isInstance).map(Vulnerability.class::cast)
-                .anyMatch(e -> e.getAttackComplexity() == AttackComplexity.HIGH);
+        final var highComplexity = setSources.stream().filter(Vulnerability.class::isInstance)
+                .map(Vulnerability.class::cast).anyMatch(e -> e.getAttackComplexity() == AttackComplexity.HIGH);
 
         this.attackComplexity = highComplexity ? AttackComplexity.HIGH.toString() : AttackComplexity.LOW.toString();
 
     }
 
-    private void setData(KAMP4attackModificationRepository repository) {
+    private void setData(final KAMP4attackModificationRepository repository) {
         if (repository.getChangePropagationSteps().size() != 1) {
             throw new IllegalStateException("Unsupported number of changes");
         }
 
-        var credentialChange = repository.getChangePropagationSteps().get(0);
+        final var credentialChange = repository.getChangePropagationSteps().get(0);
 
         credentialChange.getCompromiseddata().stream().map(CompromisedData::getAffectedElement).map(data -> {
 
-            var sourceName = data.getSource().getEntityName();
-            var sourceID = data.getSource().getId();
-            var methodName = data.getMethod().getEntityName();
-            var variableName = data.getReferenceName() == null ? "RETURN"
-                    : data.getReferenceName();
+            final var sourceName = data.getSource().getEntityName();
+            final var sourceID = data.getSource().getId();
+            final var methodName = data.getMethod().getEntityName();
+            final var variableName = data.getReferenceName() == null ? "RETURN" : data.getReferenceName();
             return String.format("%s:%s:%s:%s", sourceName, sourceID, methodName, variableName);
 
         }).forEach(this.data::add);

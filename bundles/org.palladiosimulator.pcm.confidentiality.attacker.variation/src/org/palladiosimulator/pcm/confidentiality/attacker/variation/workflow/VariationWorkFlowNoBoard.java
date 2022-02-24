@@ -6,10 +6,10 @@ import de.uka.ipd.sdq.workflow.jobs.SequentialJob;
 
 public class VariationWorkFlowNoBoard extends SequentialJob {
 
-    public VariationWorkFlowNoBoard(VariationWorkflowConfig config) {
+    public VariationWorkFlowNoBoard(final VariationWorkflowConfig config) {
 
-        var job = new VariationWorkflow(config);
+        final var job = new VariationWorkflow(config);
         job.setBlackboard(new KeyValueMDSDBlackboard());
-        addJob(job);
+        this.addJob(job);
     }
 }

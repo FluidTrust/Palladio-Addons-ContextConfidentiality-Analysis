@@ -23,18 +23,17 @@ public class LaunchDelegateVariations
         extends AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<VariationWorkflowConfig> {
 
     @Override
-    protected VariationWorkflowConfig deriveConfiguration(final ILaunchConfiguration configuration,
-            final String mode) throws CoreException {
+    protected VariationWorkflowConfig deriveConfiguration(final ILaunchConfiguration configuration, final String mode)
+            throws CoreException {
         final var output = configuration.getAttribute(Constants.VARIATION_MODEL_LABEL, "default");
-        var config = new VariationWorkflowConfig();
+        final var config = new VariationWorkflowConfig();
         config.setVariationModel(URI.createURI(output));
         return config;
 
     }
 
     @Override
-    protected IJob createWorkflowJob(final VariationWorkflowConfig config, final ILaunch launch)
-            throws CoreException {
+    protected IJob createWorkflowJob(final VariationWorkflowConfig config, final ILaunch launch) throws CoreException {
         return new VariationWorkFlowNoBoard(config);
     }
 
