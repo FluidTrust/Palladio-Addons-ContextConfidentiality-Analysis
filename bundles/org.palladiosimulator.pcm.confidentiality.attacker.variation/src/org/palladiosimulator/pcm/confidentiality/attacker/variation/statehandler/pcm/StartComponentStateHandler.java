@@ -18,7 +18,14 @@ public class StartComponentStateHandler extends GenericStateHandler {
 
     @Override
     public int getSizeOfDimension(final VariationPoint variationPoint) {
-        // TODO Auto-generated method stub
+        var assemblies = variationPoint.getVaryingSubjects();
+
+//        models
+//
+//        for(var element: assemblies) {
+//            var attacker = (Attacker) element;
+//            attacker.getC
+//        }
         return 0;
     }
 

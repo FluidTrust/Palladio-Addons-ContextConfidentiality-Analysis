@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.core.resources,
  edu.kit.kastel.dsis.fluidtrust.datacharacteristic.analysis,
  org.modelversioning.emfprofile.registry,
  tools.mdsd.library.standalone.initialization.emfprofiles,
- tools.mdsd.library.standalone.initialization;bundle-version="0.3.0"
+ tools.mdsd.library.standalone.initialization;bundle-version="0.3.0",
+ org.palladiosimulator.pcm.confidentiality.attacker
 Export-Package: org.palladiosimulator.pcm.confidentiality.attacker.variation,
  org.palladiosimulator.pcm.confidentiality.attacker.variation.output,
  org.palladiosimulator.pcm.confidentiality.attacker.variation.statehandler.pcm,
