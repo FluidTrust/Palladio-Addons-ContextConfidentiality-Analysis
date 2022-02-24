@@ -32,28 +32,6 @@
          </launchMode>
       </launchConfigurationTabGroup>
    </extension>
-   <extension
-         point="org.eclipse.debug.core.launchConfigurationTypes">
-      <launchConfigurationType
-            delegate="org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.delegate.LaunchDelegateVariations"
-            id="pcm.dataprocessing.context.attackeranalysis.launcher.config.variations"
-            modes="run"
-            name="Variation Creation"
-            public="true">
-      </launchConfigurationType>
-   </extension>
-   <extension
-         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
-      <launchConfigurationTabGroup
-            class="org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.ui.variations.LaunchConfigurationTabGroup"
-            id="pcm.dataprocessing.context.attackeranalysis.launcher.tabGroup.variations"
-            type="pcm.dataprocessing.context.attackeranalysis.launcher.config.variations">
-         <launchMode
-               mode="run"
-               perspective="org.eclipse.debug.ui.DebugPerspective">
-         </launchMode>
-      </launchConfigurationTabGroup>
-   </extension>
 
 
    

@@ -14,13 +14,10 @@ Require-Bundle: org.palladiosimulator.pcm.resources;bundle-version="4.0.0";visib
  org.eclipse.ui.console;bundle-version="3.8.6",
  org.eclipse.jface;bundle-version="3.17.0",
  org.palladiosimulator.pcm.confidentiality.context;bundle-version="0.1.0",
- org.palladiosimulator.mdsdprofiles;bundle-version="4.2.0",
- org.palladiosimulator.mdsdprofiles.api;bundle-version="4.2.0",
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition,
- org.eclipse.ui.workbench,
- org.palladiosimulator.pcm.confidentiality.attacker.variation
+ org.eclipse.ui.workbench
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants,
  org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.delegate,
  org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.ui
