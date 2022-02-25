@@ -1,0 +1,253 @@
+package edu.kit.ipd.sdq.attacksurface.tests.attackhandlers;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.Assert;
+import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+
+import com.google.common.graph.EndpointPair;
+
+import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
+import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
+import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+
+public class PropagationDebugTest extends AbstractChangeTests { 
+    private static final String DEFAULT = "default";
+    private static final String CRITICAL = "critical";
+    private static final String R11 = "R.1.1";
+    private static final String R12 = "R.1.2";
+    private static final String P21 = "P.2.1";
+    private static final String VULN_ID = "TestVulnerabilityId123456";
+    
+    private static final boolean IS_ROOT_SELF_ATTACKING = true;
+    private static final boolean IS_DEBUG = true;
+
+    //TODO adapt test structure: move this test class to change.vulnerability or adapt the classes there
+    public PropagationDebugTest() {
+        //TODO adapt
+        this.PATH_ATTACKER = "simpleAttackmodels/DesignOverviewDiaModel/My.attacker";
+        this.PATH_ASSEMBLY = "simpleAttackmodels/DesignOverviewDiaModel/My.system";
+        this.PATH_ALLOCATION = "simpleAttackmodels/DesignOverviewDiaModel/My.allocation";
+        this.PATH_CONTEXT = "simpleAttackmodels/DesignOverviewDiaModel/My.context";
+        this.PATH_MODIFICATION = "simpleAttackmodels/DesignOverviewDiaModel/My.kamp4attackmodificationmarks";
+        this.PATH_REPOSITORY = "simpleAttackmodels/DesignOverviewDiaModel/My.repository";
+        this.PATH_USAGE = "simpleAttackmodels/DesignOverviewDiaModel/My.usagemodel";
+        this.PATH_RESOURCES = "simpleAttackmodels/DesignOverviewDiaModel/My.resourceenvironment";
+    }
+    
+    private void runAssemblyAssemblyPropagation(final CredentialChange change) {
+        generateXML();
+        final var wrapper = getBlackboardWrapper();
+        final var assemblyChange = new AssemblyContextPropagationVulnerability(wrapper, change, getAttackGraph());
+        assemblyChange.calculateAssemblyContextToAssemblyContextPropagation();
+    }
+    
+    private void runSingleIteration() {
+        runAssemblyAssemblyPropagation(getChanges());
+        
+        final var criticalNode = getAttackGraph().getRootNodeContent();
+        final var criticalEntity = criticalNode.getContainedElement();
+        Assert.assertTrue(getAttackGraph().isAnyCompromised(criticalEntity));
+        Assert.assertEquals(1, getAttackGraph().getCompromisationCauseIds(criticalNode).size());
+        Assert.assertEquals(VULN_ID, 
+                getAttackGraph().getCompromisationCauseIds(criticalNode).toArray(String[]::new)[0]);
+        
+        final AssemblyContext r11 = getAssemblyContext(R11);
+        final var r11Node = getAttackGraph().findNode(new AttackStatusNodeContent(r11));
+        Assert.assertTrue(getAttackGraph().isAnyCompromised(r11));
+        Assert.assertEquals(1, getAttackGraph().getCompromisationCauseIds(r11Node).size());
+        Assert.assertEquals(VULN_ID, 
+                getAttackGraph().getCompromisationCauseIds(r11Node).toArray(String[]::new)[0]);
+        
+        // check edges
+        Assert.assertTrue(getAttackGraph().getEdge(criticalNode, r11Node).contains(VULN_ID));
+        Assert.assertTrue(getAttackGraph().getEdge(criticalNode, criticalNode).contains(VULN_ID));
+        Assert.assertTrue(getAttackGraph().getEdge(r11Node, r11Node).contains(VULN_ID));
+        // all other edges have no causes
+        Assert.assertTrue(getAttackGraph().getNodes()
+                .stream()
+                .filter(start -> !start.equals(criticalNode) && !start.equals(r11Node))
+                .map(start -> getAttackGraph().getNodes()
+                        .stream()
+                        .filter(end -> !end.equals(criticalNode) && !end.equals(r11Node))
+                        .map(end -> getAttackGraph().getEdge(start, end))
+                        .collect(Collectors.toSet()))
+                .flatMap(Set::stream)
+                .allMatch(e -> e == null || e.getCauseIds().isEmpty()));
+    }
+    
+    private AssemblyContext getAssemblyContext(final String searchStr) {
+        if (searchStr.equals(CRITICAL)) {
+            return getAttackGraph()
+                    .getRootNodeContent()
+                    .getContainedElementAsPCMElement()
+                    .getAssemblycontext();
+        }
+        
+        return getBlackboardWrapper()
+                .getAssembly()
+                .getAssemblyContexts__ComposedStructure()
+                .stream()
+                .filter(e -> e.getEntityName().contains(searchStr))
+                .findFirst().orElse(null);
+    }
+    
+    private void runUntilNotChangedIterations() {
+        do {
+            getChanges().setChanged(false);
+            runSingleIteration();
+        } while (getChanges().isChanged());
+    }
+    
+    @Test
+    public void assemblyToAssemblyVulnerabilityTest() {
+        runSingleIteration();
+    }
+    
+    @Test
+    public void assemblyToAssemblyVulnerabilityTestIterate() {
+        runUntilNotChangedIterations();
+    }
+    
+    @Test
+    public void attackSurfacePathGenerationTest() {
+        runUntilNotChangedIterations();
+        final var attackPaths = getAttackGraph().findAllAttackPaths();
+        
+        Assert.assertEquals(6, attackPaths.size());
+        final var attackPathsSet = new HashSet<>(attackPaths);
+        final AttackPathSurface[] expectedPaths = {
+                generateSimpleAttackPath(CRITICAL, VULN_ID, CRITICAL, DEFAULT), //self attack
+                generateSimpleAttackPath(CRITICAL, VULN_ID, R11, DEFAULT), //direct attack from r.1.1
+                generateSimpleAttackPath(CRITICAL, VULN_ID, //attack via r.1.1 starting from r.1.1
+                        R11, VULN_ID,
+                        R11, DEFAULT),
+                generateSimpleAttackPath(CRITICAL, VULN_ID, // attack via r.1.1 starting from critical
+                        R11, VULN_ID,
+                        CRITICAL, DEFAULT),
+                generateSimpleAttackPath(CRITICAL, VULN_ID, R12, DEFAULT), // attack starting from r.1.2
+                generateSimpleAttackPath(CRITICAL, VULN_ID, P21, DEFAULT), // attack starting from p.2.1
+        };
+        final var expectedPathsSet = new HashSet<>(Arrays.asList(expectedPaths));
+        debugsysouts(expectedPathsSet, attackPathsSet);
+        Assert.assertEquals(expectedPathsSet, attackPathsSet);
+    }
+
+    private void debugsysouts(final Set<AttackPathSurface> expectedPathsSet, 
+            final Set<AttackPathSurface> attackPaths) {
+        if (IS_DEBUG) {
+            attackPaths.forEach(p -> System.out.println(p));
+            System.out.println("--------------------------------\nexpected:");
+            expectedPathsSet.forEach(p -> System.out.println(p));
+            System.out.println("--------------------------------\nunexpected:");
+            attackPaths.forEach(p -> {
+                if (!expectedPathsSet.contains(p)) {
+                    System.out.println(p);
+                }
+            });
+        }
+    }
+
+    private AttackPathSurface generateSimpleAttackPath(
+            String... elementVuln) {
+        final AttackPathSurface ret = new AttackPathSurface();
+        
+        for (int i = 0; i < elementVuln.length - 2; i += 2) {
+            final var elementSearchStr = elementVuln[i];
+            final var vulnIdStr = elementVuln[i + 1];
+            final var vulnSurface = new VulnerabilitySurface(vulnIdStr);
+            
+            final var assemblyContext = getAssemblyContext(elementSearchStr);
+            final var nodeInGraph = getAttackGraph().findNode(new AttackStatusNodeContent(assemblyContext));
+            
+            final var nextElement = getAssemblyContext(elementVuln[i + 2]);
+            final var nextNode = getAttackGraph().findNode(new AttackStatusNodeContent(nextElement));
+            final var edgeContent = new AttackStatusEdgeContent();
+            edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
+            final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(nextNode, nodeInGraph));
+            ret.addFirst(edge);
+        }
+        
+        // add self attack in the end of each path
+        if (IS_ROOT_SELF_ATTACKING && (ret.size() > 1 
+                || !ret.get(0).getNodes().target().equals(ret.get(0).getNodes().source()))) { 
+            final var edgeContent = new AttackStatusEdgeContent();
+            final var vulnSurface = new VulnerabilitySurface(VULN_ID);
+            edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
+            final var rootNode = getAttackGraph().getRootNodeContent();
+            final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(rootNode, rootNode));
+            ret.add(edge);
+        }
+        
+        return ret;
+    }
+    
+    @Test
+    public void attackPathGenerationTest() {
+        final var pathsConverter = new AttackSurfaceAnalysis();
+        final var allAttackPathsSurface = getAttackGraph().findAllAttackPaths();
+        final var attackPaths = pathsConverter.toAttackPaths(allAttackPathsSurface, getBlackboardWrapper());
+        
+        Assert.assertEquals(allAttackPathsSurface.size(), attackPaths.size());
+        for (int i = 0; i < attackPaths.size(); i++) {
+            final var attackPath = attackPaths.get(i);
+            final var path = attackPath.getPath();
+            final var surface = allAttackPathsSurface.get(i);
+            final var nodeList = getNodeList(surface);
+            Assert.assertEquals(nodeList.size(), path.size());
+            for (int c = 0; c < path.size(); c++) {
+                final var nodeEntity = nodeList.get(c).getContainedElement();
+                final var edgeCauseIds = getEdgeCauseIdsOfNodeIndex(surface, c);
+                
+                final var sysInteg = path.get(c);
+                final var pcmElement = sysInteg.getPcmelement();
+                final var entity = PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
+                Assert.assertTrue(EcoreUtil.equals(nodeEntity, entity));
+                
+                final var causeId = sysInteg.getIdOfContent();
+                Assert.assertTrue(edgeCauseIds.contains(causeId)); //TODO show also that all edge cause ids are represented
+            }
+        }
+    }
+
+    private Set<String> getEdgeCauseIdsOfNodeIndex(final AttackPathSurface surface, final int nodeIndex) {
+        final int edgeIndex = nodeIndex;
+        return surface.get(edgeIndex).getContent().getCauseIds();
+    }
+
+    private List<AttackStatusNodeContent> getNodeList(final AttackPathSurface surface) {
+        return surface
+                .stream()
+                .map(e -> e.getNodes())
+                .map(n -> Arrays.asList(n.source(), n.target()))
+                .reduce(new LinkedList<>(), (a, b) -> {
+                    final List<AttackStatusNodeContent> ret = new LinkedList<>();
+                    ret.addAll(a);
+                    ret.add(b.get(1)); // b.get(0) ^= a.get(1), so only b.get(1) needs to be added
+                    return ret;
+                })
+                ;
+    }
+}

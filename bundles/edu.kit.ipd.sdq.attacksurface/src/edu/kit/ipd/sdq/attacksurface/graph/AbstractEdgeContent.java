@@ -82,4 +82,9 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
         AbstractEdgeContent<?, ?> other = (AbstractEdgeContent<?, ?>) obj;
         return Objects.equals(setCSets, other.setCSets) && Objects.equals(setVSets, other.setVSets);
     }
+
+    @Override
+    public String toString() {
+        return "AbstractEdgeContent [setCSets=" + setCSets + ", setVSets=" + setVSets + "]";
+    }
 }

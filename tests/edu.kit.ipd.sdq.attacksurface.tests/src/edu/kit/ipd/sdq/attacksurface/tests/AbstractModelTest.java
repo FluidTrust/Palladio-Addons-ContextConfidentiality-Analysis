@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
+import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
@@ -22,6 +23,8 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 //TODO
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
+import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -120,5 +123,12 @@ public abstract class AbstractModelTest extends BaseTest {
         this.context.getAttributes().getAttribute().add(attribute);
         this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
         return contextAccess;
+    }
+    
+    @BeforeEach
+    public void clearCache() {
+        resetAttackGraphAndChanges();
+        CachePDP.instance().clearCache();
+        CacheCompromised.instance().reset();
     }
 }

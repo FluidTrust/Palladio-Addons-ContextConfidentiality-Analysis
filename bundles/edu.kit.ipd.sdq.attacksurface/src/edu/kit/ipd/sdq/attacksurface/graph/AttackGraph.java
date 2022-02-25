@@ -2,6 +2,7 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -195,8 +196,8 @@ public class AttackGraph {
         final List<AttackPathSurface> allPaths = new ArrayList<>();
 
         Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(this.graph);
-        final var bfsIterable = traverser.depthFirstPreOrder(this.root);
-        for (final var nodeContent : bfsIterable) {
+        final var dfsIterable = traverser.depthFirstPreOrder(this.root);
+        for (final var nodeContent : dfsIterable) {
             if (nodeContent.isCompromised()) {
                 // TODO remove > final int level = getLevel(nodeContent);
                 
@@ -246,7 +247,7 @@ public class AttackGraph {
             final boolean isAttackerCompromised) {
         if (allPaths.isEmpty()) {
             allPaths.add(new AttackPathSurface(Arrays.asList(edge.createReverseEdge())));
-        } else if (!isAttackerCompromised || !areCauseSetsEmpty(edge)) {
+        } else /*if (!isAttackerCompromised || !areCauseSetsEmpty(edge))*/ {
             final List<AttackPathSurface> newPaths = new ArrayList<>();
             allPaths.forEach(p -> {
                 final var pathCopy = p.getCopy();
@@ -293,6 +294,26 @@ public class AttackGraph {
         }
         return isFitting;
     }
+    
+    /**
+     * Gets the {@link AttackStatusEdgeContent} between the attacked node and the 
+     * attacker node if it already exists, {@code null} otherwise
+     * 
+     * @param start - the source node in the attack graph, i.e. the attacked node
+     * @param end - the targe node in the attack graph, i.e. the attacker node
+     * @return the {@link AttackStatusEdgeContent} between the attacked node and the 
+     * attacker node if it already exists, {@code null} otherwise
+     */
+    public AttackStatusEdgeContent getEdge(final AttackStatusNodeContent start, 
+            final AttackStatusNodeContent end) {
+        final var opt = this.graph.edges()
+                .stream()
+                .filter(e -> e.source().equals(start))
+                .filter(e -> e.target().equals(end))
+                .map(e -> this.graph.edgeValue(e))
+                .findFirst().orElse(null);
+        return opt != null ? opt.orElse(null) : null;
+    }
 
     /**
      * 
@@ -308,5 +329,13 @@ public class AttackGraph {
             }
         }
         return false;
+    }
+
+    /**
+     * 
+     * @return all the node in the graph
+     */
+    public Set<AttackStatusNodeContent> getNodes() {
+        return this.graph.nodes();
     }
 }

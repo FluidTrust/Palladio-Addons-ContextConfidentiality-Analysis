@@ -26,7 +26,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
@@ -194,12 +193,4 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var analysis = new AttackSurfaceAnalysis();
         analysis.runChangePropagationAnalysis(board);
     }
-
-    @BeforeEach
-    void clearCache() {
-        CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
-        CacheVulnerability.instance().reset();
-    }
-
 }

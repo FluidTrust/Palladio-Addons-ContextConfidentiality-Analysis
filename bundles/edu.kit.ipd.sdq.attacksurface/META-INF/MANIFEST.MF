@@ -32,6 +32,7 @@ Export-Package: edu.kit.ipd.sdq.attacksurface.activator,
  edu.kit.ipd.sdq.attacksurface.core,
  edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers,
  edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability,
+ edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes,
  edu.kit.ipd.sdq.attacksurface.graph
 Import-Package: 
  edu.kit.ipd.sdq.kamp4attack.core,

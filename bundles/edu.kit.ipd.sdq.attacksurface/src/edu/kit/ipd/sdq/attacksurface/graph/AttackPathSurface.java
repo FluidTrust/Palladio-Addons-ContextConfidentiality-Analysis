@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * Represents an attack path in an {@link AttackGraph}.
@@ -111,5 +112,14 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     @Override
     public String toString() {
         return "AttackPathSurface [path=" + path + "]";
+    }
+
+    public AttackPathSurface remove(int index) {
+        this.path.remove(index);
+        return this;
+    }
+
+    public Stream<AttackStatusEdge> stream() {
+        return this.path.stream();
     }
 }

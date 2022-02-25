@@ -196,7 +196,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     void clearCache() {
         CachePDP.instance().clearCache();
         CacheCompromised.instance().reset();
-        CacheVulnerability.instance().reset();
     }
 
 }

@@ -26,7 +26,6 @@ import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -54,7 +53,7 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         CachePDP.instance().clearCache();
-        CacheVulnerability.instance().reset();
+        //TODO remove: CacheVulnerability.instance().reset();
         
         // prepare
         createInitialStructure(board);
@@ -80,7 +79,19 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
         
         // Clear caches
         CachePDP.instance().clearCache();
-        CacheVulnerability.instance().reset();
+        //TODO remove: CacheVulnerability.instance().reset();
+    }
+    
+    //TODO move toAttackPaths method to extra AttackPathConverter class
+    /**
+     * TODO method for testing the {@link AttackPathSurface} to {@link AttackPath} conversion.
+     * 
+     * @param allAttackPathsSurface - list of {@link AttackPathSurface} instances representing all found paths
+     * @return list of {@link AttackPath} instances
+     */
+    public List<AttackPath> toAttackPaths(final List<AttackPathSurface> allAttackPathsSurface, 
+            final BlackboardWrapper board) {
+        return new ArrayList<>(toAttackPaths(board, allAttackPathsSurface));
     }
 
     private Collection<AttackPath> toAttackPaths(final BlackboardWrapper board,

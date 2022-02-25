@@ -15,10 +15,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
@@ -36,11 +39,10 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
 
     public void attackAssemblyContext(final List<AssemblyContext> components, final CredentialChange change,
             final Entity source) {
-        final var causes = getCauses(components);
         final var compromisedComponents = components.stream().map(e -> attackComponent(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList()); 
         
-        final var newCompromisedComponents = filterExsitingComponent(components, compromisedComponents, causes);
+        final var newCompromisedComponents = filterExsitingEdges(compromisedComponents, source);
         if (!newCompromisedComponents.isEmpty()) {
             handleDataExtraction(newCompromisedComponents);
             change.setChanged(true);
@@ -58,12 +60,22 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
         }
     }
     
-    private List<Set<String>> getCauses(final Collection<AssemblyContext> components) {
-        return components
+    private Collection<CompromisedAssembly> filterExsitingEdges(
+            final List<CompromisedAssembly> compromisedComponents, final Entity source) {
+        final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
+        return compromisedComponents
                 .stream()
-                .map(c -> getAttackGraph().findNode(new AttackStatusNodeContent(c)))
-                .map(n -> n != null ? getAttackGraph().getCompromisationCauseIds(n)  : new HashSet<String>())
+                .filter(c -> !contains(getAttackGraph().getEdge(new AttackStatusNodeContent(c.getAffectedElement()), 
+                        attackerNode), getCausesOfCompromisation(c)))
                 .collect(Collectors.toList());
+    }
+
+    private boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
+        return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
+    }
+
+    private Set<String> getCausesOfCompromisation(final CompromisedAssembly attacked) {
+        return CauseGetter.getCauses(attacked.getCausingElements(), Vulnerability.class);
     }
 
     private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
@@ -82,7 +94,9 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
             EObject source);
 
-    private Collection<CompromisedAssembly> filterExsitingComponent(List<AssemblyContext> components, 
+    
+    //TODO remove::
+    private Collection<CompromisedAssembly> filterExsitingEdges(List<AssemblyContext> components, 
             final List<CompromisedAssembly> compromisedComponents, List<Set<String>> causes) {
         final List<CompromisedAssembly> newComponents = new ArrayList<>();
         for (int i = 0; i < components.size(); i++) {

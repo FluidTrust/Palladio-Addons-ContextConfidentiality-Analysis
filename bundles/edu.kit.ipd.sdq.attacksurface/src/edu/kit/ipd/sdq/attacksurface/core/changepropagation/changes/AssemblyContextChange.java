@@ -199,28 +199,23 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         this.attackGraph.setSelectedNode(selectedNode);
         var connectedComponents = getConnectedComponents(selectedComponent);
         final var handler = getAssemblyHandler();
-        boolean isNotCompromisedBefore = !isCompromised(selectedComponent);
-        if (isNotCompromisedBefore) {
-            handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent);
-            this.handleSeff(selectedComponent);
-        }
+        handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent);
+        //TODO this.handleSeff(selectedComponent);
 
-        handleConnectedComponentsPropagation(selectedNode, selectedComponent, isNotCompromisedBefore,
+        handleConnectedComponentsPropagation(selectedNode, selectedComponent,
                 connectedComponents, handler);
     }
 
     private void handleConnectedComponentsPropagation(final AttackStatusNodeContent selectedNode,
-            final AssemblyContext selectedComponent, final boolean isNotCompromisedBefore,
+            final AssemblyContext selectedComponent,
             final List<AssemblyContext> connectedComponents, final AssemblyContextHandler handler) {
         for (final var connectedComponent : connectedComponents) {
             // continue building the graph
             final var childNode = this.attackGraph.addOrFindChild(selectedNode, new AttackStatusNodeContent(connectedComponent)); 
             if (childNode != null) {
                 final var childComponent = connectedComponent;
-                if (isNotCompromisedBefore) {
-                    handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
-                    //TODO this.handleSeff(childComponent);
-                }
+                handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
+                //TODO this.handleSeff(childComponent);
 
                 // select the child node and recursively call the propagation call
                 this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToAssemblyContextPropagation, selectedNode);
@@ -277,11 +272,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         reachableAssemblies.addAll(
                 CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
 
-        reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
-                .filter(e -> !isCompromised(e)).collect(Collectors.toList());
+        reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);/*.stream()
+                //TODO .filter(e -> !isCompromised(e)).collect(Collectors.toList());*/
         for (var component : listRelevantContexts) {
             final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
+            handler.attackAssemblyContext(listRelevantContexts, changes, component); //TODO ok?
 
             /*TODO var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());*/

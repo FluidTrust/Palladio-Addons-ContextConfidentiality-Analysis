@@ -8,7 +8,7 @@ public class AttackStatusEdge {
     private final AttackStatusEdgeContent content;
     private final EndpointPair<AttackStatusNodeContent> nodes;
     
-    AttackStatusEdge(final AttackStatusEdgeContent content, final EndpointPair<AttackStatusNodeContent> nodes) {
+    public AttackStatusEdge(final AttackStatusEdgeContent content, final EndpointPair<AttackStatusNodeContent> nodes) {
         this.content = content;
         this.nodes = nodes;
     }
@@ -44,6 +44,8 @@ public class AttackStatusEdge {
 
     @Override
     public String toString() {
-        return "AttackStatusEdge [content=" + content + ", nodes=" + nodes + "]";
+        return "AttackStatusEdge [content=" + content.getCauseIds() + ", " + 
+                nodes.source().getContainedElement().getEntityName() + " -> " +
+                nodes.target().getContainedElement().getEntityName() + "]";
     }
 }

@@ -22,5 +22,9 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
             causeIds.addAll(causes.stream().map(CVSurface::getCauseId).collect(Collectors.toSet()));
         }
     }
-    
+
+    public boolean contains(final String causeId) {
+        return getCauseIds().contains(causeId);
+    }
+   
 }
