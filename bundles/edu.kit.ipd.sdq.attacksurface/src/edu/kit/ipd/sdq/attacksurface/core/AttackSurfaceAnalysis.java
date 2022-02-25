@@ -47,7 +47,7 @@ public class AttackSurfaceAnalysis {
     
     private AttackGraph attackGraph;
 
-    public void runChangePropagationAnalysis(final BlackboardWrapper board) {
+    public void runChangePropagationAnalysis(final BlackboardWrapper board) { 
 
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
