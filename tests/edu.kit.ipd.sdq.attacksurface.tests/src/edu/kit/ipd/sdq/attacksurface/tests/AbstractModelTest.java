@@ -25,8 +25,8 @@ import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AbstractModelTest extends BaseTest {
@@ -45,7 +45,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected Allocation allocation;
     protected ConfidentialAccessSpecification context;
     protected AttackerSpecification attacker;
-    protected AbstractKAMP4attackModificationRepository<?> modification;
+    protected KAMP4attackModificationRepository modification;
     
     private AttackGraph attackGraph;
     private CredentialChange changes;
@@ -98,7 +98,7 @@ public abstract class AbstractModelTest extends BaseTest {
         this.allocation = this.getModel(list, Allocation.class);
         this.context = this.getModel(list, ConfidentialAccessSpecification.class);
         this.attacker = this.getModel(list, AttackerSpecification.class);
-        this.modification = this.getModel(list, AbstractKAMP4attackModificationRepository.class);
+        this.modification = this.getModel(list, KAMP4attackModificationRepository.class);
     }
 
     @Override

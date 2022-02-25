@@ -26,11 +26,6 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
     }
 
     @Override
-    protected Collection<LinkingResource> loadInitialMarkedItems() {
-        return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, LinkingResource.class);
-    }
-
-    @Override
     public void calculateLinkingResourceToContextPropagation() {
         final var listCompromisedLinkingResources = this.changes.getCompromisedlinkingresource().stream()
                 .map(CompromisedLinkingResource::getAffectedElement).collect(Collectors.toList());

@@ -34,11 +34,6 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         super(v, change, attackGraph);
     }
 
-    @Override
-    protected Collection<ResourceContainer> loadInitialMarkedItems() {
-        return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, ResourceContainer.class);
-    }
-
     protected List<ResourceContainer> getInfectedResourceContainers() {
         return this.changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
                 .collect(Collectors.toList());

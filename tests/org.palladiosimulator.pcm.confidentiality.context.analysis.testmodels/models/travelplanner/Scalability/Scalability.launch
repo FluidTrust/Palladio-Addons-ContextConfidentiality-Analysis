@@ -9,4 +9,5 @@
     <stringAttribute key="Select Modifiaction Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/Scalability/test_model.kamp4attackmodificationmarks"/>
     <stringAttribute key="Select Repository Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/default.repository"/>
     <stringAttribute key="Select Usage Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/default.usagemodel"/>
+    <stringAttribute key="Variation Model" value=""/>
 </launchConfiguration>

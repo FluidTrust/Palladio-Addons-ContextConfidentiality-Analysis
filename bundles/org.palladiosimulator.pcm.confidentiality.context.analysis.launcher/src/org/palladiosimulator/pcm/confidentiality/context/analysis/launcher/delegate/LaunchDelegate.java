@@ -1,13 +1,19 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.delegate;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
+
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackSurfaceAnalysisWorkflow;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
+
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.SaveOutputModelJob;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.jobs.IJob;
@@ -64,7 +70,12 @@ public class LaunchDelegate
         if (attackerConfig.isSurface()) {
         	return new AttackSurfaceAnalysisWorkflow(attackerConfig);
         }
-        return new AttackerAnalysisWorkflow(attackerConfig); // FIXME
+        return new AttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config) {
+            @Override
+            protected List<IJob> getOutputJob() {
+                return Arrays.asList(new SaveOutputModelJob(config));
+            }
+        }; // FIXME
     }
 
 }

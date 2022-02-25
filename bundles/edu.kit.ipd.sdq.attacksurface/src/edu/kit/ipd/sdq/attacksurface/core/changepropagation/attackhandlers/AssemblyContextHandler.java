@@ -29,6 +29,7 @@ import edu.kit.ipd.sdq.kamp.model.modificationmarks.AbstractModification;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
 public abstract class AssemblyContextHandler extends AttackHandler  {
 
@@ -126,7 +127,7 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
 
     private boolean containsComponent(List<CompromisedAssembly> compromisedComponents, AssemblyContext component) {
         return compromisedComponents.stream()
-                .map(AbstractModification::getAffectedElement)
+                .map(ModifyEntity::getAffectedElement)
                 .anyMatch(referenceEntity -> EcoreUtil
                         .equals(referenceEntity, component));
     }

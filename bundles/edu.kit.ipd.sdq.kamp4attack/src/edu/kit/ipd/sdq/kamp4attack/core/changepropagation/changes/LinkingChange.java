@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,7 +9,6 @@ import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PC
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
-import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
@@ -22,11 +20,6 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
 
     public LinkingChange(final BlackboardWrapper v, CredentialChange change) {
         super(v, change);
-    }
-
-    @Override
-    protected Collection<LinkingResource> loadInitialMarkedItems() {
-        return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, LinkingResource.class);
     }
 
     @Override

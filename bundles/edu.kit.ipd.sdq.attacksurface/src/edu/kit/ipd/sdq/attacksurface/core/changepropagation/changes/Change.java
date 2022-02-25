@@ -39,8 +39,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class Change<T> {
 
-    protected Collection<T> initialMarkedItems;
-
     protected BlackboardWrapper modelStorage;
 
     protected CredentialChange changes;
@@ -51,13 +49,10 @@ public abstract class Change<T> {
 
     public Change(final BlackboardWrapper v, final CredentialChange change, final AttackGraph attackGraph) {
         this.modelStorage = v;
-        this.initialMarkedItems = this.loadInitialMarkedItems();
         this.changes = change;
         this.attackGraph = attackGraph;
         this.stackLevel = 0;
     }
-
-    protected abstract Collection<T> loadInitialMarkedItems();
 
     public CredentialChange getChanges() {
         return this.changes;

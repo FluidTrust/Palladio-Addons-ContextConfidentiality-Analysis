@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UncertaintyVariationModel:UncertaintyVariations xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:UncertaintyVariationModel="http://palladiosimulator.org/pcm/UncertaintyVariationModel/v0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/">
+  <variationPoints stateHandlerId="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.statespace.statehandler.pcm.AttackerStateHandler">
+    <varyingSubjects xsi:type="KAMP4attackModificationmarks:AttackerSelection" href="source/My.kamp4attackmodificationmarks#_qWLLAI83EeypUsV8TrELAg"/>
+    <variationDescription>
+      <targetVariations xsi:type="UncertaintyVariationModel:PrimitiveValue">
+        <link xsi:type="attacker:Attacker" href="source/My.attacker#_CcLR0C8pEeylPOrRpUZy4w"/>
+      </targetVariations>
+      <targetVariations xsi:type="UncertaintyVariationModel:PrimitiveValue">
+        <link xsi:type="attacker:Attacker" href="source/My.attacker#__4_zQI83EeypUsV8TrELAg"/>
+      </targetVariations>
+    </variationDescription>
+  </variationPoints>
+</UncertaintyVariationModel:UncertaintyVariations>

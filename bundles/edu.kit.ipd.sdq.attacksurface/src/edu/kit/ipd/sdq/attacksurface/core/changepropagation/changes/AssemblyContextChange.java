@@ -51,11 +51,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         super(v, change, attackGraph);
     }
 
-    @Override
-    protected Collection<AssemblyContext> loadInitialMarkedItems() {
-        return ArchitectureModelLookup.lookUpMarkedObjectsOfAType(this.modelStorage, AssemblyContext.class);
-    }
-
     /*
      * TODO remove protected List<AssemblyContext> getCompromisedAssemblyContexts()
      * { return

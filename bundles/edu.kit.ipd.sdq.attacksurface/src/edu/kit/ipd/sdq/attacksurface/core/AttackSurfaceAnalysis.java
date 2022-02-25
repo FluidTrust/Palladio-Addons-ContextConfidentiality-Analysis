@@ -39,7 +39,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 
 @Component
-public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
+public class AttackSurfaceAnalysis {
 
     private CredentialChange changePropagationDueToCredential;
     
@@ -47,7 +47,6 @@ public class AttackSurfaceAnalysis implements AbstractChangePropagationAnalysis<
     
     private AttackGraph attackGraph;
 
-    @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
 
         // Setup

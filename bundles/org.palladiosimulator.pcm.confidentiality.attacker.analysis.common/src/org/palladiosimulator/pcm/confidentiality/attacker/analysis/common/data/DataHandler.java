@@ -37,11 +37,17 @@ public class DataHandler {
                 .flatMap(e -> e.getParameters__OperationSignature().stream());
         final var listDataParameter = createDataFromParameter(parameters);
 
+        // TODO: consider required interfaces
+        /*
+         * considering required interfaces requires to find on the instance level connected
+         * components. There might be some problems, when it is unclear how they are connected. It
+         * is probably necessary to also the external calls to identify the real services
+         */
         var interfacesRequired = component.getRequiredRoles_InterfaceRequiringEntity().stream()
                 .filter(OperationRequiredRole.class::isInstance).map(OperationRequiredRole.class::cast)
                 .map(OperationRequiredRole::getRequiredInterface__OperationRequiredRole);
 
-        interfacesRequired = Stream.concat(interfacesList.stream(), interfacesRequired);
+        interfacesRequired = Stream.concat(interfacesList.stream(), Stream.empty());
         final var listDataReturnTypes = interfacesRequired.flatMap(e -> e.getSignatures__OperationInterface().stream())
                 .map(DataHandler::createDataReturnValue).flatMap(Optional::stream).collect(Collectors.toList());
 
@@ -52,6 +58,7 @@ public class DataHandler {
     }
 
     private static Optional<DatamodelAttacker> createDataReturnValue(final OperationSignature signature) {
+        // TODO: consider external call see above
         if (signature.getReturnType__OperationSignature() == null) {
             return Optional.empty();
         }
@@ -61,12 +68,12 @@ public class DataHandler {
         return Optional.of(data);
     }
 
-    private static Collection<DatamodelAttacker> createDataFromParameter(
-            final Stream<Parameter> parameters) {
+    private static Collection<DatamodelAttacker> createDataFromParameter(final Stream<Parameter> parameters) {
         return parameters.map(parameter -> {
             final var data = AttackerFactory.eINSTANCE.createDatamodelAttacker();
             data.setDataType(parameter.getDataType__Parameter());
             data.setReferenceName(parameter.getParameterName());
+            data.setMethod(parameter.getOperationSignature__Parameter());
             return data;
         }).collect(Collectors.toList());
     }
