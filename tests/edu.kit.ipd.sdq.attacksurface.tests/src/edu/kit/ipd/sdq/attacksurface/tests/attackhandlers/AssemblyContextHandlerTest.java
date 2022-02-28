@@ -2,14 +2,18 @@ package edu.kit.ipd.sdq.attacksurface.tests.attackhandlers;
 
 import java.util.Arrays;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.AssemblyContextVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.ResourceContainerVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -85,6 +89,57 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         
         // attack and compromise root node
         handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerComponent);
+        Assert.assertTrue(rootNode.isCompromised());
+        Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
+        Assert.assertTrue(getAttackGraph().getEdge(rootNode, attackerNode).contains(VULN_ID));
+    }
+    
+    @Test
+    public void attackAssemblyContextVulnerabilityAttackViaUncompromisedResourceContainerTest() {
+        final var dataHandler = new DataHandlerAttacker(getChanges());
+        final var handler = new AssemblyContextVulnerability(this.getBlackboardWrapper(), 
+                dataHandler, AttackVector.NETWORK, getAttackGraph());
+        final var rootNode = getAttackGraph().getRootNodeContent();
+        final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
+        final ResourceContainer attackerResource = getResourceContainer(criticalComponent);
+        
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+
+        Assert.assertFalse(attackerNode.isCompromised());
+        Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
+        Assert.assertNull(getAttackGraph().getEdge(attackerNode, attackerNode));
+        
+        // attack and compromise root node
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource);
+        Assert.assertTrue(rootNode.isCompromised());
+        Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
+        Assert.assertTrue(getAttackGraph().getEdge(rootNode, attackerNode).contains(VULN_ID));
+    }
+    
+    @Test
+    public void attackAssemblyContextVulnerabilityAttackViaCompromisedResourceContainerTest() {
+        final var dataHandler = new DataHandlerAttacker(getChanges());
+        final var handler = new AssemblyContextVulnerability(this.getBlackboardWrapper(), 
+                dataHandler, AttackVector.NETWORK, getAttackGraph());
+        final var rootNode = getAttackGraph().getRootNodeContent();
+        final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
+        final ResourceContainer attackerResource = getResourceContainer(criticalComponent);
+
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        
+        // attack and compromise attackerNode
+        final var resourceHandler = new ResourceContainerVulnerability(this.getBlackboardWrapper(),
+                dataHandler, AttackVector.NETWORK, getAttackGraph());
+        resourceHandler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
+        Assert.assertTrue(attackerNode.isCompromised());
+        Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
+        Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(VULN_ID));
+        
+        // attack and compromise root node
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);

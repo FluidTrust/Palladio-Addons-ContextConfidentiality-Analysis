@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.tests.attackhandlers;
+package edu.kit.ipd.sdq.attacksurface.tests.change;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +22,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.graph.EndpointPair;
 
-import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
@@ -34,7 +33,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
-public class PropagationDebugTest extends AbstractChangeTests { 
+public class PropagationOverviewTest extends AbstractChangeTests { 
     private static final String DEFAULT = "default";
     private static final String CRITICAL = "critical";
     private static final String R11 = "R.1.1";
@@ -46,7 +45,7 @@ public class PropagationDebugTest extends AbstractChangeTests {
     private static final boolean IS_DEBUG = true;
 
     //TODO adapt test structure: move this test class to change.vulnerability or adapt the classes there
-    public PropagationDebugTest() {
+    public PropagationOverviewTest() {
         //TODO adapt
         this.PATH_ATTACKER = "simpleAttackmodels/DesignOverviewDiaModel/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels/DesignOverviewDiaModel/My.system";
