@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -29,7 +31,7 @@ public abstract class ResourceContainerHandler extends AttackHandler {
             final Entity source) {
         final var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        final var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var newCompromisedResources = filterExistingEdges(compromisedResources, source);
         if (!newCompromisedResources.isEmpty()) {
             handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
@@ -61,15 +63,12 @@ public abstract class ResourceContainerHandler extends AttackHandler {
     protected abstract Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
             CredentialChange change, EObject source);
 
-    private Collection<CompromisedResource> filterExsiting(final Collection<CompromisedResource> containers,
-            final CredentialChange change) {
-        return containers.stream().filter(container -> !contains(container, change)).collect(Collectors.toList());
-
+    private Collection<CompromisedResource> filterExistingEdges(
+            final List<CompromisedResource> compromisedResources, final Entity source) {
+        final var clazz = CompromisedResource.class;
+        return filterExistingEdges(compromisedResources, source, clazz)
+                .stream()
+                .map(clazz::cast)
+                .collect(Collectors.toList());
     }
-
-    private boolean contains(final CompromisedResource resource, final CredentialChange change) {
-        return change.getCompromisedresource().stream().anyMatch(referenceContainer -> EcoreUtil
-                .equals(referenceContainer.getAffectedElement(), resource.getAffectedElement()));
-    }
-
 }

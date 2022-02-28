@@ -43,7 +43,7 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
         final var compromisedComponents = components.stream().map(e -> attackComponent(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList()); 
         
-        final var newCompromisedComponents = filterExsitingEdges(compromisedComponents, source);
+        final var newCompromisedComponents = filterExistingEdges(compromisedComponents, source);
         if (!newCompromisedComponents.isEmpty()) {
             handleDataExtraction(newCompromisedComponents);
             change.setChanged(true);
@@ -61,22 +61,13 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
         }
     }
     
-    private Collection<CompromisedAssembly> filterExsitingEdges(
+    private Collection<CompromisedAssembly> filterExistingEdges(
             final List<CompromisedAssembly> compromisedComponents, final Entity source) {
-        final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
-        return compromisedComponents
+        final var clazz = CompromisedAssembly.class;
+        return filterExistingEdges(compromisedComponents, source, clazz)
                 .stream()
-                .filter(c -> !contains(getAttackGraph().getEdge(new AttackStatusNodeContent(c.getAffectedElement()), 
-                        attackerNode), getCausesOfCompromisation(c)))
+                .map(clazz::cast)
                 .collect(Collectors.toList());
-    }
-
-    private boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
-        return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
-    }
-
-    private Set<String> getCausesOfCompromisation(final CompromisedAssembly attacked) {
-        return CauseGetter.getCauses(attacked.getCausingElements(), Vulnerability.class);
     }
 
     private void handleDataExtraction(final Collection<CompromisedAssembly> components) {

@@ -3,6 +3,7 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -197,7 +198,8 @@ public class AttackGraph {
 
         Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(this.graph);
         final var dfsIterable = traverser.depthFirstPreOrder(this.root);
-        for (final var nodeContent : dfsIterable) {
+        for (final var nodeContentToFind : dfsIterable) {
+            final var nodeContent = findNode(nodeContentToFind);
             if (nodeContent.isCompromised()) {
                 // TODO remove > final int level = getLevel(nodeContent);
                 
@@ -245,14 +247,20 @@ public class AttackGraph {
 
     private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge,
             final boolean isAttackerCompromised) {
+        final var reverseEdge = edge.createReverseEdge();
+        final var edgePath = reverseEdge.toPath();
         if (allPaths.isEmpty()) {
-            allPaths.add(new AttackPathSurface(Arrays.asList(edge.createReverseEdge())));
+            allPaths.add(edgePath);
         } else /*if (!isAttackerCompromised || !areCauseSetsEmpty(edge))*/ {
             final List<AttackPathSurface> newPaths = new ArrayList<>();
             allPaths.forEach(p -> {
                 final var pathCopy = p.getCopy();
-                final boolean isFitting = addEdgeIfFitting(p, edge.createReverseEdge());
-                if (isFitting) {
+                final boolean isFitting = addEdgeIfFitting(p, reverseEdge);
+                final boolean isEdgeSimplePath = reverseEdge.getNodes().target()
+                        .equals(this.root);
+                if (isEdgeSimplePath) {
+                    newPaths.add(edgePath);
+                } else if (isFitting) {
                     newPaths.add(pathCopy);
                 }
             });
@@ -317,6 +325,17 @@ public class AttackGraph {
 
     /**
      * 
+     * @param edgeEnds - the edge ends
+     * @return the {@link AttackStatusEdgeContent} between the attacked node and the 
+     * attacker node if it already exists, {@code null} otherwise
+     * @see #getEdge(AttackStatusNodeContent, AttackStatusNodeContent)
+     */
+    public AttackStatusEdgeContent getEdge(final EndpointPair<AttackStatusNodeContent> edgeEnds) {
+        return getEdge(edgeEnds.source(), edgeEnds.target());
+    }
+
+    /**
+     * 
      * @param entities - the given entities
      * @return whether any of the given entities is compromised
      */
@@ -337,5 +356,18 @@ public class AttackGraph {
      */
     public Set<AttackStatusNodeContent> getNodes() {
         return this.graph.nodes();
+    }
+    
+    /**
+     * 
+     * @return all the edges in the graph
+     */
+    public Set<AttackStatusEdge> getEdges() {
+        final var ret = new HashSet<AttackStatusEdge>();
+        final var edgeEndpointSet = this.graph.edges();
+        for (final var edgeEnds : edgeEndpointSet) {
+            ret.add(new AttackStatusEdge(getEdge(edgeEnds), edgeEnds));
+        }
+        return ret;
     }
 }

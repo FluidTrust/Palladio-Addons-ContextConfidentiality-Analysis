@@ -64,8 +64,8 @@ public class AttackSurfaceAnalysis {
             this.changePropagationDueToCredential.setChanged(false);
             this.attackGraph.resetVisitations();
             
-            calculateAndMarkAssemblyPropagation(board); //TODO 2. add other kinds of analysis
-            //calculateAndMarkResourcePropagation(board); //TODO 1. adapt implementation
+            calculateAndMarkAssemblyPropagation(board);
+            calculateAndMarkResourcePropagation(board);
             
             
             /*TODO calculateAndMarkLinkingPropagation(board);*/
@@ -273,10 +273,9 @@ public class AttackSurfaceAnalysis {
         //list.add(new AssemblyContextPropagationContext(board));
         for (final var analysis : list) { //TODO adapt
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
-            /*TODO callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation); 
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);*/
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
             //TODO add others
         }
     }

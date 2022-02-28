@@ -35,7 +35,11 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     }
 
     protected List<ResourceContainer> getInfectedResourceContainers() {
-        return this.changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
+        return this.getAttackGraph()
+                .getCompromisedNodes()
+                .stream()
+                .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER))
+                .map(n -> n.getContainedElementAsPCMElement().getResourcecontainer())
                 .collect(Collectors.toList());
     }
 
@@ -103,27 +107,14 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
         final var listInfectedContainers = getInfectedResourceContainers();
         if (listInfectedContainers.contains(relevantResourceContainer)) {
-
             final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
                     .filter(e -> EcoreUtil.equals(relevantResourceContainer,
                             e.getResourceContainer_AllocationContext()))
                     .map(AllocationContext::getAssemblyContext_AllocationContext).collect(Collectors.toList());
 
-            final var listCompromised = localComponents.stream()
-                    .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e,
-                            List.of(relevantResourceContainer)))
-                    /*
-                     * .filter(e -> this.changes.getCompromisedassembly().stream() .noneMatch(f ->
-                     * EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
-                     */
-                    .collect(Collectors.toList()); // TODO remove ^
-
-            if (!listCompromised.isEmpty()) {
-                this.changes.getCompromisedassembly().addAll(listCompromised);
-                CollectionHelper.addService(listCompromised, this.modelStorage.getVulnerabilitySpecification(),
-                        this.changes);
-            }
-
+            final var handler = getAssemblyHandler();
+            handler.attackAssemblyContext(localComponents, changes, relevantResourceContainer);
+            
             //TODO v move this block out of this if 
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var resource : connectedResourceContainers) {
@@ -145,13 +136,13 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var selectedNode = this.attackGraph.getSelectedNode();
 
         final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
+        findResourceContainerNode(relevantResourceContainer, selectedNode);
         selfAttack(relevantResourceContainer);
-        final var relevantResourceContainerNode = getResourceContainerNode(relevantResourceContainer, selectedNode);
 
         final var handler = getResourceHandler();
         final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
         for (final var resource : connectedResourceContainers) {
-            final var childNode = getResourceContainerNode(resource, selectedNode);
+            final var childNode = findResourceContainerNode(resource, selectedNode);
             if (childNode != null) {
                 handler.attackResourceContainer(Arrays.asList(relevantResourceContainer), this.changes, resource);
             

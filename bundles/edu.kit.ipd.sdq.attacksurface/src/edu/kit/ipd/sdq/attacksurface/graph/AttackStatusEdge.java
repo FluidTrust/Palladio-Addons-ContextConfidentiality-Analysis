@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import com.google.common.graph.EndpointPair;
@@ -47,5 +48,9 @@ public class AttackStatusEdge {
         return "AttackStatusEdge [content=" + content.getCauseIds() + ", " + 
                 nodes.source().getContainedElement().getEntityName() + " -> " +
                 nodes.target().getContainedElement().getEntityName() + "]";
+    }
+
+    public AttackPathSurface toPath() {
+        return new AttackPathSurface(Arrays.asList(this));
     }
 }

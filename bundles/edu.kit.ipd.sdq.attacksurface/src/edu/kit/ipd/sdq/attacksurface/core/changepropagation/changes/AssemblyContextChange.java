@@ -80,7 +80,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     public void calculateAssemblyContextToRemoteResourcePropagation() {
         final var finalSelectedNode = this.attackGraph.getSelectedNode();
         final var relevantResourceContainer = getResourceContainerForElement(finalSelectedNode);
-        final var relevantResourceContainerNode = getResourceContainerNode(relevantResourceContainer,
+        final var relevantResourceContainerNode = findResourceContainerNode(relevantResourceContainer,
                 finalSelectedNode);
 
         if (relevantResourceContainerNode != null) {
@@ -138,7 +138,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     public void calculateAssemblyContextToLocalResourcePropagation() {
         final var finalSelectedNode = this.attackGraph.getSelectedNode();
         final var relevantResourceContainer = getResourceContainerForElement(finalSelectedNode);
-        final var relevantResourceContainerNode = getResourceContainerNode(relevantResourceContainer,
+        final var relevantResourceContainerNode = findResourceContainerNode(relevantResourceContainer,
                 finalSelectedNode);
 
         if (relevantResourceContainerNode != null) {
@@ -260,7 +260,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 .filter(this::isGlobalElement).collect(Collectors.toList());
 
         final var resourceContainer = this.getResourceContainerForElement(finalSelectedNode);
-        final var resourceContainerNode = this.getResourceContainerNode(resourceContainer, finalSelectedNode);
+        final var resourceContainerNode = this.findResourceContainerNode(resourceContainer, finalSelectedNode);
         final var connectedContainers = getConnectedResourceContainers(resourceContainer);
         var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
                 this.modelStorage.getAllocation());
@@ -281,7 +281,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         // recursion for attacking assemblies inside other connected containers
         if (resourceContainerNode != null) {
             for (final var container : connectedContainers) {
-                final var childNode = this.getResourceContainerNode(container, finalSelectedNode);
+                final var childNode = this.findResourceContainerNode(container, finalSelectedNode);
                 if (childNode != null) {
                     this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToGlobalAssemblyContextPropagation,
                             finalSelectedNode);

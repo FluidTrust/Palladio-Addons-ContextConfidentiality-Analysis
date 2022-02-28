@@ -47,7 +47,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     /**
      * 
-     * @return the size of the path
+     * @return the size of the path edge list, i.e. the count of edges
      */
     public int size() {
         return this.path.size();

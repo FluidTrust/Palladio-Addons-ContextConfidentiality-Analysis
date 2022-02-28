@@ -115,8 +115,8 @@ public abstract class Change<T> {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);
             this.stackLevel++;
-            recursionMethod.run();
             childNode.setVisited(true);
+            recursionMethod.run();
             this.stackLevel--;
             this.attackGraph.setSelectedNode(selectedNode);
         }
@@ -158,7 +158,7 @@ public abstract class Change<T> {
         return allocationOPT.get().getResourceContainer_AllocationContext();
     }
     
-    protected AttackStatusNodeContent getResourceContainerNode(final ResourceContainer resourceContainer,
+    protected AttackStatusNodeContent findResourceContainerNode(final ResourceContainer resourceContainer,
             final AttackStatusNodeContent selectedNode) {
         final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode
                 .getContainedElement().getId()

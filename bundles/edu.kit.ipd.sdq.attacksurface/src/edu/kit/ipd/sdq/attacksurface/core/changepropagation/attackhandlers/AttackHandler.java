@@ -2,6 +2,7 @@ package edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -29,13 +30,17 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPRes
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
 /**
  * Generic class for handling attacks on system entities. Provides useful helper methods for
@@ -239,5 +244,25 @@ public abstract class AttackHandler {
         final var vulnerability = VulnerabilityHelper.checkAttack(authenticated, vulnerabilityList, attacks,
                 attackVector, roles);
         return vulnerability;
+    }
+    
+    protected Collection<ModifyEntity<?>> filterExistingEdges(
+            final List<? extends ModifyEntity<?>> compromisedComponents, final Entity source,
+            final Class<? extends ModifyEntity<?>> clazz) {
+        final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
+        return compromisedComponents
+                .stream()
+                .filter(c -> !contains(getAttackGraph().getEdge(new AttackStatusNodeContent(c.getAffectedElement()), 
+                        attackerNode), getCausesOfCompromisation(c)))
+                .collect(Collectors.toList());
+    }
+    
+
+    protected boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
+        return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
+    }
+
+    protected Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
+        return CauseGetter.getCauses(attacked.getCausingElements(), Vulnerability.class);
     }
 }
