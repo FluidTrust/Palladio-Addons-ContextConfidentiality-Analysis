@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.tests.attackhandlers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -136,7 +137,6 @@ public class PropagationDebugTest extends AbstractChangeTests {
         runUntilNotChangedIterations();
         final var attackPaths = getAttackGraph().findAllAttackPaths();
         
-        Assert.assertEquals(6, attackPaths.size());
         final var attackPathsSet = new HashSet<>(attackPaths);
         final AttackPathSurface[] expectedPaths = {
                 generateSimpleAttackPath(CRITICAL, VULN_ID, CRITICAL, DEFAULT), //self attack
@@ -150,9 +150,30 @@ public class PropagationDebugTest extends AbstractChangeTests {
                 generateSimpleAttackPath(CRITICAL, VULN_ID, R12, DEFAULT), // attack starting from r.1.2
                 generateSimpleAttackPath(CRITICAL, VULN_ID, P21, DEFAULT), // attack starting from p.2.1
         };
-        final var expectedPathsSet = new HashSet<>(Arrays.asList(expectedPaths));
+        final var expectedPathsSet = new HashSet<>(addSelfLoopPaths(Arrays.asList(expectedPaths)));
         debugsysouts(expectedPathsSet, attackPathsSet);
+        Assert.assertEquals(11, attackPaths.size());
         Assert.assertEquals(expectedPathsSet, attackPathsSet);
+    }
+
+    private List<AttackPathSurface> addSelfLoopPaths(final List<AttackPathSurface> paths) {
+        final List<AttackPathSurface> allPaths = new ArrayList<>();
+        for (final var path : paths) {
+            allPaths.add(path);
+            final var pathCopy = path.getCopy();
+            // add self attack in the end of each path
+            if (IS_ROOT_SELF_ATTACKING && (path.size() > 1 
+                    || !pathCopy.get(0).getNodes().target().equals(pathCopy.get(0).getNodes().source()))) { 
+                final var edgeContent = new AttackStatusEdgeContent();
+                final var vulnSurface = new VulnerabilitySurface(VULN_ID);
+                edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
+                final var rootNode = getAttackGraph().getRootNodeContent();
+                final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(rootNode, rootNode));
+                pathCopy.add(edge);
+                allPaths.add(pathCopy);
+            }
+        }
+        return allPaths;
     }
 
     private void debugsysouts(final Set<AttackPathSurface> expectedPathsSet, 
@@ -161,9 +182,15 @@ public class PropagationDebugTest extends AbstractChangeTests {
             attackPaths.forEach(p -> System.out.println(p));
             System.out.println("--------------------------------\nexpected:");
             expectedPathsSet.forEach(p -> System.out.println(p));
-            System.out.println("--------------------------------\nunexpected:");
+            System.out.println("--------------------------------\nunexpected (is there, but should not be there):");
             attackPaths.forEach(p -> {
                 if (!expectedPathsSet.contains(p)) {
+                    System.out.println(p);
+                }
+            });
+            System.out.println("--------------------------------\nunexpected (should be there, but is not there):");
+            expectedPathsSet.forEach(p -> {
+                if (!attackPaths.contains(p)) {
                     System.out.println(p);
                 }
             });
@@ -188,17 +215,6 @@ public class PropagationDebugTest extends AbstractChangeTests {
             edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
             final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(nextNode, nodeInGraph));
             ret.addFirst(edge);
-        }
-        
-        // add self attack in the end of each path
-        if (IS_ROOT_SELF_ATTACKING && (ret.size() > 1 
-                || !ret.get(0).getNodes().target().equals(ret.get(0).getNodes().source()))) { 
-            final var edgeContent = new AttackStatusEdgeContent();
-            final var vulnSurface = new VulnerabilitySurface(VULN_ID);
-            edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
-            final var rootNode = getAttackGraph().getRootNodeContent();
-            final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(rootNode, rootNode));
-            ret.add(edge);
         }
         
         return ret;

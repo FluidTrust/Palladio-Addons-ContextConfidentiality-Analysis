@@ -258,10 +258,11 @@ public class AttackGraph {
                 final boolean isFitting = addEdgeIfFitting(p, reverseEdge);
                 final boolean isEdgeSimplePath = reverseEdge.getNodes().target()
                         .equals(this.root);
+                if (isFitting) {
+                    newPaths.add(pathCopy);
+                }
                 if (isEdgeSimplePath) {
                     newPaths.add(edgePath);
-                } else if (isFitting) {
-                    newPaths.add(pathCopy);
                 }
             });
             allPaths.addAll(newPaths);
