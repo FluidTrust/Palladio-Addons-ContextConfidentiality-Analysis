@@ -153,6 +153,13 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         debugsysouts(expectedPathsSet, attackPathsSet);
         Assert.assertEquals(11, attackPaths.size());
         Assert.assertEquals(expectedPathsSet, attackPathsSet);
+        
+        attackPaths.forEach(p -> Assert.assertEquals(1, p.getUsedVulnerabilites(getBlackboardWrapper()).size()));
+        attackPaths.forEach(p -> Assert.assertTrue(p.getUsedVulnerabilites(getBlackboardWrapper())
+                .stream()
+                .map(v -> v.getId())
+                .collect(Collectors.toSet())
+                .contains(VULN_ID)));
     }
 
     private List<AttackPathSurface> addSelfLoopPaths(final List<AttackPathSurface> paths) {
@@ -243,6 +250,13 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 
                 final var causeId = sysInteg.getIdOfContent();
                 Assert.assertTrue(edgeCauseIds.contains(causeId)); //TODO show also that all edge cause ids are represented
+                
+                Assert.assertEquals(1, attackPath.getVulnerabilitesUsed().size());
+                Assert.assertTrue(attackPath.getVulnerabilitesUsed()
+                        .stream()
+                        .map(v -> v.getId())
+                        .collect(Collectors.toSet())
+                        .contains(VULN_ID));
             }
         }
     }

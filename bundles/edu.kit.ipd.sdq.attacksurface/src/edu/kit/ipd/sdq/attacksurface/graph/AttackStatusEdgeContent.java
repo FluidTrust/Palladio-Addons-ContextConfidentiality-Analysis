@@ -10,8 +10,20 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
 
     public Set<String> getCauseIds() {
         final Set<String> causeIds = new HashSet<>();
+        causeIds.addAll(getCredentialCauseIds());
+        causeIds.addAll(getVulnerabilityCauseIds());
+        return causeIds;
+    }
+    
+    public Set<String> getCredentialCauseIds() {
+        final Set<String> causeIds = new HashSet<>();
         final Iterable<Set<CVSurface>> cIterable = this::getContainedSetCIterator;
         addAllOfIterable(causeIds, cIterable);
+        return causeIds;
+    }
+
+    public Set<String> getVulnerabilityCauseIds() {
+        final Set<String> causeIds = new HashSet<>();
         final Iterable<Set<CVSurface>> vIterable = this::getContainedSetVIterator;
         addAllOfIterable(causeIds, vIterable);
         return causeIds;

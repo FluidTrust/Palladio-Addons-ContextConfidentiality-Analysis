@@ -101,8 +101,8 @@ public class AttackSurfaceAnalysis {
             final AttackPath path = AttackerFactory.eINSTANCE.createAttackPath();
             path.setCriticalElement(findCorrectSystemIntegration(board, this.crtitcalEntity, null).getPcmelement());
             
-            path.getCredentialsInitiallyNecessary(); //TODO implement, adapt toAttackPath
-            path.getVulnerabilitesUsed(); //TODO implement, adapt toAttackPath
+            path.getCredentialsInitiallyNecessary(); //TODO implement finding of necessary credentials
+            path.getVulnerabilitesUsed().addAll(pathSurface.getUsedVulnerabilites(board));
             
             final var attackPathPath = toAttackPath(board, pathSurface);
             if (!attackPathPath.isEmpty()) {

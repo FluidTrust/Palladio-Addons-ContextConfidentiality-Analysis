@@ -1,12 +1,21 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
+
+import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 
 /**
  * Represents an attack path in an {@link AttackGraph}.
@@ -121,5 +130,20 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     public Stream<AttackStatusEdge> stream() {
         return this.path.stream();
+    }
+
+    public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
+        final Set<String> vulnerabilityCauseIds = stream()
+                .map(e -> e.getContent().getVulnerabilityCauseIds())
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+        
+        return board.getVulnerabilitySpecification().getVulnerabilities()
+                .stream()
+                .filter(s -> vulnerabilityCauseIds.contains(s.getIdOfContent()))
+                .filter(VulnerabilitySystemIntegration.class::isInstance)
+                .map(VulnerabilitySystemIntegration.class::cast)
+                .map(VulnerabilitySystemIntegration::getVulnerability)
+                .collect(Collectors.toSet());
     }
 }
