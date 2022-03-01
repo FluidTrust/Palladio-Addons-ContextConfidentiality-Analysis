@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Role;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
@@ -29,8 +30,12 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import com.google.common.graph.EndpointPair;
+
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -46,12 +51,14 @@ public abstract class Change<T> {
     protected AttackGraph attackGraph;
     
     private int stackLevel;
+    private AttackPathSurface selectedSurfacePath;
 
     public Change(final BlackboardWrapper v, final CredentialChange change, final AttackGraph attackGraph) {
         this.modelStorage = v;
         this.changes = change;
         this.attackGraph = attackGraph;
         this.stackLevel = 0;
+        this.selectedSurfacePath = new AttackPathSurface();
     }
 
     public CredentialChange getChanges() {
@@ -82,27 +89,17 @@ public abstract class Change<T> {
 
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }
-
-    protected Attacker getAttacker() {
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().isEmpty()) {
+    
+    protected SurfaceAttacker getSurfaceAttacker() {
+        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().isEmpty()) {
             throw new IllegalStateException("No attacker selected");
         }
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().size() > 2) {
+        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().size() > 2) {
             throw new IllegalStateException("More than one attacker");
         }
-        return this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().get(0)
+        return this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().get(0)
                 .getAffectedElement();
     }
-
-    /*TODO remove protected void compromise(final AttackStatusNodeContent selectedNode, final String causeId,
-            final AttackStatusNodeContent attackSource) { //TODO do in handlers! //TODO remove here, is now in graph
-        Objects.requireNonNull(selectedNode);
-        Objects.requireNonNull(attackSource);
-
-        selectedNode.setCompromised(true);
-        //TODO attackSource.setAttackSourceOf(selectedNode); //TODO s.above
-        generateAllFoundAttackPaths(this.attackGraph.getRootNodeContent());
-    }*/
 
     protected boolean isCompromised(final Entity... entities) {
         return this.attackGraph.isAnyCompromised(entities);
@@ -111,17 +108,55 @@ public abstract class Change<T> {
     protected void callRecursionIfNecessary(final AttackStatusNodeContent childNode, 
             final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
         selectedNode.setVisited(true);
-        if (childNode != null && !childNode.isVisited()) {
+        addChildNodeToPathIfNecessary(childNode);
+        if (childNode != null && !childNode.isVisited() && !isFiltered()) {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);
             this.stackLevel++;
             childNode.setVisited(true);
             recursionMethod.run();
+            removeChildNodeFromPath();
             this.stackLevel--;
             this.attackGraph.setSelectedNode(selectedNode);
         }
     }
+
+    private void addChildNodeToPathIfNecessary(AttackStatusNodeContent childNode) {
+        final var criticalNode = this.attackGraph.getRootNodeContent();
+        if (childNode != null && !childNode.isVisited()) {
+            final AttackStatusEdge edge;
+            final int size = this.selectedSurfacePath.size();
+            if (size == 0) {
+                edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
+                        EndpointPair.ordered(childNode, criticalNode));
+            } else {
+                edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
+                        EndpointPair.ordered(childNode, 
+                                this.selectedSurfacePath.get(size - 1).getNodes().source()));
+            }
+            this.selectedSurfacePath.addFirst(edge);
+        }
+    }
     
+    private void removeChildNodeFromPath() {
+        this.selectedSurfacePath.remove(0);
+    }
+
+    private boolean isFiltered() { //TODO move to utility class for filtering with flag for early and late filtering
+        final var surfaceAttacker = getSurfaceAttacker();
+        final var filterCriteria = surfaceAttacker.getFiltercriteria();
+        final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
+        final var path = this.selectedSurfacePath.toAttackPath(this.modelStorage, criticalElement);
+        final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
+        for (final var filterCriterion : filterCriteria) {
+            if (filterCriterion.isFilteringEarly() 
+                    && filterCriterion.isElementFiltered(systemIntegration, getSurfaceAttacker(), path)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     protected ResourceContainer getResourceContainerForElement(
             final AttackStatusNodeContent selectedNodeContent) {
         final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();

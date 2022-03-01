@@ -9,11 +9,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 
@@ -131,6 +138,44 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public Stream<AttackStatusEdge> stream() {
         return this.path.stream();
     }
+    
+    public AttackPath toAttackPath(BlackboardWrapper board, final Entity criticalEntity) {
+        final List<SystemIntegration> path = new ArrayList<>();
+        
+        for (final var edge : this) {
+            final var nodes = edge.getNodes();
+            // the edges in the attack path are reversed, 
+            // so that the attacked is the target and the attacker the source
+            final var attacked = nodes.target();
+            final var attacker = nodes.source();
+
+            if (!attacker.isCompromised()) {
+                 // add default system integration (start of attack)
+                final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                path.add(sysInteg);
+            }
+            
+            final var edgeContent = edge.getContent();
+            final var iter = edgeContent.getContainedSetVIterator(); //TODO also for C
+            while (iter.hasNext()) {
+                final var set = iter.next();
+                for (final var cause : set) {
+                    final var causeId = cause.getCauseId();
+                    final var sysInteg = 
+                            findCorrectSystemIntegration(board, attacked.getContainedElement(), causeId);
+                    path.add(sysInteg); //TODO != null maybe
+                }
+            }
+        }
+        
+        final var ret = AttackerFactory.eINSTANCE.createAttackPath();
+        ret.getPath().addAll(path);
+        ret.setCriticalElement(findCorrectSystemIntegration(board, criticalEntity, null).getPcmelement());
+        
+        ret.getCredentialsInitiallyNecessary(); //TODO implement finding of necessary credentials
+        ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(board));
+        return ret;
+    }
 
     public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
         final Set<String> vulnerabilityCauseIds = stream()
@@ -145,5 +190,65 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 .map(VulnerabilitySystemIntegration.class::cast)
                 .map(VulnerabilitySystemIntegration::getVulnerability)
                 .collect(Collectors.toSet());
+    }
+    
+    private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
+        return PCMElementType.typeOf(entity).getElementIdEqualityPredicate(entity);
+    }
+
+    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
+            String causeId) {
+        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
+        if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
+            final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
+                    .collect(Collectors.toList());
+            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, causeId);
+            if (sysIntegration != null) {
+                return sysIntegration;
+            }
+        }
+        // create a new default system integration if no matching was found
+        return generateDefaultSystemIntegration(entity);
+    }
+
+    private SystemIntegration generateDefaultSystemIntegration(final Entity entity) {
+        final var pcmElement = PCMElementType.typeOf(entity).toPCMElement(entity);
+        final var sysIntegration = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
+        sysIntegration.setEntityName("generated default sys integration for " + entity.getEntityName());
+        sysIntegration.setPcmelement(pcmElement);
+        return sysIntegration;
+    }
+
+    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
+            final List<SystemIntegration> sysIntegrations, final String causeId) {
+        if (!sysIntegrations.isEmpty()) {
+            final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, causeId);
+            // TODO non-global communication
+            if (systemIntegrationById != null) {
+                return systemIntegrationById;
+            }
+            return getDefaultOrFirst(sysIntegrations);
+        }
+        return null;
+    }
+
+    private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
+            final String id) {
+        return copySystemIntegration(
+                sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
+    }
+
+    private static SystemIntegration copySystemIntegration(final SystemIntegration original) {
+        if (original != null) {
+            final SystemIntegration sysIntegration = original.getCopyExceptElement();
+            sysIntegration.setPcmelement(PCMElementType.copy(original.getPcmelement()));
+            return sysIntegration;
+        }
+        return original;
+    }
+
+    private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
+        return sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
+                .orElse(sysIntegrations.get(0));
     }
 }
