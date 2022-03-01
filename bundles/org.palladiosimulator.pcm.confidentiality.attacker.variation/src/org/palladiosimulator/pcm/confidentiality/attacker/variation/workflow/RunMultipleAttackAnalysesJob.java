@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Platform;
@@ -36,7 +37,7 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
         try {
             final var scenariosFolderURI = this.config.getScenarioFolder();
 
-            final var path = this.getPath(scenariosFolderURI);
+            final var path = getPath(scenariosFolderURI);
 
             final var listConfigurations = new ArrayList<String>();
             Files.walk(path, 1).filter(content -> content.toFile().isDirectory()).map(Path::getFileName)
@@ -47,11 +48,11 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
                 final var configurationURI = scenariosFolderURI.appendSegment(scneario);
                 final var attackerConfig = new AttackerAnalysisWorkflowConfig();
 
-                attackerConfig.setAllocationModel(this.getURI(configurationURI, "allocation"));
-                attackerConfig.setAttackModel(this.getURI(configurationURI, "attacker"));
-                attackerConfig.setContextModel(this.getURI(configurationURI, "context"));
-                attackerConfig.setModificationModel(this.getURI(configurationURI, "kamp4attackmodificationmarks"));
-                attackerConfig.setRepositoryModel(this.getURI(configurationURI, "repository"));
+                attackerConfig.setAllocationModel(getURI(configurationURI, "allocation"));
+                attackerConfig.setAttackModel(getURI(configurationURI, "attacker"));
+                attackerConfig.setContextModel(getURI(configurationURI, "context"));
+                attackerConfig.setModificationModel(getURI(configurationURI, "kamp4attackmodificationmarks"));
+                attackerConfig.setRepositoryModel(getURI(configurationURI, "repository"));
 
                 final var attackerWorkflow = new FluidAttackerWorkflow(attackerConfig);
 
@@ -62,8 +63,8 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
 
             }
             final var gson = new Gson();
-            final var outputString = gson.toJson(listPaths);
-            this.getBlackboard().put(VariationWorkflowConfig.ID_JSON_ATTACK_PATHS, outputString);
+            final var outputString = gson.toJson(listPaths.stream().distinct().collect(Collectors.toList()));
+            getBlackboard().put(VariationWorkflowConfig.ID_JSON_ATTACK_PATHS, outputString);
 
         } catch (URISyntaxException | IOException e) {
             throw new JobFailedException("Problems transforming url", e);
@@ -72,7 +73,7 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
     }
 
     private URI getURI(final URI folder, final String modelFileExtension) throws IOException, URISyntaxException {
-        final var path = this.getPath(folder);
+        final var path = getPath(folder);
         final var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny()
                 .get().getFileName().toString();
         return folder.appendSegment(modelFile);

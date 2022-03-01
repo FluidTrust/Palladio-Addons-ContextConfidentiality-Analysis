@@ -3,6 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.attacker.variation.output;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackComplexity;
@@ -21,9 +22,9 @@ public class AttackerComponentPathDTO {
     public AttackerComponentPathDTO(final KAMP4attackModificationRepository repository) {
         this.data = new ArrayList<>();
 
-        this.setAttackComplexity(repository);
-        this.setStartComponent(repository);
-        this.setData(repository);
+        setAttackComplexity(repository);
+        setStartComponent(repository);
+        setData(repository);
     }
 
     public final String getAttackername() {
@@ -84,6 +85,54 @@ public class AttackerComponentPathDTO {
 
         this.attackComplexity = highComplexity ? AttackComplexity.HIGH.toString() : AttackComplexity.LOW.toString();
 
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(attackComplexity, attackername, data, startComponent);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        var other = (AttackerComponentPathDTO) obj;
+        if (this.attackComplexity == null) {
+            if (other.attackComplexity != null) {
+                return false;
+            }
+        } else if (!this.attackComplexity.equals(other.attackComplexity)) {
+            return false;
+        }
+        if (this.attackername == null) {
+            if (other.attackername != null) {
+                return false;
+            }
+        } else if (!this.attackername.equals(other.attackername)) {
+            return false;
+        }
+        if (this.data == null) {
+            if (other.data != null) {
+                return false;
+            }
+        } else if (!this.data.equals(other.data)) {
+            return false;
+        }
+        if (this.startComponent == null) {
+            if (other.startComponent != null) {
+                return false;
+            }
+        } else if (!this.startComponent.equals(other.startComponent)) {
+            return false;
+        }
+        return true;
     }
 
     private void setData(final KAMP4attackModificationRepository repository) {
