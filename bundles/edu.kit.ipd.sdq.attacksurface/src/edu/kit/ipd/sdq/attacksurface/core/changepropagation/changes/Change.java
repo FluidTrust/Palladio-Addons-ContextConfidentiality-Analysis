@@ -32,6 +32,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import com.google.common.graph.EndpointPair;
 
+import edu.kit.ipd.sdq.attacksurface.core.FilterCriteriaHandling;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
@@ -90,16 +91,7 @@ public abstract class Change<T> {
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
     }
     
-    protected SurfaceAttacker getSurfaceAttacker() {
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().isEmpty()) {
-            throw new IllegalStateException("No attacker selected");
-        }
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().size() > 2) {
-            throw new IllegalStateException("More than one attacker");
-        }
-        return this.modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().get(0)
-                .getAffectedElement();
-    }
+    
 
     protected boolean isCompromised(final Entity... entities) {
         return this.attackGraph.isAnyCompromised(entities);
@@ -109,6 +101,8 @@ public abstract class Change<T> {
             final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
         selectedNode.setVisited(true);
         addChildNodeToPathIfNecessary(childNode);
+        System.out.println("selected= " + selectedNode + " | child= " + childNode 
+                + " | selectedSurfacePath= " + this.selectedSurfacePath); //TODO remove
         if (childNode != null && !childNode.isVisited() && !isFiltered()) {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);
@@ -142,19 +136,11 @@ public abstract class Change<T> {
         this.selectedSurfacePath.remove(0);
     }
 
-    private boolean isFiltered() { //TODO move to utility class for filtering with flag for early and late filtering
-        final var surfaceAttacker = getSurfaceAttacker();
-        final var filterCriteria = surfaceAttacker.getFiltercriteria();
+    private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
-        final var path = this.selectedSurfacePath.toAttackPath(this.modelStorage, criticalElement);
-        final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
-        for (final var filterCriterion : filterCriteria) {
-            if (filterCriterion.isFilteringEarly() 
-                    && filterCriterion.isElementFiltered(systemIntegration, getSurfaceAttacker(), path)) {
-                return true;
-            }
-        }
-        return false;
+        return FilterCriteriaHandling.isFiltered(this.modelStorage, this.attackGraph, 
+                this.selectedSurfacePath.toAttackPath(modelStorage, 
+                        criticalElement, true));
     }
 
     protected ResourceContainer getResourceContainerForElement(

@@ -31,26 +31,27 @@ import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
  * @version 1.0
  */
 public class AttackPathSurface implements Iterable<AttackStatusEdge> {
-    //TODO adapt
-    
-    private final List<AttackStatusEdge> path; //TODO maybe adapt: use reversal edges here
-    
+    // TODO adapt
+
+    private final List<AttackStatusEdge> path; // TODO maybe adapt: use reversal edges here
+
     /**
      * Creates a new empty {@link AttackPathSurface}.
      */
     public AttackPathSurface() {
         this.path = new LinkedList<>();
     }
-    
+
     /**
-     * Creates a new {@link AttackPathSurface} with a copy of the given list as an initial path.
+     * Creates a new {@link AttackPathSurface} with a copy of the given list as an
+     * initial path.
      * 
      * @param path - the path as a list of {@link AttackStatusEdge}
      */
     public AttackPathSurface(final List<AttackStatusEdge> path) {
         this.path = new LinkedList<>(path);
     }
-    
+
     /**
      * Gets the {@link AttackStatusEdge} at the given index.
      * 
@@ -68,7 +69,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public int size() {
         return this.path.size();
     }
-    
+
     /**
      * Adds the edge at the beginning of the path.
      * 
@@ -94,7 +95,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public boolean isEmpty() {
         return this.path.isEmpty();
     }
-    
+
     /**
      * 
      * @return a copy of the path (only the list is copied, not the edges)
@@ -138,60 +139,68 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public Stream<AttackStatusEdge> stream() {
         return this.path.stream();
     }
-    
-    public AttackPath toAttackPath(BlackboardWrapper board, final Entity criticalEntity) {
-        final List<SystemIntegration> path = new ArrayList<>();
-        
-        for (final var edge : this) {
+
+    public AttackPath toAttackPath(BlackboardWrapper board, final Entity criticalEntity,
+            final boolean doCreateCauselessPaths) {
+        final List<SystemIntegration> localPath = new ArrayList<>();
+
+        for (int i = 0; i < this.size(); i++) {
+            final var edge = this.get(i);
             final var nodes = edge.getNodes();
-            // the edges in the attack path are reversed, 
+            // the edges in the attack path are reversed,
             // so that the attacked is the target and the attacker the source
             final var attacked = nodes.target();
             final var attacker = nodes.source();
 
-            if (!attacker.isCompromised()) {
-                 // add default system integration (start of attack)
+            if (doCreateCauselessPaths) {
                 final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
-                path.add(sysInteg);
-            }
-            
-            final var edgeContent = edge.getContent();
-            final var iter = edgeContent.getContainedSetVIterator(); //TODO also for C
-            while (iter.hasNext()) {
-                final var set = iter.next();
-                for (final var cause : set) {
-                    final var causeId = cause.getCauseId();
-                    final var sysInteg = 
-                            findCorrectSystemIntegration(board, attacked.getContainedElement(), causeId);
-                    path.add(sysInteg); //TODO != null maybe
+                localPath.add(sysInteg);
+                if (i == this.size() - 1) {
+                    final var attackedSysInteg = generateDefaultSystemIntegration(attacked.getContainedElement());
+                    localPath.add(sysInteg);
+                }
+            } else {
+                if (!attacker.isCompromised()) {
+                    // add default system integration (start of attack)
+                    final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                    localPath.add(sysInteg);
+                }
+
+                final var edgeContent = edge.getContent();
+                final var iter = edgeContent.getContainedSetVIterator(); // TODO also for C
+
+                while (iter.hasNext()) {
+                    final var set = iter.next();
+                    for (final var cause : set) {
+                        final var causeId = cause.getCauseId();
+                        final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
+                                causeId);
+                        localPath.add(sysInteg); // TODO != null maybe
+                    }
                 }
             }
         }
-        
+
         final var ret = AttackerFactory.eINSTANCE.createAttackPath();
-        ret.getPath().addAll(path);
+        ret.getPath().addAll(localPath);
         ret.setCriticalElement(findCorrectSystemIntegration(board, criticalEntity, null).getPcmelement());
-        
-        ret.getCredentialsInitiallyNecessary(); //TODO implement finding of necessary credentials
+
+        ret.getCredentialsInitiallyNecessary(); // TODO implement finding of necessary credentials
         ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(board));
         return ret;
     }
 
     public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
-        final Set<String> vulnerabilityCauseIds = stream()
-                .map(e -> e.getContent().getVulnerabilityCauseIds())
-                .flatMap(Set::stream)
-                .collect(Collectors.toSet());
-        
-        return board.getVulnerabilitySpecification().getVulnerabilities()
-                .stream()
+        final Set<String> vulnerabilityCauseIds = stream().map(e -> e.getContent().getVulnerabilityCauseIds())
+                .flatMap(Set::stream).collect(Collectors.toSet());
+
+        return board.getVulnerabilitySpecification().getVulnerabilities().stream()
                 .filter(s -> vulnerabilityCauseIds.contains(s.getIdOfContent()))
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
-                .map(VulnerabilitySystemIntegration.class::cast)
-                .map(VulnerabilitySystemIntegration::getVulnerability)
+                .map(VulnerabilitySystemIntegration.class::cast).map(VulnerabilitySystemIntegration::getVulnerability)
                 .collect(Collectors.toSet());
     }
-    
+
     private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
         return PCMElementType.typeOf(entity).getElementIdEqualityPredicate(entity);
     }
