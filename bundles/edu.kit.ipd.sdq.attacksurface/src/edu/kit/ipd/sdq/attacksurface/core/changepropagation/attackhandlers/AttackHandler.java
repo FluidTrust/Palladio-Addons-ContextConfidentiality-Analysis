@@ -30,6 +30,7 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPRes
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
@@ -91,6 +92,7 @@ public abstract class AttackHandler {
         getAttackGraph().compromiseSelectedNode(causes, attackSource);
     }
     
+    //TODO adapt
     protected final List<UsageSpecification> getCredentials(final CredentialChange changes) {
         return changes.getContextchange().stream().map(ContextChange::getAffectedElement).collect(Collectors.toList());
     }
@@ -252,17 +254,40 @@ public abstract class AttackHandler {
         final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
         return compromisedComponents
                 .stream()
-                .filter(c -> !contains(getAttackGraph().getEdge(new AttackStatusNodeContent(c.getAffectedElement()), 
-                        attackerNode), getCausesOfCompromisation(c)))
+                .filter(c -> {
+                    final var attackedNode = new AttackStatusNodeContent(c.getAffectedElement());
+                    final var compromisationCauses = getCausesOfCompromisation(c);
+                    final boolean isAttackToContainedAssembliesInResource = 
+                            compromisationCauses.isEmpty() 
+                            && !areAllCompromisedComponentsCompromisedInGraph(compromisedComponents);
+                    return isAttackToContainedAssembliesInResource
+                            || !contains(getAttackGraph().getEdge(attackedNode, 
+                                    attackerNode), compromisationCauses);
+                })
                 .collect(Collectors.toList());
     }
     
+
+    private boolean areAllCompromisedComponentsCompromisedInGraph(
+            List<? extends ModifyEntity<? extends Entity>> compromisedComponents) {
+        final var compromisedComponentsInGraphIds = getAttackGraph()
+                .getCompromisedNodes()
+                .stream()
+                .map(n -> n.getContainedElement().getId())
+                .collect(Collectors.toSet());
+        final var compromisedComponentsIds = compromisedComponents
+                .stream()
+                .map(ModifyEntity::getAffectedElement)
+                .map(Identifier::getId)
+                .collect(Collectors.toSet());
+        return compromisedComponentsInGraphIds.containsAll(compromisedComponentsIds);
+    }
 
     protected boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
         return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
     }
 
     protected Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
-        return CauseGetter.getCauses(attacked.getCausingElements(), Vulnerability.class);
+        return getCauses(attacked.getCausingElements());
     }
 }

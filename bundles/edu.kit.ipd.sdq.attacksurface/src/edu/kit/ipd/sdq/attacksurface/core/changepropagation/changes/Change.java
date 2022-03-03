@@ -101,8 +101,6 @@ public abstract class Change<T> {
             final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
         selectedNode.setVisited(true);
         addChildNodeToPathIfNecessary(childNode);
-        System.out.println("selected= " + selectedNode + " | child= " + childNode 
-                + " | selectedSurfacePath= " + this.selectedSurfacePath); //TODO remove
         if (childNode != null && !childNode.isVisited() && !isFiltered()) {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);

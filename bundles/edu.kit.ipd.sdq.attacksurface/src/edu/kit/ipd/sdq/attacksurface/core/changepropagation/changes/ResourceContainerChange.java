@@ -29,35 +29,27 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
         implements ResourceContainerPropagation {
-    public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change, 
-            final AttackGraph attackGraph) {
+    public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change, final AttackGraph attackGraph) {
         super(v, change, attackGraph);
     }
 
     protected List<ResourceContainer> getInfectedResourceContainers() {
-        return this.getAttackGraph()
-                .getCompromisedNodes()
-                .stream()
+        return this.getAttackGraph().getCompromisedNodes().stream()
                 .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER))
-                .map(n -> n.getContainedElementAsPCMElement().getResourcecontainer())
-                .collect(Collectors.toList());
+                .map(n -> n.getContainedElementAsPCMElement().getResourcecontainer()).collect(Collectors.toList());
     }
 
     @Override
     public void calculateResourceContainerToContextPropagation() {
-        // TODO adapt
+        // TODO adapt if context change instances are not there
+        final var listInfectedContainer = getInfectedResourceContainers();
 
-        /*
-         * final var listInfectedContainer = getInfectedResourceContainers();
-         * 
-         * final var streamAttributeProvider =
-         * this.modelStorage.getSpecification().getAttributeprovider().stream()
-         * .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.
-         * class::cast) .filter(e -> listInfectedContainer.stream() .anyMatch(f ->
-         * EcoreUtil.equals(e.getResourcecontainer(), f)));
-         * 
-         * updateFromContextProviderStream(this.changes, streamAttributeProvider);
-         */
+        final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
+                .filter(e -> listInfectedContainer.stream()
+                        .anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
+
+        updateFromContextProviderStream(this.changes, streamAttributeProvider);
     }
 
     @Override
@@ -76,18 +68,18 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getAssemblyHandler();
             assemblycontext = CollectionHelper.removeDuplicates(assemblycontext);
             for (final var resource : resources) {
-                final var childNode = this.attackGraph.addOrFindChild(selectedNode, 
+                final var childNode = this.attackGraph.addOrFindChild(selectedNode,
                         new AttackStatusNodeContent(resource));
                 if (childNode != null) {
                     // attack all, so that maybe in the next iteration of assembly contexts
                     // propagation
                     // more attacks are possible
 
-                    handler.attackAssemblyContext(assemblycontext, this.changes, resource);
+                    handler.attackAssemblyContext(assemblycontext, this.changes, resource, false);
 
                     // select the child node and recursively call the propagation call
-                    this.callRecursionIfNecessary(childNode, this::calculateResourceContainerToRemoteAssemblyContextPropagation, 
-                            selectedNode);
+                    this.callRecursionIfNecessary(childNode,
+                            this::calculateResourceContainerToRemoteAssemblyContextPropagation, selectedNode);
                 }
             }
         }
@@ -100,7 +92,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     // attack inner assemblies from already compromised res. containers
     @Override
-    public void calculateResourceContainerToLocalAssemblyContextPropagation() { 
+    public void calculateResourceContainerToLocalAssemblyContextPropagation() {
         final var selectedNode = this.attackGraph.getSelectedNode();
         final var selectedEntity = selectedNode.getContainedElement();
 
@@ -113,14 +105,15 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     .map(AllocationContext::getAssemblyContext_AllocationContext).collect(Collectors.toList());
 
             final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(localComponents, changes, relevantResourceContainer);
-            
-            //TODO v move this block out of this if 
+            handler.attackAssemblyContext(localComponents, this.changes, relevantResourceContainer, true);
+
+            // TODO v move this block out of this if
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var resource : connectedResourceContainers) {
-                final var childNode = this.attackGraph.addOrFindChild(selectedNode, new AttackStatusNodeContent(resource));
-                this.callRecursionIfNecessary(childNode, this::calculateResourceContainerToLocalAssemblyContextPropagation, 
-                            selectedNode);
+                final var childNode = this.attackGraph.addOrFindChild(selectedNode,
+                        new AttackStatusNodeContent(resource));
+                this.callRecursionIfNecessary(childNode,
+                        this::calculateResourceContainerToLocalAssemblyContextPropagation, selectedNode);
             }
         }
     }
@@ -145,9 +138,9 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var childNode = findResourceContainerNode(resource, selectedNode);
             if (childNode != null) {
                 handler.attackResourceContainer(Arrays.asList(relevantResourceContainer), this.changes, resource);
-            
+
                 // select the child node and recursively call the propagation call
-                this.callRecursionIfNecessary(childNode, this::calculateResourceContainerToResourcePropagation, 
+                this.callRecursionIfNecessary(childNode, this::calculateResourceContainerToResourcePropagation,
                         selectedNode);
             }
         }

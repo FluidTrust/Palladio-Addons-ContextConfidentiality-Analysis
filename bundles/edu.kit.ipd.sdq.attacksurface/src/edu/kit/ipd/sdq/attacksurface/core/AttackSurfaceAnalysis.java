@@ -18,7 +18,9 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
@@ -64,8 +66,8 @@ public class AttackSurfaceAnalysis {
             this.changePropagationDueToCredential.setChanged(false);
             this.attackGraph.resetVisitations();
 
+            calculateAndMarkResourcePropagation(board);
             calculateAndMarkAssemblyPropagation(board);
-            // TODO calculateAndMarkResourcePropagation(board);
 
             /* TODO calculateAndMarkLinkingPropagation(board); */
         } while (this.changePropagationDueToCredential.isChanged());
@@ -184,13 +186,15 @@ public class AttackSurfaceAnalysis {
         final var list = new ArrayList<AssemblyContextPropagation>();
         list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
-        // list.add(new AssemblyContextPropagationContext(board));
-        for (final var analysis : list) { // TODO adapt
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, 
+                this.attackGraph));
+        for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
-            // TODO add others
+            //TODO to linking
+            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToContextPropagation);
         }
     }
 
@@ -205,13 +209,14 @@ public class AttackSurfaceAnalysis {
         final var list = new ArrayList<ResourceContainerPropagation>();
         list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
-        // list.add(new ResourceContainerPropagationContext(board,
-        // this.changePropagationDueToCredential, this.attackDAG));
+        list.add(new ResourceContainerPropagationContext(board,
+                this.changePropagationDueToCredential, this.attackGraph));
         for (final var analysis : list) { // TODO adapt
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
-            // TODO add others
+            //TODO to linking
+            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToContextPropagation);
         }
     }
 

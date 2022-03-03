@@ -3,6 +3,7 @@
   <attackers>
     <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker" attacks="_zlkeQXxpEeyn1NhAoZRRiA">
       <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
+      <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </attacker>
     <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_zFUkYIQeEey4SLIftZhi_g" attacker="_NxbyoFmWEeyYJNGe-i7GBA">
       <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion" entityName="pathLengthFilter"/>
@@ -39,6 +40,12 @@
       <pcmelement id="_zFUkYIQeEey4SLIftZhi_g" entityName="critical default pcm">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
       </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_CEECQprhEeyWq9j40lw-Fw">
+      <pcmelement id="_EZNUsJrhEeyWq9j40lw-Fw">
+        <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      </pcmelement>
+      <credential href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

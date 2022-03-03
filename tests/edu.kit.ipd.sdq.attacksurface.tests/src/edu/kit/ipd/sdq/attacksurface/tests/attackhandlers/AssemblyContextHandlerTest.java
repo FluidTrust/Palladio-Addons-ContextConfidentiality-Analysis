@@ -28,7 +28,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
                 dataHandler, AttackVector.NETWORK, getAttackGraph());
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
-        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), criticalComponent);
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), criticalComponent, false);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
@@ -51,13 +51,13 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         
         final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerComponent));
 
-        handler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent);
+        handler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent, false);
         Assert.assertFalse(attackerNode.isCompromised());
         Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertNull(getAttackGraph().getEdge(attackerNode, attackerNode));
         
         // attack and compromise root node
-        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerComponent);
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerComponent, false);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
@@ -81,14 +81,14 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerComponent));
         
         // attack and compromise attackerNode
-        handler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent);
+        handler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent, false);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(VULN_ID));
         
         // attack and compromise root node
-        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerComponent);
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerComponent, false);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
@@ -111,7 +111,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         Assert.assertNull(getAttackGraph().getEdge(attackerNode, attackerNode));
         
         // attack and compromise root node
-        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource);
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource, false);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);
@@ -139,7 +139,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(VULN_ID));
         
         // attack and compromise root node
-        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource);
+        handler.attackAssemblyContext(Arrays.asList(criticalComponent), getChanges(), attackerResource, false);
         Assert.assertTrue(rootNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(rootNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(rootNode).toArray(String[]::new)[0]);

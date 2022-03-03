@@ -157,7 +157,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 localPath.add(sysInteg);
                 if (i == this.size() - 1) {
                     final var attackedSysInteg = generateDefaultSystemIntegration(attacked.getContainedElement());
-                    localPath.add(sysInteg);
+                    localPath.add(attackedSysInteg);
                 }
             } else {
                 if (!attacker.isCompromised()) {
@@ -167,16 +167,13 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 }
 
                 final var edgeContent = edge.getContent();
-                final var iter = edgeContent.getContainedSetVIterator(); // TODO also for C
-
-                while (iter.hasNext()) {
-                    final var set = iter.next();
-                    for (final var cause : set) {
-                        final var causeId = cause.getCauseId();
-                        final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
-                                causeId);
-                        localPath.add(sysInteg); // TODO != null maybe
-                    }
+                Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
+                boolean areCausesAdded = iterateCauses(board, localPath, attacked, iterable);
+                iterable = edgeContent::getContainedSetCIterator;
+                areCausesAdded |= iterateCauses(board, localPath, attacked, iterable);
+                if (!areCausesAdded) { // add default integration
+                    final var attackedSysInteg = generateDefaultSystemIntegration(attacked.getContainedElement());
+                    localPath.add(attackedSysInteg);
                 }
             }
         }
@@ -187,6 +184,23 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
         ret.getCredentialsInitiallyNecessary(); // TODO implement finding of necessary credentials
         ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(board));
+        return ret;
+    }
+    
+    private boolean iterateCauses(final BlackboardWrapper board, 
+            final List<SystemIntegration> localPath, 
+            final AttackStatusNodeContent attacked,
+            final Iterable<Set<CVSurface>> iterable) {
+        boolean ret = false;
+        for (final var set : iterable) {
+            for (final var cause : set) {
+                final var causeId = cause.getCauseId();
+                final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
+                        causeId);
+                localPath.add(sysInteg);
+                ret = true;
+            }
+        }
         return ret;
     }
 
@@ -243,6 +257,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
             final String id) {
+        //TODO maybe also create rather than copy in the case of credentials
         return copySystemIntegration(
                 sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
     }

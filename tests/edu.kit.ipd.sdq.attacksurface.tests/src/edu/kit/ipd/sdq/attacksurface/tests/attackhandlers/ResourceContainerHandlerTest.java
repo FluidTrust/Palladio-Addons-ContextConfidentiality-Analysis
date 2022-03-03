@@ -139,7 +139,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
                 .findFirst().orElse(null);
         final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackStatusNodeContent(attackerComponent));
 
-        assemblyHandler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent);
+        assemblyHandler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent, false);
         Assert.assertFalse(attackerNode.isCompromised());
         Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertNull(getAttackGraph().getEdge(attackerNode, attackerNode));
@@ -172,7 +172,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackStatusNodeContent(attackerComponent));
         
         // attack and compromise attackerNode
-        assemblyHandler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent);
+        assemblyHandler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent, false);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);

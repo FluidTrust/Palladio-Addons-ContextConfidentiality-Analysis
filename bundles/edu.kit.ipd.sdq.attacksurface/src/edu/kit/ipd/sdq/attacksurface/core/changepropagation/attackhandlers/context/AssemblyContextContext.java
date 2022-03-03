@@ -10,6 +10,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -17,8 +18,10 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import com.google.common.base.Objects;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -48,14 +51,12 @@ public class AssemblyContextContext extends AssemblyContextHandler {
 
     @Override
     protected Set<String> getCauses(EList<EObject> causingElements) {
-        //TODO implement
-        
-        return new HashSet<>(); //TODO < replace
+        return CauseGetter.getCauses(causingElements, UsageSpecification.class); //TODO
     }
     
     @Override
     protected Function<String, CVSurface> getSurfaceMapper() {
-        return VulnerabilitySurface::new;
+        return CredentialSurface::new;
     }
 
 }

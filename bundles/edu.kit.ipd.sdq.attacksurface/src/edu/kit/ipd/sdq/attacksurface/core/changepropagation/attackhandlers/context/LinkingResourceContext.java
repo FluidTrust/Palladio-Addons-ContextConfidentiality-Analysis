@@ -16,6 +16,7 @@ import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import com.google.common.base.Objects;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.LinkingResourceHandler;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
@@ -47,8 +48,7 @@ public class LinkingResourceContext extends LinkingResourceHandler {
 
     @Override
     protected Set<String> getCauses(EList<EObject> causingElements) {
-        // TODO Auto-generated method stub
-        return null; //TODO implement
+        return CauseGetter.getCauses(causingElements, UsageSpecification.class); //TODO
     }
 
     @Override

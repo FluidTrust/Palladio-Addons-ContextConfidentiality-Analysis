@@ -16,7 +16,6 @@ public final class FilterCriteriaHandling {
             final AttackPath path) {
         final var surfaceAttacker = getSurfaceAttacker(board);
         final var filterCriteria = surfaceAttacker.getFiltercriteria();
-        System.out.println("path= " + path.getPath() + " | class= " + path.getPath().getClass()); //TODO remove
         final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
         for (final var filterCriterion : filterCriteria) {
             if (filterCriterion.isFilteringEarly() 

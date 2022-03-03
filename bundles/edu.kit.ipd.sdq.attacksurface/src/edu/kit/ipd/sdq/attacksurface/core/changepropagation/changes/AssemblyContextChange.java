@@ -51,29 +51,23 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         super(v, change, attackGraph);
     }
 
-    /*
-     * TODO remove protected List<AssemblyContext> getCompromisedAssemblyContexts()
-     * { return
-     * this.changes.getCompromisedassembly().stream().map(CompromisedAssembly::
-     * getAffectedElement) .collect(Collectors.toList()); }
-     */
+    protected List<AssemblyContext> getCompromisedAssemblyContexts() {
+        return this.getAttackGraph().getCompromisedNodes().stream()
+                .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
+                .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext()).collect(Collectors.toList());
+    }
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
-        // TODO adapt
+        // TODO adapt if context change instances are not there
+        final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
-        /*
-         * final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
-         * 
-         * final var streamAttributeProvider =
-         * this.modelStorage.getSpecification().getAttributeprovider().stream()
-         * .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.
-         * class::cast) .filter(e -> listCompromisedAssemblyContexts.stream()
-         * .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
-         * 
-         * updateFromContextProviderStream(this.changes, streamAttributeProvider);
-         */
+        final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
+                .filter(e -> listCompromisedAssemblyContexts.stream()
+                        .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
+        updateFromContextProviderStream(this.changes, streamAttributeProvider);
     }
 
     @Override
@@ -165,8 +159,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var connectedContainer : connectedResourceContainers) {
                 // continue building the graph
-                final var childNode = this.attackGraph.addOrFindChild(relevantResourceContainerNode, 
-                        new AttackStatusNodeContent(connectedContainer)); 
+                final var childNode = this.attackGraph.addOrFindChild(relevantResourceContainerNode,
+                        new AttackStatusNodeContent(connectedContainer));
                 this.callRecursionIfNecessary(childNode, recursionCall, finalSelectedNode);
             }
         }
@@ -194,26 +188,27 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         this.attackGraph.setSelectedNode(selectedNode);
         var connectedComponents = getConnectedComponents(selectedComponent);
         final var handler = getAssemblyHandler();
-        handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent);
-        //TODO this.handleSeff(selectedComponent);
+        handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent, false);
+        // TODO this.handleSeff(selectedComponent);
 
-        handleConnectedComponentsPropagation(selectedNode, selectedComponent,
-                connectedComponents, handler);
+        handleConnectedComponentsPropagation(selectedNode, selectedComponent, connectedComponents, handler);
     }
 
     private void handleConnectedComponentsPropagation(final AttackStatusNodeContent selectedNode,
-            final AssemblyContext selectedComponent,
-            final List<AssemblyContext> connectedComponents, final AssemblyContextHandler handler) {
+            final AssemblyContext selectedComponent, final List<AssemblyContext> connectedComponents,
+            final AssemblyContextHandler handler) {
         for (final var connectedComponent : connectedComponents) {
             // continue building the graph
-            final var childNode = this.attackGraph.addOrFindChild(selectedNode, new AttackStatusNodeContent(connectedComponent)); 
+            final var childNode = this.attackGraph.addOrFindChild(selectedNode,
+                    new AttackStatusNodeContent(connectedComponent));
             if (childNode != null) {
                 final var childComponent = connectedComponent;
-                handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent);
-                //TODO this.handleSeff(childComponent);
+                handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent, false);
+                // TODO this.handleSeff(childComponent);
 
                 // select the child node and recursively call the propagation call
-                this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToAssemblyContextPropagation, selectedNode);
+                this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToAssemblyContextPropagation,
+                        selectedNode);
             }
         }
     }
@@ -223,7 +218,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         if (selectedComponents.isEmpty() || selectedComponents.size() == 1) {
             return finalSelectedNode;
         }
-        final var childNode = this.attackGraph.addOrFindChild(finalSelectedNode, new AttackStatusNodeContent(selectedComponent));
+        final var childNode = this.attackGraph.addOrFindChild(finalSelectedNode,
+                new AttackStatusNodeContent(selectedComponent));
         return childNode;
     }
 
@@ -267,15 +263,22 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         reachableAssemblies.addAll(
                 CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
 
-        reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);/*.stream()
-                //TODO .filter(e -> !isCompromised(e)).collect(Collectors.toList());*/
+        reachableAssemblies = CollectionHelper
+                .removeDuplicates(reachableAssemblies);/*
+                                                        * .stream() //TODO .filter(e ->
+                                                        * !isCompromised(e)).collect(Collectors.toList());
+                                                        */
         for (var component : listRelevantContexts) {
             final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(listRelevantContexts, changes, component); //TODO ok?
+            handler.attackAssemblyContext(listRelevantContexts, changes, component, false);
 
-            /*TODO var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());*/
-            //TODO handleSeff(this.changes, listServices, component);
+            /*
+             * TODO var listServices =
+             * CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
+             * .filter(e ->
+             * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
+             */
+            // TODO handleSeff(this.changes, listServices, component);
         }
 
         // recursion for attacking assemblies inside other connected containers
@@ -283,8 +286,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             for (final var container : connectedContainers) {
                 final var childNode = this.findResourceContainerNode(container, finalSelectedNode);
                 if (childNode != null) {
-                    this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToGlobalAssemblyContextPropagation,
-                            finalSelectedNode);
+                    this.callRecursionIfNecessary(childNode,
+                            this::calculateAssemblyContextToGlobalAssemblyContextPropagation, finalSelectedNode);
                 }
             }
         }
