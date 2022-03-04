@@ -21,7 +21,9 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.helper.PolicyHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
@@ -36,6 +38,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -92,9 +95,27 @@ public abstract class AttackHandler {
         getAttackGraph().compromiseSelectedNode(causes, attackSource);
     }
     
-    //TODO adapt
-    protected final List<UsageSpecification> getCredentials(final CredentialChange changes) {
-        return changes.getContextchange().stream().map(ContextChange::getAffectedElement).collect(Collectors.toList());
+    protected final List<UsageSpecification> getAllCredentials(final CredentialChange changes) {
+        return changes.getContextchange()
+                .stream()
+                .map(ContextChange::getAffectedElement)
+                .collect(Collectors.toList());
+    }
+    
+    protected final List<UsageSpecification> getRelevantCredentials(final CredentialChange changes, 
+            final Entity attackedEntity) {
+        final var idsOfRelevantUsageSpecifications = 
+                this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()
+                    .stream()
+                    .filter(s -> PCMElementType.typeOf(s.getPcmelement())
+                            .getElementIdEqualityPredicate(attackedEntity).test(s))
+                    .filter(CredentialSystemIntegration.class::isInstance)
+                    .map(SystemIntegration::getIdOfContent)
+                    .collect(Collectors.toSet());
+        return getAllCredentials(changes)
+                .stream()
+                .filter(u -> idsOfRelevantUsageSpecifications.contains(u.getId()))
+                .collect(Collectors.toList());
     }
 
     // TODO: Think about better location
@@ -115,6 +136,7 @@ public abstract class AttackHandler {
     }
 
     /**
+     * 
      * Sends an access request to the policy decision point (PDP). <br \> <b>Important:</b> before
      * the request the PDP must be initialised. This can be done with
      * {@link Evaluate#initialize(String)}

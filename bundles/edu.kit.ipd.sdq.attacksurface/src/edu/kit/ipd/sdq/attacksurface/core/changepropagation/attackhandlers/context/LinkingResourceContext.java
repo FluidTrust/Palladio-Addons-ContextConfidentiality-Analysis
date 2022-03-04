@@ -34,7 +34,7 @@ public class LinkingResourceContext extends LinkingResourceHandler {
     @Override
     protected Optional<CompromisedLinkingResource> attackLinkingResource(final LinkingResource linking,
             final CredentialChange change, final EObject source) {
-        final List<? extends UsageSpecification> credentials = this.getCredentials(change);
+        final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, linking);
 
         final var result = this.queryAccessForEntity(linking, credentials);
 

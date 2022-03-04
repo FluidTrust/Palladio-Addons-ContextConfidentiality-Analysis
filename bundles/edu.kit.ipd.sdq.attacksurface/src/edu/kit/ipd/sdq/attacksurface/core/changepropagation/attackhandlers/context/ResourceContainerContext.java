@@ -34,7 +34,7 @@ public class ResourceContainerContext extends ResourceContainerHandler {
     @Override
     protected Optional<CompromisedResource> attackResourceContainer(final ResourceContainer container,
             final CredentialChange change, final EObject source) {
-        final List<? extends UsageSpecification> credentials = this.getCredentials(change);
+        final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, container);
 
         final var result = this.queryAccessForEntity(container, credentials);
 

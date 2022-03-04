@@ -35,7 +35,7 @@ public class MethodContext extends MethodHandler {
     @Override
     protected Optional<CompromisedAssembly> attackComponent(ServiceRestriction service, CredentialChange change,
             EObject source) {
-        final List<? extends UsageSpecification> credentials = getCredentials(change);
+        final List<? extends UsageSpecification> credentials = getRelevantCredentials(change, service);
 
         var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service,
                 getModelStorage().getVulnerabilitySpecification(), change);

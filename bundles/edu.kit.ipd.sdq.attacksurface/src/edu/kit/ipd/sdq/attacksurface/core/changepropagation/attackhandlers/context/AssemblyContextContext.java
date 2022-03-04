@@ -37,7 +37,7 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     @Override
     protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
             final CredentialChange change, final EObject source) {
-        final List<? extends UsageSpecification> credentials = this.getCredentials(change);
+        final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, component);
 
         final var result = this.queryAccessForEntity(component, credentials);
 
