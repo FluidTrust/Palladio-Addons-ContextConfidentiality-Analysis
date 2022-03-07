@@ -54,7 +54,6 @@ public class AttackSurfaceAnalysis {
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         CachePDP.instance().clearCache();
-        // TODO remove: CacheVulnerability.instance().reset();
 
         // prepare
         createInitialStructure(board);
@@ -79,7 +78,6 @@ public class AttackSurfaceAnalysis {
 
         // Clear caches
         CachePDP.instance().clearCache();
-        // TODO remove: CacheVulnerability.instance().reset();
     }
 
     // TODO move toAttackPaths method to extra AttackPathConverter class

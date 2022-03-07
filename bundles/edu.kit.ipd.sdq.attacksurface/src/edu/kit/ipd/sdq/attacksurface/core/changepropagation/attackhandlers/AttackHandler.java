@@ -95,6 +95,7 @@ public abstract class AttackHandler {
         getAttackGraph().compromiseSelectedNode(causes, attackSource);
     }
     
+    //TODO: get credentials differently --> also get initially necessary credentials for each path
     protected final List<UsageSpecification> getAllCredentials(final CredentialChange changes) {
         return changes.getContextchange()
                 .stream()
@@ -215,11 +216,6 @@ public abstract class AttackHandler {
     protected Vulnerability checkVulnerability(final Entity entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
-        /*TODO remove if (CacheVulnerability.instance().checkedBefore(entity)) {
-            return null;
-        }*/
-        
-        
         Optional<PDPResult> result;
         var authenticatedNeeded = vulnerabilityList.stream().anyMatch(
                 e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
@@ -228,7 +224,7 @@ public abstract class AttackHandler {
         } else {
             result = Optional.empty();
         }
-        //TODO remove: CacheVulnerability.instance().addEntity(entity);
+
         return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
     }
 

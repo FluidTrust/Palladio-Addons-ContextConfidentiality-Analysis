@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.BeforeEach;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -17,6 +19,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
+    private static final String ROOT_STR = "root";
     
     public AbstractAttackHandlerTest() {
         //TODO adapt
@@ -54,5 +57,16 @@ public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
                 .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
                 .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
         return resources;
+    }
+ 
+    protected UsageSpecification getRootCredentials() {
+        return getFirstByName(ROOT_STR);
+    }
+    
+    protected UsageSpecification getFirstByName(final String namePart) {
+        return getBlackboardWrapper().getSpecification().getUsagespecification()
+                .stream()
+                .filter(u -> u.getEntityName().contains(namePart))
+                .findFirst().orElse(null);
     }
 }

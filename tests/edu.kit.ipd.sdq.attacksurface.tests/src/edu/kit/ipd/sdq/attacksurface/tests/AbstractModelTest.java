@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
@@ -25,6 +26,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -123,6 +125,23 @@ public abstract class AbstractModelTest extends BaseTest {
         this.context.getAttributes().getAttribute().add(attribute);
         this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
         return contextAccess;
+    }
+    
+    protected SurfaceAttacker getSurfaceAttacker() {
+        assert attacker.getAttackers().getSurfaceattacker().size() == 1;
+        return attacker.getAttackers().getSurfaceattacker().get(0); 
+    }
+
+    protected ContextChange toChange(UsageSpecification credentials) {
+        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+        change.setAffectedElement(credentials);
+        change.setToolderived(true);
+        return change;
+    }
+    
+    @BeforeEach
+    public void generateXMLBeforeEachTest() {
+        generateXML();
     }
     
     @BeforeEach

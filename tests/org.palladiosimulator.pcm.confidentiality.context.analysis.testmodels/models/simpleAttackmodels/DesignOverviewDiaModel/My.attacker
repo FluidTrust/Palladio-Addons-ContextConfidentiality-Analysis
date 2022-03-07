@@ -3,7 +3,6 @@
   <attackers>
     <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker" attacks="_zlkeQXxpEeyn1NhAoZRRiA">
       <credentials href="My.context#_EydQAVmXEeyYJNGe-i7GBA"/>
-      <credentials href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
     </attacker>
     <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_zFUkYIQeEey4SLIftZhi_g" attacker="_NxbyoFmWEeyYJNGe-i7GBA">
       <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion" entityName="pathLengthFilter"/>

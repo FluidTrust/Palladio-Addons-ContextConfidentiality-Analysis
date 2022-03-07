@@ -83,7 +83,7 @@ public abstract class BaseTest {
     protected void shutdownEval() {
         this.eval.shutdown();
         var file = new File(this.pathXACML);
-        file.delete();
+        assert file.delete();
     }
 
 
