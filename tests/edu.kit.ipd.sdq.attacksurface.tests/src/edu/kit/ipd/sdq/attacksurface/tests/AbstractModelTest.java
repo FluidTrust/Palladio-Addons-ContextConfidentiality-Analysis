@@ -1,13 +1,24 @@
 package edu.kit.ipd.sdq.attacksurface.tests;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
@@ -32,6 +43,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AbstractModelTest extends BaseTest {
+    private static final String ROOT_STR = "root";
 
     protected String PATH_ATTACKER;
     protected String PATH_ASSEMBLY;
@@ -65,13 +77,23 @@ public abstract class AbstractModelTest extends BaseTest {
     }
     
     protected final void resetAttackGraphAndChanges() {
-        this.attackGraph = new AttackGraph(getCriticalElement());
+        this.attackGraph = new AttackGraph(getCriticalEntity());
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
     }
 
-    private Entity getCriticalElement() {
+    protected Entity getCriticalEntity() {
         final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getCriticalElement();
         return PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
+    }
+    
+    protected Entity getFirstEntityByName(final String namePart) {
+        final Set<Entity> allEntities = new HashSet<>(this.assembly.getAssemblyContexts__ComposedStructure());
+        allEntities.addAll(this.environment.getResourceContainer_ResourceEnvironment());
+        allEntities.addAll(this.environment.getLinkingResources__ResourceEnvironment());
+        return allEntities
+                .stream()
+                .filter(e -> e.getEntityName().contains(namePart))
+                .findFirst().orElse(null);
     }
 
     protected final CredentialChange getChanges() {
@@ -137,6 +159,66 @@ public abstract class AbstractModelTest extends BaseTest {
         change.setAffectedElement(credentials);
         change.setToolderived(true);
         return change;
+    }
+    
+    protected CredentialChange addRootAccess() {
+        final var credentialList = getSurfaceAttacker().getAttacker().getCredentials();
+        credentialList.add(getRootCredentials());
+        //TODO adapt if changes are no longer used
+        final var changes = getChanges();
+        changes.getContextchange().add(toChange(getRootCredentials()));
+        
+        generateXML();
+        return changes;
+    }
+    
+    protected void removeRootAccess() {
+        final var credentialList = getSurfaceAttacker().getAttacker().getCredentials();
+        credentialList.remove(credentialList.size() - 1);
+    }
+    
+    protected UsageSpecification getRootCredentials() {
+        return getFirstByName(ROOT_STR);
+    }
+    
+    protected UsageSpecification getFirstByName(final String namePart) {
+        return getBlackboardWrapper().getSpecification().getUsagespecification()
+                .stream()
+                .filter(u -> u.getEntityName().contains(namePart))
+                .findFirst().orElse(null);
+    }
+    
+    @BeforeEach
+    public void addAllPossibleAttacks() {
+        var vulnerabilities = attacker.getVulnerabilites().getVulnerability();
+        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
+            .stream()
+            .map(this::toAttack)
+            .flatMap(Set::stream)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
+        getSurfaceAttacker().getAttacker().getAttacks().addAll(attacks);
+    }
+    
+    private Set<Attack> toAttack(final Vulnerability vulnerability) {
+        if (vulnerability instanceof CVEVulnerability) {
+            final Set<Attack> attacks = new HashSet<>();;
+            final var cveVuln = (CVEVulnerability)vulnerability;
+            final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
+            attack.setCategory(cveVuln.getCveID());
+            attacks.add(attack);
+            return attacks;
+        } else if (vulnerability instanceof CWEBasedVulnerability) {
+            final Set<Attack> attacks = new HashSet<>();;
+            final var cweVuln = (CWEBasedVulnerability)vulnerability;
+            for (final var id : cweVuln.getCweID()) {
+                final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
+                attack.setCategory(id);
+                attacks.add(attack);
+            }
+            return attacks;
+        }
+        return new HashSet<>(); //TODO or exception unknown vulnerability type
     }
     
     @BeforeEach

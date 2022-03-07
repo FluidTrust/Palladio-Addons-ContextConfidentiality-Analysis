@@ -44,9 +44,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     private static final boolean IS_ROOT_SELF_ATTACKING = true;
     private static final boolean IS_DEBUG = true;
 
-    //TODO adapt test structure: move this test class to change.vulnerability or adapt the classes there
     public PropagationOverviewTest() {
-        //TODO adapt
         this.PATH_ATTACKER = "simpleAttackmodels/DesignOverviewDiaModel/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels/DesignOverviewDiaModel/My.system";
         this.PATH_ALLOCATION = "simpleAttackmodels/DesignOverviewDiaModel/My.allocation";
@@ -276,7 +274,6 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                     ret.addAll(a);
                     ret.add(b.get(1)); // b.get(0) ^= a.get(1), so only b.get(1) needs to be added
                     return ret;
-                })
-                ;
+                });
     }
 }

@@ -1,6 +1,13 @@
 package edu.kit.ipd.sdq.attacksurface.tests.change;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEID;
@@ -24,6 +31,8 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 //TODO
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -32,6 +41,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 
 public abstract class AbstractChangeTests extends AbstractModelTest {
     //TODO
@@ -179,12 +190,59 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         }
         return vulnerability;
     }
+    
+    protected CWEVulnerability createCWEVulnerability(final CWEID id, final boolean takeOver,
+            final boolean gainRootAccess) {
+        return createCWEVulnerability(id, AttackVector.NETWORK, Privileges.NONE, ConfidentialityImpact.HIGH, 
+                takeOver, gainRootAccess ? getRootCredentials() : null);
+    }
 
     protected CWEID createSimpleAttack() {
         final var cweID = this.createCWEID(1);
         final var attack = createCWEAttack(cweID);
         this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
         return cweID;
+    }
+    
+    protected void integrateVulnerability(final Entity entity, final Vulnerability vulnerability) {
+        this.attacker.getVulnerabilites().getVulnerability().add(vulnerability);
+        final var sysInteg = PcmIntegrationFactory.eINSTANCE.createVulnerabilitySystemIntegration();
+        sysInteg.setPcmelement(PCMElementType.typeOf(entity).toPCMElement(entity));
+        sysInteg.setVulnerability(vulnerability);
+        this.attacker.getSystemintegration().getVulnerabilities().add(sysInteg);  
+        addAllPossibleAttacks();
+    }
+    
+    protected boolean isInGraph(final Entity entity) {
+        final var node = this.getAttackGraph().findNode(new AttackStatusNodeContent(entity));
+        return node != null;
+    }
+    
+    protected void assertCompromisationStatus(final boolean isCompromised, final Entity entity, 
+            final String causeId) {
+        final var node = this.getAttackGraph().findNode(new AttackStatusNodeContent(entity));
+        if (node != null) {
+            Assert.assertEquals(isCompromised, node.isCompromised());
+            if (isCompromised && causeId != null) {
+                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).contains(causeId));
+            }
+        } else {
+            Assert.assertFalse(isCompromised);
+        }
+    }
+    
+    protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
+        return this.environment.getLinkingResources__ResourceEnvironment().stream()
+                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
+                        .anyMatch(f -> EcoreUtil.equals(f, container)))
+                .collect(Collectors.toList());
+    }
+
+    protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
+        final var resources = getLinkingResource(resource).stream()
+                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
+                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+        return resources;
     }
 
     protected void runAnalysis() {

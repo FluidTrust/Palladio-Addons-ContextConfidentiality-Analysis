@@ -33,5 +33,5 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         contextChange.calculateAssemblyContextToRemoteResourcePropagation();
     }
 
-    //TODO tests
+    //TODO tests from context changes to assemblies (incl. getting credentials with vulnerabilities)
 }

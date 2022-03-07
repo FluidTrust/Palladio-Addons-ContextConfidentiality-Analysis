@@ -201,14 +201,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final ResourceContainer attackerResource = getResourceContainer(criticalComponent);
 
         final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
-
-        final var credentialList = getSurfaceAttacker().getAttacker().getCredentials();
-        credentialList.add(getRootCredentials());
-        //TODO adapt if changes are no longer used
-        final var changes = getChanges();
-        changes.getContextchange().add(toChange(getRootCredentials()));
-        
-        generateXML();
+        final var changes = this.addRootAccess();
         
         // attack and compromise attackerNode
         final var resourceHandler = new ResourceContainerContext(this.getBlackboardWrapper(),
@@ -224,7 +217,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         handler.attackAssemblyContext(Arrays.asList(criticalComponent), changes, attackerResource, true);
         Assert.assertTrue(rootNode.isCompromised());
         
-        credentialList.remove(credentialList.size() - 1);
+        removeRootAccess();
     }
     
 }

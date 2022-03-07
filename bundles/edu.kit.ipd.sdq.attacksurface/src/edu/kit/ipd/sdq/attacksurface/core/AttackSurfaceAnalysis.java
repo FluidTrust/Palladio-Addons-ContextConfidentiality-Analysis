@@ -2,8 +2,10 @@ package edu.kit.ipd.sdq.attacksurface.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -12,9 +14,16 @@ import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
@@ -76,11 +85,25 @@ public class AttackSurfaceAnalysis {
         final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths();
         this.changePropagationDueToCredential.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
 
+        // cleanup
+        removeReferencedAttacks(board);
+        
         // Clear caches
         CachePDP.instance().clearCache();
     }
+    
+    /*
+     * remove temporarily created referenced attacks
+     */
+    private void removeReferencedAttacks(final BlackboardWrapper board) {
+        final var repository = board.getModificationMarkRepository();
+        final var seedModification = repository.getSeedModifications();
+        final var attackers = seedModification.getSurfaceattackcomponent();
+        final var attacker = attackers.get(0);
+        final var localAttacker = attacker.getAffectedElement();
+        localAttacker.getAttacker().getAttacks().clear();
+    }
 
-    // TODO move toAttackPaths method to extra AttackPathConverter class
     /**
      * TODO method for testing the {@link AttackPathSurface} to {@link AttackPath}
      * conversion.
@@ -152,7 +175,7 @@ public class AttackSurfaceAnalysis {
                     }).collect(Collectors.toList());
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
-            // TODO add all possible attacks to the attack container and the attacker
+            addAllPossibleAttacks(board, localAttacker);
 
             // convert affectedLinkingResources to changes
             final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
@@ -167,6 +190,43 @@ public class AttackSurfaceAnalysis {
         }
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
 
+    }
+
+    private void addAllPossibleAttacks(final BlackboardWrapper board, final SurfaceAttacker localAttacker) {
+        var vulnerabilities = board.getVulnerabilitySpecification().getVulnerabilities()
+                .stream()
+                .filter(VulnerabilitySystemIntegration.class::isInstance)
+                .map(VulnerabilitySystemIntegration.class::cast)
+                .map(VulnerabilitySystemIntegration::getVulnerability)
+                .collect(Collectors.toSet());
+        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
+            .stream()
+            .map(this::toAttack)
+            .flatMap(Set::stream)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
+        localAttacker.getAttacker().getAttacks().addAll(attacks);
+    }
+
+    private Set<Attack> toAttack(final Vulnerability vulnerability) {
+        if (vulnerability instanceof CVEVulnerability) {
+            final Set<Attack> attacks = new HashSet<>();;
+            final var cveVuln = (CVEVulnerability)vulnerability;
+            final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
+            attack.setCategory(cveVuln.getCveID());
+            attacks.add(attack);
+            return attacks;
+        } else if (vulnerability instanceof CWEBasedVulnerability) {
+            final Set<Attack> attacks = new HashSet<>();;
+            final var cweVuln = (CWEBasedVulnerability)vulnerability;
+            for (final var id : cweVuln.getCweID()) {
+                final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
+                attack.setCategory(id);
+                attacks.add(attack);
+            }
+            return attacks;
+        }
+        return new HashSet<>(); //TODO or exception unknown vulnerability type
     }
 
     /**

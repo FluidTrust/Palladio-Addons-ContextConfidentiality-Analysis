@@ -19,8 +19,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
-    private static final String ROOT_STR = "root";
-    
+   
     public AbstractAttackHandlerTest() {
         //TODO adapt
         this.PATH_ATTACKER = "simpleAttackmodels/DesignOverviewDiaModel/My.attacker";
@@ -57,16 +56,5 @@ public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
                 .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
                 .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
         return resources;
-    }
- 
-    protected UsageSpecification getRootCredentials() {
-        return getFirstByName(ROOT_STR);
-    }
-    
-    protected UsageSpecification getFirstByName(final String namePart) {
-        return getBlackboardWrapper().getSpecification().getUsagespecification()
-                .stream()
-                .filter(u -> u.getEntityName().contains(namePart))
-                .findFirst().orElse(null);
     }
 }

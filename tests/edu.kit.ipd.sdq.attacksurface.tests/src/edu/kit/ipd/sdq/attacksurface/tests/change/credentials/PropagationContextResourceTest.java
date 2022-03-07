@@ -37,6 +37,6 @@ class PropagationContextResourceTest extends AbstractChangeTests {
 
     }
 
-    // TODO tests
+    // TODO tests (see ContextAssembly)
 
 }

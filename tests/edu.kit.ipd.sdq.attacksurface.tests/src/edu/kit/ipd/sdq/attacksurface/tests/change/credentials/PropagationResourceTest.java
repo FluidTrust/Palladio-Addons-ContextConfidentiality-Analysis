@@ -44,6 +44,6 @@ class PropagationResourceTest extends AbstractChangeTests {
         resourceChange.calculateResourceContainerToContextPropagation();
     }
 
-    // TODO tests
+    // TODO tests (see Assembly)
 
 }
