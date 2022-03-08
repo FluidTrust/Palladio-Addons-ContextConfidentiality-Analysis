@@ -20,10 +20,14 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.ContextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
+import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SimpleAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
@@ -177,12 +181,36 @@ public abstract class AbstractModelTest extends BaseTest {
         credentialList.remove(credentialList.size() - 1);
     }
     
-    protected UsageSpecification getRootCredentials() {
+    private UsageSpecification getRootCredentials() {
         return getFirstByName(ROOT_STR);
     }
     
+    protected UsageSpecification createRootCredentialsIfNecessary() {
+        if (getRootCredentials() == null) {
+            final UsageSpecification root = SystemFactory.eINSTANCE.createUsageSpecification();
+            root.setEntityName(ROOT_STR);
+            root.setAttribute(createRootAttribute());
+            root.setAttributevalue(root.getAttribute().getAttributevalue().get(0));
+            this.context.getPcmspecificationcontainer()
+                .getUsagespecification().add(root);
+        }
+        return getRootCredentials();
+    }
+    
+    private Attribute createRootAttribute() {
+        final SimpleAttribute attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
+        attribute.setEntityName("Role");
+        attribute.setEnvironment(false);
+        final AttributeValue value = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        value.getValues().add(ROOT_STR);
+        value.setType(DataTypes.STRING);
+        attribute.getAttributevalue().add(value);
+        this.context.getAttributes().getAttribute().add(attribute);
+        return attribute;
+    }
+
     protected UsageSpecification getFirstByName(final String namePart) {
-        return getBlackboardWrapper().getSpecification().getUsagespecification()
+        return this.context.getPcmspecificationcontainer().getUsagespecification()
                 .stream()
                 .filter(u -> u.getEntityName().contains(namePart))
                 .findFirst().orElse(null);

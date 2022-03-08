@@ -9,12 +9,16 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.graph.EndpointPair;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.Traverser;
 import com.google.common.graph.ValueGraphBuilder;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 /**
  * Represents a graph saving the compromisation status of the model elements in
@@ -105,6 +109,15 @@ public class AttackGraph {
     public Set<AttackStatusNodeContent> getCompromisedNodes() {
         return this.graph.nodes().stream().filter(AttackStatusNodeContent::isCompromised).collect(Collectors.toSet());
     }
+    
+    /**
+     * 
+     * @return all attacked nodes
+     */
+    public Set<AttackStatusNodeContent> getAttackedNodes() {
+        return this.graph.nodes().stream().filter(AttackStatusNodeContent::isAttacked).collect(Collectors.toSet());
+
+    }
 
     private AttackStatusEdge appendEdge(final AttackStatusNodeContent attacked,
             final AttackStatusEdgeContent edgeContent, final AttackStatusNodeContent attacker) {
@@ -130,6 +143,31 @@ public class AttackGraph {
             edgeContent.addSet(causes);
         }
         appendEdge(this.selectedNode, edgeContent, attackSource);
+    }
+    
+
+
+    /**
+     * Attacks the given nodes with a self edge with the given set of vulnerabilities, not 
+     * taking over the node.
+     * 
+     * @param attackedNodes
+     * @param vulnerabilities
+     */
+    public void attackNodesWithVulnerabilities(Collection<AttackStatusNodeContent> attackedNodes,
+            Set<Vulnerability> vulnerabilities) {
+        for (final var attacked : attackedNodes) {
+            attacked.setAttacked(true);
+            final var edgeNow = getEdge(attacked, attacked);
+            final var content = edgeNow != null ? edgeNow : new AttackStatusEdgeContent();
+            final Set<CVSurface> surfaceSet = vulnerabilities
+                    .stream()
+                    .map(Identifier::getId)
+                    .map(VulnerabilitySurface::new)
+                    .collect(Collectors.toSet());
+            content.addSetV(surfaceSet);
+            this.appendEdge(attacked, content, attacked);
+        }
     }
 
     /**
@@ -200,7 +238,7 @@ public class AttackGraph {
         final var dfsIterable = traverser.depthFirstPreOrder(this.root);
         for (final var nodeContentToFind : dfsIterable) {
             final var nodeContent = findNode(nodeContentToFind);
-            if (nodeContent.isCompromised()) {
+            if (nodeContent.isAttacked()) {
                 // TODO remove > final int level = getLevel(nodeContent);
                 
                 final var children = this.getChildrenOfNode(nodeContent);

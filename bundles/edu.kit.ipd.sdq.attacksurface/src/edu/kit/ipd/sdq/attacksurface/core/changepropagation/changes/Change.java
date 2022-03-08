@@ -1,29 +1,11 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
+
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.Callable;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Role;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -38,9 +20,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.HelperUpdateCredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class Change<T> {
@@ -88,7 +68,7 @@ public abstract class Change<T> {
             return HelperUpdateCredentialChange.createContextChange(e.getAttribute(), null);
         });
 
-        HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange);
+        HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange, null,this.attackGraph);
     }
     
     

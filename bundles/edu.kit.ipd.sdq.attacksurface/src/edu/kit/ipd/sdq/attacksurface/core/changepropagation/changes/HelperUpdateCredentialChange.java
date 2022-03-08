@@ -1,23 +1,34 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.core.entity.NamedElement;
 
+import de.uka.ipd.sdq.identifier.Identifier;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
 /**
  * Helper class for updating the result object
  *
  * @author majuwa
- *
+ * @author ugnwq
  */
 public class HelperUpdateCredentialChange {
 
@@ -34,27 +45,64 @@ public class HelperUpdateCredentialChange {
      *            compromised elements
      * @param streamContextChange
      *            newly compromised credentials
+     * @param attackedNodeInGraphArg
+     *            node in graph which lead to the credential update
+     *            or {@code null} if unknown
      */
     public static void updateCredentials(final CredentialChange changes,
-            final Stream<ContextChange> streamContextChange) {
+            final Stream<ContextChange> streamContextChange,
+            final AttackStatusNodeContent attackedNodeInGraph,
+            final AttackGraph attackGraph) {
         final var listChanges = streamContextChange
                 .filter(e -> changes.getContextchange().stream()
                         .noneMatch(f -> equalUsageElement(f,e)
                                 ))
-                .collect(Collectors.toList());
-
+                .collect(Collectors.toList()); 
+        
+        final var attackedNodes = attackedNodeInGraph == null ? 
+                findAttackedNodes(listChanges) : Arrays.asList(attackedNodeInGraph);
+        final var vulnerabilities = findCauseVulnerabilities(listChanges);
+        attackGraph.attackNodesWithVulnerabilities(attackedNodes, vulnerabilities);
+        
         changes.getContextchange().addAll(listChanges);
 
         if (!listChanges.isEmpty()) {
+            attackedNodes.forEach(n -> attackGraph.findNode(n).setAttacked(true));
             CachePDP.instance().clearCache();
             changes.setChanged(true);
         }
+    }
+
+    private static Set<AttackStatusNodeContent> findAttackedNodes(
+            final List<ContextChange> listChanges) {
+        return getCausingEntityStream(listChanges)
+                    .filter(e -> PCMElementType.typeOf(e) != null)
+                    .map(AttackStatusNodeContent::new)
+                    .collect(Collectors.toSet());
+    }
+    
+    private static Set<Vulnerability> findCauseVulnerabilities(
+            final List<ContextChange> listChanges) {
+        return getCausingEntityStream(listChanges)
+                    .filter(Vulnerability.class::isInstance)
+                    .map(Vulnerability.class::cast)
+                    .collect(Collectors.toSet());
+    }
+    
+    private static Stream<Entity> getCausingEntityStream(final List<ContextChange> listChanges) {
+        return listChanges
+                .stream()
+                .map(ModifyEntity::getCausingElements)
+                .flatMap(List::stream)
+                .filter(Entity.class::isInstance)
+                .map(Entity.class::cast);
     }
 
     private static boolean equalUsageElement(ContextChange changeReference, ContextChange toCompare) {
         var referenceCredential = changeReference.getAffectedElement();
         var newCredential = toCompare.getAffectedElement();
 
+        //TODO use this also in filter criterion for usage specification comparison
         var attributesEquals = EcoreUtil.equals(referenceCredential.getAttribute(), newCredential.getAttribute());
         var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(),
                 newCredential.getAttributevalue());

@@ -1,5 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.tests.change;
 
+import static org.junit.Assert.fail;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -7,6 +9,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
+import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
@@ -16,13 +19,20 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
+import org.palladiosimulator.pcm.confidentiality.context.ContextFactory;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PermitType;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyCombiningAlgorithm;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
 import org.palladiosimulator.pcm.confidentiality.context.policy.RuleCombiningAlgorihtm;
+import org.palladiosimulator.pcm.confidentiality.context.policy.SimpleAttributeCondition;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructurePackage;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -194,7 +204,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     protected CWEVulnerability createCWEVulnerability(final CWEID id, final boolean takeOver,
             final boolean gainRootAccess) {
         return createCWEVulnerability(id, AttackVector.NETWORK, Privileges.NONE, ConfidentialityImpact.HIGH, 
-                takeOver, gainRootAccess ? getRootCredentials() : null);
+                takeOver, gainRootAccess ? createRootCredentialsIfNecessary() : null);
     }
 
     protected CWEID createSimpleAttack() {
@@ -213,22 +223,71 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         addAllPossibleAttacks();
     }
     
+    protected void integrateRoot(final Entity entity) {
+        final var rootCred = createRootCredentialsIfNecessary();
+        
+        final var sysInteg = PcmIntegrationFactory.eINSTANCE.createCredentialSystemIntegration();
+        sysInteg.setPcmelement(PCMElementType.typeOf(entity).toPCMElement(entity));
+        
+        sysInteg.setCredential(rootCred);
+        this.attacker.getSystemintegration().getVulnerabilities().add(sysInteg);
+        this.context.getPolicyset().setCombiningAlgorithm(PolicyCombiningAlgorithm.DENY_UNLESS_PERMIT);
+        this.context.getPolicyset().getPolicy().add(toPolicy(entity, rootCred));
+    }
+
+    private Policy toPolicy(final Entity entity, final UsageSpecification credentials) {
+        final Policy policy = PolicyFactory.eINSTANCE.createPolicy();
+        policy.getRule().add(toRule(entity, credentials));
+        return policy;
+    }
+
+    private Rule toRule(Entity entity, UsageSpecification credentials) {
+        final Rule rule = PolicyFactory.eINSTANCE.createRule();
+        rule.setPermit(PermitType.PERMIT);
+        final AllOf allOf = PolicyFactory.eINSTANCE.createAllOf();
+        final EntityMatch entityMatch = StructureFactory.eINSTANCE.createEntityMatch();
+        entityMatch.setCategory(Category.RESOURCE);
+        entityMatch.setEntity(entity);
+        allOf.getMatch().add(entityMatch);
+        rule.getTarget().add(allOf);
+        final SimpleAttributeCondition condition = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
+        condition.setCategory(Category.SUBJECT);
+        condition.setMustBePresent(true);
+        condition.setAttribute(credentials);
+        rule.setCondition(condition);
+        return rule;
+    }
+
     protected boolean isInGraph(final Entity entity) {
         final var node = this.getAttackGraph().findNode(new AttackStatusNodeContent(entity));
         return node != null;
     }
     
-    protected void assertCompromisationStatus(final boolean isCompromised, final Entity entity, 
+    protected void assertCompromisationStatus(final boolean isCompromised, final boolean isAttacked,
+            final Entity entity, 
             final String causeId) {
         final var node = this.getAttackGraph().findNode(new AttackStatusNodeContent(entity));
         if (node != null) {
             Assert.assertEquals(isCompromised, node.isCompromised());
-            if (isCompromised && causeId != null) {
+            Assert.assertEquals(isAttacked, node.isAttacked());
+            if (causeId != null) {
                 Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).contains(causeId));
             }
         } else {
+            Assert.assertFalse(isAttacked);
             Assert.assertFalse(isCompromised);
         }
+    }
+    
+
+    protected ResourceContainer getResource(final AssemblyContext assembly) {
+        final var resourceOpt = this.allocation.getAllocationContexts_Allocation().stream()
+                .filter(e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(), assembly))
+                .map(AllocationContext::getResourceContainer_AllocationContext).findAny();
+        if (resourceOpt.isEmpty()) {
+            fail("Wrong Test Input");
+        }
+        return resourceOpt.orElse(null);
     }
     
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {

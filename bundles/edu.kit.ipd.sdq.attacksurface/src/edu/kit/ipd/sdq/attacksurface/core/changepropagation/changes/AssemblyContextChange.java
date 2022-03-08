@@ -2,48 +2,33 @@ package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
-import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp.architecture.ArchitectureModelLookup;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
     protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
@@ -56,15 +41,21 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
                 .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext()).collect(Collectors.toList());
     }
+    
+    protected List<AssemblyContext> getAttackedAssemblyContexts() {
+        return this.getAttackGraph().getAttackedNodes().stream()
+                .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
+                .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext()).collect(Collectors.toList());
+    }
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
         // TODO adapt if context change instances are not there
-        final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
+        final var listAttackedAssemblyContexts = getAttackedAssemblyContexts();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
                 .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
-                .filter(e -> listCompromisedAssemblyContexts.stream()
+                .filter(e -> listAttackedAssemblyContexts.stream()
                         .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
         updateFromContextProviderStream(this.changes, streamAttributeProvider);

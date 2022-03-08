@@ -29,8 +29,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     private boolean visited;
     
     //compromisation status
-    private boolean isCompromised; //TODO at the moment takeover == compromised
-    //TODO private boolean takeOver;
+    private CompromisationStatus status;
     
     public AttackStatusNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
@@ -40,6 +39,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
                     containedEntity.getClass().getName() + "\"");
         }
         this.asPcmElement = this.type.toPCMElement(this.containedElement);
+        this.status = CompromisationStatus.NOT_COMPROMISED;
     }
 
     @Override
@@ -55,12 +55,24 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         return this.type;
     }
     
+    public boolean isAttacked() {
+        return this.status.getSeverity() > 0;
+    }
+    
     public boolean isCompromised() {
-        return this.isCompromised;
+        return this.status.equals(CompromisationStatus.COMPROMISED);
     }
 
-    public void setCompromised(final boolean isCompromised) {
-        this.isCompromised = isCompromised;
+    public void setCompromised(final boolean takeOver) {
+        if (takeOver) {
+            this.status = CompromisationStatus.COMPROMISED;
+        }
+    }
+
+    public void setAttacked(boolean isAttacked) {
+        this.status = isCompromised() || !isAttacked
+                ? this.status :
+                    CompromisationStatus.ATTACKED_AND_CREDENTIALS_EXTRACTED;
     }
 
     public boolean isVisited() {
