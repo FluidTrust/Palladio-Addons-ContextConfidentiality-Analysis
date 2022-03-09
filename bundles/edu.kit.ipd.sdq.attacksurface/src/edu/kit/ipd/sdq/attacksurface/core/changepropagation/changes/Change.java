@@ -23,6 +23,13 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
+/**
+ * Represents an abstract class for a change, i.e. a propagation attacking certain kinds of
+ * elements with a certain kind of attacking.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public abstract class Change<T> {
 
     protected BlackboardWrapper modelStorage;
@@ -34,8 +41,8 @@ public abstract class Change<T> {
     private int stackLevel;
     private AttackPathSurface selectedSurfacePath;
 
-    public Change(final BlackboardWrapper v, final CredentialChange change, final AttackGraph attackGraph) {
-        this.modelStorage = v;
+    public Change(final BlackboardWrapper board, final CredentialChange change, final AttackGraph attackGraph) {
+        this.modelStorage = board;
         this.changes = change;
         this.attackGraph = attackGraph;
         this.stackLevel = 0;
@@ -50,6 +57,12 @@ public abstract class Change<T> {
         return this.attackGraph;
     }
 
+    /**
+     * Updates the credentials of the attacker.
+     * 
+     * @param changes - the changes
+     * @param streamAttributeProvider - the attribute provider stream
+     */
     protected void updateFromContextProviderStream(final CredentialChange changes,
             final Stream<? extends PCMAttributeProvider> streamAttributeProvider) {
         final var streamContextChange = streamAttributeProvider.map(e -> {
@@ -71,17 +84,23 @@ public abstract class Change<T> {
         HelperUpdateCredentialChange.updateCredentials(changes, streamContextChange, null,this.attackGraph);
     }
     
-    
-
-    protected boolean isCompromised(final Entity... entities) {
+    protected boolean isAnyCompromised(final Entity... entities) {
         return this.attackGraph.isAnyCompromised(entities);
     }
     
+    /**
+     * Calls the recursion if this is necessary.
+     * 
+     * @param childNode - the child node
+     * @param recursionMethod - the recursion method runnable
+     * @param selectedNode - the selected node before and after the recursive call
+     */
     protected void callRecursionIfNecessary(final AttackStatusNodeContent childNode, 
             final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
         selectedNode.setVisited(true);
-        addChildNodeToPathIfNecessary(childNode);
-        if (childNode != null && !childNode.isVisited() && !isFiltered()) {
+        final boolean isNecessary = childNode != null && !childNode.isVisited();
+        addChildNodeToPathIfNecessary(childNode, isNecessary);
+        if (isNecessary && !isFiltered()) {
             // select the child node and recursively call the propagation call
             this.attackGraph.setSelectedNode(childNode);
             this.stackLevel++;
@@ -90,12 +109,14 @@ public abstract class Change<T> {
             removeChildNodeFromPath();
             this.stackLevel--;
             this.attackGraph.setSelectedNode(selectedNode);
+        } else if (isNecessary) {
+            removeChildNodeFromPath();
         }
     }
 
-    private void addChildNodeToPathIfNecessary(AttackStatusNodeContent childNode) {
-        final var criticalNode = this.attackGraph.getRootNodeContent();
-        if (childNode != null && !childNode.isVisited()) {
+    private void addChildNodeToPathIfNecessary(AttackStatusNodeContent childNode, final boolean isNecessary) {
+        if (isNecessary) {
+            final var criticalNode = this.attackGraph.getRootNodeContent();
             final AttackStatusEdge edge;
             final int size = this.selectedSurfacePath.size();
             if (size == 0) {
@@ -111,16 +132,21 @@ public abstract class Change<T> {
     }
     
     private void removeChildNodeFromPath() {
-        this.selectedSurfacePath.remove(0);
+        this.selectedSurfacePath.removeFirst();
     }
 
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
-        return AttackHandlingHelper.isFiltered(this.modelStorage, this.attackGraph, 
-                this.selectedSurfacePath.toAttackPath(modelStorage, 
-                        criticalElement, true));
+        return AttackHandlingHelper.isFiltered(this.modelStorage, this.selectedSurfacePath.toAttackPath(modelStorage, 
+                criticalElement, true));
     }
 
+    /**
+     * 
+     * @param selectedNodeContent - the given node content
+     * @return the resource container for the given node content, 
+     * i.e. the containing resource container or the container itself
+     */
     protected ResourceContainer getResourceContainerForElement(
             final AttackStatusNodeContent selectedNodeContent) {
         final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
@@ -175,6 +201,11 @@ public abstract class Change<T> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 
+     * @param resource - the resource container
+     * @return all connected containers to the given container
+     */
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
         final var resources = this.getLinkingResource(resource).stream()
                 .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()

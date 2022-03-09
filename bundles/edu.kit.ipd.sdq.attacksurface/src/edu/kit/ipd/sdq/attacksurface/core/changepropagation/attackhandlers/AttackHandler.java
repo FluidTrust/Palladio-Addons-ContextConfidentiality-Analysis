@@ -33,7 +33,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
 import de.uka.ipd.sdq.identifier.Identifier;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
+import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
@@ -41,14 +41,13 @@ import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
 /**
  * Generic class for handling attacks on system entities. Provides useful helper methods for
- * concrete subclasses
+ * concrete subclasses.
  *
  * @author majuwa
  * @author ugnwq
@@ -81,11 +80,30 @@ public abstract class AttackHandler {
         return this.attackGraph;
     }
     
+    /**
+     * 
+     * @param causingElements - the given causing elements
+     * @return the set of IDs of causes for the given causing elements
+     */
     protected abstract Set<String> getCauses(EList<EObject> causingElements);
     
+    /**
+     * 
+     * @return the mapper from the cause ID String to a {@link CVSurface}
+     */
     protected abstract Function<String, CVSurface> getSurfaceMapper();
 
-    protected final void compromise(final EList<EObject> causingElements, final AttackStatusNodeContent compromisedNode,
+    /**
+     * Selects the node to be compromised and compromises it afterwards with 
+     * {@link AttackGraph#compromiseSelectedNode(Set, AttackStatusNodeContent)}. <br/>
+     * The node remains selected.
+     * 
+     * @param causingElements - the causing elements list
+     * @param compromisedNode - the node to be compromised
+     * @param attackSource - the attack source
+     */
+    protected final void compromise(final EList<EObject> causingElements, 
+            final AttackStatusNodeContent compromisedNode,
             final AttackStatusNodeContent attackSource) {
         final var causes = getCauses(causingElements)
                 .stream()
@@ -95,7 +113,12 @@ public abstract class AttackHandler {
         getAttackGraph().compromiseSelectedNode(causes, attackSource);
     }
     
-    //TODO: get credentials differently --> also get initially necessary credentials for each path
+    /**
+     * Gets the credentials from the context changes elements.
+     * 
+     * @param changes - the changes
+     * @return the credentials usable at the moment
+     */
     protected final List<UsageSpecification> getAllCredentials(final CredentialChange changes) {
         return changes.getContextchange()
                 .stream()
@@ -103,6 +126,12 @@ public abstract class AttackHandler {
                 .collect(Collectors.toList());
     }
     
+    /**
+     * 
+     * @param changes - the changes
+     * @param attackedEntity - the entity to be attacked
+     * @return the credentials relevant for the attack
+     */
     protected final List<UsageSpecification> getRelevantCredentials(final CredentialChange changes, 
             final Entity attackedEntity) {
         final var idsOfRelevantUsageSpecifications = 
@@ -119,12 +148,8 @@ public abstract class AttackHandler {
                 .collect(Collectors.toList());
     }
 
-    // TODO: Think about better location
     protected List<Attack> getAttacks() {
-        final var listAttackers = this.modelStorage.getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent();
-        return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
-                .collect(Collectors.toList());
+        return AttackHandlingHelper.getAttacks(this.modelStorage);
     }
 
     protected List<EObject> createSource(final EObject sourceItem,
@@ -266,25 +291,32 @@ public abstract class AttackHandler {
         return vulnerability;
     }
     
+    /**
+     * Filters the already existing edges.
+     * 
+     * @param compromisedEntities - the comporomised entities
+     * @param source - the attack source
+     * @param clazz - the class of the ModifyEntity
+     * @return the edges that do not yet exist
+     */
     protected Collection<ModifyEntity<?>> filterExistingEdges(
-            final List<? extends ModifyEntity<?>> compromisedComponents, final Entity source,
+            final List<? extends ModifyEntity<?>> compromisedEntities, final Entity source,
             final Class<? extends ModifyEntity<?>> clazz) {
         final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
-        return compromisedComponents
+        return compromisedEntities
                 .stream()
                 .filter(c -> {
                     final var attackedNode = new AttackStatusNodeContent(c.getAffectedElement());
                     final var compromisationCauses = getCausesOfCompromisation(c);
                     final boolean isAttackToContainedAssembliesInResource = 
                             compromisationCauses.isEmpty() 
-                            && !areAllCompromisedComponentsCompromisedInGraph(compromisedComponents);
+                            && !areAllCompromisedComponentsCompromisedInGraph(compromisedEntities);
                     return isAttackToContainedAssembliesInResource
                             || !contains(getAttackGraph().getEdge(attackedNode, 
                                     attackerNode), compromisationCauses);
                 })
                 .collect(Collectors.toList());
     }
-    
 
     private boolean areAllCompromisedComponentsCompromisedInGraph(
             List<? extends ModifyEntity<? extends Entity>> compromisedComponents) {
@@ -301,11 +333,17 @@ public abstract class AttackHandler {
         return compromisedComponentsInGraphIds.containsAll(compromisedComponentsIds);
     }
 
+    /**
+     * 
+     * @param edgeContent - the edge content
+     * @param causesOfCompromisation - the causes of compromisation IDs
+     * @return whether the edge contains all the causes of compromisation
+     */
     protected boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
         return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
     }
 
-    protected Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
+    protected final Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
         return getCauses(attacked.getCausingElements());
     }
 }

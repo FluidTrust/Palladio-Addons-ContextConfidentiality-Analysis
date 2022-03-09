@@ -6,6 +6,15 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Represents an abstract class for implementing the base features of an {@link EdgeContent}.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ *
+ * @param <C> - the C {@link CVSurface} type
+ * @param <V> - the V {@link CVSurface} type
+ */
 public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurface> implements EdgeContent<C, V> {
     private final Set<Set<CVSurface>> setCSets;
     private final Set<Set<CVSurface>> setVSets;
@@ -25,6 +34,7 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
         return this.setVSets.iterator();
     }
 
+    @Override
     public boolean addSet(final Set<CVSurface> toAdd) {
         final var cSet = toAdd
                 .stream()
@@ -85,6 +95,6 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
 
     @Override
     public String toString() {
-        return "AbstractEdgeContent [setCSets=" + setCSets + ", setVSets=" + setVSets + "]";
+        return getClass().getSimpleName() + " [setCSets=" + setCSets + ", setVSets=" + setVSets + "]";
     }
 }

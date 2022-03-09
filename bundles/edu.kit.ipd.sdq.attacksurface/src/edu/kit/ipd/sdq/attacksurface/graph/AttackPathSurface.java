@@ -1,7 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -149,15 +148,32 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 + "]";
     }
 
-    public AttackPathSurface remove(int index) {
-        this.path.remove(index);
+    /**
+     * Removes the first edge of the path.
+     * 
+     * @return this attack path after the removal
+     */
+    public AttackPathSurface removeFirst() {
+        this.path.remove(0);
         return this;
     }
 
+    /**
+     * 
+     * @return a stream of the edges
+     */
     public Stream<AttackStatusEdge> stream() {
         return this.path.stream();
     }
 
+    /**
+     * Creates an output {@link AttackPath} from this path.
+     * 
+     * @param board - the model storage
+     * @param criticalEntity - the critical entity
+     * @param doCreateCauselessPaths - whether a path should be created without causes (for temporary paths)
+     * @return an {@link AttackPath} representing this attack path
+     */
     public AttackPath toAttackPath(BlackboardWrapper board, final Entity criticalEntity,
             final boolean doCreateCauselessPaths) {
         final List<SystemIntegration> localPath = new ArrayList<>();
@@ -165,7 +181,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         for (int i = 0; i < this.size(); i++) {
             final var edge = this.get(i);
             final var nodes = edge.getNodes();
-            // the edges in the attack path are reversed,
+            // the edges in the attack path are reversed (w.respect to the attack graph direction),
             // so that the attacked is the target and the attacker the source
             final var attacked = nodes.target();
             final var attacker = nodes.source();
@@ -205,7 +221,6 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return ret;
     }
 
-
     private boolean iterateCauses(final BlackboardWrapper board, 
             final List<SystemIntegration> localPath, 
             final AttackStatusNodeContent attacked,
@@ -223,6 +238,11 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return ret;
     }
 
+    /**
+     * 
+     * @param board - the model storage
+     * @return the used vulnerabilities on this path
+     */
     public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
         final Set<String> vulnerabilityCauseIds = stream().map(e -> e.getContent().getVulnerabilityCauseIds())
                 .flatMap(Set::stream).collect(Collectors.toSet());
@@ -241,6 +261,10 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * 
+     * @return this path after filling the credentials initially necessary from the nodes inside the path
+     */
     public AttackPathSurface fillCredentialsInitiallyNecessary() {
         for (final var edge : this) {
             for (final var node : edge) {
@@ -310,6 +334,10 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 .orElse(sysIntegrations.get(0));
     }
 
+    /**
+     * 
+     * @return whether the path contains all the initially necessary credentials
+     */
     public boolean containsInitiallyNecessaryCredentials() {
         return path.stream().anyMatch(e -> this.initiallyNecessaryCredentials
                 .stream()

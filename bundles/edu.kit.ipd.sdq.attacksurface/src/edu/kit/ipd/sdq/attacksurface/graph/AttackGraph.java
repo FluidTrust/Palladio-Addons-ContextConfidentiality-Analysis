@@ -1,7 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -22,10 +21,7 @@ import com.google.common.graph.ValueGraphBuilder;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.AssemblyContextContext;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.AssemblyContextVulnerability;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -234,22 +230,20 @@ public class AttackGraph {
         return this.graph.edges()
                 .stream()
                 .filter(e -> e.source().equals(node))
-                .map(e -> this.graph.edgeValue(e))
+                .map(this.graph::edgeValue)
                 .map(e -> e.orElse(null)).filter(Objects::nonNull)
                 .map(AttackStatusEdgeContent::getCauseIds)
                 .flatMap(Set::stream).collect(Collectors.toSet());
     }
 
     /**
-     * Finds all possible attack paths in this graph.
+     * Finds all possible attack paths in this graph. <br />
+     * Additionally, paths with initially necessary 
      * 
-     //TODO: adapt this javadoc: params
+     * @param board - the model storage
+     * @param changes - the changes
      * @return all possible attack paths
-     *
-    public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
-        return findAllAttackPaths(board, changes, new ArrayList<>());
-    }*/
-    
+     */
     public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
         List<AttackPathSurface> allPaths = new ArrayList<>();
         

@@ -1,12 +1,18 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Objects;
 
 import com.google.common.graph.EndpointPair;
 
+/**
+ * Represents an edge in the attack graph containing the endpoints of the edge and
+ * the edge content for storing the attack causes.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
     private final AttackStatusEdgeContent content;
     private final EndpointPair<AttackStatusNodeContent> nodes;
@@ -16,14 +22,26 @@ public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
         this.nodes = nodes;
     }
 
+    /**
+     * 
+     * @return the attack causes edge content
+     */
     public AttackStatusEdgeContent getContent() {
         return content;
     }
 
+    /**
+     * 
+     * @return the nodes of the edge
+     */
     public EndpointPair<AttackStatusNodeContent> getNodes() {
         return nodes;
     }
     
+    /**
+     * 
+     * @return the reversal of the edge
+     */
     public AttackStatusEdge createReverseEdge() {
         return new AttackStatusEdge(this.content, EndpointPair.ordered(this.nodes.target(), this.nodes.source()));
     }
@@ -52,6 +70,10 @@ public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
                 nodes.target().getContainedElement().getEntityName() + "]";
     }
 
+    /**
+     * 
+     * @return the path containing only this edge
+     */
     public AttackPathSurface toPath() {
         return new AttackPathSurface(Arrays.asList(this));
     }

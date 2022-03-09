@@ -1,12 +1,8 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
-import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
@@ -18,6 +14,12 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+/**
+ * Represents the type of a {@link PCMElement}
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public enum PCMElementType {
     RESOURCE_CONTAINER(ResourceContainer.class),
     
@@ -38,6 +40,11 @@ public enum PCMElementType {
         this.clazz = clazz;
     }
     
+    /**
+     * 
+     * @param entity - the entity
+     * @return type of the entity or {@code null} if no type fits
+     */
     public static PCMElementType typeOf(final Entity entity) {
         for (final var type : values()) {
             if (type.clazz.isInstance(entity)) {
@@ -47,6 +54,11 @@ public enum PCMElementType {
         return null;
     }
     
+    /**
+     * 
+     * @param pcmElement - the {@link PCMElement}
+     * @return the type of the element or {@code null} if no type fits
+     */
     public static PCMElementType typeOf(final PCMElement pcmElement) {
         for (final var type : values()) {
             if (type.clazz.isInstance(type.getEntity(pcmElement))) {
@@ -56,11 +68,21 @@ public enum PCMElementType {
         return null;
     }
     
+    /**
+     * 
+     * @param original - the original element
+     * @return copy of the element
+     */
     public static PCMElement copy(final PCMElement original) {
         final var type = PCMElementType.typeOf(original);
         return type != null ? type.toPCMElement(type.getEntity(original)) : null;
     }
     
+    /**
+     * 
+     * @param entity - the entity
+     * @return the entity inside an {@link PCMElement}
+     */
     public PCMElement toPCMElement(final Entity entity) {
         Objects.requireNonNull(entity);
         if (!this.clazz.isInstance(entity)) {
@@ -96,6 +118,11 @@ public enum PCMElementType {
         return pcmElement;
     }
     
+    /**
+     * 
+     * @param pcmElement - the element
+     * @return the entity inside the element
+     */
     public Entity getEntity(final PCMElement pcmElement) {
         if (pcmElement == null) {
             return null;
@@ -128,6 +155,12 @@ public enum PCMElementType {
         return ret;
     }
     
+    /**
+     * 
+     * @param entity
+     * @return a predicate over a system integration and an entity returning {@code true} on ID equality of the
+     * entity and the entity contained in the PCMElement of the system integration
+     */
     public Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
         return s -> {
             final var pcmElement = s.getPcmelement();

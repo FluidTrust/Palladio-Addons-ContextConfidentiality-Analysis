@@ -24,6 +24,12 @@ import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
+/**
+ * Represents an attack handler for resource containers attacks with contexts, i.e. credentials.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public class ResourceContainerContext extends ResourceContainerHandler {
 
     public ResourceContainerContext(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
@@ -49,7 +55,7 @@ public class ResourceContainerContext extends ResourceContainerHandler {
 
     @Override
     protected Set<String> getCauses(EList<EObject> causingElements) {
-        return CauseGetter.getCauses(causingElements, UsageSpecification.class); //TODO
+        return CauseGetter.getCauses(causingElements, UsageSpecification.class);
     }
 
     @Override

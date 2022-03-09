@@ -65,7 +65,7 @@ public class MethodContext extends MethodHandler {
 
     @Override
     protected Set<String> getCauses(EList<EObject> causingElements) {
-        return CauseGetter.getCauses(causingElements, UsageSpecification.class); //TODO
+        return CauseGetter.getCauses(causingElements, UsageSpecification.class);
     }
 
     @Override

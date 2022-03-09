@@ -13,14 +13,11 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
  * Represents a {@link NodeContent} containing the attack status for an element.
- * TODO: at the moment only for {@link AssemblyContext}s.
  * 
  * @author ugnwq
  * @version 1.0
  */
 public class AttackStatusNodeContent implements NodeContent<Entity> {
-    //TODO adapt
-    
     private final Entity containedElement;
     private final PCMElementType type;
     private final PCMElement asPcmElement;
@@ -59,10 +56,18 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         return this.type;
     }
     
+    /**
+     * 
+     * @return whether the node was attacked, i.e. at least one credential was extracted
+     */
     public boolean isAttacked() {
         return this.status.getSeverity() > 0;
     }
     
+    /**
+     * 
+     * @return whether the node is compromised, i.e. it is completely taken over
+     */
     public boolean isCompromised() {
         return this.status.equals(CompromisationStatus.COMPROMISED);
     }
@@ -73,16 +78,29 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         }
     }
 
+    /**
+     * Sets the node attacked if it is not yet compromised and it {@code isAttacked} now.
+     * 
+     * @param isAttacked - whether the node ist attacked now
+     */
     public void setAttacked(boolean isAttacked) {
         this.status = isCompromised() || !isAttacked
                 ? this.status :
                     CompromisationStatus.ATTACKED_AND_CREDENTIALS_EXTRACTED;
     }
 
+    /**
+     * 
+     * @return whether the node was already visited
+     */
     public boolean isVisited() {
         return this.visited;
     }
 
+    /**
+     * 
+     * @param visited - the visitation status to be set
+     */
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
@@ -112,10 +130,18 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         return "(id= " + containedElement.getId() + "name = " + containedElement.getEntityName() + ")";
     }
 
+    /**
+     * 
+     * @param necessaryCauses - adds the given necessary causes to the node
+     */
     public void addInitiallyNecessaryCredentials(Set<CVSurface> necessaryCauses) {
         this.initiallyNecessaryCauses.addAll(necessaryCauses);
     }
     
+    /**
+     * 
+     * @param setToBeFilled - fills the set with initially nessecary causes of this node
+     */
     public void copyAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) {
         this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCauseId())));
     }

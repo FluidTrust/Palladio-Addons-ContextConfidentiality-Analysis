@@ -6,26 +6,21 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.Callable;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
+import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
@@ -34,7 +29,6 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceCont
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
@@ -48,7 +42,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author majuwa
  * @author ugnwq
  */
-
 @Component
 public class AttackSurfaceAnalysis {
 
@@ -58,6 +51,11 @@ public class AttackSurfaceAnalysis {
 
     private AttackGraph attackGraph;
 
+    /**
+     * Runs the analysis.
+     * 
+     * @param board - the model storage
+     */
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
@@ -75,7 +73,7 @@ public class AttackSurfaceAnalysis {
             calculateAndMarkResourcePropagation(board);
             calculateAndMarkAssemblyPropagation(board);
 
-            /* TODO calculateAndMarkLinkingPropagation(board); */
+            //TODO implement calculateAndMarkLinkingPropagation(board);
         } while (this.changePropagationDueToCredential.isChanged());
 
         // create all attack paths
@@ -103,7 +101,7 @@ public class AttackSurfaceAnalysis {
     }
 
     /**
-     * TODO method for testing the {@link AttackPathSurface} to {@link AttackPath}
+     * Method for testing the {@link AttackPathSurface} to {@link AttackPath}
      * conversion.
      * 
      * @param allAttackPathsSurface - list of {@link AttackPathSurface} instances
@@ -138,7 +136,7 @@ public class AttackSurfaceAnalysis {
     }
 
     private boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
-        return AttackHandlingHelper.isFiltered(board, this.attackGraph, path);
+        return AttackHandlingHelper.isFiltered(board, path);
     }
 
     private void createInitialStructure(BlackboardWrapper board) {
@@ -195,7 +193,6 @@ public class AttackSurfaceAnalysis {
     private Set<Attack> toAttack(final Vulnerability vulnerability) {
         if (vulnerability instanceof CVEVulnerability) {
             final Set<Attack> attacks = new HashSet<>();
-            ;
             final var cveVuln = (CVEVulnerability) vulnerability;
             final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
             attack.setCategory(cveVuln.getCveID());
@@ -211,21 +208,17 @@ public class AttackSurfaceAnalysis {
             }
             return attacks;
         }
-        return new HashSet<>(); // TODO or exception unknown vulnerability type
+        throw new IllegalArgumentException("unknown vulnerability type");
     }
 
     /**
      * Calculates the propagation starting from {@link AssemblyContext}s. The
      * analyses start from the critical element and try to calculate back possible
-     * attack paths to it. <br/>
-     * TODO: consider credentials and propagation to other model elements except
-     * assembly contexts
+     * attack paths to it.
      * 
      * @param board - the model storage
      */
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
-        // TODO complete implementation
-
         final var list = new ArrayList<AssemblyContextPropagation>();
         list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
@@ -245,15 +238,20 @@ public class AttackSurfaceAnalysis {
         runnable.run();
     }
 
+    /**
+     * Calculates the propagation starting from {@link ResourceContainer}s. The
+     * analyses start from the critical element and try to calculate back possible
+     * attack paths to it.
+     * 
+     * @param board - the model storage
+     */
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
-        // TODO complete implementation
-
         final var list = new ArrayList<ResourceContainerPropagation>();
         list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
         list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential,
                 this.attackGraph));
-        for (final var analysis : list) { // TODO adapt
+        for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
@@ -262,4 +260,7 @@ public class AttackSurfaceAnalysis {
         }
     }
 
+    private void calculateAndMarkLinkingPropagation(BlackboardWrapper board) {
+        // TODO implement
+    }
 }

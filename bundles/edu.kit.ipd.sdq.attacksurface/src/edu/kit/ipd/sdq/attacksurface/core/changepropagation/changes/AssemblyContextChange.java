@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
@@ -12,12 +11,9 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.Collec
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
-import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
@@ -30,6 +26,13 @@ import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
+/**
+ * Represents an abstract class for an assembly context change, 
+ * i.e. a propagation from assembly contexts with a certain kind of attacking.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
     protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
             final AttackGraph attackGraph) {
@@ -50,7 +53,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
-        // TODO adapt if context change instances are not there
         final var listAttackedAssemblyContexts = getAttackedAssemblyContexts();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -77,7 +79,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         }
     }
 
-    private void handleSeff(final AssemblyContext sourceComponent) {
+    /*TODO private void handleSeff(final AssemblyContext sourceComponent) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
         final var targetConnectors = getConnectedConnectors(sourceComponent, system);
@@ -114,7 +116,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                     return Stream.empty();
                 }).collect(Collectors.toList());
         this.handleSeff(this.changes, specification, sourceComponent);
-    }
+    }*/
 
     protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> services,
             AssemblyContext source);
@@ -146,7 +148,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         // attack connected resource containers from the inside if the element to be
         // attacked is not yet compromised
-        if (!isCompromised(finalSelectedEntity)) {
+        if (!isAnyCompromised(finalSelectedEntity)) {
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var connectedContainer : connectedResourceContainers) {
                 // continue building the graph
@@ -174,6 +176,31 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         this.attackGraph.setSelectedNode(finalSelectedNode);
     }
 
+    /**
+     * Finds the new selected node for the assembly to assembly propagation.
+     * 
+     * @param finalSelectedNode - the final selected nopde
+     * @param selectedComponents - the list of selected components
+     * @param selectedComponent - the selected component now
+     * @return the new selected node, i.e. the final selected node itself if the selected components list is empty
+     * or has just one element or a child node containing the selected component
+     */
+    private AttackStatusNodeContent findSelectedNode(AttackStatusNodeContent finalSelectedNode,
+            List<AssemblyContext> selectedComponents, AssemblyContext selectedComponent) {
+        if (selectedComponents.isEmpty() || selectedComponents.size() == 1) {
+            return finalSelectedNode;
+        }
+        final var childNode = this.attackGraph.addOrFindChild(finalSelectedNode,
+                new AttackStatusNodeContent(selectedComponent));
+        return childNode;
+    }
+
+    /**
+     * Attacks the selected comnponent by itself.
+     * 
+     * @param selectedNode - the selected node
+     * @param selectedComponent - the selected component
+     */
     private void handleSelectedNodePropagation(final AttackStatusNodeContent selectedNode,
             final AssemblyContext selectedComponent) {
         this.attackGraph.setSelectedNode(selectedNode);
@@ -185,6 +212,14 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         handleConnectedComponentsPropagation(selectedNode, selectedComponent, connectedComponents, handler);
     }
 
+    /**
+     * Attacks the connected components and calls the recursion if necessary.
+     * 
+     * @param selectedNode - the selected node
+     * @param selectedComponent - the selected components
+     * @param connectedComponents - the connected components
+     * @param handler - the assembly context attack handler
+     */
     private void handleConnectedComponentsPropagation(final AttackStatusNodeContent selectedNode,
             final AssemblyContext selectedComponent, final List<AssemblyContext> connectedComponents,
             final AssemblyContextHandler handler) {
@@ -202,16 +237,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                         selectedNode);
             }
         }
-    }
-
-    private AttackStatusNodeContent findSelectedNode(AttackStatusNodeContent finalSelectedNode,
-            List<AssemblyContext> selectedComponents, AssemblyContext selectedComponent) {
-        if (selectedComponents.isEmpty() || selectedComponents.size() == 1) {
-            return finalSelectedNode;
-        }
-        final var childNode = this.attackGraph.addOrFindChild(finalSelectedNode,
-                new AttackStatusNodeContent(selectedComponent));
-        return childNode;
     }
 
     private List<AssemblyContext> getRelevantAssemblyContexts(AttackStatusNodeContent nodeContent) {

@@ -9,11 +9,23 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
+/**
+ * Helper class to get IDs of causes of a certain kind from causing elements.
+ * 
+ * @author ugnwq
+ * @version 1.0
+ */
 public final class CauseGetter {
     private CauseGetter() {
         
     }
     
+    /**
+     * 
+     * @param causingElements - the list of causing elements
+     * @param toFindInterface - the kind of causes to be found
+     * @return set of IDs of causes of the given kind
+     */
     public static Set<String> getCauses(final EList<EObject> causingElements, final Class<? extends Entity> toFindInterface) {
         return causingElements
                 .stream()
