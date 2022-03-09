@@ -31,6 +31,9 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     //compromisation status
     private CompromisationStatus status;
     
+    // tmp set for necessary credential causes
+    private final Set<CVSurface> initiallyNecessaryCauses;
+    
     public AttackStatusNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
         this.type = PCMElementType.typeOf(containedEntity);
@@ -40,6 +43,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         }
         this.asPcmElement = this.type.toPCMElement(this.containedElement);
         this.status = CompromisationStatus.NOT_COMPROMISED;
+        this.initiallyNecessaryCauses = new HashSet<>();
     }
 
     @Override
@@ -106,5 +110,14 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     @Override
     public String toString() {
         return "(id= " + containedElement.getId() + "name = " + containedElement.getEntityName() + ")";
+    }
+
+    public void addInitiallyNecessaryCredentials(Set<CVSurface> necessaryCauses) {
+        this.initiallyNecessaryCauses.addAll(necessaryCauses);
+    }
+    
+    public void moveAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) {
+        this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCauseId())));
+        this.initiallyNecessaryCauses.clear();
     }
 }

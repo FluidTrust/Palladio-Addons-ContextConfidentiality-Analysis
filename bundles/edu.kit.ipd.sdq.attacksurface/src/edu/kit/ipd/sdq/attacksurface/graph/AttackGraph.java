@@ -14,11 +14,16 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.graph.EndpointPair;
+import com.google.common.graph.Graphs;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.Traverser;
 import com.google.common.graph.ValueGraphBuilder;
 
 import de.uka.ipd.sdq.identifier.Identifier;
+import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
+import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 /**
  * Represents a graph saving the compromisation status of the model elements in
@@ -33,11 +38,10 @@ import de.uka.ipd.sdq.identifier.Identifier;
  */
 public class AttackGraph {
     private final AttackStatusNodeContent root;
+    private final MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> graph;
 
     private AttackStatusNodeContent selectedNode;
-
-    private MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> graph;
-
+    
     /**
      * Creates a new {@link AttackGraph} with the given entity as the root entity, i.e. critical element.
      * 
@@ -48,6 +52,13 @@ public class AttackGraph {
         this.root = new AttackStatusNodeContent(rootEntity);
         this.graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
         this.graph.addNode(this.root);
+        this.selectedNode = this.root;
+    }
+
+    private AttackGraph(AttackStatusNodeContent root,
+            MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> copyGraph) {
+        this.graph = copyGraph;
+        this.root = findNode(root);
         this.selectedNode = this.root;
     }
 
@@ -198,7 +209,6 @@ public class AttackGraph {
             return found != null ? found
                     : appendEdge(parent, new AttackStatusEdgeContent(), nodeToFind).getNodes().target();
         } else {
-            // TODO exc or null
             throw new IllegalArgumentException(parent + " not found");
         }
     }
@@ -229,67 +239,57 @@ public class AttackGraph {
     /**
      * Finds all possible attack paths in this graph.
      * 
+     //TODO: adapt this javadoc: params
      * @return all possible attack paths
      */
-    public List<AttackPathSurface> findAllAttackPaths() {
+    public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
         final List<AttackPathSurface> allPaths = new ArrayList<>();
 
-        Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(this.graph);
+        Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(copy().graph);
         final var dfsIterable = traverser.depthFirstPreOrder(this.root);
         for (final var nodeContentToFind : dfsIterable) {
             final var nodeContent = findNode(nodeContentToFind);
+            attackNodeContentWithInitialCredentialIfNecessary(board, nodeContent, changes);
             if (nodeContent.isAttacked()) {
-                // TODO remove > final int level = getLevel(nodeContent);
-                
                 final var children = this.getChildrenOfNode(nodeContent);
                 for (final var child : children) {
                     final var edgeValue = this.graph.edgeValue(nodeContent, child).orElse(null);
                     final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(nodeContent, child));
-                    final boolean isAttackerCompromised = child.isCompromised();
-                    addEdge(allPaths, edge, isAttackerCompromised);
+                    addEdge(allPaths, edge);
                 }
             }
         }
 
-        // remove duplicate paths
-        // and partial paths (??) TODO
+        // remove duplicate paths and partial paths
         return allPaths.stream()
                 .distinct()
                 .filter(p -> !p.isEmpty())
-                .filter(p -> p.get(p.size() - 1).getNodes().target().equals(this.root)) //TODO
+                .map(AttackPathSurface::fillCredentialsInitiallyNecessary)
+                .filter(p -> p.get(p.size() - 1).getNodes().target().equals(this.root))
                 .collect(Collectors.toList());
     }
+    
+    private AttackGraph copy() {
+        final var copyGraph = Graphs.copyOf(this.graph);
+        return new AttackGraph(this.root, copyGraph);
+    }
 
-    /*TODO remove private int getLevel(final AttackStatusNodeContent node) {
-        if (node.equals(this.root)) {
-            return 0;
+    private void attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
+            final AttackStatusNodeContent nodeContent, final CredentialChange changes) {
+        AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board, this, nodeContent);
+        if (nodeContent.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
+            final var resChange = new ResourceContainerPropagationContext(board, 
+                changes, this);
+            resChange.calculateResourceContainerToLocalAssemblyContextPropagation();
         }
-        var parents = this.getParentsOfNode(node);
-        if (parents.contains(this.root)) {
-            return 1;
-        } else {
-            int minLevel = Integer.MAX_VALUE;
-            for (final var parent : parents) {
-                final var getLevelResult = getLevel(parent);
-                final var level = 1 + getLevelResult;
-                if (level < minLevel) {
-                    minLevel = level;
-                }
-                if (getLevelResult == 1) {
-                    return minLevel;
-                }
-            }
-            return minLevel;
-        }
-    }*/
+    }
 
-    private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge,
-            final boolean isAttackerCompromised) {
+    private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge) {
         final var reverseEdge = edge.createReverseEdge();
         final var edgePath = reverseEdge.toPath();
         if (allPaths.isEmpty()) {
             allPaths.add(edgePath);
-        } else /*if (!isAttackerCompromised || !areCauseSetsEmpty(edge))*/ {
+        } else {
             final List<AttackPathSurface> newPaths = new ArrayList<>();
             allPaths.forEach(p -> {
                 final var pathCopy = p.getCopy();
@@ -305,32 +305,6 @@ public class AttackGraph {
             });
             allPaths.addAll(newPaths);
         }
-    }
-
-    private boolean areCauseSetsEmpty(AttackStatusEdge edge) {
-        boolean ret = !edge.getContent().getContainedSetCIterator().hasNext() 
-                && !edge.getContent().getContainedSetVIterator().hasNext();
-        
-        if (!ret) {
-            final var cIter = edge.getContent().getContainedSetCIterator();
-            while (cIter.hasNext()) {
-                final var set = cIter.next();
-                ret = set.isEmpty();
-                if (!ret) {
-                    return false;
-                }
-            }
-            final var vIter = edge.getContent().getContainedSetVIterator();
-            while (vIter.hasNext()) {
-                final var set = vIter.next();
-                ret = set.isEmpty();
-                if (!ret) {
-                    return false;
-                }
-            }
-        }
-        
-        return ret;
     }
 
     private boolean addEdgeIfFitting(final AttackPathSurface path, final AttackStatusEdge edge) {

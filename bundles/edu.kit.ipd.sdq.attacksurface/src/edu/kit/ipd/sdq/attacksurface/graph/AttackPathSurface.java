@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -31,15 +33,16 @@ import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
  * @version 1.0
  */
 public class AttackPathSurface implements Iterable<AttackStatusEdge> {
-    // TODO adapt
-
-    private final List<AttackStatusEdge> path; // TODO maybe adapt: use reversal edges here
-
+    private final List<AttackStatusEdge> path;
+    
+    private final Set<CredentialSurface> initiallyNecessaryCredentials;
+    
     /**
      * Creates a new empty {@link AttackPathSurface}.
      */
     public AttackPathSurface() {
         this.path = new LinkedList<>();
+        this.initiallyNecessaryCredentials = new HashSet<>();
     }
 
     /**
@@ -50,6 +53,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      */
     public AttackPathSurface(final List<AttackStatusEdge> path) {
         this.path = new LinkedList<>(path);
+        this.initiallyNecessaryCredentials = new HashSet<>();
     }
 
     /**
@@ -182,11 +186,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         ret.getPath().addAll(localPath);
         ret.setCriticalElement(findCorrectSystemIntegration(board, criticalEntity, null).getPcmelement());
 
-        ret.getCredentialsInitiallyNecessary(); // TODO implement finding of necessary credentials
+        ret.getCredentialsInitiallyNecessary().addAll(getCredentialsInitiallyNecessary(board));
         ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(board));
         return ret;
     }
-    
+
+
     private boolean iterateCauses(final BlackboardWrapper board, 
             final List<SystemIntegration> localPath, 
             final AttackStatusNodeContent attacked,
@@ -213,6 +218,22 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
                 .map(VulnerabilitySystemIntegration.class::cast).map(VulnerabilitySystemIntegration::getVulnerability)
                 .collect(Collectors.toSet());
+    }
+    
+    private Collection<UsageSpecification> getCredentialsInitiallyNecessary(final BlackboardWrapper board) {
+        return board.getSpecification().getUsagespecification()
+                .stream()
+                .filter(u -> this.initiallyNecessaryCredentials.contains(new CredentialSurface(u.getId())))
+                .collect(Collectors.toSet());
+    }
+
+    public AttackPathSurface fillCredentialsInitiallyNecessary() {
+        for (final var edge : this) {
+            for (final var node : edge) {
+                node.moveAllNecessaryCausesToSet(this.initiallyNecessaryCredentials);
+            }
+        }
+        return this;
     }
 
     private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
@@ -257,7 +278,6 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
             final String id) {
-        //TODO maybe also create rather than copy in the case of credentials
         return copySystemIntegration(
                 sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
     }

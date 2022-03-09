@@ -1,11 +1,12 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Objects;
 
 import com.google.common.graph.EndpointPair;
 
-public class AttackStatusEdge {
+public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
     private final AttackStatusEdgeContent content;
     private final EndpointPair<AttackStatusNodeContent> nodes;
     
@@ -52,5 +53,10 @@ public class AttackStatusEdge {
 
     public AttackPathSurface toPath() {
         return new AttackPathSurface(Arrays.asList(this));
+    }
+
+    @Override
+    public Iterator<AttackStatusNodeContent> iterator() {
+        return getNodes().iterator();
     }
 }

@@ -132,7 +132,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     @Test
     public void attackSurfacePathGenerationTest() {
         runUntilNotChangedIterations();
-        final var attackPaths = getAttackGraph().findAllAttackPaths();
+        final var attackPaths = getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
         
         final var attackPathsSet = new HashSet<>(attackPaths);
         final AttackPathSurface[] expectedPaths = {
@@ -227,7 +227,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     @Test
     public void attackPathGenerationTest() {
         final var pathsConverter = new AttackSurfaceAnalysis();
-        final var allAttackPathsSurface = getAttackGraph().findAllAttackPaths();
+        final var allAttackPathsSurface = getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
         final var attackPaths = pathsConverter.toAttackPaths(allAttackPathsSurface, getBlackboardWrapper());
         
         Assert.assertEquals(allAttackPathsSurface.size(), attackPaths.size());

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -52,11 +53,9 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         final var resChange = new ResourceContainerPropagationContext(wrapper, changes, getAttackGraph());
         resChange.calculateResourceContainerToLocalAssemblyContextPropagation();
     }
-
-    //TODO tests from context changes to assemblies (incl. getting credentials with vulnerabilities)
     
     @Test
-    public void compromiseCriticalContainerVulnerabilityThenCredentialTest() {
+    public void compromiseCriticalAssmblyVulnerabilityThenCredentialTest() {
         final var cweid = this.createCWEID(0);
         final var vuln = createCWEVulnerability(cweid, false, true);
         final var criticalEntity = getCriticalEntity();
@@ -72,6 +71,26 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         
         assertCompromisationStatus(false, true, criticalEntity, vuln.getId());
         runResourceToLocalAssemblyPropagation(getChanges());
+        assertCompromisationStatus(true, true, criticalEntity, null);
+    }
+    
+    @Test
+    public void compromiseCriticalComponentWithCredentialOnContainerTest() {
+        final var criticalEntity = getCriticalEntity();
+        final var containerOfCritical = getResource((AssemblyContext) criticalEntity);
+        integrateRoot(containerOfCritical);
+
+        runAssemblyResourcePropagation(getChanges());
+        runAssemblyToContextPropagation(getChanges());
+        
+        final var rootCred = createRootCredentialsIfNecessary();
+        final var surfacePaths = this.getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
+        surfacePaths.forEach(p -> {
+            final var creds = p.toAttackPath(getBlackboardWrapper(), criticalEntity, false).getCredentialsInitiallyNecessary();
+            Assert.assertEquals(1, creds.size());
+            Assert.assertEquals(rootCred.getId(), creds.get(0).getId());
+        });
+        assertCompromisationStatus(true, true, containerOfCritical, rootCred.getId());
         assertCompromisationStatus(true, true, criticalEntity, null);
     }
 }

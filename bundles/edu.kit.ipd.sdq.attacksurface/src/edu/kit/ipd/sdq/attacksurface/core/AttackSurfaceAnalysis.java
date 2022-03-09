@@ -59,7 +59,6 @@ public class AttackSurfaceAnalysis {
     private AttackGraph attackGraph;
 
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
-
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         CachePDP.instance().clearCache();
@@ -68,7 +67,6 @@ public class AttackSurfaceAnalysis {
         createInitialStructure(board);
         this.attackGraph = new AttackGraph(this.crtitcalEntity);
 
-        // TODO adapt
         // Calculate
         do {
             this.changePropagationDueToCredential.setChanged(false);
@@ -82,16 +80,16 @@ public class AttackSurfaceAnalysis {
 
         // create all attack paths
         this.attackGraph.resetVisitations();
-        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths();
+        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(board, this.changePropagationDueToCredential);
         this.changePropagationDueToCredential.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
 
         // cleanup
         removeReferencedAttacks(board);
-        
+
         // Clear caches
         CachePDP.instance().clearCache();
     }
-    
+
     /*
      * remove temporarily created referenced attacks
      */
@@ -140,85 +138,72 @@ public class AttackSurfaceAnalysis {
     }
 
     private boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
-        return FilterCriteriaHandling.isFiltered(board, this.attackGraph, path);
+        return AttackHandlingHelper.isFiltered(board, this.attackGraph, path);
     }
 
     private void createInitialStructure(BlackboardWrapper board) {
         final var repository = board.getModificationMarkRepository();
-        final var seedModification = repository.getSeedModifications();
-        final var attackers = seedModification.getSurfaceattackcomponent();
-        if (attackers == null) {
-            throw new IllegalStateException("No seed modification found");
-        }
+        final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(board);
 
         repository.getChangePropagationSteps().clear();
 
-        for (final var attacker : attackers) { // TODO at the moment only one attacker allowed
-            final var localAttacker = attacker.getAffectedElement();
-            final var criticalPCMElement = localAttacker.getCriticalElement();
-            this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
+        final var criticalPCMElement = localAttacker.getCriticalElement();
+        this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
 
-            final var listCredentialChanges = localAttacker.getAttacker().getCredentials().stream().map(context -> {
-                final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-                change.setAffectedElement(context);
-                return change;
-            }).collect(Collectors.toList());
+        final var listCredentialChanges = localAttacker.getAttacker().getCredentials().stream().map(context -> {
+            final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+            change.setAffectedElement(context);
+            return change;
+        }).collect(Collectors.toList());
 
-            this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
+        this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
 
-            // convert affectedResources to changes
-            final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResources().stream()
-                    .map(resource -> {
-                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-                        change.setAffectedElement(resource);
-                        return change;
-                    }).collect(Collectors.toList());
-            this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
+        // convert affectedResources to changes
+        final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResources().stream()
+                .map(resource -> {
+                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+                    change.setAffectedElement(resource);
+                    return change;
+                }).collect(Collectors.toList());
+        this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
-            addAllPossibleAttacks(board, localAttacker);
+        addAllPossibleAttacks(board, localAttacker);
 
-            // convert affectedLinkingResources to changes
-            final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
-                    .map(linkingResource -> {
-                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE
-                                .createCompromisedLinkingResource();
-                        change.setAffectedElement(linkingResource);
-                        return change;
-                    }).collect(Collectors.toList());
-            this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
+        // convert affectedLinkingResources to changes
+        final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
+                .map(linkingResource -> {
+                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
+                    change.setAffectedElement(linkingResource);
+                    return change;
+                }).collect(Collectors.toList());
+        this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
 
-        }
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
 
     }
 
     private void addAllPossibleAttacks(final BlackboardWrapper board, final SurfaceAttacker localAttacker) {
-        var vulnerabilities = board.getVulnerabilitySpecification().getVulnerabilities()
-                .stream()
+        var vulnerabilities = board.getVulnerabilitySpecification().getVulnerabilities().stream()
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
-                .map(VulnerabilitySystemIntegration.class::cast)
-                .map(VulnerabilitySystemIntegration::getVulnerability)
+                .map(VulnerabilitySystemIntegration.class::cast).map(VulnerabilitySystemIntegration::getVulnerability)
                 .collect(Collectors.toSet());
-        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
-            .stream()
-            .map(this::toAttack)
-            .flatMap(Set::stream)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toSet());
+        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities).stream().map(this::toAttack)
+                .flatMap(Set::stream).filter(Objects::nonNull).collect(Collectors.toSet());
         localAttacker.getAttacker().getAttacks().addAll(attacks);
     }
 
     private Set<Attack> toAttack(final Vulnerability vulnerability) {
         if (vulnerability instanceof CVEVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();;
-            final var cveVuln = (CVEVulnerability)vulnerability;
+            final Set<Attack> attacks = new HashSet<>();
+            ;
+            final var cveVuln = (CVEVulnerability) vulnerability;
             final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
             attack.setCategory(cveVuln.getCveID());
             attacks.add(attack);
             return attacks;
         } else if (vulnerability instanceof CWEBasedVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();;
-            final var cweVuln = (CWEBasedVulnerability)vulnerability;
+            final Set<Attack> attacks = new HashSet<>();
+            final var cweVuln = (CWEBasedVulnerability) vulnerability;
             for (final var id : cweVuln.getCweID()) {
                 final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
                 attack.setCategory(id);
@@ -226,7 +211,7 @@ public class AttackSurfaceAnalysis {
             }
             return attacks;
         }
-        return new HashSet<>(); //TODO or exception unknown vulnerability type
+        return new HashSet<>(); // TODO or exception unknown vulnerability type
     }
 
     /**
@@ -244,14 +229,13 @@ public class AttackSurfaceAnalysis {
         final var list = new ArrayList<AssemblyContextPropagation>();
         list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, 
-                this.attackGraph));
+        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackGraph));
         for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
-            //TODO to linking
+            // TODO to linking
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToContextPropagation);
         }
     }
@@ -267,13 +251,13 @@ public class AttackSurfaceAnalysis {
         final var list = new ArrayList<ResourceContainerPropagation>();
         list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential,
                 this.attackGraph));
-        list.add(new ResourceContainerPropagationContext(board,
-                this.changePropagationDueToCredential, this.attackGraph));
+        list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential,
+                this.attackGraph));
         for (final var analysis : list) { // TODO adapt
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
-            //TODO to linking
+            // TODO to linking
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToContextPropagation);
         }
     }

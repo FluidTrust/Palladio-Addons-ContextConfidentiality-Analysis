@@ -102,7 +102,6 @@ public class HelperUpdateCredentialChange {
         var referenceCredential = changeReference.getAffectedElement();
         var newCredential = toCompare.getAffectedElement();
 
-        //TODO use this also in filter criterion for usage specification comparison
         var attributesEquals = EcoreUtil.equals(referenceCredential.getAttribute(), newCredential.getAttribute());
         var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(),
                 newCredential.getAttributevalue());

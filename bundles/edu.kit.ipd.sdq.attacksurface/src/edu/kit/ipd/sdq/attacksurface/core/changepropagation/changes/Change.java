@@ -14,7 +14,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import com.google.common.graph.EndpointPair;
 
-import edu.kit.ipd.sdq.attacksurface.core.FilterCriteriaHandling;
+import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
@@ -116,7 +116,7 @@ public abstract class Change<T> {
 
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
-        return FilterCriteriaHandling.isFiltered(this.modelStorage, this.attackGraph, 
+        return AttackHandlingHelper.isFiltered(this.modelStorage, this.attackGraph, 
                 this.selectedSurfacePath.toAttackPath(modelStorage, 
                         criticalElement, true));
     }
