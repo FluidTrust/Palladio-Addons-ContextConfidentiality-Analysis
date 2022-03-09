@@ -50,6 +50,19 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      * initial path.
      * 
      * @param path - the path as a list of {@link AttackStatusEdge}
+     * @param initiallyNecessaryCredentials - initially necessary credentials list
+     */
+    private AttackPathSurface(final List<AttackStatusEdge> path,
+            final Set<CredentialSurface> initiallyNecessaryCredentials) {
+        this.path = new LinkedList<>(path);
+        this.initiallyNecessaryCredentials = new HashSet<>(initiallyNecessaryCredentials);
+    }
+    
+    /**
+     * Creates a new {@link AttackPathSurface} with a copy of the given list as an
+     * initial path.
+     * 
+     * @param path - the path as a list of {@link AttackStatusEdge}
      */
     public AttackPathSurface(final List<AttackStatusEdge> path) {
         this.path = new LinkedList<>(path);
@@ -105,7 +118,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      * @return a copy of the path (only the list is copied, not the edges)
      */
     public AttackPathSurface getCopy() {
-        return new AttackPathSurface(new ArrayList<>(this.path));
+        return new AttackPathSurface(this.path, this.initiallyNecessaryCredentials);
     }
 
     @Override
@@ -129,10 +142,11 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         AttackPathSurface other = (AttackPathSurface) obj;
         return Objects.equals(path, other.path);
     }
-
+    
     @Override
     public String toString() {
-        return "AttackPathSurface [path=" + path + "]";
+        return "AttackPathSurface [path=" + path + ", initiallyNecessaryCredentials=" + initiallyNecessaryCredentials
+                + "]";
     }
 
     public AttackPathSurface remove(int index) {
@@ -230,7 +244,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public AttackPathSurface fillCredentialsInitiallyNecessary() {
         for (final var edge : this) {
             for (final var node : edge) {
-                node.moveAllNecessaryCausesToSet(this.initiallyNecessaryCredentials);
+                node.copyAllNecessaryCausesToSet(this.initiallyNecessaryCredentials);
             }
         }
         return this;
@@ -294,5 +308,11 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
         return sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
                 .orElse(sysIntegrations.get(0));
+    }
+
+    public boolean containsInitiallyNecessaryCredentials() {
+        return path.stream().anyMatch(e -> this.initiallyNecessaryCredentials
+                .stream()
+                .allMatch(c -> e.getContent().contains(c.getCauseId())));
     }
 }

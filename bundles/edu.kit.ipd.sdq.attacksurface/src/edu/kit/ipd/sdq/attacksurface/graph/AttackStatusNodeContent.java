@@ -116,8 +116,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         this.initiallyNecessaryCauses.addAll(necessaryCauses);
     }
     
-    public void moveAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) {
+    public void copyAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) {
         this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCauseId())));
-        this.initiallyNecessaryCauses.clear();
     }
 }

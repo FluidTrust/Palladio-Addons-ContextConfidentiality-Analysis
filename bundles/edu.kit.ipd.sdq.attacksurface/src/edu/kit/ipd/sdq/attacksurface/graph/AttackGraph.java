@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -21,6 +22,9 @@ import com.google.common.graph.ValueGraphBuilder;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.AssemblyContextContext;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.AssemblyContextVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -241,31 +245,41 @@ public class AttackGraph {
      * 
      //TODO: adapt this javadoc: params
      * @return all possible attack paths
-     */
+     *
     public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
-        final List<AttackPathSurface> allPaths = new ArrayList<>();
-
+        return findAllAttackPaths(board, changes, new ArrayList<>());
+    }*/
+    
+    public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
+        List<AttackPathSurface> allPaths = new ArrayList<>();
+        
         Traverser<AttackStatusNodeContent> traverser = Traverser.forGraph(copy().graph);
         final var dfsIterable = traverser.depthFirstPreOrder(this.root);
+        boolean isChanged = false;
         for (final var nodeContentToFind : dfsIterable) {
-            final var nodeContent = findNode(nodeContentToFind);
-            attackNodeContentWithInitialCredentialIfNecessary(board, nodeContent, changes);
-            if (nodeContent.isAttacked()) {
-                final var children = this.getChildrenOfNode(nodeContent);
+            final var node = findNode(nodeContentToFind);
+            isChanged |= attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
+            if (node.isAttacked()) {
+                final var children = this.getChildrenOfNode(node);
                 for (final var child : children) {
-                    final var edgeValue = this.graph.edgeValue(nodeContent, child).orElse(null);
-                    final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(nodeContent, child));
+                    final var edgeValue = this.graph.edgeValue(node, child).orElse(null);
+                    final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(node, child));
                     addEdge(allPaths, edge);
                 }
             }
         }
-
+        if (isChanged) {
+            allPaths = findAllAttackPaths(board, changes)
+                    .stream()
+                    .filter(AttackPathSurface::containsInitiallyNecessaryCredentials)
+                    .collect(Collectors.toList());
+        }
         // remove duplicate paths and partial paths
         return allPaths.stream()
                 .distinct()
                 .filter(p -> !p.isEmpty())
-                .map(AttackPathSurface::fillCredentialsInitiallyNecessary)
                 .filter(p -> p.get(p.size() - 1).getNodes().target().equals(this.root))
+                .map(AttackPathSurface::fillCredentialsInitiallyNecessary)
                 .collect(Collectors.toList());
     }
     
@@ -274,14 +288,26 @@ public class AttackGraph {
         return new AttackGraph(this.root, copyGraph);
     }
 
-    private void attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
-            final AttackStatusNodeContent nodeContent, final CredentialChange changes) {
-        AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board, this, nodeContent);
-        if (nodeContent.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
-            final var resChange = new ResourceContainerPropagationContext(board, 
-                changes, this);
-            resChange.calculateResourceContainerToLocalAssemblyContextPropagation();
+    private boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
+            final AttackStatusNodeContent node, final CredentialChange changes) {
+        final boolean isCompromised = 
+                AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(
+                        board, this, node);
+        if (isCompromised && node.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
+            final var dataHandler =  new DataHandlerAttacker(changes);
+            final var attackInnerHandler = new AssemblyContextContext(board, dataHandler, this);
+            attackInnerHandler.attackAssemblyContext(getContainedComponents(node), changes, 
+                    node.getContainedElement(), true);
         }
+        return isCompromised;
+    }
+
+    private List<AssemblyContext> getContainedComponents(AttackStatusNodeContent containerNode) {
+        return this.getParentsOfNode(containerNode)
+                .stream()
+                .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
+                .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext())
+                .collect(Collectors.toList());
     }
 
     private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge) {

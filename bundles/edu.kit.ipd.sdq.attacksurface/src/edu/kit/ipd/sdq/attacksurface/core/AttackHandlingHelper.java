@@ -50,7 +50,7 @@ public final class AttackHandlingHelper {
                 .getAffectedElement();
     }
 
-    public static void attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
+    public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
             final AttackGraph attackGraph, final AttackStatusNodeContent nodeContent) {
         final var node = attackGraph.findNode(nodeContent);
         final Set<CVSurface> credentialCauses = getCredentialIntegrationCauses(board, attackGraph, node);
@@ -61,7 +61,9 @@ public final class AttackHandlingHelper {
             attackGraph.compromiseSelectedNode(necessaryCauses, node);
             node.addInitiallyNecessaryCredentials(necessaryCauses);
             attackGraph.setSelectedNode(selectedBefore);
+            return true;
         }
+        return false;
     }
 
     private static Set<CVSurface> getNecessaryCauses(Set<CVSurface> credentialCauses, AttackGraph attackGraph,

@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
+
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
@@ -14,6 +16,8 @@ import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
@@ -78,17 +82,25 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     public void compromiseCriticalComponentWithCredentialOnContainerTest() {
         final var criticalEntity = getCriticalEntity();
         final var containerOfCritical = getResource((AssemblyContext) criticalEntity);
+        final var containerNodeContent = new AttackStatusNodeContent(containerOfCritical);
         integrateRoot(containerOfCritical);
 
         runAssemblyResourcePropagation(getChanges());
         runAssemblyToContextPropagation(getChanges());
         
         final var rootCred = createRootCredentialsIfNecessary();
+        final var rootCauseId = rootCred.getId();
         final var surfacePaths = this.getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
         surfacePaths.forEach(p -> {
             final var creds = p.toAttackPath(getBlackboardWrapper(), criticalEntity, false).getCredentialsInitiallyNecessary();
+            System.out.println("creds= " + creds.size() + " | " + p);
             Assert.assertEquals(1, creds.size());
             Assert.assertEquals(rootCred.getId(), creds.get(0).getId());
+            final Iterable<AttackStatusEdge> iter = p::iterator;
+            final var list = new ArrayList<AttackStatusEdge>();
+            iter.forEach(list::add);
+            Assert.assertTrue(list.stream().anyMatch(e -> e.getNodes().target().equals(containerNodeContent) 
+                    && e.getContent().contains(rootCauseId)));
         });
         assertCompromisationStatus(true, true, containerOfCritical, rootCred.getId());
         assertCompromisationStatus(true, true, criticalEntity, null);
