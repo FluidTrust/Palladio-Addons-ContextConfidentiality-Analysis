@@ -351,7 +351,7 @@ public class AttackGraph {
                 .stream()
                 .filter(e -> e.source().equals(start))
                 .filter(e -> e.target().equals(end))
-                .map(e -> this.graph.edgeValue(e))
+                .map(this.graph::edgeValue)
                 .findFirst().orElse(null);
         return opt != null ? opt.orElse(null) : null;
     }

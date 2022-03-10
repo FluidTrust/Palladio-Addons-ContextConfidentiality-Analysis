@@ -52,6 +52,26 @@ public class AttackSurfaceAnalysis {
     private AttackGraph attackGraph;
 
     /**
+     * Constructor, when {@link #runChangePropagationAnalysis(BlackboardWrapper)} is called.
+     */
+    public AttackSurfaceAnalysis() {
+        this(false, null);
+    }
+    
+    /**
+     * Constructor for tests, initializes the initial structure.
+     * 
+     * @param doInitialize - if the initial structure should be already created
+     * @param board - the model storage
+     */
+    public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper board) {
+        if (doInitialize) {
+            this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+            this.createInitialStructure(board);
+        }
+    }
+    
+    /**
      * Runs the analysis.
      * 
      * @param board - the model storage
@@ -120,12 +140,42 @@ public class AttackSurfaceAnalysis {
         for (final var pathSurface : allAttackPathsSurface) {
             final var attackPathPath = pathSurface.toAttackPath(board, this.crtitcalEntity, false);
             if (!attackPathPath.getPath().isEmpty() && !isFiltered(board, attackPathPath)
-                    && isLastElementCriticalElement(attackPathPath)) {
+                    && isLastElementCriticalElement(attackPathPath)
+                    && !contains(allPaths, attackPathPath)) {
                 allPaths.add(attackPathPath);
             }
         }
 
         return allPaths;
+    }
+    
+    private boolean contains(final List<AttackPath> allPaths, final AttackPath newPath) {
+        return allPaths.stream().anyMatch(p -> isPathEquals(p, newPath));
+    }
+
+    private boolean isPathEquals(AttackPath expected, AttackPath actual) {
+        if (expected.getPath().size() != actual.getPath().size()) {
+            return false;
+        }
+        final int size = expected.getPath().size();
+        for (int i = 0; i < size; i++) {
+            final var sysIntegActual = actual.getPath().get(i);
+            final var actualEntity = PCMElementType.typeOf(sysIntegActual.getPcmelement())
+                    .getEntity(sysIntegActual.getPcmelement());
+            final var sysIntegExpected = expected.getPath().get(i);
+            final boolean elementEquals = 
+                    PCMElementType.typeOf(sysIntegExpected.getPcmelement())
+                        .getElementIdEqualityPredicate(actualEntity).test(sysIntegExpected);
+            if (!elementEquals) {
+                return false;
+            }
+            final boolean idOfContentEquals = 
+                    Objects.equals(sysIntegExpected.getIdOfContent(), sysIntegActual.getIdOfContent());
+            if (!idOfContentEquals) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private boolean isLastElementCriticalElement(final AttackPath attackPath) {
@@ -136,7 +186,7 @@ public class AttackSurfaceAnalysis {
     }
 
     private boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
-        return AttackHandlingHelper.isFiltered(board, path);
+        return AttackHandlingHelper.isFiltered(board, path, false);
     }
 
     private void createInitialStructure(BlackboardWrapper board) {

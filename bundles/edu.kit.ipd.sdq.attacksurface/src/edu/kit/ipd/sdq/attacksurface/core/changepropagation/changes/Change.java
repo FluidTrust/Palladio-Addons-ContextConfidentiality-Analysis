@@ -138,7 +138,7 @@ public abstract class Change<T> {
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
         return AttackHandlingHelper.isFiltered(this.modelStorage, this.selectedSurfacePath.toAttackPath(modelStorage, 
-                criticalElement, true));
+                criticalElement, true), true);
     }
 
     /**

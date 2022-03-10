@@ -11,10 +11,12 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AvailabilityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
@@ -156,6 +158,20 @@ public abstract class AbstractModelTest extends BaseTest {
     protected SurfaceAttacker getSurfaceAttacker() {
         assert attacker.getAttackers().getSurfaceattacker().size() == 1;
         return attacker.getAttackers().getSurfaceattacker().get(0); 
+    }
+
+    protected void createAvailabilityImpactFilter() {
+        final var filterCriteria = this.getSurfaceAttacker().getFiltercriteria();
+        final var impactFilter = AttackerFactory.eINSTANCE.createImpactVulnerabilityFilterCriterion();
+        impactFilter.setAvailabilityImpactMinimum(AvailabilityImpact.HIGH);
+        filterCriteria.add(impactFilter);
+    }
+    
+    protected void createCredentialFilter() {
+        final var filterCriteria = this.getSurfaceAttacker().getFiltercriteria();
+        final var impactFilter = AttackerFactory.eINSTANCE.createInitialCredentialFilterCriterion();
+        impactFilter.getProhibitedInitialCredentials().add(createRootCredentialsIfNecessary());
+        filterCriteria.add(impactFilter);
     }
 
     protected ContextChange toChange(UsageSpecification credentials) {

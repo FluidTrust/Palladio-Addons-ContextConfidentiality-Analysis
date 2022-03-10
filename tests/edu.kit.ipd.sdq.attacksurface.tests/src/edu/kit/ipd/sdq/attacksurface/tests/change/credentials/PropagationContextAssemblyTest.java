@@ -10,9 +10,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AvailabilityImpact;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
+import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
@@ -91,6 +94,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         final var rootCred = createRootCredentialsIfNecessary();
         final var rootCauseId = rootCred.getId();
         final var surfacePaths = this.getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
+        Assert.assertFalse(surfacePaths.isEmpty());
         surfacePaths.forEach(p -> {
             final var creds = p.toAttackPath(getBlackboardWrapper(), criticalEntity, false).getCredentialsInitiallyNecessary();
             System.out.println("creds= " + creds.size() + " | " + p);
@@ -104,5 +108,22 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         });
         assertCompromisationStatus(true, true, containerOfCritical, rootCred.getId());
         assertCompromisationStatus(true, true, criticalEntity, null);
+    }
+    
+    @Test
+    public void filteredCriticalComponentWithCredentialOnContainerTest() {
+        createCredentialFilter();
+        final var criticalEntity = getCriticalEntity();
+        final var containerOfCritical = getResource((AssemblyContext) criticalEntity);
+        integrateRoot(containerOfCritical);
+
+        runAssemblyResourcePropagation(getChanges());
+        runAssemblyToContextPropagation(getChanges());
+        
+        final var rootCred = createRootCredentialsIfNecessary();
+        final var surfacePaths = this.getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
+        final var pathsConverter = new AttackSurfaceAnalysis(true, getBlackboardWrapper());
+        final var paths = pathsConverter.toAttackPaths(surfacePaths, getBlackboardWrapper());
+        Assert.assertTrue(paths.isEmpty());
     }
 }

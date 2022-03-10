@@ -194,10 +194,16 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                     localPath.add(attackedSysInteg);
                 }
             } else {
-                if (!attacker.isCompromised()) {
-                    // add default system integration (start of attack)
-                    final var sysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
-                    localPath.add(sysInteg);
+                if (i == 0) {
+                    final var edgeContent = edge.getContent();
+                    Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
+                    boolean areCausesAdded = iterateCauses(board, localPath, attacker, iterable);
+                    iterable = edgeContent::getContainedSetCIterator;
+                    areCausesAdded |= iterateCauses(board, localPath, attacker, iterable);
+                    if (!areCausesAdded) { // add default integration
+                        final var attackedSysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                        localPath.add(attackedSysInteg);
+                    }
                 }
 
                 final var edgeContent = edge.getContent();
@@ -213,6 +219,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         }
 
         final var ret = AttackerFactory.eINSTANCE.createAttackPath();
+        if (localPath.size() == 1) { // adding attack start, if not there
+            final var startElement = localPath.get(0).getPcmelement();
+            final var startEntity = PCMElementType.typeOf(startElement).getEntity(startElement);
+            final var startOfAttack = generateDefaultSystemIntegration(startEntity);
+            localPath.add(0, startOfAttack);
+        }
         ret.getPath().addAll(localPath);
         ret.setCriticalElement(findCorrectSystemIntegration(board, criticalEntity, null).getPcmelement());
 

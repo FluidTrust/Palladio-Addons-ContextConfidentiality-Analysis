@@ -32,14 +32,16 @@ public final class AttackHandlingHelper {
      * 
      * @param board - the model storage
      * @param path - the path
+     * @param isEarly - whether this call is an early filtering
      * @return whether the last element in the given path is filtered
      */
-    public static boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
+    public static boolean isFiltered(final BlackboardWrapper board, final AttackPath path,
+            final boolean isEarly) {
         final var surfaceAttacker = getSurfaceAttacker(board);
         final var filterCriteria = surfaceAttacker.getFiltercriteria();
         final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
         for (final var filterCriterion : filterCriteria) {
-            if (filterCriterion.isFilteringEarly()
+            if ( (!isEarly || filterCriterion.isFilteringEarly())
                     && filterCriterion.isElementFiltered(systemIntegration, surfaceAttacker, path)) {
                 return true;
             }
