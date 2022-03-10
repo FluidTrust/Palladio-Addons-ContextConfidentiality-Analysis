@@ -8,7 +8,7 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPRes
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
-import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 
 /**

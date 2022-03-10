@@ -14,7 +14,7 @@ import org.palladiosimulator.pcm.repository.Signature;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 
 /**
  * Represents a querying for credentials using only {@link CredentialSystemIntegration}s for the decision.

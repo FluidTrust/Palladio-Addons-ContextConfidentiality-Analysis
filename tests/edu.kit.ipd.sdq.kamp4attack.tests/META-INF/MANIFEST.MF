@@ -10,10 +10,12 @@ Require-Bundle: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
  org.junit,
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.pcm.confidentiality.attacker,
- edu.kit.ipd.sdq.kamp4attack,
  org.palladiosimulator.pcm.confidentiality.context.analysis.testframework,
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
  org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp,
  org.palladiosimulator.pcm.confidentiality.context.xacml.generation,
  org.slf4j.api;bundle-version="1.7.30",
- org.apache.log4j;bundle-version="1.2.15"
+ org.apache.log4j;bundle-version="1.2.15",
+ edu.kit.ipd.sdq.kamp4attack.api,
+ edu.kit.ipd.sdq.kamp4attack
+Import-Package: edu.kit.ipd.sdq.kamp4attack.core

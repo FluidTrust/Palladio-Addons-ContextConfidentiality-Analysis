@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.kamp4attack.core;
+package edu.kit.ipd.sdq.kamp4attack.core.api;
 
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
@@ -17,7 +17,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author Maximilian Walter
  *
  */
-
 public class BlackboardWrapper {
 
     private final System assembly;

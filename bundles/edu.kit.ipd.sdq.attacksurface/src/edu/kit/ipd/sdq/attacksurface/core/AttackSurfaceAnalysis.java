@@ -29,7 +29,8 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceCont
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
@@ -43,7 +44,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author ugnwq
  */
 @Component
-public class AttackSurfaceAnalysis {
+public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
     private CredentialChange changePropagationDueToCredential;
 
