@@ -5,11 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodSpecification;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
-import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
  * Represents a {@link NodeContent} containing the attack status for an element.

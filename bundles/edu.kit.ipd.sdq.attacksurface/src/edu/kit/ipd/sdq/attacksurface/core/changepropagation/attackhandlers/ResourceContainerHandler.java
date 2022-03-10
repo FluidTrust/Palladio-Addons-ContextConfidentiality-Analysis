@@ -42,7 +42,6 @@ public abstract class ResourceContainerHandler extends AttackHandler {
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
         final var newCompromisedResources = filterExistingEdges(compromisedResources, source);
         if (!newCompromisedResources.isEmpty()) {
-            //handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
             final var selectedNodeBefore = getAttackGraph().getSelectedNode();
             final var attackSource = new AttackStatusNodeContent(source);
@@ -55,19 +54,6 @@ public abstract class ResourceContainerHandler extends AttackHandler {
             getAttackGraph().setSelectedNode(selectedNodeBefore);
         }
     }
-
-    /* TODO private void handleDataExtraction(final Collection<CompromisedResource> resources) {
- 
-        Collection<ResourceContainer> filteredComponents = resources.stream()
-                .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
-
-        filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
-
-        final var dataList = filteredComponents.stream()
-                .flatMap(resource -> DataHandler.getData(resource, getModelStorage().getAllocation()).stream())
-                .distinct().collect(Collectors.toList());
-        getDataHandler().addData(dataList);
-    }*/
 
     /**
      * Attacks the given resource container from the given source with the correct way of attacking it

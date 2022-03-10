@@ -53,7 +53,6 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
         
         final var newCompromisedComponents = filterExistingEdges(compromisedComponents, source);
         if (!newCompromisedComponents.isEmpty()) {
-            //handleDataExtraction(newCompromisedComponents);
             change.setChanged(true);
             final var selectedNodeBefore = getAttackGraph().getSelectedNode();
             final var attackSource = new AttackStatusNodeContent(source);
@@ -63,24 +62,8 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
                 compromise(causingElements, compromisedNode, attackSource);
             }
             getAttackGraph().setSelectedNode(selectedNodeBefore);
-            
-            /*TODO CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
-                    change);*/
         }
     }
-
-    /*TODO private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
-
-        Collection<AssemblyContext> filteredComponents = components.stream()
-                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
-
-        filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
-
-        final var dataList = filteredComponents.stream().distinct()
-                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
-
-        getDataHandler().addData(dataList);
-    }*/
 
     /**
      * Attacks the given assembly context from the given source with the correct way of attacking it

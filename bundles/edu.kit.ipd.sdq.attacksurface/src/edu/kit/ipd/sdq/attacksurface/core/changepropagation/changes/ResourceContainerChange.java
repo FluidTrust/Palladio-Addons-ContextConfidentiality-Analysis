@@ -8,11 +8,9 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
@@ -42,7 +40,6 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToContextPropagation() {
-        // TODO adapt if context change instances are not there
         final var listInfectedContainer = getInfectedResourceContainers();
 
         final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
@@ -58,7 +55,6 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var listInfectedContainers = getInfectedResourceContainers();
 
         final var selectedNode = this.attackGraph.getSelectedNode();
-        final var selectedEntity = selectedNode.getContainedElement();
 
         final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
         if (listInfectedContainers.contains(relevantResourceContainer)) {
@@ -86,16 +82,12 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         }
     }
 
-    protected abstract void handleSeff(CredentialChange changes, List<AssemblyContext> components,
-            ResourceContainer source);
-
     protected abstract AssemblyContextHandler getAssemblyHandler();
 
     // attack inner assemblies from already compromised res. containers
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
         final var selectedNode = this.attackGraph.getSelectedNode();
-        final var selectedEntity = selectedNode.getContainedElement();
 
         final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
         final var listInfectedContainers = getInfectedResourceContainers();
@@ -108,7 +100,6 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var handler = getAssemblyHandler();
             handler.attackAssemblyContext(localComponents, this.changes, relevantResourceContainer, true);
 
-            // TODO v move this block out of this if
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var resource : connectedResourceContainers) {
                 final var childNode = this.attackGraph.addOrFindChild(selectedNode,
@@ -151,18 +142,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToLinkingResourcePropagation() {
-        // TODO adapt
-        /*
-         * final var listInfectedContainer = getInfectedResourceContainers();
-         * 
-         * for (final var resource : listInfectedContainer) { final var linkinResources
-         * = getLinkingResource(resource).stream() .filter(e ->
-         * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-         * final var handler = getLinkingHandler();
-         * handler.attackLinkingResource(linkinResources, this.changes, resource); }
-         */
+        //TODO implement
     }
-
-    protected abstract LinkingResourceHandler getLinkingHandler();
 
 }

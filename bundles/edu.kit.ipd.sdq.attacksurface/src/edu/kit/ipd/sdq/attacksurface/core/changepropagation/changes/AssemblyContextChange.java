@@ -10,14 +10,12 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
@@ -78,48 +76,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                     finalSelectedNode, this::calculateAssemblyContextToRemoteResourcePropagation, true);
         }
     }
-
-    /*TODO private void handleSeff(final AssemblyContext sourceComponent) {
-        final var system = this.modelStorage.getAssembly();
-        // TODO simplify stream expression directly to components!
-        final var targetConnectors = getConnectedConnectors(sourceComponent, system);
-
-        final var specification = targetConnectors.stream()
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), sourceComponent))
-                .flatMap(role -> {
-
-                    final var signatures = role.getProvidedRole_AssemblyConnector()
-                            .getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface();
-
-                    final var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
-                            .getEncapsulatedComponent__AssemblyContext();
-
-                    if (componentRepository instanceof BasicComponent) {
-                        final var basicComponent = (BasicComponent) componentRepository;
-                        return basicComponent.getServiceEffectSpecifications__BasicComponent().stream()
-                                .filter(seff -> signatures.stream().anyMatch( // find only seff of
-                                        // role
-                                        signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
-
-                                .map(seff -> {
-                                    final var methodspecification = StructureFactory.eINSTANCE
-                                            .createServiceRestriction();
-                                    methodspecification
-                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
-                                    methodspecification.setService((ResourceDemandingSEFF) seff);
-                                    methodspecification
-                                            .setSignature(methodspecification.getService().getDescribedService__SEFF());
-                                    return methodspecification;
-                                });
-
-                    }
-                    return Stream.empty();
-                }).collect(Collectors.toList());
-        this.handleSeff(this.changes, specification, sourceComponent);
-    }*/
-
-    protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> services,
-            AssemblyContext source);
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
@@ -230,8 +186,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             if (childNode != null) {
                 final var childComponent = connectedComponent;
                 handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, childComponent, false);
-                // TODO this.handleSeff(childComponent);
-
                 // select the child node and recursively call the propagation call
                 this.callRecursionIfNecessary(childNode, this::calculateAssemblyContextToAssemblyContextPropagation,
                         selectedNode);
@@ -287,14 +241,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         for (var component : listRelevantContexts) {
             final var handler = getAssemblyHandler();
             handler.attackAssemblyContext(listRelevantContexts, changes, component, false);
-
-            /*
-             * TODO var listServices =
-             * CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
-             * .filter(e ->
-             * !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-             */
-            // TODO handleSeff(this.changes, listServices, component);
         }
 
         // recursion for attacking assemblies inside other connected containers
@@ -344,21 +290,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
-        // TODO adapt
-
-        /*
-         * final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
-         * 
-         * for (final var component : listCompromisedAssemblyContexts) { final var
-         * resource = getResourceContainer(component); final var
-         * reachableLinkingResources = getLinkingResource(resource).stream() .filter(e
-         * -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
-         * final var handler = getLinkingHandler();
-         * handler.attackLinkingResource(reachableLinkingResources, this.changes,
-         * component); }
-         */
+        // TODO implement
     }
-
-    protected abstract LinkingResourceHandler getLinkingHandler();
 
 }
