@@ -1,9 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -24,9 +22,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.RoleSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.context.helper.PolicyHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -34,13 +30,14 @@ import org.palladiosimulator.pcm.repository.Signature;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.credentialquerying.CredentialQuerying;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.credentialquerying.SimpleCredentialQuerying;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
@@ -52,10 +49,11 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author majuwa
  * @author ugnwq
  */
-public abstract class AttackHandler {
+public abstract class AttackHandler implements CredentialQuerying {
     private final BlackboardWrapper modelStorage;
     private final DataHandlerAttacker dataHandler;
     private final AttackGraph attackGraph;
+    private final CredentialQuerying querying;
 
     public AttackHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
             final AttackGraph attackGraph) {
@@ -66,9 +64,11 @@ public abstract class AttackHandler {
         this.modelStorage = modelStorage;
         this.dataHandler = dataHandler;
         this.attackGraph = attackGraph;
+        this.querying = new SimpleCredentialQuerying(modelStorage);
     }
 
-    protected BlackboardWrapper getModelStorage() {
+    @Override
+    public BlackboardWrapper getModelStorage() {
         return this.modelStorage;
     }
 
@@ -160,61 +160,11 @@ public abstract class AttackHandler {
         return list;
 
     }
-
-    /**
-     * 
-     * Sends an access request to the policy decision point (PDP). <br \> <b>Important:</b> before
-     * the request the PDP must be initialised. This can be done with
-     * {@link Evaluate#initialize(String)}
-     *
-     * @param target
-     *            requested system entity
-     * @param credentials
-     *            current credentials
-     * @return
-     *
-     * @see Evaluate#initialize(String)
-     */
-    protected Optional<PDPResult> queryAccessForEntity(final Entity target,
+    
+    @Override
+    public Optional<PDPResult> queryAccessForEntity(final Entity target,
             final List<? extends UsageSpecification> credentials, final Signature signature) {
-        final var listComponent = new LinkedList<>(Arrays.asList(target));
-        final var listSubject = new ArrayList<UsageSpecification>();
-        final var listEnvironment = new ArrayList<UsageSpecification>();
-        final var listResource = new ArrayList<UsageSpecification>();
-        final var listXML = new ArrayList<UsageSpecification>();
-        final var listOperation = new ArrayList<UsageSpecification>();
-
-        if (signature == null) {
-            PolicyHelper.createRequestAttributes(listComponent, credentials, listSubject, listEnvironment, listResource,
-                    listXML);
-        } else {
-            var result = CachePDP.instance().get(target, signature);
-            if (result.isPresent()) {
-                return result;
-            }
-            PolicyHelper.createRequestAttributes(signature, listComponent, credentials, listSubject, listEnvironment,
-                    listResource, listOperation, listXML);
-        }
-
-        final var result = getModelStorage().getEval().evaluate(listSubject, listEnvironment, listResource,
-                listOperation, listXML);
-        if (result.isPresent() && signature != null) {
-            CachePDP.instance().insert(target, signature, result.get());
-        }
-        return result;
-    }
-
-    protected Optional<PDPResult> queryAccessForEntity(final Entity target,
-            final List<? extends UsageSpecification> credentials) {
-        var result = CachePDP.instance().get(target);
-        if (result.isPresent()) {
-            return result;
-        }
-        result = this.queryAccessForEntity(target, credentials, null);
-        if (result.isPresent()) {
-            CachePDP.instance().insert(target, result.get());
-        }
-        return result;
+        return this.querying.queryAccessForEntity(target, credentials, signature);
     }
 
     // TODO: Think about better location
@@ -343,6 +293,11 @@ public abstract class AttackHandler {
         return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
     }
 
+    /**
+     * 
+     * @param attacked - the attacked modify entity
+     * @return the set of cause IDs of the causes of the attacked entity
+     */
     protected final Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
         return getCauses(attacked.getCausingElements());
     }
