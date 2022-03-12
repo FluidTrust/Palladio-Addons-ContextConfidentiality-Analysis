@@ -1,13 +1,13 @@
 package org.palladiosimulator.pcm.confidentiality.attacker.variation.output;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackComplexity;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedData;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
@@ -17,10 +17,10 @@ public class AttackerComponentPathDTO {
     private String attackername;
     private String startComponent;
     private String attackComplexity;
-    private final List<String> data;
+    private final Set<String> data;
 
     public AttackerComponentPathDTO(final KAMP4attackModificationRepository repository) {
-        this.data = new ArrayList<>();
+        this.data = new HashSet<>();
 
         setAttackComplexity(repository);
         setStartComponent(repository);
@@ -39,7 +39,7 @@ public class AttackerComponentPathDTO {
         return this.attackComplexity;
     }
 
-    public final List<String> getData() {
+    public final Set<String> getData() {
         return this.data;
     }
 
@@ -89,7 +89,7 @@ public class AttackerComponentPathDTO {
 
     @Override
     public int hashCode() {
-        return Objects.hash(attackComplexity, attackername, data, startComponent);
+        return Objects.hash(this.attackComplexity, this.attackername, this.data, this.startComponent);
     }
 
     @Override
@@ -144,8 +144,13 @@ public class AttackerComponentPathDTO {
 
         credentialChange.getCompromiseddata().stream().map(CompromisedData::getAffectedElement).map(data -> {
 
-            final var sourceName = data.getSource().getEntityName();
-            final var sourceID = data.getSource().getId();
+            final var sourceName = data.getSource() instanceof ServiceRestriction
+                    ? ((ServiceRestriction) data.getSource()).getAssemblycontext().getEntityName()
+                    : data.getSource().getEntityName();
+            final var sourceID = data.getSource() instanceof ServiceRestriction
+                    ? ((ServiceRestriction) data.getSource()).getAssemblycontext().getId()
+                    : data.getSource().getId();
+
             final var methodName = data.getMethod().getEntityName();
             final var variableName = data.getReferenceName() == null ? "RETURN" : data.getReferenceName();
             return String.format("%s:%s:%s:%s", sourceName, sourceID, methodName, variableName);

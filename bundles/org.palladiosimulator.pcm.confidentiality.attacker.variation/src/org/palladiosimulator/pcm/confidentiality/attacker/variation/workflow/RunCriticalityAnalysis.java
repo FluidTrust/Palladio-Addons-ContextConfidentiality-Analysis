@@ -28,6 +28,7 @@ import edu.kit.kastel.dsis.fluidtrust.datacharacteristic.analysis.jobs.Propagate
 public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<KeyValueMDSDBlackboard> {
 
     protected static final String PCM_MODEL_PARTITION = "pcmModels";
+    private static final String DATA_ID = "dataLocationID";
 
     private final VariationWorkflowConfig config;
 
@@ -43,18 +44,18 @@ public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<Key
         final var job = new SequentialBlackboardInteractingJob<KeyValueMDSDBlackboard>();
         job.setBlackboard(new KeyValueMDSDBlackboard());
         try {
-            final var usageModelLocation = new ModelLocation(PCM_MODEL_PARTITION, this.getURI(folderURI, "usagemodel"));
-            final var allocationLocation = new ModelLocation(PCM_MODEL_PARTITION, this.getURI(folderURI, "allocation"));
+            final var usageModelLocation = new ModelLocation(PCM_MODEL_PARTITION, getURI(folderURI, "usagemodel"));
+            final var allocationLocation = new ModelLocation(PCM_MODEL_PARTITION, getURI(folderURI, "allocation"));
             final var loadUsageModelJob = new LoadModelJob<KeyValueMDSDBlackboard>(
                     Arrays.asList(usageModelLocation, allocationLocation));
             job.add(loadUsageModelJob);
-            final var runAnalysisJob = new PropagateCharacteristicJob(usageModelLocation, allocationLocation, "test");
+            final var runAnalysisJob = new PropagateCharacteristicJob(usageModelLocation, allocationLocation, DATA_ID);
             job.add(runAnalysisJob);
             job.execute(monitor);
-            final var data = job.getBlackboard().get("test");
+            final var data = job.getBlackboard().get(DATA_ID);
             final var gson = new Gson();
             final var outputString = gson.toJson(data.get());
-            this.getBlackboard().put(VariationWorkflowConfig.ID_JSON_DATA, outputString);
+            getBlackboard().put(VariationWorkflowConfig.ID_JSON_DATA, outputString);
 
         } catch (IOException | URISyntaxException e) {
             throw new JobFailedException("Failure finding models", e);
@@ -75,7 +76,7 @@ public class RunCriticalityAnalysis extends AbstractBlackboardInteractingJob<Key
     }
 
     private URI getURI(final URI folder, final String modelFileExtension) throws IOException, URISyntaxException {
-        final var path = this.getPath(folder);
+        final var path = getPath(folder);
         final var modelFile = Files.walk(path).filter(file -> file.toString().endsWith(modelFileExtension)).findAny()
                 .get().getFileName().toString();
         return folder.appendSegment(modelFile);

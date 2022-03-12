@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
@@ -16,6 +17,7 @@ import com.google.common.base.Objects;
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.MethodHandler;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedService;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public class MethodContext extends MethodHandler {
@@ -25,7 +27,7 @@ public class MethodContext extends MethodHandler {
     }
 
     @Override
-    protected Optional<CompromisedAssembly> attackComponent(ServiceRestriction service, CredentialChange change,
+    protected Optional<CompromisedAssembly> attackEntity(ServiceRestriction service, CredentialChange change,
             EObject source) {
         final List<? extends UsageSpecification> credentials = getCredentials(change);
 
@@ -43,12 +45,18 @@ public class MethodContext extends MethodHandler {
             if (!serviceRestrictions.isEmpty()) {
                 change.getCompromisedservice().addAll(serviceRestrictions);
                 change.setChanged(true);
+
+                // TODO think about parameter handling e.g. only access is granted but data of
+                // parametes
+                // is usally not compromised. Return value might
+
+                serviceRestrictions.stream().map(CompromisedService::getAffectedElement).map(DataHandler::getData)
+                        .forEach(getDataHandler()::addData);
             }
 
-            // TODO think about parameter handling e.g. only access is granted but data of parametes
-            // is usally not compromised. Return value might
-            //            var data = DataHandler.getData(service.getService());
-            //            getDataHandler().addData(data);
+
+//            var data = DataHandler.getData(service);
+//            getDataHandler().addData(data);
         }
 
         return Optional.empty();

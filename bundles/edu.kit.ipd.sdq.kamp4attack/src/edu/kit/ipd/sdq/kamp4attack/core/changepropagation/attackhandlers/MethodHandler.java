@@ -29,7 +29,7 @@ public abstract class MethodHandler extends AttackHandler {
 
     public void attackService(final Collection<ServiceRestriction> services, final CredentialChange change,
             final EObject source) {
-        final var compromisedComponent = services.stream().map(e -> attackComponent(e, change, source))
+        final var compromisedComponent = services.stream().map(e -> attackEntity(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList());
         final var newCompromisedComponent = filterExsiting(compromisedComponent, change);
         if (!newCompromisedComponent.isEmpty()) {
@@ -54,7 +54,7 @@ public abstract class MethodHandler extends AttackHandler {
         getDataHandler().addData(dataList);
     }
 
-    protected abstract Optional<CompromisedAssembly> attackComponent(ServiceRestriction component,
+    protected abstract Optional<CompromisedAssembly> attackEntity(ServiceRestriction serviceRestriction,
             CredentialChange change, EObject source);
 
     private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
