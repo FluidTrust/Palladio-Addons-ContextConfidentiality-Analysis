@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_OxD7EO26Eeq-yNCPvHsSJQ" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_OGHsUKOcEeyg1bkezwUNpA" entityName="Hypervisor">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_s_bi0KOcEeyg1bkezwUNpA" entityName="Hypervisor.VMInterface.StoredVMs" requiredInterface__OperationRequiredRole="_HFVosO2-Eeq6pfPMAIqEqg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_4Dg7UKOcEeyg1bkezwUNpA" entityName="Hypervisor.DBVMInterface.DBVM" requiredInterface__OperationRequiredRole="_bWmq8KOcEeyg1bkezwUNpA"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_QfmFIKOcEeyg1bkezwUNpA" entityName="VM">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xuhvMKOcEeyg1bkezwUNpA" entityName="VM.VMInterface.VMData" providedInterface__OperationProvidedRole="_HFVosO2-Eeq6pfPMAIqEqg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xuiWQKOcEeyg1bkezwUNpA" describedService__SEFF="_J5tNwO2-Eeq6pfPMAIqEqg">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_xuiWQaOcEeyg1bkezwUNpA" successor_AbstractAction="_xuiWQqOcEeyg1bkezwUNpA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_xuiWQqOcEeyg1bkezwUNpA" predecessor_AbstractAction="_xuiWQaOcEeyg1bkezwUNpA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_VAsRwKOcEeyg1bkezwUNpA" entityName="DBVM">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_mIfgMKOcEeyg1bkezwUNpA" entityName="DBVM.DBVMInterface.VMs" providedInterface__OperationProvidedRole="_bWmq8KOcEeyg1bkezwUNpA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_hfjUQKOeEeyg1bkezwUNpA" entityName="DBVM.VMInterface.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_HFVosO2-Eeq6pfPMAIqEqg"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_l_x-MKOeEeyg1bkezwUNpA" entityName="DBVM.VMInterface.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_HFVosO2-Eeq6pfPMAIqEqg"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_mIqfUKOcEeyg1bkezwUNpA" describedService__SEFF="_d0XG0KOcEeyg1bkezwUNpA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_mIrGYKOcEeyg1bkezwUNpA" successor_AbstractAction="_mIrGYaOcEeyg1bkezwUNpA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_mIrGYaOcEeyg1bkezwUNpA" predecessor_AbstractAction="_mIrGYKOcEeyg1bkezwUNpA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_HFVosO2-Eeq6pfPMAIqEqg" entityName="VMInterface">
+    <signatures__OperationInterface id="_J5tNwO2-Eeq6pfPMAIqEqg" entityName="getData"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_bWmq8KOcEeyg1bkezwUNpA" entityName="DBVMInterface">
+    <signatures__OperationInterface id="_d0XG0KOcEeyg1bkezwUNpA" entityName="getDBData"/>
+  </interfaces__Repository>
+</repository:Repository>

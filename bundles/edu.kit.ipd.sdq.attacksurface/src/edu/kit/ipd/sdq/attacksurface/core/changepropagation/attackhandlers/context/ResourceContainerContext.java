@@ -11,6 +11,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.Helper
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
+import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import com.google.common.base.Objects;
@@ -39,7 +40,7 @@ public class ResourceContainerContext extends ResourceContainerHandler {
 
     @Override
     protected Optional<CompromisedResource> attackResourceContainer(final ResourceContainer container,
-            final CredentialChange change, final EObject source) {
+            final CredentialChange change, final Entity source) {
         final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, container);
 
         final var result = this.queryAccessForEntity(container, credentials);

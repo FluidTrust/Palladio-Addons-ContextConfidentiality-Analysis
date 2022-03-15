@@ -312,7 +312,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
             final var sysIntegExpected = expected.getPath().get(i);
             final boolean elementEquals = 
                     PCMElementType.typeOf(sysIntegExpected.getPcmelement())
-                        .getElementIdEqualityPredicate(actualEntity).test(sysIntegExpected);
+                        .getElementEqualityPredicate(actualEntity).test(sysIntegExpected);
             if (!elementEquals) {
                 return false;
             }

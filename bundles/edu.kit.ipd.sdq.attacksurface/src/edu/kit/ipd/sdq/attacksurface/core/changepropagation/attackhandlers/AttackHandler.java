@@ -138,7 +138,7 @@ public abstract class AttackHandler implements CredentialQuerying {
                 this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()
                     .stream()
                     .filter(s -> PCMElementType.typeOf(s.getPcmelement())
-                            .getElementIdEqualityPredicate(attackedEntity).test(s))
+                            .getElementEqualityPredicate(attackedEntity).test(s))
                     .filter(CredentialSystemIntegration.class::isInstance)
                     .map(SystemIntegration::getIdOfContent)
                     .collect(Collectors.toSet());

@@ -166,7 +166,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
             final var sysIntegExpected = expected.getPath().get(i);
             final boolean elementEquals = 
                     PCMElementType.typeOf(sysIntegExpected.getPcmelement())
-                        .getElementIdEqualityPredicate(actualEntity).test(sysIntegExpected);
+                        .getElementEqualityPredicate(actualEntity).test(sysIntegExpected);
             if (!elementEquals) {
                 return false;
             }
@@ -280,7 +280,6 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
             // TODO to linking
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToContextPropagation);
         }
     }
 
@@ -307,7 +306,6 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
             // TODO to linking
-            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToContextPropagation);
         }
     }
 

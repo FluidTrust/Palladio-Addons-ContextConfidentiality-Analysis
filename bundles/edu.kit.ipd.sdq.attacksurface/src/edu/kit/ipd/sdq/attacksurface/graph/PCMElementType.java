@@ -3,6 +3,7 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
@@ -158,15 +159,15 @@ public enum PCMElementType {
     /**
      * 
      * @param entity
-     * @return a predicate over a system integration and an entity returning {@code true} on ID equality of the
+     * @return a predicate over a system integration and an entity returning {@code true} on ecore equality of the
      * entity and the entity contained in the PCMElement of the system integration
      */
-    public Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
+    public Predicate<SystemIntegration> getElementEqualityPredicate(final Entity entity) {
         return s -> {
             final var pcmElement = s.getPcmelement();
             final var entityOfPcmElement = getEntity(pcmElement);
             if (entityOfPcmElement != null) {
-                return Objects.equals(entityOfPcmElement.getId(), entity.getId());
+                return EcoreUtil.equals(entityOfPcmElement, entity);
             }
             return false;
         };

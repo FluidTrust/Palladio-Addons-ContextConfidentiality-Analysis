@@ -23,6 +23,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     
     //compromisation status
     private CompromisationStatus status;
+    private final Set<AttackStatusNodeContent> attackerNodes;
     
     // tmp set for necessary credential causes
     private final Set<CVSurface> initiallyNecessaryCauses;
@@ -36,6 +37,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         }
         this.asPcmElement = this.type.toPCMElement(this.containedElement);
         this.status = CompromisationStatus.NOT_COMPROMISED;
+        this.attackerNodes = new HashSet<>();
         this.initiallyNecessaryCauses = new HashSet<>();
     }
 
@@ -67,22 +69,34 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     public boolean isCompromised() {
         return this.status.equals(CompromisationStatus.COMPROMISED);
     }
-
-    public void setCompromised(final boolean takeOver) {
-        if (takeOver) {
-            this.status = CompromisationStatus.COMPROMISED;
-        }
+    
+    /**
+     * 
+     * @param attackerNode
+     * @return whether this node is attacked by the given attacker node
+     */
+    public boolean isAttackedBy(AttackStatusNodeContent attackerNode) {
+        return this.attackerNodes.contains(attackerNode);
     }
 
     /**
-     * Sets the node attacked if it is not yet compromised and it {@code isAttacked} now.
+     * Sets the node comromised.
      * 
-     * @param isAttacked - whether the node ist attacked now
+     * @param sourceNode - the attacker node
      */
-    public void setAttacked(boolean isAttacked) {
-        this.status = isCompromised() || !isAttacked
-                ? this.status :
-                    CompromisationStatus.ATTACKED_AND_CREDENTIALS_EXTRACTED;
+    public void compromise(final AttackStatusNodeContent sourceNode) {
+        this.attackerNodes.add(sourceNode);
+        this.status = CompromisationStatus.COMPROMISED;
+    }
+
+    /**
+     * Sets the node attacked if it is not yet compromised.
+     * 
+     * @param sourceNode - the attacker node 
+     */
+    public void attack(final AttackStatusNodeContent sourceNode) {
+        this.attackerNodes.add(sourceNode);
+        this.status = isCompromised() ? this.status : CompromisationStatus.ATTACKED_AND_CREDENTIALS_EXTRACTED;
     }
 
     /**

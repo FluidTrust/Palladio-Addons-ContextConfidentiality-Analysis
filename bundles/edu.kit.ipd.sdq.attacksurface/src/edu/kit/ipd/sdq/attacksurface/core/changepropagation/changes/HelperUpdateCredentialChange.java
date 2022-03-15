@@ -43,12 +43,15 @@ public class HelperUpdateCredentialChange {
      *            compromised elements
      * @param streamContextChange
      *            newly compromised credentials
+     * @param attackerNodeInGraphArg
+     *            the attacker node in the graph
      * @param attackedNodeInGraphArg
      *            node in graph which lead to the credential update
      *            or {@code null} if unknown
      */
     public static void updateCredentials(final CredentialChange changes,
             final Stream<ContextChange> streamContextChange,
+            final AttackStatusNodeContent attackerNodeInGraph,
             final AttackStatusNodeContent attackedNodeInGraph,
             final AttackGraph attackGraph) {
         final var listChanges = streamContextChange
@@ -57,26 +60,16 @@ public class HelperUpdateCredentialChange {
                                 ))
                 .collect(Collectors.toList()); 
         
-        final var attackedNodes = attackedNodeInGraph == null ? 
-                findAttackedNodes(listChanges) : Arrays.asList(attackedNodeInGraph);
         final var vulnerabilities = findCauseVulnerabilities(listChanges);
-        attackGraph.attackNodesWithVulnerabilities(attackedNodes, vulnerabilities);
+        attackGraph.attackNodeWithVulnerabilities(attackerNodeInGraph, attackedNodeInGraph, vulnerabilities);
         
         changes.getContextchange().addAll(listChanges);
 
         if (!listChanges.isEmpty()) {
-            attackedNodes.forEach(n -> attackGraph.findNode(n).setAttacked(true));
+            attackedNodeInGraph.attack(attackerNodeInGraph);
             CachePDP.instance().clearCache();
             changes.setChanged(true);
         }
-    }
-
-    private static Set<AttackStatusNodeContent> findAttackedNodes(
-            final List<ContextChange> listChanges) {
-        return getCausingEntityStream(listChanges)
-                    .filter(e -> PCMElementType.typeOf(e) != null)
-                    .map(AttackStatusNodeContent::new)
-                    .collect(Collectors.toSet());
     }
     
     private static Set<Vulnerability> findCauseVulnerabilities(

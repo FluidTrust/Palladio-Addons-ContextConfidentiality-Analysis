@@ -65,7 +65,7 @@ public abstract class ResourceContainerHandler extends AttackHandler {
      * @return the compromised assembly or a {@code none} value if the assembly could not be compromised
      */
     protected abstract Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
-            CredentialChange change, EObject source);
+            CredentialChange change, Entity source);
 
     private Collection<CompromisedResource> filterExistingEdges(
             final List<CompromisedResource> compromisedResources, final Entity source) {

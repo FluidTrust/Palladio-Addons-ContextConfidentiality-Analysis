@@ -75,7 +75,7 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
      * @return the compromised assembly or a {@code none} value if the assembly could not be comrpomised
      */
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
-            EObject source);
+            Entity source);
     
     private Collection<CompromisedAssembly> filterExistingEdges(
             final List<CompromisedAssembly> compromisedComponents, final Entity source) {

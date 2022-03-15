@@ -13,7 +13,7 @@
   </pcmspecificationcontainer>
   <policyset id="_Lmv10O4AEeuUMoY75qRdSg">
     <policy id="_NiP5Me4AEeuUMoY75qRdSg">
-      <rule id="_Ptj6MO4AEeuUMoY75qRdSg" entityName="access User Terminal" permit="PERMIT">
+      <rule id="_Ptj6MO4AEeuUMoY75qRdSg" entityName="access User Terminal">
         <condition xsi:type="SimpleAttributeCondition" id="_l6UO9wy6EeyG_Kid0W_Zow" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
         <target>
           <match xsi:type="structure:EntityMatch" id="_SE498O4AEeuUMoY75qRdSg" entityName="UserTerminal">
@@ -23,7 +23,7 @@
       </rule>
     </policy>
     <policy id="_f4n-Iu4BEeuUMoY75qRdSg" entityName="access DB over Seff">
-      <rule id="_ggG04O4BEeuUMoY75qRdSg" permit="PERMIT">
+      <rule id="_ggG04O4BEeuUMoY75qRdSg">
         <condition xsi:type="SimpleAttributeCondition" id="_TpWKRwzAEeyG_Kid0W_Zow" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_j7n5gu4BEeuUMoY75qRdSg" entityName="AccessDB">

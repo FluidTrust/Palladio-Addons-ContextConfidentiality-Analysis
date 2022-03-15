@@ -116,7 +116,7 @@ public final class AttackHandlingHelper {
                 .stream()
                 .filter(CredentialSystemIntegration.class::isInstance)
                 .filter(s -> 
-                    PCMElementType.typeOf(s.getPcmelement()).getElementIdEqualityPredicate(node.getContainedElement()).test(s))
+                    PCMElementType.typeOf(s.getPcmelement()).getElementEqualityPredicate(node.getContainedElement()).test(s))
                 .map(SystemIntegration::getIdOfContent)
                 .map(CredentialSurface::new)
                 .collect(Collectors.toSet());

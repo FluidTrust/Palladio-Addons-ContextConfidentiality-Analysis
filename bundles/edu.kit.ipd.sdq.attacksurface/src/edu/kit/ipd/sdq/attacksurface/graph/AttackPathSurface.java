@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.DefaultSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
@@ -23,6 +24,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 
 /**
@@ -119,6 +121,17 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public AttackPathSurface getCopy() {
         return new AttackPathSurface(this.path, this.initiallyNecessaryCredentials);
     }
+    
+    /**
+     * 
+     * @return a copy without self edges
+     */
+    public AttackPathSurface getCopyRemovedSelfEdges() {
+        return new AttackPathSurface(this.path.stream()
+                .filter(s -> !s.getNodes().target().equals(s.getNodes().source()))
+                .collect(Collectors.toList()), 
+                this.initiallyNecessaryCredentials);
+    }
 
     @Override
     public Iterator<AttackStatusEdge> iterator() {
@@ -127,7 +140,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(path);
+        return Objects.hash(this.path, this.initiallyNecessaryCredentials);
     }
 
     @Override
@@ -139,7 +152,27 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         if (getClass() != obj.getClass())
             return false;
         AttackPathSurface other = (AttackPathSurface) obj;
-        return Objects.equals(path, other.path);
+        return Objects.equals(this.path, other.path)
+                && Objects.equals(this.initiallyNecessaryCredentials, other.initiallyNecessaryCredentials);
+    }
+    
+    /**
+     * 
+     * @param other - the other path
+     * @return whether the two paths consist of the same nodes in the same order
+     */
+    public boolean arePathNodesEquals(final AttackPathSurface other) {
+        Objects.requireNonNull(other);
+        if (size() == other.size()) {
+            final int size = size();
+            for (int i = 0; i < size; i++) {
+                if (!path.get(i).getNodes().equals(other.path.get(i).getNodes())) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
     
     @Override
@@ -178,7 +211,8 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
             final boolean doCreateCauselessPaths) {
         final List<SystemIntegration> localPath = new ArrayList<>();
 
-        for (int i = 0; i < this.size(); i++) {
+        final int size = size();
+        for (int i = 0; i < size; i++) {
             final var edge = this.get(i);
             final var nodes = edge.getNodes();
             // the edges in the attack path are reversed (w.respect to the attack graph direction),
@@ -194,18 +228,18 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                     localPath.add(attackedSysInteg);
                 }
             } else {
-                if (i == 0) {
+                if (i == 0) { // start of attack
                     final var edgeContent = edge.getContent();
                     Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
                     boolean areCausesAdded = iterateCauses(board, localPath, attacker, iterable);
                     iterable = edgeContent::getContainedSetCIterator;
                     areCausesAdded |= iterateCauses(board, localPath, attacker, iterable);
                     if (!areCausesAdded) { // add default integration
-                        final var attackedSysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
-                        localPath.add(attackedSysInteg);
+                        final var attackerSysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
+                        localPath.add(attackerSysInteg);
                     }
                 }
-
+                
                 final var edgeContent = edge.getContent();
                 Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
                 boolean areCausesAdded = iterateCauses(board, localPath, attacked, iterable);
@@ -287,7 +321,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     }
 
     private static Predicate<SystemIntegration> getElementIdEqualityPredicate(final Entity entity) {
-        return PCMElementType.typeOf(entity).getElementIdEqualityPredicate(entity);
+        return PCMElementType.typeOf(entity).getElementEqualityPredicate(entity);
     }
 
     private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
@@ -315,13 +349,13 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
             final List<SystemIntegration> sysIntegrations, final String causeId) {
-        if (!sysIntegrations.isEmpty()) {
+        if (!sysIntegrations.isEmpty() && causeId != null) {
             final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, causeId);
             // TODO non-global communication
             if (systemIntegrationById != null) {
                 return systemIntegrationById;
             }
-            return getDefaultOrFirst(sysIntegrations);
+            return copyDefaultOrFirst(sysIntegrations);
         }
         return null;
     }
@@ -341,9 +375,9 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return original;
     }
 
-    private static SystemIntegration getDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
-        return sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
-                .orElse(sysIntegrations.get(0));
+    private static SystemIntegration copyDefaultOrFirst(final List<SystemIntegration> sysIntegrations) {
+        return copySystemIntegration(sysIntegrations.stream().filter(DefaultSystemIntegration.class::isInstance).findAny()
+                .orElse(sysIntegrations.get(0)));
     }
 
     /**
@@ -354,5 +388,25 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return path.stream().anyMatch(e -> this.initiallyNecessaryCredentials
                 .stream()
                 .allMatch(c -> e.getContent().contains(c.getCauseId())));
+    }
+
+    public boolean isValid(final BlackboardWrapper board, final Entity criticalEntity) {
+        final var attackPath = toAttackPath(board, criticalEntity, false);
+        return (!attackPath.getCredentialsInitiallyNecessary().isEmpty()
+                || doesUseVulnerabilityBeforeCredential(attackPath));
+    }
+
+    private static boolean doesUseVulnerabilityBeforeCredential(final AttackPath path) {
+        final var vulnerabilitiesIds = path.getVulnerabilitesUsed().stream()
+                .map(Identifier::getId).collect(Collectors.toSet());
+        for (final var sysInteg : path.getPath()) {
+            final String id = sysInteg.getIdOfContent();
+            if (vulnerabilitiesIds.contains(id)) {
+                return true;
+            } else if (id != null) {
+                return false;
+            }
+        }
+        return false;
     }
 }

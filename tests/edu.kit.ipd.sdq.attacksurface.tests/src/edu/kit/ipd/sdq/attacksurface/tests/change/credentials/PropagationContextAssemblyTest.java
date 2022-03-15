@@ -1,17 +1,9 @@
 package edu.kit.ipd.sdq.attacksurface.tests.change.credentials;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.ArrayList;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AvailabilityImpact;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
@@ -22,16 +14,8 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceCont
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 class PropagationContextAssemblyTest extends AbstractChangeTests {
-    private void runAssemblyToContextPropagation(final CredentialChange change) { //TODO: adapt to context --> define what it should do
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
-        final var contextChange = new AssemblyContextPropagationContext(wrapper, change, getAttackGraph());
-        contextChange.calculateAssemblyContextToContextPropagation();
-    }
-    
     private void runAssemblyToAssemblyPropagation(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
@@ -72,7 +56,6 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
 
         runAssemblyAssemblyVulnerabilityPropagation(getChanges());
         runAssemblyResourcePropagation(getChanges());
-        runAssemblyToContextPropagation(getChanges());
         
         assertCompromisationStatus(true, true, containerOfCritical, createRootCredentialsIfNecessary().getId());
         
@@ -89,7 +72,6 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         integrateRoot(containerOfCritical);
 
         runAssemblyResourcePropagation(getChanges());
-        runAssemblyToContextPropagation(getChanges());
         
         final var rootCred = createRootCredentialsIfNecessary();
         final var rootCauseId = rootCred.getId();
@@ -118,7 +100,6 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
         integrateRoot(containerOfCritical);
 
         runAssemblyResourcePropagation(getChanges());
-        runAssemblyToContextPropagation(getChanges());
         
         final var rootCred = createRootCredentialsIfNecessary();
         final var surfacePaths = this.getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());

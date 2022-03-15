@@ -4,6 +4,7 @@
     <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker" attacks="_QQUWsDb2EeynPbsdxI5kRA _EpyogDfzEey5OtKYIVrxdg _MXEvMDfxEey5OtKYIVrxdg">
       <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
     </attacker>
+    <surfaceattacker id="_Jo0j8aODEeyPgbGXj7rW7A" criticalElement="_j5rooKODEeyPgbGXj7rW7A" attacker="_-XvFQAo3EeyKMtWTxnyP1g"/>
   </attackers>
   <attacks>
     <attack xsi:type="attack:CWEAttack" id="_QQUWsDb2EeynPbsdxI5kRA" entityName="CompromiseBusinessEntity" category="//@categoryspecification/@categories.3"/>
@@ -49,6 +50,11 @@
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_FpB6IDgCEeyQ_oZ5YyVHCg" vulnerability="_66uiMDfyEey5OtKYIVrxdg">
       <pcmelement id="_HWuLADgCEeyQ_oZ5YyVHCg">
         <assemblycontext href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_iwaTc6ODEeyPgbGXj7rW7A">
+      <pcmelement id="_j5rooKODEeyPgbGXj7rW7A">
+        <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
       </pcmelement>
     </vulnerabilities>
   </systemintegration>

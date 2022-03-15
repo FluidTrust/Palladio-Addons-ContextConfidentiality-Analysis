@@ -57,7 +57,7 @@ public class SimpleCredentialQuerying implements CredentialQuerying {
                     .getVulnerabilitySpecification()
                     .getVulnerabilities()
                     .stream()
-                    .filter(PCMElementType.typeOf(target).getElementIdEqualityPredicate(target))
+                    .filter(PCMElementType.typeOf(target).getElementEqualityPredicate(target))
                     .filter(CredentialSystemIntegration.class::isInstance)
                     .map(CredentialSystemIntegration.class::cast)
                     .map(CredentialSystemIntegration::getCredential)

@@ -91,6 +91,10 @@
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']"/>
         <target xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
       </ownedRepresentationDescriptors>
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_7w3DsKOEEey5nPqTNtQbwg" name="new Assembly Diagram" repPath="#_7ww9EKOEEey5nPqTNtQbwg" changeId="d92f1afd-b7a9-448d-bf26-13210a1c04ef">
+        <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']"/>
+        <target xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
+      </ownedRepresentationDescriptors>
     </ownedViews>
   </viewpoint:DAnalysis>
   <diagram:DSemanticDiagram uid="_GfJ_kJlXEey4Y537PmhIGQ">
@@ -4650,6 +4654,767 @@
     </ownedDiagramElements>
     <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']"/>
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_GuMhIJlXEey4Y537PmhIGQ"/>
+    <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer"/>
+    <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@additionalLayers[name='QoS']"/>
+    <target xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
+  </diagram:DSemanticDiagram>
+  <diagram:DSemanticDiagram uid="_7ww9EKOEEey5nPqTNtQbwg">
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_7w8jQKOEEey5nPqTNtQbwg" source="GMF_DIAGRAMS">
+      <data xmi:type="notation:Diagram" xmi:id="_7w8jQaOEEey5nPqTNtQbwg" type="Sirius" element="_7ww9EKOEEey5nPqTNtQbwg" measurementUnit="Pixel">
+        <children xmi:type="notation:Node" xmi:id="_70Zf4KOEEey5nPqTNtQbwg" type="2002" element="_7w_mkKOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_70Zf46OEEey5nPqTNtQbwg" type="5006"/>
+          <children xmi:type="notation:Node" xmi:id="_70Zf5KOEEey5nPqTNtQbwg" type="7001">
+            <children xmi:type="notation:Node" xmi:id="_70mUMKOEEey5nPqTNtQbwg" type="3008" element="_7yCvcKOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70m7QKOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70m7QaOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70m7QqOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70m7Q6OEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70pXiqOEEey5nPqTNtQbwg" type="3012" element="_7yJdIKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70p-kKOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70p-kaOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70rMsKOEEey5nPqTNtQbwg" type="3014" element="_7yKEMKOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70rMsaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70rMsqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70pXi6OEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70pXjKOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70p-kqOEEey5nPqTNtQbwg" type="3012" element="_7yO8sKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70qloKOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70qloaOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70rMs6OEEey5nPqTNtQbwg" type="3014" element="_7yO8saOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70rMtKOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70rMtaOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70p-k6OEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70p-lKOEEey5nPqTNtQbwg" x="5" y="-30" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70mUMaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70mUMqOEEey5nPqTNtQbwg" x="1135" y="129"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70m7RKOEEey5nPqTNtQbwg" type="3008" element="_7yDWgqOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70niUKOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70niUaOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70niUqOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70niU6OEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70rzwKOEEey5nPqTNtQbwg" type="3012" element="_7ydmMKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70rzw6OEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70rzxKOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70tB4KOEEey5nPqTNtQbwg" type="3014" element="_7ydmMaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70tB4aOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70tB4qOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70rzwaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70rzwqOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70sa0KOEEey5nPqTNtQbwg" type="3012" element="_7yeNQKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70sa06OEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70sa1KOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70tB46OEEey5nPqTNtQbwg" type="3014" element="_7yeNQaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70tB5KOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70tB5aOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70sa0aOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70sa0qOEEey5nPqTNtQbwg" x="10" y="-30" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70m7RaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70m7RqOEEey5nPqTNtQbwg" x="885" y="129"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70niVKOEEey5nPqTNtQbwg" type="3008" element="_7yD9kKOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70niV6OEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70niWKOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70niWaOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70niWqOEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70tB5qOEEey5nPqTNtQbwg" type="3012" element="_7yfbYKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70tB6aOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70tB6qOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70to8KOEEey5nPqTNtQbwg" type="3014" element="_7yfbYaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70to8aOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70to8qOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70tB56OEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70tB6KOEEey5nPqTNtQbwg" x="10" y="68" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70niVaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70niVqOEEey5nPqTNtQbwg" x="885" y="29"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70niW6OEEey5nPqTNtQbwg" type="3008" element="_7yD9k6OEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70oJYKOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70oJYaOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70oJYqOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70oJY6OEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70to86OEEey5nPqTNtQbwg" type="3012" element="_7yhQkKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70to9qOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70to96OEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70uQAKOEEey5nPqTNtQbwg" type="3014" element="_7yhQkaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70uQAaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70uQAqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70to9KOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70to9aOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70niXKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70niXaOEEey5nPqTNtQbwg" x="30" y="29"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70oJZKOEEey5nPqTNtQbwg" type="3008" element="_7yD9lqOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70oJZ6OEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70oJaKOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70oJaaOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70oJaqOEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70uQA6OEEey5nPqTNtQbwg" type="3012" element="_7yiesKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70uQBqOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70uQB6OEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70veIKOEEey5nPqTNtQbwg" type="3014" element="_7yjFwKOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70veIaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70veIqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70uQBKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70uQBaOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70u3EKOEEey5nPqTNtQbwg" type="3012" element="_7yjFwqOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70u3E6OEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70u3FKOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70veI6OEEey5nPqTNtQbwg" type="3014" element="_7yjFw6OEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70veJKOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70veJaOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70u3EaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70u3EqOEEey5nPqTNtQbwg" x="5" y="-30" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70oJZaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70oJZqOEEey5nPqTNtQbwg" x="1345" y="129"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70oJa6OEEey5nPqTNtQbwg" type="3008" element="_7yEkoKOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70owcKOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70owcaOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70owcqOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70owc6OEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70veJqOEEey5nPqTNtQbwg" type="3012" element="_7yk68KOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70veKaOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70veKqOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70wFMKOEEey5nPqTNtQbwg" type="3014" element="_7yk68aOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70wFMaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70wFMqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70veJ6OEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70veKKOEEey5nPqTNtQbwg" x="10" y="68" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70oJbKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70oJbaOEEey5nPqTNtQbwg" x="220" y="29"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70owdKOEEey5nPqTNtQbwg" type="3008" element="_7yEko6OEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70owd6OEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70oweKOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70oweaOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70oweqOEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70wFM6OEEey5nPqTNtQbwg" type="3012" element="_7ymJEKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70wFNqOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70wFN6OEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70wsQKOEEey5nPqTNtQbwg" type="3014" element="_7ymJEaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70wsQaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70wsQqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70wFNKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70wFNaOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70owdaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70owdqOEEey5nPqTNtQbwg" x="430" y="29"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70owe6OEEey5nPqTNtQbwg" type="3008" element="_7yEkpqOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70owfqOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70pXgKOEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70pXgaOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70pXgqOEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70wsQ6OEEey5nPqTNtQbwg" type="3012" element="_7yn-QKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70xTUKOEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70xTUaOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70xTUqOEEey5nPqTNtQbwg" type="3014" element="_7yn-QaOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70xTU6OEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70xTVKOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70wsRKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70wsRaOEEey5nPqTNtQbwg" x="-30" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70owfKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70owfaOEEey5nPqTNtQbwg" x="1230" y="29"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70pXg6OEEey5nPqTNtQbwg" type="3008" element="_7yEkqaOEEey5nPqTNtQbwg">
+              <children xmi:type="notation:Node" xmi:id="_70pXhqOEEey5nPqTNtQbwg" type="5005"/>
+              <children xmi:type="notation:Node" xmi:id="_70pXh6OEEey5nPqTNtQbwg" type="7002">
+                <styles xmi:type="notation:SortingStyle" xmi:id="_70pXiKOEEey5nPqTNtQbwg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_70pXiaOEEey5nPqTNtQbwg"/>
+              </children>
+              <children xmi:type="notation:Node" xmi:id="_70x6YKOEEey5nPqTNtQbwg" type="3012" element="_7ypMYKOEEey5nPqTNtQbwg">
+                <children xmi:type="notation:Node" xmi:id="_70x6Y6OEEey5nPqTNtQbwg" type="5010">
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_70x6ZKOEEey5nPqTNtQbwg" x="31" y="7"/>
+                </children>
+                <children xmi:type="notation:Node" xmi:id="_70yhcKOEEey5nPqTNtQbwg" type="3014" element="_7ypzcKOEEey5nPqTNtQbwg">
+                  <styles xmi:type="notation:ShapeStyle" xmi:id="_70yhcaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+                  <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70yhcqOEEey5nPqTNtQbwg"/>
+                </children>
+                <styles xmi:type="notation:ShapeStyle" xmi:id="_70x6YaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+                <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70x6YqOEEey5nPqTNtQbwg" x="-30" y="10" width="30" height="30"/>
+              </children>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70pXhKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70pXhaOEEey5nPqTNtQbwg" x="675" y="29"/>
+            </children>
+            <styles xmi:type="notation:SortingStyle" xmi:id="_70Zf5aOEEey5nPqTNtQbwg"/>
+            <styles xmi:type="notation:FilteringStyle" xmi:id="_70Zf5qOEEey5nPqTNtQbwg"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_70auAKOEEey5nPqTNtQbwg" type="3012" element="_7x0F8KOEEey5nPqTNtQbwg">
+            <children xmi:type="notation:Node" xmi:id="_70bVEKOEEey5nPqTNtQbwg" type="5010">
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_70bVEaOEEey5nPqTNtQbwg" x="51" y="17"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70yhc6OEEey5nPqTNtQbwg" type="3014" element="_7x0F8aOEEey5nPqTNtQbwg">
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70yhdKOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70yhdaOEEey5nPqTNtQbwg"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_70auAaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70auAqOEEey5nPqTNtQbwg" x="-50" y="135" width="50" height="50"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_70ip0KOEEey5nPqTNtQbwg" type="3012" element="_7x0tAKOEEey5nPqTNtQbwg">
+            <children xmi:type="notation:Node" xmi:id="_70ip06OEEey5nPqTNtQbwg" type="5010">
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_70ip1KOEEey5nPqTNtQbwg" x="51" y="17"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70yhdqOEEey5nPqTNtQbwg" type="3014" element="_7x0tAaOEEey5nPqTNtQbwg">
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70yhd6OEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70yheKOEEey5nPqTNtQbwg"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_70ip0aOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70ip0qOEEey5nPqTNtQbwg" x="10" y="211" width="50" height="50"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_70jQ4KOEEey5nPqTNtQbwg" type="3012" element="_7x0tA6OEEey5nPqTNtQbwg">
+            <children xmi:type="notation:Node" xmi:id="_70jQ46OEEey5nPqTNtQbwg" type="5010">
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_70jQ5KOEEey5nPqTNtQbwg" x="51" y="17"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70yheaOEEey5nPqTNtQbwg" type="3014" element="_7x0tBKOEEey5nPqTNtQbwg">
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70yheqOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70yhe6OEEey5nPqTNtQbwg"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_70jQ4aOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70jQ4qOEEey5nPqTNtQbwg" x="-50" y="80" width="50" height="50"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_70kfAKOEEey5nPqTNtQbwg" type="3012" element="_7x0tBqOEEey5nPqTNtQbwg">
+            <children xmi:type="notation:Node" xmi:id="_70kfA6OEEey5nPqTNtQbwg" type="5010">
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_70kfBKOEEey5nPqTNtQbwg" x="51" y="17"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70zIgKOEEey5nPqTNtQbwg" type="3014" element="_7x0tB6OEEey5nPqTNtQbwg">
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70zIgaOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70zIgqOEEey5nPqTNtQbwg"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_70kfAaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70kfAqOEEey5nPqTNtQbwg" x="110" y="-50" width="50" height="50"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_70lGEKOEEey5nPqTNtQbwg" type="3012" element="_7x0tCaOEEey5nPqTNtQbwg">
+            <children xmi:type="notation:Node" xmi:id="_70lGE6OEEey5nPqTNtQbwg" type="5010">
+              <layoutConstraint xmi:type="notation:Location" xmi:id="_70lGFKOEEey5nPqTNtQbwg" x="51" y="17"/>
+            </children>
+            <children xmi:type="notation:Node" xmi:id="_70zIg6OEEey5nPqTNtQbwg" type="3014" element="_7x1UEKOEEey5nPqTNtQbwg">
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_70zIhKOEEey5nPqTNtQbwg" fontName="Noto Sans"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70zIhaOEEey5nPqTNtQbwg"/>
+            </children>
+            <styles xmi:type="notation:ShapeStyle" xmi:id="_70lGEaOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70lGEqOEEey5nPqTNtQbwg" x="10" y="-50" width="50" height="50"/>
+          </children>
+          <styles xmi:type="notation:ShapeStyle" xmi:id="_70Zf4aOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_70Zf4qOEEey5nPqTNtQbwg" x="50" y="130"/>
+        </children>
+        <styles xmi:type="notation:DiagramStyle" xmi:id="_7w8jQqOEEey5nPqTNtQbwg"/>
+        <edges xmi:type="notation:Edge" xmi:id="_701kwKOEEey5nPqTNtQbwg" type="4001" element="_7z5JkKOEEey5nPqTNtQbwg" source="_70sa0KOEEey5nPqTNtQbwg" target="_70tB5qOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_702L0KOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_702L0aOEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_702L0qOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_702L06OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_702L1KOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_702L1aOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_701kwaOEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_701kwqOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_701kw6OEEey5nPqTNtQbwg" points="[0, 0, 2, 16]$[-2, -16, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71GqgKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71GqgaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71GqgqOEEey5nPqTNtQbwg" type="4001" element="_7z5wpKOEEey5nPqTNtQbwg" source="_70u3EKOEEey5nPqTNtQbwg" target="_70wsQ6OEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71GqhqOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Gqh6OEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71GqiKOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71GqiaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71GqiqOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Gqi6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71Gqg6OEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71GqhKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71GqhaOEEey5nPqTNtQbwg" points="[0, 0, 153, 78]$[-153, -78, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71HRkKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71HRkaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71HRkqOEEey5nPqTNtQbwg" type="4001" element="_7z6XtKOEEey5nPqTNtQbwg" source="_70p-kqOEEey5nPqTNtQbwg" target="_70wsQ6OEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71HRlqOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71HRl6OEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71HRmKOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71HRmaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71HRmqOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71HRm6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71HRk6OEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71HRlKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71HRlaOEEey5nPqTNtQbwg" points="[0, 0, -57, 78]$[57, -78, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71HRnKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71HRnaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71H4oKOEEey5nPqTNtQbwg" type="4001" element="_70UAUKOEEey5nPqTNtQbwg" source="_70auAKOEEey5nPqTNtQbwg" target="_70to86OEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71H4pKOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4paOEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71H4pqOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4p6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71H4qKOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4qaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71H4oaOEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71H4oqOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71H4o6OEEey5nPqTNtQbwg" points="[0, 0, 53, -49]$[-53, 49, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71H4qqOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71H4q6OEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71H4rKOEEey5nPqTNtQbwg" type="4001" element="_70UAVaOEEey5nPqTNtQbwg" source="_70ip0KOEEey5nPqTNtQbwg" target="_70rzwKOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71H4sKOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4saOEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71H4sqOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4s6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71H4tKOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71H4taOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71H4raOEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71H4rqOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71H4r6OEEey5nPqTNtQbwg" points="[0, 0, 909, 0]$[-909, 0, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfsKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfsaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71IfsqOEEey5nPqTNtQbwg" type="4001" element="_70UnZKOEEey5nPqTNtQbwg" source="_70jQ4KOEEey5nPqTNtQbwg" target="_70uQA6OEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71IftqOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Ift6OEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71IfuKOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71IfuaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71IfuqOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Ifu6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71Ifs6OEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71IftKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71IftaOEEey5nPqTNtQbwg" points="[0, 0, 1368, 102]$[-1368, -102, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfvKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfvaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71IfvqOEEey5nPqTNtQbwg" type="4001" element="_70UnaaOEEey5nPqTNtQbwg" source="_70jQ4KOEEey5nPqTNtQbwg" target="_70pXiqOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71IfwqOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Ifw6OEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71IfxKOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71IfxaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71IfxqOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Ifx6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71Ifv6OEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71IfwKOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71IfwaOEEey5nPqTNtQbwg" points="[0, 0, 1158, 102]$[-1158, -102, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfyKOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71IfyaOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71JGwKOEEey5nPqTNtQbwg" type="4001" element="_70UnbqOEEey5nPqTNtQbwg" source="_70kfAKOEEey5nPqTNtQbwg" target="_70veJqOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71JGxKOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JGxaOEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71JGxqOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JGx6OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71JGyKOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JGyaOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71JGwaOEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71JGwqOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71JGw6OEEey5nPqTNtQbwg" points="[0, 0, 112, -124]$[-112, 124, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71JGyqOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71JGy6OEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71JGzKOEEey5nPqTNtQbwg" type="4001" element="_70VOcqOEEey5nPqTNtQbwg" source="_70lGEKOEEey5nPqTNtQbwg" target="_70wFM6OEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71JG0KOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JG0aOEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71JG0qOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JG06OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71JG1KOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71JG1aOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71JGzaOEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71JGzqOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71JGz6OEEey5nPqTNtQbwg" points="[0, 0, 393, 83]$[-393, -83, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71Jt0KOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71Jt0aOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+        <edges xmi:type="notation:Edge" xmi:id="_71Jt0qOEEey5nPqTNtQbwg" type="4001" element="_70VOd6OEEey5nPqTNtQbwg" source="_70kfAKOEEey5nPqTNtQbwg" target="_70x6YKOEEey5nPqTNtQbwg">
+          <children xmi:type="notation:Node" xmi:id="_71Jt1qOEEey5nPqTNtQbwg" type="6001">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Jt16OEEey5nPqTNtQbwg" y="-10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71Jt2KOEEey5nPqTNtQbwg" type="6002">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Jt2aOEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <children xmi:type="notation:Node" xmi:id="_71Jt2qOEEey5nPqTNtQbwg" type="6003">
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_71Jt26OEEey5nPqTNtQbwg" y="10"/>
+          </children>
+          <styles xmi:type="notation:ConnectorStyle" xmi:id="_71Jt06OEEey5nPqTNtQbwg"/>
+          <styles xmi:type="notation:FontStyle" xmi:id="_71Jt1KOEEey5nPqTNtQbwg" fontName="Noto Sans" fontHeight="8"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_71Jt1aOEEey5nPqTNtQbwg" points="[0, 0, 537, -178]$[-537, 178, 0, 0]"/>
+          <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71Jt3KOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+          <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_71Jt3aOEEey5nPqTNtQbwg" id="(0.5,0.5)"/>
+        </edges>
+      </data>
+    </ownedAnnotationEntries>
+    <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_70XDoKOEEey5nPqTNtQbwg" source="DANNOTATION_CUSTOMIZATION_KEY">
+      <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_70XDoaOEEey5nPqTNtQbwg"/>
+    </ownedAnnotationEntries>
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7w_mkKOEEey5nPqTNtQbwg" name="&lt;&lt;System>>&#xA;PowerGrid">
+      <target xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
+      <semanticElements xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7x0F8KOEEey5nPqTNtQbwg" name="DomainControlProvidedRole" outgoingEdges="_70UAUKOEEey5nPqTNtQbwg" width="5" height="5">
+        <target xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_54IG4C2YEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_54IG4C2YEeyiUoiCEbquLw"/>
+        <ownedStyle xmi:type="diagram:CustomStyle" uid="_7x0F8aOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+          <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+      </ownedBorderedNodes>
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7x0tAKOEEey5nPqTNtQbwg" name="DMSClientProvidedRole" outgoingEdges="_70UAVaOEEey5nPqTNtQbwg" width="5" height="5">
+        <target xmi:type="repository:OperationProvidedRole" href="powerGrid.system#__ob4oC2YEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.system#__ob4oC2YEeyiUoiCEbquLw"/>
+        <ownedStyle xmi:type="diagram:CustomStyle" uid="_7x0tAaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+          <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+      </ownedBorderedNodes>
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7x0tA6OEEey5nPqTNtQbwg" name="OfficeSoftwareProvidedRole" outgoingEdges="_70UnZKOEEey5nPqTNtQbwg _70UnaaOEEey5nPqTNtQbwg" width="5" height="5">
+        <target xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_FjjzQC2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_FjjzQC2ZEeyiUoiCEbquLw"/>
+        <ownedStyle xmi:type="diagram:CustomStyle" uid="_7x0tBKOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+          <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+      </ownedBorderedNodes>
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7x0tBqOEEey5nPqTNtQbwg" name="VPN-ServerProvidedRole" outgoingEdges="_70UnbqOEEey5nPqTNtQbwg _70VOd6OEEey5nPqTNtQbwg" width="5" height="5">
+        <target xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_vGkzYC2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_vGkzYC2ZEeyiUoiCEbquLw"/>
+        <ownedStyle xmi:type="diagram:CustomStyle" uid="_7x0tB6OEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+          <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+      </ownedBorderedNodes>
+      <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7x0tCaOEEey5nPqTNtQbwg" name="CallCenterProvidedRole" outgoingEdges="_70VOcqOEEey5nPqTNtQbwg" width="5" height="5">
+        <target xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_1l1V0C2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.system#_1l1V0C2ZEeyiUoiCEbquLw"/>
+        <ownedStyle xmi:type="diagram:CustomStyle" uid="_7x1UEKOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+          <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@borderedNodeMappings[name='ExternalOperationProvidedRole%20Node']"/>
+      </ownedBorderedNodes>
+      <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+      <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+      <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
+      <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7xA0sKOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@style"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']"/>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yCvcKOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;AssemblyWithoutRights">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yJdIKOEEey5nPqTNtQbwg" name="CorporateApplicationClient.Workstation.OperationProvidedRole1" incomingEdges="_70UnaaOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_Q-dEMCwjEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_Q-dEMCwjEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yKEMKOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yO8sKOEEey5nPqTNtQbwg" name="CorporateApplicationClient.NetworkStorage.OperationRequiredRole1" outgoingEdges="_7z6XtKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#_Jy5PkC2bEeyiUoiCEbquLw"/>
+          <semanticElements xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#_Jy5PkC2bEeyiUoiCEbquLw"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yO8saOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationRequiredRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yDWgKOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yDWgqOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;Assembly_DMSClientApplication">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7ydmMKOEEey5nPqTNtQbwg" name="DMSClientApplication.DMSClient.OperationProvidedRole1" incomingEdges="_70UAVaOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_B578ICwjEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_B578ICwjEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7ydmMaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yeNQKOEEey5nPqTNtQbwg" name="Required.DMSServer" outgoingEdges="_7z5JkKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#__o1cMCwiEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#__o1cMCwiEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yeNQaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationRequiredRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yDWg6OEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yD9kKOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;Assembly_DMSServerApplication">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yfbYKOEEey5nPqTNtQbwg" name="Provide.DMSServer" incomingEdges="_7z5JkKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_9omCwCwiEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_9omCwCwiEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yfbYaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yD9kaOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yD9k6OEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;Assembly_DomainControler">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yhQkKOEEey5nPqTNtQbwg" name="DomainControler.DomainControl.OperationProvidedRole1" incomingEdges="_70UAUKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWqcIC2YEeyiUoiCEbquLw"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWqcIC2YEeyiUoiCEbquLw"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yhQkaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yD9lKOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yD9lqOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;AssemblyWithVPNRights">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yiesKOEEey5nPqTNtQbwg" name="CorporateApplicationClient.Workstation.OperationProvidedRole1" incomingEdges="_70UnZKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_Q-dEMCwjEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_Q-dEMCwjEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yjFwKOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yjFwqOEEey5nPqTNtQbwg" name="CorporateApplicationClient.NetworkStorage.OperationRequiredRole1" outgoingEdges="_7z5wpKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#_Jy5PkC2bEeyiUoiCEbquLw"/>
+          <semanticElements xmi:type="repository:OperationRequiredRole" href="powerGrid.repository#_Jy5PkC2bEeyiUoiCEbquLw"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yjFw6OEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationRequiredRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationRequiredRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yD9l6OEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yEkoKOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;ICS-VPN-Bridge">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yk68KOEEey5nPqTNtQbwg" name="BasicComponent1.VPN-Server.OperationProvidedRole1" incomingEdges="_70UnbqOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWvPkCwiEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWvPkCwiEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yk68aOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yEkoaOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yEko6OEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;Assembly_CallCenterApplication">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7ymJEKOEEey5nPqTNtQbwg" name="BasicComponent5.CallCenter.OperationProvidedRole1" incomingEdges="_70VOcqOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_ZG_MEC2YEeyiUoiCEbquLw"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_ZG_MEC2YEeyiUoiCEbquLw"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7ymJEaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yEkpKOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yEkpqOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;Assembly_StorageApplication">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7yn-QKOEEey5nPqTNtQbwg" name="BasicComponent7.NetworkStorage.OperationProvidedRole1" incomingEdges="_7z5wpKOEEey5nPqTNtQbwg _7z6XtKOEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_G-tQsC2bEeyiUoiCEbquLw"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_G-tQsC2bEeyiUoiCEbquLw"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7yn-QaOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yEkp6OEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_7yEkqaOEEey5nPqTNtQbwg" name="&lt;&lt;AssemblyContext>>&#xA;ExternalVPNBridge">
+        <target xmi:type="composition:AssemblyContext" href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+        <semanticElements xmi:type="composition:AssemblyContext" href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+        <ownedBorderedNodes xmi:type="diagram:DNode" uid="_7ypMYKOEEey5nPqTNtQbwg" name="BasicComponent1.VPN-Server.OperationProvidedRole1" incomingEdges="_70VOd6OEEey5nPqTNtQbwg" width="3" height="3">
+          <target xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWvPkCwiEeylP6vhO63XvA"/>
+          <semanticElements xmi:type="repository:OperationProvidedRole" href="powerGrid.repository#_xWvPkCwiEeylP6vhO63XvA"/>
+          <ownedStyle xmi:type="diagram:CustomStyle" uid="_7ypzcKOEEey5nPqTNtQbwg" showIcon="false" id="org.palladiosimulator.editors.sirius.assembly.custom.operationProvidedRole">
+            <description xmi:type="style:CustomStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']/@style"/>
+          </ownedStyle>
+          <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
+        </ownedBorderedNodes>
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_7yEkqqOEEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+          <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
+        </ownedStyle>
+        <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']"/>
+      </ownedDiagramElements>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7z5JkKOEEey5nPqTNtQbwg" sourceNode="_7yeNQKOEEey5nPqTNtQbwg" targetNode="_7yfbYKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:AssemblyConnector" href="powerGrid.system#_XBkAcCzDEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:AssemblyConnector" href="powerGrid.system#_XBkAcCzDEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_7z5woKOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7z5woaOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7z5wpKOEEey5nPqTNtQbwg" sourceNode="_7yjFwqOEEey5nPqTNtQbwg" targetNode="_7yn-QKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:AssemblyConnector" href="powerGrid.system#_igBQoC2bEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:AssemblyConnector" href="powerGrid.system#_igBQoC2bEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_7z6XsKOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7z6XsaOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_7z6XtKOEEey5nPqTNtQbwg" sourceNode="_7yO8sKOEEey5nPqTNtQbwg" targetNode="_7yn-QKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:AssemblyConnector" href="powerGrid.system#_lPlOMC2bEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:AssemblyConnector" href="powerGrid.system#_lPlOMC2bEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_7z6XtaOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_7z6XtqOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='AssemblyConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70UAUKOEEey5nPqTNtQbwg" sourceNode="_7x0F8KOEEey5nPqTNtQbwg" targetNode="_7yhQkKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_9gt-MC2YEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_9gt-MC2YEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70UAUaOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70UAUqOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70UAVaOEEey5nPqTNtQbwg" sourceNode="_7x0tAKOEEey5nPqTNtQbwg" targetNode="_7ydmMKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_CUU3IC2ZEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_CUU3IC2ZEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70UnYKOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70UnYaOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70UnZKOEEey5nPqTNtQbwg" sourceNode="_7x0tA6OEEey5nPqTNtQbwg" targetNode="_7yiesKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_nyFSEC2ZEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_nyFSEC2ZEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70UnZaOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70UnZqOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70UnaaOEEey5nPqTNtQbwg" sourceNode="_7x0tA6OEEey5nPqTNtQbwg" targetNode="_7yJdIKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_oW7rkC2ZEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_oW7rkC2ZEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70UnaqOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70Una6OEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70UnbqOEEey5nPqTNtQbwg" sourceNode="_7x0tBqOEEey5nPqTNtQbwg" targetNode="_7yk68KOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_w-5m8C2ZEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_w-5m8C2ZEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70Unb6OEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70UncKOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70VOcqOEEey5nPqTNtQbwg" sourceNode="_7x0tCaOEEey5nPqTNtQbwg" targetNode="_7ymJEKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_4FwU4C2ZEeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#_4FwU4C2ZEeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70VOc6OEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70VOdKOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_70VOd6OEEey5nPqTNtQbwg" sourceNode="_7x0tBqOEEey5nPqTNtQbwg" targetNode="_7ypMYKOEEey5nPqTNtQbwg">
+      <target xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#__9Lu4C2_EeyiUoiCEbquLw"/>
+      <semanticElements xmi:type="composition:ProvidedDelegationConnector" href="powerGrid.system#__9Lu4C2_EeyiUoiCEbquLw"/>
+      <ownedStyle xmi:type="diagram:EdgeStyle" uid="_70VOeKOEEey5nPqTNtQbwg" size="2">
+        <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']/@style"/>
+        <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_70VOeaOEEey5nPqTNtQbwg"/>
+      </ownedStyle>
+      <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@edgeMappings[name='ProvidedDelegationConnector%20Edge']"/>
+    </ownedDiagramElements>
+    <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']"/>
+    <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_7w0AYKOEEey5nPqTNtQbwg"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer"/>
     <activatedLayers xmi:type="description_1:AdditionalLayer" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@additionalLayers[name='QoS']"/>
     <target xmi:type="system:System" href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>

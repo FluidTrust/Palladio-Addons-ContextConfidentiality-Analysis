@@ -12,6 +12,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.D
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.base.Objects;
 
@@ -39,7 +40,7 @@ public class AssemblyContextContext extends AssemblyContextHandler {
 
     @Override
     protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
-            final CredentialChange change, final EObject source) {
+            final CredentialChange change, final Entity source) {
         final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, component);
 
         final var result = this.queryAccessForEntity(component, credentials);
