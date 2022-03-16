@@ -7,7 +7,8 @@ Bundle-Activator: org.palladiosimulator.pcm.confidentiality.attacker.analysis.co
 Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.attacker;bundle-version="0.1.0",
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
- org.palladiosimulator.pcm.confidentiality.context
+ org.palladiosimulator.pcm.confidentiality.context,
+ org.palladiosimulator.dataflow.confidentiality.pcm.queryutils
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.attacker.analysis.common
 Bundle-ActivationPolicy: lazy

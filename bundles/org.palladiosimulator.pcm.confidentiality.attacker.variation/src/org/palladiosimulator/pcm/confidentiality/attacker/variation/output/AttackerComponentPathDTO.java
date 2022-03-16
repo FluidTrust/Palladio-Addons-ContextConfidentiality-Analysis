@@ -7,7 +7,6 @@ import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackComplexity;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedData;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
@@ -144,12 +143,8 @@ public class AttackerComponentPathDTO {
 
         credentialChange.getCompromiseddata().stream().map(CompromisedData::getAffectedElement).map(data -> {
 
-            final var sourceName = data.getSource() instanceof ServiceRestriction
-                    ? ((ServiceRestriction) data.getSource()).getAssemblycontext().getEntityName()
-                    : data.getSource().getEntityName();
-            final var sourceID = data.getSource() instanceof ServiceRestriction
-                    ? ((ServiceRestriction) data.getSource()).getAssemblycontext().getId()
-                    : data.getSource().getId();
+            final var sourceName = data.getContext().get(data.getContext().size() - 1).getEntityName();
+            final var sourceID = data.getContext().get(data.getContext().size() - 1).getId();
 
             final var methodName = data.getMethod().getEntityName();
             final var variableName = data.getReferenceName() == null ? "RETURN" : data.getReferenceName();

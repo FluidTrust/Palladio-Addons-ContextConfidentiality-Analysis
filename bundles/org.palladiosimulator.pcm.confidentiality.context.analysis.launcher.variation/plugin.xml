@@ -15,7 +15,7 @@
    <extension
          point="org.eclipse.debug.ui.launchConfigurationTabGroups">
       <launchConfigurationTabGroup
-            class="org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.ui.variations.LaunchConfigurationTabGroup"
+            class="org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.variation.ui.LaunchConfigurationTabGroup"
             id="pcm.dataprocessing.context.attackeranalysis.launcher.tabGroup.variations"
             type="pcm.dataprocessing.context.attackeranalysis.launcher.config.variations">
          <launchMode
