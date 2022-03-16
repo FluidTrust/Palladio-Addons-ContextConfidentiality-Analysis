@@ -200,19 +200,17 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final ResourceContainer attackerResource = getResourceContainer(criticalComponent);
 
         final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
-        final var changes = addRootAccess();
+        addRootAccess();
         
         // attack and compromise attackerNode
         final var resourceHandler = new ResourceContainerContext(this.getBlackboardWrapper(),
                 dataHandler, getAttackGraph());
         
-        resourceHandler.attackResourceContainer(Arrays.asList(attackerResource), changes, attackerResource);
+        resourceHandler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(CRED_ID));
-        
-        removeRootAccess();
     }
     
     @Test
@@ -230,20 +228,18 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
                 .filter(r -> r.getEntityName().contains("P"))
                 .findFirst().orElse(null);
         final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackStatusNodeContent(attackerResource));
-        final var changes = addRootAccess();
+        addRootAccess();
         
-        handler.attackResourceContainer(Arrays.asList(attackerResource), changes, attackerResource);
+        handler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertFalse(attackerNode.isCompromised());
         Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
         Assert.assertNull(getAttackGraph().getEdge(attackerNode, attackerNode));
         
         // attack and compromise container node
-        handler.attackResourceContainer(Arrays.asList(resource), changes, attackerResource);
+        handler.attackResourceContainer(Arrays.asList(resource), getChanges(), attackerResource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
         Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(resourceNode).toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(resourceNode, attackerNode).contains(CRED_ID));
-        
-        removeRootAccess();
     }
 }

@@ -45,6 +45,7 @@ public abstract class Change<T> {
         this.attackGraph = attackGraph;
         this.stackLevel = 0;
         this.selectedSurfacePath = new AttackPathSurface();
+        this.attackGraph.setSelectedPath(this.selectedSurfacePath);
     }
 
     public CredentialChange getChanges() {
@@ -103,7 +104,6 @@ public abstract class Change<T> {
     }
     
     private void removeChildNodeFromPath() {
-        this.attackGraph.addSelectedPath(this.selectedSurfacePath.getCopy());
         this.selectedSurfacePath.removeFirst();
     }
 

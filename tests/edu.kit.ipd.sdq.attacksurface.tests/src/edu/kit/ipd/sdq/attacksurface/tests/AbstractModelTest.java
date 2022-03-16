@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.tests;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -20,9 +21,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.ContextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
@@ -37,7 +36,9 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
@@ -180,20 +181,10 @@ public abstract class AbstractModelTest extends BaseTest {
         return change;
     }
     
-    protected CredentialChange addRootAccess() {
-        final var credentialList = getSurfaceAttacker().getAttacker().getCredentials();
-        credentialList.add(getRootCredentials());
-        //TODO adapt if changes are no longer used
-        final var changes = getChanges();
-        changes.getContextchange().add(toChange(getRootCredentials()));
-        
-        generateXML();
-        return changes;
-    }
-    
-    protected void removeRootAccess() {
-        final var credentialList = getSurfaceAttacker().getAttacker().getCredentials();
-        credentialList.remove(credentialList.size() - 1);
+    protected void addRootAccess() {
+        final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
+                .stream().map(Identifier::getId).map(CredentialSurface::new).collect(Collectors.toSet());
+        getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
     }
     
     private UsageSpecification getRootCredentials() {

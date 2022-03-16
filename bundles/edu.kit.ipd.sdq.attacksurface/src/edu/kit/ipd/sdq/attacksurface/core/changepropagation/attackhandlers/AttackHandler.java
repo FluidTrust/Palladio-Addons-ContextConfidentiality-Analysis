@@ -28,17 +28,20 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPRes
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
+import com.google.common.graph.EndpointPair;
+
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.credentialquerying.CredentialQuerying;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.credentialquerying.SimpleCredentialQuerying;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 
@@ -114,35 +117,43 @@ public abstract class AttackHandler implements CredentialQuerying {
     }
     
     /**
-     * Gets the credentials from the context changes elements.
+     * Gets the credentials from the attack graph.
      * 
-     * @param changes - the changes
+     * @param source - the attack source node
+     * @param target - the attacked node
      * @return the credentials usable at the moment
      */
-    protected final List<UsageSpecification> getAllCredentials(final CredentialChange changes) {
-        return changes.getContextchange()
-                .stream()
-                .map(ContextChange::getAffectedElement)
-                .collect(Collectors.toList());
+    protected final List<UsageSpecification> getAllCredentials(
+            final AttackStatusNodeContent source, 
+            final AttackStatusNodeContent target) {
+        final var edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
+                EndpointPair.ordered(source, target));
+        return this.attackGraph.getCredentials(edge).stream().map(this::findCredential).collect(Collectors.toList());
+    }
+    
+    private UsageSpecification findCredential(final CredentialSurface credential) {
+        return this.modelStorage.getSpecification().getUsagespecification().stream()
+                    .filter(u -> u.getId().equals(credential.getCauseId())).findFirst().orElse(null);
     }
     
     /**
      * 
-     * @param changes - the changes
-     * @param attackedEntity - the entity to be attacked
+     * @param source - the attack source node
+     * @param target - the attacked node
      * @return the credentials relevant for the attack
      */
-    protected final List<UsageSpecification> getRelevantCredentials(final CredentialChange changes, 
-            final Entity attackedEntity) {
+    protected final List<UsageSpecification> getRelevantCredentials(
+            final AttackStatusNodeContent source, 
+            final AttackStatusNodeContent target) {
         final var idsOfRelevantUsageSpecifications = 
                 this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()
                     .stream()
                     .filter(s -> PCMElementType.typeOf(s.getPcmelement())
-                            .getElementEqualityPredicate(attackedEntity).test(s))
+                            .getElementEqualityPredicate(target.getContainedElement()).test(s))
                     .filter(CredentialSystemIntegration.class::isInstance)
                     .map(SystemIntegration::getIdOfContent)
                     .collect(Collectors.toSet());
-        return getAllCredentials(changes)
+        return getAllCredentials(source, target)
                 .stream()
                 .filter(u -> idsOfRelevantUsageSpecifications.contains(u.getId()))
                 .collect(Collectors.toList());

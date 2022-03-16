@@ -1,9 +1,10 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -41,8 +42,12 @@ public class AttackGraph {
     private final MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> graph;
 
     private AttackStatusNodeContent selectedNode;
-    private final Set<AttackPathSurface> selectedPaths;
-
+    private AttackPathSurface selectedPath;
+    
+    private final Map<VulnerabilitySurface, Set<CredentialSurface>> credentialsObtainedByAttack; 
+    private final Map<AttackStatusEdge, Set<VulnerabilitySurface>> attackEdgesToCredentialGainingVulnerabilitiesMap; 
+    private final Set<CredentialSurface> credentialsFromBeginningOn;
+    
     /**
      * Creates a new {@link AttackGraph} with the given entity as the root entity,
      * i.e. critical element.
@@ -55,7 +60,9 @@ public class AttackGraph {
         this.graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
         this.graph.addNode(this.root);
         this.selectedNode = this.root;
-        this.selectedPaths = new HashSet<>();
+        this.credentialsObtainedByAttack = new HashMap<>();
+        this.attackEdgesToCredentialGainingVulnerabilitiesMap = new HashMap<>();
+        this.credentialsFromBeginningOn = new HashSet<>();
     }
 
     private AttackGraph(AttackStatusNodeContent root,
@@ -63,7 +70,9 @@ public class AttackGraph {
         this.graph = copyGraph;
         this.root = findNode(root);
         this.selectedNode = this.root;
-        this.selectedPaths = new HashSet<>();
+        this.credentialsObtainedByAttack = new HashMap<>();
+        this.attackEdgesToCredentialGainingVulnerabilitiesMap = new HashMap<>();
+        this.credentialsFromBeginningOn = new HashSet<>();
     }
 
     /**
@@ -106,6 +115,69 @@ public class AttackGraph {
     }
 
     /**
+     * 
+     * @return the selected path at the moment
+     */
+    public AttackPathSurface getSelectedPath() {
+        return selectedPath;
+    }
+
+    /**
+     * 
+     * @param selectedPath - the selected path at the moment
+     */
+    public void setSelectedPath(AttackPathSurface selectedPath) {
+        this.selectedPath = selectedPath;
+    }
+    
+    /**
+     * 
+     * @return the credentials obtained on the selected path by vulnerabilities
+     */
+    public Set<CredentialSurface> getCredentials(final AttackStatusEdge localAttackEdge) {
+        final Set<CredentialSurface> ret = new HashSet<>(this.credentialsFromBeginningOn);
+        if (this.selectedPath == null) {
+            return ret;
+        }
+        final var copy = this.selectedPath.getCopy();
+        copy.add(localAttackEdge);
+        ret.addAll(copy
+                    .stream()
+                    .map(this::getByTargetNode)
+                    .filter(Objects::nonNull)
+                    .flatMap(Set::stream)
+                    .map(this.credentialsObtainedByAttack::get)
+                    .filter(Objects::nonNull)
+                    .flatMap(Set::stream)
+                    .collect(Collectors.toSet()));
+        return ret;
+    }
+    
+    private Set<VulnerabilitySurface> getByTargetNode(AttackStatusEdge edge) {
+        final Set<VulnerabilitySurface> ret = this.attackEdgesToCredentialGainingVulnerabilitiesMap.get(edge);
+        if (ret == null) {
+            return this.attackEdgesToCredentialGainingVulnerabilitiesMap.keySet().stream()
+                    .filter(e -> {
+                        final var target = e.getNodes().target();
+                        return target.equals(edge.getNodes().source()) || 
+                            target.equals(edge.getNodes().target());
+                     })
+                    .map(this.attackEdgesToCredentialGainingVulnerabilitiesMap::get)
+                    .flatMap(Set::stream)
+                    .collect(Collectors.toSet());
+        }
+        return ret;
+    }
+    
+    /**
+     * 
+     * @param credentials - the credentials to be available in every path
+     */
+    public void addCredentialsFromBeginningOn(final Set<CredentialSurface> credentials) {
+        this.credentialsFromBeginningOn.addAll(credentials);
+    }
+
+    /**
      * Sets the selected node to the given one.
      * 
      * @param node - the node to be set as the selected node (it must be contained
@@ -117,33 +189,6 @@ public class AttackGraph {
         if (this.selectedNode == null) {
             throw new IllegalArgumentException("node not selectable, not contained in graph! node= " + node);
         }
-    }
-    
-    /**
-     * 
-     * @param path - the path to be checked
-     * @return whether the given path is a self edge of the comromised root node 
-     * or the given path is contained by path equality regarding node equality without self edges
-     */
-    public boolean isASelectedPath(final AttackPathSurface path) {
-        if (this.root.isCompromised() && path.size() == 1 
-                && path.get(0).getNodes().source().equals(this.root)
-                && path.get(0).getNodes().target().equals(this.root)) {
-            return true;
-        }
-        
-        return this.selectedPaths.stream()
-                .map(AttackPathSurface::getCopyRemovedSelfEdges)
-                .anyMatch(p -> p.arePathNodesEquals(path.getCopyRemovedSelfEdges()));
-    }
-    
-    /**
-     * Adds the given selected path.
-     * 
-     * @param path - the path to be added
-     */
-    public void addSelectedPath(final AttackPathSurface path) {
-        this.selectedPaths.add(path);
     }
 
     /**
@@ -201,10 +246,23 @@ public class AttackGraph {
         attackedNodeInGraph.attack(attackerNodeInGraph);
         final var edgeNow = getEdge(attackedNodeInGraph, attackerNodeInGraph);
         final var content = edgeNow != null ? edgeNow : new AttackStatusEdgeContent();
-        final Set<CVSurface> surfaceSet = vulnerabilities.stream().map(Identifier::getId).map(VulnerabilitySurface::new)
+        final Set<VulnerabilitySurface> surfaceSet = vulnerabilities.stream().map(Identifier::getId).map(VulnerabilitySurface::new)
                 .collect(Collectors.toSet());
-        content.addSetV(surfaceSet);
-        this.appendEdge(attackedNodeInGraph, content, attackerNodeInGraph);
+        for (final var vulnerability : vulnerabilities) {
+            final VulnerabilitySurface vulnSurface = new VulnerabilitySurface(vulnerability.getId());
+            surfaceSet.add(vulnSurface);
+            final var credentialsObtained = this.credentialsObtainedByAttack.containsKey(vulnSurface) ?
+                    this.credentialsObtainedByAttack.get(vulnSurface) : new HashSet<CredentialSurface>();
+            credentialsObtained.addAll(vulnerability.getGainedAttributes()
+                    .stream()
+                    .map(Identifier::getId)
+                    .map(CredentialSurface::new)
+                    .collect(Collectors.toSet()));
+            this.credentialsObtainedByAttack.put(vulnSurface, credentialsObtained);
+        }
+        content.addSetV(surfaceSet.stream().collect(Collectors.toSet()));
+        final var edge = this.appendEdge(attackedNodeInGraph, content, attackerNodeInGraph);
+        this.attackEdgesToCredentialGainingVulnerabilitiesMap.put(edge, surfaceSet);
     }
 
     /**
@@ -342,7 +400,7 @@ public class AttackGraph {
             }
             allPaths.forEach(p -> {
                 final var pathCopy = p.getCopy();
-                final boolean doAddCopy = addEdgeIfFitting(p, reverseEdge) /*&& isASelectedPath(pathCopy)*/;
+                final boolean doAddCopy = addEdgeIfFitting(p, reverseEdge);
                 if (doAddCopy) {
                     newPaths.add(pathCopy);
                 } 

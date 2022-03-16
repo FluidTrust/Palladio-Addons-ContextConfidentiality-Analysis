@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -15,7 +14,6 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -63,7 +61,7 @@ public class HelperUpdateCredentialChange {
         final var vulnerabilities = findCauseVulnerabilities(listChanges);
         attackGraph.attackNodeWithVulnerabilities(attackerNodeInGraph, attackedNodeInGraph, vulnerabilities);
         
-        changes.getContextchange().addAll(listChanges);
+        //changes.getContextchange().addAll(listChanges); //TODO remove < ++ CachePDP nochmal anschauen, evtl. auch loeschen
 
         if (!listChanges.isEmpty()) {
             attackedNodeInGraph.attack(attackerNodeInGraph);

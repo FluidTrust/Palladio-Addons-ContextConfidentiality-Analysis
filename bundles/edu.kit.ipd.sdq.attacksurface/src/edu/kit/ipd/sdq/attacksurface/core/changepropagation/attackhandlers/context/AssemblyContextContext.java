@@ -19,6 +19,7 @@ import com.google.common.base.Objects;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -41,7 +42,9 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     @Override
     protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
             final CredentialChange change, final Entity source) {
-        final List<? extends UsageSpecification> credentials = this.getRelevantCredentials(change, component);
+        final List<? extends UsageSpecification> credentials = 
+                this.getRelevantCredentials(new AttackStatusNodeContent(source),
+                        new AttackStatusNodeContent(component));
 
         final var result = this.queryAccessForEntity(component, credentials);
 
