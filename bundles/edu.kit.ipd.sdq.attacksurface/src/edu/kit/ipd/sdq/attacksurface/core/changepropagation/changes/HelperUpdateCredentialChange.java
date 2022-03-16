@@ -61,8 +61,6 @@ public class HelperUpdateCredentialChange {
         final var vulnerabilities = findCauseVulnerabilities(listChanges);
         attackGraph.attackNodeWithVulnerabilities(attackerNodeInGraph, attackedNodeInGraph, vulnerabilities);
         
-        //changes.getContextchange().addAll(listChanges); //TODO remove < ++ CachePDP nochmal anschauen, evtl. auch loeschen
-
         if (!listChanges.isEmpty()) {
             attackedNodeInGraph.attack(attackerNodeInGraph);
             CachePDP.instance().clearCache();
