@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_8WS2AJlSEeydpc4YSVJolQ">
+  <components__Repository xsi:type="repository:BasicComponent" id="_JuY4gJlTEeydpc4YSVJolQ" entityName="BasicComponent1">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Ev2FcZlUEeydpc4YSVJolQ" entityName="operationA" providedInterface__OperationProvidedRole="_fz9BcJlTEeydpc4YSVJolQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_QPZ5B5lUEeydpc4YSVJolQ" describedService__SEFF="_5QFdkJlTEeydpc4YSVJolQ"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_-Tg18JopEey1qKzy1Oo2GA" entityName="BasicComponent2">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CTf5kZoqEey1qKzy1Oo2GA" entityName="operationB" providedInterface__OperationProvidedRole="_GY4al5oqEey1qKzy1Oo2GA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_ON3Z15oqEey1qKzy1Oo2GA" describedService__SEFF="_ILQXIJoqEey1qKzy1Oo2GA"/>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_fz9BcJlTEeydpc4YSVJolQ" entityName="Interface1">
+    <signatures__OperationInterface id="_5QFdkJlTEeydpc4YSVJolQ" entityName="doA"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_GY4al5oqEey1qKzy1Oo2GA" entityName="Interface2">
+    <signatures__OperationInterface id="_ILQXIJoqEey1qKzy1Oo2GA" entityName="doB"/>
+  </interfaces__Repository>
+</repository:Repository>

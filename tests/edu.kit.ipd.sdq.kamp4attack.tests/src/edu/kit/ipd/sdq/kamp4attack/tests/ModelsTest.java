@@ -28,7 +28,6 @@ class ModelsTest extends AbstractModelTest {
 
     @BeforeEach
     protected void execute() {
-    	java.lang.System.out.println("Zeile 0");
         generateXML();
         final var wrapper = getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
@@ -62,7 +61,7 @@ class ModelsTest extends AbstractModelTest {
         final var contexts = ((CredentialChange) steps.get(0)).getContextchange().stream()
                 .map(ContextChange::getAffectedElement).collect(Collectors.toList());
         assertEquals("_Fg8BQe2_Eeq6pfPMAIqEqg", resource.getId());
-        assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
+        assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getCompromisedComponents().get(0).getId());
 
         final var context0 = contexts.get(0);
         final var context1 = contexts.get(1);

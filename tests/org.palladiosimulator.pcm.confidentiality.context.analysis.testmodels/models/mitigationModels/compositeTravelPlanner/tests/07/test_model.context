@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_TW6x0PXoEeub3tcXgMY_nQ">
+    <usagespecification id="_dfnbsZ8DEeyCKPxfJb2_5w" entityName="2fa" attributevalue="_FIbdMJvIEeySpfO2ARTgng" attribute="_8SD5cpvHEeySpfO2ARTgng"/>
+  </pcmspecificationcontainer>
+  <policyset id="_SmfacfXoEeub3tcXgMY_nQ" entityName="Travelplaner Case Study" combiningAlgorithm="PERMIT_UNLESS_DENY"/>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_fG18ovXoEeub3tcXgMY_nQ" entityName="Role">
+      <attributevalue id="_haahwPXoEeub3tcXgMY_nQ" entityName="customer">
+        <values>customer</values>
+      </attributevalue>
+      <attributevalue id="_cvu-oDjAEey9mszNksodxw">
+        <values>User</values>
+      </attributevalue>
+      <attributevalue id="_-GM0EDjAEey9mszNksodxw">
+        <values>AgencyAdmin</values>
+      </attributevalue>
+      <attributevalue id="_z126wDjCEeySeoNo6py9pw" entityName="AirlineAdmin">
+        <values>AirlineAdmin</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_f4xTY_XpEeub3tcXgMY_nQ" entityName="Classification">
+      <attributevalue id="_FW7W8PXqEeub3tcXgMY_nQ" entityName="declassified">
+        <values>declassified</values>
+      </attributevalue>
+      <attributevalue id="_PbjdkPXqEeub3tcXgMY_nQ" entityName="classified">
+        <values>classified</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_AqKRogZYEeyAI7-VwtP_pw" entityName="Location">
+      <attributevalue id="_C3AjsAZYEeyAI7-VwtP_pw">
+        <values>Home</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_8SD5cpvHEeySpfO2ARTgng" entityName="2FA">
+      <attributevalue id="_-ggG8JvHEeySpfO2ARTgng" entityName="Software">
+        <values>Software</values>
+      </attributevalue>
+      <attributevalue id="_FIbdMJvIEeySpfO2ARTgng" entityName="Hardware">
+        <values>Hardware</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_bECY4pvIEeySpfO2ARTgng" entityName="Decryption">
+      <attributevalue id="_eGFNkJvIEeySpfO2ARTgng" entityName="hasKey" type="Boolean">
+        <values>true</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

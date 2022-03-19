@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_TW6x0PXoEeub3tcXgMY_nQ">
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_V0aH8vXoEeub3tcXgMY_nQ" entityName="Customer Role UsageScenario" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
+      <usagescenario href="../../default.usagemodel#_rdnIsGB1Eea8PL_gXolfGA"/>
+    </usagespecification>
+    <usagespecification id="_cYY84fXpEeub3tcXgMY_nQ" entityName="RoleCustomer" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
+    <usagespecification id="_SIYQMfXqEeub3tcXgMY_nQ" entityName="declassified" attributevalue="_FW7W8PXqEeub3tcXgMY_nQ" attribute="_f4xTY_XpEeub3tcXgMY_nQ"/>
+    <usagespecification id="_Kpsc4QZYEeyAI7-VwtP_pw" entityName="Location Home" attributevalue="_C3AjsAZYEeyAI7-VwtP_pw" attribute="_AqKRogZYEeyAI7-VwtP_pw"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_65nzIgcXEeyqV_N5s8UnKQ" entityName="Declassified" attributevalue="_C3AjsAZYEeyAI7-VwtP_pw" attribute="_AqKRogZYEeyAI7-VwtP_pw">
+      <entrylevelsystemcall href="../../default.usagemodel#_uA4ooHZsEeaE4tGRMtTb7A"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_B49j0gcYEeyqV_N5s8UnKQ" entityName="release" attributevalue="_FW7W8PXqEeub3tcXgMY_nQ" attribute="_f4xTY_XpEeub3tcXgMY_nQ">
+      <entrylevelsystemcall href="../../default.usagemodel#_WtNmwN5gEeeel_96Qa_d5A"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_65nzIgcXEeyqV_N5s8UnKQ" entityName="Declassified Role" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
+      <entrylevelsystemcall href="../../default.usagemodel#_uA4ooHZsEeaE4tGRMtTb7A"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_B49j0gcYEeyqV_N5s8UnKQ" entityName="release Role" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
+      <entrylevelsystemcall href="../../default.usagemodel#_WtNmwN5gEeeel_96Qa_d5A"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_iikK4AcmEeyfdfV5US28Ng" entityName="creditCard" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
+      <usagescenario href="../../default.usagemodel#_J_S84C4_EeuiX-NTW4lBww"/>
+    </usagespecification>
+    <usagespecification id="_Feug0TjBEey9mszNksodxw" entityName="AdminAgency" attributevalue="_-GM0EDjAEey9mszNksodxw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
+    <usagespecification id="_8bMY4TjCEeySeoNo6py9pw" entityName="AirlineAdmin" attributevalue="_z126wDjCEeySeoNo6py9pw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
+    <usagespecification id="_2rnzoTmWEey9DpUgqaC4Ew" entityName="User" attributevalue="_cvu-oDjAEey9mszNksodxw" attribute="_fG18ovXoEeub3tcXgMY_nQ"/>
+  </pcmspecificationcontainer>
+  <policyset id="_SmfacfXoEeub3tcXgMY_nQ" entityName="Travelplaner Case Study"/>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_fG18ovXoEeub3tcXgMY_nQ" entityName="Role">
+      <attributevalue id="_haahwPXoEeub3tcXgMY_nQ" entityName="customer">
+        <values>customer</values>
+      </attributevalue>
+      <attributevalue id="_cvu-oDjAEey9mszNksodxw">
+        <values>User</values>
+      </attributevalue>
+      <attributevalue id="_-GM0EDjAEey9mszNksodxw">
+        <values>AgencyAdmin</values>
+      </attributevalue>
+      <attributevalue id="_z126wDjCEeySeoNo6py9pw" entityName="AirlineAdmin">
+        <values>AirlineAdmin</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_f4xTY_XpEeub3tcXgMY_nQ" entityName="Classification">
+      <attributevalue id="_FW7W8PXqEeub3tcXgMY_nQ" entityName="declassified">
+        <values>declassified</values>
+      </attributevalue>
+      <attributevalue id="_PbjdkPXqEeub3tcXgMY_nQ" entityName="classified">
+        <values>classified</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_AqKRogZYEeyAI7-VwtP_pw" entityName="Location">
+      <attributevalue id="_C3AjsAZYEeyAI7-VwtP_pw">
+        <values>Home</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -20,8 +21,8 @@ public abstract class LinkingResourceHandler extends AttackHandler {
     }
 
     public void attackLinkingResource(final Collection<LinkingResource> linking, final CredentialChange change,
-            final EObject source) {
-        final var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source))
+            final EObject source, Attacker attacker) {
+        final var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source, attacker))
                 .flatMap(Optional::stream).distinct().collect(Collectors.toList());
         final var newCompromisedResources = filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
@@ -37,7 +38,7 @@ public abstract class LinkingResourceHandler extends AttackHandler {
     }
 
     protected abstract Optional<CompromisedLinkingResource> attackLinkingResource(LinkingResource linking,
-            CredentialChange change, EObject source);
+            CredentialChange change, EObject source, Attacker attacker);
 
     private Collection<CompromisedLinkingResource> filterExsiting(final Collection<CompromisedLinkingResource> linkings,
             final CredentialChange change) {

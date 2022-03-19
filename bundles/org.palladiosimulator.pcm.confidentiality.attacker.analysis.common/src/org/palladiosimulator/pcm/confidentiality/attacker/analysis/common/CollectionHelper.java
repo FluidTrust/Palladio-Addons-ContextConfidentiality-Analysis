@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
@@ -18,6 +19,7 @@ import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.Se
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.CompositeComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 
@@ -27,140 +29,186 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public class CollectionHelper {
-    private CollectionHelper() {
+	private CollectionHelper() {
 
-    }
-    
-    public static List<AssemblyContextDetail> assemblyContextToList (final List<AssemblyContext> contexts) {
-    	List<AssemblyContextDetail> assemblyDetails = new LinkedList<>();
-    	for (AssemblyContext context : contexts) {
-    		assemblyDetails.add((AssemblyContextDetail) context);
-    	}
-    	return assemblyDetails;
-    }
+	}
 
-    public static List<AssemblyContext> getAssemblyContext(final List<ResourceContainer> reachableResources,
-            final Allocation allocation) {
-        return allocation.getAllocationContexts_Allocation().stream()
-                .filter(container -> searchResource(container.getResourceContainer_AllocationContext(),
-                        reachableResources))
-                .map(AllocationContext::getAssemblyContext_AllocationContext).distinct().collect(Collectors.toList());
+	public static List<AssemblyContext> getAssemblyContext(final List<ResourceContainer> reachableResources,
+			final Allocation allocation) {
+		return allocation.getAllocationContexts_Allocation().stream()
+				.filter(container -> searchResource(container.getResourceContainer_AllocationContext(),
+						reachableResources))
+				.map(AllocationContext::getAssemblyContext_AllocationContext).distinct().collect(Collectors.toList());
+	}
 
-    }
+	/**
+	 * Converts a list from AssemblyContext to AssemblyContextDetails
+	 * 
+	 * @param assemblies : list to convert
+	 * @return : list of converted AssemblyContexts
+	 */
+	public static List<AssemblyContextDetail> getAssemblyContextDetail(final List<AssemblyContext> assemblies) {
+		List<AssemblyContextDetail> details = new LinkedList<>();
+		for (AssemblyContext assembly : assemblies) {
+			AssemblyContextDetail detail = AttackerFactory.eINSTANCE.createAssemblyContextDetail();
+			detail.getCompromisedComponents().add(assembly);
 
-    public static List<ServiceRestriction> getProvidedRestrictions(final List<AssemblyContextDetail> components) {
-    	//TODO: anschauen ob eine Liste an ServiceRestrictions reicht oder verschachtelte Liste notwendig
-        //return components.stream().flatMap(component -> CollectionHelper.getProvidedRestrictions(component).stream())
-        //        .collect(Collectors.toList());
-    	LinkedList<ServiceRestriction> restrinctions = new LinkedList<>();
-    	for (AssemblyContextDetail assemblyDetail : components) {
-    		for (AssemblyContext context : assemblyDetail.getAssemblyList()) {
-    			restrinctions.addAll(CollectionHelper.getProvidedRestrictions(context).stream().collect(Collectors.toList()));
-    		}
-    	}
-    	return restrinctions;
-    }
+			var type = assembly.getEncapsulatedComponent__AssemblyContext();
 
-    public static List<ServiceRestriction> getProvidedRestrictions(AssemblyContext component) {
-        var listRestriction = new ArrayList<ServiceRestriction>();
+			if (type instanceof CompositeComponent) {
+				List<AssemblyContext> compositeAssemblies = ((CompositeComponent) type)
+						.getAssemblyContexts__ComposedStructure();
+				for (AssemblyContext element : compositeAssemblies) {
+					detail.getCompromisedComponents().addAll(getAllBasicComponents(element));
+				}
 
-        var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
-        if (repoComponent instanceof BasicComponent) {
-            for (var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
-                if (seff instanceof ResourceDemandingSEFF) {
-                    var specification = StructureFactory.eINSTANCE.createServiceRestriction();
-                    specification.setAssemblycontext(component);
-                    specification.setService((ResourceDemandingSEFF) seff);
-                    specification.setSignature(seff.getDescribedService__SEFF());
-                    listRestriction.add(specification);
-                }
-            }
-        }
+			}
 
-        return listRestriction;
+			detail.setEntityName(assembly.getEntityName());
+			details.add(detail);
+		}
+		return details;
+	}
+	
+	public static AssemblyContextDetail createAssemblyContextDetail(AssemblyContext context) {
+		AssemblyContextDetail detail = AttackerFactory.eINSTANCE.createAssemblyContextDetail();
+		detail.getCompromisedComponents().add(context);
+		detail.setEntityName(context.getEntityName());
+		detail.setId(context.getId());
+		return detail;
+	}
 
-    }
+	public static List<AssemblyContext> getAllBasicComponents(AssemblyContext assembly) {
+		List<AssemblyContext> returnList = new LinkedList<>();
+		if (assembly.getEncapsulatedComponent__AssemblyContext() instanceof BasicComponent) {
+			returnList.add(assembly);
+		} else { // CompositeComponent
+			List<AssemblyContext> structure = ((CompositeComponent) assembly
+					.getEncapsulatedComponent__AssemblyContext()).getAssemblyContexts__ComposedStructure();
+			for (AssemblyContext element : structure) {
+				returnList.addAll(getAllBasicComponents(element));
+			}
+		}
+		return returnList;
+	}
 
-    public static List<CompromisedService> filterExistingService(final List<CompromisedService> services,
-            final CredentialChange change) {
-        return services.stream().filter(service -> !containsService(service, change)).collect(Collectors.toList());
+	public static List<ServiceRestriction> getProvidedRestrictions(AssemblyContextDetail detail) {
+		var listRestriction = new ArrayList<ServiceRestriction>();
 
-    }
+		for (AssemblyContext component : detail.getCompromisedComponents()) {
+			var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
+			if (repoComponent instanceof BasicComponent) {
+				for (var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
+					if (seff instanceof ResourceDemandingSEFF) {
+						var specification = StructureFactory.eINSTANCE.createServiceRestriction();
+						specification.setAssemblycontext(component);
+						specification.setService((ResourceDemandingSEFF) seff);
+						specification.setSignature(seff.getDescribedService__SEFF());
+						listRestriction.add(specification);
+					}
+				}
+			} else if (repoComponent instanceof CompositeComponent) {
+				List<AssemblyContextDetail> details = getAssemblyContextDetail(
+						((CompositeComponent) repoComponent).getAssemblyContexts__ComposedStructure());
+				for (AssemblyContextDetail assemblyDetail : details) {
+					listRestriction.addAll(getProvidedRestrictions(assemblyDetail));
+				}
+			}
+		}
+		return listRestriction;
+	}
 
-    public static ServiceRestriction findOrCreateServiceRestriction(ServiceRestriction service,
-            AttackerSystemSpecificationContainer attackerSpecification, CredentialChange change) {
-        var listMethodSpecification = attackerSpecification.getVulnerabilities().stream()
-                .filter(VulnerabilitySystemIntegration.class::isInstance)
-                .map(VulnerabilitySystemIntegration.class::cast)
-                .filter(e -> e.getPcmelement().getMethodspecification() != null)
-                .map(VulnerabilitySystemIntegration::getPcmelement).map(PCMElement::getMethodspecification)
-                .filter(ServiceRestriction.class::isInstance).map(ServiceRestriction.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
-                        && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
-                .findAny();
+	public static List<CompromisedService> filterExistingService(final List<CompromisedService> services,
+			final CredentialChange change) {
+		return services.stream().filter(service -> !containsService(service, change)).collect(Collectors.toList());
 
-        if (listMethodSpecification.isPresent()) {
-            return listMethodSpecification.get();
-        }
+	}
 
-        if (change.getServicerestrictioncontainer() == null) {
-            change.setServicerestrictioncontainer(
-                    KAMP4attackModificationmarksFactory.eINSTANCE.createServiceRestrictionContainer());
-        }
+	public static ServiceRestriction findOrCreateServiceRestriction(ServiceRestriction service,
+			AttackerSystemSpecificationContainer attackerSpecification, CredentialChange change) {
+		var listMethodSpecification = attackerSpecification.getVulnerabilities().stream()
+				.filter(VulnerabilitySystemIntegration.class::isInstance)
+				.map(VulnerabilitySystemIntegration.class::cast)
+				.filter(e -> e.getPcmelement().getMethodspecification() != null)
+				.map(VulnerabilitySystemIntegration::getPcmelement).map(PCMElement::getMethodspecification)
+				.filter(ServiceRestriction.class::isInstance).map(ServiceRestriction.class::cast)
+				.filter(e -> EcoreUtil.equals(e.getService(), service.getService())
+						&& EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
+				.findAny();
 
-        listMethodSpecification = change.getServicerestrictioncontainer().getServicerestriction().stream()
-                .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
-                        && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
-                .findAny();
+		if (listMethodSpecification.isPresent()) {
+			return listMethodSpecification.get();
+		}
 
-        if (listMethodSpecification.isPresent()) {
-            return listMethodSpecification.get();
-        } else {
-            change.getServicerestrictioncontainer().getServicerestriction().add(service);
-            return service;
-        }
+		if (change.getServicerestrictioncontainer() == null) {
+			change.setServicerestrictioncontainer(
+					KAMP4attackModificationmarksFactory.eINSTANCE.createServiceRestrictionContainer());
+		}
 
-    }
+		listMethodSpecification = change.getServicerestrictioncontainer().getServicerestriction().stream()
+				.filter(e -> EcoreUtil.equals(e.getService(), service.getService())
+						&& EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
+				.findAny();
 
-    public static void addService(final Collection<CompromisedAssembly> compromisedAssemblies,
-            AttackerSystemSpecificationContainer container, final CredentialChange change) {
-    	
-    	List<AssemblyContextDetail> assemblies = new LinkedList<>();
-    	for (CompromisedAssembly component : compromisedAssemblies) {
-    		assemblies.add(component.getAffectedElement());
-    	}
+		if (listMethodSpecification.isPresent()) {
+			return listMethodSpecification.get();
+		} else {
+			change.getServicerestrictioncontainer().getServicerestriction().add(service);
+			return service;
+		}
 
-        for (CompromisedAssembly component : compromisedAssemblies) {
-            final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(assemblies);
+	}
 
-            final var causingElement = new ArrayList<AssemblyContextDetail>();
-            causingElement.add(component.getAffectedElement());
+	public static void addService(final Collection<CompromisedAssembly> compromisedAssemblies,
+			AttackerSystemSpecificationContainer container, final CredentialChange change) {
 
-            var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {
-                var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service, container, change);
-                return HelperCreationCompromisedElements.createCompromisedService(serviceModel, causingElement);
-            }).collect(Collectors.toList());
+		for (final var component : compromisedAssemblies) {
+			final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(component.getAffectedElement());
 
-            serviceRestrictionsCompromised = CollectionHelper.filterExistingService(serviceRestrictionsCompromised,
-                    change);
-            change.getCompromisedservice().addAll(serviceRestrictionsCompromised);
-        }
+			final var causingElement = new ArrayList<AssemblyContextDetail>();
+			causingElement.add(component.getAffectedElement());
 
-    }
+			var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {
+				var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service, container, change);
+				return HelperCreationCompromisedElements.createCompromisedService(serviceModel, causingElement);
+			}).collect(Collectors.toList());
+			
+			serviceRestrictionsCompromised = CollectionHelper
+					.filterExistingService(CollectionHelper.removeServices(serviceRestrictionsCompromised), change);
+			
+			change.getCompromisedservice().addAll(serviceRestrictionsCompromised);
+		}
 
-    private static boolean containsService(final CompromisedService service, final CredentialChange change) {
-        return change.getCompromisedservice().stream().anyMatch(referenceComponent -> EcoreUtil
-                .equals(referenceComponent.getAffectedElement(), service.getAffectedElement()));
-    }
+	}
 
-    @SuppressWarnings("unchecked")
-    public static <T extends EObject> List<T> removeDuplicates(final Collection<T> collection) {
-        return (List<T>) EcoreUtil.filterDescendants(collection); // checked by incoming values
-    }
+	private static boolean containsService(final CompromisedService service, final CredentialChange change) {
+		return change.getCompromisedservice().stream().anyMatch(referenceComponent -> EcoreUtil
+				.equals(referenceComponent.getAffectedElement(), service.getAffectedElement()));
+	}
 
-    private static boolean searchResource(final ResourceContainer targetContainer,
-            final List<ResourceContainer> listContainer) {
-        return listContainer.stream().anyMatch(container -> EcoreUtil.equals(container, targetContainer));
-    }
+	private static List<CompromisedService> removeServices(List<CompromisedService> services) {
+		List<CompromisedService> returnList = new LinkedList<>();
+		for (CompromisedService service : services) {
+			boolean contains = returnList.stream()
+					.anyMatch(serv -> (serv.getAffectedElement().getService().getId()
+							.equals(service.getAffectedElement().getService().getId())
+							&& EcoreUtil.equals(serv.getAffectedElement().getAssemblycontext(),
+									service.getAffectedElement().getAssemblycontext())));
+			if (!contains) {
+				returnList.add(service);
+			}
+		}
+		return returnList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends EObject> List<T> removeDuplicates(final Collection<T> collection) {
+		return (List<T>) EcoreUtil.filterDescendants(collection); // checked by incoming values
+	}
+
+	private static boolean searchResource(final ResourceContainer targetContainer,
+			final List<ResourceContainer> listContainer) {
+		return listContainer.stream().anyMatch(container -> EcoreUtil.equals(container, targetContainer));
+	}
 
 }

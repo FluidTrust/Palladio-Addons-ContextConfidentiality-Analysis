@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -22,45 +23,58 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  *
  */
 public class HelperCreationCompromisedElements {
-    private HelperCreationCompromisedElements() {
+	private HelperCreationCompromisedElements() {
 
-    }
+	}
 
-    public static CompromisedResource createCompromisedResource(final ResourceContainer container,
-            final Collection<? extends EObject> list) {
-        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-        compromisedResource.setToolderived(true);
-        compromisedResource.setAffectedElement(container);
-        compromisedResource.getCausingElements().addAll(list);
-        return compromisedResource;
-    }
+	public static CompromisedResource createCompromisedResource(final ResourceContainer container,
+			final Collection<? extends EObject> list) {
+		final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+		compromisedResource.setToolderived(true);
+		compromisedResource.setAffectedElement(container);
+		compromisedResource.getCausingElements().addAll(list);
+		return compromisedResource;
+	}
 
-    public static CompromisedAssembly createCompromisedAssembly(final AssemblyContextDetail container,
-            final Collection<? extends EObject> list) {
-        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
-        compromisedResource.setToolderived(true);
-        compromisedResource.setAffectedElement(container);
-        compromisedResource.getCausingElements().addAll(list);
-        return compromisedResource;
-    }
+	public static CompromisedAssembly createCompromisedAssembly(final AssemblyContextDetail assemblyDetail,
+			final Collection<? extends EObject> list) {
+		final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
+		compromisedResource.setToolderived(true);
+		compromisedResource.setAffectedElement(assemblyDetail);
+		compromisedResource.getCausingElements().addAll(list);
+		return compromisedResource;
+	}
 
-    public static CompromisedLinkingResource createCompromisedLinking(final LinkingResource linking,
-            final Collection<? extends EObject> list) {
-        final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE
-                .createCompromisedLinkingResource();
-        compromisedResource.setToolderived(true);
-        compromisedResource.setAffectedElement(linking);
-        compromisedResource.getCausingElements().addAll(list);
-        return compromisedResource;
-    }
+	public static CompromisedAssembly createCompromisedAssembly(final AssemblyContext container,
+			final AssemblyContextDetail detail, final Collection<? extends EObject> list) {
+		final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
+		compromisedResource.setToolderived(true);
+		AssemblyContextDetail assemblyDetail = AttackerFactory.eINSTANCE.createAssemblyContextDetail();
+		assemblyDetail.getCompromisedComponents().add(detail.getCompromisedComponents().get(0));
+		assemblyDetail.getCompromisedComponents().add(container);
+		assemblyDetail.setEntityName(detail.getEntityName());
+		assemblyDetail.setId(detail.getId());
+		compromisedResource.setAffectedElement(assemblyDetail);
+		compromisedResource.getCausingElements().addAll(list);
+		return compromisedResource;
+	}
 
-    public static CompromisedService createCompromisedService(final ServiceRestriction service,
-            final Collection<? extends EObject> list) {
-        final var compromisedService = KAMP4attackModificationmarksFactory.eINSTANCE
-                .createCompromisedService();
-        compromisedService.setToolderived(true);
-        compromisedService.setAffectedElement(service);
-        compromisedService.getCausingElements().addAll(list);
-        return compromisedService;
-    }
+	public static CompromisedLinkingResource createCompromisedLinking(final LinkingResource linking,
+			final Collection<? extends EObject> list) {
+		final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE
+				.createCompromisedLinkingResource();
+		compromisedResource.setToolderived(true);
+		compromisedResource.setAffectedElement(linking);
+		compromisedResource.getCausingElements().addAll(list);
+		return compromisedResource;
+	}
+
+	public static CompromisedService createCompromisedService(final ServiceRestriction service,
+			final Collection<? extends EObject> list) {
+		final var compromisedService = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedService();
+		compromisedService.setToolderived(true);
+		compromisedService.setAffectedElement(service);
+		compromisedService.getCausingElements().addAll(list);
+		return compromisedService;
+	}
 }

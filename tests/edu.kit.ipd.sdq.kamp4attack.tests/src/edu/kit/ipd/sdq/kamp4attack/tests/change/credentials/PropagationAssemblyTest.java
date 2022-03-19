@@ -21,292 +21,295 @@ import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationAssemblyTest extends AbstractChangeTests {
 
-    private void contextChangePropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
-            final UsageSpecification contextAccess) {
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
-        assertTrue(change.getCompromisedresource().isEmpty());
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), contextAccess));
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
-    }
+	private void contextChangePropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
+			final UsageSpecification contextAccess) {
+		assertTrue(change.getCompromisedlinkingresource().isEmpty());
+		assertTrue(change.getCompromisedresource().isEmpty());
+		assertEquals(1, change.getContextchange().size());
+		assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), contextAccess));
+		assertEquals(1, change.getCompromisedassembly().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
+	}
 
-    private Optional<ResourceContainer> getResource(final CompromisedAssembly infectedAssembly) {
-        final var resourceOpt = this.allocation.getAllocationContexts_Allocation().stream().filter(
-                e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(), infectedAssembly.getAffectedElement()))
-                .map(AllocationContext::getResourceContainer_AllocationContext).findAny();
-        if (resourceOpt.isEmpty()) {
-            fail("Wrong Test Input");
-        }
-        return resourceOpt;
-    }
+	private Optional<ResourceContainer> getResource(final CompromisedAssembly infectedAssembly) {
+		final var resourceOpt = this.allocation.getAllocationContexts_Allocation().stream()
+				.filter(e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(),
+						infectedAssembly.getAffectedElement().getCompromisedComponents().get(0)))
+				.map(AllocationContext::getResourceContainer_AllocationContext).findAny();
+		if (resourceOpt.isEmpty()) {
+			fail("Wrong Test Input");
+		}
+		return resourceOpt;
+	}
 
-    private void isContextPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
-            final UsageSpecification contextAccess) {
-        contextChangePropagation(change, infectedAssembly, contextAccess);
+	private void isContextPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly,
+			final UsageSpecification contextAccess) {
+		contextChangePropagation(change, infectedAssembly, contextAccess);
 
-        assertTrue(change.isChanged());
+		assertTrue(change.isChanged());
 
-    }
+	}
 
-    private void isNoAssemblyPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly) {
-        assertTrue(change.getCompromisedresource().isEmpty());
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
-        assertFalse(change.isChanged());
-    }
+	private void isNoAssemblyPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly) {
+		assertTrue(change.getCompromisedresource().isEmpty());
+		assertTrue(change.getCompromisedlinkingresource().isEmpty());
+		assertEquals(1, change.getCompromisedassembly().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
+		assertFalse(change.isChanged());
+	}
 
-    private void isNoPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly) {
-        assertFalse(change.isChanged());
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
-        assertTrue(change.getCompromisedresource().isEmpty());
-        assertTrue(change.getContextchange().isEmpty());
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
-    }
+	private void isNoPropagation(final CredentialChange change, final CompromisedAssembly infectedAssembly) {
+		assertFalse(change.isChanged());
+		assertTrue(change.getCompromisedlinkingresource().isEmpty());
+		assertTrue(change.getCompromisedresource().isEmpty());
+		assertTrue(change.getContextchange().isEmpty());
+		assertEquals(1, change.getCompromisedassembly().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
+	}
 
-    private void runAssemblyResourcePropagation(final CredentialChange change) {
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
-        final var assemblyChange = new AssemblyContextPropagationContext(wrapper, change);
-        assemblyChange.calculateAssemblyContextToLocalResourcePropagation();
+	private void runAssemblyResourcePropagation(final CredentialChange change) {
+		generateXML();
+		final var wrapper = getBlackboardWrapper();
+		final var assemblyChange = new AssemblyContextPropagationContext(wrapper, change);
+		assemblyChange.calculateAssemblyContextToLocalResourcePropagation();
 
-    }
+	}
 
-    private void runAssemblyToContext(final CredentialChange change) {
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
-        final var assemblyChange = new AssemblyContextPropagationContext(wrapper, change);
-        assemblyChange.calculateAssemblyContextToContextPropagation();
-    }
+	private void runAssemblyToContext(final CredentialChange change) {
+		generateXML();
+		final var wrapper = getBlackboardWrapper();
+		final var assemblyChange = new AssemblyContextPropagationContext(wrapper, change);
+		assemblyChange.calculateAssemblyContextToContextPropagation();
+	}
 
-    @Test
-    void testAssemblyToContextNoPropagationNoAttributeProvider() {
+	@Test
+	void testAssemblyToContextNoPropagationNoAttributeProvider() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        runAssemblyToContext(change);
+		runAssemblyToContext(change);
 
-        isNoPropagation(change, infectedAssembly);
+		isNoPropagation(change, infectedAssembly);
 
-    }
+	}
 
-    @Test
-    void testAssemblyToContextNoPropagationWrongAttributeProvider() {
+	@Test
+	void testAssemblyToContextNoPropagationWrongAttributeProvider() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        // create Context and Contextset
-        final var contextSet = createContext("Test");
+		// create Context and Contextset
+		final var contextSet = createContext("Test");
 
-        this.createAttributeProvider(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+		this.createAttributeProvider(contextSet, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
 
-        runAssemblyToContext(change);
+		runAssemblyToContext(change);
 
-        isNoPropagation(change, infectedAssembly);
+		isNoPropagation(change, infectedAssembly);
 
-    }
+	}
 
-    @Test
-    void testAssemblyToContextPropagation() {
+	@Test
+	void testAssemblyToContextPropagation() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        // create Context and Contextset
-        final var contextSet = createContext("Test");
+		// create Context and Contextset
+		final var contextSet = createContext("Test");
 
-        this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
+		this.createAttributeProvider(contextSet,
+				infectedAssembly.getAffectedElement().getCompromisedComponents().get(0));
 
-        runAssemblyToContext(change);
+		runAssemblyToContext(change);
 
-        isContextPropagation(change, infectedAssembly, contextSet);
+		isContextPropagation(change, infectedAssembly, contextSet);
 
-    }
+	}
 
-    @Test
-    void testAssemblyToContextPropagationDuplicate() {
+	@Test
+	void testAssemblyToContextPropagationDuplicate() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        // create Context and Contextset
-        final var contextSet = createContext("Test");
+		// create Context and Contextset
+		final var contextSet = createContext("Test");
 
-        final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(contextSet);
-        change.getContextchange().add(contextChange);
+		final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+		contextChange.setAffectedElement(contextSet);
+		change.getContextchange().add(contextChange);
 
-        this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
+		this.createAttributeProvider(contextSet,
+				infectedAssembly.getAffectedElement().getCompromisedComponents().get(0));
 
-        runAssemblyToContext(change);
+		runAssemblyToContext(change);
 
-        contextChangePropagation(change, infectedAssembly, contextSet);
+		contextChangePropagation(change, infectedAssembly, contextSet);
 
-    }
+	}
 
-    @Test
-    void testAssemblyToContextPropagationWrongAttributeProvider() {
+	@Test
+	void testAssemblyToContextPropagationWrongAttributeProvider() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        // create Context and Contextset
+		// create Context and Contextset
 
-        final var contextSet = createContext("Test");
+		final var contextSet = createContext("Test");
 
-        final var contextOtherComponent = createContext("Other");
+		final var contextOtherComponent = createContext("Other");
 
-        this.createAttributeProvider(contextSet, infectedAssembly.getAffectedElement());
-        this.createAttributeProvider(contextOtherComponent,
-                this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+		this.createAttributeProvider(contextSet,
+				infectedAssembly.getAffectedElement().getCompromisedComponents().get(0));
+		this.createAttributeProvider(contextOtherComponent,
+				this.assembly.getAssemblyContexts__ComposedStructure().get(2));
 
-        runAssemblyToContext(change);
+		runAssemblyToContext(change);
 
-        isContextPropagation(change, infectedAssembly, contextSet);
+		isContextPropagation(change, infectedAssembly, contextSet);
 
-    }
+	}
 
-    @Test
-    void testAssemblyToResourcePropagation() {
+	@Test
+	void testAssemblyToResourcePropagation() {
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var infectedAssembly = this.createAssembly(change);
 
-        final var resourceOpt = getResource(infectedAssembly);
+		final var resourceOpt = getResource(infectedAssembly);
 
-        // create Context and Contextset and add to containers
-        final var contextAccess = createContext("Test");
+		// create Context and Contextset and add to containers
+		final var contextAccess = createContext("Test");
 
+		createPolicyEntity(contextAccess, resourceOpt.get());
 
-        createPolicyEntity(contextAccess, resourceOpt.get());
+		// ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
+		final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+		contextChange.setAffectedElement(contextAccess);
+		change.getContextchange().add(contextChange);
 
-        // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
-        final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(contextAccess);
-        change.getContextchange().add(contextChange);
+		runAssemblyResourcePropagation(change);
 
-        runAssemblyResourcePropagation(change);
+		assertTrue(change.getCompromisedlinkingresource().isEmpty());
+		assertEquals(1, change.getContextchange().size());
+		assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
 
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
+		assertEquals(1, change.getCompromisedassembly().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
 
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
+		assertEquals(1, change.getCompromisedresource().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(), resourceOpt.get()));
+		assertTrue(change.isChanged());
+	}
 
-        assertEquals(1, change.getCompromisedresource().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(), resourceOpt.get()));
-        assertTrue(change.isChanged());
-    }
+	@Test
+	void testAssemblyToResourcePropagationDuplicate() {
 
-    @Test
-    void testAssemblyToResourcePropagationDuplicate() {
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var infectedAssembly = this.createAssembly(change);
 
-        final var infectedAssembly = this.createAssembly(change);
+		final var resourceOpt = getResource(infectedAssembly);
 
-        final var resourceOpt = getResource(infectedAssembly);
+		final var resourceChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+		resourceChange.setAffectedElement(resourceOpt.get());
+		change.getCompromisedresource().add(resourceChange);
 
-        final var resourceChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-        resourceChange.setAffectedElement(resourceOpt.get());
-        change.getCompromisedresource().add(resourceChange);
+		// create Context and Contextset and add to containers
+		final var contextAccess = createContext("Test");
 
-        // create Context and Contextset and add to containers
-        final var contextAccess = createContext("Test");
+		createPolicyEntity(contextAccess, resourceOpt.get());
 
-        createPolicyEntity(contextAccess, resourceOpt.get());
+		// ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
+		final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+		contextChange.setAffectedElement(contextAccess);
+		change.getContextchange().add(contextChange);
 
-        // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
-        final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(contextAccess);
-        change.getContextchange().add(contextChange);
+		runAssemblyResourcePropagation(change);
 
-        runAssemblyResourcePropagation(change);
+		assertTrue(change.getCompromisedlinkingresource().isEmpty());
+		assertEquals(1, change.getContextchange().size());
+		assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
 
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
+		assertEquals(1, change.getCompromisedassembly().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
 
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0), infectedAssembly));
+		assertEquals(1, change.getCompromisedresource().size());
+		assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(), resourceOpt.get()));
 
-        assertEquals(1, change.getCompromisedresource().size());
-        assertTrue(EcoreUtil.equals(change.getCompromisedresource().get(0).getAffectedElement(), resourceOpt.get()));
+		// no change happened
+		assertFalse(change.isChanged());
+	}
 
-        // no change happened
-        assertFalse(change.isChanged());
-    }
+	@Test
+	void testAssemblyToResourcePropagationNoContextAttacker() {
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-    @Test
-    void testAssemblyToResourcePropagationNoContextAttacker() {
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var infectedAssembly = this.createAssembly(change);
 
-        final var infectedAssembly = this.createAssembly(change);
+		infectedAssembly.getAffectedElement();
 
-        infectedAssembly.getAffectedElement();
+		final var resourceOpt = getResource(infectedAssembly);
 
-        final var resourceOpt = getResource(infectedAssembly);
+		// create Context and Contextset and add to containers
+		final var contextAccess = createContext("Test");
 
-        // create Context and Contextset and add to containers
-        final var contextAccess = createContext("Test");
+		createPolicyEntity(contextAccess, resourceOpt.get());
 
-        createPolicyEntity(contextAccess, resourceOpt.get());
+		runAssemblyResourcePropagation(change);
 
-        runAssemblyResourcePropagation(change);
+		isNoAssemblyPropagation(change, infectedAssembly);
+		assertTrue(change.getContextchange().isEmpty());
+	}
 
-        isNoAssemblyPropagation(change, infectedAssembly);
-        assertTrue(change.getContextchange().isEmpty());
-    }
+	@Test
+	void testAssemblyToResourcePropagationNoContextsNoSpecification() {
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-    @Test
-    void testAssemblyToResourcePropagationNoContextsNoSpecification() {
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var infectedAssembly = this.createAssembly(change);
 
-        final var infectedAssembly = this.createAssembly(change);
+		runAssemblyResourcePropagation(change);
 
-        runAssemblyResourcePropagation(change);
+		isNoAssemblyPropagation(change, infectedAssembly);
+		assertTrue(change.getContextchange().isEmpty());
+	}
 
-        isNoAssemblyPropagation(change, infectedAssembly);
-        assertTrue(change.getContextchange().isEmpty());
-    }
+	@Test
+	void testAssemblyToResourcePropagationWrongContextAttacker() {
+		final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-    @Test
-    void testAssemblyToResourcePropagationWrongContextAttacker() {
-        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		final var infectedAssembly = this.createAssembly(change);
 
-        final var infectedAssembly = this.createAssembly(change);
+		infectedAssembly.getAffectedElement();
 
-        infectedAssembly.getAffectedElement();
+		final var resourceOpt = getResource(infectedAssembly);
 
-        final var resourceOpt = getResource(infectedAssembly);
+		// create Context and Contextset and add to containers
+		final var contextAccess = createContext("Test");
 
-        // create Context and Contextset and add to containers
-        final var contextAccess = createContext("Test");
+		createPolicyEntity(contextAccess, resourceOpt.get());
 
-        createPolicyEntity(contextAccess, resourceOpt.get());
+		final var attackerContext = createContext("Attacker");
+		// ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
+		final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+		contextChange.setAffectedElement(attackerContext);
+		change.getContextchange().add(contextChange);
 
-        final var attackerContext = createContext("Attacker");
-        // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);
-        final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-        contextChange.setAffectedElement(attackerContext);
-        change.getContextchange().add(contextChange);
+		runAssemblyResourcePropagation(change);
 
-        runAssemblyResourcePropagation(change);
-
-        isNoAssemblyPropagation(change, infectedAssembly);
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
-    }
+		isNoAssemblyPropagation(change, infectedAssembly);
+		assertEquals(1, change.getContextchange().size());
+		assertTrue(EcoreUtil.equals(change.getContextchange().get(0), contextChange));
+	}
 
 }

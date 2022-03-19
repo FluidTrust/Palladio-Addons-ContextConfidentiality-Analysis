@@ -28,8 +28,8 @@ public class EmptyAttackTests extends TravelPlannerCaseStudy {
 
         checkAssembly(change);
 
-        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent().get(0).getAffectedElement();
+//        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
+//                .getAttackcomponent().get(0).getAffectedElement();
 
 
         assertEquals(10, change.getCompromiseddata().size());

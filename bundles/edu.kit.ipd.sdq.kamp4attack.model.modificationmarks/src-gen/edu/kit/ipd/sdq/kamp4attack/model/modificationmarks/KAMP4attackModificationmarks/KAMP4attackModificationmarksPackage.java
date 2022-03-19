@@ -426,13 +426,22 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	int CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 8;
 
 	/**
+	 * The feature id for the '<em><b>Assemblycontextdetailcontainer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 9;
+
+	/**
 	 * The number of structural features of the '<em>Credential Change</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CREDENTIAL_CHANGE_FEATURE_COUNT = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 9;
+	int CREDENTIAL_CHANGE_FEATURE_COUNT = ModificationmarksPackage.CHANGE_PROPAGATION_STEP_FEATURE_COUNT + 10;
 
 	/**
 	 * The number of operations of the '<em>Credential Change</em>' class.
@@ -955,6 +964,43 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 */
 	int DATAMODEL_CONTAINER_OPERATION_COUNT = 0;
 
+	/**
+	 * The meta object id for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AssemblyContextDetailContainerImpl <em>Assembly Context Detail Container</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AssemblyContextDetailContainerImpl
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getAssemblyContextDetailContainer()
+	 * @generated
+	 */
+	int ASSEMBLY_CONTEXT_DETAIL_CONTAINER = 14;
+
+	/**
+	 * The feature id for the '<em><b>Compromisedassembly</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_DETAIL_CONTAINER__COMPROMISEDASSEMBLY = 0;
+
+	/**
+	 * The number of structural features of the '<em>Assembly Context Detail Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_DETAIL_CONTAINER_FEATURE_COUNT = 1;
+
+	/**
+	 * The number of operations of the '<em>Assembly Context Detail Container</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int ASSEMBLY_CONTEXT_DETAIL_CONTAINER_OPERATION_COUNT = 0;
+
 
 	/**
 	 * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AbstractKAMP4attackModificationRepository <em>Abstract KAMP 4attack Modification Repository</em>}'.
@@ -1127,6 +1173,17 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	EReference getCredentialChange_Compromisedassembly();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getAssemblycontextdetailcontainer <em>Assemblycontextdetailcontainer</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Assemblycontextdetailcontainer</em>'.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getAssemblycontextdetailcontainer()
+	 * @see #getCredentialChange()
+	 * @generated
+	 */
+	EReference getCredentialChange_Assemblycontextdetailcontainer();
+
+	/**
 	 * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource <em>Compromised Resource</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1227,6 +1284,27 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 	 * @generated
 	 */
 	EReference getDatamodelContainer_Datamodelattacker();
+
+	/**
+	 * Returns the meta object for class '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AssemblyContextDetailContainer <em>Assembly Context Detail Container</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Assembly Context Detail Container</em>'.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AssemblyContextDetailContainer
+	 * @generated
+	 */
+	EClass getAssemblyContextDetailContainer();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AssemblyContextDetailContainer#getCompromisedassembly <em>Compromisedassembly</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Compromisedassembly</em>'.
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AssemblyContextDetailContainer#getCompromisedassembly()
+	 * @see #getAssemblyContextDetailContainer()
+	 * @generated
+	 */
+	EReference getAssemblyContextDetailContainer_Compromisedassembly();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1393,6 +1471,14 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 		EReference CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY = eINSTANCE.getCredentialChange_Compromisedassembly();
 
 		/**
+		 * The meta object literal for the '<em><b>Assemblycontextdetailcontainer</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER = eINSTANCE.getCredentialChange_Assemblycontextdetailcontainer();
+
+		/**
 		 * The meta object literal for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CompromisedResourceImpl <em>Compromised Resource</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -1487,6 +1573,24 @@ public interface KAMP4attackModificationmarksPackage extends EPackage
 		 * @generated
 		 */
 		EReference DATAMODEL_CONTAINER__DATAMODELATTACKER = eINSTANCE.getDatamodelContainer_Datamodelattacker();
+
+		/**
+		 * The meta object literal for the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AssemblyContextDetailContainerImpl <em>Assembly Context Detail Container</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.AssemblyContextDetailContainerImpl
+		 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.KAMP4attackModificationmarksPackageImpl#getAssemblyContextDetailContainer()
+		 * @generated
+		 */
+		EClass ASSEMBLY_CONTEXT_DETAIL_CONTAINER = eINSTANCE.getAssemblyContextDetailContainer();
+
+		/**
+		 * The meta object literal for the '<em><b>Compromisedassembly</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference ASSEMBLY_CONTEXT_DETAIL_CONTAINER__COMPROMISEDASSEMBLY = eINSTANCE.getAssemblyContextDetailContainer_Compromisedassembly();
 
 	}
 

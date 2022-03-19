@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
@@ -58,7 +60,8 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement()
+				.getCompromisedComponents().get(0),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -84,7 +87,8 @@ class PropagationResourceTest extends AbstractChangeTests {
 		assertEquals(1, change.getContextchange().size());
 		assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+		assertTrue(EcoreUtil.equals(
+				change.getCompromisedassembly().get(0).getAffectedElement().getCompromisedComponents().get(0),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -106,7 +110,8 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+		assertTrue(EcoreUtil.equals(
+				change.getCompromisedassembly().get(0).getAffectedElement().getCompromisedComponents().get(0),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -122,7 +127,8 @@ class PropagationResourceTest extends AbstractChangeTests {
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+		assertTrue(EcoreUtil.equals(
+				change.getCompromisedassembly().get(0).getAffectedElement().getCompromisedComponents().get(0),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertTrue(change.isChanged());
 	}
@@ -135,14 +141,19 @@ class PropagationResourceTest extends AbstractChangeTests {
 		final var resource = resourceChange.getAffectedElement();
 
 		final var assemblyChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
-		assemblyChange.setAffectedElement(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+		AssemblyContextDetail stub = AttackerFactory.eINSTANCE.createAssemblyContextDetail();
+		stub.getCompromisedComponents().add(this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+		stub.setEntityName(this.assembly.getAssemblyContexts__ComposedStructure().get(0).getEntityName());
+		stub.setId(this.assembly.getAssemblyContexts__ComposedStructure().get(0).getId());
+		assemblyChange.setAffectedElement(stub);
 		change.getCompromisedassembly().add(assemblyChange);
 
 		runResourceAssemblyPropagation(change);
 		isNoResourceLinkingPropagation(change, resource);
 		assertTrue(change.getContextchange().isEmpty());
 		assertEquals(1, change.getCompromisedassembly().size());
-		assertTrue(EcoreUtil.equals(change.getCompromisedassembly().get(0).getAffectedElement(),
+		assertTrue(EcoreUtil.equals(
+				change.getCompromisedassembly().get(0).getAffectedElement().getCompromisedComponents().get(0),
 				this.assembly.getAssemblyContexts__ComposedStructure().get(0)));
 		assertFalse(change.isChanged());
 	}

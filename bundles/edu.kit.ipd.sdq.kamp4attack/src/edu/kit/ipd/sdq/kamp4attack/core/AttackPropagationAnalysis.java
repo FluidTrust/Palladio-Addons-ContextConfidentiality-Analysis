@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 
 import edu.kit.ipd.sdq.kamp.propagation.AbstractChangePropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
@@ -29,147 +29,153 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * Entry point for attack propagation
  *
  * @author majuwa
+ * @author Patrick Spiesberger
  *
  */
 
 @Component
 public class AttackPropagationAnalysis implements AbstractChangePropagationAnalysis<BlackboardWrapper> {
 
-    private CredentialChange changePropagationDueToCredential;
+	private CredentialChange changePropagationDueToCredential;
 
-    @Override
-    public void runChangePropagationAnalysis(final BlackboardWrapper board) {
+	@Override
+	public void runChangePropagationAnalysis(final BlackboardWrapper board) {
 
-        // Setup
-        this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
-        CacheVulnerability.instance().reset();
-        CacheCompromised.instance().register(this.changePropagationDueToCredential);
-        // prepare
+		// Setup
+		this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+		CachePDP.instance().clearCache();
+		CacheCompromised.instance().reset();
+		CacheVulnerability.instance().reset();
+		CacheCompromised.instance().register(this.changePropagationDueToCredential);
+		// prepare
 
-        createInitialStructure(board);
+		createInitialStructure(board);
 
-        // Calculate
-        do {
-            this.changePropagationDueToCredential.setChanged(false);
-            calculateAndMarkLinkingPropagation(board);
-            calculateAndMarkResourcePropagation(board);
-            calculateAndMarkAssemblyPropagation(board);
+		// Calculate
+		do {
+			this.changePropagationDueToCredential.setChanged(false);
+			calculateAndMarkLinkingPropagation(board);
+			calculateAndMarkResourcePropagation(board);
+			calculateAndMarkAssemblyPropagation(board);
+		} while (this.changePropagationDueToCredential.isChanged());
 
-        } while (this.changePropagationDueToCredential.isChanged());
+		// Clear caches
+		CachePDP.instance().clearCache();
+		CacheCompromised.instance().reset();
+		CacheVulnerability.instance().reset();
 
-        // Clear caches
-        CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
-        CacheVulnerability.instance().reset();
+	}
 
+	private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
+		final var list = new ArrayList<AssemblyContextPropagation>();
+		list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential));
+		list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential));
+		for (final var analysis : list) {
+			analysis.calculateAssemblyContextToContextPropagation();
+			analysis.calculateAssemblyContextToAssemblyContextPropagation();
+			analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation();
+			analysis.calculateAssemblyContextToLinkingResourcePropagation();
+			analysis.calculateAssemblyContextToLocalResourcePropagation();
+			analysis.calculateAssemblyContextToRemoteResourcePropagation();
+		}
+	}
 
-    }
+	private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
+		final var list = new ArrayList<ResourceContainerPropagation>();
+		list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential));
+		list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential));
+		for (final var analysis : list) {
+			analysis.calculateResourceContainerToContextPropagation();
+			analysis.calculateResourceContainerToLinkingResourcePropagation();
+			analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
+			analysis.calculateResourceContainerToRemoteAssemblyContextPropagation();
+			analysis.calculateResourceContainerToResourcePropagation();
+		}
+	}
 
-    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential));
-        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential));
-        for (final var analysis : list) {
-            analysis.calculateAssemblyContextToContextPropagation();
-            analysis.calculateAssemblyContextToAssemblyContextPropagation();
-            analysis.calculateAssemblyContextToGlobalAssemblyContextPropagation();
-            analysis.calculateAssemblyContextToLinkingResourcePropagation();
-            analysis.calculateAssemblyContextToLocalResourcePropagation();
-            analysis.calculateAssemblyContextToRemoteResourcePropagation();
-        }
-    }
+	private void calculateAndMarkLinkingPropagation(final BlackboardWrapper board) {
+		final var list = new ArrayList<LinkingPropagation>();
+		list.add(new LinkingPropagationContext(board, this.changePropagationDueToCredential));
+		list.add(new LinkingPropagationVulnerability(board, this.changePropagationDueToCredential));
+		for (final var analysis : list) {
+			analysis.calculateLinkingResourceToContextPropagation();
+			analysis.calculateLinkingResourceToAssemblyContextPropagation();
+			analysis.calculateLinkingResourceToResourcePropagation();
+		}
+	}
 
-    private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential));
-        list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential));
-        for (final var analysis : list) {
-            analysis.calculateResourceContainerToContextPropagation();
-            analysis.calculateResourceContainerToLinkingResourcePropagation();
-            analysis.calculateResourceContainerToLocalAssemblyContextPropagation();
-            analysis.calculateResourceContainerToRemoteAssemblyContextPropagation();
-            analysis.calculateResourceContainerToResourcePropagation();
-        }
-    }
+	/**
+	 * Creates the initial propagation steps from the seed modification
+	 *
+	 * @param board
+	 */
+	private void createInitialStructure(final BlackboardWrapper board) {
+		final var repository = board.getModificationMarkRepository();
+		final var seedModification = repository.getSeedModifications();
+		final var attackers = seedModification.getAttackcomponent();
+		
+		if (attackers == null) {
+			throw new IllegalStateException("No seed modification found");
+		}
 
-    private void calculateAndMarkLinkingPropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<LinkingPropagation>();
-        list.add(new LinkingPropagationContext(board, this.changePropagationDueToCredential));
-        list.add(new LinkingPropagationVulnerability(board, this.changePropagationDueToCredential));
-        for (final var analysis : list) {
-            analysis.calculateLinkingResourceToContextPropagation();
-            analysis.calculateLinkingResourceToAssemblyContextPropagation();
-            analysis.calculateLinkingResourceToResourcePropagation();
-        }
-    }
+		repository.getChangePropagationSteps().clear();
 
-    /**
-     * Creates the initial propagation steps from the seed modification
-     *
-     * @param board
-     */
-    private void createInitialStructure(final BlackboardWrapper board) {
-        final var repository = board.getModificationMarkRepository();
-        final var seedModification = repository.getSeedModifications();
-        final var attackers = seedModification.getAttackcomponent();
-        if (attackers == null) {
-            throw new IllegalStateException("No seed modification found");
-        }
+		for (final var attacker : attackers) {
+			final var localAttacker = attacker.getAffectedElement();
 
-        repository.getChangePropagationSteps().clear();
+			final var listCredentialChanges = localAttacker.getCredentials().stream().map(context -> {
+				final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+				change.setAffectedElement(context);
+				return change;
+			}).collect(Collectors.toList());
 
-        for (final var attacker : attackers) {
-            final var localAttacker = attacker.getAffectedElement();
+			this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
 
-            final var listCredentialChanges = localAttacker.getCredentials().stream().map(context -> {
-                final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-                change.setAffectedElement(context);
-                return change;
-            }).collect(Collectors.toList());
+			// convert affectedResources to changes
+			final var affectedRessourcesList = localAttacker.getCompromisedResources().stream().map(resource -> {
+				final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+				change.setAffectedElement(resource);
+				return change;
+			}).collect(Collectors.toList());
+			this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
-            this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
+			// convert affectedAssemblyContexts to changes
+			var assemblyHandler = new AssemblyContextHandler(board,
+					new DataHandlerAttacker(this.changePropagationDueToCredential)) {
 
-            // convert affectedResources to changes
-            final var affectedRessourcesList = localAttacker.getCompromisedResources().stream().map(resource -> {
-                final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-                change.setAffectedElement(resource);
-                return change;
-            }).collect(Collectors.toList());
-            this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
+				/*
+				 * A component is always represented as an AssemblyContextDetail. An unassembled
+				 * component (BasicComponent) has a length of one. This method goes through each
+				 * component and checks the vulnerability for the last component for
+				 * vulnerability and returns the list of compromiseable components in the inital
+				 * step
+				 */
+				@Override
+				protected Optional<CompromisedAssembly> attackComponent(AssemblyContextDetail component,
+						CredentialChange change, EObject source, Attacker attacker) {
+					CompromisedAssembly compromisedComponent = KAMP4attackModificationmarksFactory.eINSTANCE
+							.createCompromisedAssembly();
+					compromisedComponent.setAffectedElement(component);
+					return Optional.of(compromisedComponent);
+				}
+			};
 
-            // convert affectedAssemblyContexts to changes
-            var assemblyHandler = new AssemblyContextHandler(board,
-                    new DataHandlerAttacker(this.changePropagationDueToCredential)) {
-                @Override
-                protected Optional<CompromisedAssembly> attackComponent(AssemblyContextDetail component, CredentialChange change,
-                        EObject source){
-                    final var compromisedComponent = KAMP4attackModificationmarksFactory.eINSTANCE
-                            .createCompromisedAssembly();
-                    compromisedComponent.setAffectedElement(component);
-                    return Optional.of(compromisedComponent);
-                }
-            };
+			// localAttacker is required for properties of ListOperations
+			assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponentsDetails(),
+					this.changePropagationDueToCredential, null, localAttacker);
 
-            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents(),
-                    this.changePropagationDueToCredential, null);
+			// convert affectedLinkingResources to changes
+			final var affectedLinkingList = localAttacker.getCompromisedLinkingResources().stream()
+					.map(linkingResource -> {
+						final var change = KAMP4attackModificationmarksFactory.eINSTANCE
+								.createCompromisedLinkingResource();
+						change.setAffectedElement(linkingResource);
+						return change;
+					}).collect(Collectors.toList());
+			this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
 
-
-
-
-            // convert affectedLinkingResources to changes
-            final var affectedLinkingList = localAttacker.getCompromisedLinkingResources().stream()
-                    .map(linkingResource -> {
-                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE
-                                .createCompromisedLinkingResource();
-                        change.setAffectedElement(linkingResource);
-                        return change;
-                    }).collect(Collectors.toList());
-            this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
-
-        }
-        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
-    }
+		}
+		board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
+	}
 
 }

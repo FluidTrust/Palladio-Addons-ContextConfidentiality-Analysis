@@ -24,6 +24,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromiseddata <em>Compromiseddata</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getDatamodelcontainer <em>Datamodelcontainer</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getCompromisedassembly <em>Compromisedassembly</em>}</li>
+ *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getAssemblycontextdetailcontainer <em>Assemblycontextdetailcontainer</em>}</li>
  * </ul>
  *
  * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange()
@@ -169,5 +170,27 @@ public interface CredentialChange extends ChangePropagationStep
 	 * @generated
 	 */
 	EList<CompromisedAssembly> getCompromisedassembly();
+
+	/**
+	 * Returns the value of the '<em><b>Assemblycontextdetailcontainer</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Assemblycontextdetailcontainer</em>' containment reference.
+	 * @see #setAssemblycontextdetailcontainer(AssemblyContextDetailContainer)
+	 * @see edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage#getCredentialChange_Assemblycontextdetailcontainer()
+	 * @model containment="true"
+	 * @generated
+	 */
+	AssemblyContextDetailContainer getAssemblycontextdetailcontainer();
+
+	/**
+	 * Sets the value of the '{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange#getAssemblycontextdetailcontainer <em>Assemblycontextdetailcontainer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Assemblycontextdetailcontainer</em>' containment reference.
+	 * @see #getAssemblycontextdetailcontainer()
+	 * @generated
+	 */
+	void setAssemblycontextdetailcontainer(AssemblyContextDetailContainer value);
 
 } // CredentialChange

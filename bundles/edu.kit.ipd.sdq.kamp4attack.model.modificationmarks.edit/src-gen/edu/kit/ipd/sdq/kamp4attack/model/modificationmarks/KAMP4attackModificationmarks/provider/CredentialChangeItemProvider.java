@@ -52,63 +52,14 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	@Override
 	public List<IItemPropertyDescriptor> getPropertyDescriptors(Object object)
 	{
-		if (itemPropertyDescriptors == null) {
+		if (itemPropertyDescriptors == null)
+		{
 			super.getPropertyDescriptors(object);
 
-			addCompromisedresourcePropertyDescriptor(object);
-			addContextchangePropertyDescriptor(object);
 			addChangedPropertyDescriptor(object);
-			addCompromisedlinkingresourcePropertyDescriptor(object);
-			addCompromiseddataPropertyDescriptor(object);
-			addDatamodelcontainerPropertyDescriptor(object);
+			addAssemblycontextdetailcontainerPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
-	}
-
-	/**
-	 * This adds a property descriptor for the Compromisedresource feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCompromisedresourcePropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CredentialChange_compromisedresource_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_compromisedresource_feature", "_UI_CredentialChange_type"),
-				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Contextchange feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addContextchangePropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CredentialChange_contextchange_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_contextchange_feature", "_UI_CredentialChange_type"),
-				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__CONTEXTCHANGE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
 	}
 
 	/**
@@ -135,66 +86,20 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	}
 
 	/**
-	 * This adds a property descriptor for the Compromisedlinkingresource feature.
+	 * This adds a property descriptor for the Assemblycontextdetailcontainer feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addCompromisedlinkingresourcePropertyDescriptor(Object object)
+	protected void addAssemblycontextdetailcontainerPropertyDescriptor(Object object)
 	{
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_CredentialChange_compromisedlinkingresource_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_compromisedlinkingresource_feature", "_UI_CredentialChange_type"),
-				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Compromiseddata feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addCompromiseddataPropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CredentialChange_compromiseddata_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_compromiseddata_feature", "_UI_CredentialChange_type"),
-				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDDATA,
-				 true,
-				 false,
-				 true,
-				 null,
-				 null,
-				 null));
-	}
-
-	/**
-	 * This adds a property descriptor for the Datamodelcontainer feature.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected void addDatamodelcontainerPropertyDescriptor(Object object)
-	{
-		itemPropertyDescriptors.add
-			(createItemPropertyDescriptor
-				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
-				 getResourceLocator(),
-				 getString("_UI_CredentialChange_datamodelcontainer_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_datamodelcontainer_feature", "_UI_CredentialChange_type"),
-				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__DATAMODELCONTAINER,
+				 getString("_UI_CredentialChange_assemblycontextdetailcontainer_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_CredentialChange_assemblycontextdetailcontainer_feature", "_UI_CredentialChange_type"),
+				 KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER,
 				 true,
 				 false,
 				 true,
@@ -214,7 +119,8 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	@Override
 	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object)
 	{
-		if (childrenFeatures == null) {
+		if (childrenFeatures == null)
+		{
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__CONTEXTCHANGE);
@@ -224,6 +130,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDDATA);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__DATAMODELCONTAINER);
 			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY);
+			childrenFeatures.add(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER);
 		}
 		return childrenFeatures;
 	}
@@ -280,7 +187,8 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 	{
 		updateChildren(notification);
 
-		switch (notification.getFeatureID(CredentialChange.class)) {
+		switch (notification.getFeatureID(CredentialChange.class))
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CHANGED:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 				return;
@@ -292,6 +200,7 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDDATA:
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__DATAMODELCONTAINER:
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 				return;
 		}
@@ -349,6 +258,11 @@ public class CredentialChangeItemProvider extends ChangePropagationStepItemProvi
 			(createChildParameter
 				(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY,
 				 KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(KAMP4attackModificationmarksPackage.Literals.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER,
+				 KAMP4attackModificationmarksFactory.eINSTANCE.createAssemblyContextDetailContainer()));
 	}
 
 	/**

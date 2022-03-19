@@ -57,7 +57,7 @@ public abstract class AbstractModelTest extends BaseTest {
         list.add(this.PATH_CONTEXT);
         list.add(this.PATH_ATTACKER);
         list.add(this.PATH_MODIFICATION);
-        java.lang.System.out.println("added");
+
         return list;
     }
 

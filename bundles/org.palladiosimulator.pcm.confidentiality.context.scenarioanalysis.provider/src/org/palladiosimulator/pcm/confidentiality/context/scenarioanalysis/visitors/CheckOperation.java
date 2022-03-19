@@ -5,33 +5,28 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.helper.PolicyHelper;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ScenarioResultStorage;
-import org.palladiosimulator.pcm.confidentiality.context.system.AttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
-import org.palladiosimulator.pcm.core.composition.ProvidedDelegationConnector;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
-import org.palladiosimulator.pcm.system.System;
-import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
 public class CheckOperation {
-    private final List<AttributeProvider> attributeProviders;
+//    private final List<AttributeProvider> attributeProviders;
     private final ScenarioResultStorage storage;
-    private final System system;
+//    private final System system;
     private final UsageScenario scenario;
-    private final Configuration configuration;
+//    private final Configuration configuration;
     private final Evaluate eval;
 
     public CheckOperation(final PCMBlackBoard pcm, final ConfidentialAccessSpecification accessSpecification,
@@ -45,11 +40,11 @@ public class CheckOperation {
         Objects.requireNonNull(configuration);
         Objects.requireNonNull(eval);
 
-        this.attributeProviders = accessSpecification.getPcmspecificationcontainer().getAttributeprovider();
+//        this.attributeProviders = accessSpecification.getPcmspecificationcontainer().getAttributeprovider();
         this.storage = storage;
-        this.system = pcm.getSystem();
+//        this.system = pcm.getSystem();
         this.scenario = scenario;
-        this.configuration = configuration;
+//        this.configuration = configuration;
         this.eval = eval;
     }
 
@@ -149,21 +144,21 @@ public class CheckOperation {
         }
     }
 
-    private ProvidedDelegationConnector getDelegationConnector(final EntryLevelSystemCall systemCall,
-            final AssemblyContext assemblyContext) {
-
-        final var connector = this.system.getConnectors__ComposedStructure().stream()
-                .filter(ProvidedDelegationConnector.class::isInstance).map(ProvidedDelegationConnector.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getAssemblyContext_ProvidedDelegationConnector(), assemblyContext))
-                .filter(e -> EcoreUtil.equals(e.getOuterProvidedRole_ProvidedDelegationConnector(),
-                        systemCall.getProvidedRole_EntryLevelSystemCall()))
-                .findAny();
-        if (connector.isEmpty()) {
-            throw new IllegalStateException(
-                    "Connector entry level system call not found: " + systemCall.getEntityName());
-        }
-        return connector.get();
-    }
+//    private ProvidedDelegationConnector getDelegationConnector(final EntryLevelSystemCall systemCall,
+//            final AssemblyContext assemblyContext) {
+//
+//        final var connector = this.system.getConnectors__ComposedStructure().stream()
+//                .filter(ProvidedDelegationConnector.class::isInstance).map(ProvidedDelegationConnector.class::cast)
+//                .filter(e -> EcoreUtil.equals(e.getAssemblyContext_ProvidedDelegationConnector(), assemblyContext))
+//                .filter(e -> EcoreUtil.equals(e.getOuterProvidedRole_ProvidedDelegationConnector(),
+//                        systemCall.getProvidedRole_EntryLevelSystemCall()))
+//                .findAny();
+//        if (connector.isEmpty()) {
+//            throw new IllegalStateException(
+//                    "Connector entry level system call not found: " + systemCall.getEntityName());
+//        }
+//        return connector.get();
+//    }
 
 //    private List<ContextSet> getContextSets(final Signature signature, final Connector connector,
 //            final List<SystemPolicySpecification> policies) {

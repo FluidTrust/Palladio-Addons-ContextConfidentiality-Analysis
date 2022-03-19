@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_XaLk8JoVEey1qKzy1Oo2GA">
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_lLMdwJoVEey1qKzy1Oo2GA">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_3zywkZoVEey1qKzy1Oo2GA" entityName="permitted" attributevalue="_bxKzUJoVEey1qKzy1Oo2GA" attribute="_YpoaopoVEey1qKzy1Oo2GA"/>
+      <assemblycontext href="simpleEffort.system#_KqbtMJlXEeydpc4YSVJolQ"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_d-kPQJomEey1qKzy1Oo2GA">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_9tXmgZoqEey1qKzy1Oo2GA" entityName="neverGiven" attributevalue="_xvzTMJooEey1qKzy1Oo2GA" attribute="_wbUl0pojEey1qKzy1Oo2GA"/>
+      <assemblycontext href="simpleEffort.system#_VJB1IJoqEey1qKzy1Oo2GA"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_iyk9kJo2Eey1qKzy1Oo2GA">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_jOrDsZo2Eey1qKzy1Oo2GA" entityName="1" attributevalue="_sjgfYJomEey1qKzy1Oo2GA" attribute="1"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_KwqpcJpGEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_LNUJMZpGEeyZgYdJHMsbqQ" entityName="2" attributevalue="_K8cXQJooEey1qKzy1Oo2GA" attribute="2"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_yp6PYJpGEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_5gY_AZpGEeyZgYdJHMsbqQ" entityName="3" attributevalue="_LX_DwJooEey1qKzy1Oo2GA" attribute="3"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_JJvScJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_Jt4hUZpHEeyZgYdJHMsbqQ" entityName="4" attributevalue="_MtxyAJooEey1qKzy1Oo2GA" attribute="5"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_RM6esJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_STUtIZpHEeyZgYdJHMsbqQ" entityName="5" attributevalue="_NIoiAJooEey1qKzy1Oo2GA" attribute="6"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_ZUlwcJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_Z92I0ZpHEeyZgYdJHMsbqQ" entityName="6" attributevalue="_Nwa6wJooEey1qKzy1Oo2GA" attribute="7"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_eOCysJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_e_RbUZpHEeyZgYdJHMsbqQ" entityName="7" attributevalue="_OL_ccJooEey1qKzy1Oo2GA" attribute="8"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_mXIZsJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_ra_VIZpHEeyZgYdJHMsbqQ" entityName="8" attributevalue="_PMZJgJooEey1qKzy1Oo2GA" attribute="9"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_z5M3kJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_0hnicZpHEeyZgYdJHMsbqQ" entityName="9" attributevalue="_PrGewJooEey1qKzy1Oo2GA" attribute="10"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_39-UkJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_4UxD8ZpHEeyZgYdJHMsbqQ" entityName="10" attributevalue="_P-NoAJooEey1qKzy1Oo2GA" attribute="11"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_79L8IJpHEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_-OfQYZpHEeyZgYdJHMsbqQ" entityName="11" attributevalue="_QiCGwJooEey1qKzy1Oo2GA" attribute="12"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_GmakoJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_St6h8ZpIEeyZgYdJHMsbqQ" entityName="12" attributevalue="_Q4iiQJooEey1qKzy1Oo2GA" attribute="13"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_G4UM8JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_TFGS4ZpIEeyZgYdJHMsbqQ" entityName="13" attributevalue="_RJdTIJooEey1qKzy1Oo2GA" attribute="14"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_HTFdYJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_T2M_sZpIEeyZgYdJHMsbqQ" entityName="14" attributevalue="_R47oQJooEey1qKzy1Oo2GA" attribute="15"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_HkSiIJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_UU8xMZpIEeyZgYdJHMsbqQ" entityName="15" attributevalue="_TErCoJooEey1qKzy1Oo2GA" attribute="16"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_H4WtoJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_Uw5GUZpIEeyZgYdJHMsbqQ" entityName="16" attributevalue="_TZQykJooEey1qKzy1Oo2GA" attribute="17"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_IOgj0JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_VJxgYZpIEeyZgYdJHMsbqQ" entityName="17" attributevalue="_Tv2GkJooEey1qKzy1Oo2GA" attribute="18"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_InWhoJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_VkVVcZpIEeyZgYdJHMsbqQ" entityName="18" attributevalue="_UEIUgJooEey1qKzy1Oo2GA" attribute="19"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_JC-tsJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_V_Pv0ZpIEeyZgYdJHMsbqQ" entityName="19" attributevalue="_UVJMAJooEey1qKzy1Oo2GA" attribute="20"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_JWb1MJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_XI11IZpIEeyZgYdJHMsbqQ" entityName="20" attributevalue="_UmI1YJooEey1qKzy1Oo2GA" attribute="21"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_JquDIJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_XuVu4ZpIEeyZgYdJHMsbqQ" entityName="21" attributevalue="_U3j8kJooEey1qKzy1Oo2GA" attribute="22"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_KFesgJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_YTUrQZpIEeyZgYdJHMsbqQ" entityName="22" attributevalue="_VI_q0JooEey1qKzy1Oo2GA" attribute="23"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_KuLEMJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_Y6c8sZpIEeyZgYdJHMsbqQ" entityName="23" attributevalue="_V0amYJooEey1qKzy1Oo2GA" attribute="24"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_LgkKcJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_ZmT9IZpIEeyZgYdJHMsbqQ" entityName="24" attributevalue="_WFMNUJooEey1qKzy1Oo2GA" attribute="25"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_OAFg4JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_aFSYIZpIEeyZgYdJHMsbqQ" entityName="25" attributevalue="_Wa27UJooEey1qKzy1Oo2GA" attribute="26"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_Ok6FMJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_afavYZpIEeyZgYdJHMsbqQ" entityName="26" attributevalue="_WrJaEJooEey1qKzy1Oo2GA" attribute="27"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_O01XkJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_bBycoZpIEeyZgYdJHMsbqQ" entityName="27" attributevalue="_XALO4JooEey1qKzy1Oo2GA" attribute="28"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_PJL28JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_brHGcZpIEeyZgYdJHMsbqQ" entityName="28" attributevalue="_XRBuUJooEey1qKzy1Oo2GA" attribute="29"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_PbThsJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_cMmp8ZpIEeyZgYdJHMsbqQ" entityName="29" attributevalue="_Xj3KwJooEey1qKzy1Oo2GA" attribute="30"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_Pxxg8JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_dmZHYZpIEeyZgYdJHMsbqQ" entityName="30" attributevalue="_YNc6UJooEey1qKzy1Oo2GA" attribute="31"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_QSYToJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_eF8KIZpIEeyZgYdJHMsbqQ" entityName="31" attributevalue="_YeiqUJooEey1qKzy1Oo2GA" attribute="32"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_Qm2u0JpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_evD_oZpIEeyZgYdJHMsbqQ" entityName="32" attributevalue="_YxCvkJooEey1qKzy1Oo2GA" attribute="33"/>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_Q9RDsJpIEeyZgYdJHMsbqQ">
+      <attribute xsi:type="usage:PCMUsageSpecification" id="_fPB5IZpIEeyZgYdJHMsbqQ" entityName="33" attributevalue="_ZFTIUJooEey1qKzy1Oo2GA" attribute="34"/>
+    </attributeprovider>
+  </pcmspecificationcontainer>
+  <policyset id="_YAA14ZoVEey1qKzy1Oo2GA">
+    <policy id="_uSL3cZoVEey1qKzy1Oo2GA" entityName="componentA">
+      <rule id="_urRF0JoVEey1qKzy1Oo2GA">
+        <condition xsi:type="SimpleAttributeCondition" id="_CQQIZ5oWEey1qKzy1Oo2GA" entityName="hasPermission" attribute="_3zywkZoVEey1qKzy1Oo2GA" only="true"/>
+      </rule>
+    </policy>
+    <policy id="_xmesMZo1Eey1qKzy1Oo2GA" entityName="componentB">
+      <rule id="_yl_BYJo1Eey1qKzy1Oo2GA">
+        <condition xsi:type="SimpleAttributeCondition" id="_8PlxJ5r_EeysoYSaUwq-Og" attribute="_jOrDsZo2Eey1qKzy1Oo2GA" only="true"/>
+      </rule>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_YpoaopoVEey1qKzy1Oo2GA" entityName="Permission">
+      <attributevalue id="_bxKzUJoVEey1qKzy1Oo2GA" entityName="permitted" type="Boolean">
+        <values>true</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="1" entityName="1">
+      <attributevalue id="_sjgfYJomEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="2" entityName="2">
+      <attributevalue id="_K8cXQJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="3" entityName="3">
+      <attributevalue id="_LX_DwJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="4" entityName="4">
+      <attributevalue id="_L0QJAJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="5" entityName="5">
+      <attributevalue id="_MtxyAJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="6" entityName="6">
+      <attributevalue id="_NIoiAJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="7" entityName="7">
+      <attributevalue id="_Nwa6wJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="8" entityName="8">
+      <attributevalue id="_OL_ccJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="9" entityName="9">
+      <attributevalue id="_PMZJgJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="10" entityName="10">
+      <attributevalue id="_PrGewJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="11" entityName="11">
+      <attributevalue id="_P-NoAJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="12" entityName="12">
+      <attributevalue id="_QiCGwJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="13" entityName="13">
+      <attributevalue id="_Q4iiQJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="14" entityName="14">
+      <attributevalue id="_RJdTIJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="15" entityName="15">
+      <attributevalue id="_R47oQJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="16" entityName="16">
+      <attributevalue id="_TErCoJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="17" entityName="17">
+      <attributevalue id="_TZQykJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="18" entityName="18">
+      <attributevalue id="_Tv2GkJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="19" entityName="19">
+      <attributevalue id="_UEIUgJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="20" entityName="20">
+      <attributevalue id="_UVJMAJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="21" entityName="21">
+      <attributevalue id="_UmI1YJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="22" entityName="22">
+      <attributevalue id="_U3j8kJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="23" entityName="23">
+      <attributevalue id="_VI_q0JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="24" entityName="24">
+      <attributevalue id="_V0amYJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="25" entityName="25">
+      <attributevalue id="_WFMNUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="26" entityName="26">
+      <attributevalue id="_Wa27UJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="27" entityName="27">
+      <attributevalue id="_WrJaEJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="28" entityName="28">
+      <attributevalue id="_XALO4JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="29" entityName="29">
+      <attributevalue id="_XRBuUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="30" entityName="30">
+      <attributevalue id="_Xj3KwJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="31" entityName="31">
+      <attributevalue id="_YNc6UJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="32" entityName="32">
+      <attributevalue id="_YeiqUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="33" entityName="33">
+      <attributevalue id="_YxCvkJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="34" entityName="34">
+      <attributevalue id="_ZFTIUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="35" entityName="35">
+      <attributevalue id="_ZeUsUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="36" entityName="36">
+      <attributevalue id="_ZvLy0JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="37" entityName="37">
+      <attributevalue id="_aOsZUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="38" entityName="38">
+      <attributevalue id="_agEdMJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="39" entityName="39">
+      <attributevalue id="_a0MTEJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="40" entityName="40">
+      <attributevalue id="_bG1iQJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="41" entityName="41">
+      <attributevalue id="_bheP0JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="42" entityName="42">
+      <attributevalue id="_b1RVkJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="43" entityName="43">
+      <attributevalue id="_cHlNkJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="44" entityName="44">
+      <attributevalue id="_cas94JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="45" entityName="45">
+      <attributevalue id="_dM524JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="46" entityName="46">
+      <attributevalue id="_dm1Z0JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="47" entityName="47">
+      <attributevalue id="_eIhKkJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="48" entityName="48">
+      <attributevalue id="_e42bUJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="49" entityName="49">
+      <attributevalue id="_fcNnEJooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="50" entityName="50">
+      <attributevalue id="_f4Zz0JooEey1qKzy1Oo2GA"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_wbUl0pojEey1qKzy1Oo2GA" entityName="neverGivenAttribute">
+      <attributevalue id="_xvzTMJooEey1qKzy1Oo2GA"/>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

@@ -6,6 +6,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksPackage;
 
 import org.eclipse.emf.ecore.EClass;
+
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AssemblyContextDetail;
 
 /**

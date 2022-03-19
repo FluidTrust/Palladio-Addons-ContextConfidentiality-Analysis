@@ -78,4 +78,5 @@ public abstract class Change<T> {
                 .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
         return resources;
     }
+
 }

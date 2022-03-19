@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_rDGP4JlSEeydpc4YSVJolQ" entityName="simpleSystem">
+  <assemblyContexts__ComposedStructure id="_KqbtMJlXEeydpc4YSVJolQ" entityName="Component_A">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="simpleEffort.repository#_JuY4gJlTEeydpc4YSVJolQ"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_VJB1IJoqEey1qKzy1Oo2GA" entityName="ComponentB">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="simpleEffort.repository#_-Tg18JopEey1qKzy1Oo2GA"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_cLYdlpoqEey1qKzy1Oo2GA" entityName="a_to_B" requiringAssemblyContext_AssemblyConnector="_KqbtMJlXEeydpc4YSVJolQ" providingAssemblyContext_AssemblyConnector="_VJB1IJoqEey1qKzy1Oo2GA">
+    <providedRole_AssemblyConnector href="simpleEffort.repository#_Ev2FcZlUEeydpc4YSVJolQ"/>
+  </connectors__ComposedStructure>
+</system:System>

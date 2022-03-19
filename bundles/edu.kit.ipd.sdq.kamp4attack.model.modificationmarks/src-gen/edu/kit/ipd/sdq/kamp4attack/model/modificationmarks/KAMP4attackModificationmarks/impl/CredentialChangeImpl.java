@@ -4,6 +4,7 @@ package edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificat
 
 import edu.kit.ipd.sdq.kamp.model.modificationmarks.impl.ChangePropagationStepImpl;
 
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AssemblyContextDetailContainer;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedData;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
@@ -47,6 +48,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getCompromiseddata <em>Compromiseddata</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getDatamodelcontainer <em>Datamodelcontainer</em>}</li>
  *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getCompromisedassembly <em>Compromisedassembly</em>}</li>
+ *   <li>{@link edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.impl.CredentialChangeImpl#getAssemblycontextdetailcontainer <em>Assemblycontextdetailcontainer</em>}</li>
  * </ul>
  *
  * @generated
@@ -154,6 +156,16 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	protected EList<CompromisedAssembly> compromisedassembly;
 
 	/**
+	 * The cached value of the '{@link #getAssemblycontextdetailcontainer() <em>Assemblycontextdetailcontainer</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getAssemblycontextdetailcontainer()
+	 * @generated
+	 * @ordered
+	 */
+	protected AssemblyContextDetailContainer assemblycontextdetailcontainer;
+
+	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -181,7 +193,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<CompromisedResource> getCompromisedresource()
 	{
-		if (compromisedresource == null) {
+		if (compromisedresource == null)
+		{
 			compromisedresource = new EObjectContainmentEList<CompromisedResource>(CompromisedResource.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE);
 		}
 		return compromisedresource;
@@ -194,7 +207,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<ContextChange> getContextchange()
 	{
-		if (contextchange == null) {
+		if (contextchange == null)
+		{
 			contextchange = new EObjectContainmentEList<ContextChange>(ContextChange.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE);
 		}
 		return contextchange;
@@ -230,7 +244,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<CompromisedLinkingResource> getCompromisedlinkingresource()
 	{
-		if (compromisedlinkingresource == null) {
+		if (compromisedlinkingresource == null)
+		{
 			compromisedlinkingresource = new EObjectContainmentEList<CompromisedLinkingResource>(CompromisedLinkingResource.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDLINKINGRESOURCE);
 		}
 		return compromisedlinkingresource;
@@ -243,7 +258,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<CompromisedService> getCompromisedservice()
 	{
-		if (compromisedservice == null) {
+		if (compromisedservice == null)
+		{
 			compromisedservice = new EObjectContainmentEList<CompromisedService>(CompromisedService.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDSERVICE);
 		}
 		return compromisedservice;
@@ -268,7 +284,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	{
 		ServiceRestrictionContainer oldServicerestrictioncontainer = servicerestrictioncontainer;
 		servicerestrictioncontainer = newServicerestrictioncontainer;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
+		{
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__SERVICERESTRICTIONCONTAINER, oldServicerestrictioncontainer, newServicerestrictioncontainer);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
@@ -282,7 +299,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public void setServicerestrictioncontainer(ServiceRestrictionContainer newServicerestrictioncontainer)
 	{
-		if (newServicerestrictioncontainer != servicerestrictioncontainer) {
+		if (newServicerestrictioncontainer != servicerestrictioncontainer)
+		{
 			NotificationChain msgs = null;
 			if (servicerestrictioncontainer != null)
 				msgs = ((InternalEObject)servicerestrictioncontainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__SERVICERESTRICTIONCONTAINER, null, msgs);
@@ -302,7 +320,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<CompromisedData> getCompromiseddata()
 	{
-		if (compromiseddata == null) {
+		if (compromiseddata == null)
+		{
 			compromiseddata = new EObjectContainmentEList<CompromisedData>(CompromisedData.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDDATA);
 		}
 		return compromiseddata;
@@ -327,7 +346,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	{
 		DatamodelContainer oldDatamodelcontainer = datamodelcontainer;
 		datamodelcontainer = newDatamodelcontainer;
-		if (eNotificationRequired()) {
+		if (eNotificationRequired())
+		{
 			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__DATAMODELCONTAINER, oldDatamodelcontainer, newDatamodelcontainer);
 			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
@@ -341,7 +361,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public void setDatamodelcontainer(DatamodelContainer newDatamodelcontainer)
 	{
-		if (newDatamodelcontainer != datamodelcontainer) {
+		if (newDatamodelcontainer != datamodelcontainer)
+		{
 			NotificationChain msgs = null;
 			if (datamodelcontainer != null)
 				msgs = ((InternalEObject)datamodelcontainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__DATAMODELCONTAINER, null, msgs);
@@ -361,7 +382,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 */
 	public EList<CompromisedAssembly> getCompromisedassembly()
 	{
-		if (compromisedassembly == null) {
+		if (compromisedassembly == null)
+		{
 			compromisedassembly = new EObjectContainmentEList<CompromisedAssembly>(CompromisedAssembly.class, this, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY);
 		}
 		return compromisedassembly;
@@ -372,10 +394,59 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public AssemblyContextDetailContainer getAssemblycontextdetailcontainer()
+	{
+		return assemblycontextdetailcontainer;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetAssemblycontextdetailcontainer(AssemblyContextDetailContainer newAssemblycontextdetailcontainer, NotificationChain msgs)
+	{
+		AssemblyContextDetailContainer oldAssemblycontextdetailcontainer = assemblycontextdetailcontainer;
+		assemblycontextdetailcontainer = newAssemblycontextdetailcontainer;
+		if (eNotificationRequired())
+		{
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER, oldAssemblycontextdetailcontainer, newAssemblycontextdetailcontainer);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setAssemblycontextdetailcontainer(AssemblyContextDetailContainer newAssemblycontextdetailcontainer)
+	{
+		if (newAssemblycontextdetailcontainer != assemblycontextdetailcontainer)
+		{
+			NotificationChain msgs = null;
+			if (assemblycontextdetailcontainer != null)
+				msgs = ((InternalEObject)assemblycontextdetailcontainer).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER, null, msgs);
+			if (newAssemblycontextdetailcontainer != null)
+				msgs = ((InternalEObject)newAssemblycontextdetailcontainer).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER, null, msgs);
+			msgs = basicSetAssemblycontextdetailcontainer(newAssemblycontextdetailcontainer, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER, newAssemblycontextdetailcontainer, newAssemblycontextdetailcontainer));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
 				return ((InternalEList<?>)getCompromisedresource()).basicRemove(otherEnd, msgs);
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE:
@@ -392,6 +463,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 				return basicSetDatamodelcontainer(null, msgs);
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
 				return ((InternalEList<?>)getCompromisedassembly()).basicRemove(otherEnd, msgs);
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
+				return basicSetAssemblycontextdetailcontainer(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -404,7 +477,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
 				return getCompromisedresource();
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE:
@@ -423,6 +497,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 				return getDatamodelcontainer();
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
 				return getCompromisedassembly();
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
+				return getAssemblycontextdetailcontainer();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -436,7 +512,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	@Override
 	public void eSet(int featureID, Object newValue)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
 				getCompromisedresource().clear();
 				getCompromisedresource().addAll((Collection<? extends CompromisedResource>)newValue);
@@ -470,6 +547,9 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 				getCompromisedassembly().clear();
 				getCompromisedassembly().addAll((Collection<? extends CompromisedAssembly>)newValue);
 				return;
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
+				setAssemblycontextdetailcontainer((AssemblyContextDetailContainer)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -482,7 +562,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	@Override
 	public void eUnset(int featureID)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
 				getCompromisedresource().clear();
 				return;
@@ -510,6 +591,9 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
 				getCompromisedassembly().clear();
 				return;
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
+				setAssemblycontextdetailcontainer((AssemblyContextDetailContainer)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -522,7 +606,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 	@Override
 	public boolean eIsSet(int featureID)
 	{
-		switch (featureID) {
+		switch (featureID)
+		{
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDRESOURCE:
 				return compromisedresource != null && !compromisedresource.isEmpty();
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__CONTEXTCHANGE:
@@ -541,6 +626,8 @@ public class CredentialChangeImpl extends ChangePropagationStepImpl implements C
 				return datamodelcontainer != null;
 			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__COMPROMISEDASSEMBLY:
 				return compromisedassembly != null && !compromisedassembly.isEmpty();
+			case KAMP4attackModificationmarksPackage.CREDENTIAL_CHANGE__ASSEMBLYCONTEXTDETAILCONTAINER:
+				return assemblycontextdetailcontainer != null;
 		}
 		return super.eIsSet(featureID);
 	}

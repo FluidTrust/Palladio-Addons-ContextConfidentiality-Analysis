@@ -131,6 +131,15 @@ public interface KAMP4attackModificationmarksFactory extends EFactory
 	DatamodelContainer createDatamodelContainer();
 
 	/**
+	 * Returns a new object of class '<em>Assembly Context Detail Container</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Assembly Context Detail Container</em>'.
+	 * @generated
+	 */
+	AssemblyContextDetailContainer createAssemblyContextDetailContainer();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

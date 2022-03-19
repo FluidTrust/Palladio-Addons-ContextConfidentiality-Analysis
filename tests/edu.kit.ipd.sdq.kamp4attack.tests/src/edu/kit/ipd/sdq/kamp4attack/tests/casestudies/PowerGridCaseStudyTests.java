@@ -43,14 +43,14 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
         runAnalysis();
         final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
         assertEquals(5, change.getCompromisedresource().size());
-        assertEquals(7, change.getCompromisedassembly().size()); //TODO: Zahl anpassen
-        assertEquals(10, change.getCompromisedservice().size());
+        assertEquals(7, change.getCompromisedassembly().size());
+		assertEquals(8, change.getCompromisedservice().size());
         assertEquals(4, change.getContextchange().size());
         assertEquals(1, change.getCompromisedlinkingresource().size());
 
-//        var containsRequiredAssemblies = change.getCompromisedassembly().stream()
-//                .map(CompromisedAssembly::getAffectedElement).map(AssemblyContext::getEntityName)
-//                .allMatch(this::assemblyNameMatch);
+        var containsRequiredAssemblies = change.getCompromisedassembly().stream()
+                .map(this::mapAffectedAssembly).map(AssemblyContext::getEntityName)
+                .allMatch(this::assemblyNameMatch);
 
         var containsRequiredResources = change.getCompromisedresource().stream()
                 .map(CompromisedResource::getAffectedElement).map(ResourceContainer::getEntityName)
@@ -66,7 +66,7 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
         change.getCompromisedservice().stream().map(CompromisedService::getAffectedElement)
                 .allMatch(this::checkServiceRestriction);
 
-//        assertTrue(containsRequiredAssemblies);
+        assertTrue(containsRequiredAssemblies);
         assertTrue(containsRequiredResources);
         assertTrue(containsRequiredLinking);
         assertTrue(containsRequiredContext);
@@ -113,5 +113,9 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
                 "_G-t3wC2bEeyiUoiCEbquLw", "_ZHSHAC2YEeyiUoiCEbquLw", "_ZIvfkC2YEeyiUoiCEbquLw");
         return setServices.contains(restriction.getService().getId());
 
+    }
+    
+    private AssemblyContext mapAffectedAssembly(CompromisedAssembly component) {
+    	return component.getAffectedElement().getCompromisedComponents().get(0);
     }
 }

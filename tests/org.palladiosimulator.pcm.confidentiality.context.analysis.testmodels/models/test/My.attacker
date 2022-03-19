@@ -2,8 +2,7 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
     <attacker id="_-E_zYGx3EeySe86kIoZ3GA" attacks="_torK4Wx3EeySe86kIoZ3GA">
-      <compromisedLinkingResources href="../powerGrid/powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
-      <compromisedLinkingResources href="../powerGrid/powerGrid.resourceenvironment#_HyUlcCwbEeylP6vhO63XvA"/>
+      <compromisedComponents href="../simpleAttackmodels/SimpleModelTest/newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
     </attacker>
   </attackers>
   <attacks>
@@ -20,11 +19,19 @@
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_mWKcAGx2Eey6CrF4tCuGpA" vulnerability="//@vulnerabilites/@vulnerability.0">
       <pcmelement id="_XZGKUGx3EeySe86kIoZ3GA">
         <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
+        <assemblycontext href="../simpleAttackmodels/SimpleModelTest/newAssembly.system#_mwxfsO2-Eeq6pfPMAIqEqg"/>
       </pcmelement>
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_krB6cWx3EeySe86kIoZ3GA">
       <pcmelement id="_mDW_UGx3EeySe86kIoZ3GA">
-        <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
+        <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
+        <assemblycontext href="../simpleAttackmodels/SimpleModelTest/newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_g54g4G7kEeyQ1vgffNatWg">
+      <pcmelement id="_hh_pwG7kEeyQ1vgffNatWg">
+        <resourcecontainer href="../powerGrid/powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        <assemblycontext href="../simpleAttackmodels/SimpleModelTest/newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
       </pcmelement>
     </vulnerabilities>
   </systemintegration>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_B2K_AJoXEey1qKzy1Oo2GA" attacks="_OlyFMZoXEey1qKzy1Oo2GA" contextSelectionListEffort="None">
+      <compromisedComponentsDetails id="_nQv3MJokEey1qKzy1Oo2GA" entityName="componentA">
+        <compromisedComponents href="../simpleEffort.system#_KqbtMJlXEeydpc4YSVJolQ"/>
+      </compromisedComponentsDetails>
+      <credentials href="../effort.context#_3zywkZoVEey1qKzy1Oo2GA"/>
+    </attacker>
+  </attackers>
+  <attacks>
+    <attack xsi:type="attack:CVEAttack" id="_OlyFMZoXEey1qKzy1Oo2GA" category="//@categoryspecification/@categories.0"/>
+  </attacks>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" attackVector="Local" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
+      <gainedAttributes href="../effort.context#_jOrDsZo2Eey1qKzy1Oo2GA"/>
+      <gainedAttributes href="../effort.context#_LNUJMZpGEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_5gY_AZpGEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_Jt4hUZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_STUtIZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_Z92I0ZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_e_RbUZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_ra_VIZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_0hnicZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_4UxD8ZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_-OfQYZpHEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_St6h8ZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_TFGS4ZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_T2M_sZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_UU8xMZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_Uw5GUZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_VJxgYZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_VkVVcZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_V_Pv0ZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_XI11IZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_XuVu4ZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_YTUrQZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_Y6c8sZpIEeyZgYdJHMsbqQ"/>
+      <gainedAttributes href="../effort.context#_ZmT9IZpIEeyZgYdJHMsbqQ"/>
+    </vulnerability>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" cveID="123"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_O-2MAZpEEeyZgYdJHMsbqQ" vulnerability="//@vulnerabilites/@vulnerability.0">
+      <pcmelement id="_SoP7oJpEEeyZgYdJHMsbqQ">
+        <assemblycontext href="../simpleEffort.system#_KqbtMJlXEeydpc4YSVJolQ"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

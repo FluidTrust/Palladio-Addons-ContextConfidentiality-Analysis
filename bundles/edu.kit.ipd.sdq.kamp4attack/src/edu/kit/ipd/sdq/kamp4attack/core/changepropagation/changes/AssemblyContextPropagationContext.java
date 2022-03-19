@@ -46,7 +46,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
             final AssemblyContext source) {
         final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(this.changes));
-        handler.attackService(services, changes, source);
+        handler.attackService(services, changes, source, getAttacker());
     }
 
 }

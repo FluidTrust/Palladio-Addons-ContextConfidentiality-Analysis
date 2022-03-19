@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_nXT40NwsEeeel_96Qa_d5A" entityName="defaultAllocation">
+  <targetResourceEnvironment_Allocation href="default.resourceenvironment#/"/>
+  <system_Allocation href="default.system#_84D0kCHcEd6lJo4DCALHMw"/>
+  <allocationContexts_Allocation id="_z_YPYHUDEeahddHrzGUY0w" entityName="Allocation_TravelAgency &lt;TravelAgency> &lt;TravelAgency>">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.system#_8q2rsG2pEeqDl7X_Gyem8w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_8Fzj8HUDEeahddHrzGUY0w" entityName="Allocation_Airline &lt;Airline> &lt;Airline>">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.system#_6yrCEG2pEeqDl7X_Gyem8w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_9Eh2AHUDEeahddHrzGUY0w" entityName="Allocation_TravelPlanner &lt;TravelPlanner> &lt;TravelPlanner>">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.system#_wT59IG2pEeqDl7X_Gyem8w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_976J8HUDEeahddHrzGUY0w" entityName="Allocation_CreditCardCenter &lt;CreditCardCenter> &lt;CreditCardCenter>">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.system#_18D4cG2pEeqDl7X_Gyem8w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_WLQxwI5DEeyN9vm-L2mRzQ" entityName="Allocation_AirlineLogic">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_tNptYG0mEeqy5fNd4LSp3w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_klkToI5NEeyN9vm-L2mRzQ" entityName="Allocation_CommisionsDB">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_ps7jMG0nEeqy5fNd4LSp3w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_pnbD8I5NEeyN9vm-L2mRzQ" entityName="Allocation_CreditCardDB">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_iozSwG0fEeqKyf48wo8qfA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_yrjW4I5NEeyN9vm-L2mRzQ" entityName="Allocation_CreditCardCenterLogic">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_sAVC0G0fEeqKyf48wo8qfA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_4m5T8I5NEeyN9vm-L2mRzQ" entityName="Allocation_FlightDB">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_5EMdkG0mEeqy5fNd4LSp3w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_7fjjII5NEeyN9vm-L2mRzQ" entityName="Allocation_TravelAgencyLogic">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_o_iRsG0nEeqy5fNd4LSp3w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_AfBt0I5OEeyN9vm-L2mRzQ" entityName="Allocation_TravelPlannerLogic">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.repository#_AExvsG28EeqTytEGo1dJMQ"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

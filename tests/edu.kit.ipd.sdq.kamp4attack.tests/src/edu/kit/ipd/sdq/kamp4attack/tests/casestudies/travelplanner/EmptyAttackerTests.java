@@ -25,8 +25,8 @@ public class EmptyAttackerTests extends TravelPlannerCaseStudy {
         assertEquals(0, change.getCompromisedservice().size());
         assertEquals(0, change.getContextchange().size());
 
-        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent().get(0).getAffectedElement();
+//        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
+//                .getAttackcomponent().get(0).getAffectedElement();
 
         assertEquals(0, change.getCompromiseddata().size());
 
