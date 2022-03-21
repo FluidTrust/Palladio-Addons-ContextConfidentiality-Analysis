@@ -20,7 +20,7 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.Assem
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -62,7 +62,7 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     }
     
     @Override
-    protected Function<String, CVSurface> getSurfaceMapper() {
+    protected Function<String, CredentialsVulnearbilitiesSurface> getSurfaceMapper() {
         return CredentialSurface::new;
     }
 

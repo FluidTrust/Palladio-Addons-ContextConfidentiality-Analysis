@@ -229,7 +229,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
             } else {
                 if (i == 0) { // start of attack
                     final var edgeContent = edge.getContent();
-                    Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
+                    Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
                     boolean areCausesAdded = iterateCauses(board, localPath, attacker, iterable);
                     iterable = edgeContent::getContainedSetCIterator;
                     areCausesAdded |= iterateCauses(board, localPath, attacker, iterable);
@@ -240,7 +240,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 }
                 
                 final var edgeContent = edge.getContent();
-                Iterable<Set<CVSurface>> iterable = edgeContent::getContainedSetVIterator;
+                Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
                 boolean areCausesAdded = iterateCauses(board, localPath, attacked, iterable);
                 iterable = edgeContent::getContainedSetCIterator;
                 areCausesAdded |= iterateCauses(board, localPath, attacked, iterable);
@@ -269,7 +269,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     private boolean iterateCauses(final BlackboardWrapper board, 
             final List<SystemIntegration> localPath, 
             final AttackStatusNodeContent attacked,
-            final Iterable<Set<CVSurface>> iterable) {
+            final Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable) {
         boolean ret = false;
         for (final var set : iterable) {
             for (final var cause : set) {

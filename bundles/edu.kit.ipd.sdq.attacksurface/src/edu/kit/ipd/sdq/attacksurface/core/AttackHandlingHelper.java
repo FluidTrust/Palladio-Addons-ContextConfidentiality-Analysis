@@ -12,7 +12,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -88,8 +88,8 @@ public final class AttackHandlingHelper {
     public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
             final AttackGraph attackGraph, final AttackStatusNodeContent nodeContent) {
         final var node = attackGraph.findNode(nodeContent);
-        final Set<CVSurface> credentialCauses = getCredentialIntegrationCauses(board, attackGraph, node);
-        final Set<CVSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
+        final Set<CredentialsVulnearbilitiesSurface> credentialCauses = getCredentialIntegrationCauses(board, attackGraph, node);
+        final Set<CredentialsVulnearbilitiesSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
         if (!node.isCompromised() && !necessaryCauses.isEmpty()) {
             final var selectedBefore = attackGraph.getSelectedNode();
             attackGraph.setSelectedNode(node);
@@ -101,7 +101,7 @@ public final class AttackHandlingHelper {
         return false;
     }
 
-    private static Set<CVSurface> getNecessaryCauses(Set<CVSurface> credentialCauses, AttackGraph attackGraph,
+    private static Set<CredentialsVulnearbilitiesSurface> getNecessaryCauses(Set<CredentialsVulnearbilitiesSurface> credentialCauses, AttackGraph attackGraph,
             AttackStatusNodeContent node) {
         return credentialCauses
                 .stream()
@@ -109,7 +109,7 @@ public final class AttackHandlingHelper {
                 .collect(Collectors.toSet());
     }
 
-    private static Set<CVSurface> getCredentialIntegrationCauses(BlackboardWrapper board, AttackGraph attackGraph,
+    private static Set<CredentialsVulnearbilitiesSurface> getCredentialIntegrationCauses(BlackboardWrapper board, AttackGraph attackGraph,
             AttackStatusNodeContent node) {
         return board.getVulnerabilitySpecification()
                 .getVulnerabilities()

@@ -12,7 +12,10 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+import com.google.common.graph.EndpointPair;
+
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
@@ -52,16 +55,20 @@ public class HelperUpdateCredentialChange {
             final AttackStatusNodeContent attackerNodeInGraph,
             final AttackStatusNodeContent attackedNodeInGraph,
             final AttackGraph attackGraph) {
-        final var listChanges = streamContextChange
-                .filter(e -> changes.getContextchange().stream()
-                        .noneMatch(f -> equalUsageElement(f,e)
+        final var endpoints = EndpointPair.ordered(attackedNodeInGraph,
+                attackerNodeInGraph);
+        final var debugList = streamContextChange.collect(Collectors.toList());
+        final var edge = new AttackStatusEdge(attackGraph.getEdge(endpoints), endpoints);
+        final var listChanges = debugList.stream()
+                .filter(e -> attackGraph.getCredentials(edge).stream()
+                        .noneMatch(f -> 
+                            e.getAffectedElement().getId().equals(f.getCauseId())
                                 ))
                 .collect(Collectors.toList()); 
         
-        final var vulnerabilities = findCauseVulnerabilities(listChanges);
-        attackGraph.attackNodeWithVulnerabilities(attackerNodeInGraph, attackedNodeInGraph, vulnerabilities);
-        
         if (!listChanges.isEmpty()) {
+            final var vulnerabilities = findCauseVulnerabilities(listChanges);
+            attackGraph.attackNodeWithVulnerabilities(attackerNodeInGraph, attackedNodeInGraph, vulnerabilities);
             attackedNodeInGraph.attack(attackerNodeInGraph);
             CachePDP.instance().clearCache();
             changes.setChanged(true);

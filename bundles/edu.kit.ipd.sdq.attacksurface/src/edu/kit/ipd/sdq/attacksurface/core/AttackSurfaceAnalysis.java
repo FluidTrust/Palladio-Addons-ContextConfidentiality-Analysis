@@ -191,7 +191,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         return AttackHandlingHelper.isFiltered(board, path, false);
     }
 
-    private void createInitialStructure(BlackboardWrapper board) {
+    private void createInitialStructure(BlackboardWrapper board) { //TODO helper methods
         final var repository = board.getModificationMarkRepository();
         final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(board);
 

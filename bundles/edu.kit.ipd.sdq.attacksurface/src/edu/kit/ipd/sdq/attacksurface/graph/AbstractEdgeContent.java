@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
  * @author ugnwq
  * @version 1.0
  *
- * @param <C> - the C {@link CVSurface} type
- * @param <V> - the V {@link CVSurface} type
+ * @param <C> - the C {@link CredentialsVulnearbilitiesSurface} type
+ * @param <V> - the V {@link CredentialsVulnearbilitiesSurface} type
  */
-public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurface> implements EdgeContent<C, V> {
-    private final Set<Set<CVSurface>> setCSets;
-    private final Set<Set<CVSurface>> setVSets;
+public abstract class AbstractEdgeContent<C extends CredentialsVulnearbilitiesSurface, V extends CredentialsVulnearbilitiesSurface> implements EdgeContent<C, V> {
+    private final Set<Set<CredentialsVulnearbilitiesSurface>> setCSets;
+    private final Set<Set<CredentialsVulnearbilitiesSurface>> setVSets;
     
     protected AbstractEdgeContent() {
         this.setCSets = new HashSet<>();
@@ -25,20 +25,20 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
     }
 
     @Override
-    public Iterator<Set<CVSurface>> getContainedSetCIterator() {
+    public Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetCIterator() {
         return this.setCSets.iterator();
     }
 
     @Override
-    public Iterator<Set<CVSurface>> getContainedSetVIterator() {
+    public Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetVIterator() {
         return this.setVSets.iterator();
     }
 
     @Override
-    public boolean addSet(final Set<CVSurface> toAdd) {
+    public boolean addSet(final Set<CredentialsVulnearbilitiesSurface> toAdd) {
         final var cSet = toAdd
                 .stream()
-                .filter(CVSurface::isC)
+                .filter(CredentialsVulnearbilitiesSurface::isCredential)
                 .collect(Collectors.toSet());
         boolean ret = false;
         if (!cSet.isEmpty()) {
@@ -47,7 +47,7 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
         }
         final var vSet = toAdd
                 .stream()
-                .filter(v -> !v.isC())
+                .filter(v -> !v.isCredential())
                 .collect(Collectors.toSet());
         if (!vSet.isEmpty()) {
             addSetV(vSet);
@@ -57,12 +57,12 @@ public abstract class AbstractEdgeContent<C extends CVSurface, V extends CVSurfa
     }
     
     @Override
-    public boolean addSetC(final Set<CVSurface> toAdd) {
+    public boolean addSetC(final Set<CredentialsVulnearbilitiesSurface> toAdd) {
         return this.setCSets.add(toAdd);
     }
 
     @Override
-    public boolean addSetV(Set<CVSurface> toAdd) {
+    public boolean addSetV(Set<CredentialsVulnearbilitiesSurface> toAdd) {
         return this.setVSets.add(toAdd);
     }
 

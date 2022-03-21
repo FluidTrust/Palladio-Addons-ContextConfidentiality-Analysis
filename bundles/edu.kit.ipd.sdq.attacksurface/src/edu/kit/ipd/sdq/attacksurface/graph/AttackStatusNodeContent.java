@@ -26,7 +26,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     private final Set<AttackStatusNodeContent> attackerNodes;
     
     // tmp set for necessary credential causes
-    private final Set<CVSurface> initiallyNecessaryCauses;
+    private final Set<CredentialsVulnearbilitiesSurface> initiallyNecessaryCauses;
     
     public AttackStatusNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
@@ -144,7 +144,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * 
      * @param necessaryCauses - adds the given necessary causes to the node
      */
-    public void addInitiallyNecessaryCredentials(Set<CVSurface> necessaryCauses) {
+    public void addInitiallyNecessaryCredentials(Set<CredentialsVulnearbilitiesSurface> necessaryCauses) {
         this.initiallyNecessaryCauses.addAll(necessaryCauses);
     }
     
@@ -152,7 +152,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * 
      * @param setToBeFilled - fills the set with initially nessecary causes of this node
      */
-    public void copyAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) {
+    public void copyAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) { //TODO: return Set 
         this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCauseId())));
     }
 }

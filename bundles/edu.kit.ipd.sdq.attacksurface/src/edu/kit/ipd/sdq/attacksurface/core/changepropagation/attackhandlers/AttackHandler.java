@@ -38,7 +38,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.CVSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -92,9 +92,9 @@ public abstract class AttackHandler implements CredentialQuerying {
     
     /**
      * 
-     * @return the mapper from the cause ID String to a {@link CVSurface}
+     * @return the mapper from the cause ID String to a {@link CredentialsVulnearbilitiesSurface}
      */
-    protected abstract Function<String, CVSurface> getSurfaceMapper();
+    protected abstract Function<String, CredentialsVulnearbilitiesSurface> getSurfaceMapper();
 
     /**
      * Selects the node to be compromised and compromises it afterwards with 
@@ -263,20 +263,24 @@ public abstract class AttackHandler implements CredentialQuerying {
     protected Collection<ModifyEntity<?>> filterExistingEdges(
             final List<? extends ModifyEntity<?>> compromisedEntities, final Entity source,
             final Class<? extends ModifyEntity<?>> clazz) {
-        final var attackerNode = this.getAttackGraph().findNode(new AttackStatusNodeContent(source));
+        final boolean areThereUncompromisedElementsInGraph = 
+                !areAllCompromisedComponentsCompromisedInGraph(compromisedEntities);
         return compromisedEntities
                 .stream()
-                .filter(c -> {
-                    final var attackedNode = new AttackStatusNodeContent(c.getAffectedElement());
-                    final var compromisationCauses = getCausesOfCompromisation(c);
-                    final boolean isAttackToContainedAssembliesInResource = 
-                            compromisationCauses.isEmpty() 
-                            && !areAllCompromisedComponentsCompromisedInGraph(compromisedEntities);
-                    return isAttackToContainedAssembliesInResource
-                            || !contains(getAttackGraph().getEdge(attackedNode, 
-                                    attackerNode), compromisationCauses);
-                })
+                .filter(c -> areElementsNotFiltered(c, areThereUncompromisedElementsInGraph, source))
                 .collect(Collectors.toList());
+    }
+    
+    private boolean areElementsNotFiltered(final ModifyEntity<? extends Entity> compromisedEntity,
+            final boolean areThereUncompromisedElementsInGraph, final Entity source) {
+        final var attackerNode = new AttackStatusNodeContent(source);
+        final var attackedNode = new AttackStatusNodeContent(compromisedEntity.getAffectedElement());
+        final var compromisationCauses = getCausesOfCompromisation(compromisedEntity);
+        final boolean isAttackToContainedAssembliesInResource = 
+                compromisationCauses.isEmpty() && areThereUncompromisedElementsInGraph;
+        return isAttackToContainedAssembliesInResource
+                || !contains(getAttackGraph().getEdge(attackedNode, 
+                        attackerNode), compromisationCauses);
     }
 
     private boolean areAllCompromisedComponentsCompromisedInGraph(

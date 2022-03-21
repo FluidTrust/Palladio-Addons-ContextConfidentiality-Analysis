@@ -59,7 +59,7 @@ public class AttackGraph {
         this.root = new AttackStatusNodeContent(rootEntity);
         this.graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
         this.graph.addNode(this.root);
-        this.selectedNode = this.root;
+        this.selectedNode = findNode(this.root);
         this.credentialsObtainedByAttack = new HashMap<>();
         this.attackEdgesToCredentialGainingVulnerabilitiesMap = new HashMap<>();
         this.credentialsFromBeginningOn = new HashSet<>();
@@ -181,7 +181,7 @@ public class AttackGraph {
      * Sets the selected node to the given one.
      * 
      * @param node - the node to be set as the selected node (it must be contained
-     *             in the path)
+     *             in the graph)
      */
     public void setSelectedNode(final AttackStatusNodeContent node) {
         Objects.requireNonNull(node);
@@ -222,7 +222,7 @@ public class AttackGraph {
      * @param causes       - the causes of the attack
      * @param attackSource - the attack source
      */
-    public void compromiseSelectedNode(final Set<CVSurface> causes, final AttackStatusNodeContent attackSource) {
+    public void compromiseSelectedNode(final Set<CredentialsVulnearbilitiesSurface> causes, final AttackStatusNodeContent attackSource) {
         Objects.requireNonNull(attackSource);
 
         this.selectedNode.compromise(attackSource);
@@ -272,7 +272,7 @@ public class AttackGraph {
      *                   to be found in the graph
      * @return the found node containing the entity contained in the parameter
      */
-    public AttackStatusNodeContent findNode(final AttackStatusNodeContent nodeToFind) {
+    public AttackStatusNodeContent findNode(final AttackStatusNodeContent nodeToFind) { //TODO comment why necessary to find
         return this.graph.nodes().stream().filter(n -> n.equals(nodeToFind)).findAny().orElse(null);
     }
 

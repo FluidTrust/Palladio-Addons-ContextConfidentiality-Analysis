@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +21,8 @@ import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 /**
- * Represents an abstract class for a change, i.e. a propagation attacking certain kinds of
- * elements with a certain kind of attacking.
+ * Represents an abstract class for a change, i.e. a propagation attacking
+ * certain kinds of elements with a certain kind of attacking.
  * 
  * @author ugnwq
  * @version 1.0
@@ -35,7 +34,7 @@ public abstract class Change<T> {
     protected CredentialChange changes;
 
     protected AttackGraph attackGraph;
-    
+
     private int stackLevel;
     private AttackPathSurface selectedSurfacePath;
 
@@ -55,72 +54,69 @@ public abstract class Change<T> {
     protected AttackGraph getAttackGraph() {
         return this.attackGraph;
     }
-    
+
     protected boolean isAnyCompromised(final Entity... entities) {
         return this.attackGraph.isAnyCompromised(entities);
     }
-    
+
     /**
      * Calls the recursion if this is necessary.
      * 
-     * @param childNode - the child node
+     * @param childNodeContent       - the child node content
      * @param recursionMethod - the recursion method runnable
-     * @param selectedNode - the selected node before and after the recursive call
+     * @param selectedNodeContent    - the selected node before and after the recursive
+     *                        call
      */
-    protected void callRecursionIfNecessary(final AttackStatusNodeContent childNode, 
-            final Runnable recursionMethod, final AttackStatusNodeContent selectedNode) {
-        selectedNode.setVisited(true);
-        final boolean isNecessary = childNode != null && !childNode.isVisited();
-        addChildNodeToPathIfNecessary(childNode, isNecessary);
-        if (isNecessary && !isFiltered()) {
-            // select the child node and recursively call the propagation call
-            this.attackGraph.setSelectedNode(childNode);
-            this.stackLevel++;
-            childNode.setVisited(true);
-            recursionMethod.run();
-            removeChildNodeFromPath();
-            this.stackLevel--;
-            this.attackGraph.setSelectedNode(selectedNode);
-        } else if (isNecessary) {
+    protected void callRecursionIfNecessary(final AttackStatusNodeContent childNodeContent, final Runnable recursionMethod,
+            final AttackStatusNodeContent selectedNodeContent) {
+        this.attackGraph.getSelectedNode().setVisited(true);
+        this.attackGraph.setSelectedNode(childNodeContent);
+        final var childNode = this.attackGraph.getSelectedNode();
+        final boolean isNecessary = !childNode.isVisited();
+        childNode.setVisited(true);
+        if (isNecessary) {
+            // recursively call the propagation call on the child node
+            addChildNodeToPath(childNode);
+            if (!isFiltered()) {
+                this.stackLevel++;
+                recursionMethod.run();
+                this.stackLevel--;
+            }
             removeChildNodeFromPath();
         }
+        this.attackGraph.setSelectedNode(selectedNodeContent);
     }
 
-    private void addChildNodeToPathIfNecessary(AttackStatusNodeContent childNode, final boolean isNecessary) {
-        if (isNecessary) {
-            final var criticalNode = this.attackGraph.getRootNodeContent();
-            final AttackStatusEdge edge;
-            final int size = this.selectedSurfacePath.size();
-            if (size == 0) {
-                edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
-                        EndpointPair.ordered(childNode, criticalNode));
-            } else {
-                edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
-                        EndpointPair.ordered(childNode, 
-                                this.selectedSurfacePath.get(size - 1).getNodes().source()));
-            }
-            this.selectedSurfacePath.addFirst(edge);
+    private void addChildNodeToPath(AttackStatusNodeContent childNode) {
+        final var criticalNode = this.attackGraph.getRootNodeContent();
+        final AttackStatusEdge edge;
+        final int size = this.selectedSurfacePath.size();
+        if (size == 0) {
+            edge = new AttackStatusEdge(new AttackStatusEdgeContent(), EndpointPair.ordered(childNode, criticalNode));
+        } else {
+            edge = new AttackStatusEdge(new AttackStatusEdgeContent(),
+                    EndpointPair.ordered(childNode, this.selectedSurfacePath.get(size - 1).getNodes().source()));
         }
+        this.selectedSurfacePath.addFirst(edge);
     }
-    
+
     private void removeChildNodeFromPath() {
         this.selectedSurfacePath.removeFirst();
     }
 
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
-        return AttackHandlingHelper.isFiltered(this.modelStorage, this.selectedSurfacePath.toAttackPath(modelStorage, 
-                criticalElement, true), true);
+        return AttackHandlingHelper.isFiltered(this.modelStorage,
+                this.selectedSurfacePath.toAttackPath(modelStorage, criticalElement, true), true);
     }
 
     /**
      * 
      * @param selectedNodeContent - the given node content
-     * @return the resource container for the given node content, 
-     * i.e. the containing resource container or the container itself
+     * @return the resource container for the given node content, i.e. the
+     *         containing resource container or the container itself
      */
-    protected ResourceContainer getResourceContainerForElement(
-            final AttackStatusNodeContent selectedNodeContent) {
+    protected ResourceContainer getResourceContainerForElement(final AttackStatusNodeContent selectedNodeContent) {
         final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
         final var selectedPCMElement = selectedNodeContent.getContainedElementAsPCMElement();
 
@@ -154,15 +150,13 @@ public abstract class Change<T> {
         }
         return allocationOPT.get().getResourceContainer_AllocationContext();
     }
-    
+
     protected AttackStatusNodeContent findResourceContainerNode(final ResourceContainer resourceContainer,
             final AttackStatusNodeContent selectedNode) {
-        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode
-                .getContainedElement().getId()
+        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContainedElement().getId()
                 .equals(resourceContainer.getId());
-        return isSelectedNodeAlreadyResourceContainerNode 
-                    ? selectedNode
-                    : this.getAttackGraph().addOrFindChild(selectedNode, new AttackStatusNodeContent(resourceContainer));
+        return isSelectedNodeAlreadyResourceContainerNode ? selectedNode
+                : this.getAttackGraph().addOrFindChild(selectedNode, new AttackStatusNodeContent(resourceContainer));
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {

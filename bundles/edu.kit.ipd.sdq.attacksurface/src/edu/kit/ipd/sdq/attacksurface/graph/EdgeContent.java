@@ -11,20 +11,20 @@ import java.util.Set;
  * @param <C> the C type
  * @param <V> the V type
  */
-public interface EdgeContent<C extends CVSurface, V extends CVSurface> {
+public interface EdgeContent<C extends CredentialsVulnearbilitiesSurface, V extends CredentialsVulnearbilitiesSurface> {
     /**
      * iterator over the C set
      * 
      * @return iterator over the C set
      */
-    Iterator<Set<CVSurface>> getContainedSetCIterator();
+    Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetCIterator();
     
     /**
      * iterator over the V set
      * 
      * @return iterator over the V set
      */
-    Iterator<Set<CVSurface>> getContainedSetVIterator();
+    Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetVIterator();
     
     /**
      * Splits the set in C and V and adds them as new sets. An empty set is not added.
@@ -32,21 +32,21 @@ public interface EdgeContent<C extends CVSurface, V extends CVSurface> {
      * @param toAdd - the set to be added
      * @return if the a set was added
      */
-    boolean addSet(final Set<CVSurface> toAdd);
+    boolean addSet(final Set<CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 
      * @param toAdd - the set of C to be added
      * @return if the set was added
      */
-    boolean addSetC(final Set<CVSurface> toAdd);
+    boolean addSetC(final Set<CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 
      * @param toAdd - the set of V to be added
      * @return if the set was added
      */
-    boolean addSetV(final Set<CVSurface> toAdd);
+    boolean addSetV(final Set<CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 
@@ -66,7 +66,7 @@ public interface EdgeContent<C extends CVSurface, V extends CVSurface> {
     @Override
     boolean equals(Object other);
 
-    public static Iterable<Set<CVSurface>> toIterable(final Iterator<Set<CVSurface>> iterator) {
+    public static Iterable<Set<CredentialsVulnearbilitiesSurface>> toIterable(final Iterator<Set<CredentialsVulnearbilitiesSurface>> iterator) {
         return () -> iterator;
     }
 }

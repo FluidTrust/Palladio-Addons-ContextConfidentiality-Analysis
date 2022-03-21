@@ -29,7 +29,7 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
      */
     public Set<String> getCredentialCauseIds() {
         final Set<String> causeIds = new HashSet<>();
-        final Iterable<Set<CVSurface>> cIterable = this::getContainedSetCIterator;
+        final Iterable<Set<CredentialsVulnearbilitiesSurface>> cIterable = this::getContainedSetCIterator;
         addAllOfIterable(causeIds, cIterable);
         return causeIds;
     }
@@ -40,14 +40,14 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
      */
     public Set<String> getVulnerabilityCauseIds() {
         final Set<String> causeIds = new HashSet<>();
-        final Iterable<Set<CVSurface>> vIterable = this::getContainedSetVIterator;
+        final Iterable<Set<CredentialsVulnearbilitiesSurface>> vIterable = this::getContainedSetVIterator;
         addAllOfIterable(causeIds, vIterable);
         return causeIds;
     }
     
-    private void addAllOfIterable(final Set<String> causeIds, final Iterable<Set<CVSurface>> iterable) {
+    private void addAllOfIterable(final Set<String> causeIds, final Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable) {
         for (final var causes : iterable) {
-            causeIds.addAll(causes.stream().map(CVSurface::getCauseId).collect(Collectors.toSet()));
+            causeIds.addAll(causes.stream().map(CredentialsVulnearbilitiesSurface::getCauseId).collect(Collectors.toSet()));
         }
     }
 
