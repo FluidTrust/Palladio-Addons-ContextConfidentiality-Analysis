@@ -273,7 +273,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         boolean ret = false;
         for (final var set : iterable) {
             for (final var cause : set) {
-                final var causeId = cause.getCauseId();
+                final var causeId = cause.getCause().getId();
                 final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
                         causeId);
                 localPath.add(sysInteg);
@@ -290,10 +290,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      */
     public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
         final Set<String> vulnerabilityCauseIds = stream().map(e -> e.getContent().getVulnerabilityCauseIds())
-                .flatMap(Set::stream).collect(Collectors.toSet());
+                .flatMap(Set::stream)
+                .map(Identifier::getId).collect(Collectors.toSet());
 
         return board.getVulnerabilitySpecification().getVulnerabilities().stream()
-                .filter(s -> vulnerabilityCauseIds.contains(s.getIdOfContent()))
+                .filter(s -> s.getIdOfContent() != null)
+                .filter(s -> vulnerabilityCauseIds.contains(s.getIdOfContent().getId()))
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
                 .map(VulnerabilitySystemIntegration.class::cast).map(VulnerabilitySystemIntegration::getVulnerability)
                 .collect(Collectors.toSet());
@@ -302,7 +304,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     private Collection<UsageSpecification> getCredentialsInitiallyNecessary(final BlackboardWrapper board) {
         return board.getSpecification().getUsagespecification()
                 .stream()
-                .filter(u -> this.initiallyNecessaryCredentials.contains(new CredentialSurface(u.getId())))
+                .filter(u -> this.initiallyNecessaryCredentials.contains(new CredentialSurface(u)))
                 .collect(Collectors.toSet());
     }
 
@@ -399,7 +401,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         final var vulnerabilitiesIds = path.getVulnerabilitesUsed().stream()
                 .map(Identifier::getId).collect(Collectors.toSet());
         for (final var sysInteg : path.getPath()) {
-            final String id = sysInteg.getIdOfContent();
+            final String id = sysInteg.getIdOfContent() != null ? sysInteg.getIdOfContent().getId() : null;
             if (vulnerabilitiesIds.contains(id)) {
                 return true;
             } else if (id != null) {

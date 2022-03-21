@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.tests.attackhandlers;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
@@ -15,6 +16,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.ResourceContainerContext;
@@ -41,7 +43,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(resource), getChanges(), resource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(resourceNode, resourceNode).contains(VULN_ID));
     }
     
@@ -70,7 +74,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(resource), getChanges(), attackerResource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(resourceNode, attackerNode).contains(VULN_ID));
     }
     
@@ -95,14 +101,18 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(VULN_ID));
         
         // attack and compromise resource node
         handler.attackResourceContainer(Arrays.asList(resource), getChanges(), attackerResource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(resourceNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(resourceNode, attackerNode).contains(VULN_ID));
         
         final int size = vulnList.size();
@@ -119,7 +129,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
     private Vulnerability getVulnerability() {
         return getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities()
                 .stream()
-                .filter(s -> s.getIdOfContent().equals(VULN_ID))
+                .filter(s -> Objects.equals(s.getIdOfContent().getId(), VULN_ID))
                 .map(VulnerabilitySystemIntegration.class::cast)
                 .map(s -> s.getVulnerability())
                 .findFirst().orElse(null);
@@ -153,7 +163,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(criticalResource), getChanges(), attackerComponent);
         Assert.assertTrue(criticalNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(criticalNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(criticalNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(criticalNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(criticalNode, attackerNode).contains(VULN_ID));
     }
     
@@ -178,7 +190,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         assemblyHandler.attackAssemblyContext(Arrays.asList(attackerComponent), getChanges(), attackerComponent, false);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(attackerNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(VULN_ID));
         
         final var handler = new ResourceContainerVulnerability(this.getBlackboardWrapper(),
@@ -187,7 +201,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(criticalResource), getChanges(), attackerComponent);
         Assert.assertTrue(criticalNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(criticalNode).isEmpty());
-        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(criticalNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(criticalNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(criticalNode, attackerNode).contains(VULN_ID));
     }
     

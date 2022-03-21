@@ -16,6 +16,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.base.Objects;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
@@ -57,12 +58,12 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     }
 
     @Override
-    protected Set<String> getCauses(EList<EObject> causingElements) {
+    protected Set<Identifier> getCauses(EList<EObject> causingElements) {
         return CauseGetter.getCauses(causingElements, UsageSpecification.class);
     }
     
     @Override
-    protected Function<String, CredentialsVulnearbilitiesSurface> getSurfaceMapper() {
+    protected Function<Identifier, CredentialsVulnearbilitiesSurface> getSurfaceMapper() {
         return CredentialSurface::new;
     }
 

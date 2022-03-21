@@ -88,13 +88,13 @@ public abstract class AttackHandler implements CredentialQuerying {
      * @param causingElements - the given causing elements
      * @return the set of IDs of causes for the given causing elements
      */
-    protected abstract Set<String> getCauses(EList<EObject> causingElements);
+    protected abstract Set<Identifier> getCauses(EList<EObject> causingElements);
     
     /**
      * 
-     * @return the mapper from the cause ID String to a {@link CredentialsVulnearbilitiesSurface}
+     * @return the mapper from the cause Identifier to a {@link CredentialsVulnearbilitiesSurface}
      */
-    protected abstract Function<String, CredentialsVulnearbilitiesSurface> getSurfaceMapper();
+    protected abstract Function<Identifier, CredentialsVulnearbilitiesSurface> getSurfaceMapper();
 
     /**
      * Selects the node to be compromised and compromises it afterwards with 
@@ -301,11 +301,11 @@ public abstract class AttackHandler implements CredentialQuerying {
     /**
      * 
      * @param edgeContent - the edge content
-     * @param causesOfCompromisation - the causes of compromisation IDs
+     * @param causesOfCompromisation - the causes of compromisation
      * @return whether the edge contains all the causes of compromisation
      */
-    protected boolean contains(final AttackStatusEdgeContent edgeContent, final Set<String> causesOfCompromisation) {
-        return edgeContent != null && edgeContent.getCauseIds().containsAll(causesOfCompromisation);
+    protected boolean contains(final AttackStatusEdgeContent edgeContent, final Set<Identifier> causesOfCompromisation) {
+        return edgeContent != null && edgeContent.getCauses().containsAll(causesOfCompromisation);
     }
 
     /**
@@ -313,7 +313,7 @@ public abstract class AttackHandler implements CredentialQuerying {
      * @param attacked - the attacked modify entity
      * @return the set of cause IDs of the causes of the attacked entity
      */
-    protected final Set<String> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
+    protected final Set<Identifier> getCausesOfCompromisation(final ModifyEntity<?> attacked) {
         return getCauses(attacked.getCausingElements());
     }
 }

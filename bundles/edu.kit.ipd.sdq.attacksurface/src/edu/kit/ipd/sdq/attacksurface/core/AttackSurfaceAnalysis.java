@@ -202,7 +202,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         this.attackGraph = new AttackGraph(this.crtitcalEntity);
         
         final var setCredentials = localAttacker.getAttacker().getCredentials().stream()
-                .map(Identifier::getId).map(CredentialSurface::new).collect(Collectors.toSet());
+                .map(CredentialSurface::new).collect(Collectors.toSet());
         this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
 
         // convert affectedResources to changes

@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.tests.change;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,7 +11,25 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.cdo.CDOLock;
+import org.eclipse.emf.cdo.CDOObjectHistory;
+import org.eclipse.emf.cdo.CDOState;
+import org.eclipse.emf.cdo.common.id.CDOID;
+import org.eclipse.emf.cdo.common.lock.CDOLockState;
+import org.eclipse.emf.cdo.common.revision.CDORevision;
+import org.eclipse.emf.cdo.common.security.CDOPermission;
+import org.eclipse.emf.cdo.eresource.CDOResource;
+import org.eclipse.emf.cdo.view.CDOView;
+import org.eclipse.emf.common.notify.Adapter;
+import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EOperation;
+import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -25,6 +44,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.graph.EndpointPair;
 
+import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
@@ -42,7 +62,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     private static final String R11 = "R.1.1";
     private static final String R12 = "R.1.2";
     private static final String P21 = "P.2.1";
-    private static final String VULN_ID = "TestVulnerabilityId123456";
+    private static final Identifier VULN_ID = toIdentifier("TestVulnerabilityId123456");
 
     private static final boolean IS_ROOT_SELF_ATTACKING = true;
     private static final boolean IS_DEBUG = true;
@@ -74,26 +94,28 @@ public class PropagationOverviewTest extends AbstractChangeTests {
 
             Assert.assertTrue(getAttackGraph().isAnyCompromised(criticalEntity));
             Assert.assertEquals(1, getAttackGraph().getCompromisationCauseIds(criticalNode).size());
-            Assert.assertEquals(VULN_ID,
-                    getAttackGraph().getCompromisationCauseIds(criticalNode).toArray(String[]::new)[0]);
+            Assert.assertEquals(VULN_ID.getId(),
+                    getAttackGraph().getCompromisationCauseIds(criticalNode).stream()
+                    .map(Identifier::getId).toArray(String[]::new)[0]);
 
             final AssemblyContext r11 = getAssemblyContext(R11);
             final var r11Node = getAttackGraph().findNode(new AttackStatusNodeContent(r11));
             Assert.assertTrue(getAttackGraph().isAnyCompromised(r11));
             Assert.assertEquals(1, getAttackGraph().getCompromisationCauseIds(r11Node).size());
-            Assert.assertEquals(VULN_ID, getAttackGraph().getCompromisationCauseIds(r11Node).toArray(String[]::new)[0]);
+            Assert.assertEquals(VULN_ID.getId(), getAttackGraph().getCompromisationCauseIds(r11Node).stream()
+                    .map(Identifier::getId).toArray(String[]::new)[0]);
 
             // check edges
-            Assert.assertTrue(getAttackGraph().getEdge(criticalNode, r11Node).contains(VULN_ID));
-            Assert.assertTrue(getAttackGraph().getEdge(criticalNode, criticalNode).contains(VULN_ID));
-            Assert.assertTrue(getAttackGraph().getEdge(r11Node, r11Node).contains(VULN_ID));
+            Assert.assertTrue(getAttackGraph().getEdge(criticalNode, r11Node).contains(VULN_ID.getId()));
+            Assert.assertTrue(getAttackGraph().getEdge(criticalNode, criticalNode).contains(VULN_ID.getId()));
+            Assert.assertTrue(getAttackGraph().getEdge(r11Node, r11Node).contains(VULN_ID.getId()));
             // all other edges have no causes
             Assert.assertTrue(getAttackGraph().getNodes().stream()
                     .filter(start -> !start.equals(criticalNode) && !start.equals(r11Node))
                     .map(start -> getAttackGraph().getNodes().stream()
                             .filter(end -> !end.equals(criticalNode) && !end.equals(r11Node))
                             .map(end -> getAttackGraph().getEdge(start, end)).collect(Collectors.toSet()))
-                    .flatMap(Set::stream).allMatch(e -> e == null || e.getCauseIds().isEmpty()));
+                    .flatMap(Set::stream).allMatch(e -> e == null || e.getCauses().isEmpty()));
         }
     }
 
@@ -189,18 +211,18 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         }
     }
 
-    private AttackPathSurface generateSimpleAttackPath(String... elementVuln) {
+    private AttackPathSurface generateSimpleAttackPath(Object... elementVuln) {
         final AttackPathSurface ret = new AttackPathSurface();
 
         for (int i = 0; i < elementVuln.length - 2; i += 2) {
-            final var elementSearchStr = elementVuln[i];
-            final var vulnIdStr = elementVuln[i + 1];
-            final var vulnSurface = new VulnerabilitySurface(vulnIdStr);
+            final var elementSearchStr = (String) elementVuln[i];
+            final var vulnId = (Identifier) elementVuln[i + 1];
+            final var vulnSurface = new VulnerabilitySurface(vulnId);
 
             final var assemblyContext = getAssemblyContext(elementSearchStr);
             final var nodeInGraph = getAttackGraph().findNode(new AttackStatusNodeContent(assemblyContext));
 
-            final var nextElement = getAssemblyContext(elementVuln[i + 2]);
+            final var nextElement = getAssemblyContext((String) elementVuln[i + 2]);
             final var nextNode = getAttackGraph().findNode(new AttackStatusNodeContent(nextElement));
             final var edgeContent = new AttackStatusEdgeContent();
             edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
@@ -348,19 +370,19 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 Assert.assertTrue(EcoreUtil.equals(nodeEntity, entity));
 
                 final var causeId = sysInteg.getIdOfContent();
-                Assert.assertTrue(edgeCauseIds.contains(causeId)); // TODO show also that all edge cause ids are
+                Assert.assertTrue(edgeCauseIds.contains(causeId.getId())); // TODO show also that all edge cause ids are
                                                                    // represented
 
                 Assert.assertEquals(1, attackPath.getVulnerabilitesUsed().size());
                 Assert.assertTrue(attackPath.getVulnerabilitesUsed().stream().map(v -> v.getId())
-                        .collect(Collectors.toSet()).contains(VULN_ID));
+                        .collect(Collectors.toSet()).contains(VULN_ID.getId()));
             }
         }
     }
 
     private Set<String> getEdgeCauseIdsOfNodeIndex(final AttackPathSurface surface, final int nodeIndex) {
         final int edgeIndex = nodeIndex;
-        return surface.get(edgeIndex).getContent().getCauseIds();
+        return surface.get(edgeIndex).getContent().getCauses().stream().map(Identifier::getId).collect(Collectors.toSet());
     }
 
     private List<AttackStatusNodeContent> getNodeList(final AttackPathSurface surface) {
@@ -371,5 +393,241 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                     ret.add(b.get(1)); // b.get(0) ^= a.get(1), so only b.get(1) needs to be added
                     return ret;
                 });
+    }
+    
+    
+
+
+    private static Identifier toIdentifier(String id) {
+        return new Identifier() {
+
+            @Override
+            public boolean cdoConflict() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public CDOResource cdoDirectResource() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOObjectHistory cdoHistory() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOID cdoID() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public boolean cdoInvalid() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public CDOLockState cdoLockState() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOPermission cdoPermission() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public void cdoPrefetch(int arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public CDOLock cdoReadLock() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public void cdoReload() {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public CDOResource cdoResource() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDORevision cdoRevision() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDORevision cdoRevision(boolean arg0) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOState cdoState() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOView cdoView() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOLock cdoWriteLock() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public CDOLock cdoWriteOption() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EClass eClass() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public Resource eResource() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EObject eContainer() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EStructuralFeature eContainingFeature() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EReference eContainmentFeature() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EList<EObject> eContents() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public TreeIterator<EObject> eAllContents() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public boolean eIsProxy() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public EList<EObject> eCrossReferences() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public Object eGet(EStructuralFeature feature) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public Object eGet(EStructuralFeature feature, boolean resolve) {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public void eSet(EStructuralFeature feature, Object newValue) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public boolean eIsSet(EStructuralFeature feature) {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public void eUnset(EStructuralFeature feature) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public Object eInvoke(EOperation operation, EList<?> arguments) throws InvocationTargetException {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public EList<Adapter> eAdapters() {
+                // TODO Auto-generated method stub
+                return null;
+            }
+
+            @Override
+            public boolean eDeliver() {
+                // TODO Auto-generated method stub
+                return false;
+            }
+
+            @Override
+            public void eSetDeliver(boolean deliver) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public void eNotify(Notification notification) {
+                // TODO Auto-generated method stub
+                
+            }
+
+            @Override
+            public String getId() {
+                return id;
+            }
+
+            @Override
+            public void setId(String arg0) {
+                // TODO Auto-generated method stub
+                
+            }
+            
+        };
     }
 }

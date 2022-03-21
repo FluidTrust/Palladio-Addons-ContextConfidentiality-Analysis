@@ -3,8 +3,11 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.google.common.graph.EndpointPair;
+
+import de.uka.ipd.sdq.identifier.Identifier;
 
 /**
  * Represents an edge in the attack graph containing the endpoints of the edge and
@@ -65,7 +68,8 @@ public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
 
     @Override
     public String toString() {
-        return "AttackStatusEdge [content=" + content.getCauseIds() + ", " + 
+        return "AttackStatusEdge [content=" + content.getCauses().stream()
+                    .map(Identifier::getId).collect(Collectors.toSet()) + ", " + 
                 nodes.source().getContainedElement().getEntityName() + " -> " +
                 nodes.target().getContainedElement().getEntityName() + "]";
     }

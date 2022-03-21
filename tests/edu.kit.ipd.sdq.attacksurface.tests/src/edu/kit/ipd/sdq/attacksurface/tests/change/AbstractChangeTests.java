@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -271,7 +272,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             Assert.assertEquals(isCompromised, node.isCompromised());
             Assert.assertEquals(isAttacked, node.isAttacked());
             if (causeId != null) {
-                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).contains(causeId));
+                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).stream().anyMatch(i -> Objects.equals(i.getId(), causeId)));
             }
         } else {
             Assert.assertFalse(isAttacked);

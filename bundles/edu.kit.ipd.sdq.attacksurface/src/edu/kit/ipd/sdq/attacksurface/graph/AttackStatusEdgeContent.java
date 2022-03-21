@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import de.uka.ipd.sdq.identifier.Identifier;
+
 /**
  * Represents an edge content for the attack status containing the cause IDs for credentials and vulnerabilites.
  * 
@@ -14,10 +16,10 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
 
     /**
      * 
-     * @return the cause IDs
+     * @return the causes identifiers
      */
-    public Set<String> getCauseIds() {
-        final Set<String> causeIds = new HashSet<>();
+    public Set<Identifier> getCauses() {
+        final Set<Identifier> causeIds = new HashSet<>();
         causeIds.addAll(getCredentialCauseIds());
         causeIds.addAll(getVulnerabilityCauseIds());
         return causeIds;
@@ -25,10 +27,10 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
     
     /**
      * 
-     * @return the credential cause IDs
+     * @return the credential causes
      */
-    public Set<String> getCredentialCauseIds() {
-        final Set<String> causeIds = new HashSet<>();
+    public Set<Identifier> getCredentialCauseIds() {
+        final Set<Identifier> causeIds = new HashSet<>();
         final Iterable<Set<CredentialsVulnearbilitiesSurface>> cIterable = this::getContainedSetCIterator;
         addAllOfIterable(causeIds, cIterable);
         return causeIds;
@@ -38,26 +40,26 @@ public class AttackStatusEdgeContent extends AbstractEdgeContent<CredentialSurfa
      * 
      * @return the vulnerability cause IDs
      */
-    public Set<String> getVulnerabilityCauseIds() {
-        final Set<String> causeIds = new HashSet<>();
+    public Set<Identifier> getVulnerabilityCauseIds() {
+        final Set<Identifier> causeIds = new HashSet<>();
         final Iterable<Set<CredentialsVulnearbilitiesSurface>> vIterable = this::getContainedSetVIterator;
         addAllOfIterable(causeIds, vIterable);
         return causeIds;
     }
     
-    private void addAllOfIterable(final Set<String> causeIds, final Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable) {
-        for (final var causes : iterable) {
-            causeIds.addAll(causes.stream().map(CredentialsVulnearbilitiesSurface::getCauseId).collect(Collectors.toSet()));
+    private void addAllOfIterable(final Set<Identifier> causes, final Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable) {
+        for (final var newCauses : iterable) {
+            causes.addAll(newCauses.stream().map(CredentialsVulnearbilitiesSurface::getCause).collect(Collectors.toSet()));
         }
     }
 
     /**
      * 
-     * @param causeId - the cause ID
-     * @return whether the cause ID is contained in this edge
+     * @param cause - the cause id
+     * @return whether the cause is contained in this edge
      */
     public boolean contains(final String causeId) {
-        return getCauseIds().contains(causeId);
+        return getCauses().stream().anyMatch(c -> c.getId().equals(causeId));
     }
    
 }

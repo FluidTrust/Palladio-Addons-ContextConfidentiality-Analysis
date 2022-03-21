@@ -246,16 +246,15 @@ public class AttackGraph {
         attackedNodeInGraph.attack(attackerNodeInGraph);
         final var edgeNow = getEdge(attackedNodeInGraph, attackerNodeInGraph);
         final var content = edgeNow != null ? edgeNow : new AttackStatusEdgeContent();
-        final Set<VulnerabilitySurface> surfaceSet = vulnerabilities.stream().map(Identifier::getId).map(VulnerabilitySurface::new)
+        final Set<VulnerabilitySurface> surfaceSet = vulnerabilities.stream().map(VulnerabilitySurface::new)
                 .collect(Collectors.toSet());
         for (final var vulnerability : vulnerabilities) {
-            final VulnerabilitySurface vulnSurface = new VulnerabilitySurface(vulnerability.getId());
+            final VulnerabilitySurface vulnSurface = new VulnerabilitySurface(vulnerability);
             surfaceSet.add(vulnSurface);
             final var credentialsObtained = this.credentialsObtainedByAttack.containsKey(vulnSurface) ?
                     this.credentialsObtainedByAttack.get(vulnSurface) : new HashSet<CredentialSurface>();
             credentialsObtained.addAll(vulnerability.getGainedAttributes()
                     .stream()
-                    .map(Identifier::getId)
                     .map(CredentialSurface::new)
                     .collect(Collectors.toSet()));
             this.credentialsObtainedByAttack.put(vulnSurface, credentialsObtained);
@@ -311,11 +310,11 @@ public class AttackGraph {
      * Gets all compromisation cause IDs of the given node.
      * 
      * @param node - the given node
-     * @return all compromisation cause IDs of the given node
+     * @return all compromisation causes of the given node
      */
-    public Set<String> getCompromisationCauseIds(final AttackStatusNodeContent node) {
+    public Set<Identifier> getCompromisationCauseIds(final AttackStatusNodeContent node) {
         return this.graph.edges().stream().filter(e -> e.source().equals(node)).map(this.graph::edgeValue)
-                .map(e -> e.orElse(null)).filter(Objects::nonNull).map(AttackStatusEdgeContent::getCauseIds)
+                .map(e -> e.orElse(null)).filter(Objects::nonNull).map(AttackStatusEdgeContent::getCauses)
                 .flatMap(Set::stream).collect(Collectors.toSet());
     }
 

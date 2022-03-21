@@ -2,22 +2,28 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.Objects;
 
+import de.uka.ipd.sdq.identifier.Identifier;
+
 public abstract class CredentialsVulnearbilitiesSurface {
-    private final String causeId; //TODO: Identifier
+    private final Identifier cause; 
     private final boolean isCredential;
     
     /**
      * 
-     * @param causeId the EMF id of the cause (vulnerability or usage specification)
-     * @param isC if the element isC
+     * @param cause - the identifier
+     * @param isC - if the element is a credential
      */
-    protected CredentialsVulnearbilitiesSurface(final String causeId, final boolean isC) {
-        this.causeId = causeId;
+    protected CredentialsVulnearbilitiesSurface(final Identifier cause, final boolean isC) {
+        this.cause = cause;
         this.isCredential = isC;
     }
 
+    public Identifier getCause() {
+        return this.cause;
+    }
+
     public String getCauseId() {
-        return this.causeId;
+        return this.cause.getId();
     }
 
     public boolean isCredential() {
@@ -26,7 +32,7 @@ public abstract class CredentialsVulnearbilitiesSurface {
 
     @Override
     public int hashCode() {
-        return Objects.hash(causeId);
+        return Objects.hash(cause.getId());
     }
 
     @Override
@@ -38,11 +44,11 @@ public abstract class CredentialsVulnearbilitiesSurface {
         if (getClass() != obj.getClass())
             return false;
         CredentialsVulnearbilitiesSurface other = (CredentialsVulnearbilitiesSurface) obj;
-        return Objects.equals(causeId, other.causeId); //TODO EcoreEquals
+        return Objects.equals(cause.getId(), other.cause.getId());
     }
 
     @Override
     public String toString() {
-        return "CredentialsVulnearbilitiesSurface [causeId= " + causeId + ", isC= " + isCredential + "]";
+        return "CredentialsVulnearbilitiesSurface [causeId= " + cause.getId() + ", isC= " + isCredential + "]";
     }
 }

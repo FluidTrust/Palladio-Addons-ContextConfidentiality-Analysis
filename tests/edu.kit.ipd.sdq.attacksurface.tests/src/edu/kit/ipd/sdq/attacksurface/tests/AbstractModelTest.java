@@ -183,7 +183,7 @@ public abstract class AbstractModelTest extends BaseTest {
     
     protected void addRootAccess() {
         final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
-                .stream().map(Identifier::getId).map(CredentialSurface::new).collect(Collectors.toSet());
+                .stream().map(CredentialSurface::new).collect(Collectors.toSet());
         getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
     }
     

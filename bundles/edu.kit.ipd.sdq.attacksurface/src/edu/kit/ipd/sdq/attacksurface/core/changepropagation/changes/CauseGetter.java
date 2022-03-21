@@ -24,14 +24,13 @@ public final class CauseGetter {
      * 
      * @param causingElements - the list of causing elements
      * @param toFindInterface - the kind of causes to be found
-     * @return set of IDs of causes of the given kind
+     * @return set of causes of the given kind
      */
-    public static Set<String> getCauses(final EList<EObject> causingElements, final Class<? extends Entity> toFindInterface) {
+    public static Set<Identifier> getCauses(final EList<EObject> causingElements, final Class<? extends Entity> toFindInterface) {
         return causingElements
                 .stream()
                 .filter(toFindInterface::isInstance)
                 .map(toFindInterface::cast)
-                .map(Identifier::getId)
                 .collect(Collectors.toSet());
     }
 }

@@ -153,6 +153,6 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * @param setToBeFilled - fills the set with initially nessecary causes of this node
      */
     public void copyAllNecessaryCausesToSet(final Set<CredentialSurface> setToBeFilled) { //TODO: return Set 
-        this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCauseId())));
+        this.initiallyNecessaryCauses.forEach(c -> setToBeFilled.add(new CredentialSurface(c.getCause())));
     }
 }
