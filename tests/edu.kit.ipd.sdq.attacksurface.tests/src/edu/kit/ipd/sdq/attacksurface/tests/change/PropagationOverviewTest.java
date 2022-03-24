@@ -65,7 +65,6 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     private static final Identifier VULN_ID = toIdentifier("TestVulnerabilityId123456");
 
     private static final boolean IS_ROOT_SELF_ATTACKING = true;
-    private static final boolean IS_DEBUG = true;
 
     public PropagationOverviewTest() {
         this.PATH_ATTACKER = "simpleAttackmodels/DesignOverviewDiaModel/My.attacker";
@@ -162,13 +161,13 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 generateSimpleAttackPath(CRITICAL, VULN_ID, P21, DEFAULT), // attack starting from p.2.1
         };
         final var expectedPathsSet = new HashSet<>(addSelfLoopPaths(Arrays.asList(expectedPaths)));
-        debugsysouts(expectedPathsSet, attackPathsSet);
+        doDebugSysOutExpectedAndUnexpectedPaths(expectedPathsSet, attackPathsSet);
         Assert.assertEquals(11, attackPaths.size());
         Assert.assertEquals(expectedPathsSet, attackPathsSet);
 
         attackPaths.forEach(p -> Assert.assertEquals(1, p.getUsedVulnerabilites(getBlackboardWrapper()).size()));
         attackPaths.forEach(p -> Assert.assertTrue(p.getUsedVulnerabilites(getBlackboardWrapper()).stream()
-                .map(v -> v.getId()).collect(Collectors.toSet()).contains(VULN_ID)));
+                .map(v -> v.getId()).collect(Collectors.toSet()).contains(VULN_ID.getId())));
     }
 
     private List<AttackPathSurface> addSelfLoopPaths(final List<AttackPathSurface> paths) {
@@ -191,25 +190,6 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         return allPaths;
     }
 
-    private void debugsysouts(final Set<AttackPathSurface> expectedPathsSet, final Set<AttackPathSurface> attackPaths) {
-        if (IS_DEBUG) {
-            attackPaths.forEach(p -> System.out.println(p));
-            System.out.println("--------------------------------\nexpected:");
-            expectedPathsSet.forEach(p -> System.out.println(p));
-            System.out.println("--------------------------------\nunexpected (is there, but should not be there):");
-            attackPaths.forEach(p -> {
-                if (!expectedPathsSet.contains(p)) {
-                    System.out.println(p);
-                }
-            });
-            System.out.println("--------------------------------\nunexpected (should be there, but is not there):");
-            expectedPathsSet.forEach(p -> {
-                if (!attackPaths.contains(p)) {
-                    System.out.println(p);
-                }
-            });
-        }
-    }
 
     private AttackPathSurface generateSimpleAttackPath(Object... elementVuln) {
         final AttackPathSurface ret = new AttackPathSurface();
@@ -294,7 +274,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
 
         attackPaths.forEach(p -> Assert.assertEquals(1, p.getVulnerabilitesUsed().size()));
         attackPaths.forEach(p -> Assert.assertTrue(p.getVulnerabilitesUsed().stream()
-                .map(v -> v.getId()).collect(Collectors.toSet()).contains(VULN_ID)));
+                .map(v -> v.getId()).collect(Collectors.toSet()).contains(VULN_ID.getId())));
     }
 
     private boolean areAllPathsEquals(
@@ -339,7 +319,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 return false;
             }
             final boolean idOfContentEquals = 
-                    Objects.equals(sysIntegExpected.getIdOfContent(), sysIntegActual.getIdOfContent());
+                    EcoreUtil.equals(sysIntegExpected.getIdOfContent(), sysIntegActual.getIdOfContent());
             if (!idOfContentEquals) {
                 return false;
             }
@@ -370,8 +350,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 Assert.assertTrue(EcoreUtil.equals(nodeEntity, entity));
 
                 final var causeId = sysInteg.getIdOfContent();
-                Assert.assertTrue(edgeCauseIds.contains(causeId.getId())); // TODO show also that all edge cause ids are
-                                                                   // represented
+                Assert.assertTrue(edgeCauseIds.contains(causeId.getId()));
 
                 Assert.assertEquals(1, attackPath.getVulnerabilitesUsed().size());
                 Assert.assertTrue(attackPath.getVulnerabilitesUsed().stream().map(v -> v.getId())
@@ -395,225 +374,192 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 });
     }
     
-    
-
+    @Test
+    public void graphGenerationTest() {
+        runUntilNotChangedIterations(true);
+        generateGraph(true);
+    }
 
     private static Identifier toIdentifier(String id) {
         return new Identifier() {
 
             @Override
             public boolean cdoConflict() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public CDOResource cdoDirectResource() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOObjectHistory cdoHistory() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOID cdoID() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public boolean cdoInvalid() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public CDOLockState cdoLockState() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOPermission cdoPermission() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public void cdoPrefetch(int arg0) {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public CDOLock cdoReadLock() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public void cdoReload() {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public CDOResource cdoResource() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDORevision cdoRevision() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDORevision cdoRevision(boolean arg0) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOState cdoState() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOView cdoView() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOLock cdoWriteLock() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public CDOLock cdoWriteOption() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EClass eClass() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public Resource eResource() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EObject eContainer() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EStructuralFeature eContainingFeature() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EReference eContainmentFeature() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EList<EObject> eContents() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public TreeIterator<EObject> eAllContents() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public boolean eIsProxy() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public EList<EObject> eCrossReferences() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public Object eGet(EStructuralFeature feature) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public Object eGet(EStructuralFeature feature, boolean resolve) {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public void eSet(EStructuralFeature feature, Object newValue) {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public boolean eIsSet(EStructuralFeature feature) {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public void eUnset(EStructuralFeature feature) {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public Object eInvoke(EOperation operation, EList<?> arguments) throws InvocationTargetException {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public EList<Adapter> eAdapters() {
-                // TODO Auto-generated method stub
                 return null;
             }
 
             @Override
             public boolean eDeliver() {
-                // TODO Auto-generated method stub
                 return false;
             }
 
             @Override
             public void eSetDeliver(boolean deliver) {
-                // TODO Auto-generated method stub
                 
             }
 
             @Override
             public void eNotify(Notification notification) {
-                // TODO Auto-generated method stub
                 
             }
 
@@ -624,7 +570,6 @@ public class PropagationOverviewTest extends AbstractChangeTests {
 
             @Override
             public void setId(String arg0) {
-                // TODO Auto-generated method stub
                 
             }
             

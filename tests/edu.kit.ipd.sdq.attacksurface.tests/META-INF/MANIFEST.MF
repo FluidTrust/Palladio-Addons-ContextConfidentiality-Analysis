@@ -22,4 +22,5 @@ Require-Bundle: edu.kit.ipd.sdq.kamp,
  edu.kit.ipd.sdq.kamp4attack,
  org.palladiosimulator.pcm.confidentiality.attacker.analysis.common,
  edu.kit.ipd.sdq.kamp4attack.api
-Import-Package: org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data
+Import-Package: edu.kit.kastel.sdq.kamp4attack.graph.impl.output,
+ org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data

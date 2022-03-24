@@ -273,7 +273,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         boolean ret = false;
         for (final var set : iterable) {
             for (final var cause : set) {
-                final var causeId = cause.getCause().getId();
+                final var causeId = cause.getCause();
                 final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
                         causeId);
                 localPath.add(sysInteg);
@@ -326,12 +326,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     }
 
     private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
-            String causeId) {
+            Identifier cause) {
         final var container = board.getVulnerabilitySpecification().getVulnerabilities();
         if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
             final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
                     .collect(Collectors.toList());
-            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, causeId);
+            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, cause);
             if (sysIntegration != null) {
                 return sysIntegration;
             }
@@ -349,9 +349,10 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     }
 
     private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
-            final List<SystemIntegration> sysIntegrations, final String causeId) {
-        if (!sysIntegrations.isEmpty() && causeId != null) {
-            final SystemIntegration systemIntegrationById = findSystemIntegrationById(sysIntegrations, causeId);
+            final List<SystemIntegration> sysIntegrations, final Identifier cause) {
+        if (!sysIntegrations.isEmpty() && cause != null) {
+            final SystemIntegration systemIntegrationById = 
+                    findSystemIntegrationById(sysIntegrations, cause);
             // TODO non-global communication
             if (systemIntegrationById != null) {
                 return systemIntegrationById;
@@ -362,9 +363,14 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     }
 
     private static SystemIntegration findSystemIntegrationById(final List<SystemIntegration> sysIntegrations,
-            final String id) {
+            final Identifier id) {
+        if (id == null) {
+            return copyDefaultOrFirst(sysIntegrations);
+        }
         return copySystemIntegration(
-                sysIntegrations.stream().filter(v -> Objects.equals(id, v.getIdOfContent())).findAny().orElse(null));
+                sysIntegrations.stream()
+                    .filter(v -> v.getIdOfContent() != null)
+                    .filter(v -> Objects.equals(id.getId(), v.getIdOfContent().getId())).findAny().orElse(null));
     }
 
     private static SystemIntegration copySystemIntegration(final SystemIntegration original) {

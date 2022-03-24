@@ -14,7 +14,6 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 
 public class PDPCredentialQuerying implements CredentialQuerying {
     private final BlackboardWrapper board;
@@ -50,19 +49,12 @@ public class PDPCredentialQuerying implements CredentialQuerying {
             PolicyHelper.createRequestAttributes(listComponent, credentials, listSubject, listEnvironment, listResource,
                     listXML);
         } else {
-            var result = CachePDP.instance().get(target, signature);
-            if (result.isPresent()) {
-                return result;
-            }
             PolicyHelper.createRequestAttributes(signature, listComponent, credentials, listSubject, listEnvironment,
                     listResource, listOperation, listXML);
         }
 
         final var result = getModelStorage().getEval().evaluate(listSubject, listEnvironment, listResource,
                 listOperation, listXML);
-        if (result.isPresent() && signature != null) {
-            CachePDP.instance().insert(target, signature, result.get());
-        }
         return result;
     }
 

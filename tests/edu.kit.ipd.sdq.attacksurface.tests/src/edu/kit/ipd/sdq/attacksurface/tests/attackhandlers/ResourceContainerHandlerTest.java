@@ -225,7 +225,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         resourceHandler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
-        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(attackerNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(CRED_ID));
     }
     
@@ -255,7 +257,9 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         handler.attackResourceContainer(Arrays.asList(resource), getChanges(), attackerResource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
-        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(resourceNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(resourceNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(resourceNode, attackerNode).contains(CRED_ID));
     }
 }

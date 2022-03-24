@@ -14,8 +14,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class AbstractAttackHandlerTest extends AbstractModelTest {

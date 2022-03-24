@@ -41,7 +41,6 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -261,9 +260,7 @@ public abstract class AbstractModelTest extends BaseTest {
     }
     
     @BeforeEach
-    public void clearCache() {
+    public void clear() {
         resetAttackGraphAndChanges();
-        CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
     }
 }

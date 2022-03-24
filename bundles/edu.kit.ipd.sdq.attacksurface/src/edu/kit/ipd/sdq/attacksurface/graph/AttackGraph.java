@@ -37,7 +37,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author ugnwq
  * @version 1.0
  */
-public class AttackGraph {
+public class AttackGraph { //TODO attack path generation extract in extra class
     private final AttackStatusNodeContent root;
     private final MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> graph;
 
@@ -132,16 +132,20 @@ public class AttackGraph {
     
     /**
      * 
+     * @param localAttackEdge - the local attack edge
+     * @param alsoConsiderPath - if the selected path should be considered as well
      * @return the credentials obtained on the selected path by vulnerabilities
      */
-    public Set<CredentialSurface> getCredentials(final AttackStatusEdge localAttackEdge) {
+    public Set<CredentialSurface> getCredentials(final AttackStatusEdge localAttackEdge,
+            final boolean alsoConsiderPath) {
         final Set<CredentialSurface> ret = new HashSet<>(this.credentialsFromBeginningOn);
         if (this.selectedPath == null) {
             return ret;
         }
-        final var copy = this.selectedPath.getCopy();
-        copy.add(localAttackEdge);
-        ret.addAll(copy
+        final var localPath = alsoConsiderPath ? this.selectedPath.getCopy() 
+                : new AttackPathSurface();
+        localPath.addFirst(localAttackEdge);
+        ret.addAll(localPath
                     .stream()
                     .map(this::getByTargetNode)
                     .filter(Objects::nonNull)
@@ -477,6 +481,40 @@ public class AttackGraph {
         for (final var edgeEnds : edgeEndpointSet) {
             ret.add(new AttackStatusEdge(getEdge(edgeEnds), edgeEnds));
         }
+        return ret;
+    }
+
+    public MutableValueGraph<String, String> getStringGraph(boolean createCauselessEdges) {
+        final MutableValueGraph<String, String> stringGraph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
+        final var edges = getEdges();
+        for (final var edge : edges) {
+            if (createCauselessEdges || !edge.getContent().getCauses().isEmpty()) {
+                final var endpoints = EndpointPair.ordered(edge.getNodes().source().toString(), 
+                    edge.getNodes().target().toString());
+                stringGraph.putEdgeValue(endpoints, edge.getContent().toString());
+            }
+        }
+        final var nodesAlreadyContained = stringGraph.nodes();
+        final var nodesToBeAdded = getNodes()
+                .stream()
+                .filter(n -> !nodesAlreadyContained.contains(n.toString()))
+                .collect(Collectors.toSet());
+        nodesToBeAdded.forEach(n -> stringGraph.addNode(n.toString()));
+        return stringGraph;
+    }
+
+    public Map<AttackStatusEdge, Set<CredentialSurface>> getAllCredentials() {
+        final Map<AttackStatusEdge, Set<CredentialSurface>> ret =  new HashMap<>();
+        
+        for (final var edge : this.attackEdgesToCredentialGainingVulnerabilitiesMap.keySet()) {
+            final Set<CredentialSurface> set = new HashSet<>();
+            final var vulnSet = this.attackEdgesToCredentialGainingVulnerabilitiesMap.get(edge);
+            for (final var vuln : vulnSet) {
+                set.addAll(this.credentialsObtainedByAttack.get(vuln));
+            }
+            ret.put(edge, set);
+        }
+        
         return ret;
     }
 }

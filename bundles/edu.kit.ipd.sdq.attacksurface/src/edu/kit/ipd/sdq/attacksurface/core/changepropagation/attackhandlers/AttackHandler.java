@@ -128,7 +128,10 @@ public abstract class AttackHandler implements CredentialQuerying {
             final AttackStatusNodeContent target) {
         final var edge = new AttackStatusEdge(new AttackStatusEdgeContent(), 
                 EndpointPair.ordered(source, target));
-        return this.attackGraph.getCredentials(edge).stream().map(this::findCredential).collect(Collectors.toList());
+        return this.attackGraph.getCredentials(edge, true)
+                .stream()
+                .map(this::findCredential)
+                .collect(Collectors.toList());
     }
     
     private UsageSpecification findCredential(final CredentialSurface credential) {
@@ -152,7 +155,9 @@ public abstract class AttackHandler implements CredentialQuerying {
                             .getElementEqualityPredicate(target.getContainedElement()).test(s))
                     .filter(CredentialSystemIntegration.class::isInstance)
                     .map(SystemIntegration::getIdOfContent)
+                    .map(Identifier::getId)
                     .collect(Collectors.toSet());
+        
         return getAllCredentials(source, target)
                 .stream()
                 .filter(u -> idsOfRelevantUsageSpecifications.contains(u.getId()))

@@ -22,7 +22,6 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
@@ -33,7 +32,6 @@ import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -48,7 +46,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 @Component
 public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
-    private CredentialChange changePropagationDueToCredential;
+    private CredentialChange changes;
 
     private Entity crtitcalEntity;
 
@@ -69,45 +67,68 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper board) {
         if (doInitialize) {
-            this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+            this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
             this.createInitialStructure(board);
         }
     }
     
+    public AttackSurfaceAnalysis(AttackGraph attackGraph) {
+        this.attackGraph = attackGraph;
+    }
+
     /**
      * Runs the analysis.
      * 
      * @param board - the model storage
      */
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
-        // Setup
-        this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        CachePDP.instance().clearCache();
-
-        // prepare
+        runPropagationWithoutAttackPathCreation(board);
+        createAttackPaths(board);
+        cleanup(board);
+    }
+    
+    public CredentialChange runAnalysisTest(final BlackboardWrapper board) {
+        runChangePropagationAnalysis(board);
+        return this.changes;
+    }
+    
+    private void initialize(final BlackboardWrapper board) {
+        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         createInitialStructure(board);
-
-        // Calculate
+    }
+    
+    private void calculate(final BlackboardWrapper board) {
         do {
-            this.changePropagationDueToCredential.setChanged(false);
+            this.changes.setChanged(false);
             this.attackGraph.resetVisitations();
 
             calculateAndMarkResourcePropagation(board);
             calculateAndMarkAssemblyPropagation(board);
 
             //TODO implement calculateAndMarkLinkingPropagation(board);
-        } while (this.changePropagationDueToCredential.isChanged());
-
-        // create all attack paths
+        } while (this.changes.isChanged());
+    }
+    
+    private void createAttackPaths(final BlackboardWrapper board) {
         this.attackGraph.resetVisitations();
-        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(board, this.changePropagationDueToCredential);
-        this.changePropagationDueToCredential.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
-
-        // cleanup
+        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(board, this.changes);
+        this.changes.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
+    }
+    
+    /*
+     * public for test
+     */
+    public CredentialChange runPropagationWithoutAttackPathCreation(final BlackboardWrapper board) {
+        initialize(board);
+        calculate(board);
+        return this.changes;
+    }
+    
+    /*
+     * public for tests
+     */
+    public void cleanup(final BlackboardWrapper board) {
         removeReferencedAttacks(board);
-
-        // Clear caches
-        CachePDP.instance().clearCache();
     }
 
     /*
@@ -191,7 +212,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         return AttackHandlingHelper.isFiltered(board, path, false);
     }
 
-    private void createInitialStructure(BlackboardWrapper board) { //TODO helper methods
+    private void createInitialStructure(BlackboardWrapper board) {
         final var repository = board.getModificationMarkRepository();
         final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(board);
 
@@ -199,12 +220,17 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         final var criticalPCMElement = localAttacker.getCriticalElement();
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
-        this.attackGraph = new AttackGraph(this.crtitcalEntity);
+        this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
         
         final var setCredentials = localAttacker.getAttacker().getCredentials().stream()
                 .map(CredentialSurface::new).collect(Collectors.toSet());
         this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
-
+        convertAffectedElementsToChanges(localAttacker); //TODO: add the resulting attack paths
+        addAllPossibleAttacks(board, localAttacker);
+        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
+    }
+    
+    private void convertAffectedElementsToChanges(final SurfaceAttacker localAttacker) {
         // convert affectedResources to changes
         final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResources().stream()
                 .map(resource -> {
@@ -212,9 +238,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
                     change.setAffectedElement(resource);
                     return change;
                 }).collect(Collectors.toList());
-        this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
-
-        addAllPossibleAttacks(board, localAttacker);
+        this.changes.getCompromisedresource().addAll(affectedRessourcesList);
 
         // convert affectedLinkingResources to changes
         final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
@@ -223,10 +247,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
                     change.setAffectedElement(linkingResource);
                     return change;
                 }).collect(Collectors.toList());
-        this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
-
-        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
-
+        this.changes.getCompromisedlinkingresource().addAll(affectedLinkingList);
     }
 
     private void addAllPossibleAttacks(final BlackboardWrapper board, final SurfaceAttacker localAttacker) {
@@ -269,9 +290,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential,
+        list.add(new AssemblyContextPropagationVulnerability(board, this.changes,
                 this.attackGraph));
-        list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential, this.attackGraph));
+        list.add(new AssemblyContextPropagationContext(board, this.changes, this.attackGraph));
         for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
@@ -295,9 +316,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
         final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential,
+        list.add(new ResourceContainerPropagationVulnerability(board, this.changes,
                 this.attackGraph));
-        list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential,
+        list.add(new ResourceContainerPropagationContext(board, this.changes,
                 this.attackGraph));
         for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);

@@ -2,9 +2,13 @@ package edu.kit.ipd.sdq.attacksurface.tests.change;
 
 import static org.junit.Assert.fail;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -42,21 +46,21 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 //TODO
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
+import edu.kit.kastel.sdq.kamp4attack.graph.impl.output.DotCreation;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 
 public abstract class AbstractChangeTests extends AbstractModelTest {
-    //TODO
+    private static final boolean IS_DEBUG = true;
 
     public AbstractChangeTests() {
         this.PATH_ATTACKER = "simpleAttackmodels/PropagationUnitTests/My.attacker";
@@ -305,10 +309,66 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return resources;
     }
 
-    protected void runAnalysis() {
+    protected CredentialChange runAnalysis() {
         generateXML();
         final var board = getBlackboardWrapper();
-        final var analysis = new AttackSurfaceAnalysis();
-        analysis.runChangePropagationAnalysis(board);
+        final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
+        return analysis.runAnalysisTest(board);
+    }
+    
+    protected CredentialChange runAnalysisWithoutAttackPathGeneration() {
+        generateXML();
+        final var board = getBlackboardWrapper();
+        final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
+        final var ret = analysis.runPropagationWithoutAttackPathCreation(board);
+        analysis.cleanup(board);
+        return ret;
+    }
+
+    protected void doDebugSysOutExpectedAndUnexpectedPaths(final Set<AttackPathSurface> expectedPathsSet, final Set<AttackPathSurface> attackPaths) {
+        if (IS_DEBUG) {
+            attackPaths.forEach(p -> System.out.println(p));
+            System.out.println("--------------------------------\nexpected:");
+            expectedPathsSet.forEach(p -> System.out.println(p));
+            System.out.println("--------------------------------\nunexpected (is there, but should not be there):");
+            attackPaths.forEach(p -> {
+                if (!expectedPathsSet.contains(p)) {
+                    System.out.println(p);
+                }
+            });
+            System.out.println("--------------------------------\nunexpected (should be there, but is not there):");
+            expectedPathsSet.forEach(p -> {
+                if (!attackPaths.contains(p)) {
+                    System.out.println(p);
+                }
+            });
+        }
+    }
+    
+    protected void generateGraph(final boolean createCauselessEdges) {
+        final var dot = new DotCreation();
+        final var graph = this.getAttackGraph().getStringGraph(createCauselessEdges);
+        System.out.println(graph);
+        var dotStr = dot.createOutputFormat(graph);
+        try {
+            var file = Files.createTempFile("test", ".dot");
+
+            System.out.println(file.toAbsolutePath());
+            Files.writeString(file.toAbsolutePath(), dotStr);
+            var command = String.format("dot -Tpng %s", file.toAbsolutePath().toString());
+            var process = Runtime.getRuntime().exec(command);
+
+            var outputFile = Files.createTempFile("test", ".png");
+            var outputStream = Files.newOutputStream(outputFile.toAbsolutePath());
+            process.getInputStream().transferTo(outputStream);
+
+            var errorStream = new ByteArrayOutputStream();
+            process.getErrorStream().transferTo(errorStream);
+            if (errorStream.size() != 0) {
+                System.err.println(errorStream.toString());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

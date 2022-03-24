@@ -9,7 +9,6 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 
 /**
  * Represents an interface for querying access for an entity using credentials.
@@ -28,15 +27,7 @@ public interface CredentialQuerying {
      */
     default Optional<PDPResult> queryAccessForEntity(final Entity target,
             final List<? extends UsageSpecification> credentials) {
-        var result = CachePDP.instance().get(target);
-        if (result.isPresent()) {
-            return result;
-        }
-        result = queryAccessForEntity(target, credentials, null);
-        if (result.isPresent()) {
-            CachePDP.instance().insert(target, result.get());
-        }
-        return result;
+        return queryAccessForEntity(target, credentials, null);
     }
     
     /**

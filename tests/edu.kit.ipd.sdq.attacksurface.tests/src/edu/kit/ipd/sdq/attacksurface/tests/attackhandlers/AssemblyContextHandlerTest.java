@@ -222,7 +222,9 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         resourceHandler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertTrue(attackerNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
-        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(attackerNode).toArray(String[]::new)[0]);
+        Assert.assertEquals(CRED_ID, getAttackGraph().getCompromisationCauseIds(attackerNode)
+                .stream().map(Identifier::getId)
+                .toArray(String[]::new)[0]);
         Assert.assertTrue(getAttackGraph().getEdge(attackerNode, attackerNode).contains(CRED_ID));
         
         // attack and compromise root node
