@@ -2,6 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.tests
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,10 @@ import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
+import org.palladiosimulator.pcm.repository.OperationProvidedRole;
+import org.palladiosimulator.pcm.repository.OperationRequiredRole;
 import org.palladiosimulator.pcm.repository.ParameterModifier;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 
@@ -37,16 +41,16 @@ class DataTest {
 
         this.repo.addToRepository(this.repositoryFactory.newCompositeDataType().withName("TestDataType")
                 .withInnerDeclaration("Test", Primitive.STRING));
-        final var operationSignature = this.repositoryFactory.newOperationSignature().withName("test").withParameter("test",
-                this.repositoryFactory.fetchOfDataType("TestDataType"), ParameterModifier.NONE);
+        final var operationSignature = this.repositoryFactory.newOperationSignature().withName("test")
+                .withParameter("test", this.repositoryFactory.fetchOfDataType("TestDataType"), ParameterModifier.NONE);
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -54,9 +58,9 @@ class DataTest {
 
         assertEquals(1, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> (e.getReferenceName().equals("test")
-                && EcoreUtil.equals(e.getSource(), component)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
+        assertTrue(data.stream().anyMatch(
+                e -> (e.getReferenceName().equals("test") && EcoreUtil.equals(e.getSource(), component) && EcoreUtil
+                        .equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
     }
 
@@ -68,13 +72,13 @@ class DataTest {
         final var operationSignature = this.repositoryFactory.newOperationSignature().withName("test")
                 .withReturnType(Primitive.BOOLEAN);
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -95,13 +99,13 @@ class DataTest {
         final var operationSignature = this.repositoryFactory.newOperationSignature().withName("test")
                 .withReturnType(this.repositoryFactory.fetchOfDataType("TestDataType"));
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -122,13 +126,13 @@ class DataTest {
         final var operationSignature = this.repositoryFactory.newOperationSignature().withName("test")
                 .withReturnType(this.repositoryFactory.fetchOfDataType(Primitive.INTEGER));
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -150,13 +154,13 @@ class DataTest {
                 .withParameter("test", this.repositoryFactory.fetchOfDataType("TestDataType"), ParameterModifier.NONE)
                 .withReturnType(this.repositoryFactory.fetchOfDataType(Primitive.INTEGER));
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -164,9 +168,9 @@ class DataTest {
 
         assertEquals(2, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> ("test".equals(e.getReferenceName())
-                && EcoreUtil.equals(e.getSource(), component)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
+        assertTrue(data.stream().anyMatch(
+                e -> ("test".equals(e.getReferenceName()) && EcoreUtil.equals(e.getSource(), component) && EcoreUtil
+                        .equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
         assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), component)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
@@ -182,31 +186,32 @@ class DataTest {
                 .withParameter("test", this.repositoryFactory.fetchOfDataType("TestDataType"), ParameterModifier.NONE)
                 .withReturnType(this.repositoryFactory.fetchOfDataType(Primitive.INTEGER));
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .withServiceEffectSpecification(
-                        this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")))
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
-        .createRepositoryNow();
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .withServiceEffectSpecification(this.repositoryFactory.newSeff()
+                                .onSignature(this.repositoryFactory.fetchOfSignature("test")))
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test")))
+                .createRepositoryNow();
 
         final var component = this.repositoryFactory.fetchOfBasicComponent("TestComponent");
         var serviceRestriction = createServiceRestrictions(component);
-        final var data = DataHandler
-                .getData(serviceRestriction);
+        final var data = DataHandler.getData(serviceRestriction);
 
         assertEquals(2, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> ("test".equals(e.getReferenceName())
-                && EcoreUtil.equals(e.getSource(), serviceRestriction)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
+        assertTrue(data.stream()
+                .anyMatch(e -> ("test".equals(e.getReferenceName())
+                        && EcoreUtil.equals(e.getSource(), serviceRestriction) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
         assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getSource(), serviceRestriction)
                 && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
     }
 
-
+    // Disabled because it needs adaptation to a full system definition
+    @Disabled
     @Test
     void testExtractionSEFFExternalCallParametersReturnValue() {
 
@@ -220,53 +225,80 @@ class DataTest {
                 .withReturnType(this.repositoryFactory.fetchOfDataType(Primitive.STRING));
 
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Secret")
+                        .withOperationSignature(secretOperation));
 
-        final var seff = this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")).withSeffBehaviour()
-                .withStartAction().followedBy().externalCallAction()
+        final var seff = this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test"))
+                .withSeffBehaviour().withStartAction().followedBy().externalCallAction()
                 .withCalledService(this.repositoryFactory.fetchOfOperationSignature("secret")).followedBy().stopAction()
                 .createBehaviourNow();
+        var secretSeff = this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("secret"))
+                .withSeffBehaviour().withStartAction().followedBy().stopAction().createBehaviourNow();
 
-        this.repo
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
-                .provides(this.repositoryFactory.fetchOfOperationInterface("Test"))
-                .requires(this.repositoryFactory.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
-        .createRepositoryNow();
+        var localRepo = this.repo
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Test"))
+                        .requires(this.repositoryFactory.fetchOfOperationInterface("Secret"))
+                        .withServiceEffectSpecification(seff))
+                .addToRepository(this.repositoryFactory.newBasicComponent().withName("SecretProvider")
+                        .provides(this.repositoryFactory.fetchOfOperationInterface("Secret"))
+                        .withServiceEffectSpecification(secretSeff))
+                .createRepositoryNow();
+
+
 
         final var component = this.repositoryFactory.fetchOfBasicComponent("TestComponent");
-        var serviceRestriction = createServiceRestrictions(component);
-        final var data = DataHandler
-                .getData(serviceRestriction);
+
+
+        var system = this.systemFactory.newSystem().addRepository(localRepo).addToSystem(this.systemFactory.newAssemblyContext()
+                .withEncapsulatedComponent(this.repositoryFactory.fetchOfComponent("SecretProvider")).withName("AssemblySecretProvider")).addToSystem(
+                        this.systemFactory.newAssemblyContext().withEncapsulatedComponent(component).withName("AssemblyComponent")).addToSystem(this.systemFactory.newAssemblyConnector().withProvidingAssemblyContext("AssemblySecretProvider")
+                                .withOperationProvidedRole((OperationProvidedRole) this.repositoryFactory
+                                        .fetchOfBasicComponent("SecretProvider").getProvidedRoles_InterfaceProvidingEntity().get(0)).withRequiringAssemblyContext("AssemblyComponent")
+                                .withOperationRequiredRole(
+                                        (OperationRequiredRole) component.getRequiredRoles_InterfaceRequiringEntity().get(0))).createSystemNow();
+        var assemblyContext = system.getAssemblyContexts__ComposedStructure().stream()
+                .filter(e -> e.getEntityName().equals("AssemblySecretProvider")).findFirst();
+        if(assemblyContext.isEmpty()) {
+            fail();
+        }
+        var serviceRestriction = createServiceRestrictions(component, assemblyContext.get());
+
+        final var data = DataHandler.getData(serviceRestriction);
 
         assertEquals(3, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> ("test".equals(e.getReferenceName())
-                && EcoreUtil.equals(e.getSource(), serviceRestriction)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
+        assertTrue(data.stream()
+                .anyMatch(e -> ("test".equals(e.getReferenceName())
+                        && EcoreUtil.equals(e.getSource(), serviceRestriction) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
-                this.repositoryFactory.fetchOfSignature("test")) && EcoreUtil.equals(e.getSource(), serviceRestriction)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
+        assertTrue(data.stream()
+                .anyMatch(e -> (EcoreUtil.equals(e.getMethod(), this.repositoryFactory.fetchOfSignature("test"))
+                        && EcoreUtil.equals(e.getSource(), serviceRestriction) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
-
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
-                this.repositoryFactory.fetchOfSignature("secret"))
-                && EcoreUtil.equals(e.getSource(), serviceRestriction)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
+        assertTrue(data.stream()
+                .anyMatch(e -> (EcoreUtil.equals(e.getMethod(), this.repositoryFactory.fetchOfSignature("secret"))
+                        && EcoreUtil.equals(e.getSource(), serviceRestriction) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
 
     }
 
-    private ServiceRestriction createServiceRestrictions(final BasicComponent component) {
+    private ServiceRestriction createServiceRestrictions(final BasicComponent component, AssemblyContext context) {
         var serviceRestriction = StructureFactory.eINSTANCE.createServiceRestriction();
-        serviceRestriction.setAssemblycontext(
-                this.systemFactory.newAssemblyContext().withEncapsulatedComponent(component).build());
+        serviceRestriction.setAssemblycontext(context);
         var seff = (ResourceDemandingSEFF) component.getServiceEffectSpecifications__BasicComponent().get(0);
         serviceRestriction.setService(seff);
         serviceRestriction.setSignature(seff.getDescribedService__SEFF());
         return serviceRestriction;
+    }
+
+    private ServiceRestriction createServiceRestrictions(final BasicComponent component) {
+        return createServiceRestrictions(component,
+                this.systemFactory.newAssemblyContext().withEncapsulatedComponent(component).build());
     }
 
     @Disabled
@@ -283,21 +315,20 @@ class DataTest {
                 .withReturnType(this.repositoryFactory.fetchOfDataType(Primitive.STRING));
 
         this.repo
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Test").withOperationSignature(operationSignature))
-        .addToRepository(
-                this.repositoryFactory.newOperationInterface().withName("Secret").withOperationSignature(secretOperation));
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Test")
+                        .withOperationSignature(operationSignature))
+                .addToRepository(this.repositoryFactory.newOperationInterface().withName("Secret")
+                        .withOperationSignature(secretOperation));
 
-        final var seff = this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test")).withSeffBehaviour()
-                .withStartAction().followedBy().externalCallAction()
+        final var seff = this.repositoryFactory.newSeff().onSignature(this.repositoryFactory.fetchOfSignature("test"))
+                .withSeffBehaviour().withStartAction().followedBy().externalCallAction()
                 .withCalledService(this.repositoryFactory.fetchOfOperationSignature("secret")).followedBy().stopAction()
                 .createBehaviourNow();
 
-        this.repo
-        .addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
+        this.repo.addToRepository(this.repositoryFactory.newBasicComponent().withName("TestComponent")
                 .provides(this.repositoryFactory.fetchOfOperationInterface("Test"))
-                .requires(this.repositoryFactory.fetchOfOperationInterface("Secret")).withServiceEffectSpecification(seff))
-        .createRepositoryNow();
+                .requires(this.repositoryFactory.fetchOfOperationInterface("Secret"))
+                .withServiceEffectSpecification(seff)).createRepositoryNow();
 
         final var component = this.systemFactory.newAssemblyContext()
                 .withEncapsulatedComponent(this.repositoryFactory.fetchOfBasicComponent("TestComponent")).build();
@@ -306,18 +337,19 @@ class DataTest {
 //FIXME: needs adaption for required
         assertEquals(3, data.size());
 
-        assertTrue(data.stream().anyMatch(e -> ("test".equals(e.getReferenceName())
-                && EcoreUtil.equals(e.getSource(), component)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
+        assertTrue(data.stream().anyMatch(
+                e -> ("test".equals(e.getReferenceName()) && EcoreUtil.equals(e.getSource(), component) && EcoreUtil
+                        .equals(e.getDataType(), this.repositoryFactory.fetchOfCompositeDataType("TestDataType")))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
-                this.repositoryFactory.fetchOfSignature("test")) && EcoreUtil.equals(e.getSource(), component)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
+        assertTrue(data.stream()
+                .anyMatch(e -> (EcoreUtil.equals(e.getMethod(), this.repositoryFactory.fetchOfSignature("test"))
+                        && EcoreUtil.equals(e.getSource(), component) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfDataType(Primitive.INTEGER)))));
 
-        assertTrue(data.stream().anyMatch(e -> (EcoreUtil.equals(e.getMethod(),
-                this.repositoryFactory.fetchOfSignature("secret"))
-                && EcoreUtil.equals(e.getSource(), component)
-                && EcoreUtil.equals(e.getDataType(), this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
+        assertTrue(data.stream()
+                .anyMatch(e -> (EcoreUtil.equals(e.getMethod(), this.repositoryFactory.fetchOfSignature("secret"))
+                        && EcoreUtil.equals(e.getSource(), component) && EcoreUtil.equals(e.getDataType(),
+                                this.repositoryFactory.fetchOfDataType(Primitive.STRING)))));
 
     }
 
