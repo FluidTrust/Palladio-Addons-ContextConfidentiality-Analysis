@@ -109,7 +109,6 @@
 			<unit id="org.codehaus.jackson.mapper" version="1.6.0.v20101005-0925"/>
 
 			<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository"/>
-<<<<<<< HEAD
 		</location>
 	    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
           	<repository location="https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-dataflowconfidentiality-java/nightly/"/>
@@ -121,8 +120,6 @@
 			<unit id="org.palladiosimulator.dataflow.confidentiality.pcm.model.feature.feature.group" version="0.0.0"/>
 			<unit id="org.palladiosimulator.dataflow.confidentiality.pcm.transformation.feature.feature.group" version="0.0.0"/>
 			<unit id="org.palladiosimulator.dataflow.dictionary.model.feature.feature.group" version="0.0.0"/>
-=======
->>>>>>> java17
 		</location>
 	</locations>
 </target>

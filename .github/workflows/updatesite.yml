@@ -34,5 +34,5 @@ jobs:
       uses: JamesIves/github-pages-deploy-action@v4.2.5
       with:
         BRANCH: updateSite 
-        FOLDER: releng/org.palladiosimulator.pcm.confidentiality.context.updatesite/target/repository
+        FOLDER: releng/org.palladiosimulator.pcm.confidentiality.context.analysis.updatesite/target/repository
         CLEAN: true 

@@ -148,7 +148,7 @@
 									<include>**/*Tests.java</include>
 								</includes>
 								<failIfNoTests>false</failIfNoTests>
-								<useJDK>BREE</useJDK>
+								<!--<useJDK>BREE</useJDK>-->
 							</configuration>
 						</plugin>
 
