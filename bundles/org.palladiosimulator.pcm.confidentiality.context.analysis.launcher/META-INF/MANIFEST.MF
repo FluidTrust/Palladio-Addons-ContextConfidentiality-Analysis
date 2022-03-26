@@ -5,7 +5,7 @@ Bundle-Name: Launcher
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.launcher;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: pcm.dataprocessing.analysis.launcher
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.pcm.resources;bundle-version="4.0.0";visibility:=reexport,
  org.palladiosimulator.commons;bundle-version="1.0.1";visibility:=reexport,
  de.uka.ipd.sdq.workflow.launchconfig,

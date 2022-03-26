@@ -4,7 +4,7 @@ Bundle-Name: Provider
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.provider
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.context.analysis.provider
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.osgi.services;bundle-version="3.8.0";resolution:=optional,
  org.eclipse.emf.ecore,
  org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api;bundle-version="1.0.0",
