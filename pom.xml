@@ -20,7 +20,7 @@
 		<org.palladiosimulator.maven.tychotprefresh.tplocation.2>${project.basedir}/releng/org.palladiosimulator.pcm.confidentiality.context.analysis.targetplatform/org.palladiosimulator.pcm.confidentiality.context.analysis.targetplatform.target</org.palladiosimulator.maven.tychotprefresh.tplocation.2>
 	<java.version>17</java.version>
 	<maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
+   	<maven.compiler.source>17</maven.compiler.source>
 	<tycho.version>2.7.0</tycho.version>
 	</properties>
 	
