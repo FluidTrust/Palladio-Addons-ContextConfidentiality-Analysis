@@ -52,20 +52,20 @@ public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDB
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
         final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
 
-        final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
+        /*final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
                 pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
                 pcmPartition.getResourceEnvironment());
 
         Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
-        		TEST_XACML); //TODO
-        Activator.getInstance().getEvaluate().initialize(TEST_XACML); //TODO
+        		TEST_XACML);
+        Activator.getInstance().getEvaluate().initialize(TEST_XACML);*/ //TODO
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
                 vulnerabilitySpecification, Activator.getInstance().getEvaluate());
 
         final var propagation = new AttackSurfaceAnalysis();//TODO inject // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
         		//.getInstance().getAttackSurfaceAnalysis();//TODO inject
         propagation.runChangePropagationAnalysis(wrapper);
-        Activator.getInstance().getEvaluate().shutdown();
+        //Activator.getInstance().getEvaluate().shutdown(); //TODO
     }
 
     @Override

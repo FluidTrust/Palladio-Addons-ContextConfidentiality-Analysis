@@ -214,27 +214,34 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
         final var finalSelectedNode = this.attackGraph.getSelectedNode();
 
-        final var listRelevantContexts = getRelevantAssemblyContexts(finalSelectedNode).stream()
-                .filter(this::isGlobalElement).collect(Collectors.toList());
-
         final var resourceContainer = this.getResourceContainerForElement(finalSelectedNode);
         final var resourceContainerNode = this.findResourceContainerNode(resourceContainer, finalSelectedNode);
+
         final var connectedContainers = getConnectedResourceContainers(resourceContainer);
-        var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
-                this.modelStorage.getAllocation());
-        reachableAssemblies.addAll(
-                CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
-
-        reachableAssemblies = CollectionHelper
-                .removeDuplicates(reachableAssemblies);/*
-                                                        * .stream() //TODO .filter(e ->
-                                                        * !isCompromised(e)).collect(Collectors.toList());
-                                                        */
-        for (var component : listRelevantContexts) {
-            final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(listRelevantContexts, changes, component, false);
+        
+        final var listRelevantContexts = getRelevantAssemblyContexts(finalSelectedNode).stream()
+                .filter(this::isGlobalElement).collect(Collectors.toList());
+        
+        if (!listRelevantContexts.isEmpty()) {
+            listRelevantContexts.forEach(c -> {
+                final var newNode = new AttackStatusNodeContent(c);
+                if (this.attackGraph.findNode(newNode) == null) {
+                    this.attackGraph.addOrFindChild(finalSelectedNode, newNode);
+                }
+            });
+            
+            var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
+                    this.modelStorage.getAllocation());
+            reachableAssemblies.addAll(
+                    CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
+            reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
+            
+            for (var component : reachableAssemblies) {
+                final var handler = getAssemblyHandler();
+                handler.attackAssemblyContext(listRelevantContexts, changes, component, false);
+            }
         }
-
+        
         // recursion for attacking assemblies inside other connected containers
         if (resourceContainerNode != null) {
             for (final var container : connectedContainers) {

@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
   <changePropagationSteps>
-  </changePropagationSteps> 
+    <compromisedresource id="_9H9EEK6pEeyUb5aZ1jAhWw">
+      <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+    </compromisedresource>
+    <datamodelcontainer/>
+  </changePropagationSteps>
   <seedModifications>
     <attackcomponent id="_Fb090JClEeylB6lra_dOCg">
       <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_CcLR0C8pEeylPOrRpUZy4w"/>
     </attackcomponent>
+    <surfaceattackcomponent id="_GmrYYKwlEeyFpqEXJR-5MA">
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="My.attacker#_DkfZwawlEeyFpqEXJR-5MA"/>
+    </surfaceattackcomponent>
   </seedModifications>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>

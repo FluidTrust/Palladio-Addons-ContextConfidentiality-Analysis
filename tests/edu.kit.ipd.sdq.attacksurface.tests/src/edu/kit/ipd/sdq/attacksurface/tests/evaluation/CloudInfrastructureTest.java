@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.tests.change;
+package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.cdo.CDOLock;
@@ -44,6 +46,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.graph.EndpointPair;
@@ -57,12 +60,22 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
+import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 import edu.kit.kastel.sdq.kamp4attack.graph.impl.output.DotCreation;
 
-public class CloudInfrastructureDebugTest extends AbstractChangeTests {
-    public CloudInfrastructureDebugTest() {
+public class CloudInfrastructureTest extends AbstractChangeTests {
+    private static final String HYPERVISOR = "_RyWUMaOhEeyg1bkezwUNpA";
+    private static final String ROOT = "_sKKUUe4ZEeu1msiU_4h_hw";
+    private static final String ROOT_9 = "_VUQ7waOhEeyg1bkezwUNpA";
+    private static final String ROOT_10 = "_c06CsaOhEeyg1bkezwUNpA";
+    private static final String ROOT_11 = "_gAq0EaOhEeyg1bkezwUNpA";
+    
+    private static final String VULN_2012 = "cve-2012-3515";
+    private static final String VULN_2013 = "cve-2013-4344";
+
+    public CloudInfrastructureTest() {
         this.PATH_ATTACKER = "cloudInfrastructure/My.attacker";
         this.PATH_ASSEMBLY = "cloudInfrastructure/newAssembly.system";
         this.PATH_ALLOCATION = "cloudInfrastructure/newAllocation.allocation";
@@ -123,25 +136,161 @@ public class CloudInfrastructureDebugTest extends AbstractChangeTests {
         Assert.assertEquals(surfacePaths.size(), paths.size());
     }
     
-    private void printPaths(final List<AttackPath> paths) {
+    private String toString(final List<AttackPath> paths) {
+        final StringJoiner joiner = new StringJoiner("\n");
         paths.forEach(p -> {
+            joiner.add("PATH");
+            if (!p.getCredentialsInitiallyNecessary().isEmpty()) {
+                p.getCredentialsInitiallyNecessary().stream().sorted(this::compareIds).forEach(c -> {
+                    final var credId = c.getId();
+                    joiner.add("credentials initally necessary: " + credId);
+                });
+            }
             p.getPath().forEach(s -> {
                 final var id = s.getIdOfContent() != null ? s.getIdOfContent().getId() : "-";
                 final var entity = PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement());
-                System.out.println(id + " | " + entity.getEntityName());
+                joiner.add(id + " | " + entity.getEntityName());
             });
-            System.out.println("\n");
+            p.getVulnerabilitesUsed().forEach(v -> {
+                final var vulnId = v.getId();
+                joiner.add("VULNs used: " + vulnId);
+            });
+            joiner.add("\n");
         });
+        return joiner.toString();
+    }
+    
+    private int compareIds(Identifier o1, Identifier o2) {
+        return o1.getId().compareTo(o2.getId());
+    }            
+    
+    private void printPaths(final List<AttackPath> paths) {
+        System.out.println(toString(paths));
     }
     
     @Test
     public void cloudInfrastructureBaseTestCompleteAnalysis() {
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(10, pathsDirectlyAfterAnalysis.size());
         printPaths(pathsDirectlyAfterAnalysis);
+        Assert.assertEquals(16, pathsDirectlyAfterAnalysis.size());
         
         pathsTestHelper(changes);
+    }
+    
+    @Test
+    public void evaluationTestExample1Test2013() {
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "- | Assembly_DBVM\n"
+                + VULN_2013 + " | Assembly_Hypervisor\n"
+                + HYPERVISOR + " | DB VM Server\n"
+                + "- | Assembly_Target_VM\n"
+                + "VULNs used: " + VULN_2013));
+    }
+    
+    @Test
+    public void evaluationTestExample1Test2012() {
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + VULN_2012 + " | Assembly_Source_VM\n"
+                + VULN_2012 + " | Assembly_Source_VM\n"
+                + HYPERVISOR + " | DB VM Server\n"
+                + "- | Assembly_Target_VM\n"
+                + "VULNs used: " + VULN_2012));
+    }
+    
+    @Test
+    public void evaluationTestExample2TestContainer() {
+        setCriticalResourceContainer("Storage");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT + "\n"
+                + "- | Nexus 7000 management device\n"
+                + "- | Storage Device\n"
+                + ROOT + " | Storage Device"));
+    }
+    
+    @Test
+    public void evaluationTestExample2TestContComponent() {
+        setCriticalAssemblyContext("Stored");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT + "\n"
+                + "- | Nexus 7000 management device\n"
+                + "- | Storage Device\n"
+                + ROOT + " | Storage Device\n"
+                + "- | Stored VMs"));
+    }
+    
+    @Test
+    public void evaluationTestPath1Adapted() {
+        setCriticalAssemblyContext("Stored");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT + "\n"
+                + "- | Bridge 2-3\n"
+                + "- | Storage Device\n"
+                + ROOT + " | Storage Device\n"
+                + "- | Stored VMs"));
+    }
+    
+    @Test
+    public void evaluationTestPath3HttpToApplication() {
+        setCriticalResourceContainer("Application");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT_10 + "\n"
+                + "credentials initally necessary: " + ROOT_11 + "\n"
+                + ROOT_11 + " | http VM Server\n"
+                + ROOT_11 + " | http VM Server\n"
+                + "- | Application VM Server\n"
+                + ROOT_10 + " | Application VM Server"));
+    }
+    
+    @Test
+    public void evaluationTestPath3ApplicationToFtp() {
+        setCriticalResourceContainer("ftp");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT_9 +"\n"
+                + "credentials initally necessary: " + ROOT_10 + "\n"
+                + ROOT_10 + " | Application VM Server\n"
+                + ROOT_10 + " | Application VM Server\n"
+                + "- | ftp VM Server\n"
+                + ROOT_9 + " | ftp VM Server"));
+    }
+    
+    @Test
+    public void evaluationTestPath4() {
+        setCriticalResourceContainer("ftp");
+        final var changes = runAnalysis();
+        final var paths = changes.getAttackpaths();
+        final var pathsString = toString(paths);
+        System.out.println(pathsString);
+        Assert.assertTrue(pathsString.contains("PATH\n"
+                + "credentials initally necessary: " + ROOT_9 +"\n"
+                + ROOT_9 + " | ftp VM Server\n"
+                + ROOT_9 + " | ftp VM Server"));
     }
     
     @Test

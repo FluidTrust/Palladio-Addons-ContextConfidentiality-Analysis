@@ -6,7 +6,7 @@
       <throughput_CommunicationLinkResourceSpecification/>
     </communicationLinkResourceSpecifications_LinkingResource>
   </linkingResources__ResourceEnvironment>
-  <linkingResources__ResourceEnvironment id="_K4S34CwbEeylP6vhO63XvA" entityName="CorporateNetwork" connectedResourceContainers_LinkingResource="_RUWVUCwbEeylP6vhO63XvA _V9xXgCwbEeylP6vhO63XvA _bcPLUCwbEeylP6vhO63XvA _cyRxMCwbEeylP6vhO63XvA _eGWBICwbEeylP6vhO63XvA _RGEX4C2_EeyiUoiCEbquLw">
+  <linkingResources__ResourceEnvironment id="_K4S34CwbEeylP6vhO63XvA" entityName="CorporateNetwork" connectedResourceContainers_LinkingResource="_RUWVUCwbEeylP6vhO63XvA _V9xXgCwbEeylP6vhO63XvA _bcPLUCwbEeylP6vhO63XvA _cyRxMCwbEeylP6vhO63XvA _eGWBICwbEeylP6vhO63XvA _RGEX4C2_EeyiUoiCEbquLw _STIN4KwkEeyFpqEXJR-5MA">
     <communicationLinkResourceSpecifications_LinkingResource id="_K4Te8CwbEeylP6vhO63XvA">
       <latency_CommunicationLinkResourceSpecification/>
       <throughput_CommunicationLinkResourceSpecification/>
@@ -20,4 +20,5 @@
   <resourceContainer_ResourceEnvironment id="_DnLlQCwcEeylP6vhO63XvA" entityName="DMSServer"/>
   <resourceContainer_ResourceEnvironment id="_FgAvICwcEeylP6vhO63XvA" entityName="DMSClientApplication"/>
   <resourceContainer_ResourceEnvironment id="_RGEX4C2_EeyiUoiCEbquLw" entityName="Workstation02"/>
+  <resourceContainer_ResourceEnvironment id="_STIN4KwkEeyFpqEXJR-5MA" entityName="Domain Controller Server"/>
 </resourceenvironment:ResourceEnvironment>

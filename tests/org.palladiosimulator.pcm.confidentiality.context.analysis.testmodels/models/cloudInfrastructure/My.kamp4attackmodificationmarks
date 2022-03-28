@@ -3,24 +3,183 @@
   <changePropagationSteps changed="true">
     <datamodelcontainer/>
     <attackpaths>
-      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_aXJfEKtxEeyEHL2IHZtObw" entityName="copy of need10">
-        <pcmelement id="_aXJfEatxEeyEHL2IHZtObw">
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmKFFq6mEeyRIopMvq39ug" entityName="generated default sys integration for Bridge 2-3">
+        <pcmelement id="_zmKFFa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_4DOSUKOaEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmKFGK6mEeyRIopMvq39ug" entityName="generated default sys integration for Application VM Server">
+        <pcmelement id="_zmKFF66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmKFGa6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmKFGq6mEeyRIopMvq39ug">
           <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
         </pcmelement>
         <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
       </path>
-      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_aXKGEKtxEeyEHL2IHZtObw" entityName="copy of need10">
-        <pcmelement id="_aXKGEatxEeyEHL2IHZtObw">
-          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
-        </pcmelement>
-        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
-      </path>
-      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_aXKGE6txEeyEHL2IHZtObw" entityName="generated default sys integration for Assembly_Target_VM">
-        <pcmelement id="_aXKGEqtxEeyEHL2IHZtObw">
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmKFHK6mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmKFG66mEeyRIopMvq39ug">
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_aXKGFKtxEeyEHL2IHZtObw">
+      <criticalElement id="_zmKFHa6mEeyRIopMvq39ug">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmKsIK6mEeyRIopMvq39ug" entityName="copy of need11">
+        <pcmelement id="_zmKsIa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_gAq0EaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmKsIq6mEeyRIopMvq39ug" entityName="copy of need11">
+        <pcmelement id="_zmKsI66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_gAq0EaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmKsJa6mEeyRIopMvq39ug" entityName="generated default sys integration for Application VM Server">
+        <pcmelement id="_zmKsJK6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmKsJq6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmKsJ66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmKsKa6mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmKsKK6mEeyRIopMvq39ug">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_zmLTMK6mEeyRIopMvq39ug">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      <credentialsInitiallyNecessary href="My.context#_gAq0EaOhEeyg1bkezwUNpA"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmLTM66mEeyRIopMvq39ug" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_zmLTMq6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_WNeDYKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmLTNa6mEeyRIopMvq39ug" entityName="generated default sys integration for Application VM Server">
+        <pcmelement id="_zmLTNK6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmLTNq6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmLTN66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmLTOa6mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmLTOK6mEeyRIopMvq39ug">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_zmLTOq6mEeyRIopMvq39ug">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmL6QK6mEeyRIopMvq39ug" entityName="copy of need9">
+        <pcmelement id="_zmL6Qa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_VUQ7waOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmL6Qq6mEeyRIopMvq39ug" entityName="copy of need9">
+        <pcmelement id="_zmL6Q66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_VUQ7waOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmL6Ra6mEeyRIopMvq39ug" entityName="generated default sys integration for Application VM Server">
+        <pcmelement id="_zmL6RK6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmL6Rq6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmL6R66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmL6Sa6mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmL6SK6mEeyRIopMvq39ug">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_zmL6Sq6mEeyRIopMvq39ug">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <credentialsInitiallyNecessary href="My.context#_VUQ7waOhEeyg1bkezwUNpA"/>
+      <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmMhUK6mEeyRIopMvq39ug" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_zmMhUa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmMhUq6mEeyRIopMvq39ug" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_zmMhU66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmMhVa6mEeyRIopMvq39ug" entityName="generated default sys integration for Application VM Server">
+        <pcmelement id="_zmMhVK6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmMhVq6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmMhV66mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmMhWa6mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmMhWK6mEeyRIopMvq39ug">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_zmMhWq6mEeyRIopMvq39ug">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <credentialsInitiallyNecessary href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmMhXK6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmMhXa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_zmNIYK6mEeyRIopMvq39ug" entityName="copy of need10">
+        <pcmelement id="_zmNIYa6mEeyRIopMvq39ug">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_zmNIY66mEeyRIopMvq39ug" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_zmNIYq6mEeyRIopMvq39ug">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_zmNIZK6mEeyRIopMvq39ug">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
       </criticalElement>
       <credentialsInitiallyNecessary href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>

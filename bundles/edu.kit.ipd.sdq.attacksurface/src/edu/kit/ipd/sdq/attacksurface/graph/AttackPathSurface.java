@@ -392,9 +392,14 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      * @return whether the path contains all the initially necessary credentials
      */
     public boolean containsInitiallyNecessaryCredentials() {
-        return path.stream().anyMatch(e -> this.initiallyNecessaryCredentials
-                .stream()
-                .allMatch(c -> e.getContent().contains(c.getCauseId())));
+        final var credentialsNotUsed = new HashSet<>(this.initiallyNecessaryCredentials);
+        for (final var edge : this.path) {
+            credentialsNotUsed.removeIf(c -> 
+                 edge.getContent().getCredentialCauseIds()
+                     .stream()
+                     .anyMatch(i -> i.getId().equals(c.getCauseId())));
+        }
+        return credentialsNotUsed.isEmpty();
     }
 
     public boolean isValid(final BlackboardWrapper board, final Entity criticalEntity) {

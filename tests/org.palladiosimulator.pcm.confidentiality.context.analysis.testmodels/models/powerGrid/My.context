@@ -1,29 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
   <pcmspecificationcontainer id="_77_UkC8jEeylPOrRpUZy4w">
     <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_cOzUoC8kEeylPOrRpUZy4w">
-      <attribute xsi:type="usage:PCMUsageSpecification" id="_hpKEgi8kEeylPOrRpUZy4w" entityName="BackOfficeAdmin" attributevalue="_XsEwUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
       <assemblycontext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
-    </attributeprovider>
-    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_XG-lki8sEeylPOrRpUZy4w">
-      <attribute id="_X1iUsC8sEeylPOrRpUZy4w" entityName="ICSUserProvider" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
-      <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
-    </attributeprovider>
-    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_he54IC8rEeylPOrRpUZy4w">
-      <attribute id="_R3dMsC8sEeylPOrRpUZy4w" entityName="VPNGateway" attributevalue="_GNARYC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
-      <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
-    </attributeprovider>
-    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_XUiGwDirEeyW5vhrbaBM1w">
-      <attribute id="_YpxbYDirEeyW5vhrbaBM1w" entityName="BackofficeAdmin" attributevalue="_XsEwUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
-      <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </attributeprovider>
     <usagespecification id="_lqiu8S8nEeylPOrRpUZy4w" entityName="ICSUser" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
     <usagespecification id="_F4KloS8rEeylPOrRpUZy4w" entityName="BackOfficeUser" attributevalue="_-E3soC8jEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_YpxbYDirEeyW5vhrbaBM1w" entityName="BackofficeAdmin" attributevalue="_XsEwUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_R3dMsC8sEeylPOrRpUZy4w" entityName="VPNGateway" attributevalue="_GNARYC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_X1iUsC8sEeylPOrRpUZy4w" entityName="ICSUserProvider" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
   </pcmspecificationcontainer>
   <policyset id="_7C0Q4S8jEeylPOrRpUZy4w" entityName="PowerGridRules">
     <policy id="_PZE_YS8kEeylPOrRpUZy4w" entityName="BackOffice">
       <rule id="_UFfrMC8kEeylPOrRpUZy4w" entityName="BackOfficeAdmin">
-        <condition xsi:type="SimpleAttributeCondition" id="_TAbEFy8lEeylPOrRpUZy4w" entityName="BackOfficeRoleCondition" attribute="_hpKEgi8kEeylPOrRpUZy4w"/>
+        <condition xsi:type="SimpleAttributeCondition" id="_TAbEFy8lEeylPOrRpUZy4w" entityName="BackOfficeRoleCondition"/>
         <target>
           <match xsi:type="structure:EntityMatch" id="_rnPeQC8kEeylPOrRpUZy4w">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>

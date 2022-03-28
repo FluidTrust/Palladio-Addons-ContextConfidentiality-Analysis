@@ -21,6 +21,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
@@ -184,6 +185,41 @@ public abstract class AbstractModelTest extends BaseTest {
         final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
                 .stream().map(CredentialSurface::new).collect(Collectors.toSet());
         getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
+    }
+    
+    protected void setCriticalResourceContainer(final String namePart) {
+        final var newCriticalEntity = this.allocation.getTargetResourceEnvironment_Allocation()
+                .getResourceContainer_ResourceEnvironment()
+                .stream()
+                .filter(r -> r.getEntityName().contains(namePart))
+                .findFirst().orElse(null);
+        if (newCriticalEntity == null) {
+            throw new IllegalArgumentException("container " + namePart + " not found");
+        }
+        final var newCriticalElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
+        newCriticalElement.setResourcecontainer(newCriticalEntity);
+        final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
+        systemInteg.setPcmelement(newCriticalElement);
+        this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
+        this.getSurfaceAttacker().setCriticalElement(newCriticalElement);
+        this.attackGraph.setRootForTests(newCriticalEntity);
+    }
+    
+    protected void setCriticalAssemblyContext(final String namePart) {
+        final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure()
+                .stream()
+                .filter(a -> a.getEntityName().contains(namePart))
+                .findFirst().orElse(null);
+        if (newCriticalEntity == null) {
+            throw new IllegalArgumentException("assembly " + namePart + " not found");
+        }
+        final var newCriticalElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
+        newCriticalElement.setAssemblycontext(newCriticalEntity);
+        final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
+        systemInteg.setPcmelement(newCriticalElement);
+        this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
+        this.getSurfaceAttacker().setCriticalElement(newCriticalElement);
+        this.attackGraph.setRootForTests(newCriticalEntity);
     }
     
     private UsageSpecification getRootCredentials() {

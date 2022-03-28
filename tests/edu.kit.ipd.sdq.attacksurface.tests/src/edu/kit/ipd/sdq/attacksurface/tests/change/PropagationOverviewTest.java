@@ -150,19 +150,21 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         final var attackPaths = getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), getChanges());
 
         final var attackPathsSet = new HashSet<>(attackPaths);
-        final AttackPathSurface[] expectedPaths = { generateSimpleAttackPath(CRITICAL, VULN_ID, CRITICAL, DEFAULT), // self
-                                                                                                                    // attack
+        final AttackPathSurface[] expectedPaths = { 
+                generateSimpleAttackPath(CRITICAL, VULN_ID, CRITICAL, DEFAULT), // self attack                                                               // attack
                 generateSimpleAttackPath(CRITICAL, VULN_ID, R11, DEFAULT), // direct attack from r.1.1
                 generateSimpleAttackPath(CRITICAL, VULN_ID, // attack via r.1.1 starting from r.1.1
                         R11, VULN_ID, R11, DEFAULT),
                 generateSimpleAttackPath(CRITICAL, VULN_ID, // attack via r.1.1 starting from critical
                         R11, VULN_ID, CRITICAL, DEFAULT),
+                generateSimpleAttackPath(CRITICAL, VULN_ID, // attack via r.1.1 starting from critical, loop r.1.1
+                        R11, VULN_ID, R11, VULN_ID, CRITICAL, DEFAULT),
                 generateSimpleAttackPath(CRITICAL, VULN_ID, R12, DEFAULT), // attack starting from r.1.2
                 generateSimpleAttackPath(CRITICAL, VULN_ID, P21, DEFAULT), // attack starting from p.2.1
         };
         final var expectedPathsSet = new HashSet<>(addSelfLoopPaths(Arrays.asList(expectedPaths)));
         doDebugSysOutExpectedAndUnexpectedPaths(expectedPathsSet, attackPathsSet);
-        Assert.assertEquals(11, attackPaths.size());
+        Assert.assertEquals(13, attackPaths.size());
         Assert.assertEquals(expectedPathsSet, attackPathsSet);
 
         attackPaths.forEach(p -> Assert.assertEquals(1, p.getUsedVulnerabilites(getBlackboardWrapper()).size()));

@@ -105,7 +105,9 @@ public final class AttackHandlingHelper {
             AttackStatusNodeContent node) {
         return credentialCauses
                 .stream()
-                .filter(c -> !attackGraph.getCompromisationCauseIds(node).contains(c.getCauseId()))
+                .filter(c -> attackGraph.getCompromisationCauseIds(node)
+                        .stream()
+                        .noneMatch(identifier -> identifier.getId().equals(c.getCauseId())))
                 .collect(Collectors.toSet());
     }
 

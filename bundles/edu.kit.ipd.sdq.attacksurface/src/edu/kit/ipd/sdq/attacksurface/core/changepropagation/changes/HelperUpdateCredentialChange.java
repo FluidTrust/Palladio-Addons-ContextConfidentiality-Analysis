@@ -46,7 +46,6 @@ public class HelperUpdateCredentialChange {
      *            the attacker node in the graph
      * @param attackedNodeInGraphArg
      *            node in graph which lead to the credential update
-     *            or {@code null} if unknown
      */
     public static void updateCredentials(final CredentialChange changes,
             final Stream<ContextChange> streamContextChange,

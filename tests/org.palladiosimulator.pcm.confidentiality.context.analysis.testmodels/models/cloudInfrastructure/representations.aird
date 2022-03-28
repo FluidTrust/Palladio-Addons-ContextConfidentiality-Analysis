@@ -1362,7 +1362,7 @@
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']/@ownedRepresentations[name='Allocation%20Diagram']/@defaultLayer"/>
     <target xmi:type="allocation:Allocation" href="newAllocation.allocation#_klAj8O6IEeqE7MyXYeeR9A"/>
   </diagram:DSemanticDiagram>
-  <diagram:DSemanticDiagram uid="_QZIIMKOFEey5nPqTNtQbwg" target="_OE1xcO2-Eeq6pfPMAIqEqg">
+  <diagram:DSemanticDiagram uid="_QZIIMKOFEey5nPqTNtQbwg">
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZJ9YqOFEey5nPqTNtQbwg" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_QZJ9Y6OFEey5nPqTNtQbwg" type="Sirius" element="_QZIIMKOFEey5nPqTNtQbwg" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_QZLykKOFEey5nPqTNtQbwg" type="2001" element="_QZKkcKOFEey5nPqTNtQbwg">
@@ -1409,19 +1409,19 @@
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZLLiKOFEey5nPqTNtQbwg" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_QZLLiaOFEey5nPqTNtQbwg"/>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZKkcKOFEey5nPqTNtQbwg" target="_OE2YgO2-Eeq6pfPMAIqEqg" semanticElements="_OE2YgO2-Eeq6pfPMAIqEqg" outgoingEdges="_QZLLg6OFEey5nPqTNtQbwg" width="3" height="3">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZKkcKOFEey5nPqTNtQbwg" outgoingEdges="_QZLLg6OFEey5nPqTNtQbwg" width="3" height="3">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZKkcaOFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/start.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZLLgKOFEey5nPqTNtQbwg" target="_OE2Yge2-Eeq6pfPMAIqEqg" semanticElements="_OE2Yge2-Eeq6pfPMAIqEqg" incomingEdges="_QZLLg6OFEey5nPqTNtQbwg" width="4" height="4">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZLLgKOFEey5nPqTNtQbwg" incomingEdges="_QZLLg6OFEey5nPqTNtQbwg" width="4" height="4">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZLLgaOFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/end.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZLLg6OFEey5nPqTNtQbwg" target="_OE2YgO2-Eeq6pfPMAIqEqg" sourceNode="_QZKkcKOFEey5nPqTNtQbwg" targetNode="_QZLLgKOFEey5nPqTNtQbwg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZLLg6OFEey5nPqTNtQbwg" sourceNode="_QZKkcKOFEey5nPqTNtQbwg" targetNode="_QZLLgKOFEey5nPqTNtQbwg">
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_QZLLhKOFEey5nPqTNtQbwg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_QZLLhaOFEey5nPqTNtQbwg"/>
@@ -1432,7 +1432,7 @@
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_QZIIMaOFEey5nPqTNtQbwg"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer"/>
   </diagram:DSemanticDiagram>
-  <diagram:DSemanticDiagram uid="_QZO14KOFEey5nPqTNtQbwg" target="_Frfg4O2-Eeq6pfPMAIqEqg">
+  <diagram:DSemanticDiagram uid="_QZO14KOFEey5nPqTNtQbwg">
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZQEAqOFEey5nPqTNtQbwg" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_QZQEA6OFEey5nPqTNtQbwg" type="Sirius" element="_QZO14KOFEey5nPqTNtQbwg" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_QZU8gKOFEey5nPqTNtQbwg" type="2001" element="_QZQEBaOFEey5nPqTNtQbwg">
@@ -1569,69 +1569,69 @@
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZUVfqOFEey5nPqTNtQbwg" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_QZUVf6OFEey5nPqTNtQbwg"/>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZQEBaOFEey5nPqTNtQbwg" target="_FrgH8O2-Eeq6pfPMAIqEqg" semanticElements="_FrgH8O2-Eeq6pfPMAIqEqg" outgoingEdges="_QZUVeaOFEey5nPqTNtQbwg" width="3" height="3">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZQEBaOFEey5nPqTNtQbwg" outgoingEdges="_QZUVeaOFEey5nPqTNtQbwg" width="3" height="3">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZQrEKOFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/start.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZQrEqOFEey5nPqTNtQbwg" target="_FrgH8e2-Eeq6pfPMAIqEqg" semanticElements="_FrgH8e2-Eeq6pfPMAIqEqg" incomingEdges="_QZUVdKOFEey5nPqTNtQbwg" width="4" height="4">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZQrEqOFEey5nPqTNtQbwg" incomingEdges="_QZUVdKOFEey5nPqTNtQbwg" width="4" height="4">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZQrE6OFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/end.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZQrFaOFEey5nPqTNtQbwg" target="_faB7oO2-Eeq6pfPMAIqEqg" name="&lt;&lt;ExternalCallAction>>&#xA;ExternalCallAction1&#xA;UserTerminal.LocationInterface.OperationRequiredRole2.getLocation" semanticElements="_faB7oO2-Eeq6pfPMAIqEqg" outgoingEdges="_QZTuZqOFEey5nPqTNtQbwg" incomingEdges="_QZUVeaOFEey5nPqTNtQbwg" childrenPresentation="VerticalStack">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZQrFaOFEey5nPqTNtQbwg" name="&lt;&lt;ExternalCallAction>>&#xA;ExternalCallAction1&#xA;UserTerminal.LocationInterface.OperationRequiredRole2.getLocation" outgoingEdges="_QZTuZqOFEey5nPqTNtQbwg" incomingEdges="_QZUVeaOFEey5nPqTNtQbwg" childrenPresentation="VerticalStack">
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZSgQKOFEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHU6OFEey5nPqTNtQbwg" target="_faB7oO2-Eeq6pfPMAIqEqg" name="InputVariableUsageCompartment" semanticElements="_faB7oO2-Eeq6pfPMAIqEqg">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHU6OFEey5nPqTNtQbwg" name="InputVariableUsageCompartment">
         <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZTHVKOFEey5nPqTNtQbwg" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='InputVariableUsageCompartment']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='InputVariableUsageCompartment']"/>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHVqOFEey5nPqTNtQbwg" target="_faB7oO2-Eeq6pfPMAIqEqg" name="OutputVariableUsageCompartment" semanticElements="_faB7oO2-Eeq6pfPMAIqEqg">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHVqOFEey5nPqTNtQbwg" name="OutputVariableUsageCompartment">
         <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZTHV6OFEey5nPqTNtQbwg" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='OutputVariableUsageCompartment']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='OutputVariableUsageCompartment']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHUKOFEey5nPqTNtQbwg" target="_gnxhIO2-Eeq6pfPMAIqEqg" name="&lt;&lt;ExternalCallAction>>&#xA;ExternalCallAction2&#xA;UserTerminal.UserDBInterface.OperationRequiredRole1.getUserData" semanticElements="_gnxhIO2-Eeq6pfPMAIqEqg" outgoingEdges="_QZUVdKOFEey5nPqTNtQbwg" incomingEdges="_QZTuZqOFEey5nPqTNtQbwg" childrenPresentation="VerticalStack">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTHUKOFEey5nPqTNtQbwg" name="&lt;&lt;ExternalCallAction>>&#xA;ExternalCallAction2&#xA;UserTerminal.UserDBInterface.OperationRequiredRole1.getUserData" outgoingEdges="_QZUVdKOFEey5nPqTNtQbwg" incomingEdges="_QZTuZqOFEey5nPqTNtQbwg" childrenPresentation="VerticalStack">
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZTHUaOFEey5nPqTNtQbwg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTuYKOFEey5nPqTNtQbwg" target="_gnxhIO2-Eeq6pfPMAIqEqg" name="InputVariableUsageCompartment" semanticElements="_gnxhIO2-Eeq6pfPMAIqEqg">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTuYKOFEey5nPqTNtQbwg" name="InputVariableUsageCompartment">
         <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZTuYaOFEey5nPqTNtQbwg" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='InputVariableUsageCompartment']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='InputVariableUsageCompartment']"/>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTuY6OFEey5nPqTNtQbwg" target="_gnxhIO2-Eeq6pfPMAIqEqg" name="OutputVariableUsageCompartment" semanticElements="_gnxhIO2-Eeq6pfPMAIqEqg">
+      <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_QZTuY6OFEey5nPqTNtQbwg" name="OutputVariableUsageCompartment">
         <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_QZTuZKOFEey5nPqTNtQbwg" showIcon="false" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='OutputVariableUsageCompartment']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@containerMappings[name='ExternalCallAction']/@subContainerMappings[name='OutputVariableUsageCompartment']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZTuZqOFEey5nPqTNtQbwg" target="_faB7oO2-Eeq6pfPMAIqEqg" sourceNode="_QZQrFaOFEey5nPqTNtQbwg" targetNode="_QZTHUKOFEey5nPqTNtQbwg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZTuZqOFEey5nPqTNtQbwg" sourceNode="_QZQrFaOFEey5nPqTNtQbwg" targetNode="_QZTHUKOFEey5nPqTNtQbwg">
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_QZUVcKOFEey5nPqTNtQbwg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_QZUVcaOFEey5nPqTNtQbwg"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZUVdKOFEey5nPqTNtQbwg" target="_gnxhIO2-Eeq6pfPMAIqEqg" sourceNode="_QZTHUKOFEey5nPqTNtQbwg" targetNode="_QZQrEqOFEey5nPqTNtQbwg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZUVdKOFEey5nPqTNtQbwg" sourceNode="_QZTHUKOFEey5nPqTNtQbwg" targetNode="_QZQrEqOFEey5nPqTNtQbwg">
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_QZUVdaOFEey5nPqTNtQbwg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_QZUVdqOFEey5nPqTNtQbwg"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:EdgeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZUVeaOFEey5nPqTNtQbwg" target="_FrgH8O2-Eeq6pfPMAIqEqg" sourceNode="_QZQEBaOFEey5nPqTNtQbwg" targetNode="_QZQrFaOFEey5nPqTNtQbwg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZUVeaOFEey5nPqTNtQbwg" sourceNode="_QZQEBaOFEey5nPqTNtQbwg" targetNode="_QZQrFaOFEey5nPqTNtQbwg">
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_QZUVeqOFEey5nPqTNtQbwg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_QZUVe6OFEey5nPqTNtQbwg"/>
@@ -1642,7 +1642,7 @@
     <filterVariableHistory xmi:type="diagram:FilterVariableHistory" uid="_QZO14aOFEey5nPqTNtQbwg"/>
     <activatedLayers xmi:type="description_1:Layer" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer"/>
   </diagram:DSemanticDiagram>
-  <diagram:DSemanticDiagram uid="_QZpsoKOFEey5nPqTNtQbwg" target="_YDH_gO2-Eeq6pfPMAIqEqg">
+  <diagram:DSemanticDiagram uid="_QZpsoKOFEey5nPqTNtQbwg">
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZsI4KOFEey5nPqTNtQbwg" source="GMF_DIAGRAMS">
       <data xmi:type="notation:Diagram" xmi:id="_QZsI4aOFEey5nPqTNtQbwg" type="Sirius" element="_QZpsoKOFEey5nPqTNtQbwg" measurementUnit="Pixel">
         <children xmi:type="notation:Node" xmi:id="_QZt-EKOFEey5nPqTNtQbwg" type="2001" element="_QZsv8KOFEey5nPqTNtQbwg">
@@ -1689,19 +1689,19 @@
     <ownedAnnotationEntries xmi:type="description:AnnotationEntry" uid="_QZtXBaOFEey5nPqTNtQbwg" source="DANNOTATION_CUSTOMIZATION_KEY">
       <data xmi:type="diagram:ComputedStyleDescriptionRegistry" uid="_QZtXBqOFEey5nPqTNtQbwg"/>
     </ownedAnnotationEntries>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZsv8KOFEey5nPqTNtQbwg" target="_YDH_ge2-Eeq6pfPMAIqEqg" semanticElements="_YDH_ge2-Eeq6pfPMAIqEqg" outgoingEdges="_QZtXAKOFEey5nPqTNtQbwg" width="3" height="3">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZsv8KOFEey5nPqTNtQbwg" outgoingEdges="_QZtXAKOFEey5nPqTNtQbwg" width="3" height="3">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZsv8aOFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/start.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StartNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZsv86OFEey5nPqTNtQbwg" target="_YDH_gu2-Eeq6pfPMAIqEqg" semanticElements="_YDH_gu2-Eeq6pfPMAIqEqg" incomingEdges="_QZtXAKOFEey5nPqTNtQbwg" width="4" height="4">
+    <ownedDiagramElements xmi:type="diagram:DNode" uid="_QZsv86OFEey5nPqTNtQbwg" incomingEdges="_QZtXAKOFEey5nPqTNtQbwg" width="4" height="4">
       <ownedStyle xmi:type="diagram:WorkspaceImage" uid="_QZsv9KOFEey5nPqTNtQbwg" showIcon="false" labelPosition="node" workspacePath="/org.palladiosimulator.editors.sirius.seff/icons/end.png">
         <description xmi:type="style:WorkspaceImageDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@nodeMappings[name='StopNode']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZtXAKOFEey5nPqTNtQbwg" target="_YDH_ge2-Eeq6pfPMAIqEqg" sourceNode="_QZsv8KOFEey5nPqTNtQbwg" targetNode="_QZsv86OFEey5nPqTNtQbwg">
+    <ownedDiagramElements xmi:type="diagram:DEdge" uid="_QZtXAKOFEey5nPqTNtQbwg" sourceNode="_QZsv8KOFEey5nPqTNtQbwg" targetNode="_QZsv86OFEey5nPqTNtQbwg">
       <ownedStyle xmi:type="diagram:EdgeStyle" uid="_QZtXAaOFEey5nPqTNtQbwg" size="2">
         <description xmi:type="style:EdgeStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.seff/description/seff.odesign#//@ownedViewpoints[name='Seff']/@ownedRepresentations[name='Seff%20Diagram']/@defaultLayer/@edgeMappings[name='ControlFlow']/@style"/>
         <centerLabelStyle xmi:type="diagram:CenterLabelStyle" uid="_QZtXAqOFEey5nPqTNtQbwg"/>
@@ -2578,19 +2578,19 @@
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='LinkingResource']/@subContainerMappings[name='CommunicationLinkResourceSpecification']"/>
       </ownedDiagramElements>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce8DcKOFEeyze6jTh8VQAA" target="_9i8P8e2-Eeq6pfPMAIqEqg" name="&lt;&lt;ResourceContainer>>&#xA;MachineLocationSystem" semanticElements="_9i8P8e2-Eeq6pfPMAIqEqg" tooltipText="ResourceContainer" incomingEdges="_ciaOMKOFEeyze6jTh8VQAA" height="10">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce8DcKOFEeyze6jTh8VQAA" name="&lt;&lt;ResourceContainer>>&#xA;MachineLocationSystem" tooltipText="ResourceContainer" incomingEdges="_ciaOMKOFEeyze6jTh8VQAA" height="10">
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ce8qgKOFEeyze6jTh8VQAA" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce8qgqOFEeyze6jTh8VQAA" target="_E9_FMe2_Eeq6pfPMAIqEqg" name="&lt;&lt;ResourceContainer>>&#xA;DatabaseMachine" semanticElements="_E9_FMe2_Eeq6pfPMAIqEqg" tooltipText="ResourceContainer" incomingEdges="_ciZAEKOFEeyze6jTh8VQAA" height="10">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce8qgqOFEeyze6jTh8VQAA" name="&lt;&lt;ResourceContainer>>&#xA;DatabaseMachine" tooltipText="ResourceContainer" incomingEdges="_ciZAEKOFEeyze6jTh8VQAA" height="10">
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ce9RkKOFEeyze6jTh8VQAA" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']"/>
     </ownedDiagramElements>
-    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce9RkqOFEeyze6jTh8VQAA" target="_Fg8BQe2_Eeq6pfPMAIqEqg" name="&lt;&lt;ResourceContainer>>&#xA;UserTerminal" semanticElements="_Fg8BQe2_Eeq6pfPMAIqEqg" tooltipText="ResourceContainer" incomingEdges="_ciaONaOFEeyze6jTh8VQAA _cia1RKOFEeyze6jTh8VQAA" height="10">
+    <ownedDiagramElements xmi:type="diagram:DNodeContainer" uid="_ce9RkqOFEeyze6jTh8VQAA" name="&lt;&lt;ResourceContainer>>&#xA;UserTerminal" tooltipText="ResourceContainer" incomingEdges="_ciaONaOFEeyze6jTh8VQAA _cia1RKOFEeyze6jTh8VQAA" height="10">
       <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_ce9Rk6OFEeyze6jTh8VQAA" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@style"/>
       </ownedStyle>
