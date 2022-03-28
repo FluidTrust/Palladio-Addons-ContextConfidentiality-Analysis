@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.CredentialEqualityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
@@ -35,7 +36,7 @@ public class SimpleCredentialQuerying implements CredentialQuerying {
         final var credentialIntegrations = getCredentialIntegrations(target);
         if (!credentialIntegrations.isEmpty()) {
             final var credentialIntegrationsIds = toIds(credentialIntegrations);
-            if (credentials.containsAll(credentialIntegrations)) {
+            if (CredentialEqualityHelper.containsAll(credentials, credentialIntegrations)) {
                 return Optional.of(new PDPResult(DecisionType.PERMIT, credentialIntegrationsIds));
             }
             final var notFulfilledCredentials = toIds(credentialIntegrations);
