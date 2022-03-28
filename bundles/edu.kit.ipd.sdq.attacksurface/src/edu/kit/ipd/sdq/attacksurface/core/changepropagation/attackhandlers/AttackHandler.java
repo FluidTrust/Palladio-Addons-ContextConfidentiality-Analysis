@@ -58,7 +58,7 @@ public abstract class AttackHandler implements CredentialQuerying {
     private final AttackGraph attackGraph;
     private final CredentialQuerying querying;
 
-    public AttackHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
+    protected AttackHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
             final AttackGraph attackGraph) {
         Objects.requireNonNull(modelStorage);
         Objects.requireNonNull(dataHandler);
@@ -183,7 +183,7 @@ public abstract class AttackHandler implements CredentialQuerying {
         return this.querying.queryAccessForEntity(target, credentials, signature);
     }
 
-    // TODO: Think about better location
+    // TODO later Think about better location
     /**
      * Checks whether the current vulnerabilities of a system entity (e.g. AssemblyContext,
      * ResourceContainers ...) can be exploited by the capabilities of an attacker. It thereby

@@ -4,10 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -35,11 +33,6 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.graph.EndpointPair;
@@ -54,7 +47,6 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
 public class PropagationOverviewTest extends AbstractChangeTests {
     private static final String DEFAULT = "default";
@@ -218,11 +210,11 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     @Test
     public void filterPathLength0Test() {
         setMaximumPathLength(0);
-        final var board = getBlackboardWrapper();
+        final var modelStorage = getBlackboardWrapper();
         runUntilNotChangedIterations(false);
-        final var pathsConverter = new AttackSurfaceAnalysis(true, board);
-        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(board, getChanges());
-        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, board);
+        final var pathsConverter = new AttackSurfaceAnalysis(true, modelStorage);
+        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(modelStorage, getChanges());
+        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, modelStorage);
         Assert.assertTrue(attackPaths.isEmpty());
     }
 
@@ -234,11 +226,11 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     @Test
     public void filterPathLength1Test() {
         setMaximumPathLength(1);
-        final var board = getBlackboardWrapper();
+        final var modelStorage = getBlackboardWrapper();
         runUntilNotChangedIterations(false);
-        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(board, getChanges());
-        final var pathsConverter = new AttackSurfaceAnalysis(true, board);
-        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, board);
+        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(modelStorage, getChanges());
+        final var pathsConverter = new AttackSurfaceAnalysis(true, modelStorage);
+        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, modelStorage);
         Assert.assertTrue(attackPaths.isEmpty()); // since there is always the attacker node (path size is counted as
                                                   // node count)
     }
@@ -246,11 +238,11 @@ public class PropagationOverviewTest extends AbstractChangeTests {
     @Test
     public void filterPathLength2Test() {
         setMaximumPathLength(2);
-        final var board = getBlackboardWrapper();
+        final var modelStorage = getBlackboardWrapper();
         runUntilNotChangedIterations(false);
-        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(board, getChanges());
-        final var pathsConverter = new AttackSurfaceAnalysis(true, board);
-        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, board);
+        final var attackPathsSurface = getAttackGraph().findAllAttackPaths(modelStorage, getChanges());
+        final var pathsConverter = new AttackSurfaceAnalysis(true, modelStorage);
+        final var attackPaths = pathsConverter.toAttackPaths(attackPathsSurface, modelStorage);
         Assert.assertFalse(attackPaths.isEmpty());
         attackPaths.forEach(p -> {
             System.out.println("\n");
@@ -265,7 +257,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         };
         Arrays.asList(expectedSurfacePaths).forEach(p -> System.out.println(p));
         final var expectedPaths = pathsConverter.toAttackPaths(
-                Arrays.asList(expectedSurfacePaths), board);
+                Arrays.asList(expectedSurfacePaths), modelStorage);
         expectedPaths.forEach(p -> {
             System.out.println("\nEXP\n");
             p.getPath().forEach(s -> System.out.println(s.getIdOfContent() + " | " + s.getPcmelement().getAssemblycontext().getEntityName()));

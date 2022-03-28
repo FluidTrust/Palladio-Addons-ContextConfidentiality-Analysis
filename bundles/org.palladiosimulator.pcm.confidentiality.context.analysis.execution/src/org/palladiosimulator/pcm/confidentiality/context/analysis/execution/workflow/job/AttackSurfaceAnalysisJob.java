@@ -30,10 +30,9 @@ import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
  * @author ugnwq
  */
 public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDBlackboard> {
-
     private MDSDBlackboard blackboard;
     
-    private static final String TEST_XACML = "test.xacml"; //TODO
+    private static final String TEST_XACML = "test.xacml"; //TODO later
 
     public AttackSurfaceAnalysisJob(final ContextAnalysisWorkflowConfig config) {
 
@@ -58,14 +57,13 @@ public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDB
 
         Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
         		TEST_XACML);
-        Activator.getInstance().getEvaluate().initialize(TEST_XACML);*/ //TODO
+        Activator.getInstance().getEvaluate().initialize(TEST_XACML);*/ //TODO later
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
                 vulnerabilitySpecification, Activator.getInstance().getEvaluate());
 
-        final var propagation = new AttackSurfaceAnalysis();//TODO inject // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
-        		//.getInstance().getAttackSurfaceAnalysis();//TODO inject
+        final var propagation = new AttackSurfaceAnalysis(); //TODO later inject // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
         propagation.runChangePropagationAnalysis(wrapper);
-        //Activator.getInstance().getEvaluate().shutdown(); //TODO
+        //Activator.getInstance().getEvaluate().shutdown(); //TODO later
     }
 
     @Override

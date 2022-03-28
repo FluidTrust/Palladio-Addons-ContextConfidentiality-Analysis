@@ -12,7 +12,6 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -30,14 +29,14 @@ public final class AttackHandlingHelper {
 
     /**
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @param path - the path
      * @param isEarly - whether this call is an early filtering
      * @return whether the last element in the given path is filtered
      */
-    public static boolean isFiltered(final BlackboardWrapper board, final AttackPath path,
+    public static boolean isFiltered(final BlackboardWrapper modelStorage, final AttackPath path,
             final boolean isEarly) {
-        final var surfaceAttacker = getSurfaceAttacker(board);
+        final var surfaceAttacker = getSurfaceAttacker(modelStorage);
         final var filterCriteria = surfaceAttacker.getFiltercriteria();
         final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
         for (final var filterCriterion : filterCriteria) {
@@ -51,27 +50,27 @@ public final class AttackHandlingHelper {
 
     /**
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @return the surface attacker
      */
-    public static SurfaceAttacker getSurfaceAttacker(final BlackboardWrapper board) {
-        if (board.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().isEmpty()) {
+    public static SurfaceAttacker getSurfaceAttacker(final BlackboardWrapper modelStorage) {
+        if (modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().isEmpty()) {
             throw new IllegalStateException("No attacker selected");
         }
-        if (board.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().size() > 2) {
+        if (modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().size() > 2) {
             throw new IllegalStateException("More than one attacker");
         }
-        return board.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().get(0)
+        return modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().get(0)
                 .getAffectedElement();
     }
     
     /**
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @return all attacks
      */
-    public static List<Attack> getAttacks(final BlackboardWrapper board) {
-        final var listAttackers = board.getModificationMarkRepository().getSeedModifications()
+    public static List<Attack> getAttacks(final BlackboardWrapper modelStorage) {
+        final var listAttackers = modelStorage.getModificationMarkRepository().getSeedModifications()
                 .getAttackcomponent();
         return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
                 .collect(Collectors.toList());
@@ -80,16 +79,16 @@ public final class AttackHandlingHelper {
     /**
      * Attacks the given node with initial credentials (also found in this method) if it is necessary.
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @param attackGraph - the attack graph
      * @param nodeContent - the node content (finding takes place in this method)
      * @return whether compromisation was done
      */
-    public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
+    public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper modelStorage,
             final AttackGraph attackGraph, final AttackStatusNodeContent nodeContent) {
         final var node = attackGraph.findNode(nodeContent);
-        final Set<CredentialsVulnearbilitiesSurface> credentialCauses = getCredentialIntegrationCauses(board, attackGraph, node);
-        final Set<CredentialsVulnearbilitiesSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
+        final Set<CredentialSurface> credentialCauses = getCredentialIntegrationCauses(modelStorage, node);
+        final Set<CredentialSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
         if (!node.isCompromised() && !necessaryCauses.isEmpty()) {
             final var selectedBefore = attackGraph.getSelectedNode();
             attackGraph.setSelectedNode(node);
@@ -101,7 +100,7 @@ public final class AttackHandlingHelper {
         return false;
     }
 
-    private static Set<CredentialsVulnearbilitiesSurface> getNecessaryCauses(Set<CredentialsVulnearbilitiesSurface> credentialCauses, AttackGraph attackGraph,
+    private static Set<CredentialSurface> getNecessaryCauses(Set<CredentialSurface> credentialCauses, AttackGraph attackGraph,
             AttackStatusNodeContent node) {
         return credentialCauses
                 .stream()
@@ -111,9 +110,9 @@ public final class AttackHandlingHelper {
                 .collect(Collectors.toSet());
     }
 
-    private static Set<CredentialsVulnearbilitiesSurface> getCredentialIntegrationCauses(BlackboardWrapper board, AttackGraph attackGraph,
+    private static Set<CredentialSurface> getCredentialIntegrationCauses(BlackboardWrapper modelStorage,
             AttackStatusNodeContent node) {
-        return board.getVulnerabilitySpecification()
+        return modelStorage.getVulnerabilitySpecification()
                 .getVulnerabilities()
                 .stream()
                 .filter(CredentialSystemIntegration.class::isInstance)

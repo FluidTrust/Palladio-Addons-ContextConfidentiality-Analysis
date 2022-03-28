@@ -12,9 +12,9 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class AssemblyContextPropagationContext extends AssemblyContextChange {
     
-    public AssemblyContextPropagationContext(final BlackboardWrapper v, final CredentialChange changes, 
+    public AssemblyContextPropagationContext(final BlackboardWrapper modelStorage, final CredentialChange changes, 
             final AttackGraph attackGraph) {
-        super(v, changes, attackGraph);
+        super(modelStorage, changes, attackGraph);
     }
 
     @Override

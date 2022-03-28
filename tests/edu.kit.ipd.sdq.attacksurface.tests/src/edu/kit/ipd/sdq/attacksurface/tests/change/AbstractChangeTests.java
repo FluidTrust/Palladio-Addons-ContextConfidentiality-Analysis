@@ -315,17 +315,17 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
     protected CredentialChange runAnalysis() {
         generateXML();
-        final var board = getBlackboardWrapper();
+        final var modelStorage = getBlackboardWrapper();
         final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
-        return analysis.runAnalysisTest(board);
+        return analysis.runAnalysisTest(modelStorage);
     }
     
     protected CredentialChange runAnalysisWithoutAttackPathGeneration() {
         generateXML();
-        final var board = getBlackboardWrapper();
+        final var modelStorage = getBlackboardWrapper();
         final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
-        final var ret = analysis.runPropagationWithoutAttackPathCreation(board);
-        analysis.cleanup(board);
+        final var ret = analysis.runPropagationWithoutAttackPathCreation(modelStorage);
+        analysis.cleanup(modelStorage);
         return ret;
     }
     

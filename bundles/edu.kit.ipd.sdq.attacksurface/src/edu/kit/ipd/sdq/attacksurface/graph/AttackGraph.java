@@ -243,7 +243,8 @@ public class AttackGraph implements AttackPathFinder {
      * @param causes       - the causes of the attack
      * @param attackSource - the attack source
      */
-    public void compromiseSelectedNode(final Set<CredentialsVulnearbilitiesSurface> causes, final AttackStatusNodeContent attackSource) {
+    public void compromiseSelectedNode(final Set<? extends CredentialsVulnearbilitiesSurface> causes, 
+            final AttackStatusNodeContent attackSource) {
         Objects.requireNonNull(attackSource);
 
         this.selectedNode.compromise(attackSource);
@@ -286,13 +287,16 @@ public class AttackGraph implements AttackPathFinder {
     }
 
     /**
-     * Finds the given node inside the graph.
+     * Finds the given node inside the graph. <br/>
+     * This method is necessary because nodes are created on the fly and it is crucial that
+     * the actual nodes in the graph are edited (e.g. attacked or compromised), so it is necessary
+     * that the actual nodes are found by this method inside the graph.
      * 
      * @param nodeToFind - a {@link AttackStatusNodeContent} containing the entity
      *                   to be found in the graph
      * @return the found node containing the entity contained in the parameter
      */
-    public AttackStatusNodeContent findNode(final AttackStatusNodeContent nodeToFind) { //TODO comment why necessary to find
+    public AttackStatusNodeContent findNode(final AttackStatusNodeContent nodeToFind) {
         return this.getGraph().nodes().stream().filter(n -> n.equals(nodeToFind)).findAny().orElse(null);
     }
 
@@ -448,7 +452,7 @@ public class AttackGraph implements AttackPathFinder {
     }
 
     @Override
-    public List<AttackPathSurface> findAllAttackPaths(BlackboardWrapper board, CredentialChange changes) {
-        return this.finder.findAllAttackPaths(board, changes);
+    public List<AttackPathSurface> findAllAttackPaths(BlackboardWrapper modelStorage, CredentialChange changes) {
+        return this.finder.findAllAttackPaths(modelStorage, changes);
     }
 }

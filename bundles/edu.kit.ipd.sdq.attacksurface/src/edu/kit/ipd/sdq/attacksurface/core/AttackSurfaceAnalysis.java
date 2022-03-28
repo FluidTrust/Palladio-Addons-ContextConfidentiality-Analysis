@@ -63,12 +63,12 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * Constructor for tests, initializes the initial structure.
      * 
      * @param doInitialize - if the initial structure should be already created
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      */
-    public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper board) {
+    public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper modelStorage) {
         if (doInitialize) {
             this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-            this.createInitialStructure(board);
+            this.createInitialStructure(modelStorage);
         }
     }
     
@@ -79,63 +79,63 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     /**
      * Runs the analysis.
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      */
-    public void runChangePropagationAnalysis(final BlackboardWrapper board) {
-        runPropagationWithoutAttackPathCreation(board);
-        createAttackPaths(board);
-        cleanup(board);
+    public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
+        runPropagationWithoutAttackPathCreation(modelStorage);
+        createAttackPaths(modelStorage);
+        cleanup(modelStorage);
     }
     
-    public CredentialChange runAnalysisTest(final BlackboardWrapper board) {
-        runChangePropagationAnalysis(board);
+    public CredentialChange runAnalysisTest(final BlackboardWrapper modelStorage) {
+        runChangePropagationAnalysis(modelStorage);
         return this.changes;
     }
     
-    private void initialize(final BlackboardWrapper board) {
+    private void initialize(final BlackboardWrapper modelStorage) {
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        createInitialStructure(board);
+        createInitialStructure(modelStorage);
     }
     
-    private void calculate(final BlackboardWrapper board) {
+    private void calculate(final BlackboardWrapper modelStorage) {
         do {
             this.changes.setChanged(false);
             this.attackGraph.resetVisitations();
 
-            calculateAndMarkResourcePropagation(board);
-            calculateAndMarkAssemblyPropagation(board);
+            calculateAndMarkResourcePropagation(modelStorage);
+            calculateAndMarkAssemblyPropagation(modelStorage);
 
-            //TODO implement calculateAndMarkLinkingPropagation(board);
+            //TODO later implement calculateAndMarkLinkingPropagation(board);
         } while (this.changes.isChanged());
     }
     
-    private void createAttackPaths(final BlackboardWrapper board) {
+    private void createAttackPaths(final BlackboardWrapper modelStorage) {
         this.attackGraph.resetVisitations();
-        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(board, this.changes);
-        this.changes.getAttackpaths().addAll(toAttackPaths(board, allAttackPathsSurface));
+        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(modelStorage, this.changes);
+        this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
     
     /*
      * public for test
      */
-    public CredentialChange runPropagationWithoutAttackPathCreation(final BlackboardWrapper board) {
-        initialize(board);
-        calculate(board);
+    public CredentialChange runPropagationWithoutAttackPathCreation(final BlackboardWrapper modelStorage) {
+        initialize(modelStorage);
+        calculate(modelStorage);
         return this.changes;
     }
     
     /*
      * public for tests
      */
-    public void cleanup(final BlackboardWrapper board) {
-        removeReferencedAttacks(board);
+    public void cleanup(final BlackboardWrapper modelStorage) {
+        removeReferencedAttacks(modelStorage);
     }
 
     /*
      * remove temporarily created referenced attacks
      */
-    private void removeReferencedAttacks(final BlackboardWrapper board) {
-        final var repository = board.getModificationMarkRepository();
+    private void removeReferencedAttacks(final BlackboardWrapper modelStorage) {
+        final var repository = modelStorage.getModificationMarkRepository();
         final var seedModification = repository.getSeedModifications();
         final var attackers = seedModification.getSurfaceattackcomponent();
         final var attacker = attackers.get(0);
@@ -149,20 +149,21 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * 
      * @param allAttackPathsSurface - list of {@link AttackPathSurface} instances
      *                              representing all found paths
+     * @param modelStorage
      * @return list of {@link AttackPath} instances
      */
     public List<AttackPath> toAttackPaths(final List<AttackPathSurface> allAttackPathsSurface,
-            final BlackboardWrapper board) {
-        return new ArrayList<>(toAttackPaths(board, allAttackPathsSurface));
+            final BlackboardWrapper modelStorage) {
+        return new ArrayList<>(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
 
-    private Collection<AttackPath> toAttackPaths(final BlackboardWrapper board,
+    private Collection<AttackPath> toAttackPaths(final BlackboardWrapper modelStorage,
             final List<AttackPathSurface> allAttackPathsSurface) {
         final List<AttackPath> allPaths = new ArrayList<>();
 
         for (final var pathSurface : allAttackPathsSurface) {
-            final var attackPathPath = pathSurface.toAttackPath(board, this.crtitcalEntity, false);
-            if (!attackPathPath.getPath().isEmpty() && !isFiltered(board, attackPathPath)
+            final var attackPathPath = pathSurface.toAttackPath(modelStorage, this.crtitcalEntity, false);
+            if (!attackPathPath.getPath().isEmpty() && !isFiltered(modelStorage, attackPathPath)
                     && isLastElementCriticalElement(attackPathPath)
                     && !contains(allPaths, attackPathPath)) {
                 allPaths.add(attackPathPath);
@@ -225,12 +226,14 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         final var setCredentials = localAttacker.getAttacker().getCredentials().stream()
                 .map(CredentialSurface::new).collect(Collectors.toSet());
         this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
-        convertAffectedElementsToChanges(localAttacker); //TODO: add the resulting attack paths
+        convertAffectedElementsToChanges(localAttacker); 
         addAllPossibleAttacks(board, localAttacker);
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
     
     private void convertAffectedElementsToChanges(final SurfaceAttacker localAttacker) {
+        //TODO later add the resulting attack paths
+        
         // convert affectedResources to changes
         final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResources().stream()
                 .map(resource -> {
@@ -286,19 +289,19 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * analyses start from the critical element and try to calculate back possible
      * attack paths to it.
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      */
-    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
+    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper modelStorage) {
         final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationVulnerability(board, this.changes,
+        list.add(new AssemblyContextPropagationVulnerability(modelStorage, this.changes,
                 this.attackGraph));
-        list.add(new AssemblyContextPropagationContext(board, this.changes, this.attackGraph));
+        list.add(new AssemblyContextPropagationContext(modelStorage, this.changes, this.attackGraph));
         for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
-            // TODO to linking
+            // TODO later to linking
         }
     }
 
@@ -312,23 +315,23 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * analyses start from the critical element and try to calculate back possible
      * attack paths to it.
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      */
-    private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
+    private void calculateAndMarkResourcePropagation(final BlackboardWrapper modelStorage) {
         final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationVulnerability(board, this.changes,
+        list.add(new ResourceContainerPropagationVulnerability(modelStorage, this.changes,
                 this.attackGraph));
-        list.add(new ResourceContainerPropagationContext(board, this.changes,
+        list.add(new ResourceContainerPropagationContext(modelStorage, this.changes,
                 this.attackGraph));
         for (final var analysis : list) {
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
             callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
-            // TODO to linking
+            // TODO later to linking
         }
     }
 
-    private void calculateAndMarkLinkingPropagation(BlackboardWrapper board) {
-        // TODO implement
+    private void calculateAndMarkLinkingPropagation(BlackboardWrapper modelStorage) {
+        // TODO later implement
     }
 }

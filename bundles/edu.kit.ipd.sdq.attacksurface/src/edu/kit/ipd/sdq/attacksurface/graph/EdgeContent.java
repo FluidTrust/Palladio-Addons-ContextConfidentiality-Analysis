@@ -17,14 +17,14 @@ public interface EdgeContent<C extends CredentialsVulnearbilitiesSurface, V exte
      * 
      * @return iterator over the C set
      */
-    Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetCIterator();
+    Iterator<Set<? extends CredentialsVulnearbilitiesSurface>> getContainedSetCIterator();
     
     /**
      * iterator over the V set
      * 
      * @return iterator over the V set
      */
-    Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetVIterator();
+    Iterator<Set<? extends CredentialsVulnearbilitiesSurface>> getContainedSetVIterator();
     
     /**
      * Splits the set in C and V and adds them as new sets. An empty set is not added.
@@ -32,21 +32,21 @@ public interface EdgeContent<C extends CredentialsVulnearbilitiesSurface, V exte
      * @param toAdd - the set to be added
      * @return if the a set was added
      */
-    boolean addSet(final Set<CredentialsVulnearbilitiesSurface> toAdd);
+    boolean addSet(final Set<? extends CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 
      * @param toAdd - the set of C to be added
      * @return if the set was added
      */
-    boolean addSetC(final Set<CredentialsVulnearbilitiesSurface> toAdd);
+    boolean addSetC(final Set<? extends CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 
      * @param toAdd - the set of V to be added
      * @return if the set was added
      */
-    boolean addSetV(final Set<CredentialsVulnearbilitiesSurface> toAdd);
+    boolean addSetV(final Set<? extends CredentialsVulnearbilitiesSurface> toAdd);
     
     /**
      * 

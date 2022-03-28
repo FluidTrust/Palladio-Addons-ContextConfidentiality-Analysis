@@ -54,7 +54,7 @@ public class HelperUpdateCredentialChange {
             final AttackGraph attackGraph) {
         final var endpoints = EndpointPair.ordered(attackedNodeInGraph,
                 attackerNodeInGraph);
-        final var debugList = streamContextChange.collect(Collectors.toList()); //TODO use stream directly
+        final var debugList = streamContextChange.collect(Collectors.toList()); //TODO me use stream directly
         final var edge = new AttackStatusEdge(attackGraph.getEdge(endpoints), endpoints);
         final var listChanges = debugList.stream()
                 .filter(e -> attackGraph.getCredentials(edge, false).stream()

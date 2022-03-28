@@ -16,8 +16,8 @@ import java.util.stream.Collectors;
  * @param <V> - the V {@link CredentialsVulnearbilitiesSurface} type
  */
 public abstract class AbstractEdgeContent<C extends CredentialsVulnearbilitiesSurface, V extends CredentialsVulnearbilitiesSurface> implements EdgeContent<C, V> {
-    private final Set<Set<CredentialsVulnearbilitiesSurface>> setCSets;
-    private final Set<Set<CredentialsVulnearbilitiesSurface>> setVSets;
+    private final Set<Set<? extends CredentialsVulnearbilitiesSurface>> setCSets;
+    private final Set<Set<? extends CredentialsVulnearbilitiesSurface>> setVSets;
     
     protected AbstractEdgeContent() {
         this.setCSets = new HashSet<>();
@@ -25,17 +25,17 @@ public abstract class AbstractEdgeContent<C extends CredentialsVulnearbilitiesSu
     }
 
     @Override
-    public Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetCIterator() {
+    public Iterator<Set<? extends CredentialsVulnearbilitiesSurface>> getContainedSetCIterator() {
         return this.setCSets.iterator();
     }
 
     @Override
-    public Iterator<Set<CredentialsVulnearbilitiesSurface>> getContainedSetVIterator() {
+    public Iterator<Set<? extends CredentialsVulnearbilitiesSurface>> getContainedSetVIterator() {
         return this.setVSets.iterator();
     }
 
     @Override
-    public boolean addSet(final Set<CredentialsVulnearbilitiesSurface> toAdd) {
+    public boolean addSet(final Set<? extends CredentialsVulnearbilitiesSurface> toAdd) {
         final var cSet = toAdd
                 .stream()
                 .filter(CredentialsVulnearbilitiesSurface::isCredential)
@@ -57,12 +57,12 @@ public abstract class AbstractEdgeContent<C extends CredentialsVulnearbilitiesSu
     }
     
     @Override
-    public boolean addSetC(final Set<CredentialsVulnearbilitiesSurface> toAdd) {
+    public boolean addSetC(final Set<? extends CredentialsVulnearbilitiesSurface> toAdd) {
         return this.setCSets.add(toAdd);
     }
 
     @Override
-    public boolean addSetV(Set<CredentialsVulnearbilitiesSurface> toAdd) {
+    public boolean addSetV(Set<? extends CredentialsVulnearbilitiesSurface> toAdd) {
         return this.setVSets.add(toAdd);
     }
 

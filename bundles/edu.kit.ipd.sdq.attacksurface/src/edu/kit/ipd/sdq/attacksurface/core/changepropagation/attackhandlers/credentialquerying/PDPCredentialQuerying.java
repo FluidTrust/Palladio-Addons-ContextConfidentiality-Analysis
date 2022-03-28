@@ -16,10 +16,10 @@ import org.palladiosimulator.pcm.repository.Signature;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 
 public class PDPCredentialQuerying implements CredentialQuerying {
-    private final BlackboardWrapper board;
+    private final BlackboardWrapper modelStorage;
     
-    public PDPCredentialQuerying(final BlackboardWrapper board) {
-        this.board = board;
+    public PDPCredentialQuerying(final BlackboardWrapper modelStorage) {
+        this.modelStorage = modelStorage;
     }
 
     /**
@@ -60,7 +60,7 @@ public class PDPCredentialQuerying implements CredentialQuerying {
 
     @Override
     public BlackboardWrapper getModelStorage() {
-        return this.board;
+        return this.modelStorage;
     }
 
 }

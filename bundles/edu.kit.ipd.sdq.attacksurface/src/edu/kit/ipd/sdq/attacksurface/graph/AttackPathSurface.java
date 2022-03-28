@@ -201,12 +201,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     /**
      * Creates an output {@link AttackPath} from this path.
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @param criticalEntity - the critical entity
      * @param doCreateCauselessPaths - whether a path should be created without causes (for temporary paths)
      * @return an {@link AttackPath} representing this attack path
      */
-    public AttackPath toAttackPath(BlackboardWrapper board, final Entity criticalEntity,
+    public AttackPath toAttackPath(BlackboardWrapper modelStorage, final Entity criticalEntity,
             final boolean doCreateCauselessPaths) {
         final List<SystemIntegration> localPath = new ArrayList<>();
 
@@ -228,29 +228,49 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 }
             } else {
                 if (i == 0) { // start of attack
-                    final var edgeContent = edge.getContent();
-                    Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
-                    boolean areCausesAdded = iterateCauses(board, localPath, attacker, iterable);
-                    iterable = edgeContent::getContainedSetCIterator;
-                    areCausesAdded |= iterateCauses(board, localPath, attacker, iterable);
-                    if (!areCausesAdded) { // add default integration
-                        final var attackerSysInteg = generateDefaultSystemIntegration(attacker.getContainedElement());
-                        localPath.add(attackerSysInteg);
-                    }
+                    iterateCauses(modelStorage, edge, localPath, attacker);
                 }
-                
-                final var edgeContent = edge.getContent();
-                Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
-                boolean areCausesAdded = iterateCauses(board, localPath, attacked, iterable);
-                iterable = edgeContent::getContainedSetCIterator;
-                areCausesAdded |= iterateCauses(board, localPath, attacked, iterable);
-                if (!areCausesAdded) { // add default integration
-                    final var attackedSysInteg = generateDefaultSystemIntegration(attacked.getContainedElement());
-                    localPath.add(attackedSysInteg);
-                }
+                iterateCauses(modelStorage, edge, localPath, attacked);
             }
         }
 
+        return createAttackPath(modelStorage, criticalEntity, localPath);
+    }
+    
+    private void iterateCauses(BlackboardWrapper modelStorage,
+            final AttackStatusEdge edge, 
+            final List<SystemIntegration> localPath, 
+            final AttackStatusNodeContent node) {
+        final var edgeContent = edge.getContent();
+        Iterable<Set<? extends CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
+        boolean areCausesAdded = iterateCauses(modelStorage, localPath, node, iterable);
+        iterable = edgeContent::getContainedSetCIterator;
+        areCausesAdded |= iterateCauses(modelStorage, localPath, node, iterable);
+        if (!areCausesAdded) { // add default integration
+            final var sysInteg = generateDefaultSystemIntegration(node.getContainedElement());
+            localPath.add(sysInteg);
+        }
+    }
+
+    private boolean iterateCauses(final BlackboardWrapper modelStorage, 
+            final List<SystemIntegration> localPath, 
+            final AttackStatusNodeContent attacked,
+            final Iterable<Set<? extends CredentialsVulnearbilitiesSurface>> iterable) {
+        boolean ret = false;
+        for (final var set : iterable) {
+            for (final var cause : set) {
+                final var causeId = cause.getCause();
+                final var sysInteg = findCorrectSystemIntegration(modelStorage, attacked.getContainedElement(),
+                        causeId);
+                localPath.add(sysInteg);
+                ret = true;
+            }
+        }
+        return ret;
+    }
+    
+    private AttackPath createAttackPath(BlackboardWrapper modelStorage, final Entity criticalEntity, 
+            final List<SystemIntegration> localPath) {
         final var ret = AttackerFactory.eINSTANCE.createAttackPath();
         if (localPath.size() == 1) { // adding attack start, if not there
             final var startElement = localPath.get(0).getPcmelement();
@@ -259,41 +279,24 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
             localPath.add(0, startOfAttack);
         }
         ret.getPath().addAll(localPath);
-        ret.setCriticalElement(findCorrectSystemIntegration(board, criticalEntity, null).getPcmelement());
+        ret.setCriticalElement(findCorrectSystemIntegration(modelStorage, criticalEntity, null).getPcmelement());
 
-        ret.getCredentialsInitiallyNecessary().addAll(getCredentialsInitiallyNecessary(board));
-        ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(board));
-        return ret;
-    }
-
-    private boolean iterateCauses(final BlackboardWrapper board, 
-            final List<SystemIntegration> localPath, 
-            final AttackStatusNodeContent attacked,
-            final Iterable<Set<CredentialsVulnearbilitiesSurface>> iterable) {
-        boolean ret = false;
-        for (final var set : iterable) {
-            for (final var cause : set) {
-                final var causeId = cause.getCause();
-                final var sysInteg = findCorrectSystemIntegration(board, attacked.getContainedElement(),
-                        causeId);
-                localPath.add(sysInteg);
-                ret = true;
-            }
-        }
+        ret.getCredentialsInitiallyNecessary().addAll(getCredentialsInitiallyNecessary(modelStorage));
+        ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(modelStorage));
         return ret;
     }
 
     /**
      * 
-     * @param board - the model storage
+     * @param modelStorage - the model storage
      * @return the used vulnerabilities on this path
      */
-    public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper board) {
+    public Set<Vulnerability> getUsedVulnerabilites(final BlackboardWrapper modelStorage) {
         final Set<String> vulnerabilityCauseIds = stream().map(e -> e.getContent().getVulnerabilityCauseIds())
                 .flatMap(Set::stream)
                 .map(Identifier::getId).collect(Collectors.toSet());
 
-        return board.getVulnerabilitySpecification().getVulnerabilities().stream()
+        return modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
                 .filter(s -> s.getIdOfContent() != null)
                 .filter(s -> vulnerabilityCauseIds.contains(s.getIdOfContent().getId()))
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
@@ -301,8 +304,8 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
                 .collect(Collectors.toSet());
     }
     
-    private Collection<UsageSpecification> getCredentialsInitiallyNecessary(final BlackboardWrapper board) {
-        return board.getSpecification().getUsagespecification()
+    private Collection<UsageSpecification> getCredentialsInitiallyNecessary(final BlackboardWrapper modelStorage) {
+        return modelStorage.getSpecification().getUsagespecification()
                 .stream()
                 .filter(u -> this.initiallyNecessaryCredentials.contains(new CredentialSurface(u)))
                 .collect(Collectors.toSet());
@@ -315,7 +318,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     public AttackPathSurface fillCredentialsInitiallyNecessary() {
         for (final var edge : this) {
             for (final var node : edge) {
-                node.copyAllNecessaryCausesToSet(this.initiallyNecessaryCredentials);
+                this.initiallyNecessaryCredentials.addAll(node.getAllNecessaryCauses());
             }
         }
         return this;
@@ -325,13 +328,13 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return PCMElementType.typeOf(entity).getElementEqualityPredicate(entity);
     }
 
-    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board, final Entity entity,
+    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper modelStorage, final Entity entity,
             Identifier cause) {
-        final var container = board.getVulnerabilitySpecification().getVulnerabilities();
+        final var container = modelStorage.getVulnerabilitySpecification().getVulnerabilities();
         if (container.stream().anyMatch(getElementIdEqualityPredicate(entity))) {
             final var sysIntegrations = container.stream().filter(getElementIdEqualityPredicate(entity))
                     .collect(Collectors.toList());
-            final var sysIntegration = findCorrectSystemIntegration(board, sysIntegrations, cause);
+            final var sysIntegration = findCorrectSystemIntegration(sysIntegrations, cause);
             if (sysIntegration != null) {
                 return sysIntegration;
             }
@@ -348,12 +351,12 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return sysIntegration;
     }
 
-    private SystemIntegration findCorrectSystemIntegration(final BlackboardWrapper board,
-            final List<SystemIntegration> sysIntegrations, final Identifier cause) {
+    private SystemIntegration findCorrectSystemIntegration(final List<SystemIntegration> sysIntegrations, 
+            final Identifier cause) {
         if (!sysIntegrations.isEmpty() && cause != null) {
             final SystemIntegration systemIntegrationById = 
                     findSystemIntegrationById(sysIntegrations, cause);
-            // TODO non-global communication
+            // TODO later non-global communication
             if (systemIntegrationById != null) {
                 return systemIntegrationById;
             }
@@ -402,8 +405,8 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
         return credentialsNotUsed.isEmpty();
     }
 
-    public boolean isValid(final BlackboardWrapper board, final Entity criticalEntity) {
-        final var attackPath = toAttackPath(board, criticalEntity, false);
+    public boolean isValid(final BlackboardWrapper modelStorage, final Entity criticalEntity) {
+        final var attackPath = toAttackPath(modelStorage, criticalEntity, false);
         return (!attackPath.getCredentialsInitiallyNecessary().isEmpty()
                 || doesUseVulnerabilityBeforeCredential(attackPath));
     }

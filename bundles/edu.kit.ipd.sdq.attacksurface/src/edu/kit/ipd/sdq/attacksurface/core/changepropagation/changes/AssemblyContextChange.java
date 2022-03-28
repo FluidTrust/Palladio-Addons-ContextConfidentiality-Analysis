@@ -31,9 +31,9 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @version 1.0
  */
 public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
-    protected AssemblyContextChange(final BlackboardWrapper v, final CredentialChange change,
+    protected AssemblyContextChange(final BlackboardWrapper modelStorage, final CredentialChange change,
             final AttackGraph attackGraph) {
-        super(v, change, attackGraph);
+        super(modelStorage, change, attackGraph);
     }
 
     protected List<AssemblyContext> getCompromisedAssemblyContexts() {
@@ -155,7 +155,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         var connectedComponents = getConnectedComponents(selectedComponent);
         final var handler = getAssemblyHandler();
         handler.attackAssemblyContext(Arrays.asList(selectedComponent), this.changes, selectedComponent, false);
-        // TODO this.handleSeff(selectedComponent);
+        // TODO later this.handleSeff(selectedComponent);
 
         handleConnectedComponentsPropagation(selectedNode, selectedComponent, connectedComponents, handler);
     }
@@ -197,7 +197,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                     getAllContainedAssemblies(nodeContent.getContainedElementAsPCMElement().getResourcecontainer()));
             break;
         default:
-            // TODO implement other cases if necessary
+            // TODO later implement other cases
             break;
         }
 
@@ -289,7 +289,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
-        // TODO implement
+        // TODO later implement
     }
 
 }

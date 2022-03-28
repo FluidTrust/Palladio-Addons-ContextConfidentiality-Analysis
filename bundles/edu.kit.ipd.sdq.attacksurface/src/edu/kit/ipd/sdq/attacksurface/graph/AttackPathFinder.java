@@ -12,13 +12,14 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @version 1.0
  */
 public interface AttackPathFinder {
+    
     /**
      * Finds all possible attack paths in the graph. <br />
      * Additionally, paths with initially necessary credentials.
      * 
-     * @param board   - the model storage
+     * @param modelStorage   - the model storage
      * @param changes - the changes
      * @return all possible attack paths
      */
-    List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes);
+    List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper modelStorage, final CredentialChange changes);
 }

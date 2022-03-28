@@ -36,30 +36,38 @@ class DefaultAttackPathFinder implements AttackPathFinder {
         final var dfsIterable = traverser.depthFirstPreOrder(this.graph.getRootNodeContent());
         boolean isChanged  = false;
         for (final var nodeContentToFind : dfsIterable) {
-            final var node = this.graph.findNode(nodeContentToFind);
-            final boolean isNodeAttacked = node.isAttacked();
-            isChanged |= attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
-            if (isNodeAttacked) {
-                final List<AttackStatusNodeContent> children = getChildrenOfNode(node);
-                for (final var child : children) {
-                    final boolean isAttackedByChild = node.isAttackedBy(child);
-                    if (isAttackedByChild || !startOfAttacks.contains(node)) {
-                        final var edgeValue = this.graph.getEdge(node, child);
-                        final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(node, child));
-                        addEdge(allPaths, edge, isAttackedByChild);
-                    }
-                    
-                    final boolean isStartOfAttack = !node.isAttackedBy(child);
-                    if (isStartOfAttack) {
-                        this.startOfAttacks.add(child);
-                    }
-                }
-            }
+            isChanged |= calculatePathsForNode(board, changes, nodeContentToFind, allPaths);
         }
         if (isChanged) {
+            // re-run the attack-path generation if attack with initially required credentials requires this
             allPaths = findAllAttackPaths(board, changes);
         }
         return filterResult(board, allPaths);
+    }
+    
+    private boolean calculatePathsForNode(final BlackboardWrapper board, final CredentialChange changes,
+            final AttackStatusNodeContent nodeContentToFind,
+            final List<AttackPathSurface> allPaths) {
+        final var node = this.graph.findNode(nodeContentToFind);
+        final boolean isNodeAttacked = node.isAttacked();
+        final boolean isChanged = attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
+        if (isNodeAttacked) {
+            final List<AttackStatusNodeContent> children = getChildrenOfNode(node);
+            for (final var child : children) {
+                final boolean isAttackedByChild = node.isAttackedBy(child);
+                if (isAttackedByChild || !startOfAttacks.contains(node)) {
+                    final var edgeValue = this.graph.getEdge(node, child);
+                    final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(node, child));
+                    addEdge(allPaths, edge, isAttackedByChild);
+                }
+                
+                final boolean isStartOfAttack = !node.isAttackedBy(child);
+                if (isStartOfAttack) {
+                    this.startOfAttacks.add(child);
+                }
+            }
+        }
+        return isChanged;
     }
     
     private List<AttackStatusNodeContent> getChildrenOfNode(AttackStatusNodeContent node) {

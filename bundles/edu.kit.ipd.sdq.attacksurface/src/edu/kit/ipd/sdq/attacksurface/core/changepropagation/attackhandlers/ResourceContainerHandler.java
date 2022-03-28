@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -24,7 +23,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 public abstract class ResourceContainerHandler extends AttackHandler {
 
-    public ResourceContainerHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
+    protected ResourceContainerHandler(final BlackboardWrapper modelStorage, final DataHandlerAttacker dataHandler,
             final AttackGraph attackGraph) {
         super(modelStorage, dataHandler, attackGraph);
     }

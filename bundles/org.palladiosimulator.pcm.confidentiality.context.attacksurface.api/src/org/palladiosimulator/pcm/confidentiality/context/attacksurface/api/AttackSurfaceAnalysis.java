@@ -7,5 +7,4 @@ import org.palladiosimulator.pcm.repository.Repository;
 
 public interface AttackSurfaceAnalysis extends ContextAnalysis {
     boolean runAttackSurfaceAnalysis(Repository pcm, ConfidentialAccessSpecification context, Attacker adversary);
-
 }

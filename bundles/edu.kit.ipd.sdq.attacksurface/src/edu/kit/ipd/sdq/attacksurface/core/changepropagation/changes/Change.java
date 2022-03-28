@@ -38,8 +38,8 @@ public abstract class Change<T> {
     private int stackLevel;
     private AttackPathSurface selectedSurfacePath;
 
-    public Change(final BlackboardWrapper board, final CredentialChange change, final AttackGraph attackGraph) {
-        this.modelStorage = board;
+    protected Change(final BlackboardWrapper modelStorage, final CredentialChange change, final AttackGraph attackGraph) {
+        this.modelStorage = modelStorage;
         this.changes = change;
         this.attackGraph = attackGraph;
         this.stackLevel = 0;
@@ -132,9 +132,9 @@ public abstract class Change<T> {
             ret = selectedContainer;
             break;
         default:
-            // TODO implement all possible cases
+            // TODO later implement all possible cases
 
-            ret = null; // TODO
+            ret = null; // TODO later
             break;
         }
         return ret;

@@ -23,10 +23,10 @@ import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
  * @version 1.0
  */
 public class SimpleCredentialQuerying implements CredentialQuerying {
-    private final BlackboardWrapper board;
+    private final BlackboardWrapper modelStorage;
     
-    public SimpleCredentialQuerying(final BlackboardWrapper board) {
-        this.board = board;
+    public SimpleCredentialQuerying(final BlackboardWrapper modelStorage) {
+        this.modelStorage = modelStorage;
     }
     
     @Override
@@ -53,7 +53,7 @@ public class SimpleCredentialQuerying implements CredentialQuerying {
     }
 
     private List<? extends UsageSpecification> getCredentialIntegrations(Entity target) {
-        return this.board
+        return this.modelStorage
                     .getVulnerabilitySpecification()
                     .getVulnerabilities()
                     .stream()
@@ -66,6 +66,6 @@ public class SimpleCredentialQuerying implements CredentialQuerying {
 
     @Override
     public BlackboardWrapper getModelStorage() {
-        return this.board;
+        return this.modelStorage;
     }
 }

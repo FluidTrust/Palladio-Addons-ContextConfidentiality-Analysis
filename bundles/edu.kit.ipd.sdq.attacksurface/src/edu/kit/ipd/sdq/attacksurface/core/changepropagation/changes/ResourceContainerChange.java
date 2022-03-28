@@ -27,8 +27,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
         implements ResourceContainerPropagation {
-    public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change, final AttackGraph attackGraph) {
-        super(v, change, attackGraph);
+    protected ResourceContainerChange(final BlackboardWrapper modelStorage, CredentialChange change, final AttackGraph attackGraph) {
+        super(modelStorage, change, attackGraph);
     }
 
     protected List<ResourceContainer> getInfectedResourceContainers() {
@@ -134,7 +134,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
     @Override
     public void calculateResourceContainerToLinkingResourcePropagation() {
-        //TODO implement
+        //TODO later implement
     }
 
 }
