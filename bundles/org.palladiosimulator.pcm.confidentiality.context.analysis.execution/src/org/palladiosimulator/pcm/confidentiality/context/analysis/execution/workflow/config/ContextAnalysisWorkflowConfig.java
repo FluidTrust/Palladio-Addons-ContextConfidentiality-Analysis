@@ -3,9 +3,11 @@
  */
 package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config;
 
+import org.eclipse.debug.core.ILaunch;
 import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.AttackerAnalysisWorkflow;
 
+import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
 
 /**
@@ -64,5 +66,6 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
         // TODO Auto-generated method stub
 
     }
-
+    
+    public abstract IJob createWorkflowJob(final ILaunch launch);
 }

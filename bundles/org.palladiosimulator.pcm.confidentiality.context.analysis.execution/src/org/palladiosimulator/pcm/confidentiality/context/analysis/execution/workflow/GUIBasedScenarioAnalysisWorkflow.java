@@ -1,7 +1,7 @@
-package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.delegate;
+package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow;
 
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.ScenarioAnalysisWorkflow;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job.OutputScenarioJob;
 
 public class GUIBasedScenarioAnalysisWorkflow extends ScenarioAnalysisWorkflow {
     public GUIBasedScenarioAnalysisWorkflow(final ScenarioAnalysisWorkflowConfig config) {

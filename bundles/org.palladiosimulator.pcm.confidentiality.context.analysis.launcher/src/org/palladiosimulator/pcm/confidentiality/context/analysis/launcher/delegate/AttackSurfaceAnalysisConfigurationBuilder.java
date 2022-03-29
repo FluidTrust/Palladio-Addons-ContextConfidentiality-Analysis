@@ -2,7 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.SurfaceAttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.launchconfig.AbstractWorkflowBasedRunConfiguration;
@@ -24,14 +24,13 @@ public class AttackSurfaceAnalysisConfigurationBuilder extends ContextAnalysisCo
     @Override
     public void fillConfiguration(final AbstractWorkflowBasedRunConfiguration configuration) throws CoreException {
         super.fillConfiguration(configuration);
-        if (!configuration.getClass().equals(AttackerAnalysisWorkflowConfig.class)) {
+        if (!configuration.getClass().equals(SurfaceAttackerAnalysisWorkflowConfig.class)) {
             throw new IllegalArgumentException("configuration is from type " + configuration.getClass() + ", but "
-                    + AttackerAnalysisWorkflowConfig.class + " expected");
+                    + SurfaceAttackerAnalysisWorkflowConfig.class + " expected");
         }
-        final var config = (AttackerAnalysisWorkflowConfig) configuration;
+        final var config = (SurfaceAttackerAnalysisWorkflowConfig) configuration;
         config.setModificationModel(this.getURI(Constants.MODIFIACTION_MODEL_LABEL));
         config.setAttackModel(this.getURI(Constants.ATTACKER_MODEL_LABEL));
-        config.setSurface(true);
     }
 
 }

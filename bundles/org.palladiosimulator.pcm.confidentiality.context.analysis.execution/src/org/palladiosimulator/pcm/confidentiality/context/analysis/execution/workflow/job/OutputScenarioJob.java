@@ -1,4 +1,4 @@
-package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.delegate;
+package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.job;
 
 import static org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants.PARTITION_ID_OUTPUT;
 

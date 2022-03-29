@@ -2,12 +2,11 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.execution.wor
 
 import org.eclipse.emf.common.util.URI;
 
-public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfig {
+public abstract class AbstractAttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfig {
     private URI dataModel;
     private URI attackModel;
     private URI modificationModel;
     
-    private boolean isSurface;
     private boolean generateGraph;
 
     public URI getDataModel() {
@@ -32,14 +31,6 @@ public class AttackerAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
 
     public void setModificationModel(final URI adversaryModel) {
         this.modificationModel = adversaryModel;
-    }
-
-    public boolean isSurface() {
-        return isSurface;
-	}
-
-    public void setSurface(final boolean isSurface) {
-        this.isSurface = isSurface;
     }
 	
     public void setGenerateGraph(boolean generateGraph) {
