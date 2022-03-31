@@ -22,17 +22,17 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
  * @version 1.0
  */
 public enum PCMElementType {
+    ASSEMBLY_CONTEXT(AssemblyContext.class),
+    
     RESOURCE_CONTAINER(ResourceContainer.class),
     
     LINKING_RESOURCE(LinkingResource.class),
     
-    COMPOSITE_COMPONENT(CompositeComponent.class),
+    METHOD_SPECIFICATION(MethodSpecification.class),
     
     BASIC_COMPONENT(RepositoryComponent.class),
     
-    ASSEMBLY_CONTEXT(AssemblyContext.class),
-    
-    METHOD_SPECIFICATION(MethodSpecification.class)
+    COMPOSITE_COMPONENT(CompositeComponent.class)
     ;
     
     private final Class<? extends Entity> clazz;

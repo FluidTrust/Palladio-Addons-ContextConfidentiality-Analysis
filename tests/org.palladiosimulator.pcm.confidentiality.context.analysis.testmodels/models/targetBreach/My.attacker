@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
-    <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker" attacks="_QQUWsDb2EeynPbsdxI5kRA _EpyogDfzEey5OtKYIVrxdg _MXEvMDfxEey5OtKYIVrxdg">
+    <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker">
       <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
     </attacker>
     <surfaceattacker id="_Jo0j8aODEeyPgbGXj7rW7A" criticalElement="_j5rooKODEeyPgbGXj7rW7A" attacker="_-XvFQAo3EeyKMtWTxnyP1g"/>
@@ -25,11 +25,7 @@
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4Kuy0AprEeyKMtWTxnyP1g" vulnerability="_owpDMApGEeyKMtWTxnyP1g">
       <pcmelement id="_6PgG8AprEeyKMtWTxnyP1g">
-        <methodspecification xsi:type="structure:ServiceRestriction" id="_Dl5dETb3Eey63pKqNC__Dg" entityName="BillingMethod">
-          <signature xsi:type="repository:OperationSignature" href="target.repository#_YGBd0Ao3EeyKMtWTxnyP1g"/>
-          <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
-          <service href="target.repository#_-xba0Ao7EeyKMtWTxnyP1g"/>
-        </methodspecification>
+        <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
       </pcmelement>
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_xm0G0DfyEey5OtKYIVrxdg" vulnerability="__G2OAAo3EeyKMtWTxnyP1g">

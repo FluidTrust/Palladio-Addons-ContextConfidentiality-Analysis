@@ -1,10 +1,558 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
   <changePropagationSteps>
-    <compromisedresource id="_iUN1MK9AEeyTw_4Z6gU7Nw">
+    <compromisedresource id="_jqU6YbAuEeyr3L7-Rg5M7g">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
     </compromisedresource>
     <datamodelcontainer/>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js0Nu7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_CallCenterApplication">
+        <pcmelement id="_js0NurAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js00wLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js00wbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js00wrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js00w7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js00xLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js00xbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js00x7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js00xrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js00ybAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js00yLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js1b0LAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js1b07AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_CallCenterApplication">
+        <pcmelement id="_js1b0rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js2C4LAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js2C4bAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js2C4rAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js2C47AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js2C5bAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js2C5LAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js2C57AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js2C5rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js2C6LAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js2C67AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ExternalVPNBridge">
+        <pcmelement id="_js2C6rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js2p8LAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js2p8bAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js3RALAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js3RAbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js3RArAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js3RA7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js3RBbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js3RBLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js3RB7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js3RBrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js3RCLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js3RC7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ExternalVPNBridge">
+        <pcmelement id="_js3RCrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js34ELAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js34EbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js34ErAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js34E7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js34FbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js34FLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js34F7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js34FrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js4fILAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js4fI7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for AssemblyWithoutRights">
+        <pcmelement id="_js4fIrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js4fJLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js4fJbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js5GMLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js5GMbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js5GMrAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js5GM7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5GNbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js5GNLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5GN7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js5GNrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js5GOLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5GO7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for AssemblyWithoutRights">
+        <pcmelement id="_js5GOrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js5tQLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js5tQbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js5tQrAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js5tQ7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5tRbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js5tRLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5tR7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js5tRrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js5tSLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5tS7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for VPNBridge">
+        <pcmelement id="_js5tSrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js5tTbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ICS-VPN-Bridge">
+        <pcmelement id="_js5tTLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js6UULAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js6UUbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js6UUrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js6UU7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js6UVLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js6UVbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js6UV7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js6UVrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js6UWbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js6UWLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js6UWrAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js6UXbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for VPNBridge">
+        <pcmelement id="_js6UXLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js6UX7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ICS-VPN-Bridge">
+        <pcmelement id="_js6UXrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js67YLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js67YbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js67YrAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js67Y7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js67ZbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js67ZLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js67Z7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js67ZrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js67aLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js67a7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DomainControler">
+        <pcmelement id="_js67arAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js7icLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js7icbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js7icrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js7ic7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js7idLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js7idbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js7id7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js7idrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js7iebAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js7ieLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js7ierAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8JgbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DomainControler">
+        <pcmelement id="_js8JgLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js8JgrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js8Jg7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js8JhLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js8JhbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8Jh7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js8JhrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8JibAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js8JiLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js8JirAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8JjbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_StorageApplication">
+        <pcmelement id="_js8JjLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js8wkLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js8wkbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js8wkrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js8wk7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js8wlLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js8wlbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8wl7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js8wlrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js8wmbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js8wmLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js9XoLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js9Xo7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_StorageApplication">
+        <pcmelement id="_js9XorAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js9XpLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js9XpbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js9XprAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js9Xp7AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js9XqbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js9XqLAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js9Xq7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js9XqrAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js9-sLAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js9-srAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js9-s7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js9-tLAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js9-tbAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js-lwLAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js-lwbAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js-lw7AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js-lwrAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js-lxbAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js-lxLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js-lxrAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js-lybAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ICS-VPN-Bridge">
+        <pcmelement id="_js-lyLAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js-lyrAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js-ly7AuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js_M0LAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js_M0bAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js_M0rAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js_M07AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js_M1bAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js_M1LAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js_M17AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js_M1rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_js_z4LAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js_z47AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for ICS-VPN-Bridge">
+        <pcmelement id="_js_z4rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_js_z5LAuEeyr3L7-Rg5M7g" entityName="copy of aName">
+        <pcmelement id="_js_z5bAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_js_z5rAuEeyr3L7-Rg5M7g" entityName="copy of ics vpn bridgre vpn gateway">
+        <pcmelement id="_js_z57AuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+        </pcmelement>
+        <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js_z6bAuEeyr3L7-Rg5M7g" entityName="generated default sys integration for DMSClientApplication">
+        <pcmelement id="_js_z6LAuEeyr3L7-Rg5M7g">
+          <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_js_z67AuEeyr3L7-Rg5M7g" entityName="generated default sys integration for Assembly_DMSClientApplication">
+        <pcmelement id="_js_z6rAuEeyr3L7-Rg5M7g">
+          <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jtAa8LAuEeyr3L7-Rg5M7g">
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
+    </attackpaths>
   </changePropagationSteps>
   <seedModifications>
     <attackcomponent id="_Fb090JClEeylB6lra_dOCg">

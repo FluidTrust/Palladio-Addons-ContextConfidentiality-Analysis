@@ -407,8 +407,36 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     public boolean isValid(final BlackboardWrapper modelStorage, final Entity criticalEntity) {
         final var attackPath = toAttackPath(modelStorage, criticalEntity, false);
-        return (!attackPath.getCredentialsInitiallyNecessary().isEmpty()
+        return isCredentialsOrVulnerabilityUsedOnResourceContainers() && 
+                (!attackPath.getCredentialsInitiallyNecessary().isEmpty()
                 || doesUseVulnerabilityBeforeCredential(attackPath));
+    }
+
+    private boolean isCredentialsOrVulnerabilityUsedOnResourceContainers() {
+        for (int i = 0; i < size() - 1; i++) {
+            final var edge = this.get(i);
+            final var nextEdge = this.get(i + 1);
+            if (!isCredentialsOrVulnerabilityUsedOnResourceContainer(edge, nextEdge)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean isCredentialsOrVulnerabilityUsedOnResourceContainer(
+            final AttackStatusEdge edge, final AttackStatusEdge nextEdge) {
+        final boolean isResContainer = edge.getNodes().target().getTypeOfContainedElement()
+            .equals(PCMElementType.RESOURCE_CONTAINER);
+        final boolean isCauseless = edge.getContent().getCauses().isEmpty();
+        final boolean isNextResContainerEquals = nextEdge.getNodes().target()
+                .equals(edge.getNodes().target());
+        final boolean isNextCauseless = nextEdge.getContent().getCauses().isEmpty();
+        if (isResContainer && isCauseless) {
+            if (!isNextResContainerEquals || isNextCauseless) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static boolean doesUseVulnerabilityBeforeCredential(final AttackPath path) {

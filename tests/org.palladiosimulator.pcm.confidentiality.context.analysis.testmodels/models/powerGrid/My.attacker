@@ -11,21 +11,25 @@
     <attack xsi:type="attack:CVEAttack" id="_UwN_AC8rEeylPOrRpUZy4w" entityName="BlackEnergy 3" category="//@categoryspecification/@categories.0"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1" entityName="WordCompromiseICSBackend" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1" id="cveWithId_CVE-2014-1761" entityName="WordCompromiseICSBackend" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
+      <gainedAttributes href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
+      <gainedAttributes href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      <gainedAttributes href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+    </vulnerability>
   </vulnerabilites>
   <categoryspecification>
     <categories xsi:type="attack:CVEID" entityName="Microsoft Word 2003 SP3, 2007 SP3, 2010 SP1 and SP2, 2013, and 2013 RT; Word Viewer; Office Compatibility Pack SP3; Office for Mac 2011; Word Automation Services on SharePoint Server 2010 SP1 and SP2 and 2013; Office Web Apps 2010 SP1 and SP2; and Office Web Apps Server 2013 allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption) via crafted RTF data, as exploited in the wild in March 2014. " cveID="CVE-2014-1761"/>
     <categories xsi:type="attack:CWEID" entityName="Improper Restriction of Operations within the Bounds of a Memory Buffer" cweID="119"/>
   </categoryspecification>
   <systemintegration>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_Dwup8C8pEeylPOrRpUZy4w" vulnerability="//@vulnerabilites/@vulnerability.0">
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_Dwup8C8pEeylPOrRpUZy4w" vulnerability="cveWithId_CVE-2014-1761">
       <pcmelement id="_E1ZL8C8pEeylPOrRpUZy4w">
         <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
       </pcmelement>
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_a_0bw6wlEeyFpqEXJR-5MA">
       <pcmelement id="_blIIQKwlEeyFpqEXJR-5MA">
-        <resourcecontainer href="powerGrid.resourceenvironment#_DnLlQCwcEeylP6vhO63XvA"/>
+        <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
       </pcmelement>
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_D6fZxK6oEeyvC52u2Hlp6Q" entityName="backoffice admin w01">
@@ -40,7 +44,7 @@
       </pcmelement>
       <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_O5JftK6oEeyvC52u2Hlp6Q" entityName="backoffice admin callcenter+">
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_O5JftK6oEeyvC52u2Hlp6Q" entityName="backoffice admin callcenter">
       <pcmelement id="_Ts_pMK6oEeyvC52u2Hlp6Q">
         <resourcecontainer href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
       </pcmelement>
@@ -58,15 +62,15 @@
       </pcmelement>
       <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_qWHyNK6oEeyvC52u2Hlp6Q" entityName="ics user bridge">
-      <pcmelement id="_uatpAK6oEeyvC52u2Hlp6Q">
-        <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_xkwjJK6oEeyvC52u2Hlp6Q" entityName="ics user">
+      <pcmelement id="_2NPxMK6oEeyvC52u2Hlp6Q" entityName="ics user pcm">
+        <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
       </pcmelement>
       <credential href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_xkwjJK6oEeyvC52u2Hlp6Q" entityName="ics vpngateway bridge">
-      <pcmelement id="_2NPxMK6oEeyvC52u2Hlp6Q">
-        <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_c9Ls9LAuEeyr3L7-Rg5M7g" entityName="ics vpn bridgre vpn gateway">
+      <pcmelement id="_gQl-cLAuEeyr3L7-Rg5M7g">
+        <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
       </pcmelement>
       <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
     </vulnerabilities>

@@ -133,9 +133,9 @@ public abstract class AbstractModelTest extends BaseTest {
 
     @Override
     protected void generateXML() {
-        var generator = new XACMLGenerator();
+        /*var generator = new XACMLGenerator();
         var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
-        generator.generateXACML(blackboard, this.context, this.pathXACML);
+        generator.generateXACML(blackboard, this.context, this.pathXACML);*///TODO later
     }
 
     protected UsageSpecification createContext(final String name) {
