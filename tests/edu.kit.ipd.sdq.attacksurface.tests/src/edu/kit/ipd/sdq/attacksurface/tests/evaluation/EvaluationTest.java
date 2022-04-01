@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import de.uka.ipd.sdq.identifier.Identifier;
@@ -31,7 +32,8 @@ public abstract class EvaluationTest extends AbstractChangeTests {
                 .filter(e -> e.getEntityName().contains(searchStr)).findFirst().orElse(null);
     }
     
-    protected void pathsTestHelper(final CredentialChange changes) {
+    protected void pathsTestHelper(final CredentialChange changes, final boolean isContainerOfRootCompromised,
+            final boolean isSamePathAmountRequired) {
         final var attacked = getAttackGraph().getAttackedNodes();
         final var compromised = getAttackGraph().getCompromisedNodes();
         System.out.println("attacked: " + attacked);
@@ -47,10 +49,12 @@ public abstract class EvaluationTest extends AbstractChangeTests {
         System.out.println("children of root: " + this.getAttackGraph().getChildrenOfNode(this.getAttackGraph().getRootNodeContent()));
         
         Assert.assertTrue(this.getAttackGraph().getRootNodeContent().isCompromised());
-        Assert.assertTrue(this.getAttackGraph().findNode(
+        if (isContainerOfRootCompromised) {
+            Assert.assertTrue(this.getAttackGraph().findNode(
                 new AttackStatusNodeContent(
                         this.getResource(this.getAttackGraph().getRootNodeContent()
                                 .getContainedElementAsPCMElement().getAssemblycontext()))).isCompromised());
+        }
 
         final var surfacePaths = getAttackGraph().findAllAttackPaths(getBlackboardWrapper(), changes);
         System.out.println("\n\nAll attack paths (surface):\n");
@@ -60,13 +64,20 @@ public abstract class EvaluationTest extends AbstractChangeTests {
         System.out.println("\n\nAll attack paths:\n");
         printPaths(paths);
         System.out.println(surfacePaths.size());
-        Assert.assertEquals(surfacePaths.size(), paths.size());
+        if (isSamePathAmountRequired) {
+            Assert.assertEquals(surfacePaths.size(), paths.size());
+        }
     }
     
     protected String toString(final List<AttackPath> paths) {
-        final StringJoiner joiner = new StringJoiner("\n");
+        return toString(paths, "");
+    }
+    
+    protected String toString(final List<AttackPath> paths, final String pathContainsFilter) {
+        final StringJoiner mainJoiner = new StringJoiner("\n");
         paths.forEach(p -> {
-            joiner.add("PATH");
+            final StringJoiner joiner = new StringJoiner("\n");
+            joiner.add(p.getPath().size() + " PATH");
             if (!p.getCredentialsInitiallyNecessary().isEmpty()) {
                 p.getCredentialsInitiallyNecessary().stream().sorted(this::compareIds).forEach(c -> {
                     final var credId = c.getId();
@@ -78,13 +89,16 @@ public abstract class EvaluationTest extends AbstractChangeTests {
                 final var entity = PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement());
                 joiner.add(id + " | " + entity.getEntityName());
             });
-            p.getVulnerabilitesUsed().forEach(v -> {
-                final var vulnId = v.getId();
-                joiner.add("VULNs used: " + vulnId);
+            p.getVulnerabilitesUsed().stream().sorted(this::compareIds).forEach(v -> {
+                joiner.add("VULNs used: " + v.getId());
             });
             joiner.add("\n");
+            final var joinerStr = joiner.toString();
+            if (joinerStr.contains(pathContainsFilter)) { 
+                mainJoiner.add(joinerStr);
+            }
         });
-        return joiner.toString();
+        return mainJoiner.toString();
     }
     
     private int compareIds(Identifier o1, Identifier o2) {
@@ -93,5 +107,13 @@ public abstract class EvaluationTest extends AbstractChangeTests {
     
     protected void printPaths(final List<AttackPath> paths) {
         System.out.println(toString(paths));
+    }
+    
+    protected void setPathLengthFilter(final int maxLength) {
+        this.getSurfaceAttacker().getFiltercriteria()
+            .stream()
+            .filter(MaximumPathLengthFilterCriterion.class::isInstance)
+            .map(MaximumPathLengthFilterCriterion.class::cast)
+            .forEach(f -> f.setMaximumPathLength(maxLength));
     }
 }

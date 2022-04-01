@@ -24,6 +24,12 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.conte
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
+/**
+ * The default implementation of {@link AttackPathFinder}.
+ * 
+ * @author ugnwq
+ * @version 0.9
+ */
 class DefaultAttackPathFinder implements AttackPathFinder {
     private final AttackGraph graph;
     private final Set<AttackStatusNodeContent> startOfAttacks;

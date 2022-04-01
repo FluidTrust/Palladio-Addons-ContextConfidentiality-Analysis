@@ -27,7 +27,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
     @Test
     public void cloudInfrastructureBaseTest() {
         final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes);
+        pathsTestHelper(changes, true, true);
     }
     
     @Test
@@ -37,7 +37,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
         printPaths(pathsDirectlyAfterAnalysis);
         Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
         
-        pathsTestHelper(changes);
+        pathsTestHelper(changes, true, true);
     }
     
     @Test

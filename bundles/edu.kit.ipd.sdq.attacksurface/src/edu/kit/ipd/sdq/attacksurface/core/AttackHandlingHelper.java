@@ -38,7 +38,7 @@ public final class AttackHandlingHelper {
             final boolean isEarly) {
         final var surfaceAttacker = getSurfaceAttacker(modelStorage);
         final var filterCriteria = surfaceAttacker.getFiltercriteria();
-        final var systemIntegration = path.getPath().get(path.getPath().size() - 1);
+        final var systemIntegration = path.getPath().get(0);
         for (final var filterCriterion : filterCriteria) {
             if ( (!isEarly || filterCriterion.isFilteringEarly())
                     && filterCriterion.isElementFiltered(systemIntegration, surfaceAttacker, path)) {

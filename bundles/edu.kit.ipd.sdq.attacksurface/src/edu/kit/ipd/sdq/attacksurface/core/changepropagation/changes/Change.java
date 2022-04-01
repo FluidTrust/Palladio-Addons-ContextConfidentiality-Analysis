@@ -87,7 +87,7 @@ public abstract class Change<T> {
         this.attackGraph.setSelectedNode(selectedNodeContent);
     }
 
-    private void addChildNodeToPath(AttackStatusNodeContent childNode) {
+    private void addChildNodeToPath(final AttackStatusNodeContent childNode) {
         final var criticalNode = this.attackGraph.getRootNodeContent();
         final AttackStatusEdge edge;
         final int size = this.selectedSurfacePath.size();
@@ -95,7 +95,7 @@ public abstract class Change<T> {
             edge = new AttackStatusEdge(new AttackStatusEdgeContent(), EndpointPair.ordered(childNode, criticalNode));
         } else {
             edge = new AttackStatusEdge(new AttackStatusEdgeContent(),
-                    EndpointPair.ordered(childNode, this.selectedSurfacePath.get(size - 1).getNodes().source()));
+                    EndpointPair.ordered(childNode, this.selectedSurfacePath.get(0).getNodes().source()));
         }
         this.selectedSurfacePath.addFirst(edge);
     }
@@ -106,6 +106,7 @@ public abstract class Change<T> {
 
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
+        
         return AttackHandlingHelper.isFiltered(this.modelStorage,
                 this.selectedSurfacePath.toAttackPath(modelStorage, criticalElement, true), true);
     }

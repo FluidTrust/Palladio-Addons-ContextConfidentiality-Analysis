@@ -25,7 +25,7 @@ public class PowerGridTest extends EvaluationTest {
     @Test
     public void powerGridBaseTest() {
         final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes);
+        pathsTestHelper(changes, true, true);
     }
     
     @Test
@@ -35,7 +35,7 @@ public class PowerGridTest extends EvaluationTest {
         printPaths(pathsDirectlyAfterAnalysis);
         Assert.assertEquals(13, pathsDirectlyAfterAnalysis.size());
         
-        pathsTestHelper(changes);
+        pathsTestHelper(changes, true, true);
     }
     
     private void testHelperA (final String critical, final String container) {
@@ -43,6 +43,7 @@ public class PowerGridTest extends EvaluationTest {
         final var changes = runAnalysis();
         final var paths = changes.getAttackpaths();
         final var pathsString = toString(paths);
+        System.out.println(pathsString);
         Assert.assertTrue(pathsString.contains("PATH\n"
                 + "- | Workstation02\n"
                 + "- | AssemblyWithVPNRights\n"
