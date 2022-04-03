@@ -14,4 +14,8 @@
     <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
     <assemblyContext_AllocationContext href="default.system#_2pBlYMN-EeWst9mTsticNA"/>
   </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_HwD2YLM4EeyQ67qz7PIV5Q" entityName="Allocation_CreditCardCenter &lt;CreditCardCenter>">
+    <resourceContainer_AllocationContext href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+    <assemblyContext_AllocationContext href="default.system#_XOyEsMOBEeWst9mTsticNA"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>

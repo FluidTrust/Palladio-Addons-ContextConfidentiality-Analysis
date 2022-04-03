@@ -109,6 +109,7 @@ public abstract class Change<T> {
         
         return AttackHandlingHelper.isFiltered(this.modelStorage,
                 this.selectedSurfacePath.toAttackPath(modelStorage, criticalElement, true), true);
+        // vulnerabilities are filtered in the AttackHandler
     }
 
     /**

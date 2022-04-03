@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_NyjngLM8EeyQ67qz7PIV5Q">
+    <usagespecification id="_aOs_IbM8EeyQ67qz7PIV5Q" entityName="root" attributevalue="_R6OAcLM8EeyQ67qz7PIV5Q" attribute="_QSzWsrM8EeyQ67qz7PIV5Q"/>
+    <usagespecification id="_b-e6sbM8EeyQ67qz7PIV5Q" entityName="user" attributevalue="_UeIusLM8EeyQ67qz7PIV5Q" attribute="_QSzWsrM8EeyQ67qz7PIV5Q"/>
+  </pcmspecificationcontainer>
+  <policyset id="_O2eiobM8EeyQ67qz7PIV5Q"/>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_QSzWsrM8EeyQ67qz7PIV5Q" entityName="Role">
+      <attributevalue id="_R6OAcLM8EeyQ67qz7PIV5Q" entityName="rootRole">
+        <values>root</values>
+      </attributevalue>
+      <attributevalue id="_UeIusLM8EeyQ67qz7PIV5Q" entityName="userRole">
+        <values>user</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

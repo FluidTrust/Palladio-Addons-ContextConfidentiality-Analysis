@@ -206,7 +206,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
      * @param doCreateCauselessPaths - whether a path should be created without causes (for temporary paths)
      * @return an {@link AttackPath} representing this attack path
      */
-    public AttackPath toAttackPath(BlackboardWrapper modelStorage, final Entity criticalEntity,
+    public AttackPath toAttackPath(BlackboardWrapper modelStorage, final Entity criticalEntity, 
             final boolean doCreateCauselessPaths) {
         final List<SystemIntegration> localPath = new ArrayList<>();
 

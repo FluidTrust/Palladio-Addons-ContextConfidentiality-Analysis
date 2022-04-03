@@ -1,5 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.core;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,10 +39,13 @@ public final class AttackHandlingHelper {
             final boolean isEarly) {
         final var surfaceAttacker = getSurfaceAttacker(modelStorage);
         final var filterCriteria = surfaceAttacker.getFiltercriteria();
-        final var systemIntegration = path.getPath().get(0);
+        final var systemIntegrations = path.getPath();
         for (final var filterCriterion : filterCriteria) {
             if ( (!isEarly || filterCriterion.isFilteringEarly())
-                    && filterCriterion.isElementFiltered(systemIntegration, surfaceAttacker, path)) {
+                    && systemIntegrations
+                        .stream()
+                        .anyMatch(s ->
+                            filterCriterion.isElementFiltered(s, surfaceAttacker, path))) {
                 return true;
             }
         }
@@ -70,9 +74,11 @@ public final class AttackHandlingHelper {
      * @return all attacks
      */
     public static List<Attack> getAttacks(final BlackboardWrapper modelStorage) {
-        final var listAttackers = modelStorage.getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent();
-        return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
+        final var listAttackers = Arrays.asList(getSurfaceAttacker(modelStorage))
+                .stream()
+                .map(SurfaceAttacker::getAttacker)
+                .collect(Collectors.toList());
+        return listAttackers.stream().flatMap(a -> a.getAttacks().stream())
                 .collect(Collectors.toList());
     }
 

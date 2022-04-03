@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CompromisedElementHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.VulnerabilityFilterCriterion;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
@@ -208,6 +209,7 @@ public abstract class AttackHandler implements CredentialQuerying {
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
         Optional<PDPResult> result;
+        
         var authenticatedNeeded = vulnerabilityList.stream().anyMatch(
                 e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
         if (authenticatedNeeded) {
@@ -216,7 +218,25 @@ public abstract class AttackHandler implements CredentialQuerying {
             result = Optional.empty();
         }
 
-        return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
+        final var filteredList = vulnerabilityList.stream()
+                .filter(this::checkIfVulnerabilityIsNotFiltered)
+                .collect(Collectors.toList());
+        return this.checkVulnerability(change, attacks, filteredList, attackVector, result);
+    }
+    
+    private boolean checkIfVulnerabilityIsNotFiltered(final Vulnerability vulnerability) {
+        final var vulnerabilityFilters = AttackHandlingHelper.getSurfaceAttacker(modelStorage)
+                .getFiltercriteria()
+                .stream()
+                .filter(VulnerabilityFilterCriterion.class::isInstance)
+                .map(VulnerabilityFilterCriterion.class::cast)
+                .collect(Collectors.toList());
+        for (final var filter : vulnerabilityFilters) {
+            if (!filter.isVulnerabilityInRange(vulnerability)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

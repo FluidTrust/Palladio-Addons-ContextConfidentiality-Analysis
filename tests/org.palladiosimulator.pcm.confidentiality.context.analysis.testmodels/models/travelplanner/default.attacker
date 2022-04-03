@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_Y0jAMLM6EeyQ67qz7PIV5Q" entityName="testAttacker"/>
+    <surfaceattacker id="_a8Q6obM6EeyQ67qz7PIV5Q" criticalElement="_ZiM68LM7EeyQ67qz7PIV5Q" attacker="_Y0jAMLM6EeyQ67qz7PIV5Q">
+      <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion" entityName="maxPathLengthFilter"/>
+      <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion" entityName="initialCredentialFilter"/>
+      <filtercriteria xsi:type="attacker:ExploitabilityVulnerabilityFilterCriterion" entityName="exploitabilityFilter"/>
+      <filtercriteria xsi:type="attacker:ImpactVulnerabilityFilterCriterion" entityName="impactFilter"/>
+    </surfaceattacker>
+  </attackers>
+  <attacks/>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_CiKb4LM9EeyQ67qz7PIV5Q" entityName="weakPassword" attackVector="AdjacentNetwork" confidentialityImpact="High" integrityImpact="High" availabilityImpact="Low" takeOver="true" cweID="//@categoryspecification/@categories.0">
+      <gainedAttributes href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
+    </vulnerability>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CWEID" entityName="Weak Password Requirements" cweID="521" parents="//@categoryspecification/@categories.1"/>
+    <categories xsi:type="attack:CWEID" entityName="Credentials Management Errors" cweID="255" children="//@categoryspecification/@categories.0"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_ZJFQU7M7EeyQ67qz7PIV5Q" entityName="critical integration">
+      <pcmelement id="_ZiM68LM7EeyQ67qz7PIV5Q">
+        <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_SeGUILM9EeyQ67qz7PIV5Q" entityName="weakPswIntegration" vulnerability="_CiKb4LM9EeyQ67qz7PIV5Q">
+      <pcmelement id="_VnUu4LM9EeyQ67qz7PIV5Q">
+        <assemblycontext href="default.system#_0WeT8MN-EeWst9mTsticNA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_uoGu9LNBEeyF-9FfcuBY2w" entityName="root integration">
+      <pcmelement id="_vJN38LNBEeyF-9FfcuBY2w">
+        <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+      </pcmelement>
+      <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>
