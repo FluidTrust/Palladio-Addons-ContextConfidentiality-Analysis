@@ -53,7 +53,7 @@ public class PCMInstanceHelper {
         AssemblyContext topLevelAssCtx = null;
         OperationProvidedRole topLevelAssCtxProvidedRole = null;
         for (final Connector conn : system.getConnectors__ComposedStructure()) {
-            if (conn instanceof ProvidedDelegationConnector pdc) {
+            if (conn instanceof final ProvidedDelegationConnector pdc) {
 
                 if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
                         .equals(call.getProvidedRole_EntryLevelSystemCall().getId())) {
@@ -122,7 +122,7 @@ public class PCMInstanceHelper {
      */
     public static AssemblyConnector getAssemblyConnectorForExternalCall(final ExternalCallAction call,
             final List<AssemblyContext> encapsulatingContexts) {
-        var contexts = new ArrayList<>(encapsulatingContexts);
+        final var contexts = new ArrayList<>(encapsulatingContexts);
         return getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
                 (OperationInterface) call.getCalledService_ExternalService().eContainer(), contexts);
     }
@@ -213,7 +213,7 @@ public class PCMInstanceHelper {
         // Check for each AssemblyConnector in the list if it fulfills
         // the requirements:
         for (final Connector conn : connList) {
-            if (conn instanceof AssemblyConnector assConn) {
+            if (conn instanceof final AssemblyConnector assConn) {
                 if (assConn.getRequiringAssemblyContext_AssemblyConnector().getId().equals(requiringContext.getId())
                         && assConn.getRequiredRole_AssemblyConnector().getRequiredInterface__OperationRequiredRole()
                                 .getId().equals(requiredInterface.getId())
@@ -253,7 +253,7 @@ public class PCMInstanceHelper {
         // Check for each RequiredDelegationConnector in the list if it fulfills
         // the requirements:
         for (final Connector conn : connList) {
-            if (conn instanceof RequiredDelegationConnector dc) {
+            if (conn instanceof final RequiredDelegationConnector dc) {
                 if (dc.getAssemblyContext_RequiredDelegationConnector().getId().equals(requiringContext.getId())
                         && dc.getInnerRequiredRole_RequiredDelegationConnector()
                                 .getRequiredInterface__OperationRequiredRole().getId().equals(requiredInterface.getId())
@@ -297,13 +297,13 @@ public class PCMInstanceHelper {
             // there are no more nested AssemblyContexts to add:
             return existingContexts;
 
-        } else if (rc instanceof ComposedStructure cs) {
+        } else if (rc instanceof final ComposedStructure cs) {
 
             // Case 2: We have a composed structure. Hence, a
             // ProvidedDelegationConnector will lead us to a
             // nested AssemblyContext:
             for (final Connector conn : cs.getConnectors__ComposedStructure()) {
-                if (conn instanceof ProvidedDelegationConnector pdc) {
+                if (conn instanceof final ProvidedDelegationConnector pdc) {
                     if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
                             .equals(topLevelProvidedRole.getId())) {
 

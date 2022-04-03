@@ -28,7 +28,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
     @Override
     public void storeNegativeResult(final UsageScenario scenario, final OperationInterface operationInterface,
             final Signature signature, final Identifier connector, final PDPResult policies,
-            List<AssemblyContext> assembly) {
+            final List<AssemblyContext> assembly) {
 
         // checking if positve result exists
 
@@ -39,15 +39,15 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
 
         // checking for null values
         Objects.requireNonNull(scenario);
-        //        Objects.requireNonNull(operationInterface);
+        // Objects.requireNonNull(operationInterface);
         Objects.requireNonNull(signature);
         Objects.requireNonNull(connector);
         Objects.requireNonNull(policies);
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
 
-        //        scenarioResult.setConnector(connector);
-        //        scenarioResult.setOperationsignature(signature);
+        // scenarioResult.setConnector(connector);
+        // scenarioResult.setOperationsignature(signature);
         scenarioResult.setOperationinterface(operationInterface);
         scenarioResult.setScenario(scenario);
         scenarioResult.setDecision(policies.decision());
@@ -55,13 +55,12 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         scenarioResult.setOperationsignature((OperationSignature) signature);
         scenarioResult.getAssemblyContext().addAll(assembly);
 
-
         this.results.getScenariooutput().add(scenarioResult);
 
     }
 
     @Override
-    public void storePositiveResult(final UsageScenario scenario, PDPResult result) {
+    public void storePositiveResult(final UsageScenario scenario, final PDPResult result) {
         Objects.requireNonNull(scenario);
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
@@ -93,7 +92,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         }
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-        //        scenarioResult.setResult(!outputScenario.get(0).isResult());
+        // scenarioResult.setResult(!outputScenario.get(0).isResult());
         scenarioResult.setScenario(scenario);
 
         this.results.getScenariooutput().removeAll(outputScenario);
@@ -102,7 +101,7 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
     }
 
     @Override
-    public void storePositiveResult(UsageScenario scenario) {
+    public void storePositiveResult(final UsageScenario scenario) {
         // TODO Auto-generated method stub
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         scenarioResult.setDecision(DecisionType.PERMIT);

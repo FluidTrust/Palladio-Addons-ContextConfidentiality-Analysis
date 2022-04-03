@@ -17,13 +17,13 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
  */
 public class AttributeProviderHandler {
 
-    private List<PCMAttributeProvider> pcmAttributeProviders;
+    private final List<PCMAttributeProvider> pcmAttributeProviders;
 
     /**
      *
      * @param attributeProviders
      */
-    public AttributeProviderHandler(List <AttributeProvider> attributeProviders) {
+    public AttributeProviderHandler(final List<AttributeProvider> attributeProviders) {
         this.pcmAttributeProviders = attributeProviders.stream().filter(PCMAttributeProvider.class::isInstance)
                 .map(PCMAttributeProvider.class::cast).toList();
     }
@@ -39,27 +39,27 @@ public class AttributeProviderHandler {
      *            the current assemblyContext
      * @return List with {@link UsageSpecification}, empty if no AttributeProviderExists
      */
-    public List<? extends UsageSpecification> getContext(AssemblyConnector conntector,
-            List<AssemblyContext> assemblyContext) {
+    public List<? extends UsageSpecification> getContext(final AssemblyConnector conntector,
+            final List<AssemblyContext> assemblyContext) {
 
         return this.pcmAttributeProviders.stream()
-                .filter(provider -> filterMatching(provider, conntector, assemblyContext))
+                .filter(provider -> this.filterMatching(provider, conntector, assemblyContext))
                 .map(PCMAttributeProvider::getAttribute).toList();
     }
 
-    private boolean filterMatching(PCMAttributeProvider provider, AssemblyConnector connector,
-            List<AssemblyContext> assemblyContext) {
+    private boolean filterMatching(final PCMAttributeProvider provider, final AssemblyConnector connector,
+            final List<AssemblyContext> assemblyContext) {
         if (provider.getMethodspecification() == null) {
             return false;
         }
-        var specification = provider.getMethodspecification();
+        final var specification = provider.getMethodspecification();
 
         return specification.getId().equals(connector.getId())
-                && checkAssemblyList(assemblyContext, specification.getHierachy());
+                && this.checkAssemblyList(assemblyContext, specification.getHierachy());
 
     }
 
-    private boolean checkAssemblyList(List<AssemblyContext> target, List<AssemblyContext> compare) {
+    private boolean checkAssemblyList(final List<AssemblyContext> target, final List<AssemblyContext> compare) {
         if (target.size() != compare.size()) {
             return false;
         }

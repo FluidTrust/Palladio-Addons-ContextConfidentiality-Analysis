@@ -87,7 +87,7 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
     @Override
     public Set<T> caseBranchAction(final BranchAction action) {
         logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
-        final EList<AbstractBranchTransition> abtList = action.getBranches_Branch();
+        final var abtList = action.getBranches_Branch();
         final var list = new HashSet<T>();
         for (final AbstractBranchTransition abt : abtList) {
             list.addAll(this.doSwitch(abt));

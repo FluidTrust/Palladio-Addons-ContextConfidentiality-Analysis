@@ -36,8 +36,8 @@ public class CheckOperation {
     private final Evaluate eval;
 
     public CheckOperation(final PCMBlackBoard pcm, final ConfidentialAccessSpecification accessSpecification,
-            final ScenarioResultStorage storage, final UsageScenario scenario, Configuration configuration,
-            Evaluate eval) {
+            final ScenarioResultStorage storage, final UsageScenario scenario, final Configuration configuration,
+            final Evaluate eval) {
         // non null checks
         Objects.requireNonNull(pcm);
         Objects.requireNonNull(accessSpecification);
@@ -116,35 +116,35 @@ public class CheckOperation {
 //        }
 //    }
 
-    public void performCheck(Signature signature, Deque<AssemblyContext> component, ResourceDemandingSEFF seff,
-            List<? extends UsageSpecification> requestorContext) {
+    public void performCheck(final Signature signature, final Deque<AssemblyContext> component,
+            final ResourceDemandingSEFF seff, final List<? extends UsageSpecification> requestorContext) {
 
-        performCheckEntity(signature, component, seff, requestorContext);
+        this.performCheckEntity(signature, component, seff, requestorContext);
     }
 
-    public void performCheck(Signature signature, Deque<AssemblyContext> component, Connector connector,
-            List<? extends UsageSpecification> requestorContext) {
+    public void performCheck(final Signature signature, final Deque<AssemblyContext> component,
+            final Connector connector, final List<? extends UsageSpecification> requestorContext) {
 
-        performCheckEntity(signature, component, connector, requestorContext);
+        this.performCheckEntity(signature, component, connector, requestorContext);
     }
 
-    public void performCheckEntity(Signature signature, Deque<AssemblyContext> component, Identifier role,
-            List<? extends UsageSpecification> requestorContext) {
-        var listSubject = new ArrayList<UsageSpecification>();
-        var listEnvironment = new ArrayList<UsageSpecification>();
-        var listResource = new ArrayList<UsageSpecification>();
-        var listAction = new ArrayList<UsageSpecification>();
-        var listXML = new ArrayList<UsageSpecification>();
+    public void performCheckEntity(final Signature signature, final Deque<AssemblyContext> component,
+            final Identifier role, final List<? extends UsageSpecification> requestorContext) {
+        final var listSubject = new ArrayList<UsageSpecification>();
+        final var listEnvironment = new ArrayList<UsageSpecification>();
+        final var listResource = new ArrayList<UsageSpecification>();
+        final var listAction = new ArrayList<UsageSpecification>();
+        final var listXML = new ArrayList<UsageSpecification>();
 
         PolicyHelper.createRequestAttributes(signature, component, requestorContext, listSubject, listEnvironment,
                 listResource, listAction, listXML);
 
-        var resultOpt = this.eval.evaluate(listSubject, listEnvironment, listResource, listAction, listXML);
+        final var resultOpt = this.eval.evaluate(listSubject, listEnvironment, listResource, listAction, listXML);
 
         if (resultOpt.isEmpty()) {
             throw new IllegalStateException("Empty PDP-Results");
         }
-        var result = resultOpt.get();
+        final var result = resultOpt.get();
         if (!result.decision().equals(DecisionType.PERMIT)) {
             this.storage.storeNegativeResult(this.scenario, null, signature, role, result, new LinkedList<>(component));
         }

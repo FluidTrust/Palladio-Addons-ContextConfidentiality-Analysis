@@ -20,7 +20,7 @@ public class SystemWalker {
     private final CheckOperation operation;
     private final AttributeProviderHandler attributeHandler;
 
-    public SystemWalker(final CheckOperation operation, AttributeProviderHandler handler) {
+    public SystemWalker(final CheckOperation operation, final AttributeProviderHandler handler) {
         Objects.requireNonNull(operation);
         this.operation = operation;
         this.attributeHandler = handler;
@@ -29,7 +29,7 @@ public class SystemWalker {
 
     public void propagationBySeff(final EntryLevelSystemCall systemCall, final System system,
             final List<? extends UsageSpecification> attributes) {
-        final var assemblyContext = getHandlingAssemblyContext(systemCall, system);
+        final var assemblyContext = this.getHandlingAssemblyContext(systemCall, system);
         final var encapsulatingContexts = new LinkedList<AssemblyContext>();
         encapsulatingContexts.add(assemblyContext);
 
@@ -41,16 +41,17 @@ public class SystemWalker {
     }
 
     private void propagationBySeff(final ServiceEffectSpecification seff,
-            final LinkedList<AssemblyContext> encapsulatingContexts, List<? extends UsageSpecification> attributes) {
+            final LinkedList<AssemblyContext> encapsulatingContexts,
+            final List<? extends UsageSpecification> attributes) {
         final var visitor2 = new SeffAssemblyContext();
         final var externalCallActions = visitor2.doSwitch(seff);
         for (final var externalAction : externalCallActions) {
 
             // replace current attributes if necessary
-            var connector = PCMInstanceHelper.getAssemblyConnectorForExternalCall(externalAction,
+            final var connector = PCMInstanceHelper.getAssemblyConnectorForExternalCall(externalAction,
                     encapsulatingContexts);
-            var tmpAttributes = this.attributeHandler.getContext(connector, encapsulatingContexts);
-            var localAttributes = tmpAttributes.isEmpty() ? attributes : tmpAttributes;
+            final var tmpAttributes = this.attributeHandler.getContext(connector, encapsulatingContexts);
+            final var localAttributes = tmpAttributes.isEmpty() ? attributes : tmpAttributes;
 
             // check whether the called services are possible
             final var handlingAssembly = new LinkedList<>(
@@ -68,7 +69,7 @@ public class SystemWalker {
     private ResourceDemandingSEFF getSEFF(final EntryLevelSystemCall call, final System system) {
         final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        final var ac = getHandlingAssemblyContext(call, system);
+        final var ac = this.getHandlingAssemblyContext(call, system);
         return this.getSEFF(sig, ac);
     }
 

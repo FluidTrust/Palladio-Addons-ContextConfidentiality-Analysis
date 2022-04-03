@@ -25,26 +25,25 @@ import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 @Component
 public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
-
     @Override
     public AnalysisResults runScenarioAnalysis(final PCMBlackBoard pcm, final ConfidentialAccessSpecification context,
-            Configuration configuration) {
+            final Configuration configuration) {
 
-        var eval = configuration.getEvaluate();
+        final var eval = configuration.getEvaluate();
 
         final var usage = pcm.getUsageModel();
         final var result = new ResultEMFModelStorage();
-        var attributeHandler = new AttributeProviderHandler(
+        final var attributeHandler = new AttributeProviderHandler(
                 context.getPcmspecificationcontainer().getAttributeprovider());
 
         for (final var scenario : usage.getUsageScenario_UsageModel()) {
-            final var requestor = getRequestorContexts(context, scenario);
+            final var requestor = this.getRequestorContexts(context, scenario);
 
             final var visitor = new UsageModelVisitorScenarioSystem();
             final var systemCalls = visitor.doSwitch(scenario.getScenarioBehaviour_UsageScenario());
 
             for (final var systemCall : systemCalls) {
-                final var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
+                final var tmpRequestor = this.getRequestorContexts(context, systemCall, requestor);
                 final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration, eval);
                 final var walker = new SystemWalker(checkOperation, attributeHandler);
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
@@ -55,9 +54,9 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                     .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
                 result.storePositiveResult(scenario);
             }
-            //            if (isMisusage(context, scenario)) {
-            //                result.flip(scenario);
-            //            }
+            // if (isMisusage(context, scenario)) {
+            // result.flip(scenario);
+            // }
 
         }
 
@@ -67,20 +66,22 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
     private List<? extends UsageSpecification> getRequestorContexts(final ConfidentialAccessSpecification access,
             final UsageScenario scenario) {
-        return getSpecificationScenario(access, scenario).collect(Collectors.toList());
+        return this.getSpecificationScenario(access, scenario).collect(Collectors.toList());
     }
 
-    //    private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario scenario) {
-    //        final var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
-    //        if (scenarioSpecification.isPresent()) {
-    //            return scenarioSpecification.get().isMissageUse();
-    //        }
-    //        return false;
-    //    }
+    // private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario
+    // scenario) {
+    // final var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
+    // if (scenarioSpecification.isPresent()) {
+    // return scenarioSpecification.get().isMissageUse();
+    // }
+    // return false;
+    // }
 
     private Stream<? extends UsageSpecification> getSpecificationScenario(final ConfidentialAccessSpecification access,
             final EObject scenario) {
-        return createPCMUsageSpecificationStream(access).filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
+        return this.createPCMUsageSpecificationStream(access)
+                .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
     }
 
     private Stream<PCMUsageSpecification> createPCMUsageSpecificationStream(
@@ -91,9 +92,9 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
     }
 
     private List<? extends UsageSpecification> getRequestorContexts(final ConfidentialAccessSpecification access,
-            final EntryLevelSystemCall systemCall, List<? extends UsageSpecification> oldList) {
+            final EntryLevelSystemCall systemCall, final List<? extends UsageSpecification> oldList) {
 
-        var usageList = createPCMUsageSpecificationStream(access)
+        final var usageList = this.createPCMUsageSpecificationStream(access)
                 .filter(e -> EcoreUtil.equals(e.getEntrylevelsystemcall(), systemCall)).collect(Collectors.toList());
         return usageList.isEmpty() ? oldList : usageList;
     }

@@ -28,7 +28,7 @@ public class AbstractUsageModelVisitor<T> extends UsagemodelSwitch<Set<T>> {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.palladiosimulator.pcm.usagemodel.util.UsagemodelSwitch#caseScenarioBehaviour(org.
      * palladiosimulator.pcm.usagemodel.ScenarioBehaviour)
      */
@@ -67,7 +67,7 @@ public class AbstractUsageModelVisitor<T> extends UsagemodelSwitch<Set<T>> {
     @Override
     public Set<T> caseBranch(final Branch object) {
         logger.debug("VisitBranch");
-        final EList<BranchTransition> btList = object.getBranchTransitions_Branch();
+        final var btList = object.getBranchTransitions_Branch();
         for (final BranchTransition bt : btList) {
             this.doSwitch(bt.getBranchedBehaviour_BranchTransition());
         }
@@ -96,7 +96,7 @@ public class AbstractUsageModelVisitor<T> extends UsagemodelSwitch<Set<T>> {
     @Override
     public Set<T> caseLoop(final Loop object) {
         logger.debug("VisitLoop");
-        final Set<T> objects = this.doSwitch(object.getBodyBehaviour_Loop());
+        final var objects = this.doSwitch(object.getBodyBehaviour_Loop());
         objects.addAll(this.doSwitch(object.getSuccessor()));
         return objects;
     }

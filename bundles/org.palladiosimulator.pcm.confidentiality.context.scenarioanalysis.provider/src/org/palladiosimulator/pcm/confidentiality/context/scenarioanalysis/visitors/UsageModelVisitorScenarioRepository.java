@@ -31,12 +31,12 @@ public class UsageModelVisitorScenarioRepository extends AbstractUsageModelVisit
     private ServiceEffectSpecification getNextSEFF(final EntryLevelSystemCall call) {
         final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        final List<AssemblyContext> acList = PCMInstanceHelper.getHandlingAssemblyContexts(call,
+        final var acList = PCMInstanceHelper.getHandlingAssemblyContexts(call,
                 PCMHelpers.getSystem(call));
 
-        final AssemblyContext ac = acList.get(acList.size() - 1);
-        final BasicComponent bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
-        final EList<ServiceEffectSpecification> seffList = bc.getServiceEffectSpecifications__BasicComponent();
+        final var ac = acList.get(acList.size() - 1);
+        final var bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
+        final var seffList = bc.getServiceEffectSpecifications__BasicComponent();
         for (final ServiceEffectSpecification seff : seffList) {
             if (seff.getDescribedService__SEFF().getEntityName().equals(sig.getEntityName())) {
                 return seff;
