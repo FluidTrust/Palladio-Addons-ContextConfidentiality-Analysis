@@ -8,7 +8,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -89,7 +89,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
                                 .map(seff -> {
                                     final var methodspecification = StructureFactory.eINSTANCE
-                                            .createServiceRestriction();
+                                            .createServiceSpecification();
                                     methodspecification
                                     .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
                                     methodspecification.setService((ResourceDemandingSEFF) seff);
@@ -104,7 +104,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         this.handleSeff(this.changes, specification, soureComponent);
     }
 
-    protected abstract void handleSeff(CredentialChange changes, List<ServiceRestriction> services,
+    protected abstract void handleSeff(CredentialChange changes, List<ServiceSpecification> services,
             AssemblyContext source);
 
     @Override

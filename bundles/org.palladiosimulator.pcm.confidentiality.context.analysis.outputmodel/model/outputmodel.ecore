@@ -11,6 +11,8 @@
         eType="#//Result"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="policyIDs" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" upperBound="-1"
+        eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnalysisResults">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenariooutput" upperBound="-1"

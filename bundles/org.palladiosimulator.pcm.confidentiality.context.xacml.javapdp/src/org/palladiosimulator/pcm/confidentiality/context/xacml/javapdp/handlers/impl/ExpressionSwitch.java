@@ -10,7 +10,6 @@ import javax.xml.bind.JAXBException;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Apply;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeDesignator;
 import org.palladiosimulator.pcm.confidentiality.context.policy.AttributeValueReference;
-import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.FunctionReference;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
@@ -52,8 +51,9 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
         var attribute = object.getAttribute();
         designator.setAttributeId(attribute.getId());
 
-        if (attribute instanceof SystemEntityAttribute) {
-            designator.setIssuer(attribute.getId());
+        if (attribute instanceof SystemEntityAttribute systemEntitiyAttribute) {
+
+            designator.setIssuer(systemEntitiyAttribute.getModelEntity().getId());
         }
 
         designator.setMustBePresent(object.isMustBePresent());
@@ -131,7 +131,7 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
 
 
         var selector = PolicyFactory.eINSTANCE.createAttributeDesignator();
-        selector.setCategory(Category.SUBJECT);
+        selector.setCategory(object.getCategory());
         selector.setAttribute(object.getAttribute().getAttribute());
 
 

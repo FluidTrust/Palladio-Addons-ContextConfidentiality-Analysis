@@ -54,9 +54,9 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         var eval = Activator.getInstance().getEvaluate();
 
         Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
-                this.config.getOutputXACML().toFileString());
+                "test.xacml");
 
-        eval.initialize(this.config.getOutputXACML().toFileString());
+        eval.initialize("test.xacml");
         final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification(),
                 new Configuration(false, eval));
         eval.shutdown();

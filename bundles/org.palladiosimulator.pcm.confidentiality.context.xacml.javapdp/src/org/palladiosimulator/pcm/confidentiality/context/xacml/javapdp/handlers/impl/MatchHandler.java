@@ -11,12 +11,12 @@ import javax.xml.bind.JAXBException;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Match;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.GenericMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.HierarchicalContext;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodMatch;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.XMLMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.util.StructureSwitch;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute;
@@ -134,12 +134,12 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 var matchResourceType = factory.createMatchType();
                 EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchResourceType::setMatchId);
 
-                if (match.getMethodspecification() instanceof ConnectionRestriction) {
-                    var restriction = (ConnectionRestriction) match.getMethodspecification();
+                if (match.getMethodspecification() instanceof ConnectionSpecification) {
+                    var restriction = (ConnectionSpecification) match.getMethodspecification();
                     setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE, match);
 
-                } else if (match.getMethodspecification() instanceof ServiceRestriction) {
-                    var restriction = (ServiceRestriction) match.getMethodspecification();
+                } else if (match.getMethodspecification() instanceof ServiceSpecification) {
+                    var restriction = (ServiceSpecification) match.getMethodspecification();
                     createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());

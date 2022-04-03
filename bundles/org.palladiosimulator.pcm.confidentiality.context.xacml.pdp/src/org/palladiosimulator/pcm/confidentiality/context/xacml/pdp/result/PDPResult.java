@@ -8,27 +8,7 @@ import java.util.List;
  * @author majuwa
  *
  */
-public final class PDPResult {
+public record PDPResult(DecisionType decision, List<String> policyIdentifiers) {
 
-    private final DecisionType decision;
-
-    private final List<String> policyIdentifiers;
-
-    public PDPResult(final DecisionType decision, final List<String> policyIdentifiers) {
-        this.decision = decision;
-        this.policyIdentifiers = policyIdentifiers;
-    }
-
-    public DecisionType getDecision() {
-        return this.decision;
-    }
-
-    /**
-     * 
-     * @return list with identifcation strings of policies used for the decision
-     */
-    public List<String> getPolicyIdentifiers() {
-        return this.policyIdentifiers;
-    }
 
 }

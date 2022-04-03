@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -84,7 +84,7 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
         return false;
     }
 
-    protected boolean checkServiceRestriction(ServiceRestriction servicerestriction1) {
+    protected boolean checkServiceRestriction(ServiceSpecification servicerestriction1) {
         fail();
         return false;
     }

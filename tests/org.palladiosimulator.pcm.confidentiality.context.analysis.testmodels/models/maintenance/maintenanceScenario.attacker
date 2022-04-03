@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_k67MYJSfEeyjlrv9ryW3Zw" entityName="LowPrivilegeAttacker" attacks="_seE0wZSfEeyjlrv9ryW3Zw">
+      <compromisedComponents href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+    </attacker>
+    <attacker id="_tbWDYJShEeyjlrv9ryW3Zw" entityName="HighPrivilege" attacks="_seE0wZSfEeyjlrv9ryW3Zw _g8Tv0JShEeyjlrv9ryW3Zw">
+      <compromisedComponents href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+    </attacker>
+  </attackers>
+  <attacks>
+    <attack xsi:type="attack:CVEAttack" id="_seE0wZSfEeyjlrv9ryW3Zw" entityName="Log4Shell" category="//@categoryspecification/@categories.0"/>
+    <attack xsi:type="attack:CWEAttack" id="_g8Tv0JShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" category="//@categoryspecification/@categories.4"/>
+  </attacks>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1 //@categoryspecification/@categories.2 //@categoryspecification/@categories.3" id="hjk98kl909.-i0" entityName="Logging" attackVector="Network" confidentialityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_v3c5cJShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" attackVector="Local" attackComplexity="High" takeOver="true" cweID="//@categoryspecification/@categories.4"/>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" entityName="Log4Shell" cveID="CVE-2021-44228"/>
+    <categories xsi:type="attack:CWEID" entityName="Deserialization of Untrusted Data" cweID="502"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Input Validation" cweID="20"/>
+    <categories xsi:type="attack:CWEID" entityName="Uncontrolled Resource Consumption" cweID="400"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Privilege Management" cweID="269"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4xIsYJSgEeyjlrv9ryW3Zw" vulnerability="hjk98kl909.-i0">
+      <pcmelement id="_6-EeAJSgEeyjlrv9ryW3Zw">
+        <assemblycontext href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:NonGlobalCommunication" id="_C8POcpShEeyjlrv9ryW3Zw">
+      <pcmelement id="_EDzTcJShEeyjlrv9ryW3Zw">
+        <assemblycontext href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_Yoe4cJShEeyjlrv9ryW3Zw" vulnerability="hjk98kl909.-i0">
+      <pcmelement id="_aky0IJShEeyjlrv9ryW3Zw">
+        <assemblycontext href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_dPpQ0JShEeyjlrv9ryW3Zw" vulnerability="hjk98kl909.-i0">
+      <pcmelement id="_dkI6IJShEeyjlrv9ryW3Zw">
+        <assemblycontext href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_uFUNcJShEeyjlrv9ryW3Zw" vulnerability="_v3c5cJShEeyjlrv9ryW3Zw">
+      <pcmelement id="_21MusJShEeyjlrv9ryW3Zw">
+        <resourcecontainer href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

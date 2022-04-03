@@ -15,7 +15,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Datamodel
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.PrimitiveDataType;
@@ -132,8 +132,8 @@ public class GraphCreation implements AttackGraphCreation {
         } else if (entity instanceof UsageSpecification) {
             return getString((UsageSpecification) entity);
         }
-        else if (entity instanceof ServiceRestriction) {
-            return getString((ServiceRestriction) entity);
+        else if (entity instanceof ServiceSpecification) {
+            return getString((ServiceSpecification) entity);
         }
         else if (entity instanceof DatamodelAttacker) {
             return getString((DatamodelAttacker) entity);
@@ -176,7 +176,7 @@ public class GraphCreation implements AttackGraphCreation {
                 entity.getAttributevalue().getValues().stream().collect(Collectors.joining(", ")));
     }
 
-    private String getString(ServiceRestriction entity) {
+    private String getString(ServiceSpecification entity) {
         return getString(entity.getAssemblycontext().getEntityName(), entity.getSignature());
     }
 

@@ -46,7 +46,7 @@
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_pihSYDl1EeyxuvclpmtFmA" vulnerability="_DE78MKg4EeuBy83MqQpiOw">
       <pcmelement id="_p8eqgDl1EeyxuvclpmtFmA">
-        <methodspecification xsi:type="structure:ServiceRestriction" id="_xI_UgTl1EeyxuvclpmtFmA">
+        <methodspecification xsi:type="structure:ServiceSpecification" id="_xI_UgTl1EeyxuvclpmtFmA">
           <signature xsi:type="repository:OperationSignature" href="../../default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
           <assemblycontext href="../../default.system#_0WeT8MN-EeWst9mTsticNA"/>
           <service href="../../default.repository#_brO1YN5fEeeel_96Qa_d5A"/>

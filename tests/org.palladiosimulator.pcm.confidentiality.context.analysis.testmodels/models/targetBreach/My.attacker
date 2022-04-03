@@ -24,7 +24,7 @@
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4Kuy0AprEeyKMtWTxnyP1g" vulnerability="_owpDMApGEeyKMtWTxnyP1g">
       <pcmelement id="_6PgG8AprEeyKMtWTxnyP1g">
-        <methodspecification xsi:type="structure:ServiceRestriction" id="_Dl5dETb3Eey63pKqNC__Dg" entityName="BillingMethod">
+        <methodspecification xsi:type="structure:ServiceSpecification" id="_Dl5dETb3Eey63pKqNC__Dg" entityName="BillingMethod">
           <signature xsi:type="repository:OperationSignature" href="target.repository#_YGBd0Ao3EeyKMtWTxnyP1g"/>
           <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
           <service href="target.repository#_-xba0Ao7EeyKMtWTxnyP1g"/>

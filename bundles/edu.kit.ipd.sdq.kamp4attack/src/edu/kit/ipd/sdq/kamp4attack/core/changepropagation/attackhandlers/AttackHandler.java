@@ -198,9 +198,8 @@ public abstract class AttackHandler {
             final Optional<PDPResult> result) {
         var authenticated = false;
         if (result.isPresent()) {
-            authenticated = DecisionType.PERMIT.equals(result.get().getDecision());
+            authenticated = DecisionType.PERMIT.equals(result.get().decision());
         }
-
         final var roleSpecification = VulnerabilityHelper
                 .getRoles(getModelStorage().getVulnerabilitySpecification());
 

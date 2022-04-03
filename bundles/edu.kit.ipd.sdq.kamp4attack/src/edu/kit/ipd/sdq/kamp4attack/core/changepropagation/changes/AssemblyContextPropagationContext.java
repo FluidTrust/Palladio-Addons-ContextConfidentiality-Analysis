@@ -3,7 +3,7 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -43,7 +43,7 @@ public class AssemblyContextPropagationContext extends AssemblyContextChange {
     }
 
     @Override
-    protected void handleSeff(final CredentialChange changes, final List<ServiceRestriction> services,
+    protected void handleSeff(final CredentialChange changes, final List<ServiceSpecification> services,
             final AssemblyContext source) {
         final var handler = new MethodContext(this.modelStorage, new DataHandlerAttacker(this.changes));
         handler.attackService(services, changes, source);

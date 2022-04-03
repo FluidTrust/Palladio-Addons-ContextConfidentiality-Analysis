@@ -70,12 +70,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedService">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
-      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceRestriction"/>
+      <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceSpecification"/>
     </eGenericSuperTypes>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ServiceRestrictionContainer">
     <eStructuralFeatures xsi:type="ecore:EReference" name="servicerestriction" upperBound="-1"
-        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceRestriction"
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/pcm/structure/ServiceSpecification"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedData">

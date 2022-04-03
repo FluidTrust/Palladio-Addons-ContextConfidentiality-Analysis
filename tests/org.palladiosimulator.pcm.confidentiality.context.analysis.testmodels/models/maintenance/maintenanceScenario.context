@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_IDMZ0JSkEeyvBd3n0aDE-g">
+    <usagespecification id="_nqv00bGMEeyLRdjos_zQbg" entityName="Technican" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <usagespecification id="_yxkYQbGMEeyLRdjos_zQbg" entityName="MachineFailure" attributevalue="_XgmhcLGMEeyLRdjos_zQbg" attribute="_S5hooLGMEeyLRdjos_zQbg"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_7JDnorGMEeyLRdjos_zQbg" attributevalue="_XgmhcLGMEeyLRdjos_zQbg" attribute="_S5hooLGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_i86-UrGNEeyLRdjos_zQbg" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+  </pcmspecificationcontainer>
+  <policyset id="_d7xFEZSjEeyvBd3n0aDE-g" entityName="AccessControl">
+    <policy id="_rJ54wbGLEeyLRdjos_zQbg" entityName="Terminal">
+      <rule id="_7E1EYLGLEeyLRdjos_zQbg" entityName="Technician Access">
+        <condition xsi:type="Apply" id="_DxItMLGMEeyLRdjos_zQbg" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_OhB-Z7GMEeyLRdjos_zQbg" attribute="_nqv00bGMEeyLRdjos_zQbg"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_3mdDl7GMEeyLRdjos_zQbg" category="ENVIRONMENT" attribute="_yxkYQbGMEeyLRdjos_zQbg"/>
+        </condition>
+      </rule>
+      <target>
+        <match xsi:type="structure:MethodMatch" id="_yTzTorGLEeyLRdjos_zQbg">
+          <methodspecification xsi:type="structure:ServiceSpecification" id="_yksPUbGLEeyLRdjos_zQbg">
+            <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_Cj0hsJSREeyOldzBRFqWVw"/>
+            <assemblycontext href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+            <service href="maintenanceScenario.repository#_bHWh4JSREeyOldzBRFqWVw"/>
+          </methodspecification>
+        </match>
+      </target>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SystemEntityAttribute" id="_S5hooLGMEeyLRdjos_zQbg" entityName="Machine">
+      <attributevalue id="_WL1G4LGMEeyLRdjos_zQbg">
+        <values>Running</values>
+      </attributevalue>
+      <attributevalue id="_XgmhcLGMEeyLRdjos_zQbg">
+        <values>Failure</values>
+      </attributevalue>
+      <modelEntity xsi:type="repository:BasicComponent" href="maintenanceScenario.repository#_nYJakJSQEeyOldzBRFqWVw"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_f4Ph0rGMEeyLRdjos_zQbg" entityName="Role">
+      <attributevalue id="_gO5uULGMEeyLRdjos_zQbg">
+        <values>Technican</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

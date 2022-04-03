@@ -9,7 +9,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.Helper
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 
 import com.google.common.base.Objects;
@@ -27,16 +27,16 @@ public class MethodContext extends MethodHandler {
     }
 
     @Override
-    protected Optional<CompromisedAssembly> attackEntity(ServiceRestriction service, CredentialChange change,
+    protected Optional<CompromisedAssembly> attackEntity(ServiceSpecification service, CredentialChange change,
             EObject source) {
         final List<? extends UsageSpecification> credentials = getCredentials(change);
 
-        var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service,
+        var serviceModel = CollectionHelper.findOrCreateServiceSpecification(service,
                 getModelStorage().getVulnerabilitySpecification(), change);
         final var result = this.queryAccessForEntity(serviceModel.getAssemblycontext(), credentials,
                 serviceModel.getSignature());
 
-        if (result.isPresent() && Objects.equal(result.get().getDecision(), DecisionType.PERMIT)) {
+        if (result.isPresent() && Objects.equal(result.get().decision(), DecisionType.PERMIT)) {
             final var sourceList = createSource(source, credentials);
 
             final var compromised = HelperCreationCompromisedElements.createCompromisedService(serviceModel,

@@ -3,7 +3,7 @@ package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;
 import java.util.Collection;
 
 import org.eclipse.emf.ecore.EObject;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -53,7 +53,7 @@ public class HelperCreationCompromisedElements {
         return compromisedResource;
     }
 
-    public static CompromisedService createCompromisedService(final ServiceRestriction service,
+    public static CompromisedService createCompromisedService(final ServiceSpecification service,
             final Collection<? extends EObject> list) {
         final var compromisedService = KAMP4attackModificationmarksFactory.eINSTANCE
                 .createCompromisedService();

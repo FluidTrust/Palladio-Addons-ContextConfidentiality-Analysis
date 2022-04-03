@@ -1,6 +1,9 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation;
 
+import java.util.List;
+
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
@@ -29,7 +32,7 @@ public interface ScenarioResultStorage {
      *             if one argument is null
      */
     void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface, Signature signature,
-            Identifier connector, PDPResult requestor);
+            Identifier connector, PDPResult decision, List<AssemblyContext> assembly);
 
     /**
      *

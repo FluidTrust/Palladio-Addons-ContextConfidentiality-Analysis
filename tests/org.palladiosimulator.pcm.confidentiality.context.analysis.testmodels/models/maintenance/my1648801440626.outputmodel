@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ASCII"?>
+<outputmodel:AnalysisResults xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:outputmodel="http://www.palladiosimulator.org/pcm/confidentiality/scenario/0.1/">
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_HZ11cJSREeyOldzBRFqWVw" decision="DENY"/>
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw" decision="DENY"/>
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_tjyHUJSZEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw" decision="DENY"/>
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_tjyHUJSZEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw" decision="DENY"/>
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_kajfsJSeEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_JZZSYJSREeyOldzBRFqWVw" decision="DENY"/>
+  <scenariooutput scenario="maintenanceScenario.usagemodel#_kajfsJSeEeyjlrv9ryW3Zw" operationsignature="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw" decision="DENY"/>
+</outputmodel:AnalysisResults>

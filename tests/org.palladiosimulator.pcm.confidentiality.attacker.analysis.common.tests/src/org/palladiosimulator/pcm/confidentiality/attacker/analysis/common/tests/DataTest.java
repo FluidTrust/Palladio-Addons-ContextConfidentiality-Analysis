@@ -13,7 +13,7 @@ import org.palladiosimulator.generator.fluent.repository.factory.FluentRepositor
 import org.palladiosimulator.generator.fluent.repository.structure.internals.Primitive;
 import org.palladiosimulator.generator.fluent.system.factory.FluentSystemFactory;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -287,8 +287,8 @@ class DataTest {
 
     }
 
-    private ServiceRestriction createServiceRestrictions(final BasicComponent component, AssemblyContext context) {
-        var serviceRestriction = StructureFactory.eINSTANCE.createServiceRestriction();
+    private ServiceSpecification createServiceRestrictions(final BasicComponent component, AssemblyContext context) {
+        var serviceRestriction = StructureFactory.eINSTANCE.createServiceSpecification();
         serviceRestriction.setAssemblycontext(context);
         var seff = (ResourceDemandingSEFF) component.getServiceEffectSpecifications__BasicComponent().get(0);
         serviceRestriction.setService(seff);
@@ -296,7 +296,7 @@ class DataTest {
         return serviceRestriction;
     }
 
-    private ServiceRestriction createServiceRestrictions(final BasicComponent component) {
+    private ServiceSpecification createServiceRestrictions(final BasicComponent component) {
         return createServiceRestrictions(component,
                 this.systemFactory.newAssemblyContext().withEncapsulatedComponent(component).build());
     }

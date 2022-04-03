@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.AttributeProviderHandler;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -17,40 +18,50 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
 public class SystemWalker {
 
     private final CheckOperation operation;
+    private final AttributeProviderHandler attributeHandler;
 
-    public SystemWalker(final CheckOperation operation) {
+    public SystemWalker(final CheckOperation operation, AttributeProviderHandler handler) {
         Objects.requireNonNull(operation);
         this.operation = operation;
+        this.attributeHandler = handler;
 
     }
 
     public void propagationBySeff(final EntryLevelSystemCall systemCall, final System system,
-            final List<? extends UsageSpecification> context) {
+            final List<? extends UsageSpecification> attributes) {
         final var assemblyContext = getHandlingAssemblyContext(systemCall, system);
         final var encapsulatingContexts = new LinkedList<AssemblyContext>();
         encapsulatingContexts.add(assemblyContext);
 
         final var seff = this.getSEFF(systemCall, system);
 
-        this.operation.performCheck(seff.getDescribedService__SEFF(), encapsulatingContexts, seff, context);
+        this.operation.performCheck(seff.getDescribedService__SEFF(), encapsulatingContexts, seff, attributes);
 
-        this.propagationBySeff(seff, encapsulatingContexts, context);
+        this.propagationBySeff(seff, encapsulatingContexts, attributes);
     }
 
     private void propagationBySeff(final ServiceEffectSpecification seff,
-            final LinkedList<AssemblyContext> encapsulatingContexts, List<? extends UsageSpecification> context) {
+            final LinkedList<AssemblyContext> encapsulatingContexts, List<? extends UsageSpecification> attributes) {
         final var visitor2 = new SeffAssemblyContext();
         final var externalCallActions = visitor2.doSwitch(seff);
         for (final var externalAction : externalCallActions) {
-            final var service = new LinkedList<>(
+
+            // replace current attributes if necessary
+            var connector = PCMInstanceHelper.getAssemblyConnectorForExternalCall(externalAction,
+                    encapsulatingContexts);
+            var tmpAttributes = this.attributeHandler.getContext(connector, encapsulatingContexts);
+            var localAttributes = tmpAttributes.isEmpty() ? attributes : tmpAttributes;
+
+            // check whether the called services are possible
+            final var handlingAssembly = new LinkedList<>(
                     PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts));
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
-                    service.get(service.size() - 1));
-            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), service, nextSeff, context);
-            //            if (contextOpt.isPresent()) {
-            //                context = contextOpt.get();
-            //            }
-            this.propagationBySeff(nextSeff, service, context);
+                    handlingAssembly.get(handlingAssembly.size() - 1));
+            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), handlingAssembly, nextSeff,
+                    localAttributes);
+
+            // recursively check services
+            this.propagationBySeff(nextSeff, handlingAssembly, localAttributes);
         }
     }
 

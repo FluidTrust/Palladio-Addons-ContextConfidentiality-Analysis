@@ -2,6 +2,7 @@ package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visit
 
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -144,8 +145,8 @@ public class CheckOperation {
             throw new IllegalStateException("Empty PDP-Results");
         }
         var result = resultOpt.get();
-        if (!result.getDecision().equals(DecisionType.PERMIT)) {
-            this.storage.storeNegativeResult(this.scenario, null, signature, role, result);
+        if (!result.decision().equals(DecisionType.PERMIT)) {
+            this.storage.storeNegativeResult(this.scenario, null, signature, role, result, new LinkedList<>(component));
         }
     }
 

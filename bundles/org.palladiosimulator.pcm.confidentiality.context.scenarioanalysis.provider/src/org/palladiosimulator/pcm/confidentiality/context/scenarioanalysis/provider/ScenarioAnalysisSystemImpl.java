@@ -12,6 +12,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.An
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
+import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.AttributeProviderHandler;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ResultEMFModelStorage;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.CheckOperation;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors.SystemWalker;
@@ -33,6 +34,8 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
         final var usage = pcm.getUsageModel();
         final var result = new ResultEMFModelStorage();
+        var attributeHandler = new AttributeProviderHandler(
+                context.getPcmspecificationcontainer().getAttributeprovider());
 
         for (final var scenario : usage.getUsageScenario_UsageModel()) {
             final var requestor = getRequestorContexts(context, scenario);
@@ -43,7 +46,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
             for (final var systemCall : systemCalls) {
                 final var tmpRequestor = getRequestorContexts(context, systemCall, requestor);
                 final var checkOperation = new CheckOperation(pcm, context, result, scenario, configuration, eval);
-                final var walker = new SystemWalker(checkOperation);
+                final var walker = new SystemWalker(checkOperation, attributeHandler);
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
 

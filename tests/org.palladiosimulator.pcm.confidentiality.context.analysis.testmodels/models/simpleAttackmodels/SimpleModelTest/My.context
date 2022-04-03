@@ -27,7 +27,7 @@
         <condition xsi:type="SimpleAttributeCondition" id="_TpWKRwzAEeyG_Kid0W_Zow" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
         <target>
           <match xsi:type="structure:MethodMatch" id="_j7n5gu4BEeuUMoY75qRdSg" entityName="AccessDB">
-            <methodspecification xsi:type="structure:ServiceRestriction" id="_o9kwce4BEeuUMoY75qRdSg">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_o9kwce4BEeuUMoY75qRdSg">
               <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_J5tNwO2-Eeq6pfPMAIqEqg"/>
               <assemblycontext href="newAssembly.system#_nhYdQO2-Eeq6pfPMAIqEqg"/>
               <service href="newRepository.repository#_OE1xcO2-Eeq6pfPMAIqEqg"/>

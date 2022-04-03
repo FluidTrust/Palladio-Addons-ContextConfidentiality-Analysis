@@ -1,5 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -8,6 +9,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.An
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
+import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
@@ -25,7 +27,8 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
 
     @Override
     public void storeNegativeResult(final UsageScenario scenario, final OperationInterface operationInterface,
-            final Signature signature, final Identifier connector, final PDPResult policies) {
+            final Signature signature, final Identifier connector, final PDPResult policies,
+            List<AssemblyContext> assembly) {
 
         // checking if positve result exists
 
@@ -47,9 +50,11 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         //        scenarioResult.setOperationsignature(signature);
         scenarioResult.setOperationinterface(operationInterface);
         scenarioResult.setScenario(scenario);
-        scenarioResult.setDecision(policies.getDecision());
-        scenarioResult.getPolicyIDs().addAll(policies.getPolicyIdentifiers());
+        scenarioResult.setDecision(policies.decision());
+        scenarioResult.getPolicyIDs().addAll(policies.policyIdentifiers());
         scenarioResult.setOperationsignature((OperationSignature) signature);
+        scenarioResult.getAssemblyContext().addAll(assembly);
+
 
         this.results.getScenariooutput().add(scenarioResult);
 
@@ -60,8 +65,8 @@ public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenari
         Objects.requireNonNull(scenario);
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-        scenarioResult.setDecision(result.getDecision());
-        scenarioResult.getPolicyIDs().addAll(result.getPolicyIdentifiers());
+        scenarioResult.setDecision(result.decision());
+        scenarioResult.getPolicyIDs().addAll(result.policyIdentifiers());
         scenarioResult.setScenario(scenario);
 
         this.results.getScenariooutput().add(scenarioResult);

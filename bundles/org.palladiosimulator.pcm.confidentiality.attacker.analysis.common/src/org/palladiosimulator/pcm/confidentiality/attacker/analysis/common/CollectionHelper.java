@@ -12,7 +12,7 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
@@ -38,20 +38,20 @@ public class CollectionHelper {
 
     }
 
-    public static List<ServiceRestriction> getProvidedRestrictions(final List<AssemblyContext> components) {
+    public static List<ServiceSpecification> getProvidedRestrictions(final List<AssemblyContext> components) {
 
         return components.stream().flatMap(component -> CollectionHelper.getProvidedRestrictions(component).stream())
                 .collect(Collectors.toList());
     }
 
-    public static List<ServiceRestriction> getProvidedRestrictions(AssemblyContext component) {
-        var listRestriction = new ArrayList<ServiceRestriction>();
+    public static List<ServiceSpecification> getProvidedRestrictions(AssemblyContext component) {
+        var listRestriction = new ArrayList<ServiceSpecification>();
 
         var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
         if (repoComponent instanceof BasicComponent) {
             for (var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
                 if (seff instanceof ResourceDemandingSEFF) {
-                    var specification = StructureFactory.eINSTANCE.createServiceRestriction();
+                    var specification = StructureFactory.eINSTANCE.createServiceSpecification();
                     specification.setAssemblycontext(component);
                     specification.setService((ResourceDemandingSEFF) seff);
                     specification.setSignature(seff.getDescribedService__SEFF());
@@ -70,14 +70,14 @@ public class CollectionHelper {
 
     }
 
-    public static ServiceRestriction findOrCreateServiceRestriction(ServiceRestriction service,
+    public static ServiceSpecification findOrCreateServiceSpecification(ServiceSpecification service,
             AttackerSystemSpecificationContainer attackerSpecification, CredentialChange change) {
         var listMethodSpecification = attackerSpecification.getVulnerabilities().stream()
                 .filter(VulnerabilitySystemIntegration.class::isInstance)
                 .map(VulnerabilitySystemIntegration.class::cast)
                 .filter(e -> e.getPcmelement().getMethodspecification() != null)
                 .map(VulnerabilitySystemIntegration::getPcmelement).map(PCMElement::getMethodspecification)
-                .filter(ServiceRestriction.class::isInstance).map(ServiceRestriction.class::cast)
+                .filter(ServiceSpecification.class::isInstance).map(ServiceSpecification.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
                         && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
                 .findAny();
@@ -115,7 +115,7 @@ public class CollectionHelper {
             causingElement.add(component.getAffectedElement());
 
             var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {
-                var serviceModel = CollectionHelper.findOrCreateServiceRestriction(service, container, change);
+                var serviceModel = CollectionHelper.findOrCreateServiceSpecification(service, container, change);
                 return HelperCreationCompromisedElements.createCompromisedService(serviceModel, causingElement);
             }).collect(Collectors.toList());
 

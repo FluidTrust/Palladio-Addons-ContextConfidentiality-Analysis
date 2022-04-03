@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.ComposedStructure;
@@ -15,7 +14,6 @@ import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationProvidedRole;
 import org.palladiosimulator.pcm.repository.OperationRequiredRole;
-import org.palladiosimulator.pcm.repository.RepositoryComponent;
 import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
@@ -31,16 +29,16 @@ import org.palladiosimulator.pcm.usagemodel.EntryLevelSystemCall;
  * TODO: continue the outsourcing to separate context-independent tasks from the ContextWrapper
  * class!
  *
- * @author brosch
+ * @author brosch, majuwa
  *
  */
 public class PCMInstanceHelper {
 
     /**
      * Retrieves the list of nested handling AssemblyContexts for the given EntryLevelSystemCall.
-     * 
+     *
      * A handling AssemblyContext is one that includes the executing behavior triggered by the call.
-     * 
+     *
      * @param call
      *            the EntryLevelSystemCall
      * @param system
@@ -55,8 +53,8 @@ public class PCMInstanceHelper {
         AssemblyContext topLevelAssCtx = null;
         OperationProvidedRole topLevelAssCtxProvidedRole = null;
         for (final Connector conn : system.getConnectors__ComposedStructure()) {
-            if (conn instanceof ProvidedDelegationConnector) {
-                final ProvidedDelegationConnector pdc = (ProvidedDelegationConnector) conn;
+            if (conn instanceof ProvidedDelegationConnector pdc) {
+
                 if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
                         .equals(call.getProvidedRole_EntryLevelSystemCall().getId())) {
                     topLevelAssCtx = pdc.getAssemblyContext_ProvidedDelegationConnector();
@@ -77,11 +75,11 @@ public class PCMInstanceHelper {
 
     /**
      * Searches for the providing AssemblyContexts that handle the given ExternalCallAction.
-     * 
+     *
      * If the ExternalCallAction is a system external call, the method returns an empty list. If the
      * providing side is a nested structure of AssemblyContexts, all providing AssemblyContexts are
      * returned in a list, with the actual handling context as the last element.
-     * 
+     *
      * @param call
      *            the ExternallCallAction
      * @param encapsulatingContexts
@@ -93,17 +91,16 @@ public class PCMInstanceHelper {
             final List<AssemblyContext> encapsulatingContexts) {
 
         // Copy the received list of contexts:
-        final List<AssemblyContext> contexts = new ArrayList<AssemblyContext>();
-        contexts.addAll(encapsulatingContexts);
+        final List<AssemblyContext> contexts = new ArrayList<>(encapsulatingContexts);
 
         // Search for an AssemblyConnector between the calling
         // AssemblyContext and the handling AssemblyContext:
-        final AssemblyConnector connector = getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
+        final var connector = getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
                 (OperationInterface) call.getCalledService_ExternalService().eContainer(), contexts);
         if (connector == null) {
             // If no AssemblyConnector is found, the call is a system external
             // call and has no handling AssemblyContext:
-            return new ArrayList<AssemblyContext>();
+            return new ArrayList<>();
         }
 
         // Retrieve the set of handling assembly contexts from:
@@ -112,16 +109,35 @@ public class PCMInstanceHelper {
     }
 
     /**
+     * Searches for an AssemblyConnector that connects the current {@link AssemblyContext} via its
+     * given {@link ExternalCallAction}.
+     *
+     * The current AssemblyContext is the last element in the AssemblyContext list
+     *
+     * @param call
+     *            the {@link ExternalCallAction}
+     * @param encapsulatingContexts
+     *            the current {@link AssemblyContext}
+     * @return the AssemblyConnector, or NULL if the ExternalCallAction leads to the system boundary
+     */
+    public static AssemblyConnector getAssemblyConnectorForExternalCall(final ExternalCallAction call,
+            final List<AssemblyContext> encapsulatingContexts) {
+        var contexts = new ArrayList<>(encapsulatingContexts);
+        return getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
+                (OperationInterface) call.getCalledService_ExternalService().eContainer(), contexts);
+    }
+
+    /**
      * Searches for an AssemblyConnector that connects the current AssemblyContext via its given
      * requiredRole to its providing counterpart.
-     * 
+     *
      * The current AssemblyContext is the last element of the given list of nested contexts. The
      * method traverses any RequiredDelegationConnectors that lie between the AssemblyContext and
      * its AssemblyConnector. If the role is connected to the system boundary, the method returns
      * NULL. During the method, the list of nestedContexts is adapted to the current search level.
      * If a connector is found, the resulting list reflects the encapsulating contexts of the
      * connector.
-     * 
+     *
      * @param requiredRole
      *            the RequiredRole to match
      * @param requiredInterfaceId
@@ -133,7 +149,7 @@ public class PCMInstanceHelper {
 
         // Navigate upwards the stack of parent AssemblyContexts
         // (starting from the current AssemblyContext):
-        OperationRequiredRole currentRequiredRole = requiredRole;
+        var currentRequiredRole = requiredRole;
         AssemblyContext currentContext = null;
         while (!nestedContexts.isEmpty()) {
 
@@ -143,8 +159,8 @@ public class PCMInstanceHelper {
 
             // Check if the searched AssemblyConnector is directly
             // connected to the currently examined context:
-            final AssemblyConnector matchingAssConn = getAssemblyConnectorForRequiringAssemblyContext(
-                    currentRequiredRole, requiredInterface, currentContext);
+            final var matchingAssConn = getAssemblyConnectorForRequiringAssemblyContext(currentRequiredRole,
+                    requiredInterface, currentContext);
             if (matchingAssConn != null) {
                 return matchingAssConn;
             }
@@ -154,8 +170,8 @@ public class PCMInstanceHelper {
             // instead and repeat the search for the next higher
             // AssemblyContext and its corresponding
             // OperationRequiredRole:
-            final RequiredDelegationConnector matchingDeleConn = getDelegationConnectorForRequiringAssemblyContext(
-                    currentRequiredRole, requiredInterface, currentContext);
+            final var matchingDeleConn = getDelegationConnectorForRequiringAssemblyContext(currentRequiredRole,
+                    requiredInterface, currentContext);
             if (matchingDeleConn == null) {
                 // Error handling:
                 throw new IllegalArgumentException(
@@ -174,10 +190,10 @@ public class PCMInstanceHelper {
     /**
      * Searches for an AssemblyConnector that connects a given requiringAssemblyContext via its
      * requiredRole to its providing counterpart.
-     * 
+     *
      * Notice that the requiredRole of the requiringAssemblyContext could also be associated to a
      * RequiredDelegationConnector instead of an AssemblyConnector. In this case, NULL is returned.
-     * 
+     *
      * @param requiredRole
      *            the RequiredRole to match
      * @param requiredInterface
@@ -192,14 +208,12 @@ public class PCMInstanceHelper {
 
         // Retrieve the list of connectors within the parent
         // ComposedStructure:
-        final EList<Connector> connList = requiringContext.getParentStructure__AssemblyContext()
-                .getConnectors__ComposedStructure();
+        final var connList = requiringContext.getParentStructure__AssemblyContext().getConnectors__ComposedStructure();
 
         // Check for each AssemblyConnector in the list if it fulfills
         // the requirements:
         for (final Connector conn : connList) {
-            if (conn instanceof AssemblyConnector) {
-                final AssemblyConnector assConn = (AssemblyConnector) conn;
+            if (conn instanceof AssemblyConnector assConn) {
                 if (assConn.getRequiringAssemblyContext_AssemblyConnector().getId().equals(requiringContext.getId())
                         && assConn.getRequiredRole_AssemblyConnector().getRequiredInterface__OperationRequiredRole()
                                 .getId().equals(requiredInterface.getId())
@@ -216,10 +230,10 @@ public class PCMInstanceHelper {
     /**
      * Searches for a RequiredDelegationConnector that connects a given requiring AssemblyContext
      * via its requiredRole to an encapsulating ComposedStructure.
-     * 
+     *
      * Notice that the requiredRole of the requiring AssemblyContext could also be associated to an
      * AssemblyConnector instead of a RequiredDelegationConnector. In this case, NULL is returned.
-     * 
+     *
      * @param requiredRole
      *            the RequiredRole to match
      * @param requiredInterface
@@ -234,14 +248,12 @@ public class PCMInstanceHelper {
 
         // Retrieve the list of connectors within the parent
         // ComposedStructure:
-        final EList<Connector> connList = requiringContext.getParentStructure__AssemblyContext()
-                .getConnectors__ComposedStructure();
+        final var connList = requiringContext.getParentStructure__AssemblyContext().getConnectors__ComposedStructure();
 
         // Check for each RequiredDelegationConnector in the list if it fulfills
         // the requirements:
         for (final Connector conn : connList) {
-            if (conn instanceof RequiredDelegationConnector) {
-                final RequiredDelegationConnector dc = (RequiredDelegationConnector) conn;
+            if (conn instanceof RequiredDelegationConnector dc) {
                 if (dc.getAssemblyContext_RequiredDelegationConnector().getId().equals(requiringContext.getId())
                         && dc.getInnerRequiredRole_RequiredDelegationConnector()
                                 .getRequiredInterface__OperationRequiredRole().getId().equals(requiredInterface.getId())
@@ -258,7 +270,7 @@ public class PCMInstanceHelper {
     /**
      * Extends a given list of AssemblyContexts with a given top-level AssemblyContext and all
      * nested ones, according to a given top-level OperationProvidedRole.
-     * 
+     *
      * @param topLevelContexts
      *            the top-level AssemblyContext
      * @param topLevelProvidedRole
@@ -276,7 +288,7 @@ public class PCMInstanceHelper {
         existingContexts.add(topLevelContexts);
 
         // Retrieve the encapsulated top-level component:
-        final RepositoryComponent rc = topLevelContexts.getEncapsulatedComponent__AssemblyContext();
+        final var rc = topLevelContexts.getEncapsulatedComponent__AssemblyContext();
 
         // Check for the type of the top-level component:
         if (rc instanceof BasicComponent) {
@@ -285,15 +297,13 @@ public class PCMInstanceHelper {
             // there are no more nested AssemblyContexts to add:
             return existingContexts;
 
-        } else if (rc instanceof ComposedStructure) {
+        } else if (rc instanceof ComposedStructure cs) {
 
             // Case 2: We have a composed structure. Hence, a
             // ProvidedDelegationConnector will lead us to a
             // nested AssemblyContext:
-            final ComposedStructure cs = (ComposedStructure) rc;
             for (final Connector conn : cs.getConnectors__ComposedStructure()) {
-                if (conn instanceof ProvidedDelegationConnector) {
-                    final ProvidedDelegationConnector pdc = (ProvidedDelegationConnector) conn;
+                if (conn instanceof ProvidedDelegationConnector pdc) {
                     if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
                             .equals(topLevelProvidedRole.getId())) {
 
@@ -301,9 +311,8 @@ public class PCMInstanceHelper {
                         // delegates from a nested AssemblyContext to the
                         // top-level ProvidedRole. Now, we recursively
                         // continue with the nested AssemblyContext:
-                        final AssemblyContext nestedAssCtx = pdc.getAssemblyContext_ProvidedDelegationConnector();
-                        final OperationProvidedRole nestedProvidedRole = pdc
-                                .getInnerProvidedRole_ProvidedDelegationConnector();
+                        final var nestedAssCtx = pdc.getAssemblyContext_ProvidedDelegationConnector();
+                        final var nestedProvidedRole = pdc.getInnerProvidedRole_ProvidedDelegationConnector();
                         return getHandlingAssemblyContexts(nestedAssCtx, nestedProvidedRole, existingContexts);
                     }
                 }

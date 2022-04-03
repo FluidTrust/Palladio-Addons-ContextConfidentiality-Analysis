@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -99,7 +99,7 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
         return set.contains(specification.getAttributevalue().getId());
     }
 
-    private boolean checkServiceRestriction(ServiceRestriction restriction) {
+    private boolean checkServiceRestriction(ServiceSpecification restriction) {
         var setAssembly = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
                 "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights",
                 "Assembly_DMSClientApplication", "Assembly_DMSServerApplication", "ExternalVPNBridge");

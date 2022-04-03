@@ -14,7 +14,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import edu.kit.ipd.sdq.kamp4attack.core.BlackboardWrapper;
@@ -27,7 +27,7 @@ public abstract class MethodHandler extends AttackHandler {
         super(modelStorage, dataHandler);
     }
 
-    public void attackService(final Collection<ServiceRestriction> services, final CredentialChange change,
+    public void attackService(final Collection<ServiceSpecification> services, final CredentialChange change,
             final EObject source) {
         final var compromisedComponent = services.stream().map(e -> attackEntity(e, change, source))
                 .flatMap(Optional::stream).collect(Collectors.toList());
@@ -54,7 +54,7 @@ public abstract class MethodHandler extends AttackHandler {
         getDataHandler().addData(dataList);
     }
 
-    protected abstract Optional<CompromisedAssembly> attackEntity(ServiceRestriction serviceRestriction,
+    protected abstract Optional<CompromisedAssembly> attackEntity(ServiceSpecification serviceRestriction,
             CredentialChange change, EObject source);
 
     private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
@@ -68,7 +68,7 @@ public abstract class MethodHandler extends AttackHandler {
                 .equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
     }
 
-    protected Vulnerability checkVulnerability(final ServiceRestriction entity, final CredentialChange change,
+    protected Vulnerability checkVulnerability(final ServiceSpecification entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
         final var result = this.queryAccessForEntity(entity.getAssemblycontext(), credentials, entity.getSignature());

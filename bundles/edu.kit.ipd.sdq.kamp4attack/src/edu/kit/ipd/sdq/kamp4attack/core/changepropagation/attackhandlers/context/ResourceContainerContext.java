@@ -30,7 +30,7 @@ public class ResourceContainerContext extends ResourceContainerHandler {
 
         final var result = this.queryAccessForEntity(container, credentials);
 
-        if (result.isPresent() && Objects.equal(result.get().getDecision(), DecisionType.PERMIT)) {
+        if (result.isPresent() && Objects.equal(result.get().decision(), DecisionType.PERMIT)) {
             final var sourceList = this.createSource(source, credentials);
             final var compromised = HelperCreationCompromisedElements.createCompromisedResource(container, sourceList);
             return Optional.of(compromised);

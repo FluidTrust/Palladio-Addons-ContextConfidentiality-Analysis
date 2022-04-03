@@ -11,7 +11,7 @@ import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.Collec
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMInstanceHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.DatamodelAttacker;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceRestriction;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.OperationSignature;
@@ -69,7 +69,7 @@ public class DataHandler {
         return assemblyContexts.stream().flatMap(e -> getData(e).stream()).collect(Collectors.toList());
     }
 
-    public static Collection<DatamodelAttacker> getData(ServiceRestriction serviceRestriction) {
+    public static Collection<DatamodelAttacker> getData(ServiceSpecification serviceRestriction) {
         var dataList = getData(serviceRestriction.getService(), serviceRestriction.getAssemblycontext());
         dataList.stream().forEach(data -> data.setSource(serviceRestriction));
         return dataList;

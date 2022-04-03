@@ -22,6 +22,7 @@
 	<maven.compiler.target>17</maven.compiler.target>
    	<maven.compiler.source>17</maven.compiler.source>
 	<tycho.version>2.7.0</tycho.version>
+	<checkstyle.version>9.3</checkstyle.version>
 	</properties>
 	
 	<modules>
@@ -34,6 +35,31 @@
 	<build>
 		<pluginManagement>
 			<plugins>
+				<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>3.1.2</version>
+							<dependencies>
+								<dependency>
+									<groupId>com.puppycrawl.tools</groupId>
+									<artifactId>checkstyle</artifactId>
+									<version>${checkstyle.version}</version>
+								</dependency>
+							</dependencies>
+							<executions>
+								<execution>
+									<id>palladio-checkstyle</id>
+									<phase>package</phase>
+									<goals>
+										<goal>check</goal>
+									</goals>
+									<configuration>
+										<configLocation>https://raw.githubusercontent.com/PalladioSimulator/Palladio-Build-CodingConventions/master/misc/org.palladiosimulator.codeconventions/palladio-checkstyle-rules-8.29.xml</configLocation>
+										<failOnViolation>false</failOnViolation>
+									</configuration>
+								</execution>
+							</executions>
+						</plugin>
 			        <plugin>
           				<groupId>org.eclipse.xtend</groupId>
 				        <artifactId>xtend-maven-plugin</artifactId>
@@ -53,7 +79,7 @@
             					<javaSourceVersion>11</javaSourceVersion>
           				</configuration>
         			</plugin>
-        								<plugin>
+        			<plugin>
 						<groupId>org.eclipse.tycho.extras</groupId>
 						<artifactId>tycho-eclipserun-plugin</artifactId>
 						<version>${tycho.version}</version>
