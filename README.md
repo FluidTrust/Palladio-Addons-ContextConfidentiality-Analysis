@@ -3,7 +3,7 @@
 ![GitHub license](https://img.shields.io/github/license/FluidTrust/Palladio-Addons-ContextConfidentiality-Analysis)
 ![GitHub top language](https://img.shields.io/github/languages/top/FluidTrust/Palladio-Addons-ContextConfidentiality-Analysis)
 ![GitHub last commit (branch)](https://img.shields.io/github/last-commit/FluidTrust/Palladio-Addons-ContextConfidentiality-Analysis)
-![GitHub Main Branch](https://img.shields.io/github/checks-status/FluidTrust/Palladio-Addons-ContextConfidentiality-Analysis/main)
+![GitHub Main Branch](https://github.com/FluidTrust/Palladio-Addons-ContextConfidentiality-Analysis/actions/workflows/updatesite.yml/badge.svg)
 ## Tabele of Contents
 * [Background](#Background)
 * [Installation](#Installation)
