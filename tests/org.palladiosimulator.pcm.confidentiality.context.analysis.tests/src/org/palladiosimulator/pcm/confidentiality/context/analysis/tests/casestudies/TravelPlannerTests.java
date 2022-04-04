@@ -1,6 +1,6 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +10,6 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.cas
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider.ScenarioAnalysisSystemImpl;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 
 class TravelPlannerTests extends TravelPlannerBaseTest {
 
@@ -34,7 +33,7 @@ class TravelPlannerTests extends TravelPlannerBaseTest {
         final var output = analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
         assertNotNull(output.getScenariooutput());
         for (final var scenario : output.getScenariooutput()) {
-            assertEquals(DecisionType.DENY, scenario.getDecision());
+            assertFalse(scenario.isPassed());
         }
     }
 

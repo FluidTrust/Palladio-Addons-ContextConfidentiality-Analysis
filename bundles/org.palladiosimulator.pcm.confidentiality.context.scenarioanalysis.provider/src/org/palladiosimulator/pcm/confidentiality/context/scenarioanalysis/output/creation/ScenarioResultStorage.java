@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
@@ -25,25 +24,13 @@ public interface ScenarioResultStorage {
      * @param scenario
      * @param operationInterface
      * @param signature
-     * @param connector
+     * @param seff
      * @throws IllegalStateException
      *             in case previously a positive result was stored for the usagescenaio
      * @throws NullPointerException
      *             if one argument is null
      */
-    void storeNegativeResult(UsageScenario scenario, OperationInterface operationInterface, Signature signature,
-            Identifier connector, PDPResult decision, List<AssemblyContext> assembly);
-
-    /**
-     *
-     * @param scenario
-     * @throws IllegalStateException
-     *             if a negative result was stored previously
-     * @throws NullPointerException
-     *             if the argument is null
-     */
-    void storePositiveResult(UsageScenario scenario, PDPResult requestor);
-
-    void storePositiveResult(UsageScenario scenario);
+    void storeResult(UsageScenario scenario, Signature signature,
+            Identifier seff, PDPResult decision, List<AssemblyContext> assembly);
 
 }

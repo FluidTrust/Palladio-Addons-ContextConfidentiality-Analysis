@@ -14,4 +14,5 @@ Require-Bundle: org.palladiosimulator.pcm.confidentiality.context.scenarioanalys
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
 Service-Component: OSGI-INF/org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider.ScenarioAnalysisSystemImpl.xml
 Bundle-ActivationPolicy: lazy
-Export-Package: org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;x-friends:="org.palladiosimulator.pcm.confidentiality.context.analysis.tests"
+Export-Package: org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation,
+ org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider;x-friends:="org.palladiosimulator.pcm.confidentiality.context.analysis.tests"

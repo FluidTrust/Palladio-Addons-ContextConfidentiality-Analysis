@@ -34,4 +34,14 @@
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
   </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_X-sAQLQsEeyHE8TPwgN3cQ" entityName="MisusageMaintenance">
+    <scenarioBehaviour_UsageScenario id="_ctNk4LQsEeyHE8TPwgN3cQ" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_ctOL8LQsEeyHE8TPwgN3cQ" successor="_esQEcLQsEeyHE8TPwgN3cQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_ctOzALQsEeyHE8TPwgN3cQ" predecessor="_esQEcLQsEeyHE8TPwgN3cQ"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_esQEcLQsEeyHE8TPwgN3cQ" entityName="EntryLevelSystemCall1" successor="_ctOzALQsEeyHE8TPwgN3cQ" predecessor="_ctOL8LQsEeyHE8TPwgN3cQ">
+        <providedRole_EntryLevelSystemCall href="maintenanceScenario.system#_Ie5fYJSZEeyjlrv9ryW3Zw"/>
+        <operationSignature__EntryLevelSystemCall href="maintenanceScenario.repository#_Cj0hsJSREeyOldzBRFqWVw"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
 </usagemodel:UsageModel>

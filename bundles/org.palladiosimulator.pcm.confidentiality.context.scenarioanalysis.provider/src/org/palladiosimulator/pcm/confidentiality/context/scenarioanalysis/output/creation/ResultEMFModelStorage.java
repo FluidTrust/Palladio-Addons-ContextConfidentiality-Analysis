@@ -1,113 +1,104 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-import org.palladiosimulator.pcm.repository.OperationInterface;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 
-public class ResultEMFModelStorage implements ScenarioResultStorage, FlipScenario {
+public final class ResultEMFModelStorage implements ScenarioResultStorage {
 
-    private final AnalysisResults results;
+    private final Map<String, ScenarioOutput> resultMap;
 
     public ResultEMFModelStorage() {
-        this.results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        this.resultMap = new HashMap<>();
+    }
+
+    public void addScenario(UsageScenario scenario, boolean misusage) {
+
+        if (this.resultMap.containsKey(scenario.getId())) {
+            throw new IllegalStateException("ScenarioOutput for scenario already exists");
+        }
+        var outputScenario = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        outputScenario.setScenario(scenario);
+        outputScenario.setMisUsage(misusage);
+        this.resultMap.put(scenario.getId(), outputScenario);
+
     }
 
     @Override
-    public void storeNegativeResult(final UsageScenario scenario, final OperationInterface operationInterface,
-            final Signature signature, final Identifier connector, final PDPResult policies,
+    public void storeResult(final UsageScenario scenario,
+            final Signature signature, final Identifier seff, final PDPResult policies,
             final List<AssemblyContext> assembly) {
-
-        // checking if positve result exists
-
-        if (this.results.getScenariooutput().stream().filter(e -> EcoreUtil.equals(e.getScenario(), scenario))
-                .anyMatch(e -> e.getDecision().equals(DecisionType.PERMIT))) {
-            throw new IllegalStateException("Attempting to store a negative result for a positive scenario");
-        }
 
         // checking for null values
         Objects.requireNonNull(scenario);
-        // Objects.requireNonNull(operationInterface);
         Objects.requireNonNull(signature);
-        Objects.requireNonNull(connector);
+        Objects.requireNonNull(seff);
         Objects.requireNonNull(policies);
 
-        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        if (!this.resultMap.containsKey(scenario.getId())) {
+            throw new IllegalStateException("Result storage before scenario initialisation");
+        }
 
-        // scenarioResult.setConnector(connector);
-        // scenarioResult.setOperationsignature(signature);
-        scenarioResult.setOperationinterface(operationInterface);
-        scenarioResult.setScenario(scenario);
+        var output = this.resultMap.get(scenario.getId());
+
+        final var scenarioResult = OutputmodelFactory.eINSTANCE.createOperationOutput();
+
         scenarioResult.setDecision(policies.decision());
         scenarioResult.getPolicyIDs().addAll(policies.policyIdentifiers());
         scenarioResult.setOperationsignature((OperationSignature) signature);
         scenarioResult.getAssemblyContext().addAll(assembly);
 
-        this.results.getScenariooutput().add(scenarioResult);
-
-    }
-
-    @Override
-    public void storePositiveResult(final UsageScenario scenario, final PDPResult result) {
-        Objects.requireNonNull(scenario);
-
-        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-        scenarioResult.setDecision(result.decision());
-        scenarioResult.getPolicyIDs().addAll(result.policyIdentifiers());
-        scenarioResult.setScenario(scenario);
-
-        this.results.getScenariooutput().add(scenarioResult);
+        output.getOperationOutput().add(scenarioResult);
 
     }
 
     /**
-     * Returns a a self-contained copy of the current internally used result model
+     * Returns the current {@link AnalysisResults} model
      *
-     * @return self-contained copy of the AnalysisResults
+     * @return AnalysisResults
      */
     public AnalysisResults getResultModel() {
-        return EcoreUtil.copy(this.results);
+        var results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        finishScenarios();
+        results.getScenariooutput().addAll(this.resultMap.values());
+
+        return results;
     }
 
-    @Override
-    public void flip(final UsageScenario scenario) {
+    /**
+     * Decides for all scenarios whether they are passed or not
+     */
+    private void finishScenarios() {
+        for (var scenario : this.resultMap.values()) {
+            if (!scenario.isMisUsage()) {
+                if (scenario.getOperationOutput().stream().allMatch(e -> e.getDecision().equals(DecisionType.PERMIT))) {
+                    scenario.setPassed(true);
+                } else {
+                    scenario.setPassed(false);
+                }
+            }
+            else {
+                if (scenario.getOperationOutput().stream().anyMatch(e -> e.getDecision().equals(DecisionType.DENY))) {
+                    scenario.setPassed(true);
+                } else {
+                    scenario.setPassed(false);
+                }
+            }
 
-        Objects.requireNonNull(scenario);
-        final var outputScenario = this.results.getScenariooutput().stream()
-                .filter(e -> EcoreUtil.equals(scenario, e.getScenario())).collect(Collectors.toList());
-        if (outputScenario.isEmpty()) {
-            throw new IllegalArgumentException("Usage scenario not found");
         }
-
-        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-        // scenarioResult.setResult(!outputScenario.get(0).isResult());
-        scenarioResult.setScenario(scenario);
-
-        this.results.getScenariooutput().removeAll(outputScenario);
-        this.results.getScenariooutput().add(scenarioResult);
-        throw new IllegalStateException("flip operation not implemented yet " + scenario);
-    }
-
-    @Override
-    public void storePositiveResult(final UsageScenario scenario) {
-        // TODO Auto-generated method stub
-        final var scenarioResult = OutputmodelFactory.eINSTANCE.createScenarioOutput();
-        scenarioResult.setDecision(DecisionType.PERMIT);
-        scenarioResult.setScenario(scenario);
-
-        this.results.getScenariooutput().add(scenarioResult);
     }
 
 }

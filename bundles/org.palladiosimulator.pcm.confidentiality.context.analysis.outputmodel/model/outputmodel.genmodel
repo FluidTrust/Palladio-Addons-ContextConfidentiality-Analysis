@@ -16,16 +16,22 @@
   <genPackages prefix="Outputmodel" basePackage="org.palladiosimulator.pcm.confidentiality.context.analysis"
       disposableProviderFactory="true" ecorePackage="outputmodel.ecore#/">
     <genDataTypes ecoreDataType="outputmodel.ecore#//Result"/>
-    <genClasses ecoreClass="outputmodel.ecore#//ScenarioOutput">
+    <genClasses ecoreClass="outputmodel.ecore#//ScenarioOutput" labelFeature="#//outputmodel/ScenarioOutput/passed">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/scenario"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationsignature"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationinterface"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/connector"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/decision"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/policyIDs"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//ScenarioOutput/operationOutput"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/misUsage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//ScenarioOutput/passed"/>
     </genClasses>
     <genClasses ecoreClass="outputmodel.ecore#//AnalysisResults">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//AnalysisResults/scenariooutput"/>
+    </genClasses>
+    <genClasses ecoreClass="outputmodel.ecore#//OperationOutput">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//OperationOutput/decision"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute outputmodel.ecore#//OperationOutput/policyIDs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//OperationOutput/operationinterface"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//OperationOutput/connector"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//OperationOutput/assemblyContext"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference outputmodel.ecore#//OperationOutput/operationsignature"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -17,7 +17,6 @@ import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecificati
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
@@ -57,7 +56,7 @@ public abstract class BaseTestScenario extends BaseTest {
         assertNotNull(output.getScenariooutput());
 
         for (final var scenario : output.getScenariooutput()) {
-            assertTrue(scenario.getDecision().equals(DecisionType.PERMIT));
+            assertTrue(scenario.isPassed());
         }
     }
 

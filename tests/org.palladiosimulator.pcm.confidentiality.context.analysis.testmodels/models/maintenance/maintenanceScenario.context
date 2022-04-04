@@ -33,6 +33,12 @@
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_cPopIrQNEeyBBMZUdAqcvg" entityName="ProductDeveloperScenario" attributevalue="_7LZzMLQMEeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
       <usagescenario href="maintenanceScenario.usagemodel#_tjyHUJSZEeyjlrv9ryW3Zw"/>
     </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_l9uuArQsEeyHE8TPwgN3cQ" entityName="TechnicianOnly" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
+    </usagespecification>
+    <misusagescenario>
+      <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
+    </misusagescenario>
   </pcmspecificationcontainer>
   <policyset id="_d7xFEZSjEeyvBd3n0aDE-g" entityName="AccessControl">
     <policy id="_rJ54wbGLEeyLRdjos_zQbg" entityName="Terminal">

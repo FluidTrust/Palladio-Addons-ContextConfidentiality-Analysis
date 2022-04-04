@@ -2,9 +2,11 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestu
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.casestudies.MaintenanceBaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
@@ -45,19 +47,23 @@ public class MaintenanceTests extends MaintenanceBaseTest {
         // only the "Save MachineData" should fail
         assertEquals(2,
                 output.getScenariooutput().stream()
-                        .filter(decision -> decision.getDecision().equals(DecisionType.PERMIT)).count());
-        var resultProductStorage = output.getScenariooutput().stream().filter(e -> {
-            var scenario = e.getScenario();
-            if (scenario != null && e.getAssemblyContext().size() == 1 && e.getOperationsignature() != null) {
-                return scenario.getEntityName().equals("Save MachineData")
-                        && "Assembly_MachineComponent".equals(e.getAssemblyContext().get(0).getEntityName())
-                        && "saveLogs".equals(e.getOperationsignature().getEntityName());
-            }
+                        .filter(ScenarioOutput::isPassed).count());
+        var resultSaveMachineDataOpt = output.getScenariooutput().stream().filter(e ->
+        "Save MachineData".equals(e.getScenario().getEntityName())).findFirst();
+        assertTrue(resultSaveMachineDataOpt.isPresent());
+        assertFalse(resultSaveMachineDataOpt.get().isPassed());
 
-            return false;
-        }).findFirst();
-        assertTrue(resultProductStorage.isPresent());
-        assertEquals(DecisionType.DENY, resultProductStorage.get().getDecision());
+        /*
+         * from the "Save MachineData" should only the initial save operation from the machine
+         * should fail
+         */
+        var resultSaveMachineData = resultSaveMachineDataOpt.get();
+        assertEquals(2, resultSaveMachineData.getOperationOutput().size());
+        var machineSaveOpt = resultSaveMachineData.getOperationOutput().stream()
+                .filter(e -> e.getAssemblyContext().get(0).getEntityName().equals("Assembly_MachineComponent"))
+                .filter(e -> e.getOperationsignature().getEntityName().equals("saveLogs")).findAny();
+        assertTrue(machineSaveOpt.isPresent());
+        assertEquals(DecisionType.DENY, machineSaveOpt.get().getDecision());
 
     }
 

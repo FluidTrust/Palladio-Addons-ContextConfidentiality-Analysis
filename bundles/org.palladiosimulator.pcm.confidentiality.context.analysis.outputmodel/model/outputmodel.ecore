@@ -4,19 +4,25 @@
     nsPrefix="outputmodel">
   <eClassifiers xsi:type="ecore:EClass" name="ScenarioOutput">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//usagemodel/UsageScenario"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operationsignature" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationSignature"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="operationinterface" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationInterface"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decision" lowerBound="1"
-        eType="#//Result"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="policyIDs" upperBound="-1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" upperBound="-1"
-        eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationOutput" upperBound="-1"
+        eType="#//OperationOutput" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="misUsage" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="passed" eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AnalysisResults">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scenariooutput" upperBound="-1"
         eType="#//ScenarioOutput" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Result" instanceClassName="org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="OperationOutput">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="decision" lowerBound="1"
+        eType="#//Result"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="policyIDs" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2003/XMLType#//String"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationinterface" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationInterface"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="connector" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/Connector"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assemblyContext" upperBound="-1"
+        eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/composition/AssemblyContext"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="operationsignature" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//repository/OperationSignature"/>
+  </eClassifiers>
 </ecore:EPackage>

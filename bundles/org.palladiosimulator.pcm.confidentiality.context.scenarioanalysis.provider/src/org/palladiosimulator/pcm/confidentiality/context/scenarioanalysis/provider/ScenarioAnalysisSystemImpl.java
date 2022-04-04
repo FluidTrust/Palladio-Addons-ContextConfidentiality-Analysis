@@ -37,6 +37,8 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                 context.getPcmspecificationcontainer().getAttributeprovider());
 
         for (final var scenario : usage.getUsageScenario_UsageModel()) {
+            result.addScenario(scenario, isMisusage(context, scenario));
+
             final var requestor = this.getRequestorContexts(context, scenario);
 
             final var visitor = new UsageModelVisitorScenarioSystem();
@@ -49,15 +51,6 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
                 walker.propagationBySeff(systemCall, pcm.getSystem(), tmpRequestor);
             }
 
-            // set positiv return value if no error happened
-            if (result.getResultModel().getScenariooutput().stream()
-                    .noneMatch(e -> EcoreUtil.equals(e.getScenario(), scenario))) {
-                result.storePositiveResult(scenario);
-            }
-            // if (isMisusage(context, scenario)) {
-            // result.flip(scenario);
-            // }
-
         }
 
         return result.getResultModel();
@@ -66,22 +59,17 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
 
     private List<? extends UsageSpecification> getRequestorContexts(final ConfidentialAccessSpecification access,
             final UsageScenario scenario) {
-        return this.getSpecificationScenario(access, scenario).collect(Collectors.toList());
+        return getSpecificationScenario(access, scenario).toList();
     }
 
-    // private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario
-    // scenario) {
-    // final var scenarioSpecification = getSpecificationScenario(access, scenario).findAny();
-    // if (scenarioSpecification.isPresent()) {
-    // return scenarioSpecification.get().isMissageUse();
-    // }
-    // return false;
-    // }
+    private boolean isMisusage(final ConfidentialAccessSpecification access, final UsageScenario scenario) {
+        return access.getPcmspecificationcontainer().getMisusagescenario().stream().anyMatch(
+                misusageDeclaration -> misusageDeclaration.getUsagescenario().getId().equals(scenario.getId()));
+    }
 
     private Stream<? extends UsageSpecification> getSpecificationScenario(final ConfidentialAccessSpecification access,
             final EObject scenario) {
-        return this.createPCMUsageSpecificationStream(access)
-                .filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
+        return createPCMUsageSpecificationStream(access).filter(e -> EcoreUtil.equals(e.getUsagescenario(), scenario));
     }
 
     private Stream<PCMUsageSpecification> createPCMUsageSpecificationStream(
@@ -94,7 +82,7 @@ public class ScenarioAnalysisSystemImpl implements ScenarioAnalysis {
     private List<? extends UsageSpecification> getRequestorContexts(final ConfidentialAccessSpecification access,
             final EntryLevelSystemCall systemCall, final List<? extends UsageSpecification> oldList) {
 
-        final var usageList = this.createPCMUsageSpecificationStream(access)
+        final var usageList = createPCMUsageSpecificationStream(access)
                 .filter(e -> EcoreUtil.equals(e.getEntrylevelsystemcall(), systemCall)).collect(Collectors.toList());
         return usageList.isEmpty() ? oldList : usageList;
     }
