@@ -16,7 +16,7 @@
     <providedRole_AssemblyConnector href="maintenanceScenario.repository#_SY3u0JSREeyOldzBRFqWVw"/>
     <requiredRole_AssemblyConnector href="maintenanceScenario.repository#_cPTBYJSREeyOldzBRFqWVw"/>
   </connectors__ComposedStructure>
-  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_Huf9MJSZEeyjlrv9ryW3Zw" entityName="newAssemblyConnector" requiringAssemblyContext_AssemblyConnector="_4lwccJSYEeyjlrv9ryW3Zw" providingAssemblyContext_AssemblyConnector="_53Jy4JSYEeyjlrv9ryW3Zw">
+  <connectors__ComposedStructure xsi:type="composition:AssemblyConnector" id="_Huf9MJSZEeyjlrv9ryW3Zw" entityName="StorageMachine" requiringAssemblyContext_AssemblyConnector="_4lwccJSYEeyjlrv9ryW3Zw" providingAssemblyContext_AssemblyConnector="_53Jy4JSYEeyjlrv9ryW3Zw">
     <providedRole_AssemblyConnector href="maintenanceScenario.repository#_0F5fkJSQEeyOldzBRFqWVw"/>
     <requiredRole_AssemblyConnector href="maintenanceScenario.repository#_KWYXsJSUEeyjlrv9ryW3Zw"/>
   </connectors__ComposedStructure>

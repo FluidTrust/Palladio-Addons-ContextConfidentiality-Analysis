@@ -2,13 +2,13 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.tests;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.BaseTestScenario;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.casestudies.TravelPlannerBaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider.ScenarioAnalysisSystemImpl;
 
 @Disabled("not implemented")
-public class AttributeProviderTests extends BaseTestScenario {
+public class AttributeProviderTests extends TravelPlannerBaseTest {
 
     @BeforeEach
     protected void initLocal() {

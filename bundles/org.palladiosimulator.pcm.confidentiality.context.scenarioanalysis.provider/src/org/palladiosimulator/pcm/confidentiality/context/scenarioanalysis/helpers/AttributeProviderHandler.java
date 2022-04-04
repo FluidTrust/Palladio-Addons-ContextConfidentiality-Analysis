@@ -43,7 +43,7 @@ public class AttributeProviderHandler {
             final List<AssemblyContext> assemblyContext) {
 
         return this.pcmAttributeProviders.stream()
-                .filter(provider -> this.filterMatching(provider, conntector, assemblyContext))
+                .filter(provider -> filterMatching(provider, conntector, assemblyContext))
                 .map(PCMAttributeProvider::getAttribute).toList();
     }
 
@@ -54,8 +54,8 @@ public class AttributeProviderHandler {
         }
         final var specification = provider.getMethodspecification();
 
-        return specification.getId().equals(connector.getId())
-                && this.checkAssemblyList(assemblyContext, specification.getHierachy());
+        return specification.getConnector().getId().equals(connector.getId())
+                && checkAssemblyList(assemblyContext, specification.getHierachy());
 
     }
 

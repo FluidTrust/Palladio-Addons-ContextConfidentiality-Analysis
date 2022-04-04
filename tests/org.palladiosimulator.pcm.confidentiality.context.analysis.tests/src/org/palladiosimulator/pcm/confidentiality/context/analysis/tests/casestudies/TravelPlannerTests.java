@@ -1,20 +1,18 @@
-package org.palladiosimulator.pcm.confidentiality.context.analysis.tests;
+package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.BaseTestScenario;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.casestudies.TravelPlannerBaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.provider.ScenarioAnalysisSystemImpl;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 
-class ScenarioTests extends BaseTestScenario {
+class TravelPlannerTests extends TravelPlannerBaseTest {
 
     @BeforeEach
     void initLocal() {
@@ -121,13 +119,7 @@ class ScenarioTests extends BaseTestScenario {
     //        assertAllPositive(output);
     //    }
     //
-    private void assertAllPositive(final AnalysisResults output) {
-        assertNotNull(output.getScenariooutput());
 
-        for (final var scenario : output.getScenariooutput()) {
-            assertTrue(scenario.getDecision().equals(DecisionType.PERMIT));
-        }
-    }
     //
     //    @Test
     //    @DisplayName("07_h_tp_2_l_error")

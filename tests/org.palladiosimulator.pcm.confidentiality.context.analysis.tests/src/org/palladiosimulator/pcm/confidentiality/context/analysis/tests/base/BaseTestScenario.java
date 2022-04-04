@@ -1,10 +1,13 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base;
 
-import java.util.ArrayList;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
@@ -14,16 +17,14 @@ import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecificati
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
+import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.repository.Repository;
 import org.palladiosimulator.pcm.system.System;
 import org.palladiosimulator.pcm.usagemodel.UsageModel;
 
 public abstract class BaseTestScenario extends BaseTest {
 
-    private static final String PATH_ASSEMBLY = "travelplanner/default.system";
-    private static final String PATH_REPOSITORY = "travelplanner/default.repository";
-    private static final String PATH_USAGE = "travelplanner/default.usagemodel";
-    private static final String PATH_CONTEXT = "travelplanner/Scenarios/test_scenarios.context";
+
     protected Repository repo;
     protected UsageModel usage;
     protected System assembly;
@@ -32,17 +33,7 @@ public abstract class BaseTestScenario extends BaseTest {
     protected ScenarioAnalysis analysis;
     protected Configuration configuration;
 
-    @Override
-    protected List<String> getModelsPath() {
-        final var list = new ArrayList<String>();
 
-        list.add(PATH_USAGE);
-        list.add(PATH_ASSEMBLY);
-        list.add(PATH_REPOSITORY);
-        list.add(PATH_CONTEXT);
-
-        return list;
-    }
 
     //    protected abstract void initLocal();
 
@@ -60,6 +51,14 @@ public abstract class BaseTestScenario extends BaseTest {
         var blackboard = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
                 this.assembly, null, null);
         generator.generateXACML(blackboard, this.context, this.pathXACML);
+    }
+
+    protected void assertAllPositive(final AnalysisResults output) {
+        assertNotNull(output.getScenariooutput());
+
+        for (final var scenario : output.getScenariooutput()) {
+            assertTrue(scenario.getDecision().equals(DecisionType.PERMIT));
+        }
     }
 
     //    protected ContextAttribute getContextAttributeByName(final String name) {
