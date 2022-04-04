@@ -42,10 +42,10 @@ public class MaintenanceTests extends MaintenanceBaseTest {
 
         generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertEquals(3, output.getScenariooutput().size());
+        assertEquals(4, output.getScenariooutput().size());
 
         // only the "Save MachineData" should fail
-        assertEquals(2,
+        assertEquals(3,
                 output.getScenariooutput().stream()
                         .filter(ScenarioOutput::isPassed).count());
         var resultSaveMachineDataOpt = output.getScenariooutput().stream().filter(e ->
