@@ -19,19 +19,19 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
 public class RuleHandler implements ContextTypeConverter<List<RuleType>, List<Rule>> {
 
-    private ObjectFactory factory = new ObjectFactory();
+    private final ObjectFactory factory = new ObjectFactory();
 
-    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
+    private final ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
-    private ContextTypeConverter<ConditionType, Expression> conditionHandler = new ConditionHandler();
+    private final ContextTypeConverter<ConditionType, Expression> conditionHandler = new ConditionHandler();
 
     @Override
-    public List<RuleType> transform(List<Rule> inputModel) {
+    public List<RuleType> transform(final List<Rule> inputModel) {
         return inputModel.stream().map(this::createRule).collect(Collectors.toList());
     }
 
-    private RuleType createRule(Rule rule) {
-        var ruleType = this.factory.createRuleType();
+    private RuleType createRule(final Rule rule) {
+        final var ruleType = this.factory.createRuleType();
         ruleType.setDescription(rule.getEntityName());
         ruleType.setRuleId(rule.getId());
 
@@ -46,11 +46,11 @@ public class RuleHandler implements ContextTypeConverter<List<RuleType>, List<Ru
             throw new IllegalStateException("Unknown Effect/Permit type");
         }
 
-        var target = this.targetHandler.transform(rule.getTarget());
+        final var target = this.targetHandler.transform(rule.getTarget());
         ruleType.setTarget(target);
 
         if (rule.getCondition() != null) {
-            var condition = this.conditionHandler.transform(rule.getCondition());
+            final var condition = this.conditionHandler.transform(rule.getCondition());
             ruleType.setCondition(condition);
         }
 

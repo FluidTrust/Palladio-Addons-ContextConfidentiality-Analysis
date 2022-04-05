@@ -24,9 +24,9 @@ public class MaintenanceTests extends MaintenanceBaseTest {
 
     @Test
     void positiveCase() {
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertAllPositive(output);
+        this.assertAllPositive(output);
     }
 
     @Test
@@ -40,16 +40,14 @@ public class MaintenanceTests extends MaintenanceBaseTest {
                     e.setAttributevalue(null);
                 });
 
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
         assertEquals(4, output.getScenariooutput().size());
 
         // only the "Save MachineData" should fail
-        assertEquals(3,
-                output.getScenariooutput().stream()
-                        .filter(ScenarioOutput::isPassed).count());
-        var resultSaveMachineDataOpt = output.getScenariooutput().stream().filter(e ->
-        "Save MachineData".equals(e.getScenario().getEntityName())).findFirst();
+        assertEquals(3, output.getScenariooutput().stream().filter(ScenarioOutput::isPassed).count());
+        final var resultSaveMachineDataOpt = output.getScenariooutput().stream()
+                .filter(e -> "Save MachineData".equals(e.getScenario().getEntityName())).findFirst();
         assertTrue(resultSaveMachineDataOpt.isPresent());
         assertFalse(resultSaveMachineDataOpt.get().isPassed());
 
@@ -57,9 +55,9 @@ public class MaintenanceTests extends MaintenanceBaseTest {
          * from the "Save MachineData" should only the initial save operation from the machine
          * should fail
          */
-        var resultSaveMachineData = resultSaveMachineDataOpt.get();
+        final var resultSaveMachineData = resultSaveMachineDataOpt.get();
         assertEquals(2, resultSaveMachineData.getOperationOutput().size());
-        var machineSaveOpt = resultSaveMachineData.getOperationOutput().stream()
+        final var machineSaveOpt = resultSaveMachineData.getOperationOutput().stream()
                 .filter(e -> e.getAssemblyContext().get(0).getEntityName().equals("Assembly_MachineComponent"))
                 .filter(e -> e.getOperationsignature().getEntityName().equals("saveLogs")).findAny();
         assertTrue(machineSaveOpt.isPresent());

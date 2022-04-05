@@ -21,20 +21,21 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 public class TargetHandler implements ContextTypeConverter<TargetType, List<AllOf>> {
 
     /** The match handler. */
-    private ContextTypeConverter<List<MatchType>, List<Match>> matchHandler = new MatchHandler();
+    private final ContextTypeConverter<List<MatchType>, List<Match>> matchHandler = new MatchHandler();
 
     /**
      * Transform.
      *
-     * @param inputModel the input model
+     * @param inputModel
+     *            the input model
      * @return the target type
      */
     @Override
-    public TargetType transform(List<AllOf> inputModel) {
-        var targetType = new ObjectFactory().createTargetType();
+    public TargetType transform(final List<AllOf> inputModel) {
+        final var targetType = new ObjectFactory().createTargetType();
         if (!inputModel.isEmpty()) {
-            var anyOfType = new ObjectFactory().createAnyOfType();
-            var allOfList = inputModel.stream().map(this::transformAllOf).collect(Collectors.toList());
+            final var anyOfType = new ObjectFactory().createAnyOfType();
+            final var allOfList = inputModel.stream().map(this::transformAllOf).collect(Collectors.toList());
 
             anyOfType.getAllOf().addAll(allOfList);
 
@@ -47,12 +48,13 @@ public class TargetHandler implements ContextTypeConverter<TargetType, List<AllO
     /**
      * Transform all of.
      *
-     * @param allOf the all of
+     * @param allOf
+     *            the all of
      * @return the all of type
      */
-    private AllOfType transformAllOf(AllOf allOf) {
-        var allOfType = new ObjectFactory().createAllOfType();
-        var matchList = this.matchHandler.transform(allOf.getMatch());
+    private AllOfType transformAllOf(final AllOf allOf) {
+        final var allOfType = new ObjectFactory().createAllOfType();
+        final var matchList = this.matchHandler.transform(allOf.getMatch());
         allOfType.getMatch().addAll(matchList);
         return allOfType;
 

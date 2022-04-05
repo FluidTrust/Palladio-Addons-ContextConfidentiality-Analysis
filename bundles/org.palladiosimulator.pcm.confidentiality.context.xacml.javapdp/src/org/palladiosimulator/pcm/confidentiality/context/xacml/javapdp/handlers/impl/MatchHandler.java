@@ -37,31 +37,30 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.ObjectFactory;
 
 public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<Match>> {
 
-
     @Override
-    public List<MatchType> transform(List<Match> inputModel) {
+    public List<MatchType> transform(final List<Match> inputModel) {
         final var factory = new ObjectFactory();
 
-        var switchMatch = new StructureSwitch<Stream<MatchType>>() {
+        final var switchMatch = new StructureSwitch<Stream<MatchType>>() {
             @Override
-            public Stream<MatchType> caseEntityMatch(EntityMatch match) {
+            public Stream<MatchType> caseEntityMatch(final EntityMatch match) {
                 final var matchType = factory.createMatchType();
                 matchType.setMatchId(XACML3.ID_FUNCTION_STRING_EQUAL.stringValue());
 
-                setResource(match.getEntity(), matchType, match.getCategory(), match.getHierachy());
+                this.setResource(match.getEntity(), matchType, match.getCategory(), match.getHierachy());
 
                 return Stream.of(matchType);
 
             }
 
-            private void setResource(Entity entity, final MatchType matchType, Category category,
-                    List<AssemblyContext> context) {
-                createResourceDesignatorInMatch(matchType, category);
+            private void setResource(final Entity entity, final MatchType matchType, final Category category,
+                    final List<AssemblyContext> context) {
+                this.createResourceDesignatorInMatch(matchType, category);
 
-                var value = factory.createAttributeValueType();
+                final var value = factory.createAttributeValueType();
                 value.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
                 if (entity instanceof AssemblyContext || entity instanceof Connector) {
-                    addHierachy(context, value);
+                    this.addHierachy(context, value);
                 }
                 value.getContent().add(entity.getId());
                 value.getContent().add(entity.getEntityName());
@@ -69,26 +68,26 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 matchType.setAttributeValue(value);
             }
 
-            private void createResourceDesignatorInMatch(final MatchType matchType, Category category) {
+            private void createResourceDesignatorInMatch(final MatchType matchType, final Category category) {
 
-                var designator = createDesignator(XACML3.ID_RESOURCE_RESOURCE_ID, category);
+                final var designator = this.createDesignator(XACML3.ID_RESOURCE_RESOURCE_ID, category);
 
                 matchType.setAttributeDesignator(designator);
             }
 
             @Override
-            public Stream<MatchType> caseGenericMatch(GenericMatch object) {
+            public Stream<MatchType> caseGenericMatch(final GenericMatch object) {
                 final var matchType = factory.createMatchType();
                 EnumHelpers.extractAndSetFunction(object.getOperation(), matchType::setMatchId);
-                var designator = factory.createAttributeDesignatorType();
+                final var designator = factory.createAttributeDesignatorType();
 
                 // get the attribute id
-                var container = (Attribute) object.getAttributevalue().eContainer();
+                final var container = (Attribute) object.getAttributevalue().eContainer();
                 designator.setAttributeId(container.getId());
                 if (container instanceof SystemEntityAttribute) { // identify issuer
                     designator.setIssuer(((SystemEntityAttribute) container).getModelEntity().getId());
                 }
-                var value = factory.createAttributeValueType();
+                final var value = factory.createAttributeValueType();
                 EnumHelpers.extractAndSetCategory(object.getCategory(), designator::setCategory);
 
                 EnumHelpers.extractAndSetDataType(object.getAttributevalue().getType(), designator::setDataType);
@@ -112,32 +111,32 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
             }
 
             @Override
-            public Stream<MatchType> caseMethodMatch(MethodMatch match) {
+            public Stream<MatchType> caseMethodMatch(final MethodMatch match) {
                 final var matchActionType = factory.createMatchType();
 
-                var designator = createDesignator(XACML3.ID_ACTION_ACTION_ID, Category.ACTION);
+                final var designator = this.createDesignator(XACML3.ID_ACTION_ACTION_ID, Category.ACTION);
                 matchActionType.setAttributeDesignator(designator);
                 match.getMethodspecification();
                 designator.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
                 EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchActionType::setMatchId);
 
-                var value = factory.createAttributeValueType();
+                final var value = factory.createAttributeValueType();
                 value.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
                 value.getContent().add(match.getMethodspecification().getSignature().getId());
                 matchActionType.setAttributeValue(value);
 
-                var matchResourceType = factory.createMatchType();
+                final var matchResourceType = factory.createMatchType();
                 EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchResourceType::setMatchId);
 
-                if (match.getMethodspecification() instanceof ConnectionSpecification restriction) {
-                    setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE,
+                if (match.getMethodspecification() instanceof final ConnectionSpecification restriction) {
+                    this.setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE,
                             restriction.getHierachy());
 
-                } else if (match.getMethodspecification() instanceof ServiceSpecification restriction) {
-                    createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
-                    var resourceValue = factory.createAttributeValueType();
+                } else if (match.getMethodspecification() instanceof final ServiceSpecification restriction) {
+                    this.createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
+                    final var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                    addHierachy(match.getMethodspecification().getHierachy(), resourceValue);
+                    this.addHierachy(match.getMethodspecification().getHierachy(), resourceValue);
                     resourceValue.getContent().add(restriction.getAssemblycontext().getId());
                     resourceValue.getContent().add(restriction.getAssemblycontext().getEntityName());
                     matchResourceType.setAttributeValue(resourceValue);
@@ -147,7 +146,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
             }
 
-            private void addHierachy(List<AssemblyContext> context, AttributeValueType resourceValue) {
+            private void addHierachy(final List<AssemblyContext> context, final AttributeValueType resourceValue) {
                 if (context == null) {
                     return;
                 }
@@ -155,25 +154,25 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
             }
 
             @Override
-            public Stream<MatchType> caseXMLMatch(XMLMatch match) {
+            public Stream<MatchType> caseXMLMatch(final XMLMatch match) {
                 MatchType matchType;
                 try {
-                    var context = ContextFactory.createContext(new Class[] { MatchType.class }, null);
-                    var unmarshall = context.createUnmarshaller();
+                    final var context = ContextFactory.createContext(new Class[] { MatchType.class }, null);
+                    final var unmarshall = context.createUnmarshaller();
                     @SuppressWarnings("unchecked")
-                    var privateObject = (JAXBElement<MatchType>) unmarshall
-                    .unmarshal(new StringReader(match.getXmlString()));
+                    final var privateObject = (JAXBElement<MatchType>) unmarshall
+                            .unmarshal(new StringReader(match.getXmlString()));
                     matchType = privateObject.getValue();
                     return Stream.of(matchType);
 
-                } catch (JAXBException e) {
+                } catch (final JAXBException e) {
                     throw new IllegalStateException(e.getMessage());
                 }
 
             }
 
-            private AttributeDesignatorType createDesignator(Identifier attributeID, Category category) {
-                var designator = factory.createAttributeDesignatorType();
+            private AttributeDesignatorType createDesignator(final Identifier attributeID, final Category category) {
+                final var designator = factory.createAttributeDesignatorType();
                 EnumHelpers.extractAndSetCategory(category, designator::setCategory);
                 designator.setAttributeId(attributeID.stringValue());
                 designator.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());

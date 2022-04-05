@@ -18,21 +18,21 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicyType;
 import oasis.names.tc.xacml._3_0.core.schema.wd_17.TargetType;
 
 public class PolicySetHandler implements ContextTypeConverter<PolicySetType, PolicySet> {
-    private ObjectFactory factory = new ObjectFactory();
+    private final ObjectFactory factory = new ObjectFactory();
 
-    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
+    private final ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
-    private ContextTypeConverter<PolicyType, Policy> handler = new PolicyHandler();
+    private final ContextTypeConverter<PolicyType, Policy> handler = new PolicyHandler();
 
     @Override
-    public PolicySetType transform(PolicySet inputModel) {
-        var setType = createPolicySet();
+    public PolicySetType transform(final PolicySet inputModel) {
+        final var setType = this.createPolicySet();
 
         if (inputModel == null) {
             return setType;
         }
 
-        addPoliciesToSet(setType, inputModel);
+        this.addPoliciesToSet(setType, inputModel);
         this.factory.createPolicyCombinerParametersType();
 
         setType.setPolicySetId(inputModel.getId());
@@ -66,7 +66,7 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
             throw new IllegalStateException("unknown PolicyCombining Algorithm");
         }
 
-        var target = this.targetHandler.transform(inputModel.getTarget());
+        final var target = this.targetHandler.transform(inputModel.getTarget());
         setType.setTarget(target);
         setType.setVersion("0.0.1");
         return setType;
@@ -77,14 +77,14 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
         return this.factory.createPolicySetType();
     }
 
-    private void addPoliciesToSet(PolicySetType xacmlPolicySet, PolicySet set) {
+    private void addPoliciesToSet(final PolicySetType xacmlPolicySet, final PolicySet set) {
         if (set != null) {
-            var listPolicy = createPolicy(set.getPolicy());
+            final var listPolicy = this.createPolicy(set.getPolicy());
             xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
         }
     }
 
-    private List<JAXBElement<PolicyType>> createPolicy(List<Policy> policies) {
+    private List<JAXBElement<PolicyType>> createPolicy(final List<Policy> policies) {
         return policies.stream().map(this.handler::transform).map(this.factory::createPolicy)
                 .collect(Collectors.toList());
     }

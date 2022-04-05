@@ -18,27 +18,27 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.PolicySetType;
 @Component(service = XACMLGeneration.class)
 public class XACMLGenerator implements XACMLGeneration {
 
-    private ContextTypeConverter<PolicySetType, PolicySet> setHandler = new PolicySetHandler();
+    private final ContextTypeConverter<PolicySetType, PolicySet> setHandler = new PolicySetHandler();
 
     @Override
-    public void generateXACML(PCMBlackBoard pcm, ConfidentialAccessSpecification confidentialitySpecification,
-            String path) {
+    public void generateXACML(final PCMBlackBoard pcm,
+            final ConfidentialAccessSpecification confidentialitySpecification, final String path) {
         // set root policyset with description
-        var set = this.setHandler.transform(confidentialitySpecification.getPolicyset());
+        final var set = this.setHandler.transform(confidentialitySpecification.getPolicyset());
         set.setDescription("Policies for " + pcm.getSystem().getEntityName()
                 + ". Automatically created by Palladio-XACML-Integration");
 
         // create child policy sets
-        var factory = new ObjectFactory();
+        final var factory = new ObjectFactory();
         if (confidentialitySpecification.getPolicyset() != null) {
-            var listChildSets = confidentialitySpecification.getPolicyset().getPolicyset().stream()
+            final var listChildSets = confidentialitySpecification.getPolicyset().getPolicyset().stream()
                     .map(this.setHandler::transform).map(factory::createPolicySet).collect(Collectors.toList());
 
             set.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listChildSets);
         }
 
-        var objectFactory = new ObjectFactory();
-        var policySetElement = objectFactory.createPolicySet(set);
+        final var objectFactory = new ObjectFactory();
+        final var policySetElement = objectFactory.createPolicySet(set);
         XACMLPolicyWriter.writeXACMLFile(Path.of(path), policySetElement, PolicySetType.class);
     }
 

@@ -18,9 +18,9 @@ public class BankTests extends BankBaseTest {
 
     @Test
     void positiveCase() {
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertAllPositive(output);
+        this.assertAllPositive(output);
     }
 
 }

@@ -25,23 +25,24 @@ import oasis.names.tc.xacml._3_0.core.schema.wd_17.VariableDefinitionType;
 public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
 
     /** The target handler. */
-    private ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
+    private final ContextTypeConverter<TargetType, List<AllOf>> targetHandler = new TargetHandler();
 
     /** The rule handler. */
-    private ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler = new RuleHandler();
+    private final ContextTypeConverter<List<RuleType>, List<Rule>> ruleHandler = new RuleHandler();
 
     /** The variable handler. */
-    private ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler = new VariableDefinitionHandler();
+    private final ContextTypeConverter<List<VariableDefinitionType>, List<VariableDefinitions>> variableHandler = new VariableDefinitionHandler();
 
     /**
      * Transform.
      *
-     * @param policy the policy
+     * @param policy
+     *            the policy
      * @return the policy type
      */
     @Override
-    public PolicyType transform(Policy policy) {
-        var policyType = (new ObjectFactory()).createPolicyType();
+    public PolicyType transform(final Policy policy) {
+        final var policyType = (new ObjectFactory()).createPolicyType();
 
         policyType.setPolicyId(policy.getId());
         policyType.setDescription(policy.getEntityName());
@@ -75,16 +76,16 @@ public class PolicyHandler implements ContextTypeConverter<PolicyType, Policy> {
             throw new IllegalStateException(
                     "Unknown Combining Algorithm for Policy " + policy.getEntityName() + " with ID " + policy.getId());
         }
-        var target = this.targetHandler.transform(policy.getTarget());
+        final var target = this.targetHandler.transform(policy.getTarget());
         policyType.setTarget(target);
         policyType.setVersion("0.0.1");
 
-        var rules = this.ruleHandler.transform(policy.getRule());
+        final var rules = this.ruleHandler.transform(policy.getRule());
         if (rules != null) {
             policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(rules);
         }
 
-        var variableDefintions = this.variableHandler.transform(policy.getVariabledefinitions());
+        final var variableDefintions = this.variableHandler.transform(policy.getVariabledefinitions());
         if (variableDefintions != null) {
             policyType.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().addAll(variableDefintions);
         }

@@ -7,7 +7,7 @@ public class ResultEMFModelStorageTests {
     // TODO add tests
     @Test
     void testPassedPermit() {
-        var model = new ResultEMFModelStorage();
+        final var model = new ResultEMFModelStorage();
 
     }
 

@@ -8,7 +8,7 @@ import com.att.research.xacml.api.XACML3;
 public class OperationHandler implements ContextTypeConverter<String, Operations> {
 
     @Override
-    public String transform(Operations inputModel) {
+    public String transform(final Operations inputModel) {
 
         switch (inputModel) {
         case STRING_EQUAL:

@@ -15,7 +15,7 @@ public class EnumHelpers {
 
     }
 
-    public static void extractAndSetCategory(Category object, Consumer<String> assign) {
+    public static void extractAndSetCategory(final Category object, final Consumer<String> assign) {
         switch (object) {
         case ENVIRONMENT:
             assign.accept(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.toString());
@@ -34,7 +34,7 @@ public class EnumHelpers {
         }
     }
 
-    public static void extractAndSetDataType(DataTypes object, Consumer<String> consumer) {
+    public static void extractAndSetDataType(final DataTypes object, final Consumer<String> consumer) {
         switch (object) {
         case BOOLEAN:
             consumer.accept(XACML3.ID_DATATYPE_BOOLEAN.stringValue());
@@ -56,8 +56,8 @@ public class EnumHelpers {
         }
     }
 
-    public static void extractAndSetFunction(Operations operation, Consumer<String> consumer) {
-        var operationHandler = new OperationHandler();
+    public static void extractAndSetFunction(final Operations operation, final Consumer<String> consumer) {
+        final var operationHandler = new OperationHandler();
         consumer.accept(operationHandler.transform(operation));
 
     }

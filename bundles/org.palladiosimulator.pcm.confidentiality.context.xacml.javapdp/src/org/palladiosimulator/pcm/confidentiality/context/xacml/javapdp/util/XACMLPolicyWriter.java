@@ -36,42 +36,42 @@ public class XACMLPolicyWriter {
      * @param rootElement
      * @param rootClass
      */
-    public static void writeXACMLFile(Path outputFile, JAXBElement<?> rootElement, Class<?> rootClass) {
+    public static void writeXACMLFile(final Path outputFile, final JAXBElement<?> rootElement,
+            final Class<?> rootClass) {
         LOGGER.info(
                 String.format("Transformation output will be written to %s", outputFile.toAbsolutePath().toString()));
         String msg;
         try {
-            var marshaller = createMarshaller(rootClass);
+            final var marshaller = createMarshaller(rootClass);
             marshaller.marshal(rootElement, outputFile.toFile());
             if (Files.exists(outputFile)) {
-                msg = String.format("Output file %s  written successfully",
-                        outputFile.toAbsolutePath().toString());
+                msg = String.format("Output file %s  written successfully", outputFile.toAbsolutePath().toString());
                 LOGGER.info(msg);
             } else {
                 msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath().toString());
                 LOGGER.warning(msg);
             }
-        } catch (Exception e) {
+        } catch (final Exception e) {
             msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath().toString());
             LOGGER.log(Level.SEVERE, msg, e);
         }
     }
 
-    private static Marshaller createMarshaller(Class<?> rootClass) throws JAXBException {
-        var context = ContextFactory.createContext(new Class[] { rootClass }, null);
-        var marshaller = context.createMarshaller();
+    private static Marshaller createMarshaller(final Class<?> rootClass) throws JAXBException {
+        final var context = ContextFactory.createContext(new Class[] { rootClass }, null);
+        final var marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         return marshaller;
 
     }
 
-    public static Optional<String> createXMLString(JAXBElement<?> rootElement, Class<?> rootClass) {
+    public static Optional<String> createXMLString(final JAXBElement<?> rootElement, final Class<?> rootClass) {
         try {
-            var marshaller = createMarshaller(rootClass);
-            var stringWriter = new StringWriter();
+            final var marshaller = createMarshaller(rootClass);
+            final var stringWriter = new StringWriter();
             marshaller.marshal(rootElement, stringWriter);
             return Optional.of(stringWriter.toString());
-        } catch (JAXBException e) {
+        } catch (final JAXBException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
         return Optional.empty();
