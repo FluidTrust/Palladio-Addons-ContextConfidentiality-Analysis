@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ASCII"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_mX6lALTvEeyhxYq0HCzuxA" entityName="Scalability">
+  <components__Repository xsi:type="repository:BasicComponent" id="_oUK2ULTvEeyhxYq0HCzuxA" entityName="ComponentStart">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_22bl4LTvEeyhxYq0HCzuxA" entityName="ComponentStart.Interface1.OperationProvidedRole1" providedInterface__OperationProvidedRole="_ouPjMLTvEeyhxYq0HCzuxA"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_1_rkELTvEeyhxYq0HCzuxA" entityName="ComponentStart.Interface1.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_ouPjMLTvEeyhxYq0HCzuxA"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_23LMwLTvEeyhxYq0HCzuxA" describedService__SEFF="_rYs-ULTvEeyhxYq0HCzuxA">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_23LMwbTvEeyhxYq0HCzuxA" successor_AbstractAction="_5Ji4ALTvEeyhxYq0HCzuxA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_23LMwrTvEeyhxYq0HCzuxA" predecessor_AbstractAction="_5Ji4ALTvEeyhxYq0HCzuxA"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_5Ji4ALTvEeyhxYq0HCzuxA" entityName="ExternalCallAction1" predecessor_AbstractAction="_23LMwbTvEeyhxYq0HCzuxA" successor_AbstractAction="_23LMwrTvEeyhxYq0HCzuxA" calledService_ExternalService="_rYs-ULTvEeyhxYq0HCzuxA" role_ExternalService="_1_rkELTvEeyhxYq0HCzuxA"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_ouPjMLTvEeyhxYq0HCzuxA" entityName="ScalabilityInterface">
+    <signatures__OperationInterface id="_rYs-ULTvEeyhxYq0HCzuxA" entityName="do"/>
+  </interfaces__Repository>
+</repository:Repository>

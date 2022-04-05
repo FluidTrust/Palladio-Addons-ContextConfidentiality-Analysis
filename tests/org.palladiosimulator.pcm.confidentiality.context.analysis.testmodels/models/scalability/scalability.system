@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ASCII"?>
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_8bvBgLTvEeyhxYq0HCzuxA" entityName="New System">
+  <assemblyContexts__ComposedStructure id="__HQzoLTvEeyhxYq0HCzuxA" entityName="Assembly_ComponentStart">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="scalability.repository#_oUK2ULTvEeyhxYq0HCzuxA"/>
+  </assemblyContexts__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:ProvidedDelegationConnector" id="_Ex9FkLTwEeyhxYq0HCzuxA" entityName="newProvidedDelegationConnector" outerProvidedRole_ProvidedDelegationConnector="_C0CnYLTwEeyhxYq0HCzuxA" assemblyContext_ProvidedDelegationConnector="__HQzoLTvEeyhxYq0HCzuxA">
+    <innerProvidedRole_ProvidedDelegationConnector href="scalability.repository#_22bl4LTvEeyhxYq0HCzuxA"/>
+  </connectors__ComposedStructure>
+  <connectors__ComposedStructure xsi:type="composition:RequiredDelegationConnector" id="_ICIc4LTwEeyhxYq0HCzuxA" entityName="newRequiredDelegationConnector" outerRequiredRole_RequiredDelegationConnector="_FRcd8LTwEeyhxYq0HCzuxA" assemblyContext_RequiredDelegationConnector="__HQzoLTvEeyhxYq0HCzuxA">
+    <innerRequiredRole_RequiredDelegationConnector href="scalability.repository#_1_rkELTvEeyhxYq0HCzuxA"/>
+  </connectors__ComposedStructure>
+  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_C0CnYLTwEeyhxYq0HCzuxA" entityName="Interface1ProvidedRole">
+    <providedInterface__OperationProvidedRole href="scalability.repository#_ouPjMLTvEeyhxYq0HCzuxA"/>
+  </providedRoles_InterfaceProvidingEntity>
+  <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_FRcd8LTwEeyhxYq0HCzuxA" entityName="Interface1RequiredRole">
+    <requiredInterface__OperationRequiredRole href="scalability.repository#_ouPjMLTvEeyhxYq0HCzuxA"/>
+  </requiredRoles_InterfaceRequiringEntity>
+</system:System>

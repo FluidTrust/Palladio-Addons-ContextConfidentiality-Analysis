@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/">
+  <pcmspecificationcontainer id="_iWC1kLTwEeyhxYq0HCzuxA"/>
+  <policyset id="_iubgYbTwEeyhxYq0HCzuxA"/>
+  <attributes/>
+</context:ConfidentialAccessSpecification>

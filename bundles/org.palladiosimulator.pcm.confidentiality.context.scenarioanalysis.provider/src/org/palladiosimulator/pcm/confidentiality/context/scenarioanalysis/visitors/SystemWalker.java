@@ -54,6 +54,10 @@ public class SystemWalker {
             // check whether the called services are possible
             final var handlingAssembly = new LinkedList<>(
                     PCMInstanceHelper.getHandlingAssemblyContexts(externalAction, encapsulatingContexts));
+            // in case of required delegations
+            if (handlingAssembly.isEmpty()) {
+                continue;
+            }
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
                     handlingAssembly.get(handlingAssembly.size() - 1));
             this.operation.performCheck(nextSeff.getDescribedService__SEFF(), handlingAssembly, nextSeff,
