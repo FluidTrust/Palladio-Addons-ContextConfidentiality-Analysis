@@ -29,15 +29,13 @@ public class SystemWalker {
 
     public void propagationBySeff(final EntryLevelSystemCall systemCall, final System system,
             final List<? extends UsageSpecification> attributes) {
-        final var assemblyContext = this.getHandlingAssemblyContext(systemCall, system);
-        final var encapsulatingContexts = new LinkedList<AssemblyContext>();
-        encapsulatingContexts.add(assemblyContext);
+        final var assemblyContext = new LinkedList<>(PCMInstanceHelper.getHandlingAssemblyContexts(systemCall, system));
 
         final var seff = this.getSEFF(systemCall, system);
 
-        this.operation.performCheck(seff.getDescribedService__SEFF(), encapsulatingContexts, seff, attributes);
+        this.operation.performCheck(seff.getDescribedService__SEFF(), assemblyContext, seff, attributes);
 
-        this.propagationBySeff(seff, encapsulatingContexts, attributes);
+        this.propagationBySeff(seff, assemblyContext, attributes);
     }
 
     private void propagationBySeff(final ServiceEffectSpecification seff,
@@ -69,7 +67,7 @@ public class SystemWalker {
     private ResourceDemandingSEFF getSEFF(final EntryLevelSystemCall call, final System system) {
         final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        final var ac = this.getHandlingAssemblyContext(call, system);
+        final var ac = getHandlingAssemblyContext(call, system);
         return this.getSEFF(sig, ac);
     }
 

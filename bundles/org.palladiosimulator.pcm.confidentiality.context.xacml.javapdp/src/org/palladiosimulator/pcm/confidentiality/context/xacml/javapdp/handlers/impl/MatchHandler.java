@@ -14,7 +14,6 @@ import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ConnectionSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.GenericMatch;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.HierarchicalContext;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.XMLMatch;
@@ -49,14 +48,14 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 final var matchType = factory.createMatchType();
                 matchType.setMatchId(XACML3.ID_FUNCTION_STRING_EQUAL.stringValue());
 
-                setResource(match.getEntity(), matchType, match.getCategory());
+                setResource(match.getEntity(), matchType, match.getCategory(), match.getHierachy());
 
                 return Stream.of(matchType);
 
             }
 
             private void setResource(Entity entity, final MatchType matchType, Category category,
-                    HierarchicalContext context) {
+                    List<AssemblyContext> context) {
                 createResourceDesignatorInMatch(matchType, category);
 
                 var value = factory.createAttributeValueType();
@@ -68,10 +67,6 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 value.getContent().add(entity.getEntityName());
 
                 matchType.setAttributeValue(value);
-            }
-
-            private void setResource(Entity entity, final MatchType matchType, Category category) {
-                setResource(entity, matchType, category, null);
             }
 
             private void createResourceDesignatorInMatch(final MatchType matchType, Category category) {
@@ -134,17 +129,16 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 var matchResourceType = factory.createMatchType();
                 EnumHelpers.extractAndSetFunction(Operations.STRING_EQUAL, matchResourceType::setMatchId);
 
-                if (match.getMethodspecification() instanceof ConnectionSpecification) {
-                    var restriction = (ConnectionSpecification) match.getMethodspecification();
-                    setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE, match);
+                if (match.getMethodspecification() instanceof ConnectionSpecification restriction) {
+                    setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE,
+                            restriction.getHierachy());
 
-                } else if (match.getMethodspecification() instanceof ServiceSpecification) {
-                    var restriction = (ServiceSpecification) match.getMethodspecification();
+                } else if (match.getMethodspecification() instanceof ServiceSpecification restriction) {
                     createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
+                    addHierachy(match.getMethodspecification().getHierachy(), resourceValue);
                     resourceValue.getContent().add(restriction.getAssemblycontext().getId());
-                    addHierachy(match, resourceValue);
                     resourceValue.getContent().add(restriction.getAssemblycontext().getEntityName());
                     matchResourceType.setAttributeValue(resourceValue);
                 }
@@ -153,11 +147,11 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
             }
 
-            private void addHierachy(HierarchicalContext context, AttributeValueType resourceValue) {
+            private void addHierachy(List<AssemblyContext> context, AttributeValueType resourceValue) {
                 if (context == null) {
                     return;
                 }
-                context.getHierachy().stream().map(AssemblyContext::getId).forEach(resourceValue.getContent()::add);
+                context.stream().map(AssemblyContext::getId).forEach(resourceValue.getContent()::add);
             }
 
             @Override
