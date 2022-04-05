@@ -11,12 +11,12 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base.Bas
  * @author majuwa
  *
  */
-public abstract class TravelPlannerBaseTest extends BaseTestScenario {
+public abstract class UniversityGradingBaseTest extends BaseTestScenario {
 
-    private static final String PATH_ASSEMBLY = "travelplanner/default.system";
-    private static final String PATH_REPOSITORY = "travelplanner/default.repository";
-    private static final String PATH_USAGE = "travelplanner/default.usagemodel";
-    private static final String PATH_CONTEXT = "travelplanner/Scenarios/test_scenarios.context";
+    private static final String PATH_ASSEMBLY = "university/gradeManagement.system";
+    private static final String PATH_REPOSITORY = "university/gradeManagement.repository";
+    private static final String PATH_USAGE = "university/gradeManagement.usagemodel";
+    private static final String PATH_CONTEXT = "university/gradeManagement.context";
 
     @Override
     protected List<String> getModelsPath() {

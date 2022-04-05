@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_-c2KALS1EeyIO4nD9VIyMw">
+    <usagespecification id="_oN_FsbS2EeyIO4nD9VIyMw" entityName="TeachingAssistant" attributevalue="_OXm9kLS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_RdEdMrS3EeyIO4nD9VIyMw" attributevalue="_OXm9kLS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
+      <usagescenario href="gradeManagement.usagemodel#_WL0gwLS2EeyIO4nD9VIyMw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_JTClkrS4EeyIO4nD9VIyMw" attributevalue="_OXm9kLS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
+      <usagescenario href="gradeManagement.usagemodel#_6JCgkLS3EeyIO4nD9VIyMw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_fzKuIrS5EeyIO4nD9VIyMw" attributevalue="_HHe-4LS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
+      <usagescenario href="gradeManagement.usagemodel#_IxoB8LS1EeyIO4nD9VIyMw"/>
+    </usagespecification>
+    <usagespecification id="_JZXIobS7EeyIO4nD9VIyMw" entityName="Faculty" attributevalue="_HHe-4LS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_U-PhErS7EeyIO4nD9VIyMw" attributevalue="_JXX94LS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
+      <usagescenario href="gradeManagement.usagemodel#_qJbwoLS0EeyIO4nD9VIyMw"/>
+    </usagespecification>
+    <misusagescenario>
+      <usagescenario href="gradeManagement.usagemodel#_WL0gwLS2EeyIO4nD9VIyMw"/>
+    </misusagescenario>
+    <misusagescenario>
+      <usagescenario href="gradeManagement.usagemodel#_qJbwoLS0EeyIO4nD9VIyMw"/>
+    </misusagescenario>
+  </pcmspecificationcontainer>
+  <policyset id="_-9q_IbS1EeyIO4nD9VIyMw" entityName="GradingManagement">
+    <policy id="_Q9jsIbS2EeyIO4nD9VIyMw">
+      <rule id="_S0UZcLS2EeyIO4nD9VIyMw">
+        <condition xsi:type="SimpleAttributeCondition" id="_Lktit7S3EeyIO4nD9VIyMw" attribute="_oN_FsbS2EeyIO4nD9VIyMw"/>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_CfecgbS3EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_DCZjYbS3EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_LIxEALSrEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_ABQ1ALS0EeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lccSgLSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_Im5twrS3EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_JTPPUbS3EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_GiaqULSzEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_ABQ1ALS0EeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lcpt4LSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+      </rule>
+    </policy>
+    <policy id="_pkWUUbS5EeyIO4nD9VIyMw" entityName="Faculty">
+      <rule id="_rav1QLS5EeyIO4nD9VIyMw" entityName="AssignViewGrades">
+        <condition xsi:type="SimpleAttributeCondition" id="_H5kw57S7EeyIO4nD9VIyMw" attribute="_JZXIobS7EeyIO4nD9VIyMw"/>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_8dCRkrS5EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="__BnHIbS5EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_LIxEALSrEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_1QG_kLSzEeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lccSgLSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_CZC9ArS6EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_DU46MbS6EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_LIxEALSrEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_ABQ1ALS0EeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lccSgLSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_JCNCUrS6EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_JkWGEbS6EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_GiaqULSzEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_1QG_kLSzEeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lcpt4LSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_Noxk0rS6EeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_OBniobS6EeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="gradeManagement.repository#_GiaqULSzEeyIO4nD9VIyMw"/>
+              <assemblycontext href="gradeManagement.system#_ABQ1ALS0EeyIO4nD9VIyMw"/>
+              <service href="gradeManagement.repository#_lcpt4LSzEeyIO4nD9VIyMw"/>
+            </methodspecification>
+          </match>
+        </target>
+      </rule>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_FlbWQbS2EeyIO4nD9VIyMw" entityName="Role">
+      <attributevalue id="_HHe-4LS2EeyIO4nD9VIyMw">
+        <values>Faculty</values>
+      </attributevalue>
+      <attributevalue id="_JXX94LS2EeyIO4nD9VIyMw">
+        <values>Student</values>
+      </attributevalue>
+      <attributevalue id="_OXm9kLS2EeyIO4nD9VIyMw">
+        <values>TeachingAssistant</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

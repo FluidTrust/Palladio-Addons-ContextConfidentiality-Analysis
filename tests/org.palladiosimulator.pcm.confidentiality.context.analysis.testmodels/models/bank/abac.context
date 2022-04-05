@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_bigPkLTMEeyIO4nD9VIyMw">
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_lpGsIrTMEeyIO4nD9VIyMw" attributevalue="_5kIsoLTLEeyIO4nD9VIyMw" attribute="_thQworTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_oMuCMD6wEeuVUal8mM_jUA"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_mWD4wrTMEeyIO4nD9VIyMw" attributevalue="_wmMhQLTLEeyIO4nD9VIyMw" attribute="_q0m9IrTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_oMuCMD6wEeuVUal8mM_jUA"/>
+    </usagespecification>
+    <usagespecification id="_K04IwbTZEeyUksAgOkkg3A" entityName="LocationUSA" attributevalue="_5kIsoLTLEeyIO4nD9VIyMw" attribute="_thQworTLEeyIO4nD9VIyMw"/>
+    <usagespecification id="_NncXAbTZEeyUksAgOkkg3A" entityName="RoleClerk" attributevalue="_wmMhQLTLEeyIO4nD9VIyMw" attribute="_q0m9IrTLEeyIO4nD9VIyMw"/>
+    <usagespecification id="_68TmMbTbEeyUksAgOkkg3A" entityName="ManagerUSA" attributevalue="_2DeCQLTLEeyIO4nD9VIyMw" attribute="_q0m9IrTLEeyIO4nD9VIyMw"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_V62QQrTcEeyUksAgOkkg3A" attributevalue="_5kIsoLTLEeyIO4nD9VIyMw" attribute="_thQworTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_poSoUD6wEeuVUal8mM_jUA"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_XzDvErTcEeyUksAgOkkg3A" attributevalue="_2DeCQLTLEeyIO4nD9VIyMw" attribute="_q0m9IrTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_poSoUD6wEeuVUal8mM_jUA"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_oKyLcrTcEeyUksAgOkkg3A" attributevalue="_5kIsoLTLEeyIO4nD9VIyMw" attribute="_thQworTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_8M1kgLTcEeyUksAgOkkg3A"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_rHw58rTcEeyUksAgOkkg3A" attributevalue="_wmMhQLTLEeyIO4nD9VIyMw" attribute="_q0m9IrTLEeyIO4nD9VIyMw">
+      <usagescenario href="newUsageModel.usagemodel#_8M1kgLTcEeyUksAgOkkg3A"/>
+    </usagespecification>
+    <misusagescenario>
+      <usagescenario href="newUsageModel.usagemodel#_8M1kgLTcEeyUksAgOkkg3A"/>
+    </misusagescenario>
+  </pcmspecificationcontainer>
+  <policyset id="_7XmOUbTLEeyIO4nD9VIyMw">
+    <policy id="_By1MYbTMEeyIO4nD9VIyMw" entityName="Regular USA">
+      <rule id="_FNMacLTMEeyIO4nD9VIyMw" entityName="Clerk">
+        <condition xsi:type="Apply" id="_HYlBALTZEeyUksAgOkkg3A" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_JZFgN7TZEeyUksAgOkkg3A" attribute="_NncXAbTZEeyUksAgOkkg3A"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_RLu9J7TZEeyUksAgOkkg3A" attribute="_K04IwbTZEeyUksAgOkkg3A"/>
+        </condition>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_HHs_UrTMEeyIO4nD9VIyMw">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_Hc-EsbTMEeyIO4nD9VIyMw">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_JsFRwD6tEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_VN1gorTZEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_V9bxkbTZEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_7Ts28D6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_ID3WwD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_SqD5YD6tEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_iLoMwrTZEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_i2kAIbTZEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_eYedwD6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_JsFRwD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_ukfZYD6sEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_W5iYArTaEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_Yke24bTaEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_o5iowD6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_JsFRwD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_umngUD6sEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_eNWj4rTaEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_es8p8bTaEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_8EkTMD6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_ID3WwD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_TLw4QD6tEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+      </rule>
+    </policy>
+    <policy id="_yhTv0bTbEeyUksAgOkkg3A" entityName="Policy Celebrity USA">
+      <rule id="_1jAmQLTbEeyUksAgOkkg3A" entityName="Manager">
+        <condition xsi:type="Apply" id="_3GnuELTbEeyUksAgOkkg3A" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_5r9YorTbEeyUksAgOkkg3A" attribute="_68TmMbTbEeyUksAgOkkg3A"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_-GUrJ7TbEeyUksAgOkkg3A" attribute="_K04IwbTZEeyUksAgOkkg3A"/>
+        </condition>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_AoRDcrTcEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_CLtMIbTcEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_g-oAoD6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_Muw_oD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_umY20D6sEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_L6UmgrTcEeyUksAgOkkg3A">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_MgHbMbTcEeyUksAgOkkg3A">
+              <signature xsi:type="repository:OperationSignature" href="newRepository.repository#_7Ts28D6sEeuVUal8mM_jUA"/>
+              <hierachy href="newSystem.system#_q_2YgD6tEeuVUal8mM_jUA"/>
+              <assemblycontext href="newRepository.repository#_OT38QD6tEeuVUal8mM_jUA"/>
+              <service href="newRepository.repository#_SqD5YD6tEeuVUal8mM_jUA"/>
+            </methodspecification>
+          </match>
+        </target>
+      </rule>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_q0m9IrTLEeyIO4nD9VIyMw" entityName="Role">
+      <attributevalue id="_wmMhQLTLEeyIO4nD9VIyMw">
+        <values>Clerk</values>
+      </attributevalue>
+      <attributevalue id="_2DeCQLTLEeyIO4nD9VIyMw">
+        <values>Manager</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_thQworTLEeyIO4nD9VIyMw" entityName="Location">
+      <attributevalue id="_38s0wLTLEeyIO4nD9VIyMw">
+        <values>Asia</values>
+      </attributevalue>
+      <attributevalue id="_5kIsoLTLEeyIO4nD9VIyMw">
+        <values>USA</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>
