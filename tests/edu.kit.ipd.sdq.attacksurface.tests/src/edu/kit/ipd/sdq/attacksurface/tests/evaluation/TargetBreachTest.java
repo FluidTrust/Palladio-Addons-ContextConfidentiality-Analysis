@@ -153,7 +153,7 @@ public class TargetBreachTest extends EvaluationTest {
                 + "VULNs used: " + VULN_ATTACKER_BUSINESS));
     }
     
-    /*@Test //TODO later: does not work --> fix
+    @Test //TODO later: does not work --> fix
     public void evaluationTestAttackStorageApplicationPath3c() throws IOException {
         setCriticalAssemblyContext("Assembly_FTPComponent");
         final var changes = runAnalysis();
@@ -169,7 +169,7 @@ public class TargetBreachTest extends EvaluationTest {
                 + "VULNs used: " + VULN_WEAK_PSW + "\n"
                 + "VULNs used: " + VULN_DEFAULT_PSW + "\n"
                 + "VULNs used: " + VULN_ATTACKER_BUSINESS));
-    }*/
+    }
     
     @Test
     public void graphGenerationTest() {
