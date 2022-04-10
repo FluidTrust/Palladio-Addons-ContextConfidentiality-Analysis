@@ -12,10 +12,12 @@ import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Co
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.output.creation.ScenarioResultStorage;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
@@ -47,14 +49,16 @@ public class CheckOperation {
 
     public void performCheck(final Signature signature, Connector connector,
             final Deque<AssemblyContext> component, final ResourceDemandingSEFF seff,
-            final List<? extends UsageSpecification> requestorContext) {
+            final List<? extends UsageSpecification> requestorContext, ServiceSpecification originService,
+            ExternalCallAction originAction) {
 
-        performCheckEntity(signature, connector, component, seff, requestorContext);
+        performCheckEntity(signature, connector, component, seff, requestorContext, originService, originAction);
     }
 
     public void performCheckEntity(final Signature signature, Connector connector,
             final Deque<AssemblyContext> component, final Identifier seff,
-            final List<? extends UsageSpecification> requestorContext) {
+            final List<? extends UsageSpecification> requestorContext, ServiceSpecification originService,
+            ExternalCallAction originAction) {
         final var listSubject = new ArrayList<UsageSpecification>();
         final var listEnvironment = new ArrayList<UsageSpecification>();
         final var listResource = new ArrayList<UsageSpecification>();
@@ -71,7 +75,8 @@ public class CheckOperation {
         }
         final var result = resultOpt.get();
 
-        this.storage.storeResult(this.scenario, signature, seff, connector, result, new LinkedList<>(component));
+        this.storage.storeResult(this.scenario, signature, seff, connector, result, new LinkedList<>(component),
+                originService, originAction);
 
     }
 

@@ -2,10 +2,12 @@ package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.outpu
 
 import java.util.List;
 
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 import de.uka.ipd.sdq.identifier.Identifier;
@@ -32,6 +34,7 @@ public interface ScenarioResultStorage {
      *             if one argument is null
      */
     void storeResult(UsageScenario scenario, Signature signature,
-            Identifier seff, Connector connector, PDPResult decision, List<AssemblyContext> assembly);
+            Identifier seff, Connector connector, PDPResult decision, List<AssemblyContext> assembly,
+            ServiceSpecification originService, ExternalCallAction action);
 
 }

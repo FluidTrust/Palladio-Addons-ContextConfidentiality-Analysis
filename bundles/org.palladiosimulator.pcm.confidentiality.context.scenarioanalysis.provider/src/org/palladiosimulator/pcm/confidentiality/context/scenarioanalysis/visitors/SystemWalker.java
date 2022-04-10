@@ -7,6 +7,7 @@ import java.util.Objects;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.AttributeProviderHandler;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.Signature;
@@ -33,7 +34,8 @@ public class SystemWalker {
         final var connector = PCMInstanceHelper.getHandlingAssemblyConnector(systemCall, system);
         final var seff = this.getSEFF(systemCall, system);
 
-        this.operation.performCheck(seff.getDescribedService__SEFF(), connector, assemblyContext, seff, attributes);
+        this.operation.performCheck(seff.getDescribedService__SEFF(), connector, assemblyContext, seff, attributes,
+                null, null);
 
         this.propagationBySeff(seff, assemblyContext, attributes);
     }
@@ -58,10 +60,21 @@ public class SystemWalker {
             if (handlingAssembly.isEmpty()) {
                 continue;
             }
+
+            var origin = StructureFactory.eINSTANCE.createServiceSpecification();
+            origin.setService((ResourceDemandingSEFF) seff);
+            origin.setAssemblycontext(encapsulatingContexts.getLast());
+            origin.setSignature(seff.getDescribedService__SEFF());
+            if (encapsulatingContexts.size() > 1) {
+                var copy = new LinkedList<>(encapsulatingContexts);
+                copy.removeLast();
+                origin.getHierachy().addAll(copy);
+            }
+
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
                     handlingAssembly.get(handlingAssembly.size() - 1));
             this.operation.performCheck(nextSeff.getDescribedService__SEFF(), connector, handlingAssembly, nextSeff,
-                    localAttributes);
+                    localAttributes, origin, externalAction);
 
             // recursively check services
             this.propagationBySeff(nextSeff, handlingAssembly, localAttributes);

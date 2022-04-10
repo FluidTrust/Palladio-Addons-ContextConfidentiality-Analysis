@@ -8,12 +8,14 @@ import java.util.Objects;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.OutputmodelFactory;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
+import org.palladiosimulator.pcm.seff.ExternalCallAction;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
 import de.uka.ipd.sdq.identifier.Identifier;
@@ -41,7 +43,7 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
     @Override
     public void storeResult(final UsageScenario scenario,
             final Signature signature, final Identifier seff, Connector connector, final PDPResult policies,
-            final List<AssemblyContext> assembly) {
+            final List<AssemblyContext> assembly, ServiceSpecification originService, ExternalCallAction originAction) {
 
         // checking for null values
         Objects.requireNonNull(scenario);
@@ -62,6 +64,8 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
         scenarioResult.setOperationsignature((OperationSignature) signature);
         scenarioResult.getAssemblyContext().addAll(assembly);
         scenarioResult.setConnector(connector);
+        scenarioResult.setOriginService(originService);
+        scenarioResult.setOrgiginAction(originAction);
 
         output.getOperationOutput().add(scenarioResult);
 
