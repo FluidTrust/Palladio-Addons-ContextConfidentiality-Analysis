@@ -30,10 +30,10 @@ public class SystemWalker {
     public void propagationBySeff(final EntryLevelSystemCall systemCall, final System system,
             final List<? extends UsageSpecification> attributes) {
         final var assemblyContext = new LinkedList<>(PCMInstanceHelper.getHandlingAssemblyContexts(systemCall, system));
-
+        final var connector = PCMInstanceHelper.getHandlingAssemblyConnector(systemCall, system);
         final var seff = this.getSEFF(systemCall, system);
 
-        this.operation.performCheck(seff.getDescribedService__SEFF(), assemblyContext, seff, attributes);
+        this.operation.performCheck(seff.getDescribedService__SEFF(), connector, assemblyContext, seff, attributes);
 
         this.propagationBySeff(seff, assemblyContext, attributes);
     }
@@ -60,7 +60,7 @@ public class SystemWalker {
             }
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
                     handlingAssembly.get(handlingAssembly.size() - 1));
-            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), handlingAssembly, nextSeff,
+            this.operation.performCheck(nextSeff.getDescribedService__SEFF(), connector, handlingAssembly, nextSeff,
                     localAttributes);
 
             // recursively check services

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
 
@@ -31,6 +32,6 @@ public interface ScenarioResultStorage {
      *             if one argument is null
      */
     void storeResult(UsageScenario scenario, Signature signature,
-            Identifier seff, PDPResult decision, List<AssemblyContext> assembly);
+            Identifier seff, Connector connector, PDPResult decision, List<AssemblyContext> assembly);
 
 }

@@ -73,6 +73,18 @@ public class PCMInstanceHelper {
                 + "\" that matches the EntryLevelSystemCall \"" + call.getEntityName() + "\".");
     }
 
+    public static Connector getHandlingAssemblyConnector(EntryLevelSystemCall call, System system) {
+        for (final Connector conn : system.getConnectors__ComposedStructure()) {
+            if (conn instanceof final ProvidedDelegationConnector pdc) {
+                if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
+                        .equals(call.getProvidedRole_EntryLevelSystemCall().getId())) {
+                    return pdc;
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * Searches for the providing AssemblyContexts that handle the given ExternalCallAction.
      *

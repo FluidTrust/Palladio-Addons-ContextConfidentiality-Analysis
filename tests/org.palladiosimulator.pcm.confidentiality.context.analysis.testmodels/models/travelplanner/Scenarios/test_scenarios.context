@@ -22,6 +22,9 @@
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_iikK4AcmEeyfdfV5US28Ng" attributevalue="_haahwPXoEeub3tcXgMY_nQ" attribute="_fG18ovXoEeub3tcXgMY_nQ">
       <usagescenario href="../default.usagemodel#_J_S84C4_EeuiX-NTW4lBww"/>
     </usagespecification>
+    <misusagescenario>
+      <usagescenario href="../default.usagemodel#_YCtN8LioEeyHEojJO5SKQw"/>
+    </misusagescenario>
   </pcmspecificationcontainer>
   <policyset id="_SmfacfXoEeub3tcXgMY_nQ" entityName="Travelplaner Case Study">
     <policy id="_7wxKcfXoEeub3tcXgMY_nQ" entityName="Travelplanner">

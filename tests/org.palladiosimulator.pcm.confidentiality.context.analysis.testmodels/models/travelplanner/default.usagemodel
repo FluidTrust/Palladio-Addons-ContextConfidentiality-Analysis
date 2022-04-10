@@ -35,4 +35,14 @@
       </actions_ScenarioBehaviour>
     </scenarioBehaviour_UsageScenario>
   </usageScenario_UsageModel>
+  <usageScenario_UsageModel id="_YCtN8LioEeyHEojJO5SKQw" entityName="MisusageCredit">
+    <scenarioBehaviour_UsageScenario id="_aub0YLioEeyHEojJO5SKQw" entityName="ScenarioBehaviour">
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Start" id="_aub0YbioEeyHEojJO5SKQw" successor="_bI3GkLioEeyHEojJO5SKQw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:Stop" id="_aub0YrioEeyHEojJO5SKQw" predecessor="_bI3GkLioEeyHEojJO5SKQw"/>
+      <actions_ScenarioBehaviour xsi:type="usagemodel:EntryLevelSystemCall" id="_bI3GkLioEeyHEojJO5SKQw" entityName="EntryLevelSystemCall1" successor="_aub0YrioEeyHEojJO5SKQw" predecessor="_aub0YbioEeyHEojJO5SKQw">
+        <providedRole_EntryLevelSystemCall href="default.system#_vAFWsMOBEeWst9mTsticNA"/>
+        <operationSignature__EntryLevelSystemCall href="default.repository#_N6idsMN3EeWPE-QAhbUzuQ"/>
+      </actions_ScenarioBehaviour>
+    </scenarioBehaviour_UsageScenario>
+  </usageScenario_UsageModel>
 </usagemodel:UsageModel>

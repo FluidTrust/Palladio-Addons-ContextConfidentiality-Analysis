@@ -11,6 +11,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.Sc
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.DecisionType;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPResult;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.composition.Connector;
 import org.palladiosimulator.pcm.repository.OperationSignature;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.usagemodel.UsageScenario;
@@ -39,7 +40,7 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
 
     @Override
     public void storeResult(final UsageScenario scenario,
-            final Signature signature, final Identifier seff, final PDPResult policies,
+            final Signature signature, final Identifier seff, Connector connector, final PDPResult policies,
             final List<AssemblyContext> assembly) {
 
         // checking for null values
@@ -60,6 +61,7 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
         scenarioResult.getPolicyIDs().addAll(policies.policyIdentifiers());
         scenarioResult.setOperationsignature((OperationSignature) signature);
         scenarioResult.getAssemblyContext().addAll(assembly);
+        scenarioResult.setConnector(connector);
 
         output.getOperationOutput().add(scenarioResult);
 
