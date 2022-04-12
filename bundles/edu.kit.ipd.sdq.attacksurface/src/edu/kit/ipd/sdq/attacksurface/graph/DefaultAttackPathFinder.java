@@ -8,13 +8,13 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import com.google.common.graph.EndpointPair;
@@ -30,81 +30,50 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author ugnwq
  * @version 0.9
  */
-class DefaultAttackPathFinder implements AttackPathFinder {
+public class DefaultAttackPathFinder implements AttackPathFinder {
     private final AttackGraph graph;
     private final Set<AttackStatusNodeContent> startOfAttacks;
+    private int sizeMaximum;
 
-    DefaultAttackPathFinder(final AttackGraph graph) {
+    public DefaultAttackPathFinder(final AttackGraph graph) {
         this.graph = graph;
         this.startOfAttacks = new HashSet<>();
     }
 
+    private void setSizeMaximum(final BlackboardWrapper board) {
+        this.sizeMaximum = AttackHandlingHelper.getSurfaceAttacker(board).getFiltercriteria()
+                .stream()
+                .filter(MaximumPathLengthFilterCriterion.class::isInstance)
+                .map(MaximumPathLengthFilterCriterion.class::cast)
+                .filter(m -> m.getMaximumPathLength() >= 0)
+                .mapToInt(MaximumPathLengthFilterCriterion::getMaximumPathLength)
+                .min().orElse(Integer.MAX_VALUE);
+    }
+    
     @Override
     public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
+        setSizeMaximum(board);
+        
         this.graph.resetVisitations();
         List<AttackPathSurface> allPaths = new ArrayList<>();
         this.startOfAttacks.clear();
-
+        
+        for (final var node : this.graph.getNodes()) {
+            attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
+        }
+        
         final var nodeIterable = getNodeIterable();
-        boolean isChanged = false;
         for (final var nodeContentToFind : nodeIterable) {
             final var node = this.graph.findNode(nodeContentToFind);
             if (!node.isVisited()) {
-                isChanged |= calculatePathsForNode(board, changes, nodeContentToFind, allPaths);
+                calculatePathsForNode(board, changes, nodeContentToFind, allPaths);
             }
-        }
-        if (isChanged) {
-            // re-run the attack-path generation if attack with initially required
-            // credentials requires this
-            allPaths = findAllAttackPaths(board, changes);
         }
         return filterResult(board, allPaths);
     }
 
     private Iterable<AttackStatusNodeContent> getNodeIterable() {
-        return () -> new Iterator<>() {
-            private AttackStatusNodeContent node = graph.getRootNodeContent();
-            private final List<AttackStatusNodeContent> children = new ArrayList<>();
-            private final Set<AttackStatusNodeContent> childrenSet = new HashSet<>();
-            private final Map<AttackStatusNodeContent, Boolean> addedChildren = new HashMap<>();
-            
-            @Override
-            public boolean hasNext() {
-                return this.node != null;
-            }
-
-            @Override
-            public AttackStatusNodeContent next() {
-                final var ret = this.node;
-                
-                this.addedChildren.computeIfAbsent(this.node, n -> false);
-                if (!this.addedChildren.get(this.node).booleanValue()) {
-                    final var childrenOfNode = sortedByAttackEdgeRelevancy(graph.getChildrenOfNode(this.node));
-                    childrenOfNode.forEach(c -> {
-                        if (!this.childrenSet.contains(c)) {
-                            this.children.add(c);
-                            this.childrenSet.add(c);
-                        }
-                    });
-                    this.addedChildren.put(this.node, true);
-                }
-                if (this.children.isEmpty()) {
-                    this.node = null;
-                } else {
-                    this.node = this.children.remove(0);
-                }
-                
-                if (ret == null) {
-                    throw new NoSuchElementException("no element available");
-                }
-                return ret;
-            }
-
-            private List<AttackStatusNodeContent> sortedByAttackEdgeRelevancy(
-                    Set<AttackStatusNodeContent> childrenOfNode) {
-                return sortedByRelevancy(this.node, childrenOfNode);
-            }
-        };
+        return NodeIterator::new;
     }
     
 
@@ -151,11 +120,12 @@ class DefaultAttackPathFinder implements AttackPathFinder {
         };
     }
 
-    private boolean calculatePathsForNode(final BlackboardWrapper board, final CredentialChange changes,
-            final AttackStatusNodeContent nodeContentToFind, final List<AttackPathSurface> allPaths) {
+    private void calculatePathsForNode(final BlackboardWrapper board, final CredentialChange changes,
+            final AttackStatusNodeContent nodeContentToFind, 
+            final List<AttackPathSurface> allPaths) {
         final var node = this.graph.findNode(nodeContentToFind);
         final boolean isNodeAttacked = node.isAttacked();
-        final boolean isChanged = attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
+        
         if (isNodeAttacked) {
             final List<AttackStatusNodeContent> children = getChildrenOfNode(node);
             for (final var child : children) {
@@ -168,13 +138,12 @@ class DefaultAttackPathFinder implements AttackPathFinder {
                     node.setVisited(true);
                 }
 
-                final boolean isStartOfAttack = !node.isAttackedBy(child);
+                final boolean isStartOfAttack = !isAttackedByChild;
                 if (isStartOfAttack) {
                     this.startOfAttacks.add(child);
                 }
             }
         }
-        return isChanged;
     }
 
     // remove duplicate paths, partial paths and invalid paths
@@ -217,23 +186,76 @@ class DefaultAttackPathFinder implements AttackPathFinder {
             if (isEdgeSimplePath && isAttackEdge) {
                 newPaths.add(edgePath);
             }
-            allPaths.forEach(p -> {
-                final var pathCopy = p.getCopy();
-                final boolean doAddCopy = addEdgeIfFitting(p, reverseEdge);
-                if (doAddCopy) {
-                    newPaths.add(pathCopy);
-                }
+            allPaths.stream()
+                .filter(p -> isFitting(p, reverseEdge))
+                .forEach(p -> {
+                    if (p.size() < getSizeMaximum()) {
+                        final var pathCopy = p.getCopy();
+                        pathCopy.addFirst(reverseEdge);
+                        newPaths.add(pathCopy);
+                    }
             });
             allPaths.addAll(newPaths);
         }
     }
+    
+    private int getSizeMaximum() {
+        return this.sizeMaximum;
+    }
 
-    private boolean addEdgeIfFitting(final AttackPathSurface path, final AttackStatusEdge edge) {
-        final boolean isFitting = path.get(0).getNodes().source().equals(edge.getNodes().target());
-
-        if (isFitting) {
-            path.addFirst(edge);
+    private boolean isFitting(final AttackPathSurface path, final AttackStatusEdge edge) {
+        return path.get(0).getNodes().source().equals(edge.getNodes().target());
+    }
+    
+    private class NodeIterator implements Iterator<AttackStatusNodeContent> { 
+        private AttackStatusNodeContent node;
+        private final List<AttackStatusNodeContent> iterableList;
+        private final Iterator<AttackStatusNodeContent> listIterator;
+        private final Set<AttackStatusNodeContent> childrenSet;
+        private final Map<AttackStatusNodeContent, Boolean> addedChildren;
+        
+        public NodeIterator() {
+            this.node = graph.getRootNodeContent();
+            this.iterableList = new ArrayList<>();
+            this.childrenSet = new HashSet<>();
+            this.addedChildren = new HashMap<>();
+            
+            addChildrenForNode(this.node);
+            
+            this.listIterator = this.iterableList.iterator();
         }
-        return isFitting;
+        
+        private void addChildrenForNode(final AttackStatusNodeContent nodeToBeConsidered) {
+            this.iterableList.add(nodeToBeConsidered);
+           
+            this.addedChildren.computeIfAbsent(nodeToBeConsidered, n -> false);
+            if (!this.addedChildren.get(nodeToBeConsidered).booleanValue()) {
+                final var childrenOfNode = sortedByAttackEdgeRelevancy(
+                        nodeToBeConsidered, graph.getChildrenOfNode(nodeToBeConsidered));
+                childrenOfNode.forEach(c -> {
+                    if (!this.childrenSet.contains(c)) {
+                        this.iterableList.add(c);
+                        this.childrenSet.add(c);
+                    }
+                });
+                this.addedChildren.put(nodeToBeConsidered, true);
+                childrenOfNode.forEach(this::addChildrenForNode);
+            }
+        }
+        
+        @Override
+        public boolean hasNext() {
+            return this.listIterator.hasNext();
+        }
+
+        @Override
+        public AttackStatusNodeContent next() {
+            return this.listIterator.next();
+        }
+
+        private List<AttackStatusNodeContent> sortedByAttackEdgeRelevancy(final AttackStatusNodeContent attackedNode,
+                Set<AttackStatusNodeContent> childrenOfNode) {
+            return sortedByRelevancy(attackedNode, childrenOfNode);
+        }
     }
 }

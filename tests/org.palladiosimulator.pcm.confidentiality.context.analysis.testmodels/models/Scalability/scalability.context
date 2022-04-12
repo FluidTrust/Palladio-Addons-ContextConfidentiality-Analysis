@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_ZFhtYLWpEeyQX-6J3sEuBA">
+    <usagespecification id="_caYwYbWpEeyQX-6J3sEuBA" entityName="root"/>
+  </pcmspecificationcontainer>
+  <policyset id="_ZXOhYbWpEeyQX-6J3sEuBA"/>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_djZm4rWpEeyQX-6J3sEuBA" entityName="role">
+      <attributevalue id="_emteALWpEeyQX-6J3sEuBA" entityName="rootRole">
+        <values>root</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

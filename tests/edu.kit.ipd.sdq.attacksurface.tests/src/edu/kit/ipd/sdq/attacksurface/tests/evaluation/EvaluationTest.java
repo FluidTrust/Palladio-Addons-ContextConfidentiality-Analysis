@@ -6,13 +6,17 @@ import java.util.stream.Collectors;
 
 import org.junit.Assert;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.ResourceContainerVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.DefaultAttackPathFinder;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -20,11 +24,28 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public abstract class EvaluationTest extends AbstractChangeTests {
     
 
-    private void runAssemblyAssemblyPropagation(final CredentialChange change) {
+    protected void runAssemblyAssemblyPropagationWithAttackPathGeneration(final CredentialChange change) {
         generateXML();
         final var wrapper = getBlackboardWrapper();
         final var assemblyChange = new AssemblyContextPropagationVulnerability(wrapper, change, getAttackGraph());
         assemblyChange.calculateAssemblyContextToAssemblyContextPropagation();
+        final var attackPathFinder = new DefaultAttackPathFinder(getAttackGraph());
+        final var paths = attackPathFinder.findAllAttackPaths(getBlackboardWrapper(), change);
+        final var board = getBlackboardWrapper();
+        final var pathConverter = new AttackSurfaceAnalysis(true, board);
+        change.getAttackpaths().addAll(pathConverter.toAttackPaths(paths, board));
+    }
+    
+    protected void runResourceResourcePropagationWithAttackPathGeneration(final CredentialChange change) {
+        generateXML();
+        final var wrapper = getBlackboardWrapper();
+        final var resourceChange = new ResourceContainerPropagationVulnerability(wrapper, change, getAttackGraph());
+        resourceChange.calculateResourceContainerToResourcePropagation();
+        final var attackPathFinder = new DefaultAttackPathFinder(getAttackGraph());
+        final var paths = attackPathFinder.findAllAttackPaths(getBlackboardWrapper(), change);
+        final var board = getBlackboardWrapper();
+        final var pathConverter = new AttackSurfaceAnalysis(true, board);
+        change.getAttackpaths().addAll(pathConverter.toAttackPaths(paths, board));
     }
 
     private AssemblyContext getAssemblyContext(final String searchStr) {
@@ -110,6 +131,12 @@ public abstract class EvaluationTest extends AbstractChangeTests {
     }
     
     protected void setPathLengthFilter(final int maxLength) {
+        if (this.getSurfaceAttacker().getFiltercriteria().stream()
+                .noneMatch(MaximumPathLengthFilterCriterion.class::isInstance)) {
+            final var maxPathLengthFilter = AttackerFactory.eINSTANCE.createMaximumPathLengthFilterCriterion();
+            this.getSurfaceAttacker().getFiltercriteria().add(maxPathLengthFilter);
+        }
+        
         this.getSurfaceAttacker().getFiltercriteria()
             .stream()
             .filter(MaximumPathLengthFilterCriterion.class::isInstance)

@@ -82,6 +82,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var selectedNode = this.attackGraph.getSelectedNode();
 
         final var relevantResourceContainer = getResourceContainerForElement(selectedNode);
+        final var resourceContainerNode = findResourceContainerNode(relevantResourceContainer, selectedNode);
         final var listInfectedContainers = getInfectedResourceContainers();
         if (listInfectedContainers.contains(relevantResourceContainer)) {
             final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
@@ -89,6 +90,13 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                             e.getResourceContainer_AllocationContext()))
                     .map(AllocationContext::getAssemblyContext_AllocationContext).collect(Collectors.toList());
 
+            localComponents.forEach(c -> {
+                final var newNode = new AttackStatusNodeContent(c);
+                if (this.attackGraph.findNode(newNode) == null) {
+                    this.attackGraph.addOrFindChild(resourceContainerNode, newNode);
+                }
+            });
+            
             final var handler = getAssemblyHandler();
             handler.attackAssemblyContext(localComponents, this.changes, relevantResourceContainer, true);
 

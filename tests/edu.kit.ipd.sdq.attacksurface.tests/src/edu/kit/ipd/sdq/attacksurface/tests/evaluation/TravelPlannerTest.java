@@ -244,6 +244,26 @@ public class TravelPlannerTest extends EvaluationTest {
     }
     
     @Test
+    public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAvailabilityImpactAnd3() {
+        this.setVulnerabilityUnusable(false);
+        this.setPathLengthFilter(3);
+        final var changes = runAnalysis();
+        final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
+        printPaths(pathsDirectlyAfterAnalysis);
+        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, false, true);
+    }
+    
+    @Test
+    public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAvailabilityImpactAnd2() {
+        this.setVulnerabilityUnusable(false);
+        this.setPathLengthFilter(2);
+        final var changes = runAnalysis();
+        final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
+        printPaths(pathsDirectlyAfterAnalysis);
+        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, false, true);
+    }
+    
+    @Test
     public void evalAnalysisRootAndVulnerabilityUnusableDueToAttackVector() {
         this.setRootUnusable();
         this.setVulnerabilityUnusable(true);
