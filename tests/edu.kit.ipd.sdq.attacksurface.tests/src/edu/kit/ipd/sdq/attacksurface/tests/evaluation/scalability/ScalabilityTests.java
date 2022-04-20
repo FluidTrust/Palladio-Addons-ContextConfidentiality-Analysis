@@ -30,8 +30,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class ScalabilityTests extends EvaluationTest {    
     public static final int WARMUP = 2;
-    public static final int REPEAT = 10;
-    private static final boolean RUN_COMPLETE_ANALYSIS = true; //TODO adapt to false for only element prop. analysis
+    public static final int REPEAT = 2;//10;
+    protected static final boolean RUN_COMPLETE_ANALYSIS = true; //TODO adapt to false for only element prop. analysis
     protected static final int MAX_NUMBER_COMPLETE = 7;
     
     public ScalabilityTests() {
@@ -60,6 +60,21 @@ public abstract class ScalabilityTests extends EvaluationTest {
             writeResults();
         }
     }
+    
+    //@Disabled //TODO enable for scalability test for maximum
+    @Test
+    void runMax() { // runs the test for aof the scalability evaluation
+        for (var i = 0; i < WARMUP; i++) {
+            analysisTime();
+        }
+        
+        final var attacks = this.attacker.getSystemintegration();
+        moveVulnerabilitiesIfNecessary(attacks);
+        perform(this.environment, getMaximumRunValue(), attacks);
+        writeResults();
+    }
+
+    protected abstract int getMaximumRunValue();
 
     protected abstract int getMaximumNumberOfAdditions();
     

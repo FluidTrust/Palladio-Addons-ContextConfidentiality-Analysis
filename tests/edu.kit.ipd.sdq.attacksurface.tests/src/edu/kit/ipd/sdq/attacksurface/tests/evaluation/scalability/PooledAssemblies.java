@@ -87,4 +87,9 @@ public class PooledAssemblies extends ScalabilityTests {
     protected int getMaximumNumberOfAdditions() {
         return 17;
     }
+
+    @Override
+    protected int getMaximumRunValue() {
+        return RUN_COMPLETE_ANALYSIS ? 9 : 20;
+    }
 }

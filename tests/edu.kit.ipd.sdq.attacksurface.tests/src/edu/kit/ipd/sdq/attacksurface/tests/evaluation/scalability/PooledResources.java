@@ -67,4 +67,9 @@ public class PooledResources extends ScalabilityTests {
     protected int getMaximumNumberOfAdditions() {
         return MAX_NUMBER_COMPLETE;
     }
+
+    @Override
+    protected int getMaximumRunValue() {
+        return 9;
+    }
 }

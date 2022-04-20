@@ -76,4 +76,9 @@ public class ChainedResources extends ScalabilityTests {
     protected int getMaximumPathLength() {
         return this.maximumPathLength;
     }
+
+    @Override
+    protected int getMaximumRunValue() {
+        return 20;
+    }
 }
