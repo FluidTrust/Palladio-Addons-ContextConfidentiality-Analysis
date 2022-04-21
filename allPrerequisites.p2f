@@ -1,0 +1,432 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?p2f version='1.0.0'?>
+<p2f version='1.0.0'>
+  <ius size='72'>
+    <iu id='org.apache.commons.lang3' name='Apache Commons Lang' version='3.1.0.v201403281430'>
+      <repositories size='5'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.apache.commons.lang3.source' name='Apache Commons Lang Source' version='3.1.0.v201403281430'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='org.apache.logging.log4j' name='Apache Log4j 2' version='2.8.2.v20200818-1118'>
+      <repositories size='5'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.cdo.debug.feature.feature.group' name='CDO Debug Utils' version='0.1.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/eclipseaddon-cdodebugutils/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.cdo.epp.feature.group' name='CDO Model Repository EPP' version='4.16.0.v20211202-1357'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.e4.core.tools.feature.feature.group' name='Eclipse e4 Tools' version='4.22.0.v20211020-1255'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/eclipse/updates/4.22/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.jdt.feature.group' name='Eclipse Java Development Tools' version='3.18.1000.v20211124-1800'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/eclipse/updates/4.22/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='epp.package.modeling' name='Eclipse Modeling Tools' version='4.22.0.20211202-1357'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/technology/epp/packages/latest/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.pde.feature.group' name='Eclipse Plug-in Development Environment' version='3.14.1000.v20211124-1800'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/eclipse/updates/4.22/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.sdk.feature.group' name='Eclipse Project SDK' version='4.22.0.v20211124-1800'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/eclipse/updates/4.22/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.ecoretools.design.feature.group' name='Ecore Diagram Editor' version='3.3.4.202111191450'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.sdk.feature.group' name='EMF - Eclipse Modeling Framework SDK' version='2.28.0.v20211110-0654'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.emfeditutils.feature.feature.group' name='EMF Edit Utils Feature' version='0.1.0.202202242208'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-emfeditutils/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.emfeditutils.feature.source.feature.group' name='EMF Edit Utils Feature Developer Resources' version='0.1.0.202202242208'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-emfeditutils/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.ecp.emfforms.sdk.feature.feature.group' name='EMF Forms SDK' version='1.26.1.20210901-0930'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.query.sdk.feature.group' name='EMF Model Query SDK' version='1.12.0.201805030653'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.transaction.sdk.feature.group' name='EMF Model Transaction SDK' version='1.12.0.201805140824'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.parsley.sdk.feature.group' name='EMF Parsley SDK' version='1.13.0.v20201130-1005'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.parsley.sdk.source.feature.group' name='EMF Parsley SDK Developer Resources' version='1.13.0.v20201130-1005'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.validation.sdk.feature.group' name='EMF Validation Framework SDK' version='1.12.2.202008210805'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.generator.fluent.feature.feature.group' name='FluentApiModelGeneratorFeature' version='5.1.0.202202250205'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-addons-fluentapimodelgenerator/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.generator.fluent.feature.source.feature.group' name='FluentApiModelGeneratorFeature Developer Resources' version='5.1.0.202202250205'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-addons-fluentapimodelgenerator/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.gef.sdk.feature.group' name='GEF (MVC) SDK' version='3.11.0.201606061308'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.egit.feature.group' name='Git integration for Eclipse' version='6.0.0.202111291000-r'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/wildwebdeveloper/releases/0.13.2/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.gmf.runtime.sdk.feature.group' name='Graphical Modeling Framework (GMF) Runtime SDK' version='1.13.1.202106221344'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='javax.activation' name='Jakarta Activation' version='2.0.0.v20201118-1818'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='jakarta.activation' name='Jakarta Activation API jar' version='2.0.0.v20201118-1818'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='jakarta.activation.source' name='Jakarta Activation API jar Source' version='2.0.0.v20201118-1818'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='javax.activation.source' name='Jakarta Activation Source' version='2.0.0.v20201118-1818'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='jakarta.xml.bind.source' name='Jakarta XML Binding API Source' version='2.3.3.v20201118-1818'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='edu.kit.ipd.sdq.kamp.feature.feature.group' name='KAMPCORE' version='1.0.0.202004141307'>
+      <repositories size='1'>
+        <repository location='https://raw.githubusercontent.com/KAMP-Research/KAMP/gh-pages'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.m2e.feature.feature.group' name='M2E - Maven Integration for Eclipse (includes Incubating components)' version='1.20.0.20220210-1034'>
+      <repositories size='1'>
+        <repository location='https://download.eclipse.org/technology/m2e/releases/latest/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.epp.mpc.feature.group' name='Marketplace Client' version='1.9.2.v20210826-0851'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/wildwebdeveloper/releases/0.13.2/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.ecoreworkflow.mwe2lib.feature.feature.group' name='MDSD.tools EcoreWorkflow MWE2 Library' version='0.2.0.202202242210'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/ecore-workflow/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.ecoreworkflow.mwe2lib.feature.source.feature.group' name='MDSD.tools EcoreWorkflow MWE2 Library Developer Resources' version='0.2.0.202202242210'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/ecore-workflow/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.ecoreworkflow.mwe2lib.xtext.feature.feature.group' name='MDSD.tools EcoreWorkflow MWE2 Library for Xtext' version='0.1.1.202202242210'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/ecore-workflow/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.ecoreworkflow.mwe2lib.xtext.feature.source.feature.group' name='MDSD.tools EcoreWorkflow MWE2 Library for Xtext Developer Resources' version='0.1.1.202202242210'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/ecore-workflow/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.mdsdprofiles.feature.feature.group' name='MDSD Profiles' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.mdsdprofiles.feature.source.feature.group' name='MDSD Profiles Developer Resources' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.compare.source.feature.group' name='Model comparison (EMF Compare) - Core - SDK' version='3.3.17.202111290942'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.compare.egit.feature.group' name='Model comparison (EMF Compare) - EGit support' version='3.3.17.202111290942'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.compare.ide.ui.source.feature.group' name='Model comparison (EMF Compare) - SDK' version='3.3.17.202111290942'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.compare.diagram.sirius.source.feature.group' name='Model comparison (EMF Compare) - Sirius support (Experimental)- SDK' version='3.3.17.202111290942'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.emf.mwe2.language.sdk.feature.group' name='MWE2 Language SDK' version='2.11.0.201906111547'>
+      <repositories size='4'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.mylyn.wikitext_feature.feature.group' name='Mylyn WikiText' version='3.0.41.202111102318'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/wildwebdeveloper/releases/0.13.2/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.ocl.all.sdk.feature.group' name='OCL Classic SDK: Ecore/UML Parsers,Evaluator,Edit' version='5.17.0.v20211130-1448'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.oomph.setup.feature.group' name='Oomph Setup' version='1.23.0.v20211116-0849'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.glassfish.hk2.osgi-resource-locator' name='OSGi resource locator' version='2.5.0.v20161103-1916'>
+      <repositories size='2'>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository'/>
+        <repository location='https://download.eclipse.org/tools/orbit/downloads/drops/R20210825222808/repository'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.analyzer.feature.feature.group' name='Palladio Analyzer Framework' version='5.1.0.202202250208'>
+      <repositories size='2'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-analyzer-framework/nightly/'/>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.analyzer.feature.source.feature.group' name='Palladio Analyzer Framework Developer Resources' version='5.1.0.202202250208'>
+      <repositories size='2'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-analyzer-framework/nightly/'/>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.pcm.feature.feature.group' name='Palladio Component Model' version='5.1.0.202202250156'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.commons.feature.feature.group' name='Palladio Component Model - Commons for Editor Development' version='5.1.0.202202250205'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.commons.feature.source.feature.group' name='Palladio Component Model - Commons for Editor Development Developer Resources' version='5.1.0.202202250205'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.pcm.feature.source.feature.group' name='Palladio Component Model Developer Resources' version='5.1.0.202202250156'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.sirius.feature.feature.group' name='Palladio Component Model - Sirius Editors' version='5.1.0.202202250335'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.tree.feature.feature.group' name='Palladio Component Model - Tree Editors' version='5.1.0.202202250217'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.editors.tree.feature.source.feature.group' name='Palladio Component Model - Tree Editors Developer Resources' version='5.1.0.202202250217'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.workflow.feature.core.feature.group' name='Palladio Workflow Engine Core' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.workflow.feature.core.source.feature.group' name='Palladio Workflow Engine Core Developer Resources' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.workflow.feature.mdsd.feature.group' name='Palladio Workflow Engine MDSD' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='de.uka.ipd.sdq.workflow.feature.mdsd.source.feature.group' name='Palladio Workflow Engine MDSD Developer Resources' version='5.1.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.sonarlint.eclipse.feature.feature.group' name='SonarLint for Eclipse' version='7.2.1.42550'>
+      <repositories size='1'>
+        <repository location='https://eclipse-uc.sonarlint.org'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.core.feature.feature.group' name='Standalone Initialization Core Feature' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.core.feature.source.feature.group' name='Standalone Initialization Core Feature Developer Resources' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.emfprofiles.feature.feature.group' name='Standalone Initialization EMFProfiles' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.emfprofiles.feature.source.feature.group' name='Standalone Initialization EMFProfiles Developer Resources' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.log4j.feature.feature.group' name='Standalone Initialization Log4j' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='tools.mdsd.library.standalone.initialization.log4j.feature.source.feature.group' name='Standalone Initialization Log4j Developer Resources' version='0.3.0.202202242207'>
+      <repositories size='1'>
+        <repository location='https://updatesite.mdsd.tools/library-standaloneinitialization/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.palladiosimulator.thirdpartywrapper.feature.feature.group' name='Third Party Wrapper' version='5.0.0.202202250146'>
+      <repositories size='1'>
+        <repository location='https://updatesite.palladio-simulator.com/palladio-build-updatesite/nightly/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.tips.feature.feature.group' name='Tip of the Day UI Feature' version='0.2.1600.v20211106-0839'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/eclipse/updates/4.22/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.uml2.sdk.feature.group' name='UML2 Extender SDK' version='5.5.2.v20210228-1829'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='https://download.eclipse.org/releases/2021-06/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+    <iu id='org.eclipse.xsd.sdk.feature.group' name='XSD - XML Schema Definition SDK' version='2.28.0.v20210924-1719'>
+      <repositories size='3'>
+        <repository location='https://download.eclipse.org/releases/latest'/>
+        <repository location='http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/'/>
+        <repository location='https://download.eclipse.org/releases/2021-12/'/>
+      </repositories>
+    </iu>
+  </ius>
+</p2f>

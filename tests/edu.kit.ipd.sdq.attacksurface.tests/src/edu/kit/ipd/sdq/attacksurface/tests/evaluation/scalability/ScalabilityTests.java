@@ -61,7 +61,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
         }
     }
     
-    //@Disabled //TODO enable for scalability test for maximum
+    @Disabled //TODO enable for scalability test for maximum
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
