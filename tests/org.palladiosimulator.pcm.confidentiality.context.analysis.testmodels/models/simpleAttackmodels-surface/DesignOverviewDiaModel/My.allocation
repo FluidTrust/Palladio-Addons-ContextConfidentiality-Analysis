@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_JiPBICHdEd6lJo4DCALHMw" entityName="defaultAllocation">
+  <targetResourceEnvironment_Allocation href="My.resourceenvironment#/"/>
+  <system_Allocation href="My.system#_84D0kCHcEd6lJo4DCALHMw"/>
+  <allocationContexts_Allocation id="_gmLeoCsoEeK79cj3OHITwQ" entityName="Allocation_Critical">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+    <assemblyContext_AllocationContext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_hVdMoFBmEeyFsrOVaGVGfg" entityName="Allocation_Assembly_Component 4.1">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_Q_7vsFBmEeyFsrOVaGVGfg"/>
+    <assemblyContext_AllocationContext href="My.system#_dCpbAFBjEeyGXqZbGaQ79w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_k0BlQFBmEeyFsrOVaGVGfg" entityName="Allocation_Assembly_Component 3.1">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_KlAToFBmEeyFsrOVaGVGfg"/>
+    <assemblyContext_AllocationContext href="My.system#_cKQacFBjEeyGXqZbGaQ79w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_nQNT0FBmEeyFsrOVaGVGfg" entityName="Allocation_Assembly_Component P.2.1">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+    <assemblyContext_AllocationContext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_xCnCAFBmEeyFsrOVaGVGfg" entityName="Allocation_Assembly_Component R.1.1">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+    <assemblyContext_AllocationContext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_ytyxcFBmEeyFsrOVaGVGfg" entityName="Allocation_Assembly_Component R.2.1">
+    <resourceContainer_AllocationContext href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+    <assemblyContext_AllocationContext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

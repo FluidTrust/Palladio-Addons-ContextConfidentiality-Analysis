@@ -8,7 +8,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
-
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
@@ -31,7 +32,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 
 @Component
-public class AttackPropagationAnalysis {
+public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
     private CredentialChange changePropagationDueToCredential;
 

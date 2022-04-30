@@ -3,10 +3,11 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.ClassicalAttackerAnalysisWorkflow;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ClassicalAttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.SurfaceAttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
 import de.uka.ipd.sdq.workflow.jobs.IJob;
@@ -18,7 +19,7 @@ import de.uka.ipd.sdq.workflow.mdsd.AbstractWorkflowBasedMDSDLaunchConfiguration
  *
  * @author majuwa
  * @author Mirko Sowa
- *
+ * @author ugnwq
  */
 public class LaunchDelegate
         extends AbstractWorkflowBasedMDSDLaunchConfigurationDelegate<ContextAnalysisWorkflowConfig> {
@@ -35,12 +36,15 @@ public class LaunchDelegate
             scenarioBuilder.fillConfiguration(config);
             break;
         case "Insider":
-            config = new AttackerAnalysisWorkflowConfig();
+            config = new ClassicalAttackerAnalysisWorkflowConfig();
             final var attackBuilder = new AttackAnalysisConfigurationBuilder(configuration, mode);
             attackBuilder.fillConfiguration(config);
             break;
         case "Attack surface":
-            throw new UnsupportedOperationException();
+        	config = new SurfaceAttackerAnalysisWorkflowConfig();
+            final var attackSurfaceBuilder = new AttackSurfaceAnalysisConfigurationBuilder(configuration, mode);
+        	attackSurfaceBuilder.fillConfiguration(config);
+            break;
         default:
             assert false;
         }
@@ -51,12 +55,7 @@ public class LaunchDelegate
     @Override
     protected IJob createWorkflowJob(final ContextAnalysisWorkflowConfig config, final ILaunch launch)
             throws CoreException {
-
-        // TODO make better
-        if (config instanceof ScenarioAnalysisWorkflowConfig) {
-            return new GUIBasedScenarioAnalysisWorkflow((ScenarioAnalysisWorkflowConfig) config);
-        }
-        return new ClassicalAttackerAnalysisWorkflow((AttackerAnalysisWorkflowConfig) config); // FIXME
+        return config.createWorkflowJob(launch);
     }
 
 }

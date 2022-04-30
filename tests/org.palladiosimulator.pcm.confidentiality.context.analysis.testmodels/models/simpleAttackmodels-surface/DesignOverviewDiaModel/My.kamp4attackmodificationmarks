@@ -1,0 +1,2734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <changePropagationSteps>
+    <datamodelcontainer/>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnD9I69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnD9Iq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnD9JK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnD9Ja9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnEkMK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnEkMa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnEkMq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnEkNa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnEkNK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnFLQK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnFLQa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnFLQq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnFLRa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnFLRK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnFLRq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnFLR69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnFyUK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnFyUa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnFyUq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnFyVa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnFyVK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnGZYK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnGZYa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnGZYq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnGZZa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnGZZK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnHAcK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnHAca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnHAcq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnHAc69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnHngK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnHng69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnHngq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnHnhK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnHnha9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnHnhq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnHnia9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnHniK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnIOkK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnIOka9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnIOkq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnIOk69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnI1oK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnI1o69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnI1oq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnI1pK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnI1pa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnJcsK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnJcs69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jnJcsq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnJctK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnJcta9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnJctq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnJct69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnKDwK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnKDw69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jnKDwq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnKDxK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnKDxa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnKq0K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnKq069AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnKq0q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnKq1K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnKq1a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnKq1q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnKq169AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnLR4K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnLR4a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnLR4q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnLR469AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnL48K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnL4869AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnL48q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnL49K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnL49a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnL49q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnL4969AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnMgAK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnMgAa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnMgAq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnMgBa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnMgBK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnNHEK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnNHEa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnNHEq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnNHE69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnNuIK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnNuI69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnNuIq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnNuJK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnNuJa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnOVMK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnOVM69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnOVMq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnOVNK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnOVNa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnO8QK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnO8Qa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnO8Q69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnO8Qq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnO8RK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnO8Ra9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnPjUK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnPjU69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnPjUq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnPjVK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnPjVa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnQKYK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnQKYa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnQKY69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnQKYq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnQKZK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnQKZq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnQKZ69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnQxcK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnQxca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnQxcq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnQxda9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnQxdK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnRYgK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnRYga9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnRYg69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnRYgq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnRYhK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnRYha9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnR_kK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnR_k69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-3">
+        <pcmelement id="_jnR_kq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_Bc1OMFBmEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnR_lK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnR_la9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnR_l69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnR_lq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnSmoK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnSmo69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnSmoq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnSmpK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnSmpa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnSmpq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnSmp69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnSmqa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnSmqK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnTNsK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnTNsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnTNsq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnTNta9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnTNtK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnT0wK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnT0wa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnT0wq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnT0w69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnT0xa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnT0xK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnT0xq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnUb0a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnUb0K9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnUb0q9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnUb069AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnUb1a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnUb1K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnUb1q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnUb169AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnVC4K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnVC469AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer R.1">
+        <pcmelement id="_jnVC4q9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_fxqJglBkEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnVC5K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnVC5a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnVC569AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnVC5q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnVp8K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnVp869AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnVp8q9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnVp9K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnVp9a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnWRAK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnWRAa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnWRA69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnWRAq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnWRBK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnWRBa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnW4EK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnW4E69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnW4Eq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnW4FK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnW4Fa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnXfIK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnXfIa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnXfI69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnXfIq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnXfJK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnXfJ69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnXfJq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnYGMK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnYGMa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnYGM69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnYGMq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnYGNK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnYGNa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnYtQK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnYtQ69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_jnYtQq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_0Bd1QFBlEeyFsrOVaGVGfg"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnYtRK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnYtRa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnYtR69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnYtRq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnZUUK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnZUU69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnZUUq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnZUVK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnZUVa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnZUVq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnZUV69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnZUWa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnZUWK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnZ7YK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnZ7Ya9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnZ7Yq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnaica9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnaicK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnaicq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnaic69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnaidK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnaida9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnaid69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnaidq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnbJgK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnbJg69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnbJgq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnbJhK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnbJha9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnbJh69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnbJhq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnbwkK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnbwka9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnbwkq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnbwla9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnbwlK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jncXoK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jncXoa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jncXo69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jncXoq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jncXpK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jncXp69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jncXpq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnc-sK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnc-sa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnc-sq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnc-s69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnc-ta9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnc-tK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnc-tq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnc-t69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jndlwK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jndlw69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jndlwq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jndlxK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jndlxa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jneM0K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jneM0a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jneM069AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jneM0q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jneM1K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jneM169AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jneM1q9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jneM2K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jneM2a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jneM269AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jneM2q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnez4K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnez4a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnez4q9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnez5a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for ResourceContainer P.2">
+        <pcmelement id="_jnez5K9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_hYTMoFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnfa8K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnfa8a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnfa869AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnfa8q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnfa9K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnfa969AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnfa9q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jngCAK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jngCAa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jngCAq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jngCA69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jngCBK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jngCBa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jngpEK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jngpEa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jngpE69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jngpEq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jngpFK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jngpFa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnhQIK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnhQI69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnhQIq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnhQJK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnhQJa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnhQJq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnhQJ69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnh3MK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnh3Ma9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnh3Mq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnh3M69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnh3Na9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnh3NK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnieQK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnieQ69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnieQq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnieRK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnieRa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnieRq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnieR69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnjFUK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnjFUa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnjFU69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnjFUq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnjFVK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnjFVa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnjsYK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnjsY69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnjsYq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnjsZK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnjsZa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnkTcK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnkTca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnkTcq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnkTc69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnkTda9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnkTdK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnk6gK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnk6g69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnk6gq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnk6hK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnk6ha9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnk6hq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnk6h69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnk6ia9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnk6iK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnlhkK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnlhka9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnlhkq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnlhla9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnlhlK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnmIoK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnmIoa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnmIoq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnmIo69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnmIpa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnmIpK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnmvsK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnmvs69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnmvsq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnmvtK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnmvta9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnmvt69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnmvtq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnmvuK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnmvua9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnnWwK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnnWw69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_jnnWwq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnnWxK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnnWxa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnnWx69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnnWxq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnn90K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnn90q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnn9069AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnok4K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnok4a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnok4q9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnok469AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnok5a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnok5K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnok5q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnok569AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnpL8K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnpL8q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnpL869AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnpzAK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnpzAa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnpzAq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnpzA69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnpzBa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnpzBK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnqaEK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnqaEq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnqaE69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnrBIK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnrBIa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnrBI69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnrBIq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnrBJK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnrBJa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnroMK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnroMq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnroM69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnsPQK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnsPQa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnsPQ69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnsPQq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnsPRK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jns2UK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jns2Ua9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jns2Uq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jns2U69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jns2Va9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jns2VK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jntdYK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jntdYa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jntdYq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnuEcK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnuEca9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnuEcq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnuEc69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnuEda9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnuEdK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jnurgK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnurg69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Critical Resource Container">
+        <pcmelement id="_jnurgq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnurha9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnurhK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnurhq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnurh69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnuriK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnvSka9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnvSkK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnvSkq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnvSk69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnvSlK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnvSla9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnv5oK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnv5oa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnv5oq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnv5pa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnv5pK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnwgsK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnwgsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnwgsq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnwgs69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnwgtK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnxHwa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnxHwK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnxHwq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnxHw69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnxHxK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnxHxa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnxu0K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnxu0a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnxu069AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnxu0q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnxu1K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnxu1a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jnxu1q9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnyV4a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jnyV4K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnyV4q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jnyV469AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnyV5K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnyV5a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jny88K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jny88a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jny8869AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jny88q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jny89K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jny8969AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jny89q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jny8-K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jny8-a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnzkAK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jnzkAa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jnzkA69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jnzkAq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jnzkBK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jnzkBa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn0LEK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn0LE69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component R.1.2">
+        <pcmelement id="_jn0LEq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_wc2RQFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn0LFK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn0LFa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn0yIK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn0yIa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn0yI69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jn0yIq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jn0yJK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn1ZMK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn1ZMa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn1ZMq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn1ZM69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn1ZNK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn1ZNa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn2AQK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn2AQa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn2AQq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn2AQ69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn2nUK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn2nUq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn2nU69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn3OYK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn3OYa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn3OYq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn3OY69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn3OZK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn3OZa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn31cK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn31cq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn31c69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn4cgK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn4cga9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn4cgq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn4cg69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn4chK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn4cha9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn5DkK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn5Dka9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn5Dk69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jn5Dkq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn5DlK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn5Dla9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn5Dlq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn5qoK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn5qoa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn5qoq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn5qo69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn6RsK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn6Rsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn6Rsq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn6Rs69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn6RtK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn6Rta9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn6Rt69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jn6Rtq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jn64wK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn64wq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn64w69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn64xK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn64xa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn7f0K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn7f0a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn7f0q9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn7f069AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn7f1a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jn7f1K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn8G4K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn8G4a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn8G4q9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn8G5K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn8G5a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn8t8K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn8t8a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn8t8q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn8t869AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn8t9K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jn8t9a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jn8t969AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jn8t9q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jn9VAK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn9VAq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn9VA69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn98EK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn98Ea9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn98Eq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn98E69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn-jIK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn-jIa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn-jIq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn_KMK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn_KMa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn_KMq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jn_KM69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jn_xQK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jn_xQa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jn_xQq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joAYUK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joAYUa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joAYUq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joAYU69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joAYVK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joAYVa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joA_YK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joA_Ya9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joA_Y69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joA_Yq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joA_ZK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joA_Za9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joBmcK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joCNgK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joCNga9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joCNgq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joCNg69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joC0kK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joC0ka9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joC0kq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joC0k69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joC0la9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joC0lK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joDboK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joDboq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joDbo69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joECsK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joECsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joECsq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joECs69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joECta9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joECtK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joEpwK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joEpwa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joEpwq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joFQ0K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joFQ0a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joFQ0q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joFQ069AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joFQ1K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joFQ1a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joFQ169AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joFQ1q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joF34K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joF3469AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joF34q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joF35K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joF35a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joGe8K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joGe8a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joGe8q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joGe869AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joGe9K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joGe9a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joHGAK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joHGA69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joHGAq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joHtEK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joHtEa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joHtEq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joHtE69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joIUIK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joIUIa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joI7MK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joI7M69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joI7Mq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joI7NK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joI7Na9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joI7Nq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joI7N69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joJiQK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joJiQa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joJiQq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joJiQ69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joJiRa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joJiRK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joKJUK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joKJUa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joKwYK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joKwY69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joKwYq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joKwZK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joKwZa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joLXcK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joLXca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joLXcq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joL-gK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joL-ga9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joL-gq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joL-hK9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joL-g69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joMlkK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joMlk69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joMlkq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joMllK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joMlla9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joNMoK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joNMoa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joNMoq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joNMo69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joNMpa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joNMpK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joNMpq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joNMp69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joNzsK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joNzs69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joNzsq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joNztK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joNzta9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joNztq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joNzt69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joOawK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joOawa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joOaw69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joOawq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joOaxK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joOax69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joOaxq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joPB0K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joPB0a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joPB0q9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joPB069AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joPB1K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joPB1a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joPo4K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joPo469AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joPo4q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joPo5K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joPo5a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joQP8K9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joQP8a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joQP8q9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joQP9a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joQP9K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joQP9q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joQP969AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joQ3AK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joQ3Aa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joQ3Aq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joQ3A69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joQ3Ba9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joQ3BK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joQ3Bq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joQ3B69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joReEK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joReE69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joReEq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joReFK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joReFa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joSFIK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joSFIa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joSsMK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joSsMa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joSsM69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joSsMq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joSsNK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joSsN69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joSsNq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joTTQK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joTTQa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joTTQq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joTTQ69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joTTRa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joTTRK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joT6UK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joT6Ua9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joT6Uq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joT6Va9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Component P.2.1">
+        <pcmelement id="_joT6VK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_P3JDAFBjEeyGXqZbGaQ79w"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joUhYK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joUhYa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joUhYq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joUhY69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joUhZa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joUhZK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joUhZq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joVIcK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joVIca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joVIcq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joVIc69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joVvgK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joVvga9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joVvgq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joVvg69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joWWkK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joWWkq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joWWk69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joWWlK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joWWla9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joW9oK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joW9oa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joW9oq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joXksK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joXksa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joXksq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joXks69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joXktK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joXkta9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joYLwK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joYLwa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joYLw69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joYLwq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joYLxK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joYLxa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joYy0K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joYy0q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joYy069AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joYy1K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joYy1a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joZZ4K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joZZ4a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joZZ4q9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joZZ469AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joZZ5a9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joZZ5K9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_joZZ5q9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joaA8K9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joaA8a9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joaA8q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joaA869AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joaA9K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joaA9a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joaA969AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joaA9q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joaoAK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joaoAa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joaoAq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jobPEK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jobPEa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jobPEq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jobPE69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jobPFK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jobPFa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jobPF69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jobPFq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_job2IK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jocdMK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jocdMa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jocdMq9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jocdM69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jodEQK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jodEQa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jodrUK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jodrUq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jodrU69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joeSYK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joeSYa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joeSYq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joeSZK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joeSZa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joe5cK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joe5ca9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joe5cq9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joe5c69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joe5da9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joe5dK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jofggK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_jofgga9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_jogHkK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jogHkq9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_jogHk69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jogHlK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jogHla9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joguoK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joguoa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joguo69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joguoq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jogupK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_johVsK9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_johVsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joh8wK9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_joh8wa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_joh8w69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_joh8wq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joh8xK9AEeyTw_4Z6gU7Nw" entityName="copy of Critical Test Vulnerability Integration">
+        <pcmelement id="_joh8xa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <criticalElement id="_joij0K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_joij0q9AEeyTw_4Z6gU7Nw" entityName="copy of R11 Test Vulnerability Integration">
+        <pcmelement id="_joij069AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_jojK4K9AEeyTw_4Z6gU7Nw" entityName="copy of resContainerCriticalVuln">
+        <pcmelement id="_jojK4a9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_jojK469AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Critical">
+        <pcmelement id="_jojK4q9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_jojK5K9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
+    </attackpaths>
+  </changePropagationSteps>
+  <seedModifications>
+    <attackcomponent id="_jn8BIJZ5EeyKXbc0N6_8Zw">
+      <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_NxbyoFmWEeyYJNGe-i7GBA"/>
+    </attackcomponent>
+    <surfaceattackcomponent id="_jn8oMZZ5EeyKXbc0N6_8Zw">
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="My.attacker#_1bldUXxsEeyzIsMa4XGEVQ"/>
+    </surfaceattackcomponent>
+  </seedModifications>
+</KAMP4attackModificationmarks:KAMP4attackModificationRepository>

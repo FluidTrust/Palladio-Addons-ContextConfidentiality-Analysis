@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test"/>
+    <surfaceattacker id="_w2AZwJ4gEeyJUaTLRB9kMw" entityName="TestSurface" criticalElement="_DwM9cJ4iEeyf1K4T_MiYBw" attacker="_Kw-xUKEmEeuyfoSUd8RMpg"/>
+  </attackers>
+  <vulnerabilites/>
+  <categoryspecification/>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_C64fA54iEeyf1K4T_MiYBw" entityName="criticalIntegration">
+      <pcmelement id="_DwM9cJ4iEeyf1K4T_MiYBw" entityName="critical">
+        <assemblycontext href="newAssembly.system#_mwxfsO2-Eeq6pfPMAIqEqg"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

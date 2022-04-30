@@ -7,7 +7,7 @@ import java.util.Collections;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.URI;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AbstractAttackerAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
@@ -18,9 +18,9 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 public class SaveAttackerModelJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     protected MDSDBlackboard blackboard;
-    protected final AttackerAnalysisWorkflowConfig configuration;
+    protected final AbstractAttackerAnalysisWorkflowConfig configuration;
 
-    public SaveAttackerModelJob(final AttackerAnalysisWorkflowConfig configuration) {
+    public SaveAttackerModelJob(final AbstractAttackerAnalysisWorkflowConfig configuration) {
         this.configuration = configuration;
     }
 

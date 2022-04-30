@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ASCII"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_0KUnUAo9EeyKMtWTxnyP1g" entityName="New Allocation">
+  <targetResourceEnvironment_Allocation href="target.resourceenvironment#/"/>
+  <system_Allocation href="target.system#_HLj5EAo9EeyKMtWTxnyP1g"/>
+  <allocationContexts_Allocation id="_9p7VUAo9EeyKMtWTxnyP1g" entityName="Allocation_Assembly_BusinessServiceComponent">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_csC_AAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_-ch28Ao9EeyKMtWTxnyP1g" entityName="Allocation_Assembly_ExternalSupplier">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_bnkDMAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_AGooUAo-EeyKMtWTxnyP1g" entityName="Allocation_Assembly_POSComponent">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_fUZhUAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_Aw0KsAsjEeya1aH-ZcM-RA" entityName="Allocation_Assembly_FTPComponent">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_tV4fEAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_PBgpIAsjEeya1aH-ZcM-RA" entityName="Allocation_Assembly_POSComponent2">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_gl3JMAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_bBkhsAsjEeya1aH-ZcM-RA" entityName="Allocation_Assembly_POSComponent3">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_X6PkYAsjEeya1aH-ZcM-RA"/>
+    <assemblyContext_AllocationContext href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_yC5IQAsjEeya1aH-ZcM-RA" entityName="Allocation_Assembly_Database">
+    <resourceContainer_AllocationContext href="target.resourceenvironment#_csC_AAo9EeyKMtWTxnyP1g"/>
+    <assemblyContext_AllocationContext href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

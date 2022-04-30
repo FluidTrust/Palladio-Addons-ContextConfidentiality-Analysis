@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_dqFLECHbEd6tG9VclJz3cw" entityName="defaultRepository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_os1t4CHbEd62GabW1zGSBw" entityName="Critical Component">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qZKs0CHbEd62GabW1zGSBw" entityName="Provided_Critical" providedInterface__OperationProvidedRole="_n7g-oCHbEd62GabW1zGSBw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_KQKQkFBcEeyXHY01PFJiNw" entityName="Critical Component.Interface R11P.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_V-FFsFBbEeyXHY01PFJiNw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_LvwbEFBcEeyXHY01PFJiNw" entityName="Critical Component.Interface R12P.OperationRequiredRole2" requiredInterface__OperationRequiredRole="_qraQYVBbEeyXHY01PFJiNw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="12345" describedService__SEFF="_KjhikgzkEeCFg86gxKwVPw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qZUd0CHbEd62GabW1zGSBw" successor_AbstractAction="_tfAiwCHjEd6ZSMvOJK-6LQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qZUd0SHbEd62GabW1zGSBw" predecessor_AbstractAction="_tfAiwCHjEd6ZSMvOJK-6LQ"/>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_tfAiwCHjEd6ZSMvOJK-6LQ" entityName="branch" predecessor_AbstractAction="_qZUd0CHbEd62GabW1zGSBw" successor_AbstractAction="_qZUd0SHbEd62GabW1zGSBw">
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_vN34UCHjEd6ZSMvOJK-6LQ" branchProbability="0.3">
+          <branchBehaviour_BranchTransition id="_ssGw84r-EeG0c6Q1F-wA1Q">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_vN34USHjEd6ZSMvOJK-6LQ" successor_AbstractAction="_rl6MwCHbEd62GabW1zGSBw"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_vN34UiHjEd6ZSMvOJK-6LQ" predecessor_AbstractAction="_rl6MwCHbEd62GabW1zGSBw"/>
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_rl6MwCHbEd62GabW1zGSBw" entityName="compute" predecessor_AbstractAction="_vN34USHjEd6ZSMvOJK-6LQ" successor_AbstractAction="_vN34UiHjEd6ZSMvOJK-6LQ">
+              <resourceDemand_Action>
+                <specification_ParametericResourceDemand specification="Exp(1)"/>
+                <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+              </resourceDemand_Action>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_zcoXwCHjEd6ZSMvOJK-6LQ" branchProbability="0.7">
+          <branchBehaviour_BranchTransition id="_ssGw-Yr-EeG0c6Q1F-wA1Q">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_zcoXwSHjEd6ZSMvOJK-6LQ" successor_AbstractAction="_0eyYUCHjEd6ZSMvOJK-6LQ"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_zcoXwiHjEd6ZSMvOJK-6LQ" predecessor_AbstractAction="_0eyYUCHjEd6ZSMvOJK-6LQ"/>
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_0eyYUCHjEd6ZSMvOJK-6LQ" entityName="computeMore" predecessor_AbstractAction="_zcoXwSHjEd6ZSMvOJK-6LQ" successor_AbstractAction="_zcoXwiHjEd6ZSMvOJK-6LQ">
+              <resourceDemand_Action>
+                <specification_ParametericResourceDemand specification="DoublePDF[ (1.0; 0.25000000) (2.0; 0.50000000) (3.0; 0.25000000) ]"/>
+                <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+              </resourceDemand_Action>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+        </branches_Branch>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_QdUL0FBbEeyXHY01PFJiNw" entityName="Component R.1.1">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_FXYjwFBcEeyXHY01PFJiNw" entityName="Component R.1.1.Interface R11P.OperationProvidedRole1" providedInterface__OperationProvidedRole="_V-FFsFBbEeyXHY01PFJiNw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_FX3r8FBcEeyXHY01PFJiNw" describedService__SEFF="_h-sX4FBbEeyXHY01PFJiNw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_FX3r8VBcEeyXHY01PFJiNw" successor_AbstractAction="_FX3r8lBcEeyXHY01PFJiNw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_FX3r8lBcEeyXHY01PFJiNw" predecessor_AbstractAction="_FX3r8VBcEeyXHY01PFJiNw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_1dyN0VBbEeyXHY01PFJiNw" entityName="Component R.1.2">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_Hj5eoFBcEeyXHY01PFJiNw" entityName="Component R.2.1.Interface R12P.OperationProvidedRole1" providedInterface__OperationProvidedRole="_qraQYVBbEeyXHY01PFJiNw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Hj6FsFBcEeyXHY01PFJiNw" describedService__SEFF="_qra3cFBbEeyXHY01PFJiNw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_Hj6FsVBcEeyXHY01PFJiNw" successor_AbstractAction="_Hj6FslBcEeyXHY01PFJiNw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Hj6FslBcEeyXHY01PFJiNw" predecessor_AbstractAction="_Hj6FsVBcEeyXHY01PFJiNw"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_0UF9sFBiEeyGXqZbGaQ79w" entityName="Component P.2.1">
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_4NzaMFBiEeyGXqZbGaQ79w" entityName="Component P.2.1.InterfaceCriticalP1.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_n7g-oCHbEd62GabW1zGSBw"/>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_FfvKUFBjEeyGXqZbGaQ79w" entityName="Component 3.1"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_JCEooVBjEeyGXqZbGaQ79w" entityName="Component 4.1"/>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_n7g-oCHbEd62GabW1zGSBw" entityName="InterfaceCriticalP1">
+    <signatures__OperationInterface id="_KjhikgzkEeCFg86gxKwVPw" entityName="operationSignatureCriticalP1"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_V-FFsFBbEeyXHY01PFJiNw" entityName="Interface R11P">
+    <signatures__OperationInterface id="_h-sX4FBbEeyXHY01PFJiNw" entityName="operationR11P"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_qraQYVBbEeyXHY01PFJiNw" entityName="Interface R12P">
+    <signatures__OperationInterface id="_qra3cFBbEeyXHY01PFJiNw" entityName="operationR12P"/>
+  </interfaces__Repository>
+</repository:Repository>

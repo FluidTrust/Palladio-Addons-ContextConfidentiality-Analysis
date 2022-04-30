@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_1bBdIFQeEeyHi5CLrg7hvA">
+    <usagespecification id="_fmYV4VWvEeyAu8-8Lz7_vA" entityName="root usage spec" attributevalue="_FOr7wFUzEey1v6YwDRIdig" attribute="_33db8lUyEey1v6YwDRIdig"/>
+    <usagespecification id="_EydQAVmXEeyYJNGe-i7GBA" entityName="maintenance usage spec" attributevalue="_9cg_8FUyEey1v6YwDRIdig" attribute="_33db8lUyEey1v6YwDRIdig"/>
+  </pcmspecificationcontainer>
+  <policyset id="_0ebDkVUyEey1v6YwDRIdig">
+    <policy id="_Dh0CcVWwEeyAu8-8Lz7_vA" entityName="login">
+      <rule id="_HEjboGViEey7zYgrwQykTA" entityName="critical root">
+        <condition xsi:type="SimpleAttributeCondition" id="_JiePl2ViEey7zYgrwQykTA" entityName="critical root" attribute="_fmYV4VWvEeyAu8-8Lz7_vA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_NVDwYGViEey7zYgrwQykTA" entityName="critical rc">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+          </match>
+        </target>
+      </rule>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_33db8lUyEey1v6YwDRIdig" entityName="Role">
+      <attributevalue id="_9cg_8FUyEey1v6YwDRIdig">
+        <values>Maintenance</values>
+      </attributevalue>
+      <attributevalue id="_FOr7wFUzEey1v6YwDRIdig">
+        <values>root</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ASCII"?>
+<allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_tKczAC2bEeyiUoiCEbquLw" entityName="New Allocation">
+  <targetResourceEnvironment_Allocation href="powerGrid.resourceenvironment#/"/>
+  <system_Allocation href="powerGrid.system#_T1pTwCwjEeylP6vhO63XvA"/>
+  <allocationContexts_Allocation id="_z7JNsKwhEeyFpqEXJR-5MA" entityName="Allocation_Assembly_CallCenterApplication">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_6OW4MKwhEeyFpqEXJR-5MA" entityName="Allocation_Assembly_DMSServerApplication">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_DnLlQCwcEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_9scIoKwhEeyFpqEXJR-5MA" entityName="Allocation_ExternalVPNBridge">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_-10ykKwhEeyFpqEXJR-5MA" entityName="Allocation_ICS-VPN-Bridge">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_SO6HIKwiEeyFpqEXJR-5MA" entityName="Allocation_Assembly_DMSClientApplication">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_0FAe4KwiEeyFpqEXJR-5MA" entityName="Allocation_Assembly_StorageApplication">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_zvDnkKwjEeyFpqEXJR-5MA" entityName="Allocation_AssemblyWithoutRights">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_3mLDEKwjEeyFpqEXJR-5MA" entityName="Allocation_AssemblyWithVPNRights">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_Yz5MMKwkEeyFpqEXJR-5MA" entityName="Allocation_Assembly_DomainControler">
+    <resourceContainer_AllocationContext href="powerGrid.resourceenvironment#_STIN4KwkEeyFpqEXJR-5MA"/>
+    <assemblyContext_AllocationContext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+  </allocationContexts_Allocation>
+</allocation:Allocation>

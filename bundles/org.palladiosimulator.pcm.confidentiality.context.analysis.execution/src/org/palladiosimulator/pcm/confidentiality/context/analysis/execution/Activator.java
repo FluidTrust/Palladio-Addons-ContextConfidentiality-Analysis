@@ -5,6 +5,7 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout.RolloutImpl;
 import org.palladiosimulator.pcm.confidentiality.context.attackeranalysis.api.AttackerAnalysis;
+import org.palladiosimulator.pcm.confidentiality.context.attacksurface.api.AttackSurfaceAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.ScenarioAnalysis;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.XACMLGeneration;
 import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
@@ -23,6 +24,7 @@ public class Activator implements BundleActivator {
     private static Activator instance;
 
     private AttackerAnalysis attackerAnalysis;
+    //TODO later private AttackSurfaceAnalysis attackSurfaceAnalysis;
     private ScenarioAnalysis scenarioAnalysis;
 
     private XACMLGeneration xacmlGeneration;
@@ -39,6 +41,9 @@ public class Activator implements BundleActivator {
         final ServiceReference<AttackerAnalysis> attackerReference = context
                 .getServiceReference(AttackerAnalysis.class);
         this.attackerAnalysis = context.getService(attackerReference);
+        /*final ServiceReference<AttackSurfaceAnalysis> attackSurfaceReference = context
+        		.getServiceReference(AttackSurfaceAnalysis.class);
+        this.attackSurfaceAnalysis = context.getService(attackSurfaceReference);*/ //TODO later
         final ServiceReference<ScenarioAnalysis> scenarioReference = context
                 .getServiceReference(ScenarioAnalysis.class);
         this.scenarioAnalysis = context.getService(scenarioReference);
@@ -71,7 +76,11 @@ public class Activator implements BundleActivator {
         return this.attackerAnalysis;
     }
 
-    /**
+    /*public AttackSurfaceAnalysis getAttackSurfaceAnalysis() {
+		return this.attackSurfaceAnalysis;
+	}*///TODO later
+
+	/**
      * Returns the scenario analyis returns null in case of no scenario analysis
      *
      * @return

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_77_UkC8jEeylPOrRpUZy4w">
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_cOzUoC8kEeylPOrRpUZy4w">
+      <assemblycontext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+    </attributeprovider>
+    <usagespecification id="_lqiu8S8nEeylPOrRpUZy4w" entityName="ICSUser" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_F4KloS8rEeylPOrRpUZy4w" entityName="BackOfficeUser" attributevalue="_-E3soC8jEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_YpxbYDirEeyW5vhrbaBM1w" entityName="BackofficeAdmin" attributevalue="_XsEwUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_R3dMsC8sEeylPOrRpUZy4w" entityName="VPNGateway" attributevalue="_GNARYC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+    <usagespecification id="_X1iUsC8sEeylPOrRpUZy4w" entityName="ICSUserProvider" attributevalue="_CkwYUC8kEeylPOrRpUZy4w" attribute="_8fjUoi8jEeylPOrRpUZy4w"/>
+  </pcmspecificationcontainer>
+  <policyset id="_7C0Q4S8jEeylPOrRpUZy4w" entityName="PowerGridRules">
+    <policy id="_PZE_YS8kEeylPOrRpUZy4w" entityName="BackOffice">
+      <rule id="_UFfrMC8kEeylPOrRpUZy4w" entityName="BackOfficeAdmin">
+        <condition xsi:type="SimpleAttributeCondition" id="_TAbEFy8lEeylPOrRpUZy4w" entityName="BackOfficeRoleCondition"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_rnPeQC8kEeylPOrRpUZy4w">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_9kBz8C8kEeylPOrRpUZy4w">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_BA7_sC8lEeylPOrRpUZy4w">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_IbnBgC8lEeylPOrRpUZy4w">
+            <entity xsi:type="resourceenvironment:LinkingResource" href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_NKOFsC8lEeylPOrRpUZy4w">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_GvP9EDr8EeyaGdbmVfHw9A">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
+          </match>
+        </target>
+      </rule>
+    </policy>
+    <policy id="_apPPkS8lEeylPOrRpUZy4w" entityName="ICS">
+      <rule id="_b4-ZIC8lEeylPOrRpUZy4w" entityName="ICS BreakerExecution">
+        <condition xsi:type="SimpleAttributeCondition" id="_kflXty8nEeylPOrRpUZy4w" entityName="Only ICSUser" attribute="_lqiu8S8nEeylPOrRpUZy4w"/>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_t6G78i8oEeylPOrRpUZy4w">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_vRMDoS8oEeylPOrRpUZy4w">
+              <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_2pY08CwiEeylP6vhO63XvA"/>
+              <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+              <service href="powerGrid.repository#_B6cScCwjEeylP6vhO63XvA"/>
+            </methodspecification>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:MethodMatch" id="_zFdmgi8oEeylPOrRpUZy4w">
+            <methodspecification xsi:type="structure:ServiceSpecification" id="_0MuwkS8oEeylPOrRpUZy4w">
+              <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_ecImwCwiEeylP6vhO63XvA"/>
+              <assemblycontext href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
+              <service href="powerGrid.repository#_9onQ4CwiEeylP6vhO63XvA"/>
+            </methodspecification>
+          </match>
+        </target>
+      </rule>
+      <rule id="_NHHXQC85EeykYdnERVaxtw" entityName="ICSBride">
+        <condition xsi:type="Apply" id="_aR-PAC85EeykYdnERVaxtw" operation="AND">
+          <parameters xsi:type="SimpleAttributeCondition" id="_fQJZNy85EeykYdnERVaxtw" attribute="_lqiu8S8nEeylPOrRpUZy4w"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_iA1YJy85EeykYdnERVaxtw" attribute="_R3dMsC8sEeylPOrRpUZy4w"/>
+        </condition>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_OkkMsC85EeykYdnERVaxtw">
+            <entity xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+          </match>
+        </target>
+      </rule>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_8fjUoi8jEeylPOrRpUZy4w" entityName="Role">
+      <attributevalue id="_-E3soC8jEeylPOrRpUZy4w">
+        <values>Backoffice</values>
+      </attributevalue>
+      <attributevalue id="_CkwYUC8kEeylPOrRpUZy4w">
+        <values>ICSUser</values>
+      </attributevalue>
+      <attributevalue id="_GNARYC8kEeylPOrRpUZy4w">
+        <values>VPNGateway</values>
+      </attributevalue>
+      <attributevalue id="_XsEwUC8kEeylPOrRpUZy4w" entityName="Role">
+        <values>BackOfficeAdmin</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

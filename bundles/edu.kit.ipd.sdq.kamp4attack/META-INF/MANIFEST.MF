@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.palladiosimulator.pcm,
  org.palladiosimulator.pcm.confidentiality.context,
  org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0",
- org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
+ org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
+ edu.kit.ipd.sdq.kamp4attack.api
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-17
@@ -26,6 +27,8 @@ Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.kamp4attack.activator,
  edu.kit.ipd.sdq.kamp4attack.core,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers,
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.context,
+ edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.vulnerability,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes
 Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
 Service-Component: OSGI-INF/edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis.xml

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+  <pcmspecificationcontainer id="_yA8X8O4NEeuHWuGCDwkq6w">
+    <usagespecification id="_sKKUUe4ZEeu1msiU_4h_hw" entityName="rootUsageSpec" attributevalue="_dlTaMO4NEeuHWuGCDwkq6w" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
+    <usagespecification id="_RyWUMaOhEeyg1bkezwUNpA" entityName="hypervisorUsageSpec" attributevalue="_4yCRYKOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
+    <usagespecification id="_VUQ7waOhEeyg1bkezwUNpA" entityName="root9UsageSpec" attributevalue="_yswVMKOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
+    <usagespecification id="_c06CsaOhEeyg1bkezwUNpA" entityName="root10UsageSpec" attributevalue="_1Ehd0KOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
+    <usagespecification id="_gAq0EaOhEeyg1bkezwUNpA" entityName="root11UsageSpec" attributevalue="_2nJHIKOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
+  </pcmspecificationcontainer>
+  <policyset id="_Lmv10O4AEeuUMoY75qRdSg"/>
+  <attributes>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_aOt44u4NEeuHWuGCDwkq6w" entityName="Role">
+      <attributevalue id="_bc-bwO4NEeuHWuGCDwkq6w">
+        <values>user</values>
+      </attributevalue>
+      <attributevalue id="_dlTaMO4NEeuHWuGCDwkq6w">
+        <values>root</values>
+      </attributevalue>
+      <attributevalue id="_ubCBUKOgEeyg1bkezwUNpA">
+        <values>cloudTenant</values>
+      </attributevalue>
+      <attributevalue id="_yswVMKOgEeyg1bkezwUNpA">
+        <values>root9</values>
+      </attributevalue>
+      <attributevalue id="_1Ehd0KOgEeyg1bkezwUNpA">
+        <values>root10</values>
+      </attributevalue>
+      <attributevalue id="_2nJHIKOgEeyg1bkezwUNpA">
+        <values>root11</values>
+      </attributevalue>
+      <attributevalue id="_4yCRYKOgEeyg1bkezwUNpA">
+        <values>hypervisor</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

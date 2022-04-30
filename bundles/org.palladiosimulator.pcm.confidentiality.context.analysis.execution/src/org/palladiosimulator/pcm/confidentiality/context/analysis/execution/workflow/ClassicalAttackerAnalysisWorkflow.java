@@ -5,14 +5,14 @@ import static org.palladiosimulator.pcm.confidentiality.context.analysis.executi
 import java.util.ArrayList;
 import java.util.List;
 
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ClassicalAttackerAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.IJob;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 
 public class ClassicalAttackerAnalysisWorkflow extends AttackerAnalysisWorkflow {
 
-    public ClassicalAttackerAnalysisWorkflow(AttackerAnalysisWorkflowConfig config) {
+    public ClassicalAttackerAnalysisWorkflow(ClassicalAttackerAnalysisWorkflowConfig config) {
         super(config);
     }
 

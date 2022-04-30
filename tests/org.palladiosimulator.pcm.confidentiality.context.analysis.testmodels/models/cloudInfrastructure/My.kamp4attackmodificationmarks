@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <changePropagationSteps>
+    <datamodelcontainer/>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2YuM69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for DB VM Server">
+        <pcmelement id="_i2YuMq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2YuNa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_DBVM">
+        <pcmelement id="_i2YuNK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2YuN69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Source_VM">
+        <pcmelement id="_i2YuNq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ZVMK9AEeyTw_4Z6gU7Nw" entityName="copy of source vuln">
+        <pcmelement id="_i2ZVMa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2ZVMq9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2ZVM69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ZVNa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2ZVNK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2ZVNq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ZVOa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_i2ZVOK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_WNeDYKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ZVOq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2ZVO69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ZVPK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2ZVPa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2Z8QK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2Z8Qa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2Z8Q69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2Z8Qq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2Z8RK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2Z8R69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for DB VM Server">
+        <pcmelement id="_i2Z8Rq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2Z8Sa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Source_VM">
+        <pcmelement id="_i2Z8SK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2Z8Sq9AEeyTw_4Z6gU7Nw" entityName="copy of source vuln">
+        <pcmelement id="_i2Z8S69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2Z8TK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2Z8Ta9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2Z8T69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2Z8Tq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2Z8UK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2Z8Uq9AEeyTw_4Z6gU7Nw" entityName="copy of source vuln">
+        <pcmelement id="_i2Z8U69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ajUK9AEeyTw_4Z6gU7Nw" entityName="copy of source vuln">
+        <pcmelement id="_i2ajUa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2ajUq9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2ajU69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ajVa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2ajVK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2ajVq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ajWa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_DBVM">
+        <pcmelement id="_i2ajWK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ajW69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Source_VM">
+        <pcmelement id="_i2ajWq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ajXK9AEeyTw_4Z6gU7Nw" entityName="copy of source vuln">
+        <pcmelement id="_i2ajXa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2ajXq9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2ajX69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ajYa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2ajYK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2ajYq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2ajZa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 1-2">
+        <pcmelement id="_i2ajZK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_WNeDYKObEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2ajZq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2ajZ69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2bKYK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2bKYa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bKY69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2bKYq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2bKZK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bKZq9AEeyTw_4Z6gU7Nw" entityName="copy of targetVMIntegration">
+        <pcmelement id="_i2bKZ69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2bKaK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2bKaa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2bKaq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2bKa69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2bKbK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2bKba9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bKb69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2bKbq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2bKcK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bxcK9AEeyTw_4Z6gU7Nw" entityName="copy of targetVMIntegration">
+        <pcmelement id="_i2bxca9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2bxcq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2bxc69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2bxdK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2bxda9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bxd69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2bxdq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2bxeK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2bxe69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_DBVM">
+        <pcmelement id="_i2bxeq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2bxfK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2bxfa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2bxfq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2cYgK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2cYga9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2cYgq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2cYhK9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2cYg69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2cYha9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2cYiK9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_DBVM">
+        <pcmelement id="_i2cYh69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2cYia9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2cYiq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2cYi69AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2cYjK9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2cYjq9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2cYja9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2cYj69AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2cYkq9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 2-3">
+        <pcmelement id="_i2cYka9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_4DOSUKOaEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2c_kK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2c_ka9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2c_kq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2c_k69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2c_lK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2c_la9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2c_l69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2c_lq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2c_mK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2c_m69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Bridge 2-3">
+        <pcmelement id="_i2c_mq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_4DOSUKOaEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2c_nK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2c_na9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2c_nq9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2c_n69AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2c_oa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2c_oK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2dmoK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2dmo69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for DB VM Server">
+        <pcmelement id="_i2dmoq9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2dmpa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Hypervisor">
+        <pcmelement id="_i2dmpK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2dmpq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2dmp69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2dmqK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2dmqa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2dmq69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2dmqq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2dmrK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2dmr69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Stored VMs">
+        <pcmelement id="_i2dmrq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_LHS40KOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2dmsK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2dmsa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2dmsq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2dms69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2dmtK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2dmta9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2eNsa9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2eNsK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2eNsq9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2eNta9AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Stored VMs">
+        <pcmelement id="_i2eNtK9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_LHS40KOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2eNtq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2eNt69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2eNuK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2eNua9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2eNu69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2eNuq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2eNvK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+    <attackpaths>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2eNvq9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2eNv69AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_i2eNwK9AEeyTw_4Z6gU7Nw" entityName="copy of hypervisor vuln">
+        <pcmelement id="_i2eNwa9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      </path>
+      <path xsi:type="pcmIntegration:CredentialSystemIntegration" id="_i2e0wK9AEeyTw_4Z6gU7Nw" entityName="copy of needHypervisorAccess">
+        <pcmelement id="_i2e0wa9AEeyTw_4Z6gU7Nw">
+          <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        </pcmelement>
+        <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </path>
+      <path xsi:type="pcmIntegration:DefaultSystemIntegration" id="_i2e0w69AEeyTw_4Z6gU7Nw" entityName="generated default sys integration for Assembly_Target_VM">
+        <pcmelement id="_i2e0wq9AEeyTw_4Z6gU7Nw">
+          <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+        </pcmelement>
+      </path>
+      <criticalElement id="_i2e0xK9AEeyTw_4Z6gU7Nw">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </criticalElement>
+      <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+    </attackpaths>
+  </changePropagationSteps>
+  <seedModifications>
+    <attackcomponent id="_OxY1sKOCEeyPgbGXj7rW7A">
+      <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_Kw-xUKEmEeuyfoSUd8RMpg"/>
+    </attackcomponent>
+    <surfaceattackcomponent id="_P6FjIaOCEeyPgbGXj7rW7A">
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="My.attacker#_XAJcUaOBEeyPgbGXj7rW7A"/>
+    </surfaceattackcomponent>
+  </seedModifications>
+</KAMP4attackModificationmarks:KAMP4attackModificationRepository>

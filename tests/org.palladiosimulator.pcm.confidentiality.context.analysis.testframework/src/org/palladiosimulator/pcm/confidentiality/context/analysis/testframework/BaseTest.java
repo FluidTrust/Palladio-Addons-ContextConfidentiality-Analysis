@@ -81,10 +81,11 @@ public abstract class BaseTest {
 
     @AfterEach
     protected void shutdownEval() {
-        this.eval.shutdown();
-        var file = new File(this.pathXACML);
-        assert file.delete();
-
+        if (this.eval != null) {
+            this.eval.shutdown();
+            var file = new File(this.pathXACML);
+            file.delete();
+        }
     }
 
 

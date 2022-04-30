@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<PolicySet xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicySetId="_SmfacfXoEeub3tcXgMY_nQ" Version="0.0.1" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
+    <Description>Policies for ExampleScenario. Automatically created by Palladio-XACML-Integration</Description>
+    <Target/>
+</PolicySet>

@@ -15,7 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.palladiosimulator.dataflow.confidentiality.transformation.workflow.blackboards.KeyValueMDSDBlackboard;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.AttackerComponentPathDTO;
 import org.palladiosimulator.pcm.confidentiality.attacker.variation.output.VariationOutputBlackBoard;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ClassicalAttackerAnalysisWorkflowConfig;
 
 import com.google.gson.Gson;
 
@@ -46,7 +46,7 @@ public class RunMultipleAttackAnalysesJob extends SequentialBlackboardInteractin
             final var listPaths = new ArrayList<AttackerComponentPathDTO>();
             for (final var scneario : listConfigurations) {
                 final var configurationURI = scenariosFolderURI.appendSegment(scneario);
-                final var attackerConfig = new AttackerAnalysisWorkflowConfig();
+                final var attackerConfig = new ClassicalAttackerAnalysisWorkflowConfig();
 
                 attackerConfig.setAllocationModel(getURI(configurationURI, "allocation"));
                 attackerConfig.setAttackModel(getURI(configurationURI, "attacker"));

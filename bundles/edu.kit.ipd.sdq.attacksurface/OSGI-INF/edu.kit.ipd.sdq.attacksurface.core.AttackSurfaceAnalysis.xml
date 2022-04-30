@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis">
+   <service>
+      <provide interface="edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis"/>
+   </service>
+   <implementation class="edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis"/>
+</scr:component>

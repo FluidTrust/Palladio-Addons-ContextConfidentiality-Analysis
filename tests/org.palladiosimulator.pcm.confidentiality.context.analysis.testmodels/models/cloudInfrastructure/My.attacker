@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test"/>
+    <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" criticalElement="_L8u2kKOfEeyg1bkezwUNpA" attacker="_Kw-xUKEmEeuyfoSUd8RMpg">
+      <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion"/>
+    </surfaceattacker>
+  </attackers>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" id="cve-2013-4344" entityName="vulnerability CVE-2013-4344 attack hypervisor" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0">
+      <gainedAttributes href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+    </vulnerability>
+    <vulnerability xsi:type="attack:CVEVulnerability" id="cve-2012-3515" entityName="CVE-2012-3515 attack source VM" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" cveID="//@categoryspecification/@categories.1">
+      <gainedAttributes href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+    </vulnerability>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" entityName="CVE-2013-4344 attack hypervisor" cveID="2013-4344"/>
+    <categories xsi:type="attack:CVEID" entityName="CVE-2012-3515 attack source VM" cveID="2012-3515"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_LOU4c6OfEeyg1bkezwUNpA" entityName="targetVMIntegration">
+      <pcmelement id="_L8u2kKOfEeyg1bkezwUNpA" entityName="targetVMPCMElement">
+        <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_V_QEY6OfEeyg1bkezwUNpA" entityName="storageDeviceIntegration">
+      <pcmelement id="_X0-P4KOfEeyg1bkezwUNpA" entityName="storageDevicePCMElement">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_ykNE4KOaEeyg1bkezwUNpA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_k2ukFKOhEeyg1bkezwUNpA" entityName="needHypervisorAccess">
+      <pcmelement id="_wnSoEKOhEeyg1bkezwUNpA">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+      </pcmelement>
+      <credential href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_f5Z5BKOiEeyg1bkezwUNpA" entityName="need9">
+      <pcmelement id="_jUqe8KOiEeyg1bkezwUNpA">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+      </pcmelement>
+      <credential href="My.context#_VUQ7waOhEeyg1bkezwUNpA"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_nvaL9KOiEeyg1bkezwUNpA" entityName="need10">
+      <pcmelement id="_qDkm8KOiEeyg1bkezwUNpA">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+      </pcmelement>
+      <credential href="My.context#_c06CsaOhEeyg1bkezwUNpA"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_1osP9KOiEeyg1bkezwUNpA" entityName="need11">
+      <pcmelement id="_3jXM4KOiEeyg1bkezwUNpA">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+      </pcmelement>
+      <credential href="My.context#_gAq0EaOhEeyg1bkezwUNpA"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_64QsJKOiEeyg1bkezwUNpA" entityName="needRoot">
+      <pcmelement id="_7XHyYKOiEeyg1bkezwUNpA">
+        <resourcecontainer href="newResourceEnvironment.resourceenvironment#_ykNE4KOaEeyg1bkezwUNpA"/>
+      </pcmelement>
+      <credential href="My.context#_sKKUUe4ZEeu1msiU_4h_hw"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_BJdkcKOjEeyg1bkezwUNpA" entityName="hypervisor vuln" vulnerability="cve-2013-4344">
+      <pcmelement id="_RZv8EKOjEeyg1bkezwUNpA">
+        <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_U4FEIKOjEeyg1bkezwUNpA" entityName="source vuln" vulnerability="cve-2012-3515">
+      <pcmelement id="_W0HTAKOjEeyg1bkezwUNpA">
+        <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

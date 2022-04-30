@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="EmptyAttacker"/>
+    <surfaceattacker id="_dS8mgLWdEeyA48_HVvftPw" entityName="scalability surface attacker" criticalElement="_VQOQwLWeEeyA48_HVvftPw" attacker="_e5aL8Kd4EeuyobD7xRWqAQ"/>
+  </attackers>
+  <attacks/>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_px3jQKd4EeuyobD7xRWqAQ" entityName="Vulnerability Travelplanner" attackVector="AdjacentNetwork" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_DE78MKg4EeuBy83MqQpiOw" entityName="Vulnerability TravelAgency" attackVector="AdjacentNetwork" takeOver="true" cweID="//@categoryspecification/@categories.1"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_oBdkwDl0EeyxuvclpmtFmA" entityName="Airline Resource Container" attackVector="Network" takeOver="true" cweID="//@categoryspecification/@categories.3"/>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CWEID" entityName="Deserialization of Untrusted Data" cweID="502" parents="//@categoryspecification/@categories.2"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Neutralization of Special Elements used in a Command" cweID="77" parents="//@categoryspecification/@categories.2"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Neutralization" cweID="707" children="//@categoryspecification/@categories.0 //@categoryspecification/@categories.1"/>
+    <categories xsi:type="attack:CWEID" entityName="Improper Access Control" cweID="284"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_F_zfgDi_Eey9mszNksodxw" vulnerability="_px3jQKd4EeuyobD7xRWqAQ">
+      <pcmelement id="_Mz7nADl1EeyxuvclpmtFmA">
+        <assemblycontext href="../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_MIzmYDl1EeyxuvclpmtFmA" vulnerability="_oBdkwDl0EeyxuvclpmtFmA">
+      <pcmelement id="_NnKawDl1EeyxuvclpmtFmA">
+        <resourcecontainer href="../default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_pihSYDl1EeyxuvclpmtFmA" vulnerability="_DE78MKg4EeuBy83MqQpiOw">
+      <pcmelement id="_p8eqgDl1EeyxuvclpmtFmA">
+        <assemblycontext href="../default.system#_0WeT8MN-EeWst9mTsticNA"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_U0GVc7WeEeyA48_HVvftPw">
+      <pcmelement id="_VQOQwLWeEeyA48_HVvftPw">
+        <assemblycontext href="../default.system#_HRAO0MOAEeWst9mTsticNA"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

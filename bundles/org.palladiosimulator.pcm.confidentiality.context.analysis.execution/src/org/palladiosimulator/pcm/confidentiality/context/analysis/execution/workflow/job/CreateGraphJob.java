@@ -10,7 +10,7 @@ import org.eclipse.core.runtime.Path;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.ModificationMarkPartition;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition.PartitionConstants;
-import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.AttackerAnalysisWorkflowConfig;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ClassicalAttackerAnalysisWorkflowConfig;
 
 import de.uka.ipd.sdq.workflow.jobs.CleanupFailedException;
 import de.uka.ipd.sdq.workflow.jobs.IBlackboardInteractingJob;
@@ -24,9 +24,9 @@ public class CreateGraphJob implements IBlackboardInteractingJob<MDSDBlackboard>
 
     private MDSDBlackboard blackboard;
 
-    private AttackerAnalysisWorkflowConfig config;
+    private ClassicalAttackerAnalysisWorkflowConfig config;
 
-    public CreateGraphJob(AttackerAnalysisWorkflowConfig config) {
+    public CreateGraphJob(ClassicalAttackerAnalysisWorkflowConfig config) {
         this.config = config;
     }
 

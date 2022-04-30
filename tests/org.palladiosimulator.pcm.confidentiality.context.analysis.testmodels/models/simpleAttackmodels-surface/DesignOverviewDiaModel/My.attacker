@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <attacker id="_NxbyoFmWEeyYJNGe-i7GBA" entityName="TestAttacker"/>
+    <surfaceattacker id="_1bldUXxsEeyzIsMa4XGEVQ" entityName="test surface attacker" criticalElement="_zFUkYIQeEey4SLIftZhi_g" attacker="_NxbyoFmWEeyYJNGe-i7GBA">
+      <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion" entityName="pathLengthFilter"/>
+    </surfaceattacker>
+  </attackers>
+  <attacks/>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" id="TestVulnerabilityId123456" entityName="Test Vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" entityName="Test" cveID="0"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_sW6DwHkqEeyDU_KjGfSNZw" entityName="Critical Test Vulnerability Integration" vulnerability="TestVulnerabilityId123456">
+      <pcmelement id="_cijw0IQYEeyq0MAOx1_owA" entityName="critcal pcm elem vuln">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_5QT_IHkqEeyDU_KjGfSNZw" entityName="R11 Test Vulnerability Integration" vulnerability="TestVulnerabilityId123456">
+      <pcmelement id="__-4I4HkqEeyDU_KjGfSNZw" entityName="PCMElement R.1.1">
+        <assemblycontext href="My.system#_p71bUFBgEeyGXqZbGaQ79w"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_oI5i4INJEeyAiIXYWVg1vA" entityName="resContainerCriticalVuln" vulnerability="TestVulnerabilityId123456">
+      <pcmelement id="_rHIOkINJEeyAiIXYWVg1vA" entityName="pcm elem res container critical">
+        <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_wosJ4YQeEey4SLIftZhi_g" entityName="critcal default">
+      <pcmelement id="_zFUkYIQeEey4SLIftZhi_g" entityName="critical default pcm">
+        <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_CEECQprhEeyWq9j40lw-Fw">
+      <pcmelement id="_EZNUsJrhEeyWq9j40lw-Fw">
+        <resourcecontainer href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+      </pcmelement>
+      <credential href="My.context#_fmYV4VWvEeyAu8-8Lz7_vA"/>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

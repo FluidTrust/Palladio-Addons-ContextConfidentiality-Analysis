@@ -19,6 +19,7 @@
     </genClasses>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//KAMP4attackSeedModifications">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//KAMP4attackSeedModifications/attackcomponent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//KAMP4attackSeedModifications/surfaceattackcomponent"/>
     </genClasses>
     <genClasses image="false" ecoreClass="KAMP4attackModificationsmarks.ecore#//ModifyEntity">
       <genTypeParameters ecoreTypeParameter="KAMP4attackModificationsmarks.ecore#//ModifyEntity/T"/>
@@ -37,6 +38,7 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/servicerestrictioncontainer"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/compromiseddata"/>
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/datamodelcontainer"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//CredentialChange/attackpaths"/>
     </genClasses>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedResource"/>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//CompromisedAssembly"/>
@@ -50,5 +52,6 @@
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//DatamodelContainer">
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//DatamodelContainer/datamodelattacker"/>
     </genClasses>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//SurfaceAttackerSelection"/>
   </genPackages>
 </genmodel:GenModel>
