@@ -20,9 +20,9 @@ This repository contains multiple Eclipse plugins to analyse confidentiality pro
     * supports different authorization levels and gaining of new credentials
 ## Installation
 ### Dependencies
-* Java 11
-* Eclipse Modelling Edition (min. 2020-12) with
-    * PCM 5.0+ (see [PCM-Wiki](https://sdqweb.ipd.kit.edu/wiki/PCM_Installation))
+* Java 17
+* Eclipse Modelling Edition (min. 2021-12) with
+    * PCM 5.1+ (see [PCM-Wiki](https://sdqweb.ipd.kit.edu/wiki/PCM_Installation))
     * Context and Attackermetamodel ([Updatesite](https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-contextconfidentiality-metamodel/nightly/), [Repo](https://github.com/FluidTrust/Palladio-Addons-ContextConfidentiality-Metamodel))
     * com.google.gson
     * com.google.guava
