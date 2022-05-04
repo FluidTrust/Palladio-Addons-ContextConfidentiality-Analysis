@@ -4,7 +4,7 @@
     <attacker id="_-XvFQAo3EeyKMtWTxnyP1g" entityName="TargetAttacker">
       <compromisedComponents href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
     </attacker>
-    <surfaceattacker id="_Jo0j8aODEeyPgbGXj7rW7A" criticalElement="_j5rooKODEeyPgbGXj7rW7A" attacker="_-XvFQAo3EeyKMtWTxnyP1g">
+    <surfaceattacker id="_Jo0j8aODEeyPgbGXj7rW7A" targetedElement="_j5rooKODEeyPgbGXj7rW7A" attacker="_-XvFQAo3EeyKMtWTxnyP1g">
       <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion"/>
       <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion">
         <prohibitedInitialCredentials href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>

@@ -2,7 +2,7 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
     <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test"/>
-    <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" criticalElement="_L8u2kKOfEeyg1bkezwUNpA" attacker="_Kw-xUKEmEeuyfoSUd8RMpg">
+    <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" targetedElement="_L8u2kKOfEeyg1bkezwUNpA" attacker="_Kw-xUKEmEeuyfoSUd8RMpg">
       <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion"/>
     </surfaceattacker>
   </attackers>

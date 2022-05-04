@@ -20,9 +20,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnEkMq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnEkMq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -37,9 +37,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnFLQq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnFLQq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -60,9 +60,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnFyUq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnFyUq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -77,9 +77,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnGZYq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnGZYq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -100,9 +100,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnHngK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnHngK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -117,9 +117,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnHnhq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnHnhq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -140,9 +140,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnI1oK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnI1oK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -157,9 +157,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnJcsK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnJcsK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -180,9 +180,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnKDwK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnKDwK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -197,9 +197,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnKq0K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnKq0K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -232,9 +232,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnL48K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnL48K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -261,9 +261,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnMgAq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnMgAq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -284,9 +284,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnNuIK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnNuIK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -301,9 +301,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnOVMK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnOVMK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -335,9 +335,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnPjUK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnPjUK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -363,9 +363,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnQKZK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnQKZK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -381,9 +381,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnQxcq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnQxcq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -409,9 +409,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnR_kK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnR_kK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -431,9 +431,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnSmoK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnSmoK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -465,9 +465,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnTNsq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnTNsq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -493,9 +493,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnT0xq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnT0xq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -521,9 +521,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnVC4K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnVC4K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -543,9 +543,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnVp8K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnVp8K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -577,9 +577,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnW4EK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnW4EK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -605,9 +605,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnXfJK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnXfJK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -633,9 +633,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnYtQK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnYtQK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -655,9 +655,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnZUUK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnZUUK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -689,9 +689,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnZ7Yq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnZ7Yq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -717,9 +717,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnbJgK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnbJgK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -745,9 +745,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnbwkq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnbwkq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -767,9 +767,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jncXpK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jncXpK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -801,9 +801,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jndlwK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jndlwK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -829,9 +829,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jneM1K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jneM1K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -857,9 +857,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnez4q9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnez4q9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -879,9 +879,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnfa9K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnfa9K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -925,9 +925,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnhQIK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnhQIK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -965,9 +965,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnieQK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnieQK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1005,9 +1005,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnjsYK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnjsYK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1039,9 +1039,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnk6gK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnk6gK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1073,9 +1073,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnlhkq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnlhkq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1101,9 +1101,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnmvsK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnmvsK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1129,9 +1129,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnnWwK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnnWwK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1151,9 +1151,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnn90K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnn90K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1186,9 +1186,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnpL8K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnpL8K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1215,9 +1215,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnqaEK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnqaEK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1244,9 +1244,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnroMK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnroMK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1267,9 +1267,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnsPRK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnsPRK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1296,9 +1296,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jntdYq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jntdYq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1319,9 +1319,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jnurgK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnurgK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1341,9 +1341,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnuriK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnuriK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1370,9 +1370,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnv5oq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnv5oq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1393,9 +1393,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnwgtK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnwgtK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1433,9 +1433,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jnxu1q9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jnxu1q9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1467,9 +1467,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jny89K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jny89K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1501,9 +1501,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn0LEK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn0LEK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1529,9 +1529,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jn0yJK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn0yJK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1565,9 +1565,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn2nUK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn2nUK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1595,9 +1595,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn31cK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn31cK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1642,9 +1642,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn5Dlq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn5Dlq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1683,9 +1683,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jn64wK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn64wK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1724,9 +1724,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn8G4q9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn8G4q9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1759,9 +1759,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jn9VAK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn9VAK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1789,9 +1789,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn-jIq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn-jIq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1813,9 +1813,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jn_xQq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jn_xQq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1854,9 +1854,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joBmcK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joBmcK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1889,9 +1889,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joDboK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joDboK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1924,9 +1924,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joEpwq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joEpwq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1953,9 +1953,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joF34K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joF34K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -1988,9 +1988,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joHGAK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joHGAK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2017,9 +2017,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joI7MK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joI7MK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2063,9 +2063,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joKwYK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joKwYK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2103,9 +2103,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joMlkK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joMlkK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2143,9 +2143,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joNzsK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joNzsK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2177,9 +2177,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joOaxK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joOaxK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2206,9 +2206,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joPo4K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joPo4K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2229,9 +2229,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joQP8q9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joQP8q9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2269,9 +2269,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joReEK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joReEK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2303,9 +2303,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joSsNK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joSsNK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2337,9 +2337,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joT6Uq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joT6Uq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2365,9 +2365,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joUhZq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joUhZq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2395,9 +2395,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joWWkK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joWWkK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2419,9 +2419,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joW9oq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joW9oq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2460,9 +2460,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joYy0K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joYy0K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2495,9 +2495,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_joZZ5q9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joZZ5q9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2530,9 +2530,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joaoAq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joaoAq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2559,9 +2559,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_job2IK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_job2IK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2583,9 +2583,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jodrUK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jodrUK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2601,9 +2601,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joeSYq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joeSYq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2636,9 +2636,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_jogHkK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jogHkK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2665,9 +2665,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jogupK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jogupK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2694,9 +2694,9 @@
         </pcmelement>
         <vulnerability xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
       </path>
-      <criticalElement id="_joij0K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_joij0K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
     <attackpaths>
@@ -2717,9 +2717,9 @@
           <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
         </pcmelement>
       </path>
-      <criticalElement id="_jojK5K9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_jojK5K9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#TestVulnerabilityId123456"/>
     </attackpaths>
   </changePropagationSteps>

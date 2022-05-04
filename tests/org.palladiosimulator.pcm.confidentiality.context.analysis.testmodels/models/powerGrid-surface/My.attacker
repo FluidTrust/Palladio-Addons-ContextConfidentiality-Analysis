@@ -5,7 +5,7 @@
       <credentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       <compromisedResources href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
     </attacker>
-    <surfaceattacker id="_DkfZwawlEeyFpqEXJR-5MA" criticalElement="_blIIQKwlEeyFpqEXJR-5MA" attacker="_CcLR0C8pEeylPOrRpUZy4w">
+    <surfaceattacker id="_DkfZwawlEeyFpqEXJR-5MA" targetedElement="_blIIQKwlEeyFpqEXJR-5MA" attacker="_CcLR0C8pEeylPOrRpUZy4w">
       <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion"/>
     </surfaceattacker>
   </attackers>

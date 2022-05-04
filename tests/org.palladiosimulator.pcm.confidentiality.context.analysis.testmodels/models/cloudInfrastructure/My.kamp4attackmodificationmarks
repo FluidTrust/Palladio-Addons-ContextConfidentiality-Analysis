@@ -35,9 +35,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2ZVNq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2ZVNq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
     </attackpaths>
     <attackpaths>
@@ -69,9 +69,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2Z8RK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2Z8RK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -102,9 +102,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2Z8UK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2Z8UK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
     </attackpaths>
     <attackpaths>
@@ -131,9 +131,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2ajVq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2ajVq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
     </attackpaths>
     <attackpaths>
@@ -164,9 +164,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2ajYq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2ajYq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2012-3515"/>
     </attackpaths>
     <attackpaths>
@@ -192,9 +192,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2bKZK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2bKZK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -226,9 +226,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2bKcK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2bKcK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -254,9 +254,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2bxeK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2bxeK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -288,9 +288,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2cYha9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2cYha9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -316,9 +316,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2cYj69AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2cYj69AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -350,9 +350,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2c_mK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2c_mK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -378,9 +378,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2dmoK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2dmoK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -411,9 +411,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2dmrK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2dmrK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -445,9 +445,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2eNsq9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2eNsq9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -473,9 +473,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2eNvK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2eNvK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
     <attackpaths>
@@ -502,9 +502,9 @@
           <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
         </pcmelement>
       </path>
-      <criticalElement id="_i2e0xK9AEeyTw_4Z6gU7Nw">
+      <targetedElement id="_i2e0xK9AEeyTw_4Z6gU7Nw">
         <assemblycontext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
     </attackpaths>
   </changePropagationSteps>

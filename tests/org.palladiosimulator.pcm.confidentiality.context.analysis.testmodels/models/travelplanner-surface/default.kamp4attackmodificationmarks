@@ -26,9 +26,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2o4hrNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2o4hrNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -49,9 +49,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2pflrNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2pflrNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -78,9 +78,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2qtsLNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2qtsLNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -101,9 +101,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2rUwLNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2rUwLNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -130,9 +130,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2r71LNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2r71LNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -153,9 +153,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2tJ8LNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2tJ8LNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -181,9 +181,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2txArNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2txArNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
     <attackpaths>
@@ -205,9 +205,9 @@
         </pcmelement>
         <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
       </path>
-      <criticalElement id="_S2uYFLNUEeyuVZOOI_Ihzw">
+      <targetedElement id="_S2uYFLNUEeyuVZOOI_Ihzw">
         <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
-      </criticalElement>
+      </targetedElement>
       <vulnerabilitesUsed xsi:type="attack:CWEVulnerability" href="default.attacker#_CiKb4LM9EeyQ67qz7PIV5Q"/>
     </attackpaths>
   </changePropagationSteps>
