@@ -224,19 +224,31 @@ public class PCMInstanceHelper {
 
         // Check for each AssemblyConnector in the list if it fulfills
         // the requirements:
-        for (final Connector conn : connList) {
-            if (conn instanceof final AssemblyConnector assConn) {
-                if (assConn.getRequiringAssemblyContext_AssemblyConnector().getId().equals(requiringContext.getId())
-                        && assConn.getRequiredRole_AssemblyConnector().getRequiredInterface__OperationRequiredRole()
-                                .getId().equals(requiredInterface.getId())
-                        && assConn.getRequiredRole_AssemblyConnector().getId().equals(requiredRole.getId())) {
-                    return assConn;
+        for (final Connector connector : connList) {
+            if (connector instanceof final AssemblyConnector assemblyConnector) {
+                if (assemblyConnector.getRequiringAssemblyContext_AssemblyConnector().getId().equals(requiringContext.getId())
+                        && equalInterface(requiredInterface,
+                                assemblyConnector.getRequiredRole_AssemblyConnector()
+                                        .getRequiredInterface__OperationRequiredRole())
+                        && assemblyConnector.getRequiredRole_AssemblyConnector().getId().equals(requiredRole.getId())) {
+                    return assemblyConnector;
                 }
             }
         }
 
         // No AssmblyConnector found:
         return null;
+    }
+
+    private static boolean equalInterface(OperationInterface interfaceRequested, OperationInterface interfaceFound) {
+        if (interfaceRequested.getId().equals(interfaceFound.getId())) {
+            return true;
+        }
+        if(!interfaceFound.getParentInterfaces__Interface().isEmpty()) {
+            return interfaceFound.getParentInterfaces__Interface().stream()
+                    .anyMatch(e -> equalInterface(interfaceRequested, (OperationInterface) e));
+        }
+        return false;
     }
 
     /**
@@ -267,8 +279,9 @@ public class PCMInstanceHelper {
         for (final Connector conn : connList) {
             if (conn instanceof final RequiredDelegationConnector dc) {
                 if (dc.getAssemblyContext_RequiredDelegationConnector().getId().equals(requiringContext.getId())
-                        && dc.getInnerRequiredRole_RequiredDelegationConnector()
-                                .getRequiredInterface__OperationRequiredRole().getId().equals(requiredInterface.getId())
+                        && equalInterface(requiredInterface,
+                                dc.getInnerRequiredRole_RequiredDelegationConnector()
+                                        .getRequiredInterface__OperationRequiredRole())
                         && dc.getInnerRequiredRole_RequiredDelegationConnector().getId().equals(requiredRole.getId())) {
                     return dc;
                 }
