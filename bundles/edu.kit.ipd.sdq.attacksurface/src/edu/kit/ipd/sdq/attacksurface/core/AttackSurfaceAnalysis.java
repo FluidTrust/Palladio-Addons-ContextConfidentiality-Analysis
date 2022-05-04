@@ -219,7 +219,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         repository.getChangePropagationSteps().clear();
 
-        final var criticalPCMElement = localAttacker.getCriticalElement();
+        final var criticalPCMElement = localAttacker.getTargetedElement();
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
         this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
         

@@ -279,7 +279,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
             localPath.add(0, startOfAttack);
         }
         ret.getPath().addAll(localPath);
-        ret.setCriticalElement(findCorrectSystemIntegration(modelStorage, criticalEntity, null).getPcmelement());
+        ret.setTargetedElement(findCorrectSystemIntegration(modelStorage, criticalEntity, null).getPcmelement());
 
         ret.getCredentialsInitiallyNecessary().addAll(getCredentialsInitiallyNecessary(modelStorage));
         ret.getVulnerabilitesUsed().addAll(getUsedVulnerabilites(modelStorage));

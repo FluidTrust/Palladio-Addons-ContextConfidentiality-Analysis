@@ -88,7 +88,7 @@ public abstract class AbstractModelTest extends BaseTest {
     }
 
     protected Entity getCriticalEntity() {
-        final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getCriticalElement();
+        final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getTargetedElement();
         return PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
     }
     
@@ -201,7 +201,7 @@ public abstract class AbstractModelTest extends BaseTest {
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        this.getSurfaceAttacker().setCriticalElement(newCriticalElement);
+        this.getSurfaceAttacker().setTargetedElement(newCriticalElement);
         this.attackGraph.setRootForTests(newCriticalEntity);
     }
     
@@ -218,7 +218,7 @@ public abstract class AbstractModelTest extends BaseTest {
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        this.getSurfaceAttacker().setCriticalElement(newCriticalElement);
+        this.getSurfaceAttacker().setTargetedElement(newCriticalElement);
         this.attackGraph.setRootForTests(newCriticalEntity);
     }
     
