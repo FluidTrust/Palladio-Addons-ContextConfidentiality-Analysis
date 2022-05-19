@@ -2,9 +2,6 @@ package edu.kit.ipd.sdq.attacksurface.tests.change;
 
 import static org.junit.Assert.fail;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -25,7 +22,6 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
-import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PermitType;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
@@ -33,9 +29,7 @@ import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyCombiningA
 import org.palladiosimulator.pcm.confidentiality.context.policy.PolicyFactory;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
 import org.palladiosimulator.pcm.confidentiality.context.policy.RuleCombiningAlgorihtm;
-import org.palladiosimulator.pcm.confidentiality.context.policy.SimpleAttributeCondition;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -57,7 +51,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
-import edu.kit.kastel.sdq.kamp4attack.graph.impl.output.DotCreation;
 
 public abstract class AbstractChangeTests extends AbstractModelTest {
     private static final boolean IS_DEBUG = true;
@@ -369,29 +362,29 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     protected void generateGraph(final boolean createCauselessEdges) {
-        final var dot = new DotCreation();
-        final var graph = getAttackGraph().getStringGraph(createCauselessEdges);
-        System.out.println(graph);
-        var dotStr = dot.createOutputFormat(graph);
-        try {
-            var file = Files.createTempFile("test", ".dot");
-
-            System.out.println(file.toAbsolutePath());
-            Files.writeString(file.toAbsolutePath(), dotStr);
-            var command = String.format("dot -Tpng %s", file.toAbsolutePath().toString());
-            var process = Runtime.getRuntime().exec(command);
-
-            var outputFile = Files.createTempFile("test", ".png");
-            var outputStream = Files.newOutputStream(outputFile.toAbsolutePath());
-            process.getInputStream().transferTo(outputStream);
-
-            var errorStream = new ByteArrayOutputStream();
-            process.getErrorStream().transferTo(errorStream);
-            if (errorStream.size() != 0) {
-                System.err.println(errorStream.toString());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//        final var dot = new DotCreation();
+//        final var graph = getAttackGraph().getStringGraph(createCauselessEdges);
+//        System.out.println(graph);
+//        var dotStr = dot.createOutputFormat(graph);
+//        try {
+//            var file = Files.createTempFile("test", ".dot");
+//
+//            System.out.println(file.toAbsolutePath());
+//            Files.writeString(file.toAbsolutePath(), dotStr);
+//            var command = String.format("dot -Tpng %s", file.toAbsolutePath().toString());
+//            var process = Runtime.getRuntime().exec(command);
+//
+//            var outputFile = Files.createTempFile("test", ".png");
+//            var outputStream = Files.newOutputStream(outputFile.toAbsolutePath());
+//            process.getInputStream().transferTo(outputStream);
+//
+//            var errorStream = new ByteArrayOutputStream();
+//            process.getErrorStream().transferTo(errorStream);
+//            if (errorStream.size() != 0) {
+//                System.err.println(errorStream.toString());
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
