@@ -1,11 +1,6 @@
 name: Update Site
 
-on:
-  push:
-    branches: [ main ]
-    paths-ignore:
-      - '**.md'
-  workflow_dispatch:
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
@@ -14,7 +9,7 @@ jobs:
     steps:
       - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v2
         with:
-          deploy-updatesite: 'releng/org.palladiosimulator.pcm.confidentiality.context.updatesite/target/repository'
+          deploy-updatesite: 'releng/org.palladiosimulator.pcm.confidentiality.context.analysis.updatesite/target/repository'
           java-version: 17
           server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
           remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}
