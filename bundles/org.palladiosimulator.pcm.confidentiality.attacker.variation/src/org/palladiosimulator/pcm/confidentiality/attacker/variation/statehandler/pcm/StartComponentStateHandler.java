@@ -51,4 +51,10 @@ public class StartComponentStateHandler extends GenericStateHandler {
         }
     }
 
+    @Override
+    public String getValue(VariationPoint variationPoint, int variationIdx) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

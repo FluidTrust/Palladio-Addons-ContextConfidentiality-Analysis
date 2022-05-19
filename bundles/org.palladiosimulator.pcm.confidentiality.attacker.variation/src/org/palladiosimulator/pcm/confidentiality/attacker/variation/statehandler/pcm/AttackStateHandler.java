@@ -31,7 +31,7 @@ public class AttackStateHandler extends GenericStateHandler {
             final var vals = (PrimitiveValue) desc.getTargetVariations().get(variationIdx);
             final var resolvedVariations = this.resolve(models.get(MODEL_TYPE2), vals.getLink());
             final var resolvedSubject = this.resolve(attacker, variationPoint.getVaryingSubjects().get(0));
-            resolvedSubject.ifPresent(subject -> this.patch(subject, resolvedVariations));
+            resolvedSubject.ifPresent(subject -> patch(subject, resolvedVariations));
         }
 
     }
@@ -51,5 +51,11 @@ public class AttackStateHandler extends GenericStateHandler {
 
     private static final String MODEL_TYPE1 = "kamp4attackmodificationmarks";
     private static final String MODEL_TYPE2 = "attacker";
+
+    @Override
+    public String getValue(VariationPoint variationPoint, int variationIdx) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

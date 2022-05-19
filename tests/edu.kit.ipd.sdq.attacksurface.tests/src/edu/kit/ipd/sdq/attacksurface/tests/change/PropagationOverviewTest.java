@@ -30,6 +30,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
@@ -368,6 +369,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 });
     }
 
+    @Disabled // to avoid dot dependency on machines
     @Test
     public void graphGenerationTest() {
         runUntilNotChangedIterations(true);
