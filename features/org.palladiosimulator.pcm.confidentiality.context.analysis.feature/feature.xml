@@ -36,6 +36,20 @@
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+         
+    <plugin
+         id="edu.kit.ipd.sdq.attacksurface"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+         
+    <plugin
+         id="org.palladiosimulator.pcm.confidentiality.context.attacksurface.api"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="edu.kit.ipd.sdq.kamp4attack.model.modificationmarks"
