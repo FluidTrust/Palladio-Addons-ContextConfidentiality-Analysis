@@ -8,9 +8,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
@@ -26,7 +26,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 /**
  * The default implementation of {@link AttackPathFinder}.
- * 
+ *
  * @author ugnwq
  * @version 0.9
  */
@@ -49,19 +49,19 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
                 .mapToInt(MaximumPathLengthFilterCriterion::getMaximumPathLength)
                 .min().orElse(Integer.MAX_VALUE);
     }
-    
+
     @Override
     public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
         setSizeMaximum(board);
-        
+
         this.graph.resetVisitations();
         List<AttackPathSurface> allPaths = new ArrayList<>();
         this.startOfAttacks.clear();
-        
+
         for (final var node : this.graph.getNodes()) {
             attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
         }
-        
+
         final var nodeIterable = getNodeIterable();
         for (final var nodeContentToFind : nodeIterable) {
             final var node = this.graph.findNode(nodeContentToFind);
@@ -75,13 +75,13 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     private Iterable<AttackStatusNodeContent> getNodeIterable() {
         return NodeIterator::new;
     }
-    
+
 
     private List<AttackStatusNodeContent> getChildrenOfNode(AttackStatusNodeContent node) {
         final var childrenSet = this.graph.getChildrenOfNode(node);
         return sortedByRelevancy(node, childrenSet);
     }
-    
+
     private List<AttackStatusNodeContent> sortedByRelevancy(
             final AttackStatusNodeContent attackedNode,
             final Collection<AttackStatusNodeContent> collection) {
@@ -89,7 +89,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         Collections.sort(ret, getContentComparator(attackedNode));
         return ret;
     }
-    
+
     private Comparator<AttackStatusNodeContent> getContentComparator(final AttackStatusNodeContent attackedNode) {
         Objects.requireNonNull(attackedNode);
         return (a,b) -> { // sorts so that more relevant nodes are first (smaller)
@@ -100,45 +100,45 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
             } else if (b.equals(attackedNode)) {
                 return Integer.MAX_VALUE;
             }
-            
+
             final var isAttackedByA = attackedNode.isAttackedBy(a);
             final var isAttackedByB = attackedNode.isAttackedBy(b);
             if (isAttackedByA == isAttackedByB) {
                 if (isAttackedByA) {
-                    final var edgeA = graph.getEdge(attackedNode, a);
-                    final int causeSizeA = edgeA.getCCollectionSize() + edgeA.getVCollectionSize();
-                    final var edgeB = graph.getEdge(attackedNode, b);
-                    final int causeSizeB = edgeB.getCCollectionSize() + edgeB.getVCollectionSize();
-                 
-                    return Integer.compare(causeSizeB, causeSizeA); 
+                    final var edgeA = this.graph.getEdge(attackedNode, a);
+                    final var causeSizeA = edgeA.getCCollectionSize() + edgeA.getVCollectionSize();
+                    final var edgeB = this.graph.getEdge(attackedNode, b);
+                    final var causeSizeB = edgeB.getCCollectionSize() + edgeB.getVCollectionSize();
+
+                    return Integer.compare(causeSizeB, causeSizeA);
                 }
                 return a.getTypeOfContainedElement().compareTo(b.getTypeOfContainedElement());
             } else if (isAttackedByA) {
-                return -1; 
+                return -1;
             }
             return 1; // isAttackedByB
         };
     }
 
     private void calculatePathsForNode(final BlackboardWrapper board, final CredentialChange changes,
-            final AttackStatusNodeContent nodeContentToFind, 
+            final AttackStatusNodeContent nodeContentToFind,
             final List<AttackPathSurface> allPaths) {
         final var node = this.graph.findNode(nodeContentToFind);
-        final boolean isNodeAttacked = node.isAttacked();
-        
+        final var isNodeAttacked = node.isAttacked();
+
         if (isNodeAttacked) {
-            final List<AttackStatusNodeContent> children = getChildrenOfNode(node);
+            final var children = getChildrenOfNode(node);
             for (final var child : children) {
-                final boolean isAttackedByChild = node.isAttackedBy(child);
-                
-                if (isAttackedByChild || !startOfAttacks.contains(node)) {
+                final var isAttackedByChild = node.isAttackedBy(child);
+
+                if (isAttackedByChild || !this.startOfAttacks.contains(node)) {
                     final var edgeValue = this.graph.getEdge(node, child);
                     final var edge = new AttackStatusEdge(edgeValue, EndpointPair.ordered(node, child));
                     addEdge(allPaths, edge, isAttackedByChild);
                     node.setVisited(true);
                 }
 
-                final boolean isStartOfAttack = !isAttackedByChild;
+                final var isStartOfAttack = !isAttackedByChild;
                 if (isStartOfAttack) {
                     this.startOfAttacks.add(child);
                 }
@@ -157,12 +157,13 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
 
     private boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
             final AttackStatusNodeContent node, final CredentialChange changes) {
-        final boolean isCompromised = AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board,
+        final var isCompromised = AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board,
                 this.graph, node);
         if (isCompromised && node.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
             final var dataHandler = new DataHandlerAttacker(changes);
             final var attackInnerHandler = new AssemblyContextContext(board, dataHandler, this.graph);
-            attackInnerHandler.attackAssemblyContext(getContainedComponents(node), changes, node.getContainedElement(),
+            attackInnerHandler.attackAssemblyContext(List.of(getContainedComponents(node)), changes,
+                    node.getContainedElement(),
                     true);
         }
         return isCompromised;
@@ -171,7 +172,8 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     private List<AssemblyContext> getContainedComponents(AttackStatusNodeContent containerNode) {
         return this.graph.getParentsOfNode(containerNode).stream()
                 .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
-                .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext()).collect(Collectors.toList());
+                .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext().get(0)).collect(Collectors.toList()); // TODO
+                                                                                                                         // list
     }
 
     private void addEdge(final List<AttackPathSurface> allPaths, final AttackStatusEdge edge,
@@ -182,7 +184,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
             allPaths.add(edgePath);
         } else {
             final List<AttackPathSurface> newPaths = new ArrayList<>();
-            final boolean isEdgeSimplePath = reverseEdge.getNodes().target().equals(this.graph.getRootNodeContent());
+            final var isEdgeSimplePath = reverseEdge.getNodes().target().equals(this.graph.getRootNodeContent());
             if (isEdgeSimplePath && isAttackEdge) {
                 newPaths.add(edgePath);
             }
@@ -198,7 +200,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
             allPaths.addAll(newPaths);
         }
     }
-    
+
     private int getSizeMaximum() {
         return this.sizeMaximum;
     }
@@ -206,32 +208,32 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     private boolean isFitting(final AttackPathSurface path, final AttackStatusEdge edge) {
         return path.get(0).getNodes().source().equals(edge.getNodes().target());
     }
-    
-    private class NodeIterator implements Iterator<AttackStatusNodeContent> { 
+
+    private class NodeIterator implements Iterator<AttackStatusNodeContent> {
         private AttackStatusNodeContent node;
         private final List<AttackStatusNodeContent> iterableList;
         private final Iterator<AttackStatusNodeContent> listIterator;
         private final Set<AttackStatusNodeContent> childrenSet;
         private final Map<AttackStatusNodeContent, Boolean> addedChildren;
-        
+
         public NodeIterator() {
-            this.node = graph.getRootNodeContent();
+            this.node = DefaultAttackPathFinder.this.graph.getRootNodeContent();
             this.iterableList = new ArrayList<>();
             this.childrenSet = new HashSet<>();
             this.addedChildren = new HashMap<>();
-            
+
             addChildrenForNode(this.node);
-            
+
             this.listIterator = this.iterableList.iterator();
         }
-        
+
         private void addChildrenForNode(final AttackStatusNodeContent nodeToBeConsidered) {
             this.iterableList.add(nodeToBeConsidered);
-           
+
             this.addedChildren.computeIfAbsent(nodeToBeConsidered, n -> false);
             if (!this.addedChildren.get(nodeToBeConsidered).booleanValue()) {
                 final var childrenOfNode = sortedByAttackEdgeRelevancy(
-                        nodeToBeConsidered, graph.getChildrenOfNode(nodeToBeConsidered));
+                        nodeToBeConsidered, DefaultAttackPathFinder.this.graph.getChildrenOfNode(nodeToBeConsidered));
                 childrenOfNode.forEach(c -> {
                     if (!this.childrenSet.contains(c)) {
                         this.iterableList.add(c);
@@ -242,7 +244,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
                 childrenOfNode.forEach(this::addChildrenForNode);
             }
         }
-        
+
         @Override
         public boolean hasNext() {
             return this.listIterator.hasNext();

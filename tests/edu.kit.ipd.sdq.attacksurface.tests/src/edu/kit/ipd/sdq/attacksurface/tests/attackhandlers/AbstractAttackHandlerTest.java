@@ -24,7 +24,8 @@ public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
         this.PATH_RESOURCES = "simpleAttackmodels-surface/DesignOverviewDiaModel/My.resourceenvironment";
     }
 
-    protected ResourceContainer getResourceContainer(final AssemblyContext component) {
+    protected ResourceContainer getResourceContainer(final List<AssemblyContext> componentList) {
+        var component = componentList.get(0);
         final var allocationOPT = getBlackboardWrapper().getAllocation().getAllocationContexts_Allocation().stream()
                 .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
                 .findAny();

@@ -19,9 +19,9 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 /**
- * Represents an abstract class for a resource container change, 
+ * Represents an abstract class for a resource container change,
  * i.e. a propagation from resource containers with a certain kind of attacking.
- * 
+ *
  * @author ugnwq
  * @version 1.0
  */
@@ -32,14 +32,14 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     }
 
     protected List<ResourceContainer> getInfectedResourceContainers() {
-        return this.getAttackGraph().getCompromisedNodes().stream()
+        return getAttackGraph().getCompromisedNodes().stream()
                 .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER))
                 .map(n -> n.getContainedElementAsPCMElement().getResourcecontainer()).collect(Collectors.toList());
     }
 
     @Override
     public void calculateResourceContainerToContextPropagation() {
-        
+
     }
 
     @Override
@@ -64,10 +64,10 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     // propagation
                     // more attacks are possible
 
-                    handler.attackAssemblyContext(assemblycontext, this.changes, resource, false);
+                    handler.attackAssemblyContext(List.of(assemblycontext), this.changes, resource, false);
 
                     // select the child node and recursively call the propagation call
-                    this.callRecursionIfNecessary(childNode,
+                    callRecursionIfNecessary(childNode,
                             this::calculateResourceContainerToRemoteAssemblyContextPropagation, selectedNode);
                 }
             }
@@ -96,15 +96,15 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     this.attackGraph.addOrFindChild(resourceContainerNode, newNode);
                 }
             });
-            
+
             final var handler = getAssemblyHandler();
-            handler.attackAssemblyContext(localComponents, this.changes, relevantResourceContainer, true);
+            handler.attackAssemblyContext(List.of(localComponents), this.changes, relevantResourceContainer, true);
 
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var resource : connectedResourceContainers) {
                 final var childNode = this.attackGraph.addOrFindChild(selectedNode,
                         new AttackStatusNodeContent(resource));
-                this.callRecursionIfNecessary(childNode,
+                callRecursionIfNecessary(childNode,
                         this::calculateResourceContainerToLocalAssemblyContextPropagation, selectedNode);
             }
         }
@@ -132,7 +132,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                 handler.attackResourceContainer(Arrays.asList(relevantResourceContainer), this.changes, resource);
 
                 // select the child node and recursively call the propagation call
-                this.callRecursionIfNecessary(childNode, this::calculateResourceContainerToResourcePropagation,
+                callRecursionIfNecessary(childNode, this::calculateResourceContainerToResourcePropagation,
                         selectedNode);
             }
         }

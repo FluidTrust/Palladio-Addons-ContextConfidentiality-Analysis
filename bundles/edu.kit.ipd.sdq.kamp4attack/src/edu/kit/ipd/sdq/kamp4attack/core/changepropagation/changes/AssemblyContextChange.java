@@ -17,8 +17,8 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 import org.palladiosimulator.pcm.system.System;
 
-import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
@@ -178,8 +178,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     private boolean isGlobalElement(AssemblyContext assemblyContext) {
-        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream().filter(
-                systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext(), assemblyContext))
+        // TODO adapt get(0) for list comparision
+        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
+                .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
+                .filter(
+                systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
+                        assemblyContext))
                 .noneMatch(NonGlobalCommunication.class::isInstance);
     }
 

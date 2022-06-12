@@ -24,8 +24,8 @@ public class CompromisedElementHelper {
     }
 
     public static boolean isHacked(final PCMElement element, final CredentialChange change) {
-
-        return isHacked(element.getAssemblycontext(), change) && isHacked(element.getLinkingresource(), change)
+        // TODO fix for handling of compromised components get(0)
+        return isHacked(element.getAssemblycontext().get(0), change) && isHacked(element.getLinkingresource(), change)
                 && isHacked(element.getResourcecontainer(), change);
 
     }

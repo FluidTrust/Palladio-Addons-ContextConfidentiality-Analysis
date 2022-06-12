@@ -23,7 +23,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 /**
  * Represents an abstract class for a change, i.e. a propagation attacking
  * certain kinds of elements with a certain kind of attacking.
- * 
+ *
  * @author ugnwq
  * @version 1.0
  */
@@ -61,7 +61,7 @@ public abstract class Change<T> {
 
     /**
      * Calls the recursion if this is necessary.
-     * 
+     *
      * @param childNodeContent       - the child node content
      * @param recursionMethod - the recursion method runnable
      * @param selectedNodeContent    - the selected node before and after the recursive
@@ -72,7 +72,7 @@ public abstract class Change<T> {
         this.attackGraph.getSelectedNode().setVisited(true);
         this.attackGraph.setSelectedNode(childNodeContent);
         final var childNode = this.attackGraph.getSelectedNode();
-        final boolean isNecessary = !childNode.isVisited();
+        final var isNecessary = !childNode.isVisited();
         childNode.setVisited(true);
         if (isNecessary) {
             // recursively call the propagation call on the child node
@@ -90,7 +90,7 @@ public abstract class Change<T> {
     private void addChildNodeToPath(final AttackStatusNodeContent childNode) {
         final var criticalNode = this.attackGraph.getRootNodeContent();
         final AttackStatusEdge edge;
-        final int size = this.selectedSurfacePath.size();
+        final var size = this.selectedSurfacePath.size();
         if (size == 0) {
             edge = new AttackStatusEdge(new AttackStatusEdgeContent(), EndpointPair.ordered(childNode, criticalNode));
         } else {
@@ -106,14 +106,14 @@ public abstract class Change<T> {
 
     private boolean isFiltered() {
         final var criticalElement = this.attackGraph.getRootNodeContent().getContainedElement();
-        
+
         return AttackHandlingHelper.isFiltered(this.modelStorage,
-                this.selectedSurfacePath.toAttackPath(modelStorage, criticalElement, true), true);
+                this.selectedSurfacePath.toAttackPath(this.modelStorage, criticalElement, true), true);
         // vulnerabilities are filtered in the AttackHandler
     }
 
     /**
-     * 
+     *
      * @param selectedNodeContent - the given node content
      * @return the resource container for the given node content, i.e. the
      *         containing resource container or the container itself
@@ -142,7 +142,8 @@ public abstract class Change<T> {
         return ret;
     }
 
-    protected ResourceContainer getResourceContainer(final AssemblyContext component) {
+    protected ResourceContainer getResourceContainer(final List<AssemblyContext> components) {
+        var component = components.get(0); // TODO Fix for list;
         final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
                 .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
                 .findAny();
@@ -155,7 +156,7 @@ public abstract class Change<T> {
 
     protected AttackStatusNodeContent findResourceContainerNode(final ResourceContainer resourceContainer,
             final AttackStatusNodeContent selectedNode) {
-        final boolean isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContainedElement().getId()
+        final var isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContainedElement().getId()
                 .equals(resourceContainer.getId());
         return isSelectedNodeAlreadyResourceContainerNode ? selectedNode
                 : this.getAttackGraph().addOrFindChild(selectedNode, new AttackStatusNodeContent(resourceContainer));
@@ -170,7 +171,7 @@ public abstract class Change<T> {
     }
 
     /**
-     * 
+     *
      * @param resource - the resource container
      * @return all connected containers to the given container
      */

@@ -4,10 +4,8 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -23,17 +21,16 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.attacksurface.tests.evaluation.EvaluationTest;
 //TODO
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
-public abstract class ScalabilityTests extends EvaluationTest {    
+public abstract class ScalabilityTests extends EvaluationTest {
     public static final int WARMUP = 2;
     public static final int REPEAT = 2;//10;
     protected static final boolean RUN_COMPLETE_ANALYSIS = true; //TODO adapt to false for only element prop. analysis
     protected static final int MAX_NUMBER_COMPLETE = 7;
-    
+
     public ScalabilityTests() {
         this.PATH_REPOSITORY = "Scalability/scalability.repository";
         this.PATH_RESOURCES = "Scalability/scalability.resourceenvironment";
@@ -50,24 +47,24 @@ public abstract class ScalabilityTests extends EvaluationTest {
         for (var i = 0; i < WARMUP; i++) {
             analysisTime();
         }
-        
+
         final var attacks = this.attacker.getSystemintegration();
         moveVulnerabilitiesIfNecessary(attacks);
-        final int maximumNumberOfAdditions = RUN_COMPLETE_ANALYSIS ? 
+        final var maximumNumberOfAdditions = RUN_COMPLETE_ANALYSIS ?
                 getMaximumNumberOfAdditionsForFullAnalysis() : getMaximumNumberOfAdditions();
-        for (int i = 0; i < maximumNumberOfAdditions; i++) {
+        for (var i = 0; i < maximumNumberOfAdditions; i++) {
             perform(this.environment, 1, attacks);
             writeResults();
         }
     }
-    
+
     @Disabled //TODO enable for scalability test for maximum
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
             analysisTime();
         }
-        
+
         final var attacks = this.attacker.getSystemintegration();
         moveVulnerabilitiesIfNecessary(attacks);
         perform(this.environment, getMaximumRunValue(), attacks);
@@ -77,7 +74,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
     protected abstract int getMaximumRunValue();
 
     protected abstract int getMaximumNumberOfAdditions();
-    
+
     protected int getMaximumNumberOfAdditionsForFullAnalysis() {
         return MAX_NUMBER_COMPLETE;
     }
@@ -90,17 +87,17 @@ public abstract class ScalabilityTests extends EvaluationTest {
         }
 
         var path = Paths.get(System.getProperty("java.io.tmpdir"), getFilename());
-        if (!Files.exists(path, new LinkOption[] {})) {
+        if (!Files.exists(path)) {
             try {
-                path = Files.createFile(path, new FileAttribute<?>[] {});
+                path = Files.createFile(path);
             } catch (IOException e) {
                 fail(e.getMessage());
             }
         }
-        
+
         try (var output = Files.newBufferedWriter(path, StandardOpenOption.APPEND);) {
-            var changes = RUN_COMPLETE_ANALYSIS 
-                    ? (CredentialChange) getBlackboardWrapper().getModificationMarkRepository().getChangePropagationSteps().get(0) 
+            var changes = RUN_COMPLETE_ANALYSIS
+                    ? (CredentialChange) getBlackboardWrapper().getModificationMarkRepository().getChangePropagationSteps().get(0)
                     : getChanges();
             output.append(String.format(Locale.US, "%d,%d,%d\n", changes.getAttackpaths().size(),
                     Math.round(timeList.stream().mapToLong(Long::longValue).average().getAsDouble()),
@@ -117,12 +114,12 @@ public abstract class ScalabilityTests extends EvaluationTest {
 
     long analysisTime() {
         resetAttackGraphAndChanges();
-        this.setPathLengthFilter(getMaximumPathLength());
+        setPathLengthFilter(getMaximumPathLength());
         var startTime = java.lang.System.currentTimeMillis();
         if (RUN_COMPLETE_ANALYSIS) {
-            this.runAnalysis();
+            runAnalysis();
         } else {
-            this.runEvaluationAnalysis();
+            runEvaluationAnalysis();
         }
         return java.lang.System.currentTimeMillis() - startTime;
     }
@@ -131,7 +128,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
 
     private void perform(ResourceEnvironment environment, int numberAddition,
             AttackerSystemSpecificationContainer attacks) {
-        final int sizeMinOne = environment.getResourceContainer_ResourceEnvironment().size() - 1;
+        final var sizeMinOne = environment.getResourceContainer_ResourceEnvironment().size() - 1;
         final var origin = environment.getResourceContainer_ResourceEnvironment().get(sizeMinOne);
         var vulnerability = this.attacker.getVulnerabilites().getVulnerability().get(0);
         var newOrigin = origin;
@@ -145,8 +142,8 @@ public abstract class ScalabilityTests extends EvaluationTest {
     }
 
     protected abstract void moveVulnerabilitiesIfNecessary(AttackerSystemSpecificationContainer attacks);
-    
-    protected void moveVulnerabilities(final AttackerSystemSpecificationContainer attacks, 
+
+    protected void moveVulnerabilities(final AttackerSystemSpecificationContainer attacks,
             final AssemblyContext assemblyInOrigin,
             final ResourceContainer origin) {
         var vulnerability = VulnerabilityHelper.getVulnerabilities(attacks, assemblyInOrigin).get(0);
@@ -155,22 +152,23 @@ public abstract class ScalabilityTests extends EvaluationTest {
                 .filter(s -> PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement()).getId().equals(assemblyInOrigin.getId()))
                 .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent()))
                 .findFirst().orElse(null);
-        sysInteg.getPcmelement().setAssemblycontext(null);
+        sysInteg.getPcmelement().getAssemblycontext().clear();
         sysInteg.getPcmelement().setResourcecontainer(origin);
-        
+
         //set resource container as critical element and move vulnerability there too
-        final var root = this.getAttackGraph().getRootNodeContent().getContainedElementAsPCMElement().getAssemblycontext();
+        final var root = getAttackGraph().getRootNodeContent().getContainedElementAsPCMElement().getAssemblycontext();
         final var sysIntegRoot = attacks.getVulnerabilities()
                 .stream()
-                .filter(s -> PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement()).getId().equals(root.getId()))
+                .filter(s -> PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement()).getId()
+                        .equals(root.get(0).getId()))
                 .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent()))
                 .findFirst().orElse(null);
-        sysIntegRoot.getPcmelement().setAssemblycontext(null);
+        sysIntegRoot.getPcmelement().getAssemblycontext().clear();
         sysIntegRoot.getPcmelement().setResourcecontainer(getResource(root));
-        
-        this.setCriticalResourceContainer(this.getResource(root).getEntityName());
+
+        setCriticalResourceContainer(getResource(root).getEntityName());
     }
-    
+
     protected abstract ResourceContainer resourceAddOperation(ResourceEnvironment environment, ResourceContainer origin,
             VulnerabilitySystemIntegration integration);
 

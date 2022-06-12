@@ -2,11 +2,15 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
     <attacker id="_CcLR0C8pEeylPOrRpUZy4w" entityName="PowerGridCompromiser" attacks="_UwN_AC8rEeylPOrRpUZy4w">
-      <compromisedComponents href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+      <compromisedComponents>
+        <assemblycontext href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+      </compromisedComponents>
       <credentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
     </attacker>
     <attacker id="__4_zQI83EeypUsV8TrELAg" entityName="Special">
-      <compromisedComponents href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+      <compromisedComponents>
+        <assemblycontext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+      </compromisedComponents>
     </attacker>
   </attackers>
   <attacks>

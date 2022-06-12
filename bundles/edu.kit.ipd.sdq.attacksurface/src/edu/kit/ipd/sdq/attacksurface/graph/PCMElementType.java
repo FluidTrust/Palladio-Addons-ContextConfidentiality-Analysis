@@ -17,32 +17,32 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 /**
  * Represents the type of a {@link PCMElement}
- * 
+ *
  * @author ugnwq
  * @version 1.0
  */
 public enum PCMElementType {
     ASSEMBLY_CONTEXT(AssemblyContext.class),
-    
+
     RESOURCE_CONTAINER(ResourceContainer.class),
-    
+
     LINKING_RESOURCE(LinkingResource.class),
-    
+
     METHOD_SPECIFICATION(MethodSpecification.class),
-    
+
     BASIC_COMPONENT(RepositoryComponent.class),
-    
+
     COMPOSITE_COMPONENT(CompositeComponent.class)
     ;
-    
+
     private final Class<? extends Entity> clazz;
-    
-    private PCMElementType(Class<? extends Entity> clazz) {
+
+    PCMElementType(Class<? extends Entity> clazz) {
         this.clazz = clazz;
     }
-    
+
     /**
-     * 
+     *
      * @param entity - the entity
      * @return type of the entity or {@code null} if no type fits
      */
@@ -54,9 +54,9 @@ public enum PCMElementType {
         }
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param pcmElement - the {@link PCMElement}
      * @return the type of the element or {@code null} if no type fits
      */
@@ -68,9 +68,9 @@ public enum PCMElementType {
         }
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param original - the original element
      * @return copy of the element
      */
@@ -78,19 +78,19 @@ public enum PCMElementType {
         final var type = PCMElementType.typeOf(original);
         return type != null ? type.toPCMElement(type.getEntity(original)) : null;
     }
-    
+
     /**
-     * 
+     *
      * @param entity - the entity
      * @return the entity inside an {@link PCMElement}
      */
     public PCMElement toPCMElement(final Entity entity) {
         Objects.requireNonNull(entity);
         if (!this.clazz.isInstance(entity)) {
-            throw new IllegalArgumentException("invalid type, should be \"" + 
-                    this.clazz.getName() + "\" but is \"" + entity.getClass().getName() + "\"");            
+            throw new IllegalArgumentException("invalid type, should be \"" +
+                    this.clazz.getName() + "\" but is \"" + entity.getClass().getName() + "\"");
         }
-        
+
         final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
         switch(this) {
             case RESOURCE_CONTAINER:
@@ -106,7 +106,7 @@ public enum PCMElementType {
                 pcmElement.setCompositecomponent((CompositeComponent) entity);
                 break;
             case ASSEMBLY_CONTEXT:
-                pcmElement.setAssemblycontext((AssemblyContext) entity);
+                pcmElement.getAssemblycontext().add((AssemblyContext) entity);
                 break;
             case METHOD_SPECIFICATION:
                 pcmElement.setMethodspecification((MethodSpecification) entity);
@@ -115,12 +115,12 @@ public enum PCMElementType {
                 assert false;
                 break;
         }
-        
+
         return pcmElement;
     }
-    
+
     /**
-     * 
+     *
      * @param pcmElement - the element
      * @return the entity inside the element
      */
@@ -128,7 +128,7 @@ public enum PCMElementType {
         if (pcmElement == null) {
             return null;
         }
-        
+
         Entity ret = null;
         switch(this) {
             case RESOURCE_CONTAINER:
@@ -144,7 +144,11 @@ public enum PCMElementType {
                 ret = pcmElement.getCompositecomponent();
                 break;
             case ASSEMBLY_CONTEXT:
-                ret = pcmElement.getAssemblycontext();
+                if (pcmElement.getAssemblycontext().isEmpty()) {
+                    ret = null;
+                    break;
+                }
+                ret = pcmElement.getAssemblycontext().get(0); // TODO: fix for list
                 break;
             case METHOD_SPECIFICATION:
                 ret = pcmElement.getMethodspecification();
@@ -155,9 +159,9 @@ public enum PCMElementType {
         }
         return ret;
     }
-    
+
     /**
-     * 
+     *
      * @param entity
      * @return a predicate over a system integration and an entity returning {@code true} on ecore equality of the
      * entity and the entity contained in the PCMElement of the system integration

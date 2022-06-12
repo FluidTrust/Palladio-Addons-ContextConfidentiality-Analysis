@@ -17,6 +17,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -58,45 +59,46 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     public AttackSurfaceAnalysis() {
         this(false, null);
     }
-    
+
     /**
      * Constructor for tests, initializes the initial structure.
-     * 
+     *
      * @param doInitialize - if the initial structure should be already created
      * @param modelStorage - the model storage
      */
     public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper modelStorage) {
         if (doInitialize) {
             this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-            this.createInitialStructure(modelStorage);
+            createInitialStructure(modelStorage);
         }
     }
-    
+
     public AttackSurfaceAnalysis(AttackGraph attackGraph) {
         this.attackGraph = attackGraph;
     }
 
     /**
      * Runs the analysis.
-     * 
+     *
      * @param modelStorage - the model storage
      */
+    @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
         runPropagationWithoutAttackPathCreation(modelStorage);
         createAttackPaths(modelStorage);
         cleanup(modelStorage);
     }
-    
+
     public CredentialChange runAnalysisTest(final BlackboardWrapper modelStorage) {
         runChangePropagationAnalysis(modelStorage);
         return this.changes;
     }
-    
+
     private void initialize(final BlackboardWrapper modelStorage) {
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         createInitialStructure(modelStorage);
     }
-    
+
     private void calculate(final BlackboardWrapper modelStorage) {
         do {
             this.changes.setChanged(false);
@@ -108,13 +110,13 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
             //TODO later implement calculateAndMarkLinkingPropagation(board);
         } while (this.changes.isChanged());
     }
-    
+
     private void createAttackPaths(final BlackboardWrapper modelStorage) {
         this.attackGraph.resetVisitations();
         final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(modelStorage, this.changes);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
-    
+
     /*
      * public for test
      */
@@ -123,7 +125,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         calculate(modelStorage);
         return this.changes;
     }
-    
+
     /*
      * public for tests
      */
@@ -146,7 +148,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     /**
      * Method for testing the {@link AttackPathSurface} to {@link AttackPath}
      * conversion.
-     * 
+     *
      * @param allAttackPathsSurface - list of {@link AttackPathSurface} instances
      *                              representing all found paths
      * @param modelStorage
@@ -172,7 +174,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         return allPaths;
     }
-    
+
     private boolean contains(final List<AttackPath> allPaths, final AttackPath newPath) {
         return allPaths.stream().anyMatch(p -> isPathEquals(p, newPath));
     }
@@ -181,19 +183,19 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         if (expected.getPath().size() != actual.getPath().size()) {
             return false;
         }
-        final int size = expected.getPath().size();
-        for (int i = 0; i < size; i++) {
+        final var size = expected.getPath().size();
+        for (var i = 0; i < size; i++) {
             final var sysIntegActual = actual.getPath().get(i);
             final var actualEntity = PCMElementType.typeOf(sysIntegActual.getPcmelement())
                     .getEntity(sysIntegActual.getPcmelement());
             final var sysIntegExpected = expected.getPath().get(i);
-            final boolean elementEquals = 
+            final var elementEquals =
                     PCMElementType.typeOf(sysIntegExpected.getPcmelement())
                         .getElementEqualityPredicate(actualEntity).test(sysIntegExpected);
             if (!elementEquals) {
                 return false;
             }
-            final boolean idOfContentEquals = 
+            final var idOfContentEquals =
                     Objects.equals(sysIntegExpected.getIdOfContent(), sysIntegActual.getIdOfContent());
             if (!idOfContentEquals) {
                 return false;
@@ -222,20 +224,21 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         final var criticalPCMElement = localAttacker.getTargetedElement();
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
         this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
-        
+
         final var setCredentials = localAttacker.getAttacker().getCredentials().stream()
                 .map(CredentialSurface::new).collect(Collectors.toSet());
         this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
-        convertAffectedElementsToChanges(localAttacker); 
+        convertAffectedElementsToChanges(localAttacker);
         addAllPossibleAttacks(board, localAttacker);
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
-    
+
     private void convertAffectedElementsToChanges(final SurfaceAttacker localAttacker) {
         //TODO later add the resulting attack paths
-        
+
         // convert affectedResources to changes
-        final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResources().stream()
+        final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResourceElements().stream()
+                .filter(e -> e.getResourcecontainer() != null).map(ResourceEnvironmentElement::getResourcecontainer)
                 .map(resource -> {
                     final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                     change.setAffectedElement(resource);
@@ -244,7 +247,8 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         this.changes.getCompromisedresource().addAll(affectedRessourcesList);
 
         // convert affectedLinkingResources to changes
-        final var affectedLinkingList = localAttacker.getAttacker().getCompromisedLinkingResources().stream()
+        final var affectedLinkingList = localAttacker.getAttacker().getCompromisedResourceElements().stream()
+                .filter(e -> e.getLinkingresource() != null).map(ResourceEnvironmentElement::getLinkingresource)
                 .map(linkingResource -> {
                     final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
                     change.setAffectedElement(linkingResource);
@@ -288,7 +292,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * Calculates the propagation starting from {@link AssemblyContext}s. The
      * analyses start from the critical element and try to calculate back possible
      * attack paths to it.
-     * 
+     *
      * @param modelStorage - the model storage
      */
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper modelStorage) {
@@ -314,7 +318,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      * Calculates the propagation starting from {@link ResourceContainer}s. The
      * analyses start from the critical element and try to calculate back possible
      * attack paths to it.
-     * 
+     *
      * @param modelStorage - the model storage
      */
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper modelStorage) {

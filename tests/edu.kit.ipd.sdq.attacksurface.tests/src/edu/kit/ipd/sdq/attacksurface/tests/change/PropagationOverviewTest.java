@@ -114,7 +114,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
 
     private AssemblyContext getAssemblyContext(final String searchStr) {
         if (searchStr.equals(CRITICAL)) {
-            return getAttackGraph().getRootNodeContent().getContainedElementAsPCMElement().getAssemblycontext();
+            return getAttackGraph().getRootNodeContent().getContainedElementAsPCMElement().getAssemblycontext().get(0);
         }
 
         return getBlackboardWrapper().getAssembly().getAssemblyContexts__ComposedStructure().stream()
@@ -248,7 +248,8 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         Assert.assertFalse(attackPaths.isEmpty());
         attackPaths.forEach(p -> {
             System.out.println("\n");
-            p.getPath().forEach(s -> System.out.println(s.getIdOfContent() + " | " + s.getPcmelement().getAssemblycontext().getEntityName()));
+            p.getPath().forEach(s -> System.out.println(
+                    s.getIdOfContent() + " | " + s.getPcmelement().getAssemblycontext().get(0).getEntityName()));
         });
         Assert.assertTrue(attackPaths.stream().allMatch(p -> p.getPath().size() == 2));
         final AttackPathSurface[] expectedSurfacePaths = {
@@ -262,7 +263,8 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                 Arrays.asList(expectedSurfacePaths), modelStorage);
         expectedPaths.forEach(p -> {
             System.out.println("\nEXP\n");
-            p.getPath().forEach(s -> System.out.println(s.getIdOfContent() + " | " + s.getPcmelement().getAssemblycontext().getEntityName()));
+            p.getPath().forEach(s -> System.out.println(
+                    s.getIdOfContent() + " | " + s.getPcmelement().getAssemblycontext().get(0).getEntityName()));
         });
         final var expectedPathsSet = new HashSet<>(expectedPaths);
         Assert.assertEquals(4, attackPaths.size());

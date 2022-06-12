@@ -278,7 +278,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
 
-    protected ResourceContainer getResource(final AssemblyContext assembly) {
+    protected ResourceContainer getResource(final List<AssemblyContext> assemblyList) {
+        var assembly = assemblyList.get(0);
         final var resourceOpt = this.allocation.getAllocationContexts_Allocation().stream()
                 .filter(e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(), assembly))
                 .map(AllocationContext::getResourceContainer_AllocationContext).findAny();

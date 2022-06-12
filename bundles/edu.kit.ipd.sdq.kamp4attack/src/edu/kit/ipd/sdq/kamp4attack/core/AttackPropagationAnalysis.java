@@ -2,12 +2,14 @@ package edu.kit.ipd.sdq.kamp4attack.core;
 
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
@@ -37,6 +39,7 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
     private CredentialChange changePropagationDueToCredential;
 
 
+    @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
 
         // Setup
@@ -126,16 +129,18 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
                 final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
                 change.setAffectedElement(context);
                 return change;
-            }).collect(Collectors.toList());
+            }).toList();
 
             this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
 
             // convert affectedResources to changes
-            final var affectedRessourcesList = localAttacker.getCompromisedResources().stream().map(resource -> {
+            final var affectedRessourcesList = localAttacker.getCompromisedResourceElements().stream()
+                    .filter(e -> e.getResourcecontainer() != null).map(ResourceEnvironmentElement::getResourcecontainer)
+                    .map(resource -> {
                 final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
                 change.setAffectedElement(resource);
                 return change;
-            }).collect(Collectors.toList());
+                    }).toList();
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
             // convert affectedAssemblyContexts to changes
@@ -151,20 +156,22 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
                 }
             };
 
-            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents(),
+            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents().stream()
+                    .map(SystemComponent::getAssemblycontext).map(e -> e.get(0)).toList(),
                     this.changePropagationDueToCredential, null);
 
 
 
 
             // convert affectedLinkingResources to changes
-            final var affectedLinkingList = localAttacker.getCompromisedLinkingResources().stream()
+            final var affectedLinkingList = localAttacker.getCompromisedResourceElements().stream()
+                    .filter(e -> e.getLinkingresource() != null).map(ResourceEnvironmentElement::getLinkingresource)
                     .map(linkingResource -> {
                         final var change = KAMP4attackModificationmarksFactory.eINSTANCE
                                 .createCompromisedLinkingResource();
                         change.setAffectedElement(linkingResource);
                         return change;
-                    }).collect(Collectors.toList());
+                    }).toList();
             this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
 
         }

@@ -2,19 +2,21 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
     <attacker id="_CcLR0C8pEeylPOrRpUZy4w" entityName="PowerGridCompromiser" attacks="_UwN_AC8rEeylPOrRpUZy4w">
-      <compromisedResources href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
       <credentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
+      <compromisedResourceElements>
+          <resourcecontainer href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+      </compromisedResourceElements>
     </attacker>
   </attackers>
   <attacks>
-    <attack xsi:type="attack:CVEAttack" id="_UwN_AC8rEeylPOrRpUZy4w" entityName="BlackEnergy 3" category="//@categoryspecification/@categories.0"/>
+    <attack xsi:type="attack:CVEAttack" id="_UwN_AC8rEeylPOrRpUZy4w" entityName="BlackEnergy 3" category="_NYUk8tgPEeyHlfE72J9JsA"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1" entityName="WordCompromiseICSBackend" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="_NYUk89gPEeyHlfE72J9JsA" entityName="WordCompromiseICSBackend" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="_NYUk8tgPEeyHlfE72J9JsA"/>
   </vulnerabilites>
   <categoryspecification>
-    <categories xsi:type="attack:CVEID" entityName="Microsoft Word 2003 SP3, 2007 SP3, 2010 SP1 and SP2, 2013, and 2013 RT; Word Viewer; Office Compatibility Pack SP3; Office for Mac 2011; Word Automation Services on SharePoint Server 2010 SP1 and SP2 and 2013; Office Web Apps 2010 SP1 and SP2; and Office Web Apps Server 2013 allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption) via crafted RTF data, as exploited in the wild in March 2014. " cveID="CVE-2014-1761"/>
-    <categories xsi:type="attack:CWEID" entityName="Improper Restriction of Operations within the Bounds of a Memory Buffer" cweID="119"/>
+    <categories xsi:type="attack:CVEID" id="_NYUk8tgPEeyHlfE72J9JsA" entityName="Microsoft Word 2003 SP3, 2007 SP3, 2010 SP1 and SP2, 2013, and 2013 RT; Word Viewer; Office Compatibility Pack SP3; Office for Mac 2011; Word Automation Services on SharePoint Server 2010 SP1 and SP2 and 2013; Office Web Apps 2010 SP1 and SP2; and Office Web Apps Server 2013 allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption) via crafted RTF data, as exploited in the wild in March 2014. " cveID="CVE-2014-1761"/>
+    <categories xsi:type="attack:CWEID" id="_NYUk89gPEeyHlfE72J9JsA" entityName="Improper Restriction of Operations within the Bounds of a Memory Buffer" cweID="119"/>
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_Dwup8C8pEeylPOrRpUZy4w" vulnerability="//@vulnerabilites/@vulnerability.0">

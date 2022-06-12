@@ -2,7 +2,9 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
   <attackers>
     <attacker id="_e5aL8Kd4EeuyobD7xRWqAQ" entityName="AttackSeffNoPropagation" attacks="_GA4T8Dl3EeyxuvclpmtFmA">
-      <compromisedComponents href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+      <compromisedComponents>
+        <assemblycontext href="../../../default.system#_2pBlYMN-EeWst9mTsticNA"/>
+      </compromisedComponents>
     </attacker>
   </attackers>
   <attacks>

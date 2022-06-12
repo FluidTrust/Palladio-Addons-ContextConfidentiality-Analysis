@@ -24,15 +24,13 @@ public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegratio
 
     @Override
     public List<SystemIntegration> rollOut(PCMBlackBoard test, List<SystemIntegration> t) {
-        var listRollout = t.stream().filter(this::isComponent).collect(Collectors.toList());
+        final var listRollout = t.stream().filter(this::isComponent).toList();
 
-        var rolledOut = filter(t, listRollout);
+        final var rolledOut = filter(t, listRollout);
 
-        for (var integration : listRollout) {
-            var list = getAssemblyContext(integration.getPcmelement().getBasiccomponent(), test.getSystem()).stream()
-                    .map(assembly -> createIntegration(assembly,
-                            integration))
-                    .collect(Collectors.toList());
+        for (final var integration : listRollout) {
+            final var list = getAssemblyContext(integration.getPcmelement().getBasiccomponent(), test.getSystem())
+                    .stream().map(assembly -> createIntegration(assembly, integration)).toList();
             rolledOut.addAll(list);
         }
 
@@ -40,10 +38,9 @@ public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegratio
 
     }
 
-    private SystemIntegration createIntegration(
-            AssemblyContext context, SystemIntegration oldIntegration) {
-        var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        pcmElement.setAssemblycontext(context);
+    private SystemIntegration createIntegration(AssemblyContext context, SystemIntegration oldIntegration) {
+        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
+        pcmElement.getAssemblycontext().add(context);
         final var integration = oldIntegration.getCopyExceptElement();
         integration.setPcmelement(pcmElement);
 
@@ -55,15 +52,14 @@ public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegratio
             org.palladiosimulator.pcm.system.System system) {
         return system.getAssemblyContexts__ComposedStructure().stream()
                 .filter(e -> e.getEncapsulatedComponent__AssemblyContext().getId().equals(component.getId()))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private boolean isComponent(SystemIntegration integration) {
         return integration.getPcmelement().getBasiccomponent() != null;
     }
 
-    private List<SystemIntegration> filter(List<SystemIntegration> original,
-            List<SystemIntegration> filter) {
+    private List<SystemIntegration> filter(List<SystemIntegration> original, List<SystemIntegration> filter) {
 
         return original.stream().filter(e -> !containsHelper(e, filter)).collect(Collectors.toList());
     }

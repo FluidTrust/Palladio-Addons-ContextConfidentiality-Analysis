@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 import UncertaintyVariationModel.VariationPoint;
@@ -44,7 +45,9 @@ public class StartComponentStateHandler extends GenericStateHandler {
                 if (resolvedAttacker.isPresent() && resolvedComponent.isPresent()) {
                     var attacker = ((Attacker) resolvedAttacker.get());
                     attacker.getCompromisedComponents().clear();
-                    attacker.getCompromisedComponents().add(((AssemblyContext) resolvedComponent.get()));
+                    var systemComponent = PcmIntegrationFactory.eINSTANCE.createSystemComponent();
+                    systemComponent.getAssemblycontext().add((AssemblyContext) resolvedComponent.get());
+                    attacker.getCompromisedComponents().add(systemComponent);
                 }
 
             }

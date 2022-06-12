@@ -19,7 +19,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 /**
  * Represents an abstract class for handling attacking of assembly contexts.
- * 
+ *
  * @author ugnwq
  * @version 1.0
  */
@@ -32,24 +32,26 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
 
     /**
      * Attacks the assembly contexts, compromising each newly compromised (new edge) assembly context.
-     * 
+     *
      * @param components - the assembly contexts
      * @param change - the changes
      * @param source - the attack source
-     * @param doesAttackComeFromContainingContainer 
-     *      - whether the attack comes from the containing resource container so that the assembly contexts are 
+     * @param doesAttackComeFromContainingContainer
+     *      - whether the attack comes from the containing resource container so that the assembly contexts are
      *      compromised without an additional attack
      */
-    public void attackAssemblyContext(final List<AssemblyContext> components, final CredentialChange change,
+    public void attackAssemblyContext(final List<List<AssemblyContext>> componenthierachy,
+            final CredentialChange change,
             final Entity source, final boolean doesAttackComeFromContainingContainer) {
+        var components = componenthierachy.get(0);
         final var compromisedComponents = components
                 .stream()
-                .map(e -> doesAttackComeFromContainingContainer 
+                .map(e -> doesAttackComeFromContainingContainer
                         ? Optional.of(HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(source)))
                                 : attackComponent(e, change, source)
                     )
-                .flatMap(Optional::stream).collect(Collectors.toList()); 
-        
+                .flatMap(Optional::stream).collect(Collectors.toList());
+
         final var newCompromisedComponents = filterExistingEdges(compromisedComponents, source);
         if (!newCompromisedComponents.isEmpty()) {
             change.setChanged(true);
@@ -67,7 +69,7 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
     /**
      * Attacks the given assembly context from the given source with the correct way of attacking it
      * defined by the respective subclass.
-     * 
+     *
      * @param component - the assembly context
      * @param change - the changes
      * @param source - the given source
@@ -75,7 +77,7 @@ public abstract class AssemblyContextHandler extends AttackHandler  {
      */
     protected abstract Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
             Entity source);
-    
+
     private Collection<CompromisedAssembly> filterExistingEdges(
             final List<CompromisedAssembly> compromisedComponents, final Entity source) {
         final var clazz = CompromisedAssembly.class;

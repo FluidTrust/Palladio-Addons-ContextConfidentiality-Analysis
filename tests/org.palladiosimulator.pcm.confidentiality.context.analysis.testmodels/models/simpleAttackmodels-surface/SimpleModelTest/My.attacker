@@ -3,7 +3,9 @@
   <attackers>
     <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test">
       <credentials href="My.context#_sKKUUe4ZEeu1msiU_4h_hw"/>
-      <compromisedComponents href="newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
+      <compromisedComponents>
+        <assemblycontext href="newAssembly.system#_oO9U8O2-Eeq6pfPMAIqEqg"/>
+      </compromisedComponents>
     </attacker>
     <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" targetedElement="_bpjQYKOBEeyPgbGXj7rW7A" attacker="_Kw-xUKEmEeuyfoSUd8RMpg"/>
   </attackers>

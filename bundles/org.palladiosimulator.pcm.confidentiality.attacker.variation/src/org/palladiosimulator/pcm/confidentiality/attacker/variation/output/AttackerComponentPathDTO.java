@@ -52,11 +52,10 @@ public class AttackerComponentPathDTO {
             throw new IllegalStateException("Attacker is null");
         }
 
-        if (attacker.getCompromisedComponents().size() != 1 || !attacker.getCompromisedLinkingResources().isEmpty()
-                || !attacker.getCompromisedResources().isEmpty()) {
+        if (attacker.getCompromisedComponents().size() != 1 || !attacker.getCompromisedResourceElements().isEmpty()) {
             throw new IllegalStateException("Unsupported number of starting points");
         }
-        final var component = attacker.getCompromisedComponents().get(0);
+        final var component = attacker.getCompromisedComponents().get(0).getAssemblycontext().get(0);
         this.startComponent = component.getEntityName();
         this.attackername = attacker.getEntityName();
     }

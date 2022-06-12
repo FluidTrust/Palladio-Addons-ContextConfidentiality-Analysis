@@ -31,17 +31,13 @@ import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SimpleAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard;
-import org.palladiosimulator.pcm.confidentiality.context.xacml.javapdp.XACMLGenerator;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
-import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
-import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -66,7 +62,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected ConfidentialAccessSpecification context;
     protected AttackerSpecification attacker;
     protected KAMP4attackModificationRepository modification;
-    
+
     private AttackGraph attackGraph;
     private CredentialChange changes;
 
@@ -77,11 +73,11 @@ public abstract class AbstractModelTest extends BaseTest {
         return new BlackboardWrapper(this.modification, this.assembly, this.environment, this.allocation,
                 this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
-    
+
     protected final AttackGraph getAttackGraph() {
         return this.attackGraph;
     }
-    
+
     protected final void resetAttackGraphAndChanges() {
         this.attackGraph = new AttackGraph(getCriticalEntity());
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
@@ -91,7 +87,7 @@ public abstract class AbstractModelTest extends BaseTest {
         final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getTargetedElement();
         return PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
     }
-    
+
     protected Entity getFirstEntityByName(final String namePart) {
         final Set<Entity> allEntities = new HashSet<>(this.assembly.getAssemblyContexts__ComposedStructure());
         allEntities.addAll(this.environment.getResourceContainer_ResourceEnvironment());
@@ -154,21 +150,21 @@ public abstract class AbstractModelTest extends BaseTest {
         this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
         return contextAccess;
     }
-    
+
     protected SurfaceAttacker getSurfaceAttacker() {
-        assert attacker.getAttackers().getSurfaceattacker().size() == 1;
-        return attacker.getAttackers().getSurfaceattacker().get(0); 
+        assert this.attacker.getAttackers().getSurfaceattacker().size() == 1;
+        return this.attacker.getAttackers().getSurfaceattacker().get(0);
     }
 
     protected void createAvailabilityImpactFilter() {
-        final var filterCriteria = this.getSurfaceAttacker().getFiltercriteria();
+        final var filterCriteria = getSurfaceAttacker().getFiltercriteria();
         final var impactFilter = AttackerFactory.eINSTANCE.createImpactVulnerabilityFilterCriterion();
         impactFilter.setAvailabilityImpactMinimum(AvailabilityImpact.HIGH);
         filterCriteria.add(impactFilter);
     }
-    
+
     protected void createCredentialFilter() {
-        final var filterCriteria = this.getSurfaceAttacker().getFiltercriteria();
+        final var filterCriteria = getSurfaceAttacker().getFiltercriteria();
         final var impactFilter = AttackerFactory.eINSTANCE.createInitialCredentialFilterCriterion();
         impactFilter.getProhibitedInitialCredentials().add(createRootCredentialsIfNecessary());
         filterCriteria.add(impactFilter);
@@ -180,13 +176,13 @@ public abstract class AbstractModelTest extends BaseTest {
         change.setToolderived(true);
         return change;
     }
-    
+
     protected void addRootAccess() {
         final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
                 .stream().map(CredentialSurface::new).collect(Collectors.toSet());
         getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
     }
-    
+
     protected void setCriticalResourceContainer(final String namePart) {
         final var newCriticalEntity = this.allocation.getTargetResourceEnvironment_Allocation()
                 .getResourceContainer_ResourceEnvironment()
@@ -201,10 +197,10 @@ public abstract class AbstractModelTest extends BaseTest {
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        this.getSurfaceAttacker().setTargetedElement(newCriticalElement);
+        getSurfaceAttacker().setTargetedElement(newCriticalElement);
         this.attackGraph.setRootForTests(newCriticalEntity);
     }
-    
+
     protected void setCriticalAssemblyContext(final String namePart) {
         final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure()
                 .stream()
@@ -214,21 +210,21 @@ public abstract class AbstractModelTest extends BaseTest {
             throw new IllegalArgumentException("assembly " + namePart + " not found");
         }
         final var newCriticalElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        newCriticalElement.setAssemblycontext(newCriticalEntity);
+        newCriticalElement.getAssemblycontext().add(newCriticalEntity);
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        this.getSurfaceAttacker().setTargetedElement(newCriticalElement);
+        getSurfaceAttacker().setTargetedElement(newCriticalElement);
         this.attackGraph.setRootForTests(newCriticalEntity);
     }
-    
+
     private UsageSpecification getRootCredentials() {
         return getFirstByName(ROOT_STR);
     }
-    
+
     protected UsageSpecification createRootCredentialsIfNecessary() {
         if (getRootCredentials() == null) {
-            final UsageSpecification root = SystemFactory.eINSTANCE.createUsageSpecification();
+            final var root = SystemFactory.eINSTANCE.createUsageSpecification();
             root.setEntityName(ROOT_STR);
             root.setAttribute(createRootAttribute());
             root.setAttributevalue(root.getAttribute().getAttributevalue().get(0));
@@ -237,12 +233,12 @@ public abstract class AbstractModelTest extends BaseTest {
         }
         return getRootCredentials();
     }
-    
+
     private Attribute createRootAttribute() {
-        final SimpleAttribute attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
+        final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
         attribute.setEntityName("Role");
         attribute.setEnvironment(false);
-        final AttributeValue value = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        final var value = SystemcontextFactory.eINSTANCE.createAttributeValue();
         value.getValues().add(ROOT_STR);
         value.setType(DataTypes.STRING);
         attribute.getAttributevalue().add(value);
@@ -256,10 +252,10 @@ public abstract class AbstractModelTest extends BaseTest {
                 .filter(u -> u.getEntityName().contains(namePart))
                 .findFirst().orElse(null);
     }
-    
+
     @BeforeEach
     public void addAllPossibleAttacks() {
-        var vulnerabilities = attacker.getVulnerabilites().getVulnerability();
+        var vulnerabilities = this.attacker.getVulnerabilites().getVulnerability();
         final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
             .stream()
             .map(this::toAttack)
@@ -268,17 +264,17 @@ public abstract class AbstractModelTest extends BaseTest {
             .collect(Collectors.toSet());
         getSurfaceAttacker().getAttacker().getAttacks().addAll(attacks);
     }
-    
+
     private Set<Attack> toAttack(final Vulnerability vulnerability) {
         if (vulnerability instanceof CVEVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();;
+            final Set<Attack> attacks = new HashSet<>();
             final var cveVuln = (CVEVulnerability)vulnerability;
             final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
             attack.setCategory(cveVuln.getCveID());
             attacks.add(attack);
             return attacks;
         } else if (vulnerability instanceof CWEBasedVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();;
+            final Set<Attack> attacks = new HashSet<>();
             final var cweVuln = (CWEBasedVulnerability)vulnerability;
             for (final var id : cweVuln.getCweID()) {
                 final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
@@ -289,12 +285,12 @@ public abstract class AbstractModelTest extends BaseTest {
         }
         return new HashSet<>(); //TODO or exception unknown vulnerability type
     }
-    
+
     @BeforeEach
     public void generateXMLBeforeEachTest() {
         generateXML();
     }
-    
+
     @BeforeEach
     public void clear() {
         resetAttackGraphAndChanges();

@@ -1,6 +1,7 @@
 package edu.kit.ipd.sdq.attacksurface.tests.evaluation.scalability;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
@@ -8,13 +9,10 @@ import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
-import org.palladiosimulator.pcm.system.SystemFactory;
-
-import org.junit.Assert;
 
 public class PooledAssemblies extends ScalabilityTests {
     private static int id = 0;
-    
+
     private int maximumPathLength = 1;
 
     @Override
@@ -27,13 +25,13 @@ public class PooledAssemblies extends ScalabilityTests {
             VulnerabilitySystemIntegration integration) {
         var linking = environment.getLinkingResources__ResourceEnvironment().get(0);
         var resource = ResourceenvironmentFactory.eINSTANCE.createResourceContainer();
-        
+
         linking.getConnectedResourceContainers_LinkingResource().add(resource);
-        
+
         final var oldAllocation = this.allocation.getAllocationContexts_Allocation().get(0);
         final var oldAssembly = this.allocation.getAllocationContexts_Allocation().stream()
             .filter(a -> EcoreUtil.equals(a.getResourceContainer_AllocationContext(), origin))
-            .map(a -> a.getAssemblyContext_AllocationContext())
+            .map(AllocationContext::getAssemblyContext_AllocationContext)
             .findFirst().orElse(null);
         final var oldConnector = this.assembly.getConnectors__ComposedStructure().stream()
                 .filter(AssemblyConnector.class::isInstance)
@@ -53,9 +51,9 @@ public class PooledAssemblies extends ScalabilityTests {
         newConnector.setRequiringAssemblyContext_AssemblyConnector(newAssembly);
         newConnector.setProvidingAssemblyContext_AssemblyConnector(oldAssembly);
         this.assembly.getConnectors__ComposedStructure().add(newConnector);
-        
+
         var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        pcmElement.setAssemblycontext(newAssembly);
+        pcmElement.getAssemblycontext().add(newAssembly);
         integration.setPcmelement(pcmElement);
 
         environment.getResourceContainer_ResourceEnvironment().add(resource);

@@ -60,7 +60,7 @@ class RolloutTest {
         assertEquals("TestVulnerability",
                 ((VulnerabilitySystemIntegration) out.get(0)).getVulnerability().getEntityName());
         assertEquals(this.system.createSystemNow().getAssemblyContexts__ComposedStructure().get(0).getId(),
-                out.get(0).getPcmelement().getAssemblycontext().getId());
+                out.get(0).getPcmelement().getAssemblycontext().get(0).getId());
 
     }
 
@@ -88,7 +88,7 @@ class RolloutTest {
         assertEquals("TestVulnerability",
                 ((RoleSystemIntegration) out.get(0)).getRole().getEntityName());
         assertEquals(this.system.createSystemNow().getAssemblyContexts__ComposedStructure().get(0).getId(),
-                out.get(0).getPcmelement().getAssemblycontext().getId()
+                out.get(0).getPcmelement().getAssemblycontext().get(0).getId()
                 );
 
     }
@@ -115,7 +115,7 @@ class RolloutTest {
         assertTrue(out.stream().allMatch(e -> e.getPcmelement().getBasiccomponent() == null));
         assertEquals(1, out.size());
         assertEquals(this.system.createSystemNow().getAssemblyContexts__ComposedStructure().get(0).getId(),
-                out.get(0).getPcmelement().getAssemblycontext().getId());
+                out.get(0).getPcmelement().getAssemblycontext().get(0).getId());
 
     }
 
@@ -135,7 +135,8 @@ class RolloutTest {
         var integration = List.of(createVulnerabilityIntegration(component, "TestVulnerability"));
         // set vulnerability to assembly context
         integration.get(0).getPcmelement().setBasiccomponent(null);
-        integration.get(0).getPcmelement().setAssemblycontext(
+        integration.get(0).getPcmelement().getAssemblycontext()
+                .add(
                 this.system.createSystemNow().getAssemblyContexts__ComposedStructure().get(0));
 
         var blackboard = new PCMBlackBoard(this.system.createSystemNow(), this.repo.createRepositoryNow(), null);
@@ -150,7 +151,7 @@ class RolloutTest {
         assertEquals("TestVulnerability",
                 ((VulnerabilitySystemIntegration) out.get(0)).getVulnerability().getEntityName());
         assertEquals(this.system.createSystemNow().getAssemblyContexts__ComposedStructure().get(0).getId(),
-                out.get(0).getPcmelement().getAssemblycontext().getId());
+                out.get(0).getPcmelement().getAssemblycontext().get(0).getId());
 
     }
 
