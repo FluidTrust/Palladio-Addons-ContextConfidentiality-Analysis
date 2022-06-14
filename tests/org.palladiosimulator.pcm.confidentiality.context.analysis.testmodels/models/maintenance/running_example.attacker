@@ -3,7 +3,7 @@
   <attackers>
     <attacker id="_F4i48OZuEeyze4K1yVUPAw" entityName="Running Example" attacks="_IWtvEOZvEeyfBL2hDeJh1g">
       <compromisedComponents>
-        <assemblycontext ref="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+        <assemblycontext href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
       </compromisedComponents>
     </attacker>
   </attackers>
