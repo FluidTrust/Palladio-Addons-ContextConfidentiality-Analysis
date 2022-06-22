@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
 <repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_ITWs0JSQEeyOldzBRFqWVw" entityName="New Repository">
   <components__Repository xsi:type="repository:BasicComponent" id="_nYJakJSQEeyOldzBRFqWVw" entityName="MachineComponent">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_SY3u0JSREeyOldzBRFqWVw" entityName="Machine1.Machine.OperationProvidedRole1" providedInterface__OperationProvidedRole="_RI-psJSQEeyOldzBRFqWVw"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_KWYXsJSUEeyjlrv9ryW3Zw" entityName="MachineComponent.Storage.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_jdzE4JSQEeyOldzBRFqWVw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_SY3u0JSREeyOldzBRFqWVw" entityName="Machine.Storing.ProvidedRole" providedInterface__OperationProvidedRole="_RI-psJSQEeyOldzBRFqWVw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_KWYXsJSUEeyjlrv9ryW3Zw" entityName="Machine.Storage.Required" requiredInterface__OperationRequiredRole="_jdzE4JSQEeyOldzBRFqWVw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_SZKCsJSREeyOldzBRFqWVw" describedService__SEFF="_JZZSYJSREeyOldzBRFqWVw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_SZKCsZSREeyOldzBRFqWVw" successor_AbstractAction="_RsJxwKqVEeyxbqK84Z3gRg"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_SZKpwJSREeyOldzBRFqWVw" predecessor_AbstractAction="_VUnqEJSYEeyjlrv9ryW3Zw"/>
@@ -17,7 +17,7 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_pEfAkJSQEeyOldzBRFqWVw" entityName="ProductionStorageComponent">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_0F5fkJSQEeyOldzBRFqWVw" entityName="Storage.Storage.OperationProvidedRole1" providedInterface__OperationProvidedRole="_jdzE4JSQEeyOldzBRFqWVw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_0F5fkJSQEeyOldzBRFqWVw" entityName="Storage.Operationrole" providedInterface__OperationProvidedRole="_jdzE4JSQEeyOldzBRFqWVw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_0Gk1AJSQEeyOldzBRFqWVw" describedService__SEFF="_qP0LQJSQEeyOldzBRFqWVw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_0GlcEJSQEeyOldzBRFqWVw" successor_AbstractAction="_284TwJSQEeyOldzBRFqWVw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_0GlcEZSQEeyOldzBRFqWVw" predecessor_AbstractAction="_284TwJSQEeyOldzBRFqWVw"/>
@@ -30,8 +30,8 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_XYPy4JSREeyOldzBRFqWVw" entityName="TerminalComponent">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_bG5O4JSREeyOldzBRFqWVw" entityName="TerminalComponent.MaintenanceTerminal.OperationProvidedRole1" providedInterface__OperationProvidedRole="_gpcG4JSQEeyOldzBRFqWVw"/>
-    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_cPTBYJSREeyOldzBRFqWVw" entityName="TerminalComponent.Machine.OperationRequiredRole1" requiredInterface__OperationRequiredRole="_RI-psJSQEeyOldzBRFqWVw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_bG5O4JSREeyOldzBRFqWVw" entityName="Terminal.Maintenance.ProvidedRole" providedInterface__OperationProvidedRole="_gpcG4JSQEeyOldzBRFqWVw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_cPTBYJSREeyOldzBRFqWVw" entityName="TerminalComponent.Machine.ProvidedRole" requiredInterface__OperationRequiredRole="_RI-psJSQEeyOldzBRFqWVw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bHWh4JSREeyOldzBRFqWVw" describedService__SEFF="_Cj0hsJSREeyOldzBRFqWVw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_bHWh4ZSREeyOldzBRFqWVw" successor_AbstractAction="_iB5SIJSREeyOldzBRFqWVw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_bHWh4pSREeyOldzBRFqWVw" predecessor_AbstractAction="_hjFyEJSYEeyjlrv9ryW3Zw"/>
@@ -40,7 +40,7 @@
     </serviceEffectSpecifications__BasicComponent>
   </components__Repository>
   <components__Repository xsi:type="repository:BasicComponent" id="_vbUxaJSREeyOldzBRFqWVw" entityName="ProductStorage">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_vbUxaZSREeyOldzBRFqWVw" entityName="Storage.Storage.OperationProvidedRole1" providedInterface__OperationProvidedRole="_jdzE4JSQEeyOldzBRFqWVw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_vbUxaZSREeyOldzBRFqWVw" entityName="Storage.ProvidedRole" providedInterface__OperationProvidedRole="_jdzE4JSQEeyOldzBRFqWVw"/>
     <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_vbUxapSREeyOldzBRFqWVw" describedService__SEFF="_qP0LQJSQEeyOldzBRFqWVw">
       <steps_Behaviour xsi:type="seff:StartAction" id="_vbUxa5SREeyOldzBRFqWVw" successor_AbstractAction="_vbUxbZSREeyOldzBRFqWVw"/>
       <steps_Behaviour xsi:type="seff:StopAction" id="_vbUxbJSREeyOldzBRFqWVw" predecessor_AbstractAction="_vbUxbZSREeyOldzBRFqWVw"/>

@@ -6,12 +6,6 @@
       <throughput_CommunicationLinkResourceSpecification/>
     </communicationLinkResourceSpecifications_LinkingResource>
   </linkingResources__ResourceEnvironment>
-  <linkingResources__ResourceEnvironment id="_NK4zwJShEeyjlrv9ryW3Zw" entityName="InternalNetwork" connectedResourceContainers_LinkingResource="_Wy_3IJSZEeyjlrv9ryW3Zw">
-    <communicationLinkResourceSpecifications_LinkingResource id="_NK4zwZShEeyjlrv9ryW3Zw">
-      <latency_CommunicationLinkResourceSpecification specification="0"/>
-      <throughput_CommunicationLinkResourceSpecification specification="0"/>
-    </communicationLinkResourceSpecifications_LinkingResource>
-  </linkingResources__ResourceEnvironment>
   <resourceContainer_ResourceEnvironment id="_Wy_3IJSZEeyjlrv9ryW3Zw" entityName="StorageServer"/>
   <resourceContainer_ResourceEnvironment id="_ZOQ_sJSZEeyjlrv9ryW3Zw" entityName="TerminalServer"/>
   <resourceContainer_ResourceEnvironment id="_ag33EJSZEeyjlrv9ryW3Zw" entityName="MachineController"/>

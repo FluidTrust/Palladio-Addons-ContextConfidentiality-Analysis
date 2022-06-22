@@ -1,134 +1,134 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <changePropagationSteps>
-    <compromisedresource id="_SSkpUOZxEeywuvLF7W7Xfg" toolderived="true">
+    <compromisedresource id="_nEKc0PJBEeyiMeufzcuRmQ" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
     </compromisedresource>
-    <compromisedresource id="_STCjYOZxEeywuvLF7W7Xfg" toolderived="true">
+    <compromisedresource id="_nEaUcPJBEeyiMeufzcuRmQ" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
     </compromisedresource>
-    <compromisedassembly id="_SOTNUOZxEeywuvLF7W7Xfg">
+    <compromisedassembly id="_m-rf4PJBEeyiMeufzcuRmQ">
       <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
     </compromisedassembly>
-    <compromisedassembly id="_STDKd-ZxEeywuvLF7W7Xfg" toolderived="true">
+    <compromisedassembly id="_nEaUefJBEeyiMeufzcuRmQ" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
     </compromisedassembly>
-    <compromisedassembly id="_STEYkOZxEeywuvLF7W7Xfg" toolderived="true">
+    <compromisedassembly id="_nEa7gPJBEeyiMeufzcuRmQ" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
       <causingElements href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
     </compromisedassembly>
-    <contextchange id="_SQsaAOZxEeywuvLF7W7Xfg" toolderived="true">
+    <contextchange id="_nCx8wPJBEeyiMeufzcuRmQ" toolderived="true">
       <affectedElement xsi:type="system:UsageSpecification" href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
       <causingElements href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
       <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
     </contextchange>
-    <compromisedservice id="_SOTNVuZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SOTNVeZxEeywuvLF7W7Xfg">
+    <compromisedservice id="_m-y0oPJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_m-w_cfJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
     </compromisedservice>
-    <compromisedservice id="_STEYk-ZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SPXkUeZxEeywuvLF7W7Xfg">
+    <compromisedservice id="_nEa7g_JBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nBVyUvJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
     </compromisedservice>
-    <compromisedservice id="_STEYlOZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SPXkUuZxEeywuvLF7W7Xfg">
+    <compromisedservice id="_nEa7hPJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nBVyU_JBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
     </compromisedservice>
-    <compromisedservice id="_STEYl-ZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SPXkU-ZxEeywuvLF7W7Xfg">
+    <compromisedservice id="_nEa7h_JBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nBVyVPJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
     </compromisedservice>
-    <compromisedservice id="_STEYmOZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SPXkVOZxEeywuvLF7W7Xfg">
+    <compromisedservice id="_nEa7iPJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nBVyVfJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_SOTNVeZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_m-w_cfJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_Cj0hsJSREeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_bHWh4JSREeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SOqZsOZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nAPmIPJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_JZZSYJSREeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_SZKCsJSREeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SOqZseZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nAPmIfJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_HZ11cJSREeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_SZZ6UJSREeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SPXkUeZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nBVyUvJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_0Gk1AJSQEeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SPXkUuZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nBVyU_JBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_8Y9sgJSREeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SPXkU-ZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nBVyVPJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_vbUxapSREeyOldzBRFqWVw"/>
       </servicerestriction>
-      <servicerestriction id="_SPXkVOZxEeywuvLF7W7Xfg">
+      <servicerestriction id="_nBVyVfJBEeyiMeufzcuRmQ">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>
         <assemblycontext href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
         <service href="maintenanceScenario.repository#_7S9GsJSREeyOldzBRFqWVw"/>
       </servicerestriction>
     </servicerestrictioncontainer>
-    <compromiseddata id="_SOTNU-ZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SOTNUeZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_m-wYYPJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_m-ujMPJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
-    <compromiseddata id="_SOTNVOZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_SOTNUuZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_m-w_cPJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_m-vxUPJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
-    <compromiseddata id="_STDKc-ZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_STCjYeZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_nEaUdfJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nEaUcfJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
-    <compromiseddata id="_STDKdOZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_STDKcOZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_nEaUdvJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nEaUcvJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
-    <compromiseddata id="_STDKdeZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_STDKceZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_nEaUd_JBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nEaUc_JBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
-    <compromiseddata id="_STDKduZxEeywuvLF7W7Xfg" toolderived="true" affectedElement="_STDKcuZxEeywuvLF7W7Xfg">
+    <compromiseddata id="_nEaUePJBEeyiMeufzcuRmQ" toolderived="true" affectedElement="_nEaUdPJBEeyiMeufzcuRmQ">
       <causingElements href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
     </compromiseddata>
     <datamodelcontainer>
-      <datamodelattacker id="_SOTNUeZxEeywuvLF7W7Xfg">
+      <datamodelattacker id="_m-ujMPJBEeyiMeufzcuRmQ">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_Cj0hsJSREeyOldzBRFqWVw"/>
         <context href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
       </datamodelattacker>
-      <datamodelattacker id="_SOTNUuZxEeywuvLF7W7Xfg">
+      <datamodelattacker id="_m-vxUPJBEeyiMeufzcuRmQ">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_HZ11cJSREeyOldzBRFqWVw"/>
         <context href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
       </datamodelattacker>
-      <datamodelattacker id="_STCjYeZxEeywuvLF7W7Xfg" referenceName="data">
+      <datamodelattacker id="_nEaUcfJBEeyiMeufzcuRmQ" referenceName="data">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
         <context href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
       </datamodelattacker>
-      <datamodelattacker id="_STDKcOZxEeywuvLF7W7Xfg">
+      <datamodelattacker id="_nEaUcvJBEeyiMeufzcuRmQ">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>
         <context href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
       </datamodelattacker>
-      <datamodelattacker id="_STDKceZxEeywuvLF7W7Xfg" referenceName="data">
+      <datamodelattacker id="_nEaUc_JBEeyiMeufzcuRmQ" referenceName="data">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
         <context href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
       </datamodelattacker>
-      <datamodelattacker id="_STDKcuZxEeywuvLF7W7Xfg">
+      <datamodelattacker id="_nEaUdPJBEeyiMeufzcuRmQ">
         <dataType xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.1"/>
         <source href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
         <method href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>

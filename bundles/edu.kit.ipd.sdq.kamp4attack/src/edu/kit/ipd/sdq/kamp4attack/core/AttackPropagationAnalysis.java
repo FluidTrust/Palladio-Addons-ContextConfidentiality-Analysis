@@ -33,7 +33,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  *
  */
 
-@Component
+@Component(service = IAttackPropagationAnalysis.class)
 public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
     private CredentialChange changePropagationDueToCredential;

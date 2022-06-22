@@ -9,19 +9,19 @@
     </attacker>
   </attackers>
   <attacks>
-    <attack xsi:type="attack:CVEAttack" id="_seE0wZSfEeyjlrv9ryW3Zw" entityName="Log4Shell" category="//@categoryspecification/@categories.0"/>
-    <attack xsi:type="attack:CWEAttack" id="_g8Tv0JShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" category="//@categoryspecification/@categories.4"/>
+    <attack xsi:type="attack:CVEAttack" id="_seE0wZSfEeyjlrv9ryW3Zw" entityName="Log4Shell" category="_QOwSVfH0EeyiMeufzcuRmQ"/>
+    <attack xsi:type="attack:CWEAttack" id="_g8Tv0JShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" category="_QOwSWfH0EeyiMeufzcuRmQ"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" cweID="//@categoryspecification/@categories.1 //@categoryspecification/@categories.2 //@categoryspecification/@categories.3" id="hjk98kl909.-i0" entityName="Logging" attackVector="Network" confidentialityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_v3c5cJShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" attackVector="Local" attackComplexity="High" takeOver="true" cweID="//@categoryspecification/@categories.4"/>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="_QOwSVvH0EeyiMeufzcuRmQ _QOwSV_H0EeyiMeufzcuRmQ _QOwSWPH0EeyiMeufzcuRmQ" id="hjk98kl909.-i0" entityName="Logging" confidentialityImpact="High" takeOver="true" cveID="_QOwSVfH0EeyiMeufzcuRmQ"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_v3c5cJShEeyjlrv9ryW3Zw" entityName="Privilege Escalation" attackVector="Local" attackComplexity="High" takeOver="true" cweID="_QOwSWfH0EeyiMeufzcuRmQ"/>
   </vulnerabilites>
   <categoryspecification>
-    <categories xsi:type="attack:CVEID" entityName="Log4Shell" cveID="CVE-2021-44228"/>
-    <categories xsi:type="attack:CWEID" entityName="Deserialization of Untrusted Data" cweID="502"/>
-    <categories xsi:type="attack:CWEID" entityName="Improper Input Validation" cweID="20"/>
-    <categories xsi:type="attack:CWEID" entityName="Uncontrolled Resource Consumption" cweID="400"/>
-    <categories xsi:type="attack:CWEID" entityName="Improper Privilege Management" cweID="269"/>
+    <categories xsi:type="attack:CVEID" id="_QOwSVfH0EeyiMeufzcuRmQ" entityName="Log4Shell" cveID="CVE-2021-44228"/>
+    <categories xsi:type="attack:CWEID" id="_QOwSVvH0EeyiMeufzcuRmQ" entityName="Deserialization of Untrusted Data" cweID="502"/>
+    <categories xsi:type="attack:CWEID" id="_QOwSV_H0EeyiMeufzcuRmQ" entityName="Improper Input Validation" cweID="20"/>
+    <categories xsi:type="attack:CWEID" id="_QOwSWPH0EeyiMeufzcuRmQ" entityName="Uncontrolled Resource Consumption" cweID="400"/>
+    <categories xsi:type="attack:CWEID" id="_QOwSWfH0EeyiMeufzcuRmQ" entityName="Improper Privilege Management" cweID="269"/>
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4xIsYJSgEeyjlrv9ryW3Zw" vulnerability="hjk98kl909.-i0">
