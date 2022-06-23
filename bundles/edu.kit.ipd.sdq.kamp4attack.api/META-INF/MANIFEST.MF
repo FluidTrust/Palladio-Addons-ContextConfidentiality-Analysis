@@ -6,26 +6,17 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.sdq.kamp4attack.api.activator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.junit,
- org.eclipse.emf.compare;bundle-version="1.2.2",
- org.eclipse.core.resources;bundle-version="3.7.101",
- org.eclipse.emf.compare.rcp;bundle-version="2.3.0",
- org.eclipse.osgi.services;bundle-version="3.8.0",
  edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,
- org.palladiosimulator.analyzer.workflow;bundle-version="4.3.0",
- de.uka.ipd.sdq.workflow.mdsd,
  org.palladiosimulator.pcm.confidentiality.attacker,
  org.palladiosimulator.pcm,
  org.palladiosimulator.pcm.confidentiality.context,
- org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Bundle-RequiredExecutionEnvironment: JavaSE-11
+Bundle-RequiredExecutionEnvironment: JavaSE-17
 Bundle-Vendor: SDQ
 Export-Package: edu.kit.ipd.sdq.kamp4attack.api.activator,
  edu.kit.ipd.sdq.kamp4attack.core.api,
  edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps
 Import-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
-Service-Component: OSGI-INF/edu.kit.ipd.sdq.kamp4attack.core.api.AttackPropagationAnalysis.xml
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.api

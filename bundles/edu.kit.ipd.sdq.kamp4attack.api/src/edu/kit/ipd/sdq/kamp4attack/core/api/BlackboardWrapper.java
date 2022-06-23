@@ -7,11 +7,10 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Evaluate;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
-import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 
 /**
- * This class wraps the MDSD Blackboard {@link MDSDBlackboard}
+ * This class provides an Blackboard for the input models
  *
  *
  * @author Maximilian Walter

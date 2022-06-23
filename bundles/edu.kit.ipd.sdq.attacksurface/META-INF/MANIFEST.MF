@@ -34,5 +34,4 @@ Export-Package: edu.kit.ipd.sdq.attacksurface.activator,
  edu.kit.ipd.sdq.attacksurface.graph
 Import-Package: 
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
-Service-Component: OSGI-INF/edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis.xml
 Automatic-Module-Name: edu.kit.ipd.sdq.attacksurface

@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
@@ -44,7 +43,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @author majuwa
  * @author ugnwq
  */
-@Component
+//@Component(service = IAttackPropagationAnalysis.class)
 public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
     private CredentialChange changes;
