@@ -59,7 +59,7 @@ public abstract class Change<T> {
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
         final var resourceEnvironment = this.modelStorage.getResourceEnvironment();
-        return resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
+        return resourceEnvironment.getLinkingResources__ResourceEnvironment().parallelStream()
                 .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
                         .anyMatch(f -> EcoreUtil.equals(f, container)))
                 .collect(Collectors.toList());
