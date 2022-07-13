@@ -91,10 +91,6 @@
 			<repository location="https://updatesite.mdsd.tools/library-emfeditutils/nightly/"/>
 		</location>
 		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
-			<unit id="org.palladiosimulator.pcm.uncertainty.variation.UncertaintyVariationModel.gen.pcm.workflow" version="0.0.0"/>
-			<repository location="https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-uncertainty-variationcreation/nightly/"/>
-		</location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit" filter="nightly" refresh="true">
 			
 			<unit id="jakarta.activation" version="2.0.0.v20201118-1818"/>
 			<unit id="com.sun.xml.bind" version="2.3.3"/>
@@ -109,17 +105,6 @@
 			<unit id="org.codehaus.jackson.mapper" version="1.6.0.v20101005-0925"/>
 
 			<repository location="https://download.eclipse.org/tools/orbit/downloads/drops/R20211213173813/repository"/>
-		</location>
-	    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-          	<repository location="https://updatesite.palladio-simulator.com/fluidtrust/palladio-addons-dataflowconfidentiality-java/nightly/"/>
-        	<unit id="edu.kit.kastel.dsis.fluidtrust.casestudy.pcs.javaanalysis.feature.group" version="0.0.0"/>
-        </location>
-		<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-			<repository location="https://updatesite.palladio-simulator.com/fluidtrust/fluidtrust-build-updatesite/nightly/"/>
-			<unit id="org.palladiosimulator.dataflow.confidentiality.pcm.dddsl.feature.feature.group" version="0.0.0"/>
-			<unit id="org.palladiosimulator.dataflow.confidentiality.pcm.model.feature.feature.group" version="0.0.0"/>
-			<unit id="org.palladiosimulator.dataflow.confidentiality.pcm.transformation.feature.feature.group" version="0.0.0"/>
-			<unit id="org.palladiosimulator.dataflow.dictionary.model.feature.feature.group" version="0.0.0"/>
 		</location>
 	</locations>
 </target>

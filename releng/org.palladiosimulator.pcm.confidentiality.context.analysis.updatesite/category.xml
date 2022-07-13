@@ -3,12 +3,6 @@
    <feature id="org.palladiosimulator.pcm.confidentiality.context.analysis.feature">
       <category name="org.palladiosimulator.pcm.confidentiality.context.analysis.category"/>
    </feature>
-   <feature id="org.palladiosimulator.pcm.confidentiality.context.analysis.variation.feature">
-      <category name="org.palladiosimulator.pcm.confidentiality.context.analysis.category"/>
-   </feature>
-   <feature id="org.palladiosimulator.pcm.confidentiality.context.analysis.variation.feature.source">
-      <category name="org.palladiosimulator.pcm.confidentiality.context.source.category"/>
-   </feature>
    <feature id="org.palladiosimulator.pcm.confidentiality.context.analysis.feature.source">
       <category name="org.palladiosimulator.pcm.confidentiality.context.source.category"/>
    </feature>
