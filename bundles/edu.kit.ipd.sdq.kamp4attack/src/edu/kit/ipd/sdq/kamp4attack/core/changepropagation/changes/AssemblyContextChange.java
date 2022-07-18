@@ -6,16 +6,15 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
-import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
-import org.palladiosimulator.pcm.system.System;
 
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -56,7 +55,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
-            final var connected = getConnectedComponents(component);
+            final var connected = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(),
+                    component);
             final var containers = connected.stream().map(this::getResourceContainer).distinct()
                     .collect(Collectors.toList());
             final var handler = getRemoteResourceHandler();
@@ -68,7 +68,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     private void handleSeff(final AssemblyContext soureComponent) {
         final var system = this.modelStorage.getAssembly();
         // TODO simplify stream expression directly to components!
-        final var targetConnectors = getTargetedConnectors(soureComponent, system);
+        final var targetConnectors = PCMConnectionHelper.getConnectedConnectors(soureComponent, system);
 
         final var specification = targetConnectors.stream()
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), soureComponent))
@@ -138,7 +138,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     public void calculateAssemblyContextToAssemblyContextPropagation() {
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
         for (final var component : listCompromisedContexts) {
-            var targetComponents = getConnectedComponents(component).stream()
+            var targetComponents = PCMConnectionHelper
+                    .getConnectectedAssemblies(this.modelStorage.getAssembly(), component).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
 
             final var handler = getAssemblyHandler();
@@ -185,28 +186,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
                         assemblyContext))
                 .noneMatch(NonGlobalCommunication.class::isInstance);
-    }
-
-    private List<AssemblyContext> getConnectedComponents(final AssemblyContext component) {
-        final var system = this.modelStorage.getAssembly();
-        final var targetConnectors = getTargetedConnectors(component, system);
-
-        final var targetComponents = targetConnectors.stream()
-                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
-
-        targetComponents
-        .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
-        return targetComponents;
-    }
-
-    private List<AssemblyConnector> getTargetedConnectors(final AssemblyContext component, final System system) {
-        return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
-                .map(AssemblyConnector.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
-                .collect(Collectors.toList());
     }
 
     protected abstract AssemblyContextHandler getAssemblyHandler();
