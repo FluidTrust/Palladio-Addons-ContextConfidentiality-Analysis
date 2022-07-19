@@ -24,11 +24,16 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import com.google.common.graph.ImmutableNetwork;
+
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AttackGraphCreation;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
@@ -88,24 +93,28 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
-        runPropagationWithoutAttackPathCreation(modelStorage);
-        createAttackPaths(modelStorage);
-        cleanup(modelStorage);
 
-//        MutableNetwork<AttackNodeContent, AttackEdge> graph = NetworkBuilder.directed().allowsParallelEdges(true)
-//                .build();
-//
-//        for (var component : modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
-//
-//            var connectedComponents = PCMConnectionHelper.getConnectectedAssemblies(modelStorage.getAssembly(),
-//                    component);
-//            for (var connectedComponent : connectedComponents) {
-//                var vulnerabilities = VulnerabilityHelper
-//                        .getVulnerabilities(modelStorage.getVulnerabilitySpecification(), connectedComponent);
-//                createEdge(graph, component, connectedComponent, vulnerabilities);
-//                createEdge(graph, component, connectedComponent, modelStorage);
-//            }
-//        }
+        var graph = new AttackGraphCreation(modelStorage);
+
+        graph.calculateAssemblyContextToAssemblyContextPropagation();
+        graph.calculateAssemblyContextToGlobalAssemblyContextPropagation();
+        graph.calculateAssemblyContextToLinkingResourcePropagation();
+        graph.calculateAssemblyContextToLocalResourcePropagation();
+        graph.calculateAssemblyContextToRemoteResourcePropagation();
+
+        graph.calculateLinkingResourceToAssemblyContextPropagation();
+        graph.calculateLinkingResourceToResourcePropagation();
+
+        graph.calculateResourceContainerToLinkingResourcePropagation();
+        graph.calculateResourceContainerToLocalAssemblyContextPropagation();
+        graph.calculateResourceContainerToRemoteAssemblyContextPropagation();
+        graph.calculateResourceContainerToResourcePropagation();
+
+
+
+
+        createAttackPaths(modelStorage, graph.getGraph());
+        cleanup(modelStorage);
 
     }
 
@@ -131,7 +140,8 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         } while (this.changes.isChanged());
     }
 
-    private void createAttackPaths(final BlackboardWrapper modelStorage) {
+    private void createAttackPaths(final BlackboardWrapper modelStorage,
+            ImmutableNetwork<AttackNodeContent, AttackEdge> graph) {
         this.attackGraph.resetVisitations();
         final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(modelStorage, this.changes);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));

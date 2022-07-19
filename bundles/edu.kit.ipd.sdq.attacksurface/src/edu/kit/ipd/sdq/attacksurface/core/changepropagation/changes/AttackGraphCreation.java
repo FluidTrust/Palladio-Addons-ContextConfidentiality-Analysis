@@ -16,6 +16,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import com.google.common.graph.ImmutableNetwork;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
 
@@ -46,7 +47,7 @@ public class AttackGraphCreation
             }
             var node1 = new AttackNodeContent(rootEntity);
             var node2 = new AttackNodeContent(connectedEntity);
-            var edge = new AttackEdge(vulnerability, null);
+            var edge = new AttackEdge(rootEntity, connectedEntity, vulnerability, null);
 
             this.graph.addEdge(node1, node2, edge);
 
@@ -59,7 +60,7 @@ public class AttackGraphCreation
 
         var node1 = new AttackNodeContent(rootEntity);
         var node2 = new AttackNodeContent(connectedEntity);
-        var edge = new AttackEdge(null, credentials);
+        var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials);
 
         this.graph.addEdge(node1, node2, edge);
 
@@ -71,7 +72,7 @@ public class AttackGraphCreation
 
         var node1 = new AttackNodeContent(rootEntity);
         var node2 = new AttackNodeContent(connectedEntity);
-        var edge = new AttackEdge(null, credentials, true, AttackVector.LOCAL);
+        var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials, true, AttackVector.LOCAL);
 
         this.graph.addEdge(node1, node2, edge);
 
@@ -299,6 +300,10 @@ public class AttackGraphCreation
             createEdgeLinkingResources(resource, linkings);
         }
 
+    }
+
+    public ImmutableNetwork<AttackNodeContent, AttackEdge> getGraph() {
+        return NetworkBuilder.from(this.graph).immutable().build();
     }
 
 }
