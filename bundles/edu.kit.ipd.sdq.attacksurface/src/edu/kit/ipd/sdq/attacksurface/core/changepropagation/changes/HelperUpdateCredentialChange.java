@@ -15,7 +15,7 @@ import com.google.common.graph.EndpointPair;
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -49,8 +49,8 @@ public class HelperUpdateCredentialChange {
      */
     public static void updateCredentials(final CredentialChange changes,
             final Stream<ContextChange> streamContextChange,
-            final AttackStatusNodeContent attackerNodeInGraph,
-            final AttackStatusNodeContent attackedNodeInGraph,
+            final AttackNodeContent attackerNodeInGraph,
+            final AttackNodeContent attackedNodeInGraph,
             final AttackGraph attackGraph) {
         
         final var endpoints = EndpointPair.ordered(attackedNodeInGraph,

@@ -16,11 +16,11 @@ import de.uka.ipd.sdq.identifier.Identifier;
  * @author ugnwq
  * @version 1.0
  */
-public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
+public class AttackStatusEdge implements Iterable<AttackNodeContent> {
     private final AttackStatusEdgeContent content;
-    private final EndpointPair<AttackStatusNodeContent> nodes;
+    private final EndpointPair<AttackNodeContent> nodes;
     
-    public AttackStatusEdge(final AttackStatusEdgeContent content, final EndpointPair<AttackStatusNodeContent> nodes) {
+    public AttackStatusEdge(final AttackStatusEdgeContent content, final EndpointPair<AttackNodeContent> nodes) {
         this.content = content;
         this.nodes = nodes;
     }
@@ -37,7 +37,7 @@ public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
      * 
      * @return the nodes of the edge
      */
-    public EndpointPair<AttackStatusNodeContent> getNodes() {
+    public EndpointPair<AttackNodeContent> getNodes() {
         return nodes;
     }
     
@@ -83,7 +83,7 @@ public class AttackStatusEdge implements Iterable<AttackStatusNodeContent> {
     }
 
     @Override
-    public Iterator<AttackStatusNodeContent> iterator() {
+    public Iterator<AttackNodeContent> iterator() {
         return getNodes().iterator();
     }
 }

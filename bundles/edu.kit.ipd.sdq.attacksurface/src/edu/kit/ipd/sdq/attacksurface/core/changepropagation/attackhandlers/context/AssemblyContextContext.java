@@ -20,7 +20,7 @@ import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.CauseGetter;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -44,8 +44,8 @@ public class AssemblyContextContext extends AssemblyContextHandler {
     protected Optional<CompromisedAssembly> attackComponent(final AssemblyContext component,
             final CredentialChange change, final Entity source) {
         final List<? extends UsageSpecification> credentials =
-                getRelevantCredentials(new AttackStatusNodeContent(source),
-                        new AttackStatusNodeContent(component));
+                getRelevantCredentials(new AttackNodeContent(source),
+                        new AttackNodeContent(component));
 
         final var result = this.queryAccessForEntity(component, credentials);
 

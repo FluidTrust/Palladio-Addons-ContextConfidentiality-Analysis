@@ -11,17 +11,17 @@ import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PC
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagationWithContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
-        implements ResourceContainerPropagation {
+        implements ResourceContainerPropagationWithContext {
 
     public ResourceContainerChange(final BlackboardWrapper v, CredentialChange change) {
         super(v, change);

@@ -31,10 +31,10 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @version 1.0
  */
 public class AttackGraph implements AttackPathFinder {
-    private AttackStatusNodeContent root;
-    private MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> graph;
+    private AttackNodeContent root;
+    private MutableValueGraph<AttackNodeContent, AttackStatusEdgeContent> graph;
 
-    private AttackStatusNodeContent selectedNode;
+    private AttackNodeContent selectedNode;
     private AttackPathSurface selectedPath;
     
     private final Map<VulnerabilitySurface, Set<CredentialSurface>> credentialsObtainedByAttack; 
@@ -64,8 +64,8 @@ public class AttackGraph implements AttackPathFinder {
      * @param root - the root node
      * @param copyGraph - the copied graph
      */
-    AttackGraph(AttackStatusNodeContent root,
-            MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> copyGraph) {
+    AttackGraph(AttackNodeContent root,
+            MutableValueGraph<AttackNodeContent, AttackStatusEdgeContent> copyGraph) {
         this.graph = copyGraph;
         this.root = findNode(root);
         this.selectedNode = this.root;
@@ -78,7 +78,7 @@ public class AttackGraph implements AttackPathFinder {
     
     private void initializeGraph(final Entity rootEntity) {
         Objects.requireNonNull(rootEntity);
-        this.root = new AttackStatusNodeContent(rootEntity);
+        this.root = new AttackNodeContent(rootEntity);
         this.graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
         this.getGraph().addNode(this.root);
         this.selectedNode = findNode(this.root);
@@ -88,7 +88,7 @@ public class AttackGraph implements AttackPathFinder {
      * 
      * @return the root node, i.e. the critical entity
      */
-    public AttackStatusNodeContent getRootNodeContent() {
+    public AttackNodeContent getRootNodeContent() {
         return this.root;
     }
     
@@ -96,7 +96,7 @@ public class AttackGraph implements AttackPathFinder {
      * 
      * @return the graph for the attack path finder
      */
-    MutableValueGraph<AttackStatusNodeContent, AttackStatusEdgeContent> getGraph() {
+    MutableValueGraph<AttackNodeContent, AttackStatusEdgeContent> getGraph() {
         return graph;
     }
 
@@ -108,7 +108,7 @@ public class AttackGraph implements AttackPathFinder {
      * @return the children of the parent node and the parent node itself iff there
      *         is a self loop
      */
-    public Set<AttackStatusNodeContent> getChildrenOfNode(final AttackStatusNodeContent nodeContent) {
+    public Set<AttackNodeContent> getChildrenOfNode(final AttackNodeContent nodeContent) {
         return this.getGraph().successors(nodeContent);
     }
 
@@ -119,7 +119,7 @@ public class AttackGraph implements AttackPathFinder {
      * @param nodeContent - the given child node
      * @return the child nodes
      */
-    public Set<AttackStatusNodeContent> getParentsOfNode(final AttackStatusNodeContent nodeContent) {
+    public Set<AttackNodeContent> getParentsOfNode(final AttackNodeContent nodeContent) {
         return this.getGraph().predecessors(nodeContent);
     }
 
@@ -127,7 +127,7 @@ public class AttackGraph implements AttackPathFinder {
      * 
      * @return the selected node at the moment
      */
-    public AttackStatusNodeContent getSelectedNode() {
+    public AttackNodeContent getSelectedNode() {
         return this.selectedNode;
     }
 
@@ -204,7 +204,7 @@ public class AttackGraph implements AttackPathFinder {
      * @param node - the node to be set as the selected node (it must be contained
      *             in the graph)
      */
-    public void setSelectedNode(final AttackStatusNodeContent node) {
+    public void setSelectedNode(final AttackNodeContent node) {
         Objects.requireNonNull(node);
         this.selectedNode = findNode(node);
         if (this.selectedNode == null) {
@@ -216,21 +216,21 @@ public class AttackGraph implements AttackPathFinder {
      * 
      * @return all compromised nodes
      */
-    public Set<AttackStatusNodeContent> getCompromisedNodes() {
-        return this.getGraph().nodes().stream().filter(AttackStatusNodeContent::isCompromised).collect(Collectors.toSet());
+    public Set<AttackNodeContent> getCompromisedNodes() {
+        return this.getGraph().nodes().stream().filter(AttackNodeContent::isCompromised).collect(Collectors.toSet());
     }
 
     /**
      * 
      * @return all attacked nodes
      */
-    public Set<AttackStatusNodeContent> getAttackedNodes() {
-        return this.getGraph().nodes().stream().filter(AttackStatusNodeContent::isAttacked).collect(Collectors.toSet());
+    public Set<AttackNodeContent> getAttackedNodes() {
+        return this.getGraph().nodes().stream().filter(AttackNodeContent::isAttacked).collect(Collectors.toSet());
 
     }
 
-    private AttackStatusEdge appendEdge(final AttackStatusNodeContent attacked,
-            final AttackStatusEdgeContent edgeContent, final AttackStatusNodeContent attacker) {
+    private AttackStatusEdge appendEdge(final AttackNodeContent attacked,
+            final AttackStatusEdgeContent edgeContent, final AttackNodeContent attacker) {
         final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(attacked, attacker));
         this.getGraph().putEdgeValue(edge.getNodes(), edge.getContent());
         return edge;
@@ -244,7 +244,7 @@ public class AttackGraph implements AttackPathFinder {
      * @param attackSource - the attack source
      */
     public void compromiseSelectedNode(final Set<? extends CredentialsVulnearbilitiesSurface> causes, 
-            final AttackStatusNodeContent attackSource) {
+            final AttackNodeContent attackSource) {
         Objects.requireNonNull(attackSource);
 
         this.selectedNode.compromise(attackSource);
@@ -263,8 +263,8 @@ public class AttackGraph implements AttackPathFinder {
      * @param attackedNodeInGraph
      * @param vulnerabilities
      */
-    public void attackNodeWithVulnerabilities(AttackStatusNodeContent attackerNodeInGraph,
-            AttackStatusNodeContent attackedNodeInGraph, Set<Vulnerability> vulnerabilities) {
+    public void attackNodeWithVulnerabilities(AttackNodeContent attackerNodeInGraph,
+            AttackNodeContent attackedNodeInGraph, Set<Vulnerability> vulnerabilities) {
         attackedNodeInGraph.attack(attackerNodeInGraph);
         final var edgeNow = getEdge(attackedNodeInGraph, attackerNodeInGraph);
         final var content = edgeNow != null ? edgeNow : new AttackStatusEdgeContent();
@@ -292,11 +292,11 @@ public class AttackGraph implements AttackPathFinder {
      * the actual nodes in the graph are edited (e.g. attacked or compromised), so it is necessary
      * that the actual nodes are found by this method inside the graph.
      * 
-     * @param nodeToFind - a {@link AttackStatusNodeContent} containing the entity
+     * @param nodeToFind - a {@link AttackNodeContent} containing the entity
      *                   to be found in the graph
      * @return the found node containing the entity contained in the parameter
      */
-    public AttackStatusNodeContent findNode(final AttackStatusNodeContent nodeToFind) {
+    public AttackNodeContent findNode(final AttackNodeContent nodeToFind) {
         return this.getGraph().nodes().stream().filter(n -> n.equals(nodeToFind)).findAny().orElse(null);
     }
 
@@ -309,10 +309,10 @@ public class AttackGraph implements AttackPathFinder {
      * @param nodeToFind - the node to be found or added
      * @return the found or added node
      * 
-     * @see #findNode(AttackStatusNodeContent)
+     * @see #findNode(AttackNodeContent)
      */
-    public AttackStatusNodeContent addOrFindChild(final AttackStatusNodeContent parent,
-            final AttackStatusNodeContent nodeToFind) {
+    public AttackNodeContent addOrFindChild(final AttackNodeContent parent,
+            final AttackNodeContent nodeToFind) {
         final var foundParent = findNode(parent);
         if (foundParent != null) {
             final var found = this.getChildrenOfNode(foundParent).stream().filter(n -> n.equals(nodeToFind)).findAny()
@@ -337,7 +337,7 @@ public class AttackGraph implements AttackPathFinder {
      * @param node - the given node
      * @return all compromisation causes of the given node
      */
-    public Set<Identifier> getCompromisationCauseIds(final AttackStatusNodeContent node) {
+    public Set<Identifier> getCompromisationCauseIds(final AttackNodeContent node) {
         return this.getGraph().edges().stream().filter(e -> e.source().equals(node)).map(this.getGraph()::edgeValue)
                 .map(e -> e.orElse(null)).filter(Objects::nonNull).map(AttackStatusEdgeContent::getCauses)
                 .flatMap(Set::stream).collect(Collectors.toSet());
@@ -354,7 +354,7 @@ public class AttackGraph implements AttackPathFinder {
      * @return the {@link AttackStatusEdgeContent} between the attacked node and the
      *         attacker node if it already exists, {@code null} otherwise
      */
-    public AttackStatusEdgeContent getEdge(final AttackStatusNodeContent start, final AttackStatusNodeContent end) {
+    public AttackStatusEdgeContent getEdge(final AttackNodeContent start, final AttackNodeContent end) {
         final var opt = this.getGraph().edges().stream().filter(e -> e.source().equals(start))
                 .filter(e -> e.target().equals(end)).map(this.getGraph()::edgeValue).findFirst().orElse(null);
         return opt != null ? opt.orElse(null) : null;
@@ -365,9 +365,9 @@ public class AttackGraph implements AttackPathFinder {
      * @param edgeEnds - the edge ends
      * @return the {@link AttackStatusEdgeContent} between the attacked node and the
      *         attacker node if it already exists, {@code null} otherwise
-     * @see #getEdge(AttackStatusNodeContent, AttackStatusNodeContent)
+     * @see #getEdge(AttackNodeContent, AttackNodeContent)
      */
-    public AttackStatusEdgeContent getEdge(final EndpointPair<AttackStatusNodeContent> edgeEnds) {
+    public AttackStatusEdgeContent getEdge(final EndpointPair<AttackNodeContent> edgeEnds) {
         return getEdge(edgeEnds.source(), edgeEnds.target());
     }
 
@@ -391,7 +391,7 @@ public class AttackGraph implements AttackPathFinder {
      * 
      * @return all the node in the graph
      */
-    public Set<AttackStatusNodeContent> getNodes() {
+    public Set<AttackNodeContent> getNodes() {
         return this.getGraph().nodes();
     }
 

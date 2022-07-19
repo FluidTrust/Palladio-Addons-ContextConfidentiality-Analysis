@@ -240,7 +240,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
     private void iterateCauses(BlackboardWrapper modelStorage,
             final AttackStatusEdge edge, 
             final List<SystemIntegration> localPath, 
-            final AttackStatusNodeContent node) {
+            final AttackNodeContent node) {
         final var edgeContent = edge.getContent();
         Iterable<Set<? extends CredentialsVulnearbilitiesSurface>> iterable = edgeContent::getContainedSetVIterator;
         boolean areCausesAdded = iterateCauses(modelStorage, localPath, node, iterable);
@@ -254,7 +254,7 @@ public class AttackPathSurface implements Iterable<AttackStatusEdge> {
 
     private boolean iterateCauses(final BlackboardWrapper modelStorage, 
             final List<SystemIntegration> localPath, 
-            final AttackStatusNodeContent attacked,
+            final AttackNodeContent attacked,
             final Iterable<Set<? extends CredentialsVulnearbilitiesSurface>> iterable) {
         boolean ret = false;
         for (final var set : iterable) {

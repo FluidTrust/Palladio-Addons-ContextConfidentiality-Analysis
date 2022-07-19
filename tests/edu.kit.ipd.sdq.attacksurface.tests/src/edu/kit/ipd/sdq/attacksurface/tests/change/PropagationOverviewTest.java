@@ -45,7 +45,7 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyCont
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.graph.VulnerabilitySurface;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -92,7 +92,7 @@ public class PropagationOverviewTest extends AbstractChangeTests {
                     .map(Identifier::getId).toArray(String[]::new)[0]);
 
             final var r11 = getAssemblyContext(R11);
-            final var r11Node = getAttackGraph().findNode(new AttackStatusNodeContent(r11));
+            final var r11Node = getAttackGraph().findNode(new AttackNodeContent(r11));
             Assert.assertTrue(getAttackGraph().isAnyCompromised(r11));
             Assert.assertEquals(1, getAttackGraph().getCompromisationCauseIds(r11Node).size());
             Assert.assertEquals(VULN_ID.getId(), getAttackGraph().getCompromisationCauseIds(r11Node).stream()
@@ -196,10 +196,10 @@ public class PropagationOverviewTest extends AbstractChangeTests {
             final var vulnSurface = new VulnerabilitySurface(vulnId);
 
             final var assemblyContext = getAssemblyContext(elementSearchStr);
-            final var nodeInGraph = getAttackGraph().findNode(new AttackStatusNodeContent(assemblyContext));
+            final var nodeInGraph = getAttackGraph().findNode(new AttackNodeContent(assemblyContext));
 
             final var nextElement = getAssemblyContext((String) elementVuln[i + 2]);
-            final var nextNode = getAttackGraph().findNode(new AttackStatusNodeContent(nextElement));
+            final var nextNode = getAttackGraph().findNode(new AttackNodeContent(nextElement));
             final var edgeContent = new AttackStatusEdgeContent();
             edgeContent.addSet(new HashSet<>(Arrays.asList(vulnSurface)));
             final var edge = new AttackStatusEdge(edgeContent, EndpointPair.ordered(nextNode, nodeInGraph));
@@ -362,10 +362,10 @@ public class PropagationOverviewTest extends AbstractChangeTests {
         return surface.get(edgeIndex).getContent().getCauses().stream().map(Identifier::getId).collect(Collectors.toSet());
     }
 
-    private List<AttackStatusNodeContent> getNodeList(final AttackPathSurface surface) {
+    private List<AttackNodeContent> getNodeList(final AttackPathSurface surface) {
         return surface.stream().map(AttackStatusEdge::getNodes).map(n -> Arrays.asList(n.source(), n.target()))
                 .reduce(new LinkedList<>(), (a, b) -> {
-                    final List<AttackStatusNodeContent> ret = new LinkedList<>(a);
+                    final List<AttackNodeContent> ret = new LinkedList<>(a);
                     ret.add(b.get(1)); // b.get(0) ^= a.get(1), so only b.get(1) needs to be added
                     return ret;
                 });

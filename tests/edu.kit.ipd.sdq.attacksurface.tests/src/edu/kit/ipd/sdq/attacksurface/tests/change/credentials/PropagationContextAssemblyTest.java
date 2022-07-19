@@ -12,7 +12,7 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyCont
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -69,7 +69,7 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     public void compromiseCriticalComponentWithCredentialOnContainerTest() {
         final var criticalEntity = getCriticalEntity();
         final var containerOfCritical = getResource(List.of((AssemblyContext) criticalEntity));
-        final var containerNodeContent = new AttackStatusNodeContent(containerOfCritical);
+        final var containerNodeContent = new AttackNodeContent(containerOfCritical);
         integrateRoot(containerOfCritical);
 
         runAssemblyResourcePropagation(getChanges());

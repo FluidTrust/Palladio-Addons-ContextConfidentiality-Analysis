@@ -8,8 +8,6 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationst
  */
 public interface ResourceContainerPropagation {
 
-    void calculateResourceContainerToContextPropagation();
-
     void calculateResourceContainerToRemoteAssemblyContextPropagation();
 
     void calculateResourceContainerToLocalAssemblyContextPropagation();

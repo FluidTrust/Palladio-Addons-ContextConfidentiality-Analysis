@@ -38,7 +38,7 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.crede
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialsVulnearbilitiesSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
@@ -99,7 +99,7 @@ public abstract class AttackHandler implements CredentialQuerying {
 
     /**
      * Selects the node to be compromised and compromises it afterwards with
-     * {@link AttackGraph#compromiseSelectedNode(Set, AttackStatusNodeContent)}. <br/>
+     * {@link AttackGraph#compromiseSelectedNode(Set, AttackNodeContent)}. <br/>
      * The node remains selected.
      *
      * @param causingElements - the causing elements list
@@ -107,8 +107,8 @@ public abstract class AttackHandler implements CredentialQuerying {
      * @param attackSource - the attack source
      */
     protected final void compromise(final EList<EObject> causingElements,
-            final AttackStatusNodeContent compromisedNode,
-            final AttackStatusNodeContent attackSource) {
+            final AttackNodeContent compromisedNode,
+            final AttackNodeContent attackSource) {
         final var causes = getCauses(causingElements)
                 .stream()
                 .map(getSurfaceMapper())
@@ -125,8 +125,8 @@ public abstract class AttackHandler implements CredentialQuerying {
      * @return the credentials usable at the moment
      */
     protected final List<UsageSpecification> getAllCredentials(
-            final AttackStatusNodeContent source,
-            final AttackStatusNodeContent target) {
+            final AttackNodeContent source,
+            final AttackNodeContent target) {
         final var edge = new AttackStatusEdge(new AttackStatusEdgeContent(),
                 EndpointPair.ordered(source, target));
         return this.attackGraph.getCredentials(edge, true)
@@ -147,8 +147,8 @@ public abstract class AttackHandler implements CredentialQuerying {
      * @return the credentials relevant for the attack
      */
     protected final List<UsageSpecification> getRelevantCredentials(
-            final AttackStatusNodeContent source,
-            final AttackStatusNodeContent target) {
+            final AttackNodeContent source,
+            final AttackNodeContent target) {
         final var idsOfRelevantUsageSpecifications =
                 this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()
                     .stream()
@@ -298,8 +298,8 @@ public abstract class AttackHandler implements CredentialQuerying {
 
     private boolean areElementsNotFiltered(final ModifyEntity<? extends Entity> compromisedEntity,
             final boolean areThereUncompromisedElementsInGraph, final Entity source) {
-        final var attackerNode = new AttackStatusNodeContent(source);
-        final var attackedNode = new AttackStatusNodeContent(compromisedEntity.getAffectedElement());
+        final var attackerNode = new AttackNodeContent(source);
+        final var attackedNode = new AttackNodeContent(compromisedEntity.getAffectedElement());
         final var compromisationCauses = getCausesOfCompromisation(compromisedEntity);
         final var isAttackToContainedAssembliesInResource =
                 compromisationCauses.isEmpty() && areThereUncompromisedElementsInGraph;

@@ -19,9 +19,9 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropaga
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagation;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagationWithContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagationWithContext;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagationWithContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
@@ -70,9 +70,10 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
     }
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<AssemblyContextPropagation>();
+        final var list = new ArrayList<AssemblyContextPropagationWithContext>();
         list.add(new AssemblyContextPropagationContext(board, this.changePropagationDueToCredential));
-        list.add(new AssemblyContextPropagationVulnerability(board, this.changePropagationDueToCredential));
+        list.add(new AssemblyContextPropagationVulnerability(board,
+                this.changePropagationDueToCredential));
         for (final var analysis : list) {
             analysis.calculateAssemblyContextToContextPropagation();
             analysis.calculateAssemblyContextToAssemblyContextPropagation();
@@ -84,7 +85,7 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
     }
 
     private void calculateAndMarkResourcePropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<ResourceContainerPropagation>();
+        final var list = new ArrayList<ResourceContainerPropagationWithContext>();
         list.add(new ResourceContainerPropagationContext(board, this.changePropagationDueToCredential));
         list.add(new ResourceContainerPropagationVulnerability(board, this.changePropagationDueToCredential));
         for (final var analysis : list) {
@@ -97,7 +98,7 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
     }
 
     private void calculateAndMarkLinkingPropagation(final BlackboardWrapper board) {
-        final var list = new ArrayList<LinkingPropagation>();
+        final var list = new ArrayList<LinkingPropagationWithContext>();
         list.add(new LinkingPropagationContext(board, this.changePropagationDueToCredential));
         list.add(new LinkingPropagationVulnerability(board, this.changePropagationDueToCredential));
         for (final var analysis : list) {

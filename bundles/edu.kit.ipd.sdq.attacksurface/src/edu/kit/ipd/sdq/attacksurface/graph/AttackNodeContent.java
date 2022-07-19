@@ -13,7 +13,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  * @author ugnwq
  * @version 1.0
  */
-public class AttackStatusNodeContent implements NodeContent<Entity> {
+public class AttackNodeContent implements NodeContent<Entity> {
     private final Entity containedElement;
     private final PCMElementType type;
     private final PCMElement asPcmElement;
@@ -23,12 +23,12 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
     
     //compromisation status
     private CompromisationStatus status;
-    private final Set<AttackStatusNodeContent> attackerNodes;
+    private final Set<AttackNodeContent> attackerNodes;
     
     // tmp set for necessary credential causes
     private final Set<CredentialSurface> initiallyNecessaryCauses;
     
-    public AttackStatusNodeContent(final Entity containedEntity) {
+    public AttackNodeContent(final Entity containedEntity) {
         this.containedElement = Objects.requireNonNull(containedEntity);
         this.type = PCMElementType.typeOf(containedEntity);
         if (this.type == null) {
@@ -75,7 +75,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * @param attackerNode
      * @return whether this node is attacked by the given attacker node
      */
-    public boolean isAttackedBy(AttackStatusNodeContent attackerNode) {
+    public boolean isAttackedBy(AttackNodeContent attackerNode) {
         return this.attackerNodes.contains(attackerNode);
     }
 
@@ -84,7 +84,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * 
      * @param sourceNode - the attacker node
      */
-    public void compromise(final AttackStatusNodeContent sourceNode) {
+    public void compromise(final AttackNodeContent sourceNode) {
         this.attackerNodes.add(sourceNode);
         this.status = CompromisationStatus.COMPROMISED;
     }
@@ -94,7 +94,7 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
      * 
      * @param sourceNode - the attacker node 
      */
-    public void attack(final AttackStatusNodeContent sourceNode) {
+    public void attack(final AttackNodeContent sourceNode) {
         this.attackerNodes.add(sourceNode);
         this.status = isCompromised() ? this.status : CompromisationStatus.ATTACKED_AND_CREDENTIALS_EXTRACTED;
     }
@@ -128,8 +128,8 @@ public class AttackStatusNodeContent implements NodeContent<Entity> {
         if (other == null) {
             return false;
         }
-        if (other instanceof AttackStatusNodeContent) {
-            final AttackStatusNodeContent otherContent = (AttackStatusNodeContent)other;
+        if (other instanceof AttackNodeContent) {
+            final AttackNodeContent otherContent = (AttackNodeContent)other;
             return otherContent.containedElement.getId().equals(this.containedElement.getId());
         }
         return false;

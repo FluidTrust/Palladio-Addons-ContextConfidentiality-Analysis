@@ -13,7 +13,7 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.conte
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.ResourceContainerContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.AssemblyContextVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.ResourceContainerVulnerability;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 
 public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
     private static final String VULN_ID = "TestVulnerabilityId123456";
@@ -51,7 +51,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
                 .filter(e -> e.getEntityName().contains("P"))
                 .findFirst().orElse(null);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerComponent));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerComponent));
 
         handler.attackAssemblyContext(Arrays.asList(List.of(attackerComponent)), getChanges(), attackerComponent, false);
         Assert.assertFalse(attackerNode.isCompromised());
@@ -82,7 +82,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
                 .filter(e -> e.getEntityName().contains("R.1.1"))
                 .findFirst().orElse(null);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerComponent));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerComponent));
 
         // attack and compromise attackerNode
         handler.attackAssemblyContext(Arrays.asList(List.of(attackerComponent)), getChanges(), attackerComponent,
@@ -111,7 +111,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
         final var attackerResource = getResourceContainer(criticalComponent);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerResource));
 
         Assert.assertFalse(attackerNode.isCompromised());
         Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
@@ -135,7 +135,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
         final var attackerResource = getResourceContainer(criticalComponent);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerResource));
 
         // attack and compromise attackerNode
         final var resourceHandler = new ResourceContainerVulnerability(getBlackboardWrapper(),
@@ -184,7 +184,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final var criticalResource = getResourceContainer(criticalComponent);
         final var attackerResource = getConnectedResourceContainers(criticalResource).get(0);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerResource));
 
         Assert.assertFalse(attackerNode.isCompromised());
         Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(attackerNode).isEmpty());
@@ -206,7 +206,7 @@ public class AssemblyContextHandlerTest extends AbstractAttackHandlerTest {
         final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
         final var attackerResource = getResourceContainer(criticalComponent);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerResource));
         addRootAccess();
 
         // attack and compromise attackerNode

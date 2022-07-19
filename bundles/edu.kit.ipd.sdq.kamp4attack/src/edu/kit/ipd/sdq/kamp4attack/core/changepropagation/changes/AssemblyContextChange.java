@@ -7,13 +7,11 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.seff.ResourceDemandingSEFF;
 
 import edu.kit.ipd.sdq.kamp4attack.core.CacheCompromised;
@@ -21,11 +19,12 @@ import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagationWithContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
-public abstract class AssemblyContextChange extends Change<AssemblyContext> implements AssemblyContextPropagation {
+public abstract class AssemblyContextChange extends Change<AssemblyContext>
+        implements AssemblyContextPropagationWithContext {
 
     protected AssemblyContextChange(final BlackboardWrapper v, CredentialChange change) {
         super(v, change);
@@ -57,8 +56,16 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         for (final var component : listCompromisedContexts) {
             final var connected = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(),
                     component);
-            final var containers = connected.stream().map(this::getResourceContainer).distinct()
+            var containers = connected.stream()
+                    .map(e -> PCMConnectionHelper.getResourceContainer(e, this.modelStorage.getAllocation())).distinct()
                     .collect(Collectors.toList());
+
+            containers.addAll(PCMConnectionHelper.getConnectedResourceContainers(
+                    PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation()),
+                    this.modelStorage.getResourceEnvironment()));
+
+            containers = CollectionHelper.removeDuplicates(containers);
+
             final var handler = getRemoteResourceHandler();
             handler.attackResourceContainer(containers, this.changes, component);
         }
@@ -112,23 +119,14 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedContexts) {
-            final var resource = getResourceContainer(component);
+            final var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
             final var handler = getLocalResourceHandler();
             handler.attackResourceContainer(List.of(resource), this.changes, component);
         }
 
     }
 
-    private ResourceContainer getResourceContainer(final AssemblyContext component) {
-        final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
-                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
-                .findAny();
-        if (allocationOPT.isEmpty()) {
-            throw new IllegalStateException(
-                    "No Allocation for assemblycontext " + component.getEntityName() + " found");
-        }
-        return allocationOPT.get().getResourceContainer_AllocationContext();
-    }
+
 
     protected abstract ResourceContainerHandler getLocalResourceHandler();
 
@@ -157,7 +155,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                 .filter(this::isGlobalElement).collect(Collectors.toList());
 
         for (var component : listCompromisedContexts) {
-            var resourceContainer = getResourceContainer(component);
+            var resourceContainer = PCMConnectionHelper.getResourceContainer(component,
+                    this.modelStorage.getAllocation());
             var connectedContainers = getConnectedResourceContainers(resourceContainer);
             var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
                     this.modelStorage.getAllocation());
@@ -180,12 +179,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     private boolean isGlobalElement(AssemblyContext assemblyContext) {
         // TODO adapt get(0) for list comparision
-        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
-                .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
-                .filter(
-                systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
-                        assemblyContext))
-                .noneMatch(NonGlobalCommunication.class::isInstance);
+        return CollectionHelper.isGlobalCommunication(assemblyContext,
+                this.modelStorage.getVulnerabilitySpecification().getVulnerabilities());
     }
 
     protected abstract AssemblyContextHandler getAssemblyHandler();
@@ -195,7 +190,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
         for (final var component : listCompromisedAssemblyContexts) {
-            final var resource = getResourceContainer(component);
+            final var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
             final var reachableLinkingResources = getLinkingResource(resource).stream()
                     .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             final var handler = getLinkingHandler();

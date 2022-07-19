@@ -12,11 +12,11 @@ import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagation;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagationWithContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedLinkingResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
-public abstract class LinkingChange extends Change<LinkingResource> implements LinkingPropagation {
+public abstract class LinkingChange extends Change<LinkingResource> implements LinkingPropagationWithContext {
 
     public LinkingChange(final BlackboardWrapper v, CredentialChange change) {
         super(v, change);

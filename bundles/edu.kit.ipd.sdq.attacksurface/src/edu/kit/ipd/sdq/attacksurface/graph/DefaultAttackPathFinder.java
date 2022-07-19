@@ -32,7 +32,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  */
 public class DefaultAttackPathFinder implements AttackPathFinder {
     private final AttackGraph graph;
-    private final Set<AttackStatusNodeContent> startOfAttacks;
+    private final Set<AttackNodeContent> startOfAttacks;
     private int sizeMaximum;
 
     public DefaultAttackPathFinder(final AttackGraph graph) {
@@ -72,25 +72,25 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         return filterResult(board, allPaths);
     }
 
-    private Iterable<AttackStatusNodeContent> getNodeIterable() {
+    private Iterable<AttackNodeContent> getNodeIterable() {
         return NodeIterator::new;
     }
 
 
-    private List<AttackStatusNodeContent> getChildrenOfNode(AttackStatusNodeContent node) {
+    private List<AttackNodeContent> getChildrenOfNode(AttackNodeContent node) {
         final var childrenSet = this.graph.getChildrenOfNode(node);
         return sortedByRelevancy(node, childrenSet);
     }
 
-    private List<AttackStatusNodeContent> sortedByRelevancy(
-            final AttackStatusNodeContent attackedNode,
-            final Collection<AttackStatusNodeContent> collection) {
+    private List<AttackNodeContent> sortedByRelevancy(
+            final AttackNodeContent attackedNode,
+            final Collection<AttackNodeContent> collection) {
         final var ret = new ArrayList<>(collection);
         Collections.sort(ret, getContentComparator(attackedNode));
         return ret;
     }
 
-    private Comparator<AttackStatusNodeContent> getContentComparator(final AttackStatusNodeContent attackedNode) {
+    private Comparator<AttackNodeContent> getContentComparator(final AttackNodeContent attackedNode) {
         Objects.requireNonNull(attackedNode);
         return (a,b) -> { // sorts so that more relevant nodes are first (smaller)
             if (a.equals(b)) {
@@ -121,7 +121,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     }
 
     private void calculatePathsForNode(final BlackboardWrapper board, final CredentialChange changes,
-            final AttackStatusNodeContent nodeContentToFind,
+            final AttackNodeContent nodeContentToFind,
             final List<AttackPathSurface> allPaths) {
         final var node = this.graph.findNode(nodeContentToFind);
         final var isNodeAttacked = node.isAttacked();
@@ -156,7 +156,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     }
 
     private boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
-            final AttackStatusNodeContent node, final CredentialChange changes) {
+            final AttackNodeContent node, final CredentialChange changes) {
         final var isCompromised = AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board,
                 this.graph, node);
         if (isCompromised && node.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
@@ -169,7 +169,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         return isCompromised;
     }
 
-    private List<AssemblyContext> getContainedComponents(AttackStatusNodeContent containerNode) {
+    private List<AssemblyContext> getContainedComponents(AttackNodeContent containerNode) {
         return this.graph.getParentsOfNode(containerNode).stream()
                 .filter(n -> n.getTypeOfContainedElement().equals(PCMElementType.ASSEMBLY_CONTEXT))
                 .map(n -> n.getContainedElementAsPCMElement().getAssemblycontext().get(0)).collect(Collectors.toList()); // TODO
@@ -209,12 +209,12 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         return path.get(0).getNodes().source().equals(edge.getNodes().target());
     }
 
-    private class NodeIterator implements Iterator<AttackStatusNodeContent> {
-        private AttackStatusNodeContent node;
-        private final List<AttackStatusNodeContent> iterableList;
-        private final Iterator<AttackStatusNodeContent> listIterator;
-        private final Set<AttackStatusNodeContent> childrenSet;
-        private final Map<AttackStatusNodeContent, Boolean> addedChildren;
+    private class NodeIterator implements Iterator<AttackNodeContent> {
+        private AttackNodeContent node;
+        private final List<AttackNodeContent> iterableList;
+        private final Iterator<AttackNodeContent> listIterator;
+        private final Set<AttackNodeContent> childrenSet;
+        private final Map<AttackNodeContent, Boolean> addedChildren;
 
         public NodeIterator() {
             this.node = DefaultAttackPathFinder.this.graph.getRootNodeContent();
@@ -227,7 +227,7 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
             this.listIterator = this.iterableList.iterator();
         }
 
-        private void addChildrenForNode(final AttackStatusNodeContent nodeToBeConsidered) {
+        private void addChildrenForNode(final AttackNodeContent nodeToBeConsidered) {
             this.iterableList.add(nodeToBeConsidered);
 
             this.addedChildren.computeIfAbsent(nodeToBeConsidered, n -> false);
@@ -251,12 +251,12 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         }
 
         @Override
-        public AttackStatusNodeContent next() {
+        public AttackNodeContent next() {
             return this.listIterator.next();
         }
 
-        private List<AttackStatusNodeContent> sortedByAttackEdgeRelevancy(final AttackStatusNodeContent attackedNode,
-                Set<AttackStatusNodeContent> childrenOfNode) {
+        private List<AttackNodeContent> sortedByAttackEdgeRelevancy(final AttackNodeContent attackedNode,
+                Set<AttackNodeContent> childrenOfNode) {
             return sortedByRelevancy(attackedNode, childrenOfNode);
         }
     }

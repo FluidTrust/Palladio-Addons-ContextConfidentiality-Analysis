@@ -12,10 +12,10 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagationWithContext;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 /**
@@ -26,7 +26,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  * @version 1.0
  */
 public abstract class ResourceContainerChange extends Change<ResourceContainer>
-        implements ResourceContainerPropagation {
+        implements ResourceContainerPropagationWithContext {
     protected ResourceContainerChange(final BlackboardWrapper modelStorage, CredentialChange change, final AttackGraph attackGraph) {
         super(modelStorage, change, attackGraph);
     }
@@ -58,7 +58,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             assemblycontext = CollectionHelper.removeDuplicates(assemblycontext);
             for (final var resource : resources) {
                 final var childNode = this.attackGraph.addOrFindChild(selectedNode,
-                        new AttackStatusNodeContent(resource));
+                        new AttackNodeContent(resource));
                 if (childNode != null) {
                     // attack all, so that maybe in the next iteration of assembly contexts
                     // propagation
@@ -91,7 +91,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                     .map(AllocationContext::getAssemblyContext_AllocationContext).collect(Collectors.toList());
 
             localComponents.forEach(c -> {
-                final var newNode = new AttackStatusNodeContent(c);
+                final var newNode = new AttackNodeContent(c);
                 if (this.attackGraph.findNode(newNode) == null) {
                     this.attackGraph.addOrFindChild(resourceContainerNode, newNode);
                 }
@@ -103,7 +103,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             final var connectedResourceContainers = getConnectedResourceContainers(relevantResourceContainer);
             for (final var resource : connectedResourceContainers) {
                 final var childNode = this.attackGraph.addOrFindChild(selectedNode,
-                        new AttackStatusNodeContent(resource));
+                        new AttackNodeContent(resource));
                 callRecursionIfNecessary(childNode,
                         this::calculateResourceContainerToLocalAssemblyContextPropagation, selectedNode);
             }

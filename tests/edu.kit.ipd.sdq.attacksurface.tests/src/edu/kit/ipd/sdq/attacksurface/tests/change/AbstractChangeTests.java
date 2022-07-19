@@ -43,7 +43,7 @@ import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -257,14 +257,14 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     protected boolean isInGraph(final Entity entity) {
-        final var node = getAttackGraph().findNode(new AttackStatusNodeContent(entity));
+        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
         return node != null;
     }
 
     protected void assertCompromisationStatus(final boolean isCompromised, final boolean isAttacked,
             final Entity entity,
             final String causeId) {
-        final var node = getAttackGraph().findNode(new AttackStatusNodeContent(entity));
+        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
         if (node != null) {
             Assert.assertEquals(isCompromised, node.isCompromised());
             Assert.assertEquals(isAttacked, node.isAttacked());
@@ -336,8 +336,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     protected AttackStatusEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
         return new AttackStatusEdge(content,
                 EndpointPair.ordered(
-                        new AttackStatusNodeContent(attacker),
-                        new AttackStatusNodeContent(attacked)));
+                        new AttackNodeContent(attacker),
+                        new AttackNodeContent(attacked)));
     }
 
     protected void doDebugSysOutExpectedAndUnexpectedPaths(

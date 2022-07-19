@@ -15,7 +15,7 @@ import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.ResourceContainerVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.DefaultAttackPathFinder;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
@@ -72,7 +72,7 @@ public abstract class EvaluationTest extends AbstractChangeTests {
         Assert.assertTrue(this.getAttackGraph().getRootNodeContent().isCompromised());
         if (isContainerOfRootCompromised) {
             Assert.assertTrue(this.getAttackGraph().findNode(
-                new AttackStatusNodeContent(
+                new AttackNodeContent(
                         this.getResource(this.getAttackGraph().getRootNodeContent()
                                 .getContainedElementAsPCMElement().getAssemblycontext()))).isCompromised());
         }

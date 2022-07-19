@@ -12,7 +12,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegr
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
@@ -91,7 +91,7 @@ public final class AttackHandlingHelper {
      * @return whether compromisation was done
      */
     public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper modelStorage,
-            final AttackGraph attackGraph, final AttackStatusNodeContent nodeContent) {
+            final AttackGraph attackGraph, final AttackNodeContent nodeContent) {
         final var node = attackGraph.findNode(nodeContent);
         final Set<CredentialSurface> credentialCauses = getCredentialIntegrationCauses(modelStorage, node);
         final Set<CredentialSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
@@ -107,7 +107,7 @@ public final class AttackHandlingHelper {
     }
 
     private static Set<CredentialSurface> getNecessaryCauses(Set<CredentialSurface> credentialCauses, AttackGraph attackGraph,
-            AttackStatusNodeContent node) {
+            AttackNodeContent node) {
         return credentialCauses
                 .stream()
                 .filter(c -> attackGraph.getCompromisationCauseIds(node)
@@ -117,7 +117,7 @@ public final class AttackHandlingHelper {
     }
 
     private static Set<CredentialSurface> getCredentialIntegrationCauses(BlackboardWrapper modelStorage,
-            AttackStatusNodeContent node) {
+            AttackNodeContent node) {
         return modelStorage.getVulnerabilitySpecification()
                 .getVulnerabilities()
                 .stream()

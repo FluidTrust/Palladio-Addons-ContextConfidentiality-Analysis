@@ -10,7 +10,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -43,10 +43,10 @@ public abstract class ResourceContainerHandler extends AttackHandler {
         if (!newCompromisedResources.isEmpty()) {
             change.setChanged(true);
             final var selectedNodeBefore = getAttackGraph().getSelectedNode();
-            final var attackSource = new AttackStatusNodeContent(source);
+            final var attackSource = new AttackNodeContent(source);
             
             for (final var newlyCompromised : newCompromisedResources) {
-                final var compromisedNode = new AttackStatusNodeContent(newlyCompromised.getAffectedElement());
+                final var compromisedNode = new AttackNodeContent(newlyCompromised.getAffectedElement());
                 final var causingElements = newlyCompromised.getCausingElements();
                 compromise(causingElements, compromisedNode, attackSource);
             }

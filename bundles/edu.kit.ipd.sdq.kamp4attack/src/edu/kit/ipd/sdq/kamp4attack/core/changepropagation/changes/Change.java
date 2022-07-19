@@ -1,10 +1,9 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -58,17 +57,10 @@ public abstract class Change<T> {
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
-        final var resourceEnvironment = this.modelStorage.getResourceEnvironment();
-        return resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
-                        .anyMatch(f -> EcoreUtil.equals(f, container)))
-                .collect(Collectors.toList());
+        return PCMConnectionHelper.getLinkingResource(container, this.modelStorage.getResourceEnvironment());
     }
 
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
-        final var resources = this.getLinkingResource(resource).stream()
-                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
-                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
-        return resources;
+        return PCMConnectionHelper.getConnectedResourceContainers(resource, this.modelStorage.getResourceEnvironment());
     }
 }

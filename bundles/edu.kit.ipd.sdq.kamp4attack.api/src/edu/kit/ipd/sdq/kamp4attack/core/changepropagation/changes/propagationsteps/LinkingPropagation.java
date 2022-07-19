@@ -8,8 +8,6 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationst
  */
 public interface LinkingPropagation {
 
-    void calculateLinkingResourceToContextPropagation();
-
     void calculateLinkingResourceToResourcePropagation();
 
     void calculateLinkingResourceToAssemblyContextPropagation();

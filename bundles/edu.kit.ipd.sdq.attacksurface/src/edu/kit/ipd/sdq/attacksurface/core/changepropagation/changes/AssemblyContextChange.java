@@ -17,7 +17,7 @@ import org.palladiosimulator.pcm.system.System;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.AssemblyContextHandler;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
@@ -51,11 +51,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     @Override
-    public void calculateAssemblyContextToContextPropagation() {
-
-    }
-
-    @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
         final var finalSelectedNode = this.attackGraph.getSelectedNode();
         final var relevantResourceContainer = getResourceContainerForElement(finalSelectedNode);
@@ -85,8 +80,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         }
     }
 
-    private void calculateResourceContainerPropagation(final AttackStatusNodeContent relevantResourceContainerNode,
-            final List<AssemblyContext> components, final AttackStatusNodeContent finalSelectedNode,
+    private void calculateResourceContainerPropagation(final AttackNodeContent relevantResourceContainerNode,
+            final List<AssemblyContext> components, final AttackNodeContent finalSelectedNode,
             final Runnable recursionCall, final boolean isRemote) {
         final var relevantResourceContainer = relevantResourceContainerNode.getContainedElementAsPCMElement()
                 .getResourcecontainer();
@@ -103,7 +98,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             for (final var connectedContainer : connectedResourceContainers) {
                 // continue building the graph
                 final var childNode = this.attackGraph.addOrFindChild(relevantResourceContainerNode,
-                        new AttackStatusNodeContent(connectedContainer));
+                        new AttackNodeContent(connectedContainer));
                 callRecursionIfNecessary(childNode, recursionCall, finalSelectedNode);
             }
         }
@@ -135,13 +130,13 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
      * @return the new selected node, i.e. the final selected node itself if the selected components list is empty
      * or has just one element or a child node containing the selected component
      */
-    private AttackStatusNodeContent findSelectedNode(AttackStatusNodeContent finalSelectedNode,
+    private AttackNodeContent findSelectedNode(AttackNodeContent finalSelectedNode,
             List<AssemblyContext> selectedComponents, AssemblyContext selectedComponent) {
         if (selectedComponents.isEmpty() || selectedComponents.size() == 1) {
             return finalSelectedNode;
         }
         final var childNode = this.attackGraph.addOrFindChild(finalSelectedNode,
-                new AttackStatusNodeContent(selectedComponent));
+                new AttackNodeContent(selectedComponent));
         return childNode;
     }
 
@@ -151,7 +146,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
      * @param selectedNode - the selected node
      * @param selectedComponent - the selected component
      */
-    private void handleSelectedNodePropagation(final AttackStatusNodeContent selectedNode,
+    private void handleSelectedNodePropagation(final AttackNodeContent selectedNode,
             final AssemblyContext selectedComponent) {
         this.attackGraph.setSelectedNode(selectedNode);
         var connectedComponents = getConnectedComponents(selectedComponent);
@@ -171,13 +166,13 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
      * @param connectedComponents - the connected components
      * @param handler - the assembly context attack handler
      */
-    private void handleConnectedComponentsPropagation(final AttackStatusNodeContent selectedNode,
+    private void handleConnectedComponentsPropagation(final AttackNodeContent selectedNode,
             final AssemblyContext selectedComponent, final List<AssemblyContext> connectedComponents,
             final AssemblyContextHandler handler) {
         for (final var connectedComponent : connectedComponents) {
             // continue building the graph
             final var childNode = this.attackGraph.addOrFindChild(selectedNode,
-                    new AttackStatusNodeContent(connectedComponent));
+                    new AttackNodeContent(connectedComponent));
             if (childNode != null) {
                 final var childComponent = connectedComponent;
                 handler.attackAssemblyContext(Arrays.asList(List.of(selectedComponent)), this.changes, childComponent,
@@ -189,7 +184,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         }
     }
 
-    private List<AssemblyContext> getRelevantAssemblyContexts(AttackStatusNodeContent nodeContent) {
+    private List<AssemblyContext> getRelevantAssemblyContexts(AttackNodeContent nodeContent) {
         final List<AssemblyContext> assemblies = new ArrayList<>();
 
         switch (nodeContent.getTypeOfContainedElement()) {
@@ -228,7 +223,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         if (!listRelevantContexts.isEmpty()) {
             listRelevantContexts.forEach(c -> {
-                final var newNode = new AttackStatusNodeContent(c);
+                final var newNode = new AttackNodeContent(c);
                 if (this.attackGraph.findNode(newNode) == null) {
                     this.attackGraph.addOrFindChild(finalSelectedNode, newNode);
                 }

@@ -18,7 +18,7 @@ import de.uka.ipd.sdq.identifier.Identifier;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.ResourceContainerContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.AssemblyContextVulnerability;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.vulnerability.ResourceContainerVulnerability;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 
 public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
@@ -33,7 +33,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var resource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(resource));
+        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(resource));
         handler.attackResourceContainer(Arrays.asList(resource), getChanges(), resource);
         Assert.assertTrue(resourceNode.isCompromised());
         Assert.assertFalse(getAttackGraph().getCompromisationCauseIds(resourceNode).isEmpty());
@@ -51,13 +51,13 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var resource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(resource));
+        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(resource));
 
         final var attackerResource = getConnectedResourceContainers(resource)
                 .stream()
                 .filter(r -> r.getEntityName().contains("P"))
                 .findFirst().orElse(null);
-        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackNodeContent(attackerResource));
 
         handler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
         Assert.assertFalse(attackerNode.isCompromised());
@@ -82,7 +82,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var resource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(resource));
+        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(resource));
 
         final var attackerResource = getConnectedResourceContainers(resource)
                 .stream()
@@ -90,7 +90,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
                 .findFirst().orElse(null);
         final var vulnList = getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities();
         vulnList.add(createVulnerabilitySystemIntegration(attackerResource));
-        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackNodeContent(attackerResource));
 
         // attack and compromise attackerNode
         handler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);
@@ -138,14 +138,14 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var criticalResource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var criticalNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(criticalResource));
+        final var criticalNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(criticalResource));
         final var attackerComponent = getBlackboardWrapper()
                 .getAssembly()
                 .getAssemblyContexts__ComposedStructure()
                 .stream()
                 .filter(e -> e.getEntityName().contains("P"))
                 .findFirst().orElse(null);
-        final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackStatusNodeContent(attackerComponent));
+        final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackNodeContent(attackerComponent));
 
         assemblyHandler.attackAssemblyContext(Arrays.asList(List.of(attackerComponent)), getChanges(),
                 attackerComponent, false);
@@ -173,14 +173,14 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var criticalResource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var criticalNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(criticalResource));
+        final var criticalNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(criticalResource));
         final var attackerComponent = getBlackboardWrapper()
                 .getAssembly()
                 .getAssemblyContexts__ComposedStructure()
                 .stream()
                 .filter(e -> e.getEntityName().contains("R.1.1"))
                 .findFirst().orElse(null);
-        final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackStatusNodeContent(attackerComponent));
+        final var attackerNode = getAttackGraph().addOrFindChild(criticalNode, new AttackNodeContent(attackerComponent));
 
         // attack and compromise attackerNode
         assemblyHandler.attackAssemblyContext(Arrays.asList(List.of(attackerComponent)), getChanges(),
@@ -212,7 +212,7 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var criticalComponent = rootNode.getContainedElementAsPCMElement().getAssemblycontext();
         final var attackerResource = getResourceContainer(criticalComponent);
 
-        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(attackerResource));
         addRootAccess();
 
         // attack and compromise attackerNode
@@ -236,13 +236,13 @@ public class ResourceContainerHandlerTest extends AbstractAttackHandlerTest {
         final var rootNode = getAttackGraph().getRootNodeContent();
         final var resource = getResourceContainer(
                 rootNode.getContainedElementAsPCMElement().getAssemblycontext());
-        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackStatusNodeContent(resource));
+        final var resourceNode = getAttackGraph().addOrFindChild(rootNode, new AttackNodeContent(resource));
 
         final var attackerResource = getConnectedResourceContainers(resource)
                 .stream()
                 .filter(r -> r.getEntityName().contains("P"))
                 .findFirst().orElse(null);
-        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackStatusNodeContent(attackerResource));
+        final var attackerNode = getAttackGraph().addOrFindChild(resourceNode, new AttackNodeContent(attackerResource));
         addRootAccess();
 
         handler.attackResourceContainer(Arrays.asList(attackerResource), getChanges(), attackerResource);

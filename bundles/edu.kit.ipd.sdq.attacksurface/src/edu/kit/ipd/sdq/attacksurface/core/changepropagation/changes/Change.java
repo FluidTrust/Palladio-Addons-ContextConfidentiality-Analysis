@@ -16,7 +16,7 @@ import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusNodeContent;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -67,8 +67,8 @@ public abstract class Change<T> {
      * @param selectedNodeContent    - the selected node before and after the recursive
      *                        call
      */
-    protected void callRecursionIfNecessary(final AttackStatusNodeContent childNodeContent, final Runnable recursionMethod,
-            final AttackStatusNodeContent selectedNodeContent) {
+    protected void callRecursionIfNecessary(final AttackNodeContent childNodeContent, final Runnable recursionMethod,
+            final AttackNodeContent selectedNodeContent) {
         this.attackGraph.getSelectedNode().setVisited(true);
         this.attackGraph.setSelectedNode(childNodeContent);
         final var childNode = this.attackGraph.getSelectedNode();
@@ -87,7 +87,7 @@ public abstract class Change<T> {
         this.attackGraph.setSelectedNode(selectedNodeContent);
     }
 
-    private void addChildNodeToPath(final AttackStatusNodeContent childNode) {
+    private void addChildNodeToPath(final AttackNodeContent childNode) {
         final var criticalNode = this.attackGraph.getRootNodeContent();
         final AttackStatusEdge edge;
         final var size = this.selectedSurfacePath.size();
@@ -118,7 +118,7 @@ public abstract class Change<T> {
      * @return the resource container for the given node content, i.e. the
      *         containing resource container or the container itself
      */
-    protected ResourceContainer getResourceContainerForElement(final AttackStatusNodeContent selectedNodeContent) {
+    protected ResourceContainer getResourceContainerForElement(final AttackNodeContent selectedNodeContent) {
         final var selectedElementType = selectedNodeContent.getTypeOfContainedElement();
         final var selectedPCMElement = selectedNodeContent.getContainedElementAsPCMElement();
 
@@ -154,12 +154,12 @@ public abstract class Change<T> {
         return allocationOPT.get().getResourceContainer_AllocationContext();
     }
 
-    protected AttackStatusNodeContent findResourceContainerNode(final ResourceContainer resourceContainer,
-            final AttackStatusNodeContent selectedNode) {
+    protected AttackNodeContent findResourceContainerNode(final ResourceContainer resourceContainer,
+            final AttackNodeContent selectedNode) {
         final var isSelectedNodeAlreadyResourceContainerNode = selectedNode.getContainedElement().getId()
                 .equals(resourceContainer.getId());
         return isSelectedNodeAlreadyResourceContainerNode ? selectedNode
-                : this.getAttackGraph().addOrFindChild(selectedNode, new AttackStatusNodeContent(resourceContainer));
+                : this.getAttackGraph().addOrFindChild(selectedNode, new AttackNodeContent(resourceContainer));
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
