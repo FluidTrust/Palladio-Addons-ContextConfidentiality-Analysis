@@ -13,14 +13,16 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.jgrapht.alg.shortestpath.BFSShortestPath;
+import org.jgrapht.graph.guava.ImmutableNetworkAdapter;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
+import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.graph.EndpointPair;
+import com.google.common.graph.ImmutableNetwork;
 
 import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.attackhandlers.context.AssemblyContextContext;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -51,22 +53,30 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     }
 
     @Override
-    public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board, final CredentialChange changes) {
+    public List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper board,
+            ImmutableNetwork<ArchitectureNode, AttackEdge> graph, Entity targetedElement) {
         setSizeMaximum(board);
 
-        this.graph.resetVisitations();
+//        this.graph.resetVisitations();
         List<AttackPathSurface> allPaths = new ArrayList<>();
         this.startOfAttacks.clear();
 
-        for (final var node : this.graph.getNodes()) {
-            attackNodeContentWithInitialCredentialIfNecessary(board, node, changes);
-        }
+        var rootNode = new ArchitectureNode(targetedElement);
+        var targedNote = new ArchitectureNode(targetedElement);
+
+        var test = new ImmutableNetworkAdapter<>(graph);
+
+        var path = BFSShortestPath.findPathBetween(test, rootNode, targedNote);
+
+        path.getEdgeList();
+
+
 
         final var nodeIterable = getNodeIterable();
         for (final var nodeContentToFind : nodeIterable) {
             final var node = this.graph.findNode(nodeContentToFind);
             if (!node.isVisited()) {
-                calculatePathsForNode(board, changes, nodeContentToFind, allPaths);
+//                calculatePathsForNode(board, changes, nodeContentToFind, allPaths);
             }
         }
         return filterResult(board, allPaths);
@@ -155,19 +165,19 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
                 .filter(AttackPathSurface::containsInitiallyNecessaryCredentials).collect(Collectors.toList());
     }
 
-    private boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
-            final AttackNodeContent node, final CredentialChange changes) {
-        final var isCompromised = AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board,
-                this.graph, node);
-        if (isCompromised && node.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
-            final var dataHandler = new DataHandlerAttacker(changes);
-            final var attackInnerHandler = new AssemblyContextContext(board, dataHandler, this.graph);
-            attackInnerHandler.attackAssemblyContext(List.of(getContainedComponents(node)), changes,
-                    node.getContainedElement(),
-                    true);
-        }
-        return isCompromised;
-    }
+//    private boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper board,
+//            final ArchitectureNode node, final CredentialChange changes) {
+//        final var isCompromised = AttackHandlingHelper.attackNodeContentWithInitialCredentialIfNecessary(board,
+//                this.graph, node);
+//        if (isCompromised && node.getTypeOfContainedElement().equals(PCMElementType.RESOURCE_CONTAINER)) {
+//            final var dataHandler = new DataHandlerAttacker(changes);
+//            final var attackInnerHandler = new AssemblyContextContext(board, dataHandler, this.graph);
+//            attackInnerHandler.attackAssemblyContext(List.of(getContainedComponents(node)), changes,
+//                    node.getContainedElement(),
+//                    true);
+//        }
+//        return isCompromised;
+//    }
 
     private List<AssemblyContext> getContainedComponents(AttackNodeContent containerNode) {
         return this.graph.getParentsOfNode(containerNode).stream()

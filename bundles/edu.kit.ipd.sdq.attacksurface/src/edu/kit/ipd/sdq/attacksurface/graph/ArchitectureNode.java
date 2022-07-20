@@ -42,4 +42,8 @@ public class ArchitectureNode {
         return Objects.equals(this.entity.getId(), other.entity.getId());
     }
 
+    public Entity getEntity() {
+        return this.entity;
+    }
+
 }

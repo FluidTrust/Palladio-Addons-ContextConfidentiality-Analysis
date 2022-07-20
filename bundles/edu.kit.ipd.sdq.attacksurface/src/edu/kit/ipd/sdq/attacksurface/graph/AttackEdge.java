@@ -58,14 +58,24 @@ public class AttackEdge {
         }
         var other = (AttackEdge) obj;
 
-        if (this.cause == null) {
+        if (this.cause == null && other.cause == null) {
             return Objects.equals(this.credentials, other.credentials) && this.implicit == other.implicit
                     && this.vector == other.vector && Objects.equals(this.root.getId(), this.target.getId());
-        } else {
+        }
+
+        else if (this.cause != null && other.cause != null) {
             return Objects.equals(this.cause.getId(), other.cause.getId())
                     && Objects.equals(this.credentials, other.credentials) && this.implicit == other.implicit
                     && this.vector == other.vector && Objects.equals(this.root.getId(), this.target.getId());
         }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "AttackStatusEdge [content="
+                + this.cause + ", "
+                + this.root.getEntityName() + " -> " + this.target.getEntityName() + "]";
     }
 
 }

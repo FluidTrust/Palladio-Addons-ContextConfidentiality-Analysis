@@ -20,7 +20,9 @@ Require-Bundle: org.eclipse.ui,
  org.palladiosimulator.pcm.confidentiality.attacker.analysis.common;bundle-version="1.0.0",
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
  edu.kit.ipd.sdq.kamp4attack,
- edu.kit.ipd.sdq.kamp4attack.api
+ edu.kit.ipd.sdq.kamp4attack.api,
+ org.jgrapht.core;bundle-version="1.5.0",
+ external-dependencies;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Bundle-RequiredExecutionEnvironment: JavaSE-17
@@ -33,5 +35,6 @@ Export-Package: edu.kit.ipd.sdq.attacksurface.activator,
  edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes,
  edu.kit.ipd.sdq.attacksurface.graph
 Import-Package: 
+ org.jgrapht.graph.guava,
  org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
 Automatic-Module-Name: edu.kit.ipd.sdq.attacksurface

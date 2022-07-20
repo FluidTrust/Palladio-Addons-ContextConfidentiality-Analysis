@@ -5,21 +5,21 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemIntegration;
 
+import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
-import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 
 /**
- * Helper class for attack handling. 
- * 
+ * Helper class for attack handling.
+ *
  * @author ugnwq
  * @version 1.0
  */
@@ -29,7 +29,7 @@ public final class AttackHandlingHelper {
     }
 
     /**
-     * 
+     *
      * @param modelStorage - the model storage
      * @param path - the path
      * @param isEarly - whether this call is an early filtering
@@ -53,7 +53,7 @@ public final class AttackHandlingHelper {
     }
 
     /**
-     * 
+     *
      * @param modelStorage - the model storage
      * @return the surface attacker
      */
@@ -67,9 +67,9 @@ public final class AttackHandlingHelper {
         return modelStorage.getModificationMarkRepository().getSeedModifications().getSurfaceattackcomponent().get(0)
                 .getAffectedElement();
     }
-    
+
     /**
-     * 
+     *
      * @param modelStorage - the model storage
      * @return all attacks
      */
@@ -84,46 +84,61 @@ public final class AttackHandlingHelper {
 
     /**
      * Attacks the given node with initial credentials (also found in this method) if it is necessary.
-     * 
+     *
      * @param modelStorage - the model storage
      * @param attackGraph - the attack graph
      * @param nodeContent - the node content (finding takes place in this method)
      * @return whether compromisation was done
      */
     public static boolean attackNodeContentWithInitialCredentialIfNecessary(final BlackboardWrapper modelStorage,
-            final AttackGraph attackGraph, final AttackNodeContent nodeContent) {
-        final var node = attackGraph.findNode(nodeContent);
-        final Set<CredentialSurface> credentialCauses = getCredentialIntegrationCauses(modelStorage, node);
-        final Set<CredentialSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
-        if (!node.isCompromised() && !necessaryCauses.isEmpty()) {
-            final var selectedBefore = attackGraph.getSelectedNode();
-            attackGraph.setSelectedNode(node);
-            attackGraph.compromiseSelectedNode(necessaryCauses, node);
-            node.addInitiallyNecessaryCredentials(necessaryCauses);
-            attackGraph.setSelectedNode(selectedBefore);
-            return true;
-        }
+            final AttackGraph attackGraph, final ArchitectureNode nodeContent) {
+//        final var credentialCauses = getCredentialIntegrationCauses(modelStorage, nodeContent);
+//        final Set<CredentialSurface> necessaryCauses = getNecessaryCauses(credentialCauses, attackGraph, node);
+//        if (!node.isCompromised() && !necessaryCauses.isEmpty()) {
+//            final var selectedBefore = attackGraph.getSelectedNode();
+//            attackGraph.setSelectedNode(node);
+//            attackGraph.compromiseSelectedNode(necessaryCauses, node);
+//            node.addInitiallyNecessaryCredentials(necessaryCauses);
+//            attackGraph.setSelectedNode(selectedBefore);
+//            return true;
+//        }
         return false;
     }
 
-    private static Set<CredentialSurface> getNecessaryCauses(Set<CredentialSurface> credentialCauses, AttackGraph attackGraph,
-            AttackNodeContent node) {
-        return credentialCauses
-                .stream()
-                .filter(c -> attackGraph.getCompromisationCauseIds(node)
-                        .stream()
-                        .noneMatch(identifier -> identifier.getId().equals(c.getCauseId())))
-                .collect(Collectors.toSet());
-    }
+//    private static Set<CredentialSurface> getNecessaryCauses(Set<CredentialSurface> credentialCauses, AttackGraph attackGraph,
+//            ArchitectureNode node) {
+//        return credentialCauses
+//                .stream()
+//                .filter(c -> attackGraph.getCompromisationCauseIds(node)
+//                        .stream()
+//                        .noneMatch(identifier -> identifier.getId().equals(c.getCauseId())))
+//                .collect(Collectors.toSet());
+//    }
 
     private static Set<CredentialSurface> getCredentialIntegrationCauses(BlackboardWrapper modelStorage,
-            AttackNodeContent node) {
+            ArchitectureNode node) {
         return modelStorage.getVulnerabilitySpecification()
                 .getVulnerabilities()
                 .stream()
                 .filter(CredentialSystemIntegration.class::isInstance)
-                .filter(s -> 
-                    PCMElementType.typeOf(s.getPcmelement()).getElementEqualityPredicate(node.getContainedElement()).test(s))
+                .filter(s -> {
+                    var pcmELement = s.getPcmelement();
+                    if (!pcmELement.getAssemblycontext().isEmpty()) {
+                        return EcoreUtil.equals(pcmELement.getAssemblycontext().get(0), node.getEntity());
+                    }
+                    if (pcmELement.getMethodspecification() != null) {
+                        // TODO fix method resoltuion
+                        return pcmELement.getMethodspecification().getId().equals(node.getEntity().getId());
+                    }
+                    if (pcmELement.getResourcecontainer() != null) {
+                        return pcmELement.getResourcecontainer().getId().equals(node.getEntity().getId());
+                    }
+                    if (pcmELement.getLinkingresource() != null) {
+                        return pcmELement.getLinkingresource().getId().equals(node.getEntity().getId());
+                    }
+                    return false;
+
+                })
                 .map(SystemIntegration::getIdOfContent)
                 .map(CredentialSurface::new)
                 .collect(Collectors.toSet());
