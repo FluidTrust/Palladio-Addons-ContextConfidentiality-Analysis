@@ -20,8 +20,8 @@ import com.google.common.graph.ImmutableNetwork;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
 
+import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
@@ -31,7 +31,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 public class AttackGraphCreation
         implements AssemblyContextPropagation, LinkingPropagation, ResourceContainerPropagation {
 
-    private MutableNetwork<AttackNodeContent, AttackEdge> graph;
+    private MutableNetwork<ArchitectureNode, AttackEdge> graph;
     private BlackboardWrapper modelStorage;
 
     public AttackGraphCreation(BlackboardWrapper modelStorage) {
@@ -45,11 +45,11 @@ public class AttackGraphCreation
             if (!AttackVectorHelper.isIncluded(vector, vulnerability.getAttackVector())) {
                 continue;
             }
-            var node1 = new AttackNodeContent(rootEntity);
-            var node2 = new AttackNodeContent(connectedEntity);
+            var node1 = new ArchitectureNode(rootEntity);
+            var node2 = new ArchitectureNode(connectedEntity);
             var edge = new AttackEdge(rootEntity, connectedEntity, vulnerability, null);
 
-            this.graph.addEdge(node1, node2, edge);
+            insertEdge(node1, node2, edge);
 
         }
     }
@@ -58,23 +58,27 @@ public class AttackGraphCreation
 
         var credentials = getCredentialIntegrations(connectedEntity);
 
-        var node1 = new AttackNodeContent(rootEntity);
-        var node2 = new AttackNodeContent(connectedEntity);
+        var node1 = new ArchitectureNode(rootEntity);
+        var node2 = new ArchitectureNode(connectedEntity);
         var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials);
 
-        this.graph.addEdge(node1, node2, edge);
+        insertEdge(node1, node2, edge);
 
+    }
+
+    private void insertEdge(ArchitectureNode node1, ArchitectureNode node2, AttackEdge edge) {
+        this.graph.addEdge(node1, node2, edge);
     }
 
     private void createEdgeImplicit(Entity rootEntity, Entity connectedEntity, BlackboardWrapper modelStorage) {
 
         var credentials = getCredentialIntegrations(connectedEntity);
 
-        var node1 = new AttackNodeContent(rootEntity);
-        var node2 = new AttackNodeContent(connectedEntity);
+        var node1 = new ArchitectureNode(rootEntity);
+        var node2 = new ArchitectureNode(connectedEntity);
         var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials, true, AttackVector.LOCAL);
 
-        this.graph.addEdge(node1, node2, edge);
+        insertEdge(node1, node2, edge);
 
     }
 
@@ -302,8 +306,8 @@ public class AttackGraphCreation
 
     }
 
-    public ImmutableNetwork<AttackNodeContent, AttackEdge> getGraph() {
-        return NetworkBuilder.from(this.graph).immutable().build();
+    public ImmutableNetwork<ArchitectureNode, AttackEdge> getGraph() {
+        return ImmutableNetwork.copyOf(this.graph);
     }
 
 }

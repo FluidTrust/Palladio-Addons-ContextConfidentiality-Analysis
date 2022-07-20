@@ -31,11 +31,11 @@ import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyCont
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AttackGraphCreation;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
 import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
+import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
-import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
+import edu.kit.ipd.sdq.attacksurface.graph.DefaultAttackPathFinder;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
@@ -93,7 +93,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
-
+        createInitialStructure(modelStorage);
         var graph = new AttackGraphCreation(modelStorage);
 
         graph.calculateAssemblyContextToAssemblyContextPropagation();
@@ -141,9 +141,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     }
 
     private void createAttackPaths(final BlackboardWrapper modelStorage,
-            ImmutableNetwork<AttackNodeContent, AttackEdge> graph) {
-        this.attackGraph.resetVisitations();
-        final var allAttackPathsSurface = this.attackGraph.findAllAttackPaths(modelStorage, this.changes);
+            ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
+        final var allAttackPathsSurface = new DefaultAttackPathFinder(this.attackGraph).findAllAttackPaths(modelStorage,
+                graph, this.crtitcalEntity);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
 
@@ -250,14 +250,14 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         final var criticalPCMElement = localAttacker.getTargetedElement();
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
-        this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
-
-        final var setCredentials = localAttacker.getAttacker().getCredentials().stream().map(CredentialSurface::new)
-                .collect(Collectors.toSet());
-        this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
-        convertAffectedElementsToChanges(localAttacker);
-        addAllPossibleAttacks(board, localAttacker);
-        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
+//        this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
+//
+//        final var setCredentials = localAttacker.getAttacker().getCredentials().stream().map(CredentialSurface::new)
+//                .collect(Collectors.toSet());
+//        this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
+//        convertAffectedElementsToChanges(localAttacker);
+//        addAllPossibleAttacks(board, localAttacker);
+//        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
 
     private void convertAffectedElementsToChanges(final SurfaceAttacker localAttacker) {
