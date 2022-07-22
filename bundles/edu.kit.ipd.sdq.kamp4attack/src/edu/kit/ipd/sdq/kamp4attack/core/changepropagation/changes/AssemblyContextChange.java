@@ -179,7 +179,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     private boolean isGlobalElement(AssemblyContext assemblyContext) {
         // TODO adapt get(0) for list comparision
-        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
+        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().parallelStream()
                 .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
                 .filter(
                 systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
