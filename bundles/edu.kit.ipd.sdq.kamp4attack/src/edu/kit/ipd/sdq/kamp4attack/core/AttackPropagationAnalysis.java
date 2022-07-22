@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelperStorage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemComponent;
@@ -53,10 +54,7 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
 		createInitialStructure(board);
 
-		VulnerabilityHelper.initializeVulnerabilityStorage(board.getVulnerabilitySpecification(),
-				board.getResourceEnvironment().getResourceContainer_ResourceEnvironment(),
-				board.getResourceEnvironment().getLinkingResources__ResourceEnvironment(),
-				board.getAssembly().getAssemblyContexts__ComposedStructure());
+		VulnerabilityHelper.initializeVulnerabilityStorage(board.getVulnerabilitySpecification());
 
 		// Calculate
 		do {
@@ -66,12 +64,13 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 			calculateAndMarkAssemblyPropagation(board);
 
 		} while (this.changePropagationDueToCredential.isChanged());
-
+		
+		VulnerabilityHelperStorage.getInstance().reset();
+		
 		// Clear caches
 		CachePDP.instance().clearCache();
 		CacheCompromised.instance().reset();
 		CacheVulnerability.instance().reset();
-
 	}
 
 	private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
