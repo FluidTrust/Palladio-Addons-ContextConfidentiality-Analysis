@@ -4,12 +4,13 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.ExploitabilityVulnerabilityFilterCriterion;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.ImpactVulnerabilityFilterCriterion;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.InitialCredentialFilterCriterion;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AvailabilityImpact;
+
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 
 public class TravelPlannerTest extends EvaluationTest {
     private static final String VULN = "_CiKb4LM9EeyQ67qz7PIV5Q";
@@ -41,7 +42,8 @@ public class TravelPlannerTest extends EvaluationTest {
         pathsTestHelper(changes, false, true);
     }
 
-    private void areAllPathsThereHelper(final List<AttackPath> paths,
+    private void areAllPathsThereHelper(
+            final List<AttackPath> paths,
             final int maxPathLength, final boolean allowVuln, final boolean allowRootCred) {
         final var pathsString = toString(paths);
         if (allowVuln) {
@@ -102,7 +104,7 @@ public class TravelPlannerTest extends EvaluationTest {
                 Assert.assertEquals(4, paths.size());
                 Assert.assertTrue(paths
                         .stream()
-                        .allMatch(p -> p.getPath().size() <= 3));
+                        .allMatch(p -> p.getAttackpathelement().size() <= 3));
             }
         } else {
             // no vulnerability attacks --> initial credentials necessary

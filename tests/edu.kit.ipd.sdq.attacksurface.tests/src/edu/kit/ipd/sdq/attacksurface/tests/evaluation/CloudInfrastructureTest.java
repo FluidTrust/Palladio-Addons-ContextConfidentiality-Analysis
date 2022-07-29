@@ -9,7 +9,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
     private static final String ROOT_9 = "_VUQ7waOhEeyg1bkezwUNpA";
     private static final String ROOT_10 = "_c06CsaOhEeyg1bkezwUNpA";
     private static final String ROOT_11 = "_gAq0EaOhEeyg1bkezwUNpA";
-    
+
     private static final String VULN_2012 = "cve-2012-3515";
     private static final String VULN_2013 = "cve-2013-4344";
 
@@ -23,23 +23,23 @@ public class CloudInfrastructureTest extends EvaluationTest {
         this.PATH_USAGE = "cloudInfrastructure/newUsageModel.usagemodel";
         this.PATH_RESOURCES = "cloudInfrastructure/newResourceEnvironment.resourceenvironment";
     }
-    
+
+    // Only evaluates whether the generated graph is correct.
     @Test
     public void cloudInfrastructureBaseTest() {
         final var changes = runAnalysisWithoutAttackPathGeneration();
         pathsTestHelper(changes, true, true);
     }
-    
+
+    // Only evaluates whether the generated graph is correct.
     @Test
     public void cloudInfrastructureBaseTestCompleteAnalysis() {
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
         Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
-        
         pathsTestHelper(changes, true, true);
     }
-    
+
     @Test
     public void evaluationTestExample1Test2013() {
         final var changes = runAnalysis();
@@ -52,7 +52,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + "- | Assembly_Target_VM\n"
                 + "VULNs used: " + VULN_2013));
     }
-    
+
     @Test
     public void evaluationTestExample1Test2012() {
         final var changes = runAnalysis();
@@ -65,7 +65,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + "- | Assembly_Target_VM\n"
                 + "VULNs used: " + VULN_2012));
     }
-    
+
     @Test
     public void evaluationTestExample2TestContainer() {
         setCriticalResourceContainer("Storage");
@@ -78,7 +78,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + "- | Storage Device\n"
                 + ROOT + " | Storage Device"));
     }
-    
+
     @Test
     public void evaluationTestExample2TestContComponent() {
         setCriticalAssemblyContext("Stored");
@@ -92,7 +92,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + ROOT + " | Storage Device\n"
                 + "- | Stored VMs"));
     }
-    
+
     @Test
     public void evaluationTestPath1Adapted() {
         setCriticalAssemblyContext("Stored");
@@ -106,7 +106,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + ROOT + " | Storage Device\n"
                 + "- | Stored VMs"));
     }
-    
+
     @Test
     public void evaluationTestPath3HttpToApplication() {
         setCriticalResourceContainer("Application");
@@ -121,7 +121,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + "- | Application VM Server\n"
                 + ROOT_10 + " | Application VM Server"));
     }
-    
+
     @Test
     public void evaluationTestPath3ApplicationToFtp() {
         setCriticalResourceContainer("ftp");
@@ -136,7 +136,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + "- | ftp VM Server\n"
                 + ROOT_9 + " | ftp VM Server"));
     }
-    
+
     @Test
     public void evaluationTestPath4() {
         setCriticalResourceContainer("ftp");
@@ -148,7 +148,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
                 + ROOT_9 + " | ftp VM Server\n"
                 + ROOT_9 + " | ftp VM Server"));
     }
-    
+
     @Test
     public void graphGenerationTest() {
         runAnalysis();

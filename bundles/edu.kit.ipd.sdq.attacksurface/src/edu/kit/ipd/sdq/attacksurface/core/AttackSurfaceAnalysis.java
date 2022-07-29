@@ -2,45 +2,21 @@ package edu.kit.ipd.sdq.attacksurface.core;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackPath;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
-import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
-import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import com.google.common.graph.ImmutableNetwork;
 
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationContext;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.AttackGraphCreation;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationContext;
-import edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes.ResourceContainerPropagationVulnerability;
 import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraphCreation;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.DefaultAttackPathFinder;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
-import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
@@ -49,6 +25,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
  *
  * @author majuwa
  * @author ugnwq
+ * @version 2.0
  */
 //@Component(service = IAttackPropagationAnalysis.class)
 public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
@@ -56,34 +33,6 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     private CredentialChange changes;
 
     private Entity crtitcalEntity;
-
-    private AttackGraph attackGraph;
-
-    /**
-     * Constructor, when {@link #runChangePropagationAnalysis(BlackboardWrapper)} is called.
-     */
-    public AttackSurfaceAnalysis() {
-        this(false, null);
-    }
-
-    /**
-     * Constructor for tests, initializes the initial structure.
-     *
-     * @param doInitialize
-     *            - if the initial structure should be already created
-     * @param modelStorage
-     *            - the model storage
-     */
-    public AttackSurfaceAnalysis(final boolean doInitialize, final BlackboardWrapper modelStorage) {
-        if (doInitialize) {
-            this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-            createInitialStructure(modelStorage);
-        }
-    }
-
-    public AttackSurfaceAnalysis(AttackGraph attackGraph) {
-        this.attackGraph = attackGraph;
-    }
 
     /**
      * Runs the analysis.
@@ -93,6 +42,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
      */
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
+        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+
+
         createInitialStructure(modelStorage);
         var graph = new AttackGraphCreation(modelStorage);
 
@@ -114,65 +66,15 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
 
         createAttackPaths(modelStorage, graph.getGraph());
-        cleanup(modelStorage);
 
     }
 
-    public CredentialChange runAnalysisTest(final BlackboardWrapper modelStorage) {
-        runChangePropagationAnalysis(modelStorage);
-        return this.changes;
-    }
-
-    private void initialize(final BlackboardWrapper modelStorage) {
-        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        createInitialStructure(modelStorage);
-    }
-
-    private void calculate(final BlackboardWrapper modelStorage) {
-        do {
-            this.changes.setChanged(false);
-            this.attackGraph.resetVisitations();
-
-            calculateAndMarkResourcePropagation(modelStorage);
-            calculateAndMarkAssemblyPropagation(modelStorage);
-
-            // TODO later implement calculateAndMarkLinkingPropagation(board);
-        } while (this.changes.isChanged());
-    }
 
     private void createAttackPaths(final BlackboardWrapper modelStorage,
             ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
-        final var allAttackPathsSurface = new DefaultAttackPathFinder(this.attackGraph).findAllAttackPaths(modelStorage,
+        final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage,
                 graph, this.crtitcalEntity);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
-    }
-
-    /*
-     * public for test
-     */
-    public CredentialChange runPropagationWithoutAttackPathCreation(final BlackboardWrapper modelStorage) {
-        initialize(modelStorage);
-        calculate(modelStorage);
-        return this.changes;
-    }
-
-    /*
-     * public for tests
-     */
-    public void cleanup(final BlackboardWrapper modelStorage) {
-        removeReferencedAttacks(modelStorage);
-    }
-
-    /*
-     * remove temporarily created referenced attacks
-     */
-    private void removeReferencedAttacks(final BlackboardWrapper modelStorage) {
-        final var repository = modelStorage.getModificationMarkRepository();
-        final var seedModification = repository.getSeedModifications();
-        final var attackers = seedModification.getSurfaceattackcomponent();
-        final var attacker = attackers.get(0);
-        final var localAttacker = attacker.getAffectedElement();
-        localAttacker.getAttacker().getAttacks().clear();
     }
 
     /**
@@ -194,48 +96,12 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         for (final var pathSurface : allAttackPathsSurface) {
             final var attackPathPath = pathSurface.toAttackPath(modelStorage, this.crtitcalEntity, false);
-            if (!attackPathPath.getPath().isEmpty() && !isFiltered(modelStorage, attackPathPath)
-                    && isLastElementCriticalElement(attackPathPath) && !contains(allPaths, attackPathPath)) {
+            if (!attackPathPath.getAttackpathelement().isEmpty() && !isFiltered(modelStorage, attackPathPath)) {
                 allPaths.add(attackPathPath);
             }
         }
 
         return allPaths;
-    }
-
-    private boolean contains(final List<AttackPath> allPaths, final AttackPath newPath) {
-        return allPaths.stream().anyMatch(p -> isPathEquals(p, newPath));
-    }
-
-    private boolean isPathEquals(AttackPath expected, AttackPath actual) {
-        if (expected.getPath().size() != actual.getPath().size()) {
-            return false;
-        }
-        final var size = expected.getPath().size();
-        for (var i = 0; i < size; i++) {
-            final var sysIntegActual = actual.getPath().get(i);
-            final var actualEntity = PCMElementType.typeOf(sysIntegActual.getPcmelement())
-                    .getEntity(sysIntegActual.getPcmelement());
-            final var sysIntegExpected = expected.getPath().get(i);
-            final var elementEquals = PCMElementType.typeOf(sysIntegExpected.getPcmelement())
-                    .getElementEqualityPredicate(actualEntity).test(sysIntegExpected);
-            if (!elementEquals) {
-                return false;
-            }
-            final var idOfContentEquals = Objects.equals(sysIntegExpected.getIdOfContent(),
-                    sysIntegActual.getIdOfContent());
-            if (!idOfContentEquals) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private boolean isLastElementCriticalElement(final AttackPath attackPath) {
-        final var path = attackPath.getPath();
-        final var lastElement = path.get(path.size() - 1).getPcmelement();
-        final var lastEntity = PCMElementType.typeOf(lastElement).getEntity(lastElement);
-        return lastEntity.getId().equals(this.crtitcalEntity.getId());
     }
 
     private boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
@@ -250,6 +116,8 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         final var criticalPCMElement = localAttacker.getTargetedElement();
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
+
+        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
 //        this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
 //
 //        final var setCredentials = localAttacker.getAttacker().getCredentials().stream().map(CredentialSurface::new)
@@ -260,115 +128,13 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 //        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
 
-    private void convertAffectedElementsToChanges(final SurfaceAttacker localAttacker) {
-        // TODO later add the resulting attack paths
 
-        // convert affectedResources to changes
-        final var affectedRessourcesList = localAttacker.getAttacker().getCompromisedResourceElements().stream()
-                .filter(e -> e.getResourcecontainer() != null).map(ResourceEnvironmentElement::getResourcecontainer)
-                .map(resource -> {
-                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-                    change.setAffectedElement(resource);
-                    return change;
-                }).collect(Collectors.toList());
-        this.changes.getCompromisedresource().addAll(affectedRessourcesList);
 
-        // convert affectedLinkingResources to changes
-        final var affectedLinkingList = localAttacker.getAttacker().getCompromisedResourceElements().stream()
-                .filter(e -> e.getLinkingresource() != null).map(ResourceEnvironmentElement::getLinkingresource)
-                .map(linkingResource -> {
-                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
-                    change.setAffectedElement(linkingResource);
-                    return change;
-                }).collect(Collectors.toList());
-        this.changes.getCompromisedlinkingresource().addAll(affectedLinkingList);
-    }
 
-    private void addAllPossibleAttacks(final BlackboardWrapper board, final SurfaceAttacker localAttacker) {
 
-        var vulnerabilities = board.getVulnerabilitySpecification().getVulnerabilities().stream()
-                .filter(VulnerabilitySystemIntegration.class::isInstance)
-                .map(VulnerabilitySystemIntegration.class::cast).map(VulnerabilitySystemIntegration::getVulnerability)
-                .collect(Collectors.toSet());
-        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities).stream().map(this::toAttack)
-                .flatMap(Set::stream).filter(Objects::nonNull).collect(Collectors.toSet());
-        localAttacker.getAttacker().getAttacks().addAll(attacks);
-    }
 
-    private Set<Attack> toAttack(final Vulnerability vulnerability) {
-        if (vulnerability instanceof CVEVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();
-            final var cveVuln = (CVEVulnerability) vulnerability;
-            final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
-            attack.setCategory(cveVuln.getCveID());
-            attacks.add(attack);
-            return attacks;
-        } else if (vulnerability instanceof CWEBasedVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();
-            final var cweVuln = (CWEBasedVulnerability) vulnerability;
-            for (final var id : cweVuln.getCweID()) {
-                final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
-                attack.setCategory(id);
-                attacks.add(attack);
-            }
-            return attacks;
-        }
-        throw new IllegalArgumentException("unknown vulnerability type");
-    }
 
-    /**
-     * Calculates the propagation starting from {@link AssemblyContext}s. The analyses start from
-     * the critical element and try to calculate back possible attack paths to it.
-     *
-     * @param modelStorage
-     *            - the model storage
-     */
-    private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper modelStorage) {
-        final var list = new ArrayList<AssemblyContextPropagation>();
-        list.add(new AssemblyContextPropagationVulnerability(modelStorage, this.changes, this.attackGraph));
-        list.add(new AssemblyContextPropagationContext(modelStorage, this.changes, this.attackGraph));
-        for (final var analysis : list) {
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToAssemblyContextPropagation);
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToGlobalAssemblyContextPropagation);
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToLocalResourcePropagation);
-            callMethodAfterResettingVisitations(analysis::calculateAssemblyContextToRemoteResourcePropagation);
-            // TODO later to linking
-        }
-    }
 
-    private void callMethodAfterResettingVisitations(final Runnable runnable) {
-        this.attackGraph.resetVisitations();
-        runnable.run();
-    }
 
-    /**
-     * Calculates the propagation starting from {@link ResourceContainer}s. The analyses start from
-     * the critical element and try to calculate back possible attack paths to it.
-     *
-     * @param modelStorage
-     *            - the model storage
-     */
-    private void calculateAndMarkResourcePropagation(final BlackboardWrapper modelStorage) {
-        final var list = new ArrayList<ResourceContainerPropagation>();
-        list.add(new ResourceContainerPropagationVulnerability(modelStorage, this.changes, this.attackGraph));
-        list.add(new ResourceContainerPropagationContext(modelStorage, this.changes, this.attackGraph));
-        for (final var analysis : list) {
-            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToResourcePropagation);
-            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToLocalAssemblyContextPropagation);
-            callMethodAfterResettingVisitations(analysis::calculateResourceContainerToRemoteAssemblyContextPropagation);
-            // TODO later to linking
-        }
-    }
 
-    private void calculateAndMarkLinkingPropagation(BlackboardWrapper modelStorage) {
-        // TODO later implement
-    }
-
-    private List<? extends UsageSpecification> getCredentialIntegrations(BlackboardWrapper modelStorage,
-            Entity target) {
-        return modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
-                .filter(PCMElementType.typeOf(target).getElementEqualityPredicate(target))
-                .filter(CredentialSystemIntegration.class::isInstance).map(CredentialSystemIntegration.class::cast)
-                .map(CredentialSystemIntegration::getCredential).collect(Collectors.toList());
-    }
 }

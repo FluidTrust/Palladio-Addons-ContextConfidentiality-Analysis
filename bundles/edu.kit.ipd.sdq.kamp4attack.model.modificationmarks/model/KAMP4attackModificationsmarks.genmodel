@@ -53,5 +53,12 @@
       <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//DatamodelContainer/datamodelattacker"/>
     </genClasses>
     <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//SurfaceAttackerSelection"/>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//AttackPath">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//AttackPath/credentials"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//AttackPath/targetedElement"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//AttackPath/vulnerabilities"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference KAMP4attackModificationsmarks.ecore#//AttackPath/attackpathelement"/>
+    </genClasses>
+    <genClasses ecoreClass="KAMP4attackModificationsmarks.ecore#//AttackPathElement"/>
   </genPackages>
 </genmodel:GenModel>

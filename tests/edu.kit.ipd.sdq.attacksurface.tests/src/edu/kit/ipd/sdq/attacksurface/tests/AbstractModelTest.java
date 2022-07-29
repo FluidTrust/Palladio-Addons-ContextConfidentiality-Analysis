@@ -1,17 +1,13 @@
 package edu.kit.ipd.sdq.attacksurface.tests;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.Allocation;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
@@ -27,16 +23,12 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.
 import org.palladiosimulator.pcm.confidentiality.context.system.SystemFactory;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.Attribute;
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.AttributeValue;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.DataTypes;
-import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SimpleAttribute;
 import org.palladiosimulator.pcm.confidentiality.context.systemcontext.SystemcontextFactory;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.system.System;
 
-import edu.kit.ipd.sdq.attacksurface.graph.AttackGraph;
-import edu.kit.ipd.sdq.attacksurface.graph.CredentialSurface;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
@@ -63,7 +55,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected KAMP4attackModificationRepository modification;
 
-    private AttackGraph attackGraph;
+//    private AttackGraph attackGraph;
     private CredentialChange changes;
 
     private String pathXACML = "test.xml";
@@ -74,14 +66,14 @@ public abstract class AbstractModelTest extends BaseTest {
                 this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
 
-    protected final AttackGraph getAttackGraph() {
-        return this.attackGraph;
-    }
+//    protected final AttackGraph getAttackGraph() {
+//        return this.attackGraph;
+//    }
 
-    protected final void resetAttackGraphAndChanges() {
-        this.attackGraph = new AttackGraph(getCriticalEntity());
-        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-    }
+//    protected final void resetAttackGraphAndChanges() {
+//        this.attackGraph = new AttackGraph(getCriticalEntity());
+//        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+//    }
 
     protected Entity getCriticalEntity() {
         final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getTargetedElement();
@@ -177,17 +169,15 @@ public abstract class AbstractModelTest extends BaseTest {
         return change;
     }
 
-    protected void addRootAccess() {
-        final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
-                .stream().map(CredentialSurface::new).collect(Collectors.toSet());
-        getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
-    }
+//    protected void addRootAccess() {
+//        final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
+//                .stream().map(CredentialSurface::new).collect(Collectors.toSet());
+//        getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
+//    }
 
     protected void setCriticalResourceContainer(final String namePart) {
         final var newCriticalEntity = this.allocation.getTargetResourceEnvironment_Allocation()
-                .getResourceContainer_ResourceEnvironment()
-                .stream()
-                .filter(r -> r.getEntityName().contains(namePart))
+                .getResourceContainer_ResourceEnvironment().stream().filter(r -> r.getEntityName().contains(namePart))
                 .findFirst().orElse(null);
         if (newCriticalEntity == null) {
             throw new IllegalArgumentException("container " + namePart + " not found");
@@ -198,14 +188,11 @@ public abstract class AbstractModelTest extends BaseTest {
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
         getSurfaceAttacker().setTargetedElement(newCriticalElement);
-        this.attackGraph.setRootForTests(newCriticalEntity);
     }
 
     protected void setCriticalAssemblyContext(final String namePart) {
-        final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure()
-                .stream()
-                .filter(a -> a.getEntityName().contains(namePart))
-                .findFirst().orElse(null);
+        final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure().stream()
+                .filter(a -> a.getEntityName().contains(namePart)).findFirst().orElse(null);
         if (newCriticalEntity == null) {
             throw new IllegalArgumentException("assembly " + namePart + " not found");
         }
@@ -215,7 +202,6 @@ public abstract class AbstractModelTest extends BaseTest {
         systemInteg.setPcmelement(newCriticalElement);
         this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
         getSurfaceAttacker().setTargetedElement(newCriticalElement);
-        this.attackGraph.setRootForTests(newCriticalEntity);
     }
 
     private UsageSpecification getRootCredentials() {
@@ -255,14 +241,14 @@ public abstract class AbstractModelTest extends BaseTest {
 
     @BeforeEach
     public void addAllPossibleAttacks() {
-        var vulnerabilities = this.attacker.getVulnerabilites().getVulnerability();
-        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
-            .stream()
-            .map(this::toAttack)
-            .flatMap(Set::stream)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toSet());
-        getSurfaceAttacker().getAttacker().getAttacks().addAll(attacks);
+//        var vulnerabilities = this.attacker.getVulnerabilites().getVulnerability();
+//        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
+//            .stream()
+//            .map(this::toAttack)
+//            .flatMap(Set::stream)
+//            .filter(Objects::nonNull)
+//            .collect(Collectors.toSet());
+//        getSurfaceAttacker().getAttacker().getAttacks().addAll(attacks);
     }
 
     private Set<Attack> toAttack(final Vulnerability vulnerability) {
@@ -293,6 +279,6 @@ public abstract class AbstractModelTest extends BaseTest {
 
     @BeforeEach
     public void clear() {
-        resetAttackGraphAndChanges();
+//        resetAttackGraphAndChanges();
     }
 }

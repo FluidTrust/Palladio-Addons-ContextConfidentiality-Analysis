@@ -50,8 +50,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="datamodelcontainer" eType="#//DatamodelContainer"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attackpaths" upperBound="-1"
-        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//AttackPath"
-        containment="true"/>
+        eType="#//AttackPath" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="CompromisedResource">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
@@ -96,6 +95,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="SurfaceAttackerSelection">
     <eGenericSuperTypes eClassifier="#//ModifyEntity">
       <eTypeArguments eClassifier="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//SurfaceAttacker"/>
+    </eGenericSuperTypes>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttackPath">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="credentials" upperBound="-1"
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.context/model/context.ecore#//system/UsageSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetedElement" eType="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vulnerabilities" upperBound="-1"
+        eType="ecore:EClass ../../org.palladiosimulator.pcm.confidentiality.attacker/model/attacker.ecore#//attackSpecification/Vulnerability"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attackpathelement" upperBound="-1"
+        eType="#//AttackPathElement" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AttackPathElement">
+    <eGenericSuperTypes eClassifier="#//ModifyEntity">
+      <eTypeArguments eClassifier="ecore:EClass platform:/plugin/org.palladiosimulator.pcm/model/pcm.ecore#//core/entity/Entity"/>
     </eGenericSuperTypes>
   </eClassifiers>
 </ecore:EPackage>

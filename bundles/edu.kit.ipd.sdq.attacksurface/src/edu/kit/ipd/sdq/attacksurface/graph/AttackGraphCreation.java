@@ -1,4 +1,4 @@
-package edu.kit.ipd.sdq.attacksurface.core.changepropagation.changes;
+package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,9 +20,7 @@ import com.google.common.graph.ImmutableNetwork;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
 
-import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
-import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
+import edu.kit.ipd.sdq.attacksurface.core.AttackHandlingHelper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.AssemblyContextPropagation;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagation;
@@ -45,6 +43,9 @@ public class AttackGraphCreation
             if (!AttackVectorHelper.isIncluded(vector, vulnerability.getAttackVector())) {
                 continue;
             }
+            if (!AttackHandlingHelper.notFilteredVulnerability(this.modelStorage, vulnerability)) {
+                continue;
+            }
             var node1 = new ArchitectureNode(rootEntity);
             var node2 = new ArchitectureNode(connectedEntity);
             var edge = new AttackEdge(rootEntity, connectedEntity, vulnerability, null);
@@ -58,11 +59,13 @@ public class AttackGraphCreation
 
         var credentials = getCredentialIntegrations(connectedEntity);
 
-        var node1 = new ArchitectureNode(rootEntity);
-        var node2 = new ArchitectureNode(connectedEntity);
-        var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials);
+        if (!credentials.isEmpty()) {
+            var node1 = new ArchitectureNode(rootEntity);
+            var node2 = new ArchitectureNode(connectedEntity);
+            var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials);
 
-        insertEdge(node1, node2, edge);
+            insertEdge(node1, node2, edge);
+        }
 
     }
 
@@ -93,7 +96,6 @@ public class AttackGraphCreation
     public void calculateAssemblyContextToRemoteResourcePropagation() {
         for (var component : this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
             var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
-
 
             if (CollectionHelper.isGlobalCommunication(component,
                     this.modelStorage.getVulnerabilitySpecification().getVulnerabilities())) {
@@ -186,8 +188,7 @@ public class AttackGraphCreation
 
     }
 
-    private void createGraphEdgesComponents(Entity rootElement,
-            List<AssemblyContext> targetComponents) {
+    private void createGraphEdgesComponents(Entity rootElement, List<AssemblyContext> targetComponents) {
         for (var targetComponent : targetComponents) {
 
             var vulnerabilities = VulnerabilityHelper
@@ -276,8 +277,9 @@ public class AttackGraphCreation
 
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
-        for(var resource: this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
-            var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource), this.modelStorage.getAllocation());
+        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
+            var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource),
+                    this.modelStorage.getAllocation());
             for (var target : targetComponents) {
                 createEdgeImplicit(resource, target, this.modelStorage);
             }

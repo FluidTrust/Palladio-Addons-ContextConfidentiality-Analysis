@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:system="http://www.palladiosimulator.org/pcm/confidentiality/context/systemSpecification/0.1/">
   <changePropagationSteps>
-    <compromisedresource id="_NbdYgNgPEeyHlfE72J9JsA">
+    <compromisedresource id="_8qvC4QdZEe24CO9d-x6pkg">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
     </compromisedresource>
-    <compromisedresource id="_NjxnANgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedresource id="_8u_QwAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
@@ -12,7 +12,7 @@
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedresource>
-    <compromisedresource id="_NkFwENgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedresource id="_8vSLsAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
       <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
@@ -20,32 +20,32 @@
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedresource>
-    <compromisedresource id="_NkzhwNgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedresource id="_8vY5YAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
-      <causingElements href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
+      <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedresource>
-    <compromisedresource id="_Nk6PcNgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedresource id="_8vfnEAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
-      <causingElements href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
+      <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedresource>
-    <compromisedassembly id="_NdCF0NgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8q6pEAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
     </compromisedassembly>
-    <compromisedassembly id="_NfzF8NgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8sZPwAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
       <causingElements href="My.attacker#//@vulnerabilites/@vulnerability.0"/>
     </compromisedassembly>
-    <compromisedassembly id="_NiLEgNgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8tvTkAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
@@ -53,38 +53,38 @@
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedassembly>
-    <compromisedassembly id="_NlIR4NgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8wg6wAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
     </compromisedassembly>
-    <compromisedassembly id="_NlIR4dgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8wg6wQdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
     </compromisedassembly>
-    <compromisedassembly id="_NlIR5tgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8wg6xgdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
     </compromisedassembly>
-    <compromisedassembly id="_NlI48dgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedassembly id="_8wg6yQdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
       <causingElements href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
     </compromisedassembly>
-    <contextchange id="_NbcKYNgPEeyHlfE72J9JsA">
+    <contextchange id="_8qvC4AdZEe24CO9d-x6pkg">
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
     </contextchange>
-    <contextchange id="_NhOpUNgPEeyHlfE72J9JsA" toolderived="true">
+    <contextchange id="_8tIPkAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
       <causingElements href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </contextchange>
-    <contextchange id="_NhP3cNgPEeyHlfE72J9JsA" toolderived="true">
+    <contextchange id="_8tI2oAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </contextchange>
-    <contextchange id="_NhRFkNgPEeyHlfE72J9JsA" toolderived="true">
+    <contextchange id="_8tJdsAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="system:UsageSpecification" href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
       <causingElements href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </contextchange>
-    <compromisedlinkingresource id="_NjU7ENgPEeyHlfE72J9JsA" toolderived="true">
+    <compromisedlinkingresource id="_8ukaAAdZEe24CO9d-x6pkg" toolderived="true">
       <affectedElement xsi:type="resourceenvironment:LinkingResource" href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
       <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
@@ -92,38 +92,38 @@
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedlinkingresource>
-    <compromisedservice id="_NdFwMNgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_NdDT8NgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8q6pEgdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8q6pEQdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
     </compromisedservice>
-    <compromisedservice id="_Nf4lgdgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lgNgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8sZPwgdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPwQdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NiWqstgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lhtgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8t3PYwdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPxwdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlIR49gPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lhNgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8wg6wwdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPxQdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlIR5dgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lhdgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8wg6xQdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPxgdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlI48NgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4liNgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8wg6yAdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPyQdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlI49NgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lgtgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8wg6zAdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPwwdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlI49dgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nf4lg9gPEeyHlfE72J9JsA">
+    <compromisedservice id="_8whh0AdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8sZPxAdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
     </compromisedservice>
-    <compromisedservice id="_NlnaENgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_NkOS8NgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8w5VRAdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8vx68AdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedservice>
-    <compromisedservice id="_NlooMNgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_NkOS8dgPEeyHlfE72J9JsA">
+    <compromisedservice id="_8w5VRQdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8vx68QdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
       <causingElements href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       <causingElements href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
@@ -131,71 +131,71 @@
       <causingElements href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
     </compromisedservice>
     <servicerestrictioncontainer>
-      <servicerestriction id="_NdDT8NgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8q6pEQdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_JCMYQCwjEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
         <service href="powerGrid.repository#_Q-7lUCwjEeylP6vhO63XvA"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lgNgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPwQdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_JCMYQCwjEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_Q-7lUCwjEeylP6vhO63XvA"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lgtgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPwwdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_saFC0C2XEeyiUoiCEbquLw"/>
         <assemblycontext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_ZHSHAC2YEeyiUoiCEbquLw"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lg9gPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPxAdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_rZ_e0C2XEeyiUoiCEbquLw"/>
         <assemblycontext href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_ZIvfkC2YEeyiUoiCEbquLw"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lhNgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPxQdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_OZRFIC2YEeyiUoiCEbquLw"/>
         <assemblycontext href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_xWrqQC2YEeyiUoiCEbquLw"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lhdgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPxgdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_-tEAEC2ZEeyiUoiCEbquLw"/>
         <assemblycontext href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_G-t3wC2bEeyiUoiCEbquLw"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4lhtgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPxwdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_hyv9QCwiEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_xXMikCwiEeylP6vhO63XvA"/>
       </servicerestriction>
-      <servicerestriction id="_Nf4liNgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8sZPyQdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_hyv9QCwiEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_xXMikCwiEeylP6vhO63XvA"/>
       </servicerestriction>
-      <servicerestriction id="_NkOS8NgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8vx68AdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_2pY08CwiEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_B6cScCwjEeylP6vhO63XvA"/>
       </servicerestriction>
-      <servicerestriction id="_NkOS8dgPEeyHlfE72J9JsA">
+      <servicerestriction id="_8vx68QdZEe24CO9d-x6pkg">
         <signature xsi:type="repository:OperationSignature" href="powerGrid.repository#_ecImwCwiEeylP6vhO63XvA"/>
         <assemblycontext href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
         <service href="powerGrid.repository#_9onQ4CwiEeylP6vhO63XvA"/>
       </servicerestriction>
     </servicerestrictioncontainer>
-    <compromiseddata id="_NiWqsNgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_NiVckNgPEeyHlfE72J9JsA">
+    <compromiseddata id="_8t3PYQdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8t3PYAdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
     </compromiseddata>
-    <compromiseddata id="_Nk6PdNgPEeyHlfE72J9JsA" toolderived="true" affectedElement="_Nk6Pc9gPEeyHlfE72J9JsA">
+    <compromiseddata id="_8vfnEwdZEe24CO9d-x6pkg" toolderived="true" affectedElement="_8vfnEgdZEe24CO9d-x6pkg">
       <causingElements href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
     </compromiseddata>
     <datamodelcontainer>
-      <datamodelattacker id="_NiVckNgPEeyHlfE72J9JsA" referenceName="user">
+      <datamodelattacker id="_8t3PYAdZEe24CO9d-x6pkg" referenceName="user">
         <dataType xsi:type="repository:CompositeDataType" href="../simpleAttackmodels/PropagationUnitTests/newRepository.repository#_LIlH0KaeEeuF7tmdK8jWKA"/>
         <source href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
         <method href="powerGrid.repository#_hyv9QCwiEeylP6vhO63XvA"/>
         <context href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
       </datamodelattacker>
-      <datamodelattacker id="_Nk6Pc9gPEeyHlfE72J9JsA" referenceName="user">
+      <datamodelattacker id="_8vfnEgdZEe24CO9d-x6pkg" referenceName="user">
         <dataType xsi:type="repository:CompositeDataType" href="../simpleAttackmodels/PropagationUnitTests/newRepository.repository#_LIlH0KaeEeuF7tmdK8jWKA"/>
         <source href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
         <method href="powerGrid.repository#_hyv9QCwiEeylP6vhO63XvA"/>
