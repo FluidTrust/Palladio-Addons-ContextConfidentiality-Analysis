@@ -2,6 +2,7 @@ package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
@@ -9,6 +10,30 @@ import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecificati
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 public class AttackEdge {
+
+    public final Vulnerability getCause() {
+        return this.cause;
+    }
+
+    public final List<? extends UsageSpecification> getCredentials() {
+        return this.credentials;
+    }
+
+    public final boolean isImplicit() {
+        return this.implicit;
+    }
+
+    public final AttackVector getVector() {
+        return this.vector;
+    }
+
+    public final Entity getRoot() {
+        return this.root;
+    }
+
+    public final Entity getTarget() {
+        return this.target;
+    }
 
     private Vulnerability cause;
     private List<? extends UsageSpecification> credentials;
@@ -21,6 +46,11 @@ public class AttackEdge {
     public AttackEdge(Entity root, Entity target, Vulnerability cause, List<? extends UsageSpecification> credentials,
             boolean implicit,
             AttackVector vector) {
+        if (!implicit && ((cause == null && credentials == null) || (credentials != null && credentials.isEmpty()))) {
+            throw new IllegalArgumentException("cause or credentials required");
+        }
+
+
         this.root = root;
         this.target = target;
         this.cause = cause;
@@ -73,7 +103,16 @@ public class AttackEdge {
 
     @Override
     public String toString() {
-        return "AttackStatusEdge [content="
+        if (this.cause == null) {
+            return "AttackEdge [content="
+                    + this.credentials.stream()
+                            .map(e -> e.getAttribute().getEntityName() + e.getAttributevalue().getValues())
+                            .collect(Collectors.joining(","))
+                    + ", " + this.root.getEntityName()
+                    + " -> "
+                    + this.target.getEntityName() + "]";
+        }
+        return "AttackEdge [content="
                 + this.cause + ", "
                 + this.root.getEntityName() + " -> " + this.target.getEntityName() + "]";
     }

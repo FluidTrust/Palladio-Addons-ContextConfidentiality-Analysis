@@ -46,4 +46,9 @@ public class ArchitectureNode {
         return this.entity;
     }
 
+    @Override
+    public String toString() {
+        return String.format("\"%S%S\"", this.entity.getEntityName(), this.entity.getId());
+    }
+
 }

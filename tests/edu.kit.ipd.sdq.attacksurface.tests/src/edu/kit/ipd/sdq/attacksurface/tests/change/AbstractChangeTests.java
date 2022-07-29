@@ -2,15 +2,11 @@ package edu.kit.ipd.sdq.attacksurface.tests.change;
 
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.junit.Assert;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
@@ -36,14 +32,11 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
-import com.google.common.graph.EndpointPair;
-
 //TODO
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackNodeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -257,24 +250,27 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     protected boolean isInGraph(final Entity entity) {
-        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
-        return node != null;
+//        final var node =
+//        return node != null;
+        return false;
     }
 
     protected void assertCompromisationStatus(final boolean isCompromised, final boolean isAttacked,
             final Entity entity,
             final String causeId) {
-        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
-        if (node != null) {
-            Assert.assertEquals(isCompromised, node.isCompromised());
-            Assert.assertEquals(isAttacked, node.isAttacked());
-            if (causeId != null) {
-                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).stream().anyMatch(i -> Objects.equals(i.getId(), causeId)));
-            }
-        } else {
-            Assert.assertFalse(isAttacked);
-            Assert.assertFalse(isCompromised);
-        }
+//        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
+//        if (node != null) {
+//            Assert.assertEquals(isCompromised, node.isCompromised());
+//            Assert.assertEquals(isAttacked, node.isAttacked());
+//            if (causeId != null) {
+//                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).stream().anyMatch(i -> Objects.equals(i.getId(), causeId)));
+//            }
+//        } else {
+//            Assert.assertFalse(isAttacked);
+//            Assert.assertFalse(isCompromised);
+//        }
+
+        fail();
     }
 
 
@@ -306,38 +302,24 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     protected CredentialChange runAnalysis() {
         generateXML();
         final var modelStorage = getBlackboardWrapper();
-        final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
-        return analysis.runAnalysisTest(modelStorage);
+        final var analysis = new AttackSurfaceAnalysis();
+        analysis.runChangePropagationAnalysis(modelStorage);
+        return this.modification.getChangePropagationSteps().get(0);
     }
 
     protected CredentialChange runAnalysisWithoutAttackPathGeneration() {
-        generateXML();
-        final var modelStorage = getBlackboardWrapper();
-        final var analysis = new AttackSurfaceAnalysis(getAttackGraph());
-        final var ret = analysis.runPropagationWithoutAttackPathCreation(modelStorage);
-        analysis.cleanup(modelStorage);
-        return ret;
+        return runAnalysis();
     }
 
-    protected Set<AttackPathSurface> addAttackLoops(final List<AttackPathSurface> attackPaths,
-            final Entity criticalEntity, final AttackStatusEdgeContent content) {
-        final Set<AttackPathSurface> ret = new HashSet<>(attackPaths);
-        ret.add(new AttackPathSurface(
-                Arrays.asList(toEdge(content, criticalEntity, criticalEntity))));
-        for (final var path : attackPaths) {
-            final var newPath = path.getCopy();
-            newPath.add(toEdge(content, criticalEntity, criticalEntity));
-            ret.add(newPath);
-        }
+    protected AttackEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
+        return new AttackEdge(attacker, attacked, null, null);
 
-        return ret;
-    }
 
-    protected AttackStatusEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
-        return new AttackStatusEdge(content,
-                EndpointPair.ordered(
-                        new AttackNodeContent(attacker),
-                        new AttackNodeContent(attacked)));
+//
+//                AttackStatusEdge(content,
+//                EndpointPair.ordered(
+//                        new AttackNodeContent(attacker),
+//                        new AttackNodeContent(attacked)));
     }
 
     protected void doDebugSysOutExpectedAndUnexpectedPaths(

@@ -21,6 +21,7 @@ Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: lib/xacml-3.1-SNAPSHOT.jar,
  lib/xacml-pdp-3.1-SNAPSHOT.jar,
  lib/jgrapht-guava-1.5.0.jar,
+ lib/jgrapht-io-1.5.1.jar,
  .
 Export-Package: 
  com.att.research.xacml.api,
@@ -52,4 +53,17 @@ Export-Package:
  com.att.research.xacmlatt.pdp.util,
  external_dependencies,
  oasis.names.tc.xacml._3_0.core.schema.wd_17,
- org.jgrapht.graph.guava
+ org.jgrapht.graph.guava,
+ org.jgrapht.io,
+ org.jgrapht.nio,
+ org.jgrapht.nio.csv,
+ org.jgrapht.nio.dimacs,
+ org.jgrapht.nio.dot,
+ org.jgrapht.nio.gexf,
+ org.jgrapht.nio.gml,
+ org.jgrapht.nio.graph6,
+ org.jgrapht.nio.graphml,
+ org.jgrapht.nio.json,
+ org.jgrapht.nio.lemon,
+ org.jgrapht.nio.matrix,
+ org.jgrapht.nio.tsplib

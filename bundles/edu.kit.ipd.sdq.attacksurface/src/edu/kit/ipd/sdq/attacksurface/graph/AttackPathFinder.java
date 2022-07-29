@@ -26,6 +26,6 @@ public interface AttackPathFinder {
      */
 //    List<AttackPathSurface> findAllAttackPaths(final BlackboardWrapper modelStorage, final CredentialChange changes);
 
-    List<AttackPathSurface> findAllAttackPaths(BlackboardWrapper board,
+    List<AttackPathSurface> findAttackPaths(BlackboardWrapper board,
             ImmutableNetwork<ArchitectureNode, AttackEdge> graph, Entity targetedElement);
 }
