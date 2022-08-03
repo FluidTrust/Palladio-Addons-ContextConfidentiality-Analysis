@@ -8,13 +8,12 @@
       <credentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
     </attacker>
     <surfaceattacker id="_DkfZwawlEeyFpqEXJR-5MA" targetedElement="_blIIQKwlEeyFpqEXJR-5MA">
-      <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion"/>
       <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion">
         <prohibitedInitialCredentials href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
         <prohibitedInitialCredentials href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
         <prohibitedInitialCredentials href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
         <prohibitedInitialCredentials href="My.context#_X1iUsC8sEeylPOrRpUZy4w"/>
-        <prohibitedInitialCredentials href="My.context#_sV8AsQwlEe2xL8YGS6FN8A"/>
+        <prohibitedInitialCredentials href="My.context#_F4KloS8rEeylPOrRpUZy4w"/>
       </filtercriteria>
     </surfaceattacker>
   </attackers>
@@ -22,12 +21,7 @@
     <attack xsi:type="attack:CVEAttack" id="_UwN_AC8rEeylPOrRpUZy4w" entityName="BlackEnergy 3" category="_jlZ11AdcEe2WY7eob1o9-g"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" cweID="_jlZ11QdcEe2WY7eob1o9-g" id="cveWithId_CVE-2014-1761" entityName="WordCompromiseICSBackend" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="_jlZ11AdcEe2WY7eob1o9-g">
-      <gainedAttributes href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-      <gainedAttributes href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
-      <gainedAttributes href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
-    </vulnerability>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_k2vh4AdcEe2WY7eob1o9-g" cweID="_jlZ11QdcEe2WY7eob1o9-g"/>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="_jlZ11QdcEe2WY7eob1o9-g" id="cveWithId_CVE-2014-1761" entityName="WordCompromiseICSBackend" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="_jlZ11AdcEe2WY7eob1o9-g"/>
   </vulnerabilites>
   <categoryspecification>
     <categories xsi:type="attack:CVEID" id="_jlZ11AdcEe2WY7eob1o9-g" entityName="Microsoft Word 2003 SP3, 2007 SP3, 2010 SP1 and SP2, 2013, and 2013 RT; Word Viewer; Office Compatibility Pack SP3; Office for Mac 2011; Word Automation Services on SharePoint Server 2010 SP1 and SP2 and 2013; Office Web Apps 2010 SP1 and SP2; and Office Web Apps Server 2013 allow remote attackers to execute arbitrary code or cause a denial of service (memory corruption) via crafted RTF data, as exploited in the wild in March 2014. " cveID="CVE-2014-1761"/>
@@ -85,11 +79,6 @@
         <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
       </pcmelement>
       <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_rsKhkAdcEe2WY7eob1o9-g" vulnerability="_k2vh4AdcEe2WY7eob1o9-g">
-      <pcmelement>
-        <assemblycontext href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
-      </pcmelement>
     </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

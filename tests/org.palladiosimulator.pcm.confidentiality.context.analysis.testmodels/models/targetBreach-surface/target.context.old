@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
   <pcmspecificationcontainer id="_oioC4AyXEeyaBLrK9rfqSA">
-    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_65cpMAyXEeyaBLrK9rfqSA" entityName="AttributeProviderExternalSupplier">
-      <attribute id="_UPJtMAyYEeyaBLrK9rfqSA" entityName="UsageSupplier" attributevalue="_y0IH4AyXEeyaBLrK9rfqSA" attribute="_sd7a0gyXEeyaBLrK9rfqSA"/>
-      <assemblycontext href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
-    </attributeprovider>
-    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_PLK7kDf-Eey5OtKYIVrxdg">
-      <attribute id="_zklkoDf-Eey5OtKYIVrxdg" entityName="DomainAdmin" attributevalue="_w0HX8AyXEeyaBLrK9rfqSA" attribute="_sd7a0gyXEeyaBLrK9rfqSA"/>
-      <assemblycontext href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
-    </attributeprovider>
+    <usagespecification id="_UPJtMAyYEeyaBLrK9rfqSA" entityName="UsageSupplier" attributevalue="_y0IH4AyXEeyaBLrK9rfqSA" attribute="_sd7a0gyXEeyaBLrK9rfqSA"/>
+    <usagespecification id="_zklkoDf-Eey5OtKYIVrxdg" entityName="DomainAdmin" attributevalue="_w0HX8AyXEeyaBLrK9rfqSA" attribute="_sd7a0gyXEeyaBLrK9rfqSA"/>
   </pcmspecificationcontainer>
-  <policyset id="_caMcAQyYEeyaBLrK9rfqSA" entityName="PolicySet - Target" combiningAlgorithm="FIRST_APPLICABLE">
-    <policyset id="_Br-3gAyZEeyZbopQ38PZkA" entityName="Target Business" combiningAlgorithm="FIRST_APPLICABLE">
-      <policy id="_gbmb8QyYEeyaBLrK9rfqSA" entityName="BI-Access" combiningAlgorithm="FIRST_APPLICABLE">
+  <policyset id="_caMcAQyYEeyaBLrK9rfqSA" entityName="PolicySet - Target">
+    <policyset id="_Br-3gAyZEeyZbopQ38PZkA" entityName="Target Business">
+      <policy id="_gbmb8QyYEeyaBLrK9rfqSA" entityName="BI-Access">
         <rule id="_8j_C8AyYEeyZbopQ38PZkA" entityName="Billing">
           <condition xsi:type="SimpleAttributeCondition" id="_TNb8FwyZEeyZbopQ38PZkA" entityName="SupplierCredentialCheck" attribute="_UPJtMAyYEeyaBLrK9rfqSA"/>
           <target>
@@ -24,16 +18,11 @@
               </methodspecification>
             </match>
           </target>
-          <target>
-            <match xsi:type="structure:EntityMatch" id="_9cnY8BMkEe2D-5IdelvJXw">
-              <entity xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
-            </match>
-          </target>
         </rule>
       </policy>
     </policyset>
-    <policyset id="_hblnYDr9EeyaGdbmVfHw9A" entityName="Admin" combiningAlgorithm="FIRST_APPLICABLE">
-      <policy id="_jyyIQTr9EeyaGdbmVfHw9A" entityName="Admin" combiningAlgorithm="FIRST_APPLICABLE">
+    <policyset id="_hblnYDr9EeyaGdbmVfHw9A" entityName="Admin">
+      <policy id="_jyyIQTr9EeyaGdbmVfHw9A" entityName="Admin">
         <rule id="_kYBjUDr9EeyaGdbmVfHw9A" entityName="Admin">
           <condition xsi:type="SimpleAttributeCondition" id="_vjXaZzr9EeyaGdbmVfHw9A" attribute="_zklkoDf-Eey5OtKYIVrxdg"/>
           <target>
@@ -69,7 +58,7 @@
         </rule>
       </policy>
     </policyset>
-    <policy id="_XS8sQTgEEeyQ_oZ5YyVHCg" entityName="DomainAdminDatabase" combiningAlgorithm="FIRST_APPLICABLE">
+    <policy id="_XS8sQTgEEeyQ_oZ5YyVHCg" entityName="DomainAdminDatabase">
       <rule id="_XqfCgDgEEeyQ_oZ5YyVHCg" entityName="Databse">
         <condition xsi:type="SimpleAttributeCondition" id="_rIbgJzr9EeyaGdbmVfHw9A" attribute="_zklkoDf-Eey5OtKYIVrxdg"/>
         <target>

@@ -1,7 +1,186 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
   <changePropagationSteps>
-    
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av8x8BMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av8x8RMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av8x8hMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av8x8xMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av9ZABMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av9ZARMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av-AEBMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-AERMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-AEhMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av-nIBMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-nIRMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av-nIhMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-nIxMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av-nJBMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="target.resourceenvironment#_kVyXkAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-nJRMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av-nJhMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_csC_AAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-nJxMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_AVlSIAshEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av-nKBMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_OMBMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_fUZhUAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_OMRMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_OMhMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_tV4fEAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_OMxMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_Z7_roAshEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_ONBMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_1QBMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_gl3JMAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1QRMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_aGM7EAsiEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1QhMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_1QxMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_X6PkYAsjEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1RBMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_uwgm8AsiEeya1aH-ZcM-RA"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1RRMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#_owpDMApGEeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_1RhMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="target.resourceenvironment#_cIPHUAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1RxMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#_owpDMApGEeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1SBMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+      <vulnerabilities xsi:type="attack:CWEVulnerability" href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      <attackpathelement id="_Av_1SRMlEe2D-5IdelvJXw">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="target.resourceenvironment#_bnkDMAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1ShMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_SZFhcAo9EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Av_1SxMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
+      </attackpathelement>
+      <attackpathelement id="_AwAcUBMlEe2D-5IdelvJXw" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
+        <causingElements href="My.attacker#__G2OAAo3EeyKMtWTxnyP1g"/>
+      </attackpathelement>
+    </attackpaths>
   </changePropagationSteps>
   <seedModifications>
     <attackcomponent id="_2raCQKODEeyPgbGXj7rW7A">
