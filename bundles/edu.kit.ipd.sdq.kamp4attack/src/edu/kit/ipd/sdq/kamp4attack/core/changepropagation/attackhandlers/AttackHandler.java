@@ -96,7 +96,7 @@ public abstract class AttackHandler {
      */
     protected Optional<PDPResult> queryAccessForEntity(final Entity target,
             final List<? extends UsageSpecification> credentials, final Signature signature) {
-        final var listComponent = new LinkedList<>(Arrays.asList(target));
+        final var listTargetEntity = new LinkedList<>(Arrays.asList(target));
         final var listSubject = new ArrayList<UsageSpecification>();
         final var listEnvironment = new ArrayList<UsageSpecification>();
         final var listResource = new ArrayList<UsageSpecification>();
@@ -104,14 +104,14 @@ public abstract class AttackHandler {
         final var listOperation = new ArrayList<UsageSpecification>();
 
         if (signature == null) {
-            PolicyHelper.createRequestAttributes(listComponent, credentials, listSubject, listEnvironment, listResource,
+            PolicyHelper.createRequestAttributes(listTargetEntity, credentials, listSubject, listEnvironment, listResource,
                     listXML);
         } else {
             var result = CachePDP.instance().get(target, signature);
             if (result.isPresent()) {
                 return result;
             }
-            PolicyHelper.createRequestAttributes(signature, listComponent, credentials, listSubject, listEnvironment,
+            PolicyHelper.createRequestAttributes(signature, listTargetEntity, credentials, listSubject, listEnvironment,
                     listResource, listOperation, listXML);
         }
 

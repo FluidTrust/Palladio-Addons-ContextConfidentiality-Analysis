@@ -96,16 +96,12 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         for (final var pathSurface : allAttackPathsSurface) {
             final var attackPathPath = pathSurface.toAttackPath(modelStorage, this.crtitcalEntity, false);
-            if (!attackPathPath.getAttackpathelement().isEmpty() && !isFiltered(modelStorage, attackPathPath)) {
+            if (!attackPathPath.getAttackpathelement().isEmpty()) {
                 allPaths.add(attackPathPath);
             }
         }
 
         return allPaths;
-    }
-
-    private boolean isFiltered(final BlackboardWrapper board, final AttackPath path) {
-        return AttackHandlingHelper.isFiltered(board, path, false);
     }
 
     private void createInitialStructure(BlackboardWrapper board) {

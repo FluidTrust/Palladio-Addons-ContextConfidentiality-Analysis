@@ -1,21 +1,38 @@
 package edu.kit.ipd.sdq.attacksurface.graph;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
 
+import org.eclipse.emf.ecore.EObject;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.AttackVectorHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.CredentialSystemIntegration;
+import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.policy.AllOf;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Apply;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Expression;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Operations;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Policy;
+import org.palladiosimulator.pcm.confidentiality.context.policy.PolicySet;
+import org.palladiosimulator.pcm.confidentiality.context.policy.Rule;
+import org.palladiosimulator.pcm.confidentiality.context.policy.SimpleAttributeCondition;
+import org.palladiosimulator.pcm.confidentiality.context.policy.util.PolicySwitch;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.EntityMatch;
+import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.MethodMatch;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
+import com.att.research.xacmlatt.pdp.policy.Match;
+import com.google.common.collect.Streams;
 import com.google.common.graph.ImmutableNetwork;
 import com.google.common.graph.MutableNetwork;
 import com.google.common.graph.NetworkBuilder;
@@ -29,12 +46,48 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 public class AttackGraphCreation
         implements AssemblyContextPropagation, LinkingPropagation, ResourceContainerPropagation {
 
+    private static final Logger LOGGER = Logger.getLogger(AttackGraphCreation.class.getName());
     private MutableNetwork<ArchitectureNode, AttackEdge> graph;
     private BlackboardWrapper modelStorage;
+    private PolicySet policies;
 
     public AttackGraphCreation(BlackboardWrapper modelStorage) {
         this.graph = NetworkBuilder.directed().allowsParallelEdges(true).build();
         this.modelStorage = modelStorage;
+        if (modelStorage.getSpecification().eContainer() instanceof ConfidentialAccessSpecification policies) {
+            this.policies = policies.getPolicyset();
+
+        } else {
+            throw new IllegalArgumentException("No AccessControl description found");
+        }
+        if (!isValidAccessControll()) {
+            throw new IllegalStateException("Access control files contains unsupported elements");
+        }
+    }
+
+    private boolean isValidAccessControll() {
+        var checkEntityMatch = this.policies.eContents().stream().filter(Match.class::isInstance)
+                .allMatch(this::isCorrectMatchType);
+        if (!checkEntityMatch) {
+            LOGGER.log(Level.SEVERE, "Access Control contains non supported Match Elements");
+        }
+        var checkConditions = this.policies.eContents().stream().filter(Expression.class::isInstance).allMatch(e -> {
+            if (e instanceof Apply apply) {
+                return Objects.equals(apply.getOperation(), Operations.AND);
+            } else if (e instanceof SimpleAttributeCondition condition) {
+                return true;
+            }
+            return false;
+        });
+        if (!checkConditions) {
+            LOGGER.log(Level.SEVERE, "Access Control contains non supported Expression elements");
+        }
+
+        return checkEntityMatch && checkConditions;
+    }
+
+    private boolean isCorrectMatchType(EObject match) {
+        return match instanceof EntityMatch || match instanceof MethodMatch;
     }
 
     private void createEdgeVulnerability(Entity rootEntity, Entity connectedEntity, List<Vulnerability> vulnerabilities,
@@ -62,9 +115,11 @@ public class AttackGraphCreation
         if (!credentials.isEmpty()) {
             var node1 = new ArchitectureNode(rootEntity);
             var node2 = new ArchitectureNode(connectedEntity);
-            var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials);
+            for (var credentialEdge : credentials) {
+                var edge = new AttackEdge(rootEntity, connectedEntity, null, credentialEdge);
 
-            insertEdge(node1, node2, edge);
+                insertEdge(node1, node2, edge);
+            }
         }
 
     }
@@ -75,21 +130,74 @@ public class AttackGraphCreation
 
     private void createEdgeImplicit(Entity rootEntity, Entity connectedEntity, BlackboardWrapper modelStorage) {
 
-        var credentials = getCredentialIntegrations(connectedEntity);
+//        var credentials = getCredentialIntegrations(connectedEntity);
 
         var node1 = new ArchitectureNode(rootEntity);
         var node2 = new ArchitectureNode(connectedEntity);
-        var edge = new AttackEdge(rootEntity, connectedEntity, null, credentials, true, AttackVector.LOCAL);
+//        if (credentials.isEmpty()) {
+            var edge = new AttackEdge(rootEntity, connectedEntity, null, List.of(), true, AttackVector.LOCAL);
 
-        insertEdge(node1, node2, edge);
+            insertEdge(node1, node2, edge);
+//        } else {
+//            for (var credential : credentials) {
+//                var edge = new AttackEdge(rootEntity, connectedEntity, null, credential, true, AttackVector.LOCAL);
+//
+//                insertEdge(node1, node2, edge);
+//            }
+//        }
 
     }
 
-    private List<? extends UsageSpecification> getCredentialIntegrations(Entity target) {
-        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
-                .filter(PCMElementType.typeOf(target).getElementEqualityPredicate(target))
-                .filter(CredentialSystemIntegration.class::isInstance).map(CredentialSystemIntegration.class::cast)
-                .map(CredentialSystemIntegration::getCredential).collect(Collectors.toList());
+    private List<List<UsageSpecification>> getCredentialIntegrations(Entity target) {
+
+        var matches = Streams.stream(this.policies.eAllContents()).filter(AllOf.class::isInstance)
+                .map(AllOf.class::cast)
+                .filter(e -> e.getMatch().size() == 1).flatMap(e -> e.getMatch().stream()).filter(EntityMatch.class::isInstance).map(EntityMatch.class::cast).filter(e-> e.getEntity().getId().equals(target.getId())).toList();
+
+
+
+
+        var switchExpression = new PolicySwitch<List<UsageSpecification>>() {
+            @Override
+            public List<UsageSpecification> caseSimpleAttributeCondition(SimpleAttributeCondition condition) {
+                return List.of(condition.getAttribute());
+            }
+
+            @Override
+            public List<UsageSpecification> caseApply(Apply apply) {
+                return apply.getParameters().stream().flatMap(e -> this.doSwitch(e).stream()).toList();
+            }
+        };
+
+        var policySwitch = new PolicySwitch<List<List<UsageSpecification>>>() {
+
+            @Override
+            public List<List<UsageSpecification>> casePolicySet(PolicySet object) {
+                var policyStream = object.getPolicy().stream().flatMap(e -> this.doSwitch(e).stream());
+                var policySetStream = object.getPolicyset().stream().flatMap(e -> this.doSwitch(e).stream());
+                return Stream.concat(policyStream, policySetStream).toList();
+            }
+
+            @Override
+            public List<List<UsageSpecification>> casePolicy(Policy object) {
+
+                return object.getRule().stream().flatMap(e -> this.doSwitch(e).stream()).toList();
+            }
+
+            @Override
+            public List<List<UsageSpecification>> caseRule(Rule rule) {
+                return List.of(switchExpression.doSwitch(rule.getCondition()));
+            }
+
+        };
+
+        return matches.stream().map(EObject::eContainer).map(EObject::eContainer)
+                .flatMap(e -> policySwitch.doSwitch(e).stream()).toList();
+
+//        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
+//                .filter(PCMElementType.typeOf(target).getElementEqualityPredicate(target))
+//                .filter(CredentialSystemIntegration.class::isInstance).map(CredentialSystemIntegration.class::cast)
+//                .map(CredentialSystemIntegration::getCredential).collect(Collectors.toList());
     }
 
     @Override

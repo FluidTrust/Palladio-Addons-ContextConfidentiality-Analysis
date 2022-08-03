@@ -15,15 +15,15 @@
   </attackers>
   <attacks/>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="__G2OAAo3EeyKMtWTxnyP1g" entityName="Default Password" attackVector="Network" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.0"/>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_owpDMApGEeyKMtWTxnyP1g" entityName="AttackerBusiness" attackVector="Network" takeOver="true" cweID="//@categoryspecification/@categories.3"/>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_66uiMDfyEey5OtKYIVrxdg" entityName="WeakPassword" attackVector="Network" confidentialityImpact="High" takeOver="true" cweID="//@categoryspecification/@categories.2"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="__G2OAAo3EeyKMtWTxnyP1g" entityName="Default Password" confidentialityImpact="High" takeOver="true" cweID="_W5wytxJqEe2ljd52t2IYkQ"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_owpDMApGEeyKMtWTxnyP1g" entityName="AttackerBusiness" takeOver="true" cweID="_W5wyuhJqEe2ljd52t2IYkQ"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_66uiMDfyEey5OtKYIVrxdg" entityName="WeakPassword" confidentialityImpact="High" takeOver="true" cweID="_W5wyuRJqEe2ljd52t2IYkQ"/>
   </vulnerabilites>
   <categoryspecification>
-    <categories xsi:type="attack:CWEID" entityName="Use of Hard-coded Credentials" cweID="798" parents="//@categoryspecification/@categories.1"/>
-    <categories xsi:type="attack:CWEID" entityName="Credentials Management Errors" cweID="255" children="//@categoryspecification/@categories.0 //@categoryspecification/@categories.2"/>
-    <categories xsi:type="attack:CWEID" entityName="Weak Password Requirements" cweID="521" parents="//@categoryspecification/@categories.1"/>
-    <categories xsi:type="attack:CWEID" entityName="Improper Privilege Management" cweID="269"/>
+    <categories xsi:type="attack:CWEID" id="_W5wytxJqEe2ljd52t2IYkQ" entityName="Use of Hard-coded Credentials" cweID="798" parents="_W5wyuBJqEe2ljd52t2IYkQ"/>
+    <categories xsi:type="attack:CWEID" id="_W5wyuBJqEe2ljd52t2IYkQ" entityName="Credentials Management Errors" cweID="255" children="_W5wytxJqEe2ljd52t2IYkQ _W5wyuRJqEe2ljd52t2IYkQ"/>
+    <categories xsi:type="attack:CWEID" id="_W5wyuRJqEe2ljd52t2IYkQ" entityName="Weak Password Requirements" cweID="521" parents="_W5wyuBJqEe2ljd52t2IYkQ"/>
+    <categories xsi:type="attack:CWEID" id="_W5wyuhJqEe2ljd52t2IYkQ" entityName="Improper Privilege Management" cweID="269"/>
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_4Kuy0AprEeyKMtWTxnyP1g" vulnerability="_owpDMApGEeyKMtWTxnyP1g">
@@ -53,7 +53,7 @@
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_iwaTc6ODEeyPgbGXj7rW7A">
       <pcmelement id="_j5rooKODEeyPgbGXj7rW7A">
-        <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
+        <assemblycontext href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
       </pcmelement>
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_RTUWhLDhEeypYcU_Blfkxg">

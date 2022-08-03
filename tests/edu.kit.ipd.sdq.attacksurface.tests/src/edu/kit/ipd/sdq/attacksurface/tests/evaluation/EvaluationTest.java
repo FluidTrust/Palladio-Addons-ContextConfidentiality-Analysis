@@ -1,14 +1,23 @@
 package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.jupiter.api.Assertions;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import de.uka.ipd.sdq.identifier.Identifier;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
+import edu.kit.ipd.sdq.attacksurface.graph.AttackGraphCreation;
 import edu.kit.ipd.sdq.attacksurface.tests.change.AbstractChangeTests;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
@@ -17,8 +26,49 @@ public abstract class EvaluationTest extends AbstractChangeTests {
 
 
 
-    protected void pathsTestHelper(final CredentialChange changes, final boolean isContainerOfRootCompromised,
-            final boolean isSamePathAmountRequired) {
+
+    protected void pathsTestHelper(final CredentialChange changes, Entity targetedEntity) {
+
+        var attackPath = changes.getAttackpaths();
+
+        baseAttackPathTest(attackPath);
+
+        var set = new HashSet<String>();
+        for (var path : attackPath) {
+            var element = path.getAttackpathelement().get(0).getAffectedElement().getId();
+            if (set.contains(element)) {
+                fail("Only one path for each element allowed");
+            }
+            set.add(element);
+        }
+
+        var attackGraphCreation = new AttackGraphCreation(getBlackboardWrapper());
+
+        attackGraphCreation.calculateAssemblyContextToAssemblyContextPropagation();
+        attackGraphCreation.calculateAssemblyContextToGlobalAssemblyContextPropagation();
+        attackGraphCreation.calculateAssemblyContextToLinkingResourcePropagation();
+        attackGraphCreation.calculateAssemblyContextToLocalResourcePropagation();
+        attackGraphCreation.calculateAssemblyContextToRemoteResourcePropagation();
+
+        attackGraphCreation.calculateLinkingResourceToAssemblyContextPropagation();
+        attackGraphCreation.calculateLinkingResourceToResourcePropagation();
+
+        attackGraphCreation.calculateResourceContainerToLinkingResourcePropagation();
+        attackGraphCreation.calculateResourceContainerToLocalAssemblyContextPropagation();
+        attackGraphCreation.calculateResourceContainerToRemoteAssemblyContextPropagation();
+        attackGraphCreation.calculateResourceContainerToResourcePropagation();
+
+        var edges = attackGraphCreation.getGraph().edges();
+
+        if (targetedEntity != null) {
+            Assertions.assertTrue(
+                    attackPath.stream().allMatch(e -> e.getTargetedElement().getId().equals(targetedEntity.getId())));
+        }
+
+        isConnectedPath(attackPath, edges);
+
+
+
 //        final var attacked = getAttackGraph().getAttackedNodes();
 //        final var compromised = getAttackGraph().getCompromisedNodes();
 //        System.out.println("attacked: " + attacked);
@@ -52,6 +102,27 @@ public abstract class EvaluationTest extends AbstractChangeTests {
 //        if (isSamePathAmountRequired) {
 //            Assert.assertEquals(surfacePaths.size(), paths.size());
 //        }
+    }
+
+    private void isConnectedPath(EList<AttackPath> attackPath, Set<AttackEdge> edges) {
+        for (var path : attackPath) {
+            var elements = path.getAttackpathelement();
+            for (var i = 1; i < elements.size(); i++) {
+                var origin = elements.get(i - 1).getAffectedElement();
+                var target = elements.get(i).getAffectedElement();
+
+                Assertions.assertTrue(edges.stream().anyMatch(e -> e.getRoot().getId().equals(origin.getId())
+                        && e.getTarget().getId().equals(target.getId())));
+
+            }
+        }
+    }
+
+    private void baseAttackPathTest(EList<AttackPath> attackPath) {
+        var allMatch = attackPath.stream().allMatch(e -> EcoreUtil
+                .equals(e.getAttackpathelement().get(e.getAttackpathelement().size() - 1).getAffectedElement(),
+                        e.getTargetedElement()));
+        Assertions.assertTrue(allMatch);
     }
 
     protected String toString(

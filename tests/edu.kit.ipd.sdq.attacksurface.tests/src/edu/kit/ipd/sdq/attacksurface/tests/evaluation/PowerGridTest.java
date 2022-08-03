@@ -2,7 +2,10 @@ package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
+import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 
 public class PowerGridTest extends EvaluationTest {
     private static final String ICS_USER = "_lqiu8S8nEeylPOrRpUZy4w";
@@ -24,86 +27,40 @@ public class PowerGridTest extends EvaluationTest {
 
     @Test
     public void powerGridBaseTest() {
+        var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
         final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes, true, true);
+        pathsTestHelper(changes, entity);
     }
 
     @Test
     public void powerGridBaseTestCompleteAnalysis() {
+        var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        Assert.assertEquals(13, pathsDirectlyAfterAnalysis.size());
+        Assert.assertEquals(15, pathsDirectlyAfterAnalysis.size());
 
-        pathsTestHelper(changes, true, true);
+        pathsTestHelper(changes, entity);
     }
 
-    private void testHelperA (final String critical, final String container) {
-        setCriticalAssemblyContext(critical);
+    @Test
+    public void attackScenario() {
+        var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+        var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
+        var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
+        var resource = getBlackboardWrapper().getResourceEnvironment().getResourceContainer_ResourceEnvironment()
+                .stream().filter(e -> e.getEntityName().equals("Workstation01")).findAny();
+        Assertions.assertTrue(resource.isPresent());
+        pcmElement.setResourcecontainer(resource.get());
+        startFilter.getStartResources().add(pcmElement);
+        getSurfaceAttacker().getFiltercriteria().add(startFilter);
+
         final var changes = runAnalysis();
-        final var paths = changes.getAttackpaths();
-        final var pathsString = toString(paths);
-        System.out.println(pathsString);
-        Assert.assertTrue(pathsString.contains("PATH\n"
-                + "- | Workstation02\n"
-                + "- | AssemblyWithVPNRights\n"
-                + VULN + " | AssemblyWithVPNRights\n"
-                + BACKOFFICE_ADMIN + " | " + container +"\n"
-                + "- | " + critical + "\n"
-                + "VULNs used: " + VULN));
+        final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
+
+        Assertions.assertEquals(1, pathsDirectlyAfterAnalysis.size());
+        Assertions.assertEquals(6, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
+        pathsTestHelper(changes, entity);
+
     }
 
-    @Test
-    public void evaluationTestAttackStorageApplicationPath1a() {
-        testHelperA("Assembly_StorageApplication", "DataCenter");
-    }
-
-    @Test
-    public void evaluationTestAttackStorageApplicationPath1b() {
-        setCriticalAssemblyContext("Assembly_StorageApplication");
-        final var changes = runAnalysis();
-        final var paths = changes.getAttackpaths();
-        final var pathsString = toString(paths);
-        Assert.assertTrue(pathsString.contains("PATH\n"
-                + VULN + " | AssemblyWithVPNRights\n"
-                + BACKOFFICE_ADMIN + " | Workstation02\n"
-                + "- | AssemblyWithVPNRights\n"
-                + VULN + " | AssemblyWithVPNRights\n"
-                + BACKOFFICE_ADMIN + " | DataCenter\n"
-                + "- | Assembly_StorageApplication\n"
-                + "VULNs used: " + VULN));
-    }
-
-    @Test
-    public void evaluationTestAttackCallCenterApplicationPath2() {
-        testHelperA("Assembly_CallCenterApplication", "CallCenter");
-    }
-
-
-    @Test
-    public void evaluationTestAttackExtVpnApplicationPath3() {
-        testHelperA("ExternalVPNBridge", "VPNBridgeExternal");
-    }
-
-    @Test
-    public void evaluationTestAttackDMSClientPath4() {
-        setCriticalAssemblyContext("DMSClient");
-        final var changes = runAnalysis();
-        final var paths = changes.getAttackpaths();
-        final var pathsString = toString(paths);
-        Assert.assertTrue(pathsString.contains("PATH\n"
-                + VULN + " | AssemblyWithVPNRights\n"
-                + VULN + " | AssemblyWithVPNRights\n"
-                + VPN_GATEWAY + " | VPNBridge\n"
-                + "- | ICS-VPN-Bridge\n"
-                + ICS_USER + " | DMSClientApplication\n"
-                + "- | Assembly_DMSClientApplication\n"
-                + "VULNs used: " + VULN));
-    }
-
-    @Test
-    public void graphGenerationTest() {
-        runAnalysis();
-        generateGraph(false);
-    }
 }

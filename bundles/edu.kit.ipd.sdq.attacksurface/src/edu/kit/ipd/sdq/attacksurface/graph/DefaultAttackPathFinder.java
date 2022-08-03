@@ -66,7 +66,10 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
             ImmutableNetworkAdapter<ArchitectureNode, AttackEdge> graphAdapter) {
         for (var node : nodes) {
             var paths = (new YenKShortestPath<>(graphAdapter, new CredentialValidator(board))).getPaths(node, rootNode,
-                    5);
+                    1);
+
+//            var paths = new AllDirectedPaths<>(graphAdapter, new CredentialValidator(board)).getAllPaths(node, rootNode,
+//                    false, 200);
 
             for (var path : paths) {
 

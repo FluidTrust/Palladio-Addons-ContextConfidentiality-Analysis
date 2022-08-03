@@ -29,17 +29,19 @@ public class TravelPlannerTest extends EvaluationTest {
 
     @Test
     public void travelplannerBaseTest() {
+        var entity = getSurfaceAttacker().getTargetedElement().getResourcecontainer();
         final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes, false, true);
+        pathsTestHelper(changes, entity);
     }
 
     @Test
     public void travelplannerBaseTestCompleteAnalysis() {
+        var entity = getSurfaceAttacker().getTargetedElement().getResourcecontainer();
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         printPaths(pathsDirectlyAfterAnalysis);
         Assert.assertEquals(8, pathsDirectlyAfterAnalysis.size());
-        pathsTestHelper(changes, false, true);
+        pathsTestHelper(changes, entity);
     }
 
     private void areAllPathsThereHelper(
