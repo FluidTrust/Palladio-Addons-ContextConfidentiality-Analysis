@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
   <pcmspecificationcontainer id="_yA8X8O4NEeuHWuGCDwkq6w">
     <usagespecification id="_sKKUUe4ZEeu1msiU_4h_hw" entityName="rootUsageSpec" attributevalue="_dlTaMO4NEeuHWuGCDwkq6w" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
     <usagespecification id="_RyWUMaOhEeyg1bkezwUNpA" entityName="hypervisorUsageSpec" attributevalue="_4yCRYKOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
@@ -7,7 +7,50 @@
     <usagespecification id="_c06CsaOhEeyg1bkezwUNpA" entityName="root10UsageSpec" attributevalue="_1Ehd0KOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
     <usagespecification id="_gAq0EaOhEeyg1bkezwUNpA" entityName="root11UsageSpec" attributevalue="_2nJHIKOgEeyg1bkezwUNpA" attribute="_aOt44u4NEeuHWuGCDwkq6w"/>
   </pcmspecificationcontainer>
-  <policyset id="_Lmv10O4AEeuUMoY75qRdSg"/>
+  <policyset id="_Lmv10O4AEeuUMoY75qRdSg" entityName="OverallPolicy">
+    <policy id="_DGZ5sRMqEe2TBtDIRt9JBA" entityName="overall">
+      <rule id="_DV5HMBMqEe2TBtDIRt9JBA" entityName="needHypervisorAccess">
+        <condition xsi:type="SimpleAttributeCondition" id="_P-tB1xMqEe2TBtDIRt9JBA" attribute="_RyWUMaOhEeyg1bkezwUNpA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_H4nrgBMqEe2TBtDIRt9JBA">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_RtXjGBMqEe2TBtDIRt9JBA" entityName="need9">
+        <condition xsi:type="SimpleAttributeCondition" id="_aMPM1xMqEe2TBtDIRt9JBA" attribute="_VUQ7waOhEeyg1bkezwUNpA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_Xwe8EBMqEe2TBtDIRt9JBA">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_cV3LwBMqEe2TBtDIRt9JBA" entityName="need10">
+        <condition xsi:type="SimpleAttributeCondition" id="_fR5fFxMqEe2TBtDIRt9JBA" attribute="_c06CsaOhEeyg1bkezwUNpA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_hzX9UBMqEe2TBtDIRt9JBA">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_lp7_MBMqEe2TBtDIRt9JBA" entityName="need11">
+        <condition xsi:type="SimpleAttributeCondition" id="_nT9RBxMqEe2TBtDIRt9JBA" attribute="_gAq0EaOhEeyg1bkezwUNpA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_px1BoBMqEe2TBtDIRt9JBA">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_rYKGSBMqEe2TBtDIRt9JBA" entityName="needRoot">
+        <condition xsi:type="SimpleAttributeCondition" id="_tvNdNxMqEe2TBtDIRt9JBA" attribute="_sKKUUe4ZEeu1msiU_4h_hw"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_w0M4MBMqEe2TBtDIRt9JBA">
+            <entity xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_ykNE4KOaEeyg1bkezwUNpA"/>
+          </match>
+        </target>
+      </rule>
+    </policy>
+  </policyset>
   <attributes>
     <attribute xsi:type="systemcontext:SimpleAttribute" id="_aOt44u4NEeuHWuGCDwkq6w" entityName="Role">
       <attributevalue id="_bc-bwO4NEeuHWuGCDwkq6w">

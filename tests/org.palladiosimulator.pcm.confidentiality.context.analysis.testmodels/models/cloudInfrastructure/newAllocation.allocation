@@ -14,4 +14,12 @@
     <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
     <assemblyContext_AllocationContext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
   </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_C1nhEKOfEeyg1bkezwUNpA" entityName="Allocation_Stored VMs">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_ykNE4KOaEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_LHS40KOeEeyg1bkezwUNpA"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_DsKukKOfEeyg1bkezwUNpA" entityName="Allocation_Assembly_Hypervisor">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>
