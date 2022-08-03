@@ -28,16 +28,18 @@ public class CloudInfrastructureTest extends EvaluationTest {
     @Test
     public void cloudInfrastructureBaseTest() {
         final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes, true, true);
+        pathsTestHelper(changes, null);
     }
 
     // Only evaluates whether the generated graph is correct.
     @Test
     public void cloudInfrastructureBaseTestCompleteAnalysis() {
+        final var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
-        pathsTestHelper(changes, true, true);
+        pathsTestHelper(changes, entity);
     }
 
     @Test
