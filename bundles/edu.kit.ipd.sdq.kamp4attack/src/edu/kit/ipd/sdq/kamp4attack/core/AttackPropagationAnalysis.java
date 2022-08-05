@@ -7,8 +7,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
-import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelperStorage;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -16,6 +14,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.AssemblyContextHandler;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changeStorages.*;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationContext;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.AssemblyContextPropagationVulnerability;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.LinkingPropagationContext;
@@ -50,10 +49,11 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 		CacheCompromised.instance().reset();
 		CacheVulnerability.instance().reset();
 		CacheCompromised.instance().register(this.changePropagationDueToCredential);
+		
+		resetHashMaps();
 		// prepare
 
 		createInitialStructure(board);
-
 		VulnerabilityHelper.initializeVulnerabilityStorage(board.getVulnerabilitySpecification());
 
 		// Calculate
@@ -65,12 +65,22 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
 		} while (this.changePropagationDueToCredential.isChanged());
 		
-		VulnerabilityHelperStorage.getInstance().reset();
-		
 		// Clear caches
 		CachePDP.instance().clearCache();
 		CacheCompromised.instance().reset();
 		CacheVulnerability.instance().reset();
+
+		VulnerabilityHelper.resetMap();
+		resetHashMaps();
+	}
+	
+	private void resetHashMaps() {
+		ChangeLinkingResourcesStorage.getInstance().reset();
+		AssemblyContextChangeIsGlobalStorage.getInstance().reset();
+		AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();
+		AssemblyContextChangeResourceContainerStorage.getInstance().reset();
+		AssemblyContextChangeAssemblyContextsStorage.getInstance().reset();	
+		ResourceContainerChangeAssemblyContextsStorage.getInstance().reset();
 	}
 
 	private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {

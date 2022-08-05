@@ -11,6 +11,7 @@ import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
+import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changeStorages.ChangeLinkingResourcesStorage;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 public abstract class Change<T> {
@@ -22,7 +23,6 @@ public abstract class Change<T> {
     public Change(final BlackboardWrapper v, CredentialChange change) {
         this.modelStorage = v;
         this.changes = change;
-
     }
 
     protected void updateFromContextProviderStream(final CredentialChange changes,
@@ -58,11 +58,19 @@ public abstract class Change<T> {
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
-        final var resourceEnvironment = this.modelStorage.getResourceEnvironment();
-        return resourceEnvironment.getLinkingResources__ResourceEnvironment().parallelStream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
-                        .anyMatch(f -> EcoreUtil.equals(f, container)))
-                .collect(Collectors.toList());
+    	var storage = ChangeLinkingResourcesStorage.getInstance();
+		
+		//Uses a HashMap to store results, to avoid recalculation and improve performance    	
+    	if (!storage.contains(container.getId())) {
+    		final var resourceEnvironment = this.modelStorage.getResourceEnvironment();
+            var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment().parallelStream()
+                    .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
+                            .anyMatch(f -> EcoreUtil.equals(f, container)))
+                    .collect(Collectors.toList());
+    		storage.put(container.getId(), linkingResourcesList);
+    	}
+    	
+    	return storage.get(container.getId());
     }
 
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
