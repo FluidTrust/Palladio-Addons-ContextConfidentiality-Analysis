@@ -2,24 +2,4 @@
 <allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_klAj8O6IEeqE7MyXYeeR9A" entityName="New Allocation">
   <targetResourceEnvironment_Allocation href="newResourceEnvironment.resourceenvironment#/"/>
   <system_Allocation href="newAssembly.system#_PgGLUO26Eeq-yNCPvHsSJQ"/>
-  <allocationContexts_Allocation id="_-dfqQKOeEeyg1bkezwUNpA" entityName="Allocation_Assembly_Target_VM">
-    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
-    <assemblyContext_AllocationContext href="newAssembly.system#_yXY0EKOeEeyg1bkezwUNpA"/>
-  </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="__0wYIKOeEeyg1bkezwUNpA" entityName="Allocation_Assembly_Source_VM">
-    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
-    <assemblyContext_AllocationContext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
-  </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="_AptDIKOfEeyg1bkezwUNpA" entityName="Allocation_Assembly_DBVM">
-    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
-    <assemblyContext_AllocationContext href="newAssembly.system#_YW6UwKOeEeyg1bkezwUNpA"/>
-  </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="_C1nhEKOfEeyg1bkezwUNpA" entityName="Allocation_Stored VMs">
-    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_ykNE4KOaEeyg1bkezwUNpA"/>
-    <assemblyContext_AllocationContext href="newAssembly.system#_LHS40KOeEeyg1bkezwUNpA"/>
-  </allocationContexts_Allocation>
-  <allocationContexts_Allocation id="_DsKukKOfEeyg1bkezwUNpA" entityName="Allocation_Assembly_Hypervisor">
-    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
-    <assemblyContext_AllocationContext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
-  </allocationContexts_Allocation>
 </allocation:Allocation>

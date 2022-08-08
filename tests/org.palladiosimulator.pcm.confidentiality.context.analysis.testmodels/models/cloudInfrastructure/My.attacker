@@ -70,7 +70,7 @@
     </vulnerabilities>
     <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_U4FEIKOjEeyg1bkezwUNpA" entityName="source vuln" vulnerability="cve-2012-3515">
       <pcmelement id="_W0HTAKOjEeyg1bkezwUNpA">
-        <assemblycontext href="newAssembly.system#_uBX2EKOeEeyg1bkezwUNpA"/>
+        <assemblycontext href="newAssembly.system#_P0u4UKOeEeyg1bkezwUNpA"/>
       </pcmelement>
     </vulnerabilities>
   </systemintegration>

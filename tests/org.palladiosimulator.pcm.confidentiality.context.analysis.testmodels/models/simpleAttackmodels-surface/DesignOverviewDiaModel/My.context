@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/">
   <pcmspecificationcontainer id="_1bBdIFQeEeyHi5CLrg7hvA">
     <usagespecification id="_fmYV4VWvEeyAu8-8Lz7_vA" entityName="root usage spec" attributevalue="_FOr7wFUzEey1v6YwDRIdig" attribute="_33db8lUyEey1v6YwDRIdig"/>
     <usagespecification id="_EydQAVmXEeyYJNGe-i7GBA" entityName="maintenance usage spec" attributevalue="_9cg_8FUyEey1v6YwDRIdig" attribute="_33db8lUyEey1v6YwDRIdig"/>
@@ -11,6 +11,22 @@
         <target>
           <match xsi:type="structure:EntityMatch" id="_NVDwYGViEey7zYgrwQykTA" entityName="critical rc">
             <entity xsi:type="resourceenvironment:ResourceContainer" href="My.resourceenvironment#_GAeeUCpXEeKNWc2UWjbmuw"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_WlqPyBbwEe21mbHPjUe6Eg" entityName="LinkingResource">
+        <condition xsi:type="SimpleAttributeCondition" id="_X2BEZxbwEe21mbHPjUe6Eg" attribute="_fmYV4VWvEeyAu8-8Lz7_vA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_Zgvg0BbwEe21mbHPjUe6Eg">
+            <entity xsi:type="resourceenvironment:LinkingResource" href="My.resourceenvironment#_uvnMAFBjEeyGXqZbGaQ79w"/>
+          </match>
+        </target>
+      </rule>
+      <rule id="_73ANGBb1Ee21mbHPjUe6Eg" entityName="Assembly">
+        <condition xsi:type="SimpleAttributeCondition" id="_Ac3k9xb2Ee21mbHPjUe6Eg" attribute="_fmYV4VWvEeyAu8-8Lz7_vA"/>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_B2S2ABb2Ee21mbHPjUe6Eg">
+            <entity xsi:type="composition:AssemblyContext" href="My.system#_9c3KwCHcEd6lJo4DCALHMw"/>
           </match>
         </target>
       </rule>

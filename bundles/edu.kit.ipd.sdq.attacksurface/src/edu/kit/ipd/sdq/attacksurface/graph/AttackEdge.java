@@ -4,11 +4,17 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.context.system.UsageSpecification;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
+/**
+ *
+ * @author majuwa
+ *
+ */
 public class AttackEdge {
 
     public final Vulnerability getCause() {
@@ -54,7 +60,7 @@ public class AttackEdge {
         this.root = root;
         this.target = target;
         this.cause = cause;
-        this.credentials = credentials;
+        this.credentials = credentials == null ? List.of() : credentials;
         this.implicit = implicit;
         this.vector = vector;
     }
@@ -89,16 +95,20 @@ public class AttackEdge {
         var other = (AttackEdge) obj;
 
         if (this.cause == null && other.cause == null) {
-            return Objects.equals(this.credentials, other.credentials) && this.implicit == other.implicit
-                    && this.vector == other.vector && Objects.equals(this.root.getId(), this.target.getId());
+            return checkComparision(other);
         }
 
         else if (this.cause != null && other.cause != null) {
-            return Objects.equals(this.cause.getId(), other.cause.getId())
-                    && Objects.equals(this.credentials, other.credentials) && this.implicit == other.implicit
-                    && this.vector == other.vector && Objects.equals(this.root.getId(), this.target.getId());
+            return Objects.equals(this.cause.getId(), other.cause.getId()) && checkComparision(other);
+
         }
         return false;
+    }
+
+    private boolean checkComparision(AttackEdge other) {
+        return EcoreUtil.equals(this.credentials, other.credentials) && this.implicit == other.implicit
+                && Objects.equals(this.vector, other.vector) && Objects.equals(this.root.getId(), other.root.getId())
+                && Objects.equals(this.target.getId(), other.getTarget().getId());
     }
 
     @Override
