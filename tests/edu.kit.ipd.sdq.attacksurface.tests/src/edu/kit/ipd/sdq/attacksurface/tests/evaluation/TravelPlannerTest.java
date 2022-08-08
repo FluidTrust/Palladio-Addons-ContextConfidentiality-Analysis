@@ -3,6 +3,7 @@ package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.ExploitabilityVulnerabilityFilterCriterion;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.ImpactVulnerabilityFilterCriterion;
@@ -12,6 +13,7 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 
+@Disabled
 public class TravelPlannerTest extends EvaluationTest {
     private static final String VULN = "_CiKb4LM9EeyQ67qz7PIV5Q";
     private static final String CRED_ROOT = "_aOs_IbM8EeyQ67qz7PIV5Q";

@@ -11,7 +11,7 @@
     <semanticResources>pathmap://PCM_MODELS/FailureTypes.repository</semanticResources>
     <ownedViews xmi:type="viewpoint:DView" uid="_bAuBgFBNEey9m9xMk3XtsA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bBSCMFBNEey9m9xMk3XtsA" name="ResourceEnvironment Diagram" repPath="#_bAv2sFBNEey9m9xMk3XtsA" changeId="561d3ba8-cd52-4bd4-91bb-7d519ecd509d">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bBSCMFBNEey9m9xMk3XtsA" name="ResourceEnvironment Diagram" repPath="#_bAv2sFBNEey9m9xMk3XtsA" changeId="4b3f5cb1-0b38-4d16-bb9e-7e12ba8e3a2d">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']"/>
         <target xmi:type="resourceenvironment:ResourceEnvironment" href="My.resourceenvironment#/"/>
       </ownedRepresentationDescriptors>
@@ -40,14 +40,14 @@
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" uid="_bLK-AFBNEey9m9xMk3XtsA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bLoRAFBNEey9m9xMk3XtsA" name="Allocation Diagram" repPath="#_bLnC4FBNEey9m9xMk3XtsA" changeId="6b13c815-93f1-42ff-94b8-37f3c73b8421">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bLoRAFBNEey9m9xMk3XtsA" name="Allocation Diagram" repPath="#_bLnC4FBNEey9m9xMk3XtsA" changeId="045f2434-a897-42ca-9244-4d492b6a6dbe">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.allocation/description/allocation.odesign#//@ownedViewpoints[name='Allocation']/@ownedRepresentations[name='Allocation%20Diagram']"/>
         <target xmi:type="allocation:Allocation" href="My.allocation#_JiPBICHdEd6lJo4DCALHMw"/>
       </ownedRepresentationDescriptors>
     </ownedViews>
     <ownedViews xmi:type="viewpoint:DView" uid="_bQXnEFBNEey9m9xMk3XtsA">
       <viewpoint xmi:type="description:Viewpoint" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']"/>
-      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bRS0IFBNEey9m9xMk3XtsA" name="Assembly Diagram" repPath="#_bRJqMFBNEey9m9xMk3XtsA" changeId="37d01d4d-5fe3-47c4-8e30-5e7ca51222b0">
+      <ownedRepresentationDescriptors xmi:type="viewpoint:DRepresentationDescriptor" uid="_bRS0IFBNEey9m9xMk3XtsA" name="Assembly Diagram" repPath="#_bRJqMFBNEey9m9xMk3XtsA" changeId="5db635e7-3312-42d8-bc1b-1e74654fc0e5">
         <description xmi:type="description_1:DiagramDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']"/>
         <target xmi:type="system:System" href="My.system#_84D0kCHcEd6lJo4DCALHMw"/>
       </ownedRepresentationDescriptors>
@@ -111,78 +111,78 @@
               <styles xmi:type="notation:ShapeStyle" xmi:id="_mVe7gVBnEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
               <layoutConstraint xmi:type="notation:Bounds" xmi:id="_mVe7glBnEeyFsrOVaGVGfg" x="270" y="29"/>
             </children>
-            <children xmi:type="notation:Node" xmi:id="_dk-6QIdREeySaramUV8Qvg" type="3009" element="_dkhAModREeySaramUV8Qvg">
-              <children xmi:type="notation:Node" xmi:id="_dlB9kIdREeySaramUV8Qvg" type="5004"/>
-              <children xmi:type="notation:Node" xmi:id="_dlCkoIdREeySaramUV8Qvg" type="7003">
-                <children xmi:type="notation:Node" xmi:id="_dlDLsIdREeySaramUV8Qvg" type="3010" element="_dkjccIdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlDLsYdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlDLsodREeySaramUV8Qvg"/>
+            <children xmi:type="notation:Node" xmi:id="_xoBp4BbwEe21mbHPjUe6Eg" type="3009" element="_xnkW4RbwEe21mbHPjUe6Eg">
+              <children xmi:type="notation:Node" xmi:id="_xoKz0BbwEe21mbHPjUe6Eg" type="5004"/>
+              <children xmi:type="notation:Node" xmi:id="_xoLa4BbwEe21mbHPjUe6Eg" type="7003">
+                <children xmi:type="notation:Node" xmi:id="_xoOeMBbwEe21mbHPjUe6Eg" type="3010" element="_xnllARbwEe21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_xoOeMRbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_xoOeMhbwEe21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlDLs4dREeySaramUV8Qvg" type="3010" element="_dkkqkYdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlDLtIdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlDLtYdREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_xoOeMxbwEe21mbHPjUe6Eg" type="3010" element="_xnnaMBbwEe21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_xoOeNBbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_xoOeNRbwEe21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlDywIdREeySaramUV8Qvg" type="3010" element="_dkl4sIdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlDywYdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlDywodREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_xoOeNhbwEe21mbHPjUe6Eg" type="3010" element="_xnoBQBbwEe21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_xoOeNxbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_xoOeOBbwEe21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlDyw4dREeySaramUV8Qvg" type="3010" element="_dknG0IdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlDyxIdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlDyxYdREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_xoPFQBbwEe21mbHPjUe6Eg" type="3010" element="_xnooURbwEe21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_xoPFQRbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_xoPFQhbwEe21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlDyxodREeySaramUV8Qvg" type="3010" element="_dknt4YdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlDyx4dREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlDyyIdREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_xoPFQxbwEe21mbHPjUe6Eg" type="3010" element="_xnp2cBbwEe21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_xoPFRBbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_xoPFRRbwEe21mbHPjUe6Eg"/>
                 </children>
-                <styles xmi:type="notation:SortingStyle" xmi:id="_dlCkoYdREeySaramUV8Qvg"/>
-                <styles xmi:type="notation:FilteringStyle" xmi:id="_dlCkoodREeySaramUV8Qvg"/>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_xoLa4RbwEe21mbHPjUe6Eg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_xoLa4hbwEe21mbHPjUe6Eg"/>
               </children>
-              <styles xmi:type="notation:ShapeStyle" xmi:id="_dk-6QYdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dk-6QodREeySaramUV8Qvg" x="30" y="29"/>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_xoBp4RbwEe21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xoBp4hbwEe21mbHPjUe6Eg" x="-42" y="-134"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_bFksUlBNEey9m9xMk3XtsA"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_bFksU1BNEey9m9xMk3XtsA"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_bFiQEVBNEey9m9xMk3XtsA" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFiQElBNEey9m9xMk3XtsA" x="30" y="30" width="463" height="268"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bFiQElBNEey9m9xMk3XtsA" x="42" y="-7" width="463" height="268"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_hcDrQFBjEeyGXqZbGaQ79w" type="2002" element="_hYWP8FBjEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_hcDrQ1BjEeyGXqZbGaQ79w" type="5006"/>
           <children xmi:type="notation:Node" xmi:id="_hcDrRFBjEeyGXqZbGaQ79w" type="7001">
-            <children xmi:type="notation:Node" xmi:id="_dlEZ0IdREeySaramUV8Qvg" type="3009" element="_dksmYIdREeySaramUV8Qvg">
-              <children xmi:type="notation:Node" xmi:id="_dlEZ04dREeySaramUV8Qvg" type="5004"/>
-              <children xmi:type="notation:Node" xmi:id="_dlFA4IdREeySaramUV8Qvg" type="7003">
-                <children xmi:type="notation:Node" xmi:id="_dlFA44dREeySaramUV8Qvg" type="3010" element="_dktNcIdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlFA5IdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlFA5YdREeySaramUV8Qvg"/>
+            <children xmi:type="notation:Node" xmi:id="_c8eRwBb5Ee21mbHPjUe6Eg" type="3009" element="_c8RdcBb5Ee21mbHPjUe6Eg">
+              <children xmi:type="notation:Node" xmi:id="_c8eRwxb5Ee21mbHPjUe6Eg" type="5004"/>
+              <children xmi:type="notation:Node" xmi:id="_c8e40Bb5Ee21mbHPjUe6Eg" type="7003">
+                <children xmi:type="notation:Node" xmi:id="_c8e40xb5Ee21mbHPjUe6Eg" type="3010" element="_c8SEgBb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8e41Bb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8e41Rb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlFA5odREeySaramUV8Qvg" type="3010" element="_dkt0gIdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlFA54dREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlFA6IdREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8e41hb5Ee21mbHPjUe6Eg" type="3010" element="_c8SEghb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8e41xb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8e42Bb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlFn8IdREeySaramUV8Qvg" type="3010" element="_dkubkIdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlFn8YdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlFn8odREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8ff4Bb5Ee21mbHPjUe6Eg" type="3010" element="_c8SrkBb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8ff4Rb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8ff4hb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlFn84dREeySaramUV8Qvg" type="3010" element="_dkubkodREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlFn9IdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlFn9YdREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8ff4xb5Ee21mbHPjUe6Eg" type="3010" element="_c8Srkhb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8ff5Bb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8ff5Rb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_dlGPAIdREeySaramUV8Qvg" type="3010" element="_dkvCoYdREeySaramUV8Qvg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_dlGPAYdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_dlGPAodREeySaramUV8Qvg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8ff5hb5Ee21mbHPjUe6Eg" type="3010" element="_c8TSoBb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8ff5xb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8ff6Bb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <styles xmi:type="notation:SortingStyle" xmi:id="_dlFA4YdREeySaramUV8Qvg"/>
-                <styles xmi:type="notation:FilteringStyle" xmi:id="_dlFA4odREeySaramUV8Qvg"/>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_c8e40Rb5Ee21mbHPjUe6Eg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_c8e40hb5Ee21mbHPjUe6Eg"/>
               </children>
-              <styles xmi:type="notation:ShapeStyle" xmi:id="_dlEZ0YdREeySaramUV8Qvg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dlEZ0odREeySaramUV8Qvg" x="30" y="31"/>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_c8eRwRb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_c8eRwhb5Ee21mbHPjUe6Eg"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_hcDrRVBjEeyGXqZbGaQ79w"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_hcDrRlBjEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_hcDrQVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hcDrQlBjEeyGXqZbGaQ79w" x="765" y="303" width="293" height="178"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hcDrQlBjEeyGXqZbGaQ79w" x="1113" y="392" width="293" height="178"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_u0GqcFBjEeyGXqZbGaQ79w" type="2002" element="_uvsEgFBjEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_u0Gqc1BjEeyGXqZbGaQ79w" type="5006"/>
@@ -213,7 +213,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_u0GqdlBjEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_u0GqcVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_u0GqclBjEeyGXqZbGaQ79w" x="305" y="380"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_u0GqclBjEeyGXqZbGaQ79w" x="273" y="651"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_f1Yy8FBkEeyGXqZbGaQ79w" type="2002" element="_f1VIl1BkEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_f1Yy81BkEeyGXqZbGaQ79w" type="5006"/>
@@ -251,7 +251,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_f1Yy9lBkEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_f1Yy8VBkEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f1Yy8lBkEeyGXqZbGaQ79w" x="570" y="55" width="268" height="153"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f1Yy8lBkEeyGXqZbGaQ79w" x="552" y="-42" width="268" height="153"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_A73EkFBlEeyGXqZbGaQ79w" type="2002" element="_A305IFBlEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_A73Ek1BlEeyGXqZbGaQ79w" type="5006"/>
@@ -282,7 +282,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_A73EllBlEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_A73EkVBlEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_A73EklBlEeyGXqZbGaQ79w" x="970" y="15"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_A73EklBlEeyGXqZbGaQ79w" x="1879" y="-84"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_y_64sFBlEeyFsrOVaGVGfg" type="2002" element="_y38ocFBlEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_y_7fwFBlEeyFsrOVaGVGfg" type="5006"/>
@@ -313,7 +313,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_y_7fw1BlEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_y_64sVBlEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y_64slBlEeyFsrOVaGVGfg" x="1205" y="303"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_y_64slBlEeyFsrOVaGVGfg" x="2016" y="273"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_0IKTIFBlEeyFsrOVaGVGfg" type="2002" element="_0BgRgFBlEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_0IK6MFBlEeyFsrOVaGVGfg" type="5006"/>
@@ -322,7 +322,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_0IK6M1BlEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_0IKTIVBlEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0IKTIlBlEeyFsrOVaGVGfg" x="895" y="160" height="100"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0IKTIlBlEeyFsrOVaGVGfg" x="763" y="196" height="100"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_BdvNIFBmEeyFsrOVaGVGfg" type="2002" element="_Bc3DYFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_Bdv0MFBmEeyFsrOVaGVGfg" type="5006"/>
@@ -331,45 +331,45 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_Bdv0M1BmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_BdvNIVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BdvNIlBmEeyFsrOVaGVGfg" x="1020" y="554" height="100"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BdvNIlBmEeyFsrOVaGVGfg" x="1113" y="700" height="100"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_Klqa8FBmEeyFsrOVaGVGfg" type="2002" element="_KlA6sFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_Klqa81BmEeyFsrOVaGVGfg" type="5006"/>
           <children xmi:type="notation:Node" xmi:id="_Klqa9FBmEeyFsrOVaGVGfg" type="7001">
-            <children xmi:type="notation:Node" xmi:id="_NW4lYFBmEeyFsrOVaGVGfg" type="3009" element="_NWsYIlBmEeyFsrOVaGVGfg">
-              <children xmi:type="notation:Node" xmi:id="_NW5McFBmEeyFsrOVaGVGfg" type="5004"/>
-              <children xmi:type="notation:Node" xmi:id="_NW5McVBmEeyFsrOVaGVGfg" type="7003">
-                <children xmi:type="notation:Node" xmi:id="_NW5MdFBmEeyFsrOVaGVGfg" type="3010" element="_NWs_MFBmEeyFsrOVaGVGfg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_NW5MdVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_NW5MdlBmEeyFsrOVaGVGfg"/>
+            <children xmi:type="notation:Node" xmi:id="_c8gG8Bb5Ee21mbHPjUe6Eg" type="3009" element="_c8WV8Bb5Ee21mbHPjUe6Eg">
+              <children xmi:type="notation:Node" xmi:id="_c8gG8xb5Ee21mbHPjUe6Eg" type="5004"/>
+              <children xmi:type="notation:Node" xmi:id="_c8gG9Bb5Ee21mbHPjUe6Eg" type="7003">
+                <children xmi:type="notation:Node" xmi:id="_c8gG9xb5Ee21mbHPjUe6Eg" type="3010" element="_c8WV8xb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8gG-Bb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8gG-Rb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_NW5Md1BmEeyFsrOVaGVGfg" type="3010" element="_NWs_MlBmEeyFsrOVaGVGfg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_NW5MeFBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_NW5MeVBmEeyFsrOVaGVGfg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8gG-hb5Ee21mbHPjUe6Eg" type="3010" element="_c8WV9Rb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8gG-xb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8gG_Bb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_NW5MelBmEeyFsrOVaGVGfg" type="3010" element="_NWs_NFBmEeyFsrOVaGVGfg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_NW5Me1BmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_NW5MfFBmEeyFsrOVaGVGfg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8guABb5Ee21mbHPjUe6Eg" type="3010" element="_c8W9ARb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8guARb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8guAhb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_NW5MfVBmEeyFsrOVaGVGfg" type="3010" element="_NWs_NlBmEeyFsrOVaGVGfg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_NW5MflBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_NW5Mf1BmEeyFsrOVaGVGfg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8guAxb5Ee21mbHPjUe6Eg" type="3010" element="_c8W9Axb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8guBBb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8guBRb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <children xmi:type="notation:Node" xmi:id="_NW5MgFBmEeyFsrOVaGVGfg" type="3010" element="_NWs_OFBmEeyFsrOVaGVGfg">
-                  <styles xmi:type="notation:FontStyle" xmi:id="_NW5MgVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-                  <layoutConstraint xmi:type="notation:Location" xmi:id="_NW5MglBmEeyFsrOVaGVGfg"/>
+                <children xmi:type="notation:Node" xmi:id="_c8guBhb5Ee21mbHPjUe6Eg" type="3010" element="_c8XkEBb5Ee21mbHPjUe6Eg">
+                  <styles xmi:type="notation:FontStyle" xmi:id="_c8guBxb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+                  <layoutConstraint xmi:type="notation:Location" xmi:id="_c8guCBb5Ee21mbHPjUe6Eg"/>
                 </children>
-                <styles xmi:type="notation:SortingStyle" xmi:id="_NW5MclBmEeyFsrOVaGVGfg"/>
-                <styles xmi:type="notation:FilteringStyle" xmi:id="_NW5Mc1BmEeyFsrOVaGVGfg"/>
+                <styles xmi:type="notation:SortingStyle" xmi:id="_c8gG9Rb5Ee21mbHPjUe6Eg"/>
+                <styles xmi:type="notation:FilteringStyle" xmi:id="_c8gG9hb5Ee21mbHPjUe6Eg"/>
               </children>
-              <styles xmi:type="notation:ShapeStyle" xmi:id="_NW4lYVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_NW4lYlBmEeyFsrOVaGVGfg" x="5" y="47"/>
+              <styles xmi:type="notation:ShapeStyle" xmi:id="_c8gG8Rb5Ee21mbHPjUe6Eg" fontName="Cantarell" fontHeight="8"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_c8gG8hb5Ee21mbHPjUe6Eg"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_Klqa9VBmEeyFsrOVaGVGfg"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_Klqa9lBmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_Klqa8VBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Klqa8lBmEeyFsrOVaGVGfg" x="1220" y="56" height="216"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Klqa8lBmEeyFsrOVaGVGfg" x="1169" y="-109" height="216"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_RCEdsFBmEeyFsrOVaGVGfg" type="2002" element="_RBYhMFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_RCEds1BmEeyFsrOVaGVGfg" type="5006"/>
@@ -407,150 +407,150 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_RCEdtlBmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_RCEdsVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RCEdslBmEeyFsrOVaGVGfg" x="1245" y="510" height="163"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RCEdslBmEeyFsrOVaGVGfg" x="1879" y="560" height="163"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_bBjvAlBNEey9m9xMk3XtsA"/>
         <edges xmi:type="notation:Edge" xmi:id="_4dk0MFBlEeyFsrOVaGVGfg" type="4001" element="_4cXTTFBlEeyFsrOVaGVGfg" source="_A73EkFBlEeyGXqZbGaQ79w" target="_0IKTIFBlEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_4dk0NFBlEeyFsrOVaGVGfg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0NVBlEeyFsrOVaGVGfg" x="-8" y="-9"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0NVBlEeyFsrOVaGVGfg" x="9" y="3"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_4dk0NlBlEeyFsrOVaGVGfg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0N1BlEeyFsrOVaGVGfg" x="7" y="11"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0N1BlEeyFsrOVaGVGfg" x="-5" y="-2"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_4dk0OFBlEeyFsrOVaGVGfg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0OVBlEeyFsrOVaGVGfg" x="6" y="11"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_4dk0OVBlEeyFsrOVaGVGfg" x="-3" y="-2"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_4dk0MVBlEeyFsrOVaGVGfg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_4dk0MlBlEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4dk0M1BlEeyFsrOVaGVGfg" points="[0, 0, 110, -32]$[-110, 32, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_4dk0M1BlEeyFsrOVaGVGfg" points="[0, 0, 1181, -119]$[-1181, 119, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4dk0OlBlEeyFsrOVaGVGfg" id="(0.6046511627906976,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_4dk0O1BlEeyFsrOVaGVGfg" id="(0.6418918918918919,0.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_G077UFBmEeyFsrOVaGVGfg" type="4001" element="_G0aW-FBmEeyFsrOVaGVGfg" source="_y_64sFBlEeyFsrOVaGVGfg" target="_BdvNIFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_G08iYFBmEeyFsrOVaGVGfg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iYVBmEeyFsrOVaGVGfg" y="-9"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iYVBmEeyFsrOVaGVGfg" x="-4" y="-8"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_G08iYlBmEeyFsrOVaGVGfg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iY1BmEeyFsrOVaGVGfg" x="1" y="9"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iY1BmEeyFsrOVaGVGfg" x="4" y="10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_G08iZFBmEeyFsrOVaGVGfg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iZVBmEeyFsrOVaGVGfg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_G08iZVBmEeyFsrOVaGVGfg" y="11"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_G077UVBmEeyFsrOVaGVGfg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_G077UlBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_G077U1BmEeyFsrOVaGVGfg" points="[0, 0, 256, -138]$[-256, 138, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_G077U1BmEeyFsrOVaGVGfg" points="[0, 0, 1018, -266]$[-1018, 266, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_G08iZlBmEeyFsrOVaGVGfg" id="(0.6744186046511628,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_G08iZ1BmEeyFsrOVaGVGfg" id="(0.5,0.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_P-GfQFBmEeyFsrOVaGVGfg" type="4001" element="_P9sPqlBmEeyFsrOVaGVGfg" source="_A73EkFBlEeyGXqZbGaQ79w" target="_Klqa8FBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_P-GfRFBmEeyFsrOVaGVGfg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-GfRVBmEeyFsrOVaGVGfg" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-GfRVBmEeyFsrOVaGVGfg" x="1" y="10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_P-HGUFBmEeyFsrOVaGVGfg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-HGUVBmEeyFsrOVaGVGfg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-HGUVBmEeyFsrOVaGVGfg" x="-1" y="-10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_P-HGUlBmEeyFsrOVaGVGfg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-HGU1BmEeyFsrOVaGVGfg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_P-HGU1BmEeyFsrOVaGVGfg" y="-9"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_P-GfQVBmEeyFsrOVaGVGfg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_P-GfQlBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_P-GfQ1BmEeyFsrOVaGVGfg" points="[0, 0, -35, 20]$[35, -20, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_P-GfQ1BmEeyFsrOVaGVGfg" points="[-321, -40, 710, 86]$[-1031, -126, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_P-HGVFBmEeyFsrOVaGVGfg" id="(1.0,0.8407079646017699)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_P-HGVVBmEeyFsrOVaGVGfg" id="(0.0,0.1588785046728972)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_Us80AFBmEeyFsrOVaGVGfg" type="4001" element="_UsjLgFBmEeyFsrOVaGVGfg" source="_y_64sFBlEeyFsrOVaGVGfg" target="_RCEdsFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_Us80BFBmEeyFsrOVaGVGfg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80BVBmEeyFsrOVaGVGfg" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80BVBmEeyFsrOVaGVGfg" x="2" y="2"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_Us80BlBmEeyFsrOVaGVGfg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80B1BmEeyFsrOVaGVGfg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80B1BmEeyFsrOVaGVGfg" x="-6" y="1"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_Us80CFBmEeyFsrOVaGVGfg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80CVBmEeyFsrOVaGVGfg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Us80CVBmEeyFsrOVaGVGfg" x="-3" y="1"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_Us80AVBmEeyFsrOVaGVGfg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_Us80AlBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Us80A1BmEeyFsrOVaGVGfg" points="[0, 0, -15, -94]$[15, 94, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Us80A1BmEeyFsrOVaGVGfg" points="[0, 0, 186, -126]$[-186, 126, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Us80ClBmEeyFsrOVaGVGfg" id="(0.7906976744186046,1.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Us80C1BmEeyFsrOVaGVGfg" id="(0.6304347826086957,0.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_FuYD4INTEeyFi5bmGlarvA" type="4001" element="_FtprJINTEeyFi5bmGlarvA" source="_u0GqcFBjEeyGXqZbGaQ79w" target="_bFiQEFBNEey9m9xMk3XtsA">
           <children xmi:type="notation:Node" xmi:id="_FuYq8INTEeyFi5bmGlarvA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuYq8YNTEeyFi5bmGlarvA" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuYq8YNTEeyFi5bmGlarvA" x="-6" y="-5"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_FuYq8oNTEeyFi5bmGlarvA" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuYq84NTEeyFi5bmGlarvA" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuYq84NTEeyFi5bmGlarvA" x="12" y="5"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_FuZSAINTEeyFi5bmGlarvA" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuZSAYNTEeyFi5bmGlarvA" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FuZSAYNTEeyFi5bmGlarvA" x="10" y="5"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_FuYD4YNTEeyFi5bmGlarvA"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_FuYD4oNTEeyFi5bmGlarvA" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_FuYD44NTEeyFi5bmGlarvA" points="[0, 0, 190, 84]$[-190, -84, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_FuYD44NTEeyFi5bmGlarvA" points="[0, 0, 222, 392]$[-222, -392, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FuZ5EINTEeyFi5bmGlarvA" id="(0.7209302325581395,0.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_FuZ5EYNTEeyFi5bmGlarvA" id="(0.5206073752711496,1.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_GdelkINTEeyFi5bmGlarvA" type="4001" element="_GdNf2INTEeyFi5bmGlarvA" source="_u0GqcFBjEeyGXqZbGaQ79w" target="_f1Yy8FBkEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_GdellINTEeyFi5bmGlarvA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GdellYNTEeyFi5bmGlarvA" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GdellYNTEeyFi5bmGlarvA" x="13" y="-7"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_GdelloNTEeyFi5bmGlarvA" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Gdell4NTEeyFi5bmGlarvA" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Gdell4NTEeyFi5bmGlarvA" x="-12" y="3"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_GdelmINTEeyFi5bmGlarvA" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GdelmYNTEeyFi5bmGlarvA" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_GdelmYNTEeyFi5bmGlarvA" x="-9" y="3"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_GdelkYNTEeyFi5bmGlarvA"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_GdelkoNTEeyFi5bmGlarvA" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Gdelk4NTEeyFi5bmGlarvA" points="[0, 0, -280, 174]$[280, -174, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Gdelk4NTEeyFi5bmGlarvA" points="[0, 0, -225, 542]$[225, -542, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GdfMoINTEeyFi5bmGlarvA" id="(0.6511627906976745,0.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_GdfMoYNTEeyFi5bmGlarvA" id="(0.5827067669172933,1.0)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_HdOLUINTEeyFi5bmGlarvA" type="4001" element="_HcrYxINTEeyFi5bmGlarvA" source="_u0GqcFBjEeyGXqZbGaQ79w" target="_hcDrQFBjEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_HdOLVINTEeyFi5bmGlarvA" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLVYNTEeyFi5bmGlarvA" x="-1" y="-11"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLVYNTEeyFi5bmGlarvA" x="6" y="-3"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_HdOLVoNTEeyFi5bmGlarvA" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLV4NTEeyFi5bmGlarvA" y="9"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLV4NTEeyFi5bmGlarvA" x="-9"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_HdOLWINTEeyFi5bmGlarvA" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLWYNTEeyFi5bmGlarvA" x="-1" y="9"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_HdOLWYNTEeyFi5bmGlarvA" x="-14"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_HdOLUYNTEeyFi5bmGlarvA"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_HdOLUoNTEeyFi5bmGlarvA" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HdOLU4NTEeyFi5bmGlarvA" points="[0, 0, -245, 142]$[245, -142, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_HdOLU4NTEeyFi5bmGlarvA" points="[0, 0, -519, 362]$[519, -362, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HdOLWoNTEeyFi5bmGlarvA" id="(1.0,0.7964601769911505)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_HdOLW4NTEeyFi5bmGlarvA" id="(0.0,0.14204545454545456)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_TyNLAINTEeyd6eHsTOxHYg" type="4001" element="_Txs0vINTEeyd6eHsTOxHYg" source="_u0GqcFBjEeyGXqZbGaQ79w" target="_BdvNIFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_TyNyEINTEeyd6eHsTOxHYg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyNyEYNTEeyd6eHsTOxHYg" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyNyEYNTEeyd6eHsTOxHYg" x="-9" y="-9"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_TyOZIINTEeyd6eHsTOxHYg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyOZIYNTEeyd6eHsTOxHYg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyOZIYNTEeyd6eHsTOxHYg" x="4" y="4"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_TyOZIoNTEeyd6eHsTOxHYg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyOZI4NTEeyd6eHsTOxHYg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TyOZI4NTEeyd6eHsTOxHYg" x="5" y="5"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_TyNLAYNTEeyd6eHsTOxHYg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_TyNLAoNTEeyd6eHsTOxHYg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TyNLA4NTEeyd6eHsTOxHYg" points="[0, 0, -500, -181]$[500, 181, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_TyNLA4NTEeyd6eHsTOxHYg" points="[0, 0, -519, -44]$[519, 44, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TyPnQINTEeyd6eHsTOxHYg" id="(1.0,0.26548672566371684)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_TyPnQYNTEeyd6eHsTOxHYg" id="(0.0,0.37755102040816324)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_Uz9i8INTEeyd6eHsTOxHYg" type="4001" element="_UzawYoNTEeyd6eHsTOxHYg" source="_u0GqcFBjEeyGXqZbGaQ79w" target="_0IKTIFBlEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_Uz9i9INTEeyd6eHsTOxHYg" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i9YNTEeyd6eHsTOxHYg" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i9YNTEeyd6eHsTOxHYg" x="1" y="-6"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_Uz9i9oNTEeyd6eHsTOxHYg" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i94NTEeyd6eHsTOxHYg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i94NTEeyd6eHsTOxHYg" x="-5" y="2"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_Uz9i-INTEeyd6eHsTOxHYg" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i-YNTEeyd6eHsTOxHYg" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Uz9i-YNTEeyd6eHsTOxHYg" x="-8" y="3"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_Uz9i8YNTEeyd6eHsTOxHYg"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_Uz9i8oNTEeyd6eHsTOxHYg" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Uz9i84NTEeyd6eHsTOxHYg" points="[0, 0, -375, 215]$[375, -215, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Uz9i84NTEeyd6eHsTOxHYg" points="[0, 0, -169, 464]$[169, -464, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Uz9i-oNTEeyd6eHsTOxHYg" id="(1.0,0.30973451327433627)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Uz9i-4NTEeyd6eHsTOxHYg" id="(0.0,0.40816326530612246)"/>
         </edges>
@@ -636,49 +636,49 @@
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Read%20Processing%20Rate']"/>
         </ownedElements>
       </ownedDiagramElements>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_dkhAModREeySaramUV8Qvg" name="CPU">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_xnkW4RbwEe21mbHPjUe6Eg" name="CPU">
         <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
         <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_dkiOUIdREeySaramUV8Qvg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_xnk98BbwEe21mbHPjUe6Eg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']"/>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkjccIdREeySaramUV8Qvg" name="Scheduling: ProcessorSharing">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_xnllARbwEe21mbHPjUe6Eg" name="Scheduling: ProcessorSharing">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkkqkIdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_xnmzIBbwEe21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkkqkYdREeySaramUV8Qvg" name="Number of Replicas: 1">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_xnnaMBbwEe21mbHPjUe6Eg" name="Number of Replicas: 1">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dklRoIdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_xnnaMRbwEe21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkl4sIdREeySaramUV8Qvg" name="Processing Rate: 1.0810638521955225">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_xnoBQBbwEe21mbHPjUe6Eg" name="Processing Rate: 1.0810638521955225">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkmfwIdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_xnooUBbwEe21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dknG0IdREeySaramUV8Qvg" name="MTTR: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_xnooURbwEe21mbHPjUe6Eg" name="MTTR: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dknt4IdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_xnpPYBbwEe21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dknt4YdREeySaramUV8Qvg" name="MTTF: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_xnp2cBbwEe21mbHPjUe6Eg" name="MTTF: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkoU8IdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_xnp2cRbwEe21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']"/>
@@ -695,49 +695,49 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_dksmYIdREeySaramUV8Qvg" name="CPU">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_c8RdcBb5Ee21mbHPjUe6Eg" name="CPU">
         <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
         <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_dksmYYdREeySaramUV8Qvg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_c8RdcRb5Ee21mbHPjUe6Eg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']"/>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dktNcIdREeySaramUV8Qvg" name="Scheduling: ProcessorSharing">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8SEgBb5Ee21mbHPjUe6Eg" name="Scheduling: ProcessorSharing">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dktNcYdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8SEgRb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkt0gIdREeySaramUV8Qvg" name="Number of Replicas: 1">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8SEghb5Ee21mbHPjUe6Eg" name="Number of Replicas: 1">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkt0gYdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8SEgxb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkubkIdREeySaramUV8Qvg" name="Processing Rate: 1.0810638521955225">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8SrkBb5Ee21mbHPjUe6Eg" name="Processing Rate: 1.0810638521955225">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkubkYdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8SrkRb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkubkodREeySaramUV8Qvg" name="MTTR: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8Srkhb5Ee21mbHPjUe6Eg" name="MTTR: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkvCoIdREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8Srkxb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_dkvCoYdREeySaramUV8Qvg" name="MTTF: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8TSoBb5Ee21mbHPjUe6Eg" name="MTTF: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_dkvCoodREeySaramUV8Qvg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8TSoRb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']"/>
@@ -983,52 +983,49 @@
         <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@style"/>
       </ownedStyle>
       <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']"/>
-      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_NWsYIlBmEeyFsrOVaGVGfg" name="CPU">
+      <ownedDiagramElements xmi:type="diagram:DNodeList" uid="_c8WV8Bb5Ee21mbHPjUe6Eg" name="CPU">
         <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
         <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
-        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
-        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
-        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_NWsYI1BmEeyFsrOVaGVGfg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
+        <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_c8WV8Rb5Ee21mbHPjUe6Eg" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@style"/>
         </ownedStyle>
         <actualMapping xmi:type="description_1:ContainerMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']"/>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_NWs_MFBmEeyFsrOVaGVGfg" name="Scheduling: ProcessorSharing">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8WV8xb5Ee21mbHPjUe6Eg" name="Scheduling: ProcessorSharing">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_NWs_MVBmEeyFsrOVaGVGfg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8WV9Bb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Scheduling']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_NWs_MlBmEeyFsrOVaGVGfg" name="Number of Replicas: 1">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8WV9Rb5Ee21mbHPjUe6Eg" name="Number of Replicas: 1">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_NWs_M1BmEeyFsrOVaGVGfg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8W9ABb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Number%20of%20Replicas']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_NWs_NFBmEeyFsrOVaGVGfg" name="Processing Rate: 1.0810638521955225">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8W9ARb5Ee21mbHPjUe6Eg" name="Processing Rate: 1.0810638521955225">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_NWs_NVBmEeyFsrOVaGVGfg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8W9Ahb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='Processing%20Rate']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_NWs_NlBmEeyFsrOVaGVGfg" name="MTTR: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8W9Axb5Ee21mbHPjUe6Eg" name="MTTR: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_NWs_N1BmEeyFsrOVaGVGfg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8W9BBb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTR']"/>
         </ownedElements>
-        <ownedElements xmi:type="diagram:DNodeListElement" uid="_NWs_OFBmEeyFsrOVaGVGfg" name="MTTF: 0.0">
+        <ownedElements xmi:type="diagram:DNodeListElement" uid="_c8XkEBb5Ee21mbHPjUe6Eg" name="MTTF: 0.0">
           <target xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
           <semanticElements xmi:type="resourceenvironment:ProcessingResourceSpecification" href="My.resourceenvironment#_KFRwgCpXEeKNWc2UWjbmuw"/>
-          <ownedStyle xmi:type="diagram:Square" uid="_NWtmQFBmEeyFsrOVaGVGfg" showIcon="false" labelAlignment="LEFT">
+          <ownedStyle xmi:type="diagram:Square" uid="_c8XkERb5Ee21mbHPjUe6Eg" showIcon="false" labelAlignment="LEFT">
             <description xmi:type="style:SquareDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']/@style"/>
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.resourceenvironment/description/resourceenvironment.odesign#//@ownedViewpoints[name='ResourceEnvironment']/@ownedRepresentations[name='ResourceEnvironment%20Diagram']/@defaultLayer/@containerMappings[name='ResourceContainer']/@subContainerMappings[name='ProcessingResourceSpecification%20Container']/@subNodeMappings[name='MTTF']"/>
@@ -2352,7 +2349,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_bP2Co1BNEey9m9xMk3XtsA"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_bP1bkVBNEey9m9xMk3XtsA" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bP1bklBNEey9m9xMk3XtsA" x="40" y="45" width="438" height="218"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bP1bklBNEey9m9xMk3XtsA" x="294" y="28" width="438" height="218"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_0410EFBjEeyGXqZbGaQ79w" type="2002" element="_04yJslBjEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_0410E1BjEeyGXqZbGaQ79w" type="5006"/>
@@ -2364,13 +2361,13 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_nQluU1BmEeyFsrOVaGVGfg"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_nQlHQVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nQlHQlBmEeyFsrOVaGVGfg" y="34"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nQlHQlBmEeyFsrOVaGVGfg" x="16" y="92"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_0410FVBjEeyGXqZbGaQ79w"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_0410FlBjEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_0410EVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0410ElBjEeyGXqZbGaQ79w" x="500" y="110" width="293"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0410ElBjEeyGXqZbGaQ79w" x="112" y="553" width="374" height="192"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_f1aBEFBkEeyGXqZbGaQ79w" type="2002" element="_f1PB9FBkEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_f1aBE1BkEeyGXqZbGaQ79w" type="5006"/>
@@ -2382,7 +2379,7 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_xDTlllBmEeyFsrOVaGVGfg"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_xDTlkVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xDTlklBmEeyFsrOVaGVGfg" x="10" y="29"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xDTlklBmEeyFsrOVaGVGfg" x="58" y="78"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_yuq7MFBmEeyFsrOVaGVGfg" type="3008" element="_yuachlBmEeyFsrOVaGVGfg">
               <children xmi:type="notation:Node" xmi:id="_yuq7M1BmEeyFsrOVaGVGfg" type="5005"/>
@@ -2391,13 +2388,13 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_yuq7NlBmEeyFsrOVaGVGfg"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_yuq7MVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yuq7MlBmEeyFsrOVaGVGfg" x="235" y="29"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_yuq7MlBmEeyFsrOVaGVGfg" x="478" y="78"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_f1aBFVBkEeyGXqZbGaQ79w"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_f1aBFlBkEeyGXqZbGaQ79w"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_f1aBEVBkEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f1aBElBkEeyGXqZbGaQ79w" x="45" y="305" width="483" height="158"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f1aBElBkEeyGXqZbGaQ79w" x="91" y="273" width="808" height="193"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_0IMvYFBlEeyFsrOVaGVGfg" type="2002" element="_0GKvFlBlEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_0INWcFBlEeyFsrOVaGVGfg" type="5006"/>
@@ -2406,7 +2403,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_0INWc1BlEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_0IMvYVBlEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0IMvYlBlEeyFsrOVaGVGfg" x="810" y="119"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_0IMvYlBlEeyFsrOVaGVGfg" x="1792" y="294"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_BdxCUFBmEeyFsrOVaGVGfg" type="2002" element="_Bdk1GFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_BdxpYFBmEeyFsrOVaGVGfg" type="5006"/>
@@ -2415,7 +2412,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_BdxpY1BmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_BdxCUVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BdxCUlBmEeyFsrOVaGVGfg" x="810" y="193"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BdxCUlBmEeyFsrOVaGVGfg" x="1652" y="546"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_KlrpEFBmEeyFsrOVaGVGfg" type="2002" element="_KljGOlBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_KlrpE1BmEeyFsrOVaGVGfg" type="5006"/>
@@ -2427,13 +2424,13 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_k0ZYtlBmEeyFsrOVaGVGfg"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_k0ZYsVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k0ZYslBmEeyFsrOVaGVGfg" x="90" y="34"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_k0ZYslBmEeyFsrOVaGVGfg" x="37" y="53"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_KlrpFVBmEeyFsrOVaGVGfg"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_KlrpFlBmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_KlrpEVBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KlrpElBmEeyFsrOVaGVGfg" x="865" y="-5"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KlrpElBmEeyFsrOVaGVGfg" x="959" y="77"/>
         </children>
         <children xmi:type="notation:Node" xmi:id="_RCFr0FBmEeyFsrOVaGVGfg" type="2002" element="_RB10PFBmEeyFsrOVaGVGfg">
           <children xmi:type="notation:Node" xmi:id="_RCFr01BmEeyFsrOVaGVGfg" type="5006"/>
@@ -2451,7 +2448,7 @@
             <styles xmi:type="notation:FilteringStyle" xmi:id="_RCFr1lBmEeyFsrOVaGVGfg"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_RCFr0VBmEeyFsrOVaGVGfg" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RCFr0lBmEeyFsrOVaGVGfg" x="888" y="265" width="263" height="163"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_RCFr0lBmEeyFsrOVaGVGfg" x="616" y="532" width="423" height="199"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_bLoRBFBNEey9m9xMk3XtsA"/>
       </data>
@@ -2673,7 +2670,7 @@
                 <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rJCOQlBgEeyGXqZbGaQ79w" x="-22" width="30" height="30"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_rI980VBgEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rI980lBgEeyGXqZbGaQ79w" x="850" y="64"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_rI980lBgEeyGXqZbGaQ79w" x="928" y="43"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_w8vSQFBgEeyGXqZbGaQ79w" type="3008" element="_w8A5gFBgEeyGXqZbGaQ79w">
               <children xmi:type="notation:Node" xmi:id="_w8vSQ1BgEeyGXqZbGaQ79w" type="5005"/>
@@ -2693,7 +2690,7 @@
                 <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w8v5UlBgEeyGXqZbGaQ79w" x="-22" width="30" height="30"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_w8vSQVBgEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w8vSQlBgEeyGXqZbGaQ79w" x="870" y="254"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w8vSQlBgEeyGXqZbGaQ79w" x="746" y="400"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_Qm99cFBjEeyGXqZbGaQ79w" type="3008" element="_Qmn_MFBjEeyGXqZbGaQ79w">
               <children xmi:type="notation:Node" xmi:id="_Qm99c1BjEeyGXqZbGaQ79w" type="5005"/>
@@ -2713,7 +2710,7 @@
                 <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qm99eVBjEeyGXqZbGaQ79w" x="-22" width="30" height="30"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_Qm99cVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qm99clBjEeyGXqZbGaQ79w" x="355" y="321"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Qm99clBjEeyGXqZbGaQ79w" x="81" y="421"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_cvOvwFBjEeyGXqZbGaQ79w" type="3008" element="_cu5YkFBjEeyGXqZbGaQ79w">
               <children xmi:type="notation:Node" xmi:id="_cvOvw1BjEeyGXqZbGaQ79w" type="5005"/>
@@ -2722,7 +2719,7 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_cvOvxlBjEeyGXqZbGaQ79w"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_cvOvwVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cvOvwlBjEeyGXqZbGaQ79w" x="1085" y="64"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_cvOvwlBjEeyGXqZbGaQ79w" x="1180" y="99"/>
             </children>
             <children xmi:type="notation:Node" xmi:id="_dYAnAFBjEeyGXqZbGaQ79w" type="3008" element="_dXnlcFBjEeyGXqZbGaQ79w">
               <children xmi:type="notation:Node" xmi:id="_dYAnA1BjEeyGXqZbGaQ79w" type="5005"/>
@@ -2731,7 +2728,7 @@
                 <styles xmi:type="notation:FilteringStyle" xmi:id="_dYAnBlBjEeyGXqZbGaQ79w"/>
               </children>
               <styles xmi:type="notation:ShapeStyle" xmi:id="_dYAnAVBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dYAnAlBjEeyGXqZbGaQ79w" x="1085" y="254"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_dYAnAlBjEeyGXqZbGaQ79w" x="1173" y="309"/>
             </children>
             <styles xmi:type="notation:SortingStyle" xmi:id="_bV1V4lBNEey9m9xMk3XtsA"/>
             <styles xmi:type="notation:FilteringStyle" xmi:id="_bV1V41BNEey9m9xMk3XtsA"/>
@@ -2748,7 +2745,7 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bV1V5lBNEey9m9xMk3XtsA" x="-42" width="50" height="50"/>
           </children>
           <styles xmi:type="notation:ShapeStyle" xmi:id="_bV0u0VBNEey9m9xMk3XtsA" fontName="Noto Sans" fontHeight="8"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bV0u0lBNEey9m9xMk3XtsA" x="-195" width="1293" height="428"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bV0u0lBNEey9m9xMk3XtsA" x="-195" width="1654" height="633"/>
         </children>
         <styles xmi:type="notation:DiagramStyle" xmi:id="_bRTbMlBNEey9m9xMk3XtsA"/>
         <edges xmi:type="notation:Edge" xmi:id="_vHuc8FBWEeyXHY01PFJiNw" type="4001" element="_vHfMYFBWEeyXHY01PFJiNw" source="_bV1V5FBNEey9m9xMk3XtsA" target="_vHiPsFBWEeyXHY01PFJiNw">
@@ -2772,46 +2769,46 @@
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ux2vEVBgEeyGXqZbGaQ79w" y="-10"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_ux3WIFBgEeyGXqZbGaQ79w" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ux3WIVBgEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ux3WIVBgEeyGXqZbGaQ79w" y="9"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_ux3WIlBgEeyGXqZbGaQ79w" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ux3WI1BgEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ux3WI1BgEeyGXqZbGaQ79w" x="-1" y="10"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_ux2IAVBgEeyGXqZbGaQ79w"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_ux2IAlBgEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ux2IA1BgEeyGXqZbGaQ79w" points="[0, 0, -292, 57]$[292, -57, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ux2IA1BgEeyGXqZbGaQ79w" points="[0, 0, -370, 48]$[370, -48, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ux4kQFBgEeyGXqZbGaQ79w" id="(1.0,0.23333333333333334)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ux4kQVBgEeyGXqZbGaQ79w" id="(0.0,0.3333333333333333)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_z15QsFBgEeyGXqZbGaQ79w" type="4001" element="_z1XsRFBgEeyGXqZbGaQ79w" source="_Lv_EklBcEeyXHY01PFJiNw" target="_w8v5UFBgEeyGXqZbGaQ79w">
           <children xmi:type="notation:Node" xmi:id="_z15QtFBgEeyGXqZbGaQ79w" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z15QtVBgEeyGXqZbGaQ79w" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z15QtVBgEeyGXqZbGaQ79w" x="-7" y="-8"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_z153wFBgEeyGXqZbGaQ79w" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z153wVBgEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z153wVBgEeyGXqZbGaQ79w" x="5" y="9"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_z153wlBgEeyGXqZbGaQ79w" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z153w1BgEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z153w1BgEeyGXqZbGaQ79w" x="5" y="9"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_z15QsVBgEeyGXqZbGaQ79w"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_z15QslBgEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_z15Qs1BgEeyGXqZbGaQ79w" points="[0, 0, -312, -90]$[312, 90, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_z15Qs1BgEeyGXqZbGaQ79w" points="[0, 0, -188, -206]$[188, 206, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_z153xFBgEeyGXqZbGaQ79w" id="(1.0,0.4)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_z153xVBgEeyGXqZbGaQ79w" id="(0.0,0.3333333333333333)"/>
         </edges>
         <edges xmi:type="notation:Edge" xmi:id="_XPaREFBjEeyGXqZbGaQ79w" type="4001" element="_XOYWVFBjEeyGXqZbGaQ79w" source="_Qm99d1BjEeyGXqZbGaQ79w" target="_vHiPsFBWEeyXHY01PFJiNw">
           <children xmi:type="notation:Node" xmi:id="_XPaRFFBjEeyGXqZbGaQ79w" type="6001">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPaRFVBjEeyGXqZbGaQ79w" y="-10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPaRFVBjEeyGXqZbGaQ79w" x="-6" y="-8"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_XPaRFlBjEeyGXqZbGaQ79w" type="6002">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPaRF1BjEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPaRF1BjEeyGXqZbGaQ79w" x="5" y="6"/>
           </children>
           <children xmi:type="notation:Node" xmi:id="_XPa4IFBjEeyGXqZbGaQ79w" type="6003">
-            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPa4IVBjEeyGXqZbGaQ79w" y="10"/>
+            <layoutConstraint xmi:type="notation:Bounds" xmi:id="_XPa4IVBjEeyGXqZbGaQ79w" x="8" y="6"/>
           </children>
           <styles xmi:type="notation:ConnectorStyle" xmi:id="_XPaREVBjEeyGXqZbGaQ79w"/>
           <styles xmi:type="notation:FontStyle" xmi:id="_XPaRElBjEeyGXqZbGaQ79w" fontName="Noto Sans" fontHeight="8"/>
-          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_XPaRE1BjEeyGXqZbGaQ79w" points="[0, 0, 0, 167]$[0, -167, 0, 0]"/>
+          <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_XPaRE1BjEeyGXqZbGaQ79w" points="[0, 0, -274, 267]$[274, -267, 0, 0]"/>
           <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XPa4IlBjEeyGXqZbGaQ79w" id="(0.3333333333333333,0.0)"/>
           <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_XPa4I1BjEeyGXqZbGaQ79w" id="(0.5,1.0)"/>
         </edges>
@@ -2887,6 +2884,9 @@
           </ownedStyle>
           <actualMapping xmi:type="description_1:NodeMapping" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@borderedNodeMappings[name='OperationProvidedRole%20Node']"/>
         </ownedBorderedNodes>
+        <arrangeConstraints>KEEP_LOCATION</arrangeConstraints>
+        <arrangeConstraints>KEEP_SIZE</arrangeConstraints>
+        <arrangeConstraints>KEEP_RATIO</arrangeConstraints>
         <ownedStyle xmi:type="diagram:FlatContainerStyle" uid="_rFUy8FBgEeyGXqZbGaQ79w" borderSize="1" borderSizeComputationExpression="1" foregroundColor="255,255,255">
           <description xmi:type="style:FlatContainerStyleDescription" href="platform:/plugin/org.palladiosimulator.editors.sirius.assembly/description/assembly.odesign#//@ownedViewpoints[name='Assembly']/@ownedRepresentations[name='Assembly%20Diagram']/@defaultLayer/@containerMappings[name='ComposedProvidingRequiringEntity%20Node']/@subContainerMappings[name='AssemblyContext%20Container']/@style"/>
         </ownedStyle>

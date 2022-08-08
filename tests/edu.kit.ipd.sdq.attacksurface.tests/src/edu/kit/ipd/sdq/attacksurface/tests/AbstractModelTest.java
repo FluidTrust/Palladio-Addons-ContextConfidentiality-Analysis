@@ -11,12 +11,7 @@ import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSpecification;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.SurfaceAttacker;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Attack;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AvailabilityImpact;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEVulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEBasedVulnerability;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
@@ -55,10 +50,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected KAMP4attackModificationRepository modification;
 
-//    private AttackGraph attackGraph;
     private CredentialChange changes;
-
-    private String pathXACML = "test.xml";
 
     final protected BlackboardWrapper getBlackboardWrapper() {
 
@@ -66,14 +58,7 @@ public abstract class AbstractModelTest extends BaseTest {
                 this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
 
-//    protected final AttackGraph getAttackGraph() {
-//        return this.attackGraph;
-//    }
 
-//    protected final void resetAttackGraphAndChanges() {
-//        this.attackGraph = new AttackGraph(getCriticalEntity());
-//        this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-//    }
 
     protected Entity getCriticalEntity() {
         final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getTargetedElement();
@@ -84,9 +69,11 @@ public abstract class AbstractModelTest extends BaseTest {
         final Set<Entity> allEntities = new HashSet<>(this.assembly.getAssemblyContexts__ComposedStructure());
         allEntities.addAll(this.environment.getResourceContainer_ResourceEnvironment());
         allEntities.addAll(this.environment.getLinkingResources__ResourceEnvironment());
+        allEntities.addAll(this.allocation.getAllocationContexts_Allocation());
+        allEntities.addAll(getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities());
         return allEntities
                 .stream()
-                .filter(e -> e.getEntityName().contains(namePart))
+                .filter(e -> e.getEntityName().equals(namePart))
                 .findFirst().orElse(null);
     }
 
@@ -121,9 +108,6 @@ public abstract class AbstractModelTest extends BaseTest {
 
     @Override
     protected void generateXML() {
-//        var generator = new XACMLGenerator();
-//        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
-//        generator.generateXACML(blackboard, this.context, this.pathXACML);
     }
 
     protected UsageSpecification createContext(final String name) {
@@ -168,12 +152,6 @@ public abstract class AbstractModelTest extends BaseTest {
         change.setToolderived(true);
         return change;
     }
-
-//    protected void addRootAccess() {
-//        final var setCredentials = Arrays.asList(createRootCredentialsIfNecessary())
-//                .stream().map(CredentialSurface::new).collect(Collectors.toSet());
-//        getAttackGraph().addCredentialsFromBeginningOn(setCredentials);
-//    }
 
     protected void setCriticalResourceContainer(final String namePart) {
         final var newCriticalEntity = this.allocation.getTargetResourceEnvironment_Allocation()
@@ -237,44 +215,6 @@ public abstract class AbstractModelTest extends BaseTest {
                 .stream()
                 .filter(u -> u.getEntityName().contains(namePart))
                 .findFirst().orElse(null);
-    }
-
-    @BeforeEach
-    public void addAllPossibleAttacks() {
-//        var vulnerabilities = this.attacker.getVulnerabilites().getVulnerability();
-//        final var attacks = CollectionHelper.removeDuplicates(vulnerabilities)
-//            .stream()
-//            .map(this::toAttack)
-//            .flatMap(Set::stream)
-//            .filter(Objects::nonNull)
-//            .collect(Collectors.toSet());
-//        getSurfaceAttacker().getAttacker().getAttacks().addAll(attacks);
-    }
-
-    private Set<Attack> toAttack(final Vulnerability vulnerability) {
-        if (vulnerability instanceof CVEVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();
-            final var cveVuln = (CVEVulnerability)vulnerability;
-            final var attack = AttackSpecificationFactory.eINSTANCE.createCVEAttack();
-            attack.setCategory(cveVuln.getCveID());
-            attacks.add(attack);
-            return attacks;
-        } else if (vulnerability instanceof CWEBasedVulnerability) {
-            final Set<Attack> attacks = new HashSet<>();
-            final var cweVuln = (CWEBasedVulnerability)vulnerability;
-            for (final var id : cweVuln.getCweID()) {
-                final var attack = AttackSpecificationFactory.eINSTANCE.createCWEAttack();
-                attack.setCategory(id);
-                attacks.add(attack);
-            }
-            return attacks;
-        }
-        return new HashSet<>(); //TODO or exception unknown vulnerability type
-    }
-
-    @BeforeEach
-    public void generateXMLBeforeEachTest() {
-        generateXML();
     }
 
     @BeforeEach

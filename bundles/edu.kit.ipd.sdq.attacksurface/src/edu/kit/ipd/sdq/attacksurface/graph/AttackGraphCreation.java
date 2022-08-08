@@ -66,6 +66,11 @@ public class AttackGraphCreation
     }
 
     private boolean isValidAccessControll() {
+        if (this.policies == null) {
+            LOGGER.log(Level.WARNING, "No Policiy found");
+            return true;
+        }
+
         var checkEntityMatch = this.policies.eContents().stream().filter(Match.class::isInstance)
                 .allMatch(this::isCorrectMatchType);
         if (!checkEntityMatch) {
@@ -74,7 +79,7 @@ public class AttackGraphCreation
         var checkConditions = this.policies.eContents().stream().filter(Expression.class::isInstance).allMatch(e -> {
             if (e instanceof Apply apply) {
                 return Objects.equals(apply.getOperation(), Operations.AND);
-            } else if (e instanceof SimpleAttributeCondition condition) {
+            } else if (e instanceof SimpleAttributeCondition) {
                 return true;
             }
             return false;

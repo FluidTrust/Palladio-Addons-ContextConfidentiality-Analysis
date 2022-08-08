@@ -16,7 +16,6 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpe
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CWEVulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.ConfidentialityImpact;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Privileges;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.Vulnerability;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.context.policy.Category;
 import org.palladiosimulator.pcm.confidentiality.context.policy.PermitType;
@@ -34,9 +33,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 //TODO
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackStatusEdgeContent;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
@@ -205,15 +202,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return cweID;
     }
 
-    protected void integrateVulnerability(final Entity entity, final Vulnerability vulnerability) {
-        this.attacker.getVulnerabilites().getVulnerability().add(vulnerability);
-        final var sysInteg = PcmIntegrationFactory.eINSTANCE.createVulnerabilitySystemIntegration();
-        sysInteg.setPcmelement(PCMElementType.typeOf(entity).toPCMElement(entity));
-        sysInteg.setVulnerability(vulnerability);
-        this.attacker.getSystemintegration().getVulnerabilities().add(sysInteg);
-        addAllPossibleAttacks();
-    }
-
     protected void integrateRoot(final Entity entity) {
         final var rootCred = createRootCredentialsIfNecessary();
 
@@ -311,8 +299,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         return runAnalysis();
     }
 
-    protected AttackEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
-        return new AttackEdge(attacker, attacked, null, null);
+//    protected AttackEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
+//        return new AttackEdge(attacker, attacked, null, null);
 
 
 //
@@ -320,7 +308,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 //                EndpointPair.ordered(
 //                        new AttackNodeContent(attacker),
 //                        new AttackNodeContent(attacked)));
-    }
+//    }
 
     protected void doDebugSysOutExpectedAndUnexpectedPaths(
             final Set<AttackPathSurface> expectedPathsSet,

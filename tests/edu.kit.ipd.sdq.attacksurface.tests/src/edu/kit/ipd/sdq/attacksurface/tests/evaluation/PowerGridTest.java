@@ -8,11 +8,6 @@ import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerF
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 
 public class PowerGridTest extends EvaluationTest {
-    private static final String ICS_USER = "_lqiu8S8nEeylPOrRpUZy4w";
-    private static final String BACKOFFICE_ADMIN = "_YpxbYDirEeyW5vhrbaBM1w";
-    private static final String VPN_GATEWAY = "_R3dMsC8sEeylPOrRpUZy4w";
-
-    private static final String VULN = "cveWithId_CVE-2014-1761";
 
     public PowerGridTest() {
         this.PATH_ATTACKER = "powerGrid-surface/My.attacker";
@@ -37,7 +32,7 @@ public class PowerGridTest extends EvaluationTest {
         var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(15, pathsDirectlyAfterAnalysis.size());
+        Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
 
         pathsTestHelper(changes, entity);
     }
@@ -58,7 +53,7 @@ public class PowerGridTest extends EvaluationTest {
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
 
         Assertions.assertEquals(1, pathsDirectlyAfterAnalysis.size());
-        Assertions.assertEquals(6, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
+        Assertions.assertEquals(5, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
         pathsTestHelper(changes, entity);
 
     }
