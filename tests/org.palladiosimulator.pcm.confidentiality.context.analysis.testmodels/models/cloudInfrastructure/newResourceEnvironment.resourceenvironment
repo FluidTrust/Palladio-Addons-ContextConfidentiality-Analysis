@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="ASCII"?>
 <resourceenvironment:ResourceEnvironment xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" entityName="New ResourceEnvironment">
-  <linkingResources__ResourceEnvironment id="__1EDk-2-Eeq6pfPMAIqEqg" entityName="L2 - Nexus 5000" connectedResourceContainers_LinkingResource="_4DOSUKOaEeyg1bkezwUNpA _9ACKkKOaEeyg1bkezwUNpA _CGcDsKObEeyg1bkezwUNpA _WNeDYKObEeyg1bkezwUNpA _aguBQKObEeyg1bkezwUNpA _7yeD4KOdEeyg1bkezwUNpA _eaQKsBQBEe2E1rY1FkobkQ"/>
-  <linkingResources__ResourceEnvironment id="_CsbSQO2_Eeq6pfPMAIqEqg" entityName="L3" connectedResourceContainers_LinkingResource="_uASNwKOaEeyg1bkezwUNpA _ykNE4KOaEeyg1bkezwUNpA _4DOSUKOaEeyg1bkezwUNpA"/>
-  <linkingResources__ResourceEnvironment id="_rvtSQKOaEeyg1bkezwUNpA" entityName="L1" connectedResourceContainers_LinkingResource="_WNeDYKObEeyg1bkezwUNpA _epueAKObEeyg1bkezwUNpA _fboxMKOdEeyg1bkezwUNpA _dxnfYKOdEeyg1bkezwUNpA">
+  <linkingResources__ResourceEnvironment id="__1EDk-2-Eeq6pfPMAIqEqg" entityName="L2" connectedResourceContainers_LinkingResource="_4DOSUKOaEeyg1bkezwUNpA _9ACKkKOaEeyg1bkezwUNpA _CGcDsKObEeyg1bkezwUNpA _WNeDYKObEeyg1bkezwUNpA _aguBQKObEeyg1bkezwUNpA _7yeD4KOdEeyg1bkezwUNpA _eaQKsBQBEe2E1rY1FkobkQ"/>
+  <linkingResources__ResourceEnvironment id="_CsbSQO2_Eeq6pfPMAIqEqg" entityName="L3" connectedResourceContainers_LinkingResource="_ykNE4KOaEeyg1bkezwUNpA _4DOSUKOaEeyg1bkezwUNpA _8U3BUBfzEe2dAtAsLX7Vgw _8kdjkBfzEe2dAtAsLX7Vgw"/>
+  <linkingResources__ResourceEnvironment id="_rvtSQKOaEeyg1bkezwUNpA" entityName="L1" connectedResourceContainers_LinkingResource="_WNeDYKObEeyg1bkezwUNpA _epueAKObEeyg1bkezwUNpA _1Sgq0BfxEe2dAtAsLX7Vgw _C4G90BfyEe2dAtAsLX7Vgw _EyqmABfyEe2dAtAsLX7Vgw">
     <communicationLinkResourceSpecifications_LinkingResource id="_rvxjsKOaEeyg1bkezwUNpA">
       <latency_CommunicationLinkResourceSpecification/>
       <throughput_CommunicationLinkResourceSpecification/>
     </communicationLinkResourceSpecifications_LinkingResource>
   </linkingResources__ResourceEnvironment>
-  <resourceContainer_ResourceEnvironment id="_uASNwKOaEeyg1bkezwUNpA" entityName="Nexus 7000 management device"/>
-  <resourceContainer_ResourceEnvironment id="_ykNE4KOaEeyg1bkezwUNpA" entityName="Storage Device"/>
+  <linkingResources__ResourceEnvironment id="_wGc1oBfxEe2dAtAsLX7Vgw" entityName="Internet" connectedResourceContainers_LinkingResource="_dxnfYKOdEeyg1bkezwUNpA _fboxMKOdEeyg1bkezwUNpA _1Sgq0BfxEe2dAtAsLX7Vgw">
+    <communicationLinkResourceSpecifications_LinkingResource id="_wGdcsBfxEe2dAtAsLX7Vgw">
+      <latency_CommunicationLinkResourceSpecification/>
+      <throughput_CommunicationLinkResourceSpecification/>
+    </communicationLinkResourceSpecifications_LinkingResource>
+  </linkingResources__ResourceEnvironment>
+  <resourceContainer_ResourceEnvironment id="_ykNE4KOaEeyg1bkezwUNpA" entityName="Storage Server 1"/>
   <resourceContainer_ResourceEnvironment id="_4DOSUKOaEeyg1bkezwUNpA" entityName="Bridge 2-3"/>
   <resourceContainer_ResourceEnvironment id="_9ACKkKOaEeyg1bkezwUNpA" entityName="http Server"/>
   <resourceContainer_ResourceEnvironment id="_CGcDsKObEeyg1bkezwUNpA" entityName="Application Server"/>
   <resourceContainer_ResourceEnvironment id="_WNeDYKObEeyg1bkezwUNpA" entityName="Bridge 1-2"/>
   <resourceContainer_ResourceEnvironment id="_aguBQKObEeyg1bkezwUNpA" entityName="FileTransfer Server"/>
-  <resourceContainer_ResourceEnvironment id="_epueAKObEeyg1bkezwUNpA" entityName="OpenStack"/>
+  <resourceContainer_ResourceEnvironment id="_epueAKObEeyg1bkezwUNpA" entityName="DNS"/>
   <resourceContainer_ResourceEnvironment id="_dxnfYKOdEeyg1bkezwUNpA" entityName="User Teminal"/>
   <resourceContainer_ResourceEnvironment id="_fboxMKOdEeyg1bkezwUNpA" entityName="Cloud Tenant Terminal"/>
   <resourceContainer_ResourceEnvironment id="_7yeD4KOdEeyg1bkezwUNpA" entityName="DB Server"/>
   <resourceContainer_ResourceEnvironment id="_eaQKsBQBEe2E1rY1FkobkQ" entityName="Mail-Server"/>
+  <resourceContainer_ResourceEnvironment id="_1Sgq0BfxEe2dAtAsLX7Vgw" entityName="CRS"/>
+  <resourceContainer_ResourceEnvironment id="_C4G90BfyEe2dAtAsLX7Vgw" entityName="AuthenticationServer"/>
+  <resourceContainer_ResourceEnvironment id="_EyqmABfyEe2dAtAsLX7Vgw" entityName="IDS"/>
+  <resourceContainer_ResourceEnvironment id="_8U3BUBfzEe2dAtAsLX7Vgw" entityName="Storage Server 2"/>
+  <resourceContainer_ResourceEnvironment id="_8kdjkBfzEe2dAtAsLX7Vgw" entityName="Storage Server 3"/>
 </resourceenvironment:ResourceEnvironment>

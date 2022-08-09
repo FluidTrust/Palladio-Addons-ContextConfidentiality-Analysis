@@ -1,24 +1,8 @@
 <?xml version="1.0" encoding="ASCII"?>
-<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" id="_OxD7EO26Eeq-yNCPvHsSJQ" entityName="New Repository">
-  <components__Repository xsi:type="repository:BasicComponent" id="_QfmFIKOcEeyg1bkezwUNpA" entityName="VM">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_xuhvMKOcEeyg1bkezwUNpA" entityName="VM.VMInterface.VMData" providedInterface__OperationProvidedRole="_HFVosO2-Eeq6pfPMAIqEqg"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_xuiWQKOcEeyg1bkezwUNpA" describedService__SEFF="_J5tNwO2-Eeq6pfPMAIqEqg">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_xuiWQaOcEeyg1bkezwUNpA" successor_AbstractAction="_xuiWQqOcEeyg1bkezwUNpA"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_xuiWQqOcEeyg1bkezwUNpA" predecessor_AbstractAction="_xuiWQaOcEeyg1bkezwUNpA"/>
-    </serviceEffectSpecifications__BasicComponent>
-  </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="__S1KQBQBEe2E1rY1FkobkQ" entityName="OpenSSH">
-    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_DhtlgBQCEe2E1rY1FkobkQ" entityName="BasicComponent2.SSH.OperationProvidedRole1" providedInterface__OperationProvidedRole="_7hUAcBQBEe2E1rY1FkobkQ"/>
-    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Dh_5YBQCEe2E1rY1FkobkQ" describedService__SEFF="_8XCukBQBEe2E1rY1FkobkQ">
-      <steps_Behaviour xsi:type="seff:StartAction" id="_Dh_5YRQCEe2E1rY1FkobkQ" successor_AbstractAction="_Dh_5YhQCEe2E1rY1FkobkQ"/>
-      <steps_Behaviour xsi:type="seff:StopAction" id="_Dh_5YhQCEe2E1rY1FkobkQ" predecessor_AbstractAction="_Dh_5YRQCEe2E1rY1FkobkQ"/>
-    </serviceEffectSpecifications__BasicComponent>
-  </components__Repository>
-  <components__Repository xsi:type="repository:BasicComponent" id="_J_jLoBQCEe2E1rY1FkobkQ" entityName="BasicComponent3"/>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_HFVosO2-Eeq6pfPMAIqEqg" entityName="VMInterface">
-    <signatures__OperationInterface id="_J5tNwO2-Eeq6pfPMAIqEqg" entityName="getData"/>
-  </interfaces__Repository>
-  <interfaces__Repository xsi:type="repository:OperationInterface" id="_7hUAcBQBEe2E1rY1FkobkQ" entityName="SSH">
-    <signatures__OperationInterface id="_8XCukBQBEe2E1rY1FkobkQ" entityName="login"/>
-  </interfaces__Repository>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" id="_OxD7EO26Eeq-yNCPvHsSJQ" entityName="New Repository">
+  <components__Repository xsi:type="repository:BasicComponent" id="_QfmFIKOcEeyg1bkezwUNpA" entityName="VM"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_J_jLoBQCEe2E1rY1FkobkQ" entityName="NeutronDNS"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_ncqN8Bf0Ee2dAtAsLX7Vgw" entityName="OpenStack"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_pb9MMBf0Ee2dAtAsLX7Vgw" entityName="MySQL"/>
+  <components__Repository xsi:type="repository:BasicComponent" id="_rr2yQBf0Ee2dAtAsLX7Vgw" entityName="Nova"/>
 </repository:Repository>

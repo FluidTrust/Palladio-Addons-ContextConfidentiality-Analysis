@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="ASCII"?>
-<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_PgGLUO26Eeq-yNCPvHsSJQ" entityName="New System">
-  <assemblyContexts__ComposedStructure id="_CuttMBQAEe2E1rY1FkobkQ" entityName="Assembly_VM">
+<system:System xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:system="http://palladiosimulator.org/PalladioComponentModel/System/5.2" id="_PgGLUO26Eeq-yNCPvHsSJQ" entityName="CloudSystem">
+  <assemblyContexts__ComposedStructure id="_0WGlkBf0Ee2dAtAsLX7Vgw" entityName="Assembly_MySQL">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_pb9MMBf0Ee2dAtAsLX7Vgw"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_1lr-IBf0Ee2dAtAsLX7Vgw" entityName="Assembly_NeutronDNS">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_J_jLoBQCEe2E1rY1FkobkQ"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_2tiXABf0Ee2dAtAsLX7Vgw" entityName="Assembly_OpenStack">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_ncqN8Bf0Ee2dAtAsLX7Vgw"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_3ysoQBf0Ee2dAtAsLX7Vgw" entityName="Assembly_Nova">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_rr2yQBf0Ee2dAtAsLX7Vgw"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_8LRyEBf0Ee2dAtAsLX7Vgw" entityName="DB_VM">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
   </assemblyContexts__ComposedStructure>
-  <assemblyContexts__ComposedStructure id="_E0K90BQAEe2E1rY1FkobkQ" entityName="Assembly_VM">
+  <assemblyContexts__ComposedStructure id="_-tepEBf0Ee2dAtAsLX7Vgw" entityName="APP_VM">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
   </assemblyContexts__ComposedStructure>
-  <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_plwv0O2-Eeq6pfPMAIqEqg" entityName="Interface1ProvidedRole"/>
+  <assemblyContexts__ComposedStructure id="_BPJUkBf1Ee2dAtAsLX7Vgw" entityName="HTTP_VM">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_DzdrcBf1Ee2dAtAsLX7Vgw" entityName="MAIL_VM">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_au5FYBf1Ee2dAtAsLX7Vgw" entityName="File-VM">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
+  </assemblyContexts__ComposedStructure>
 </system:System>

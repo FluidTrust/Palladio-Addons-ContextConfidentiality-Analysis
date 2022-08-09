@@ -2,4 +2,40 @@
 <allocation:Allocation xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:allocation="http://palladiosimulator.org/PalladioComponentModel/Allocation/5.2" id="_klAj8O6IEeqE7MyXYeeR9A" entityName="New Allocation">
   <targetResourceEnvironment_Allocation href="newResourceEnvironment.resourceenvironment#/"/>
   <system_Allocation href="newAssembly.system#_PgGLUO26Eeq-yNCPvHsSJQ"/>
+  <allocationContexts_Allocation id="_LZJqcBf1Ee2dAtAsLX7Vgw" entityName="Allocation_HTTP_VM">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_BPJUkBf1Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_NBfhQBf1Ee2dAtAsLX7Vgw" entityName="Allocation_APP_VM">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_-tepEBf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_PJTiUBf1Ee2dAtAsLX7Vgw" entityName="Allocation_DB_VM">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_8LRyEBf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_W1RIcBf1Ee2dAtAsLX7Vgw" entityName="Allocation_MAIL_VM">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_eaQKsBQBEe2E1rY1FkobkQ"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_DzdrcBf1Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_X4bOkBf1Ee2dAtAsLX7Vgw" entityName="Allocation_Assembly_MySQL">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_C4G90BfyEe2dAtAsLX7Vgw"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_0WGlkBf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_YctAUBf1Ee2dAtAsLX7Vgw" entityName="Allocation_Assembly_NeutronDNS">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_epueAKObEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_1lr-IBf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_Y9XdYBf1Ee2dAtAsLX7Vgw" entityName="Allocation_Assembly_Nova">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_C4G90BfyEe2dAtAsLX7Vgw"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_3ysoQBf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_dfwqgBf1Ee2dAtAsLX7Vgw" entityName="Allocation_File-VM">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_au5FYBf1Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_erpO0Bf1Ee2dAtAsLX7Vgw" entityName="Allocation_Assembly_OpenStack">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_C4G90BfyEe2dAtAsLX7Vgw"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_2tiXABf0Ee2dAtAsLX7Vgw"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>
