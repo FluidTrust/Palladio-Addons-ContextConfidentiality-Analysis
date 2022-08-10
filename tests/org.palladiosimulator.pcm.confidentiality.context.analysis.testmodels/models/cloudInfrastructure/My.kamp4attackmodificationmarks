@@ -1,5 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+  <changePropagationSteps>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      <attackpathelement id="_W2qs0BiIEe26-d0zbB94zQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_8LRyEBf0Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_W2qs0RiIEe26-d0zbB94zQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.attacker#cve-2013-4344"/>
+      </attackpathelement>
+      <attackpathelement id="_W2qs0hiIEe26-d0zbB94zQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+  </changePropagationSteps>
   <seedModifications>
     <attackcomponent id="_OxY1sKOCEeyPgbGXj7rW7A">
       <affectedElement xsi:type="attacker:Attacker" href="My.attacker#_Kw-xUKEmEeuyfoSUd8RMpg"/>

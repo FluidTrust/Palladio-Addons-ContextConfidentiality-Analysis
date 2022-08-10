@@ -4,13 +4,11 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
-@Disabled
 public class CloudInfrastructureTest extends EvaluationTest {
     private static final String HYPERVISOR = "_RyWUMaOhEeyg1bkezwUNpA";
     private static final String ROOT = "_sKKUUe4ZEeu1msiU_4h_hw";
@@ -46,23 +44,24 @@ public class CloudInfrastructureTest extends EvaluationTest {
 
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
+        Assert.assertEquals(1, pathsDirectlyAfterAnalysis.size());
         pathsTestHelper(changes, entity);
     }
 
     @Test
     void exampleDatabaseHypervisior01() {
-        attackHypervisor("Assembly_DBVM");
+        attackHypervisor("DB_VM");
     }
 
     @Test
     void exampleDatabaseHypervisior02() {
-        attackHypervisor("Assembly_Source_VM");
+        attackHypervisor("APP_VM");
     }
 
     private void attackHypervisor(String name) {
         var criteria = getSurfaceAttacker().getFiltercriteria();
         var targetEntity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+        criteria.clear();
         var elementFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
         var componentIntegration = PcmIntegrationFactory.eINSTANCE.createSystemComponent();
         var entity = getFirstEntityByName(name);
@@ -78,88 +77,6 @@ public class CloudInfrastructureTest extends EvaluationTest {
         pathsTestHelper(changes, targetEntity);
         Assertions.assertEquals(1, paths.size());
     }
-
-//    @Test
-//    public void evaluationTestExample1Test2013() {
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "- | Assembly_DBVM\n" + VULN_2013 + " | Assembly_Hypervisor\n"
-//                + HYPERVISOR + " | DB VM Server\n" + "- | Assembly_Target_VM\n" + "VULNs used: " + VULN_2013));
-//    }
-//
-//    @Test
-//    public void evaluationTestExample1Test2012() {
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString
-//                .contains("PATH\n" + VULN_2012 + " | Assembly_Source_VM\n" + VULN_2012 + " | Assembly_Source_VM\n"
-//                        + HYPERVISOR + " | DB VM Server\n" + "- | Assembly_Target_VM\n" + "VULNs used: " + VULN_2012));
-//    }
-//
-//    @Test
-//    public void evaluationTestExample2TestContainer() {
-//        setCriticalResourceContainer("Storage");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "credentials initally necessary: " + ROOT + "\n"
-//                + "- | Nexus 7000 management device\n" + "- | Storage Device\n" + ROOT + " | Storage Device"));
-//    }
-//
-//    @Test
-//    public void evaluationTestExample2TestContComponent() {
-//        setCriticalAssemblyContext("Stored");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains(
-//                "PATH\n" + "credentials initally necessary: " + ROOT + "\n" + "- | Nexus 7000 management device\n"
-//                        + "- | Storage Device\n" + ROOT + " | Storage Device\n" + "- | Stored VMs"));
-//    }
-//
-//    @Test
-//    public void evaluationTestPath1Adapted() {
-//        setCriticalAssemblyContext("Stored");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "credentials initally necessary: " + ROOT + "\n"
-//                + "- | Bridge 2-3\n" + "- | Storage Device\n" + ROOT + " | Storage Device\n" + "- | Stored VMs"));
-//    }
-//
-//    @Test
-//    public void evaluationTestPath3HttpToApplication() {
-//        setCriticalResourceContainer("Application");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "credentials initally necessary: " + ROOT_10 + "\n"
-//                + "credentials initally necessary: " + ROOT_11 + "\n" + ROOT_11 + " | http VM Server\n" + ROOT_11
-//                + " | http VM Server\n" + "- | Application VM Server\n" + ROOT_10 + " | Application VM Server"));
-//    }
-//
-//    @Test
-//    public void evaluationTestPath3ApplicationToFtp() {
-//        setCriticalResourceContainer("ftp");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "credentials initally necessary: " + ROOT_9 + "\n"
-//                + "credentials initally necessary: " + ROOT_10 + "\n" + ROOT_10 + " | Application VM Server\n" + ROOT_10
-//                + " | Application VM Server\n" + "- | ftp VM Server\n" + ROOT_9 + " | ftp VM Server"));
-//    }
-//
-//    @Test
-//    public void evaluationTestPath4() {
-//        setCriticalResourceContainer("ftp");
-//        final var changes = runAnalysis();
-//        final var paths = changes.getAttackpaths();
-//        final var pathsString = toString(paths);
-//        Assert.assertTrue(pathsString.contains("PATH\n" + "credentials initally necessary: " + ROOT_9 + "\n" + ROOT_9
-//                + " | ftp VM Server\n" + ROOT_9 + " | ftp VM Server"));
-//    }
 
     @Test
     public void graphGenerationTest() {

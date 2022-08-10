@@ -38,4 +38,12 @@
     <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_C4G90BfyEe2dAtAsLX7Vgw"/>
     <assemblyContext_AllocationContext href="newAssembly.system#_2tiXABf0Ee2dAtAsLX7Vgw"/>
   </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_WUGnwBiHEe26-d0zbB94zQ" entityName="Allocation_DB_VM_2">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+  </allocationContexts_Allocation>
+  <allocationContexts_Allocation id="_GlnqwBiJEe26-d0zbB94zQ" entityName="Allocation_APP_VM_2">
+    <resourceContainer_AllocationContext href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
+    <assemblyContext_AllocationContext href="newAssembly.system#_DYp_gBiJEe26-d0zbB94zQ"/>
+  </allocationContexts_Allocation>
 </allocation:Allocation>

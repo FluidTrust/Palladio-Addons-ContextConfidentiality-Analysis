@@ -27,4 +27,10 @@
   <assemblyContexts__ComposedStructure id="_au5FYBf1Ee2dAtAsLX7Vgw" entityName="File-VM">
     <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
   </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_Qn4r0BiHEe26-d0zbB94zQ" entityName="DB_VM_2">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
+  </assemblyContexts__ComposedStructure>
+  <assemblyContexts__ComposedStructure id="_DYp_gBiJEe26-d0zbB94zQ" entityName="APP_VM_2">
+    <encapsulatedComponent__AssemblyContext xsi:type="repository:BasicComponent" href="newRepository.repository#_QfmFIKOcEeyg1bkezwUNpA"/>
+  </assemblyContexts__ComposedStructure>
 </system:System>
