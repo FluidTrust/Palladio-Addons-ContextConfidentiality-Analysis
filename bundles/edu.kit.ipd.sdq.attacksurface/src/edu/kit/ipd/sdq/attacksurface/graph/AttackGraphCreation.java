@@ -129,7 +129,7 @@ public class AttackGraphCreation
 
     }
 
-    private void insertEdge(ArchitectureNode node1, ArchitectureNode node2, AttackEdge edge) {
+    private synchronized void insertEdge(ArchitectureNode node1, ArchitectureNode node2, AttackEdge edge) {
         this.graph.addEdge(node1, node2, edge);
     }
 
@@ -402,6 +402,14 @@ public class AttackGraphCreation
 
     @Override
     public void calculateResourceContainerToResourcePropagation() {
+
+//        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+//                .forEach(resource -> {
+//            var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
+//                    this.modelStorage.getResourceEnvironment());
+//            createEdgeResourceContainer(resource, resources);
+//                });
+
         for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
@@ -413,11 +421,20 @@ public class AttackGraphCreation
 
     @Override
     public void calculateResourceContainerToLinkingResourcePropagation() {
+
+//        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+//                .forEach(resource -> {
+//            var linkings = PCMConnectionHelper.getLinkingResource(resource, this.modelStorage.getResourceEnvironment());
+//
+//            createEdgeLinkingResources(resource, linkings);
+//                });
+
         for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var linkings = PCMConnectionHelper.getLinkingResource(resource, this.modelStorage.getResourceEnvironment());
 
             createEdgeLinkingResources(resource, linkings);
         }
+
 
     }
 

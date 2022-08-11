@@ -3,7 +3,10 @@ package edu.kit.ipd.sdq.attacksurface.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
 import com.google.common.graph.ImmutableNetwork;
@@ -43,29 +46,42 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper modelStorage) {
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-
+        VulnerabilityHelper.initializeVulnerabilityStorage(modelStorage.getVulnerabilitySpecification());
 
         createInitialStructure(modelStorage);
         var graph = new AttackGraphCreation(modelStorage);
 
-        graph.calculateAssemblyContextToAssemblyContextPropagation();
-        graph.calculateAssemblyContextToGlobalAssemblyContextPropagation();
-        graph.calculateAssemblyContextToLinkingResourcePropagation();
-        graph.calculateAssemblyContextToLocalResourcePropagation();
-        graph.calculateAssemblyContextToRemoteResourcePropagation();
+        var future = CompletableFuture.allOf(
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
 
-        graph.calculateLinkingResourceToAssemblyContextPropagation();
-        graph.calculateLinkingResourceToResourcePropagation();
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToGlobalAssemblyContextPropagation),
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToLinkingResourcePropagation),
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToLocalResourcePropagation),
+                CompletableFuture.runAsync(graph::calculateAssemblyContextToRemoteResourcePropagation),
 
-        graph.calculateResourceContainerToLinkingResourcePropagation();
-        graph.calculateResourceContainerToLocalAssemblyContextPropagation();
-        graph.calculateResourceContainerToRemoteAssemblyContextPropagation();
-        graph.calculateResourceContainerToResourcePropagation();
+                CompletableFuture.runAsync(graph::calculateLinkingResourceToAssemblyContextPropagation),
+                CompletableFuture.runAsync(graph::calculateLinkingResourceToResourcePropagation),
+
+                CompletableFuture.runAsync(graph::calculateResourceContainerToLinkingResourcePropagation),
+                CompletableFuture.runAsync(graph::calculateResourceContainerToLocalAssemblyContextPropagation),
+                CompletableFuture.runAsync(graph::calculateResourceContainerToRemoteAssemblyContextPropagation),
+                CompletableFuture.runAsync(graph::calculateResourceContainerToResourcePropagation));
+        try {
+            future.get();
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 
 
 
 
         createAttackPaths(modelStorage, graph.getGraph());
+        VulnerabilityHelper.resetMap();
 
     }
 

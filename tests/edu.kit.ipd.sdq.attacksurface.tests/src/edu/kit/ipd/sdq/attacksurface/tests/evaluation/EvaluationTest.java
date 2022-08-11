@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Assertions;
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.MaximumPathLengthFilterCriterion;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -41,7 +42,7 @@ public abstract class EvaluationTest extends AbstractChangeTests {
             }
             set.add(element);
         }
-
+        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
         var attackGraphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         attackGraphCreation.calculateAssemblyContextToAssemblyContextPropagation();

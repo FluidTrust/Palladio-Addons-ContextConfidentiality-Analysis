@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 import org.jgrapht.alg.shortestpath.YenKShortestPath;
@@ -33,7 +34,6 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
 
     private int sizeMaximum;
 
-
     private void setSizeMaximum(final BlackboardWrapper board) {
         this.sizeMaximum = AttackHandlingHelper.getSurfaceAttacker(board).getFiltercriteria().stream()
                 .filter(MaximumPathLengthFilterCriterion.class::isInstance)
@@ -47,7 +47,6 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
         setSizeMaximum(board);
 
         List<AttackPathSurface> allPaths = new ArrayList<>();
-
 
         var rootNode = new ArchitectureNode(targetedElement);
 
@@ -64,23 +63,32 @@ public class DefaultAttackPathFinder implements AttackPathFinder {
     private void calculatePaths(final BlackboardWrapper board, Set<ArchitectureNode> nodes,
             List<AttackPathSurface> allPaths, ArchitectureNode rootNode,
             ImmutableNetworkAdapter<ArchitectureNode, AttackEdge> graphAdapter) {
-        for (var node : nodes) {
-            var paths = (new YenKShortestPath<>(graphAdapter, new CredentialValidator(board))).getPaths(node, rootNode,
-                    1);
 
-//            var paths = new AllDirectedPaths<>(graphAdapter, new CredentialValidator(board)).getAllPaths(node, rootNode,
-//                    false, 200);
+        var paths = nodes.parallelStream().filter(node -> !node.equals(rootNode))
+                .flatMap(node -> (new YenKShortestPath<>(graphAdapter, new CredentialValidator(board)))
+                        .getPaths(node, rootNode, 1).stream())
+                .filter(Objects::nonNull).map(AttackPathSurface::new).filter(path -> path.size() < this.sizeMaximum)
+                .toList();
 
-            for (var path : paths) {
+        allPaths.addAll(paths);
 
-            if (path != null && !node.equals(rootNode)) {
-                var attackPath = new AttackPathSurface(path);
-                if (attackPath.size() < this.sizeMaximum) {
-                    allPaths.add(new AttackPathSurface(path));
-                }
-            }
-        }
-        }
+//        for (var node : nodes) {
+//            var paths = (new YenKShortestPath<>(graphAdapter, new CredentialValidator(board))).getPaths(node, rootNode,
+//                    1);
+//
+////            var paths = new AllDirectedPaths<>(graphAdapter, new CredentialValidator(board)).getAllPaths(node, rootNode,
+////                    false, 200);
+//
+//            for (var path : paths) {
+//
+//            if (path != null && !node.equals(rootNode)) {
+//                var attackPath = new AttackPathSurface(path);
+//                if (attackPath.size() < this.sizeMaximum) {
+//                    allPaths.add(new AttackPathSurface(path));
+//                }
+//            }
+//        }
+//        }
     }
 
     private void copyGraph(ImmutableNetworkAdapter<ArchitectureNode, AttackEdge> graphAdapter) {

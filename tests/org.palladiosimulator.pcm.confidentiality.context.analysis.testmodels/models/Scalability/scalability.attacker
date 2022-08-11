@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
-    <attacker id="_5k1t0LWoEeyQX-6J3sEuBA" entityName="attacker"/>
-    <surfaceattacker id="_6lrfwbWoEeyQX-6J3sEuBA" entityName="surfaceAttacker" criticalElement="_Hw5j4LWpEeyQX-6J3sEuBA" attacker="_5k1t0LWoEeyQX-6J3sEuBA"/>
+    <attacker id="_5k1t0LWoEeyQX-6J3sEuBA"/>
+    <surfaceattacker id="_6lrfwbWoEeyQX-6J3sEuBA" entityName="surfaceAttacker" targetedElement="_Hw5j4LWpEeyQX-6J3sEuBA"/>
   </attackers>
   <attacks/>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" id="testVuln0" entityName="vulnerability" attackVector="Network" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="//@categoryspecification/@categories.0"/>
+    <vulnerability xsi:type="attack:CVEVulnerability" id="testVuln0" entityName="vulnerability" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="_6F6cABk8Ee2ucdT0frL0dQ"/>
   </vulnerabilites>
   <categoryspecification>
-    <categories xsi:type="attack:CVEID" entityName="testVuln" cveID="0"/>
+    <categories xsi:type="attack:CVEID" id="_6F6cABk8Ee2ucdT0frL0dQ" entityName="testVuln" cveID="0"/>
   </categoryspecification>
   <systemintegration>
     <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_GqJXMrWpEeyQX-6J3sEuBA">
