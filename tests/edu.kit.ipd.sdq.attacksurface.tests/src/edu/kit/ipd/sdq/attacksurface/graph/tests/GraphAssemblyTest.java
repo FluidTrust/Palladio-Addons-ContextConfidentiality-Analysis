@@ -19,6 +19,7 @@ public class GraphAssemblyTest extends AttackGraphCreationTest {
 
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateAssemblyContextToAssemblyContextPropagation();
@@ -56,6 +57,7 @@ public class GraphAssemblyTest extends AttackGraphCreationTest {
                 "Critical Test Vulnerability Integration");
         integration.getPcmelement().getAssemblycontext().add((AssemblyContext) targetedAssembly);
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateAssemblyContextToAssemblyContextPropagation();
@@ -88,6 +90,7 @@ public class GraphAssemblyTest extends AttackGraphCreationTest {
         this.context.getPolicyset().getPolicyset().clear();
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateAssemblyContextToAssemblyContextPropagation();
@@ -105,6 +108,7 @@ public class GraphAssemblyTest extends AttackGraphCreationTest {
 
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateAssemblyContextToGlobalAssemblyContextPropagation();
@@ -141,6 +145,7 @@ public class GraphAssemblyTest extends AttackGraphCreationTest {
                 "Critical Test Vulnerability Integration");
         integration.getPcmelement().getAssemblycontext().add((AssemblyContext) targetedAssembly);
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateAssemblyContextToGlobalAssemblyContextPropagation();

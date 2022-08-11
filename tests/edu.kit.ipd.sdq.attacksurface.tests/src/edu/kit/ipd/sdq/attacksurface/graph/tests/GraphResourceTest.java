@@ -21,6 +21,7 @@ public class GraphResourceTest extends AttackGraphCreationTest {
 
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateResourceContainerToLinkingResourcePropagation();
@@ -55,7 +56,7 @@ public class GraphResourceTest extends AttackGraphCreationTest {
                 "Critical Test Vulnerability Integration");
         integration.getPcmelement().setLinkingresource((LinkingResource) linkingResource);
 
-
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateResourceContainerToLinkingResourcePropagation();
@@ -87,6 +88,7 @@ public class GraphResourceTest extends AttackGraphCreationTest {
         this.context.getPolicyset().getPolicyset().clear();
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateResourceContainerToLinkingResourcePropagation();
@@ -112,6 +114,7 @@ public class GraphResourceTest extends AttackGraphCreationTest {
         getBlackboardWrapper().getAllocation().getAllocationContexts_Allocation()
                 .add((AllocationContext) saveAllocation);
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateResourceContainerToLocalAssemblyContextPropagation();
@@ -141,6 +144,7 @@ public class GraphResourceTest extends AttackGraphCreationTest {
 
         getBlackboardWrapper().getAllocation().getAllocationContexts_Allocation().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateResourceContainerToLocalAssemblyContextPropagation();

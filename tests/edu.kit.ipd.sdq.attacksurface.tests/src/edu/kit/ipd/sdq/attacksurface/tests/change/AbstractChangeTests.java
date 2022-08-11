@@ -7,7 +7,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeAssemblyContextsStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeIsGlobalStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeResourceContainerStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeTargetedConnectorsStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ChangeLinkingResourcesStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ResourceContainerChangeAssemblyContextsStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackSpecificationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.AttackVector;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.attackSpecification.CVEID;
@@ -54,6 +63,21 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.PATH_REPOSITORY = "simpleAttackmodels-surface/PropagationUnitTests/newRepository.repository";
         this.PATH_USAGE = "simpleAttackmodels-surface/PropagationUnitTests/newUsageModel.usagemodel";
         this.PATH_RESOURCES = "simpleAttackmodels-surface/PropagationUnitTests/newResourceEnvironment.resourceenvironment";
+    }
+
+    @AfterEach
+    @BeforeEach
+    void resetHashMaps() {
+        ChangeLinkingResourcesStorage.getInstance().reset();
+        AssemblyContextChangeIsGlobalStorage.getInstance().reset();
+        AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();
+        AssemblyContextChangeResourceContainerStorage.getInstance().reset();
+        AssemblyContextChangeAssemblyContextsStorage.getInstance().reset();
+        ResourceContainerChangeAssemblyContextsStorage.getInstance().reset();
+    }
+
+    protected void resetVulnerabilityCache() {
+        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
     }
 
     private void addPolicy(final Policy policy) {

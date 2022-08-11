@@ -18,6 +18,7 @@ public class GraphLinkingResourceTest extends AttackGraphCreationTest {
 
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();
@@ -48,6 +49,7 @@ public class GraphLinkingResourceTest extends AttackGraphCreationTest {
         this.context.getPolicyset().getPolicyset().clear();
         getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();
@@ -69,8 +71,10 @@ public class GraphLinkingResourceTest extends AttackGraphCreationTest {
 
         var integration = (VulnerabilitySystemIntegration) getFirstEntityByName(
                 "Critical Test Vulnerability Integration");
+        integration.getPcmelement().getAssemblycontext().clear();
         integration.getPcmelement().setResourcecontainer((ResourceContainer) resourceContainer);
 
+        resetVulnerabilityCache();
         var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();

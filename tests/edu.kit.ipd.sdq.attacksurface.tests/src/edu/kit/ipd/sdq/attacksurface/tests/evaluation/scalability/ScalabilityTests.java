@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
@@ -41,6 +42,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
         this.PATH_MODIFICATION = "Scalability/scalability.kamp4attackmodificationmarks";
     }
 
+    @Disabled
     @Test
     void run() {
 
@@ -60,6 +62,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
     }
 
     // TODO enable for scalability test for maximum
+    @Disabled
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
