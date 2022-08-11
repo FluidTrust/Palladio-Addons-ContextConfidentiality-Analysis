@@ -25,7 +25,6 @@ public class TargetCaseStudyTests extends AbstractChangeTests {
         this.PATH_RESOURCES = "targetBreach/target.resourceenvironment";
     }
 
-
     @Test
     void defaultCase() {
         runAnalysis();
@@ -48,8 +47,6 @@ public class TargetCaseStudyTests extends AbstractChangeTests {
         var containsAllUsageSpecification = change.getContextchange().stream().map(ContextChange::getAffectedElement)
                 .map(UsageSpecification::getEntityName).allMatch(this::usageSpecificationNameMatch);
 
-
-
         assertTrue(containsAllAssemblies, "Not the excpected Assemblies are compromised");
         assertTrue(containsAllUsageSpecification, "Not the expected UsageSpecifications are gathered");
 
@@ -65,7 +62,5 @@ public class TargetCaseStudyTests extends AbstractChangeTests {
         var set = Set.of("UsageSupplier", "DomainAdmin");
         return set.contains(name);
     }
-
-
 
 }

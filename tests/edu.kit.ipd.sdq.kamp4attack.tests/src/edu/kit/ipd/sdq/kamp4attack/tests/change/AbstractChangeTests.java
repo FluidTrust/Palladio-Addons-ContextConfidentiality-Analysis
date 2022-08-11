@@ -83,7 +83,6 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
     }
 
-
     protected void createContextChange(final UsageSpecification context, final CredentialChange change) {
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);

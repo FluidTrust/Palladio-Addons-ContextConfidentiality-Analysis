@@ -34,7 +34,6 @@ public class EmptyAttackTests extends TravelPlannerCaseStudy {
 //FIXME: depends on the correct data handling or required connections
 //        assertEquals(10, change.getCompromiseddata().size());
 
-
     }
 
     @Override

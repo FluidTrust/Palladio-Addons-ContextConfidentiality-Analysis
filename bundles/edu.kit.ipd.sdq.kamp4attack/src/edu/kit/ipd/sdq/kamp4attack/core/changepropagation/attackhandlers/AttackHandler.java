@@ -200,8 +200,7 @@ public abstract class AttackHandler {
         if (result.isPresent()) {
             authenticated = DecisionType.PERMIT.equals(result.get().decision());
         }
-        final var roleSpecification = VulnerabilityHelper
-                .getRoles(getModelStorage().getVulnerabilitySpecification());
+        final var roleSpecification = VulnerabilityHelper.getRoles(getModelStorage().getVulnerabilitySpecification());
 
         final var roles = roleSpecification.stream()
                 .filter(e -> CompromisedElementHelper.isHacked(e.getPcmelement(), change))

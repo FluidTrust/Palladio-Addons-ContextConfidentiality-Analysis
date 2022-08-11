@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeIsGlobalStorage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.NonGlobalCommunication;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PCMElement;
@@ -43,8 +44,7 @@ public class CollectionHelper {
     public static List<AssemblyContext> getAssemblyContext(final List<ResourceContainer> resources,
             final Allocation allocation) {
         return allocation.getAllocationContexts_Allocation().stream()
-                .filter(container -> searchResource(container.getResourceContainer_AllocationContext(),
-                        resources))
+                .filter(container -> searchResource(container.getResourceContainer_AllocationContext(), resources))
                 .map(AllocationContext::getAssemblyContext_AllocationContext).distinct().collect(Collectors.toList());
 
     }
@@ -138,11 +138,21 @@ public class CollectionHelper {
     }
 
     public static boolean isGlobalCommunication(AssemblyContext component, List<SystemIntegration> list) {
-        // TODO adapt get(0) for list comparision
-        return list.stream().filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
-                .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
-                        component))
-                .noneMatch(NonGlobalCommunication.class::isInstance);
+        var storage = AssemblyContextChangeIsGlobalStorage.getInstance();
+
+        // Uses a HashMap to store results, to avoid recalculation and improve performance
+        if (!storage.contains(component.getId())) {
+
+            // TODO adapt get(0) for list comparision
+            var globalElement = list.stream()
+                    .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
+                    .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
+                            component))
+                    .noneMatch(NonGlobalCommunication.class::isInstance);
+            storage.put(component.getId(), globalElement);
+        }
+
+        return storage.get(component.getId());
     }
 
     private static boolean containsService(final CompromisedService service, final CredentialChange change) {

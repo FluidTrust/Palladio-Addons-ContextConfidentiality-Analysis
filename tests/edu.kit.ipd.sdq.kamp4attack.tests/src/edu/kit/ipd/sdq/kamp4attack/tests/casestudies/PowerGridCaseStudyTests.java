@@ -108,9 +108,9 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
         if (!equalAssembly) {
             return equalAssembly;
         }
-        var setServices = Set.of("_Q-7lUCwjEeylP6vhO63XvA", "_xXMikCwiEeylP6vhO63XvA",
-                "_B6cScCwjEeylP6vhO63XvA", "_9onQ4CwiEeylP6vhO63XvA", "_xWrqQC2YEeyiUoiCEbquLw",
-                "_G-t3wC2bEeyiUoiCEbquLw", "_ZHSHAC2YEeyiUoiCEbquLw", "_ZIvfkC2YEeyiUoiCEbquLw");
+        var setServices = Set.of("_Q-7lUCwjEeylP6vhO63XvA", "_xXMikCwiEeylP6vhO63XvA", "_B6cScCwjEeylP6vhO63XvA",
+                "_9onQ4CwiEeylP6vhO63XvA", "_xWrqQC2YEeyiUoiCEbquLw", "_G-t3wC2bEeyiUoiCEbquLw",
+                "_ZHSHAC2YEeyiUoiCEbquLw", "_ZIvfkC2YEeyiUoiCEbquLw");
         return setServices.contains(restriction.getService().getId());
 
     }

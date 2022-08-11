@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ResourceContainerChangeAssemblyContextsStorage;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -48,12 +49,23 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
         final var listInfectedContainer = getInfectedResourceContainers();
 
+        var storage = ResourceContainerChangeAssemblyContextsStorage.getInstance();
+
         for (final var resource : listInfectedContainer) {
             final var resources = getConnectedResourceContainers(resource);
-            var assemblycontext = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
+
+            // Uses a HashMap to store results, to avoid recalculation and improve
+            // performance
+            if (!storage.contains(resource.getId())) {
+                var assemblycontext = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
+                assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
+                        .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
+                storage.put(resource.getId(), assemblycontext);
+            }
+
+            var assemblycontext = storage.get(resource.getId());
+
             final var handler = getAssemblyHandler();
-            assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handler.attackAssemblyContext(assemblycontext, this.changes, resource);
             handleSeff(this.changes, assemblycontext, resource);
         }
@@ -85,7 +97,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
             if (!listChanges.isEmpty()) {
                 this.changes.getCompromisedassembly().addAll(listChanges);
-                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(), this.changes);
+                CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(),
+                        this.changes);
                 this.changes.setChanged(true);
             }
         }

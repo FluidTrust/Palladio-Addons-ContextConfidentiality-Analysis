@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.eclipse.emf.ecore.EObject;
 import org.osgi.service.component.annotations.Component;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.*;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
+import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.ResourceEnvironmentElement;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.SystemComponent;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
@@ -38,7 +40,6 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
     private CredentialChange changePropagationDueToCredential;
 
-
     @Override
     public void runChangePropagationAnalysis(final BlackboardWrapper board) {
 
@@ -48,9 +49,12 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
         CacheCompromised.instance().register(this.changePropagationDueToCredential);
+
+        resetHashMaps();
         // prepare
 
         createInitialStructure(board);
+        VulnerabilityHelper.initializeVulnerabilityStorage(board.getVulnerabilitySpecification());
 
         // Calculate
         do {
@@ -66,7 +70,17 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
         CacheCompromised.instance().reset();
         CacheVulnerability.instance().reset();
 
+        VulnerabilityHelper.resetMap();
+        resetHashMaps();
+    }
 
+    private void resetHashMaps() {
+        ChangeLinkingResourcesStorage.getInstance().reset();
+        AssemblyContextChangeIsGlobalStorage.getInstance().reset();
+        AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();
+        AssemblyContextChangeResourceContainerStorage.getInstance().reset();
+        AssemblyContextChangeAssemblyContextsStorage.getInstance().reset();
+        ResourceContainerChangeAssemblyContextsStorage.getInstance().reset();
     }
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
@@ -138,9 +152,9 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
             final var affectedRessourcesList = localAttacker.getCompromisedResourceElements().stream()
                     .filter(e -> e.getResourcecontainer() != null).map(ResourceEnvironmentElement::getResourcecontainer)
                     .map(resource -> {
-                final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-                change.setAffectedElement(resource);
-                return change;
+                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+                        change.setAffectedElement(resource);
+                        return change;
                     }).toList();
             this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
@@ -148,8 +162,8 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
             var assemblyHandler = new AssemblyContextHandler(board,
                     new DataHandlerAttacker(this.changePropagationDueToCredential)) {
                 @Override
-                protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component, CredentialChange change,
-                        EObject source){
+                protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component,
+                        CredentialChange change, EObject source) {
                     final var compromisedComponent = KAMP4attackModificationmarksFactory.eINSTANCE
                             .createCompromisedAssembly();
                     compromisedComponent.setAffectedElement(component);
@@ -160,9 +174,6 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
             assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents().stream()
                     .map(SystemComponent::getAssemblycontext).map(e -> e.get(0)).toList(),
                     this.changePropagationDueToCredential, null);
-
-
-
 
             // convert affectedLinkingResources to changes
             final var affectedLinkingList = localAttacker.getCompromisedResourceElements().stream()

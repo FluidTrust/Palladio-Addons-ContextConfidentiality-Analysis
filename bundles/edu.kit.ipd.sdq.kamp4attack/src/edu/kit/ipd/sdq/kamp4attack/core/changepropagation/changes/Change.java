@@ -1,9 +1,11 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ChangeLinkingResourcesStorage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -21,7 +23,6 @@ public abstract class Change<T> {
     public Change(final BlackboardWrapper v, CredentialChange change) {
         this.modelStorage = v;
         this.changes = change;
-
     }
 
     protected void updateFromContextProviderStream(final CredentialChange changes,

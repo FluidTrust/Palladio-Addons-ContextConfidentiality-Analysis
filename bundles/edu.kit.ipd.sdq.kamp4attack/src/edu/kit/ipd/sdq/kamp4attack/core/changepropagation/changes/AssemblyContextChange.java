@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.*;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.ServiceSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.StructureFactory;
@@ -31,8 +32,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext>
     }
 
     protected List<AssemblyContext> getCompromisedAssemblyContexts() {
-        return this.changes.getCompromisedassembly().stream()
-                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+        return this.changes.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -47,7 +48,6 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext>
         updateFromContextProviderStream(this.changes, streamAttributeProvider);
 
     }
-
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
@@ -91,17 +91,17 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext>
                         final var basicComponent = (BasicComponent) componentRepository;
                         return basicComponent.getServiceEffectSpecifications__BasicComponent().stream()
                                 .filter(seff -> signatures.stream().anyMatch( // find only seff of
-                                        // role
+                                                                              // role
                                         signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
 
                                 .map(seff -> {
                                     final var methodspecification = StructureFactory.eINSTANCE
                                             .createServiceSpecification();
                                     methodspecification
-                                    .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
                                     methodspecification.setService((ResourceDemandingSEFF) seff);
                                     methodspecification
-                                    .setSignature(methodspecification.getService().getDescribedService__SEFF());
+                                            .setSignature(methodspecification.getService().getDescribedService__SEFF());
                                     return methodspecification;
                                 });
 
@@ -128,6 +128,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext>
 
 
 
+
+
     protected abstract ResourceContainerHandler getLocalResourceHandler();
 
     protected abstract ResourceContainerHandler getRemoteResourceHandler();
@@ -151,23 +153,32 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext>
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream()
-                .filter(this::isGlobalElement).collect(Collectors.toList());
+        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
+                .collect(Collectors.toList());
+
+        var storage = AssemblyContextChangeAssemblyContextsStorage.getInstance();
 
         for (var component : listCompromisedContexts) {
             var resourceContainer = PCMConnectionHelper.getResourceContainer(component,
                     this.modelStorage.getAllocation());
             var connectedContainers = getConnectedResourceContainers(resourceContainer);
-            var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
-                    this.modelStorage.getAllocation());
-            reachableAssemblies.addAll(
-                    CollectionHelper.getAssemblyContext(List.of(resourceContainer), this.modelStorage.getAllocation()));
-            final var handler = getAssemblyHandler();
 
-            // Filter duplicates, cached and non Global Components
-            reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
-                    .filter(e -> !CacheCompromised.instance().compromised(e)).filter(this::isGlobalElement)
-                    .collect(Collectors.toList());
+            // Uses a HashMap to store results, to avoid recalculation and improve
+            // performance
+            if (!storage.contains(resourceContainer.getId())) {
+                var reachableAssemblies = CollectionHelper.getAssemblyContext(connectedContainers,
+                        this.modelStorage.getAllocation());
+                reachableAssemblies.addAll(CollectionHelper.getAssemblyContext(List.of(resourceContainer),
+                        this.modelStorage.getAllocation()));
+                reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
+                        .filter(e -> !CacheCompromised.instance().compromised(e)).filter(this::isGlobalElement)
+                        .collect(Collectors.toList());
+                storage.put(resourceContainer.getId(), reachableAssemblies);
+            }
+
+            var reachableAssemblies = storage.get(resourceContainer.getId());
+
+            final var handler = getAssemblyHandler();
             handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
 
             var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()

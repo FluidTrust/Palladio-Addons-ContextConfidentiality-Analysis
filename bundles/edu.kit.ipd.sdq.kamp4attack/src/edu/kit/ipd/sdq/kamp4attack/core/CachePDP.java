@@ -12,6 +12,7 @@ public class CachePDP {
     private Map<String, PDPResult> cache = new HashMap<>();
 
     private static CachePDP instance;
+
     private CachePDP() {
         // TODO Auto-generated constructor stub
     }

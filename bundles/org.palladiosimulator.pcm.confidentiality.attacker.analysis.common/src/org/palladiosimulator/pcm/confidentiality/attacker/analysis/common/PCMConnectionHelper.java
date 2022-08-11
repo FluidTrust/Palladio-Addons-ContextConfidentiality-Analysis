@@ -5,6 +5,9 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.palladiosimulator.pcm.allocation.Allocation;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeResourceContainerStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.AssemblyContextChangeTargetedConnectorsStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ChangeLinkingResourcesStorage;
 import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -33,11 +36,20 @@ public class PCMConnectionHelper {
     }
 
     public static List<AssemblyConnector> getConnectedConnectors(final AssemblyContext component, final System system) {
-        return system.getConnectors__ComposedStructure().stream().filter(AssemblyConnector.class::isInstance)
+        var storage = AssemblyContextChangeTargetedConnectorsStorage.getInstance();
+
+        // Uses a HashMap to store results, to avoid recalculation and improve performance
+        if (!storage.contains(component.getId())) {
+            var targetedConnectors = system.getConnectors__ComposedStructure().stream()
+                    .filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
                         || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
                 .toList();
+            storage.put(component.getId(), targetedConnectors);
+        }
+
+        return storage.get(component.getId());
     }
 
     /**
@@ -50,14 +62,24 @@ public class PCMConnectionHelper {
      * @return allocated ResourceContainer
      */
     public static ResourceContainer getResourceContainer(final AssemblyContext component, Allocation allocationModel) {
-        final var allocationOPT = allocationModel.getAllocationContexts_Allocation().stream()
-                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
-                .findAny();
-        if (allocationOPT.isEmpty()) {
-            throw new IllegalStateException(
-                    "No Allocation for assemblycontext " + component.getEntityName() + " found");
+        var storage = AssemblyContextChangeResourceContainerStorage.getInstance();
+
+        // Uses a HashMap to store results, to avoid recalculation and improve
+        // performance
+        if (!storage.contains(component.getId())) {
+            final var allocationOPT = allocationModel.getAllocationContexts_Allocation()
+                    .parallelStream().filter(allocation -> EcoreUtil
+                            .equals(allocation.getAssemblyContext_AllocationContext(), component))
+                    .findAny();
+            if (allocationOPT.isEmpty()) {
+                throw new IllegalStateException(
+                        "No Allocation for assemblycontext " + component.getEntityName() + " found");
+            }
+
+            storage.put(component.getId(), allocationOPT.get().getResourceContainer_AllocationContext());
         }
-        return allocationOPT.get().getResourceContainer_AllocationContext();
+
+        return storage.get(component.getId());
     }
 
     public static List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource,
@@ -70,10 +92,18 @@ public class PCMConnectionHelper {
 
     public static List<LinkingResource> getLinkingResource(final ResourceContainer container,
             ResourceEnvironment resourceEnvironment) {
-        return resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
+        var storage = ChangeLinkingResourcesStorage.getInstance();
+
+        // Uses a HashMap to store results, to avoid recalculation and improve performance
+        if (!storage.contains(container.getId())) {
+            var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
                 .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
                         .anyMatch(f -> EcoreUtil.equals(f, container)))
                 .collect(Collectors.toList());
+            storage.put(container.getId(), linkingResourcesList);
+        }
+
+        return storage.get(container.getId());
     }
 
 
