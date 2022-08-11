@@ -45,14 +45,10 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
 
         // Setup
         this.changePropagationDueToCredential = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        CachePDP.instance()
-            .clearCache();
-        CacheCompromised.instance()
-            .reset();
-        CacheVulnerability.instance()
-            .reset();
-        CacheCompromised.instance()
-            .register(this.changePropagationDueToCredential);
+        CachePDP.instance().clearCache();
+        CacheCompromised.instance().reset();
+        CacheVulnerability.instance().reset();
+        CacheCompromised.instance().register(this.changePropagationDueToCredential);
 
         resetHashMaps();
         // prepare
@@ -70,30 +66,21 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
         } while (this.changePropagationDueToCredential.isChanged());
 
         // Clear caches
-        CachePDP.instance()
-            .clearCache();
-        CacheCompromised.instance()
-            .reset();
-        CacheVulnerability.instance()
-            .reset();
+        CachePDP.instance().clearCache();
+        CacheCompromised.instance().reset();
+        CacheVulnerability.instance().reset();
 
         VulnerabilityHelper.resetMap();
         resetHashMaps();
     }
 
     private void resetHashMaps() {
-        ChangeLinkingResourcesStorage.getInstance()
-            .reset();
-        AssemblyContextChangeIsGlobalStorage.getInstance()
-            .reset();
-        AssemblyContextChangeTargetedConnectorsStorage.getInstance()
-            .reset();
-        AssemblyContextChangeResourceContainerStorage.getInstance()
-            .reset();
-        AssemblyContextChangeAssemblyContextsStorage.getInstance()
-            .reset();
-        ResourceContainerChangeAssemblyContextsStorage.getInstance()
-            .reset();
+        ChangeLinkingResourcesStorage.getInstance().reset();
+        AssemblyContextChangeIsGlobalStorage.getInstance().reset();
+        AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();
+        AssemblyContextChangeResourceContainerStorage.getInstance().reset();
+        AssemblyContextChangeAssemblyContextsStorage.getInstance().reset();
+        ResourceContainerChangeAssemblyContextsStorage.getInstance().reset();
     }
 
     private void calculateAndMarkAssemblyPropagation(final BlackboardWrapper board) {
@@ -147,37 +134,28 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
             throw new IllegalStateException("No seed modification found");
         }
 
-        repository.getChangePropagationSteps()
-            .clear();
+        repository.getChangePropagationSteps().clear();
 
         for (final var attacker : attackers) {
             final var localAttacker = attacker.getAffectedElement();
 
-            final var listCredentialChanges = localAttacker.getCredentials()
-                .stream()
-                .map(context -> {
-                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
-                    change.setAffectedElement(context);
-                    return change;
-                })
-                .toList();
+            final var listCredentialChanges = localAttacker.getCredentials().stream().map(context -> {
+                final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
+                change.setAffectedElement(context);
+                return change;
+            }).toList();
 
-            this.changePropagationDueToCredential.getContextchange()
-                .addAll(listCredentialChanges);
+            this.changePropagationDueToCredential.getContextchange().addAll(listCredentialChanges);
 
             // convert affectedResources to changes
-            final var affectedRessourcesList = localAttacker.getCompromisedResourceElements()
-                .stream()
-                .filter(e -> e.getResourcecontainer() != null)
-                .map(ResourceEnvironmentElement::getResourcecontainer)
-                .map(resource -> {
-                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
-                    change.setAffectedElement(resource);
-                    return change;
-                })
-                .toList();
-            this.changePropagationDueToCredential.getCompromisedresource()
-                .addAll(affectedRessourcesList);
+            final var affectedRessourcesList = localAttacker.getCompromisedResourceElements().stream()
+                    .filter(e -> e.getResourcecontainer() != null).map(ResourceEnvironmentElement::getResourcecontainer)
+                    .map(resource -> {
+                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
+                        change.setAffectedElement(resource);
+                        return change;
+                    }).toList();
+            this.changePropagationDueToCredential.getCompromisedresource().addAll(affectedRessourcesList);
 
             // convert affectedAssemblyContexts to changes
             var assemblyHandler = new AssemblyContextHandler(board,
@@ -186,36 +164,29 @@ public class AttackPropagationAnalysis implements IAttackPropagationAnalysis {
                 protected Optional<CompromisedAssembly> attackComponent(AssemblyContext component,
                         CredentialChange change, EObject source) {
                     final var compromisedComponent = KAMP4attackModificationmarksFactory.eINSTANCE
-                        .createCompromisedAssembly();
+                            .createCompromisedAssembly();
                     compromisedComponent.setAffectedElement(component);
                     return Optional.of(compromisedComponent);
                 }
             };
 
-            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents()
-                .stream()
-                .map(SystemComponent::getAssemblycontext)
-                .map(e -> e.get(0))
-                .toList(), this.changePropagationDueToCredential, null);
+            assemblyHandler.attackAssemblyContext(localAttacker.getCompromisedComponents().stream()
+                    .map(SystemComponent::getAssemblycontext).map(e -> e.get(0)).toList(),
+                    this.changePropagationDueToCredential, null);
 
             // convert affectedLinkingResources to changes
-            final var affectedLinkingList = localAttacker.getCompromisedResourceElements()
-                .stream()
-                .filter(e -> e.getLinkingresource() != null)
-                .map(ResourceEnvironmentElement::getLinkingresource)
-                .map(linkingResource -> {
-                    final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
-                    change.setAffectedElement(linkingResource);
-                    return change;
-                })
-                .toList();
-            this.changePropagationDueToCredential.getCompromisedlinkingresource()
-                .addAll(affectedLinkingList);
+            final var affectedLinkingList = localAttacker.getCompromisedResourceElements().stream()
+                    .filter(e -> e.getLinkingresource() != null).map(ResourceEnvironmentElement::getLinkingresource)
+                    .map(linkingResource -> {
+                        final var change = KAMP4attackModificationmarksFactory.eINSTANCE
+                                .createCompromisedLinkingResource();
+                        change.setAffectedElement(linkingResource);
+                        return change;
+                    }).toList();
+            this.changePropagationDueToCredential.getCompromisedlinkingresource().addAll(affectedLinkingList);
 
         }
-        board.getModificationMarkRepository()
-            .getChangePropagationSteps()
-            .add(this.changePropagationDueToCredential);
+        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changePropagationDueToCredential);
     }
 
 }
