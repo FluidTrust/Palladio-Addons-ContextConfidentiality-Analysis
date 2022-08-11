@@ -6,37 +6,37 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 
 public class AssemblyContextChangeResourceContainerStorage {
 
-	private static AssemblyContextChangeResourceContainerStorage singleton;
+    private static AssemblyContextChangeResourceContainerStorage singleton;
 
-	private HashMap<String, ResourceContainer> resourceContainerMap;
+    private HashMap<String, ResourceContainer> resourceContainerMap;
 
-	private AssemblyContextChangeResourceContainerStorage() {
-		resourceContainerMap = new HashMap<>();
-	}
+    private AssemblyContextChangeResourceContainerStorage() {
+        resourceContainerMap = new HashMap<>();
+    }
 
-	public static synchronized AssemblyContextChangeResourceContainerStorage getInstance() {
-		if (singleton == null) {
-			singleton = new AssemblyContextChangeResourceContainerStorage();
-		}
+    public static synchronized AssemblyContextChangeResourceContainerStorage getInstance() {
+        if (singleton == null) {
+            singleton = new AssemblyContextChangeResourceContainerStorage();
+        }
 
-		return singleton;
-	}
+        return singleton;
+    }
 
-	public void reset() {
-		resourceContainerMap = new HashMap<>();
-		resourceContainerMap.clear();
-	}
+    public void reset() {
+        resourceContainerMap = new HashMap<>();
+        resourceContainerMap.clear();
+    }
 
-	// IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-	public synchronized void put(String key, ResourceContainer value) {
-		resourceContainerMap.put(key, value);
-	}
+    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
+    public synchronized void put(String key, ResourceContainer value) {
+        resourceContainerMap.put(key, value);
+    }
 
-	public ResourceContainer get(String key) {
-		return resourceContainerMap.get(key);
-	}
+    public ResourceContainer get(String key) {
+        return resourceContainerMap.get(key);
+    }
 
-	public boolean contains(String key) {
-		return resourceContainerMap.containsKey(key);
-	}
+    public boolean contains(String key) {
+        return resourceContainerMap.containsKey(key);
+    }
 }

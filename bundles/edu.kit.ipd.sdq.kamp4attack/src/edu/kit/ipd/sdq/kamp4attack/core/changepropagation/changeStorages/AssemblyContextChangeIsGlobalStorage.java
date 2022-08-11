@@ -3,39 +3,39 @@ package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changeStorages;
 import java.util.HashMap;
 
 public class AssemblyContextChangeIsGlobalStorage {
-	
-	private static AssemblyContextChangeIsGlobalStorage singleton;
 
-	private HashMap<String, Boolean> isAssemblyContextGlobalMap;
+    private static AssemblyContextChangeIsGlobalStorage singleton;
 
-	private AssemblyContextChangeIsGlobalStorage() {
-		isAssemblyContextGlobalMap = new HashMap<>();
-	}
+    private HashMap<String, Boolean> isAssemblyContextGlobalMap;
 
-	public static synchronized AssemblyContextChangeIsGlobalStorage getInstance() {
-		if (singleton == null) {
-			singleton = new AssemblyContextChangeIsGlobalStorage();
-		}
+    private AssemblyContextChangeIsGlobalStorage() {
+        isAssemblyContextGlobalMap = new HashMap<>();
+    }
 
-		return singleton;
-	}
+    public static synchronized AssemblyContextChangeIsGlobalStorage getInstance() {
+        if (singleton == null) {
+            singleton = new AssemblyContextChangeIsGlobalStorage();
+        }
 
-	public void reset() {
-		isAssemblyContextGlobalMap = new HashMap<>();
-		isAssemblyContextGlobalMap.clear();
-	}
+        return singleton;
+    }
 
-	// IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-	public synchronized void put(String key, Boolean value) {
-		isAssemblyContextGlobalMap.put(key, value);
-	}
+    public void reset() {
+        isAssemblyContextGlobalMap = new HashMap<>();
+        isAssemblyContextGlobalMap.clear();
+    }
 
-	public Boolean get(String key) {
-		return isAssemblyContextGlobalMap.get(key);
-	}
+    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
+    public synchronized void put(String key, Boolean value) {
+        isAssemblyContextGlobalMap.put(key, value);
+    }
 
-	public boolean contains(String key) {
-		return isAssemblyContextGlobalMap.containsKey(key);
-	}
+    public Boolean get(String key) {
+        return isAssemblyContextGlobalMap.get(key);
+    }
+
+    public boolean contains(String key) {
+        return isAssemblyContextGlobalMap.containsKey(key);
+    }
 
 }

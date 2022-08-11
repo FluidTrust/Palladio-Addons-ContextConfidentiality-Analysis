@@ -7,37 +7,37 @@ import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 
 public class AssemblyContextChangeTargetedConnectorsStorage {
 
-	private static AssemblyContextChangeTargetedConnectorsStorage singleton;
+    private static AssemblyContextChangeTargetedConnectorsStorage singleton;
 
-	private HashMap<String, List<AssemblyConnector>> targetedConnectorsMap;
+    private HashMap<String, List<AssemblyConnector>> targetedConnectorsMap;
 
-	private AssemblyContextChangeTargetedConnectorsStorage() {
-		targetedConnectorsMap = new HashMap<>();
-	}
+    private AssemblyContextChangeTargetedConnectorsStorage() {
+        targetedConnectorsMap = new HashMap<>();
+    }
 
-	public static synchronized AssemblyContextChangeTargetedConnectorsStorage getInstance() {
-		if (singleton == null) {
-			singleton = new AssemblyContextChangeTargetedConnectorsStorage();
-		}
+    public static synchronized AssemblyContextChangeTargetedConnectorsStorage getInstance() {
+        if (singleton == null) {
+            singleton = new AssemblyContextChangeTargetedConnectorsStorage();
+        }
 
-		return singleton;
-	}
+        return singleton;
+    }
 
-	public void reset() {
-		targetedConnectorsMap = new HashMap<>();
-		targetedConnectorsMap.clear();
-	}
+    public void reset() {
+        targetedConnectorsMap = new HashMap<>();
+        targetedConnectorsMap.clear();
+    }
 
-	// IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-	public synchronized void put(String key, List<AssemblyConnector> value) {
-		targetedConnectorsMap.put(key, value);
-	}
+    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
+    public synchronized void put(String key, List<AssemblyConnector> value) {
+        targetedConnectorsMap.put(key, value);
+    }
 
-	public List<AssemblyConnector> get(String key) {
-		return targetedConnectorsMap.get(key);
-	}
+    public List<AssemblyConnector> get(String key) {
+        return targetedConnectorsMap.get(key);
+    }
 
-	public boolean contains(String key) {
-		return targetedConnectorsMap.containsKey(key);
-	}
+    public boolean contains(String key) {
+        return targetedConnectorsMap.containsKey(key);
+    }
 }

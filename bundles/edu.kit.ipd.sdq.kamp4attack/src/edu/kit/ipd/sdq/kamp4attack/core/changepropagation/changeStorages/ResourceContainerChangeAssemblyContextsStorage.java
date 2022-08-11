@@ -6,39 +6,39 @@ import java.util.List;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public class ResourceContainerChangeAssemblyContextsStorage {
-	
-	private static ResourceContainerChangeAssemblyContextsStorage singleton;
 
-	private HashMap<String, List<AssemblyContext>> assemblyContextsMap;
+    private static ResourceContainerChangeAssemblyContextsStorage singleton;
 
-	private ResourceContainerChangeAssemblyContextsStorage() {
-		assemblyContextsMap = new HashMap<>();
-	}
+    private HashMap<String, List<AssemblyContext>> assemblyContextsMap;
 
-	public static synchronized ResourceContainerChangeAssemblyContextsStorage getInstance() {
-		if (singleton == null) {
-			singleton = new ResourceContainerChangeAssemblyContextsStorage();
-		}
+    private ResourceContainerChangeAssemblyContextsStorage() {
+        assemblyContextsMap = new HashMap<>();
+    }
 
-		return singleton;
-	}
+    public static synchronized ResourceContainerChangeAssemblyContextsStorage getInstance() {
+        if (singleton == null) {
+            singleton = new ResourceContainerChangeAssemblyContextsStorage();
+        }
 
-	public void reset() {
-		assemblyContextsMap = new HashMap<>();
-		assemblyContextsMap.clear();
-	}
+        return singleton;
+    }
 
-	// IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-	public synchronized void put(String key, List<AssemblyContext> value) {
-		assemblyContextsMap.put(key, value);
-	}
+    public void reset() {
+        assemblyContextsMap = new HashMap<>();
+        assemblyContextsMap.clear();
+    }
 
-	public List<AssemblyContext> get(String key) {
-		return assemblyContextsMap.get(key);
-	}
+    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
+    public synchronized void put(String key, List<AssemblyContext> value) {
+        assemblyContextsMap.put(key, value);
+    }
 
-	public boolean contains(String key) {
-		return assemblyContextsMap.containsKey(key);
-	}
+    public List<AssemblyContext> get(String key) {
+        return assemblyContextsMap.get(key);
+    }
+
+    public boolean contains(String key) {
+        return assemblyContextsMap.containsKey(key);
+    }
 
 }
