@@ -29,23 +29,18 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
     }
 
     protected List<ResourceContainer> getInfectedResourceContainers() {
-        return this.changes.getCompromisedresource()
-            .stream()
-            .map(CompromisedResource::getAffectedElement)
-            .collect(Collectors.toList());
+        return this.changes.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void calculateResourceContainerToContextPropagation() {
         final var listInfectedContainer = getInfectedResourceContainers();
 
-        final var streamAttributeProvider = this.modelStorage.getSpecification()
-            .getAttributeprovider()
-            .stream()
-            .filter(PCMAttributeProvider.class::isInstance)
-            .map(PCMAttributeProvider.class::cast)
-            .filter(e -> listInfectedContainer.stream()
-                .anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
+        final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
+                .filter(e -> listInfectedContainer.stream()
+                        .anyMatch(f -> EcoreUtil.equals(e.getResourcecontainer(), f)));
 
         updateFromContextProviderStream(this.changes, streamAttributeProvider);
     }
@@ -63,11 +58,8 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
             // performance
             if (!storage.contains(resource.getId())) {
                 var assemblycontext = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
-                assemblycontext = CollectionHelper.removeDuplicates(assemblycontext)
-                    .stream()
-                    .filter(e -> !CacheCompromised.instance()
-                        .compromised(e))
-                    .collect(Collectors.toList());
+                assemblycontext = CollectionHelper.removeDuplicates(assemblycontext).stream()
+                        .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
                 storage.put(resource.getId(), assemblycontext);
             }
 
@@ -90,25 +82,21 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
         final var listInfectedContainer = getInfectedResourceContainers();
 
         for (final var resource : listInfectedContainer) {
-            final var localComponents = this.modelStorage.getAllocation()
-                .getAllocationContexts_Allocation()
-                .stream()
-                .filter(e -> EcoreUtil.equals(resource, e.getResourceContainer_AllocationContext()))
-                .map(AllocationContext::getAssemblyContext_AllocationContext)
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e));
+            final var localComponents = this.modelStorage.getAllocation().getAllocationContexts_Allocation().stream()
+                    .filter(e -> EcoreUtil.equals(resource, e.getResourceContainer_AllocationContext()))
+                    .map(AllocationContext::getAssemblyContext_AllocationContext)
+                    .filter(e -> !CacheCompromised.instance().compromised(e));
 
             final var streamChanges = localComponents
-                .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(resource)));
+                    .map(e -> HelperCreationCompromisedElements.createCompromisedAssembly(e, List.of(resource)));
 
-            final var listChanges = streamChanges.filter(e -> this.changes.getCompromisedassembly()
-                .stream()
-                .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
-                .collect(Collectors.toList());
+            final var listChanges = streamChanges
+                    .filter(e -> this.changes.getCompromisedassembly().stream()
+                            .noneMatch(f -> EcoreUtil.equals(f.getAffectedElement(), e.getAffectedElement())))
+                    .collect(Collectors.toList());
 
             if (!listChanges.isEmpty()) {
-                this.changes.getCompromisedassembly()
-                    .addAll(listChanges);
+                this.changes.getCompromisedassembly().addAll(listChanges);
                 CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(),
                         this.changes);
                 this.changes.setChanged(true);
@@ -122,9 +110,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
         for (final var resource : listInfectedContainer) {
             final var resources = getConnectedResourceContainers(resource).stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
 
             final var handler = getResourceHandler();
             handler.attackResourceContainer(resources, this.changes, resource);
@@ -140,9 +126,7 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
 
         for (final var resource : listInfectedContainer) {
             final var linkinResources = getLinkingResource(resource).stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             final var handler = getLinkingHandler();
             handler.attackLinkingResource(linkinResources, this.changes, resource);
         }

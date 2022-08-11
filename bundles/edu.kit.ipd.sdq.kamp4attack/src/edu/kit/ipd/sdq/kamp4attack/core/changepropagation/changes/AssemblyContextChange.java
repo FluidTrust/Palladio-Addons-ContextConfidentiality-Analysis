@@ -34,23 +34,18 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
     }
 
     protected List<AssemblyContext> getCompromisedAssemblyContexts() {
-        return this.changes.getCompromisedassembly()
-            .stream()
-            .map(CompromisedAssembly::getAffectedElement)
-            .collect(Collectors.toList());
+        return this.changes.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
+                .collect(Collectors.toList());
     }
 
     @Override
     public void calculateAssemblyContextToContextPropagation() {
         final var listCompromisedAssemblyContexts = getCompromisedAssemblyContexts();
 
-        final var streamAttributeProvider = this.modelStorage.getSpecification()
-            .getAttributeprovider()
-            .stream()
-            .filter(PCMAttributeProvider.class::isInstance)
-            .map(PCMAttributeProvider.class::cast)
-            .filter(e -> listCompromisedAssemblyContexts.stream()
-                .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
+        final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
+                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
+                .filter(e -> listCompromisedAssemblyContexts.stream()
+                        .anyMatch(f -> EcoreUtil.equals(e.getAssemblycontext(), f)));
 
         updateFromContextProviderStream(this.changes, streamAttributeProvider);
 
@@ -62,10 +57,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         for (final var component : listCompromisedContexts) {
             final var connected = getConnectedComponents(component);
-            final var containers = connected.stream()
-                .map(this::getResourceContainer)
-                .distinct()
-                .collect(Collectors.toList());
+            final var containers = connected.stream().map(this::getResourceContainer).distinct()
+                    .collect(Collectors.toList());
             final var handler = getRemoteResourceHandler();
             handler.attackResourceContainer(containers, this.changes, component);
         }
@@ -78,39 +71,36 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var targetConnectors = getTargetedConnectors(soureComponent, system);
 
         final var specification = targetConnectors.stream()
-            .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), soureComponent))
-            .flatMap(role -> {
+                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), soureComponent))
+                .flatMap(role -> {
 
-                final var signatures = role.getProvidedRole_AssemblyConnector()
-                    .getProvidedInterface__OperationProvidedRole()
-                    .getSignatures__OperationInterface();
+                    final var signatures = role.getProvidedRole_AssemblyConnector()
+                            .getProvidedInterface__OperationProvidedRole().getSignatures__OperationInterface();
 
-                final var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
-                    .getEncapsulatedComponent__AssemblyContext();
+                    final var componentRepository = role.getProvidingAssemblyContext_AssemblyConnector()
+                            .getEncapsulatedComponent__AssemblyContext();
 
-                if (componentRepository instanceof BasicComponent) {
-                    final var basicComponent = (BasicComponent) componentRepository;
-                    return basicComponent.getServiceEffectSpecifications__BasicComponent()
-                        .stream()
-                        .filter(seff -> signatures.stream()
-                            .anyMatch( // find only seff of
-                                    // role
-                                    signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
+                    if (componentRepository instanceof BasicComponent) {
+                        final var basicComponent = (BasicComponent) componentRepository;
+                        return basicComponent.getServiceEffectSpecifications__BasicComponent().stream()
+                                .filter(seff -> signatures.stream().anyMatch( // find only seff of
+                                                                              // role
+                                        signature -> EcoreUtil.equals(signature, seff.getDescribedService__SEFF())))
 
-                        .map(seff -> {
-                            final var methodspecification = StructureFactory.eINSTANCE.createServiceSpecification();
-                            methodspecification
-                                .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
-                            methodspecification.setService((ResourceDemandingSEFF) seff);
-                            methodspecification.setSignature(methodspecification.getService()
-                                .getDescribedService__SEFF());
-                            return methodspecification;
-                        });
+                                .map(seff -> {
+                                    final var methodspecification = StructureFactory.eINSTANCE
+                                            .createServiceSpecification();
+                                    methodspecification
+                                            .setAssemblycontext(role.getProvidingAssemblyContext_AssemblyConnector());
+                                    methodspecification.setService((ResourceDemandingSEFF) seff);
+                                    methodspecification
+                                            .setSignature(methodspecification.getService().getDescribedService__SEFF());
+                                    return methodspecification;
+                                });
 
-                }
-                return Stream.empty();
-            })
-            .collect(Collectors.toList());
+                    }
+                    return Stream.empty();
+                }).collect(Collectors.toList());
         this.handleSeff(this.changes, specification, soureComponent);
     }
 
@@ -135,18 +125,16 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         // Uses a HashMap to store results, to avoid recalculation and improve
         // performance
         if (!storage.contains(component.getId())) {
-            final var allocationOPT = this.modelStorage.getAllocation()
-                .getAllocationContexts_Allocation()
-                .parallelStream()
-                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
-                .findAny();
+            final var allocationOPT = this.modelStorage.getAllocation().getAllocationContexts_Allocation()
+                    .parallelStream().filter(allocation -> EcoreUtil
+                            .equals(allocation.getAssemblyContext_AllocationContext(), component))
+                    .findAny();
             if (allocationOPT.isEmpty()) {
                 throw new IllegalStateException(
                         "No Allocation for assemblycontext " + component.getEntityName() + " found");
             }
 
-            storage.put(component.getId(), allocationOPT.get()
-                .getResourceContainer_AllocationContext());
+            storage.put(component.getId(), allocationOPT.get().getResourceContainer_AllocationContext());
         }
 
         return storage.get(component.getId());
@@ -161,16 +149,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var listCompromisedContexts = getCompromisedAssemblyContexts();
         for (final var component : listCompromisedContexts) {
             var targetComponents = getConnectedComponents(component).stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
 
             final var handler = getAssemblyHandler();
-            targetComponents = CollectionHelper.removeDuplicates(targetComponents)
-                .stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+            targetComponents = CollectionHelper.removeDuplicates(targetComponents).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handler.attackAssemblyContext(targetComponents, this.changes, component);
             this.handleSeff(component);
         }
@@ -179,9 +162,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream()
-            .filter(this::isGlobalElement)
-            .collect(Collectors.toList());
+        final var listCompromisedContexts = getCompromisedAssemblyContexts().stream().filter(this::isGlobalElement)
+                .collect(Collectors.toList());
 
         var storage = AssemblyContextChangeAssemblyContextsStorage.getInstance();
 
@@ -196,12 +178,9 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
                         this.modelStorage.getAllocation());
                 reachableAssemblies.addAll(CollectionHelper.getAssemblyContext(List.of(resourceContainer),
                         this.modelStorage.getAllocation()));
-                reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies)
-                    .stream()
-                    .filter(e -> !CacheCompromised.instance()
-                        .compromised(e))
-                    .filter(this::isGlobalElement)
-                    .collect(Collectors.toList());
+                reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies).stream()
+                        .filter(e -> !CacheCompromised.instance().compromised(e)).filter(this::isGlobalElement)
+                        .collect(Collectors.toList());
                 storage.put(resourceContainer.getId(), reachableAssemblies);
             }
 
@@ -210,11 +189,8 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
             final var handler = getAssemblyHandler();
             handler.attackAssemblyContext(reachableAssemblies, this.changes, component);
 
-            var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies)
-                .stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+            var listServices = CollectionHelper.getProvidedRestrictions(reachableAssemblies).stream()
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             handleSeff(this.changes, listServices, component);
         }
 
@@ -227,16 +203,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(assemblyContext.getId())) {
-            boolean isGlobale = this.modelStorage.getVulnerabilitySpecification()
-                .getVulnerabilities()
-                .parallelStream()
-                .filter(systemelement -> !systemelement.getPcmelement()
-                    .getAssemblycontext()
-                    .isEmpty())
-                .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement()
-                    .getAssemblycontext()
-                    .get(0), assemblyContext))
-                .noneMatch(NonGlobalCommunication.class::isInstance);
+            boolean isGlobale = this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().parallelStream()
+                    .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
+                    .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
+                            assemblyContext))
+                    .noneMatch(NonGlobalCommunication.class::isInstance);
             storage.put(assemblyContext.getId(), isGlobale);
         }
 
@@ -248,14 +219,12 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         final var targetConnectors = getTargetedConnectors(component, system);
 
         final var targetComponents = targetConnectors.stream()
-            .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-            .filter(e -> !EcoreUtil.equals(e, component))
-            .collect(Collectors.toList());
+                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
 
-        targetComponents.addAll(targetConnectors.stream()
-            .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-            .filter(e -> !EcoreUtil.equals(e, component))
-            .collect(Collectors.toList()));
+        targetComponents
+                .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+                        .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList()));
         return targetComponents;
     }
 
@@ -264,13 +233,11 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
 
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(component.getId())) {
-            var targetedConnectors = system.getConnectors__ComposedStructure()
-                .parallelStream()
-                .filter(AssemblyConnector.class::isInstance)
-                .map(AssemblyConnector.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
-                        || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
-                .collect(Collectors.toList());
+            var targetedConnectors = system.getConnectors__ComposedStructure().parallelStream()
+                    .filter(AssemblyConnector.class::isInstance).map(AssemblyConnector.class::cast)
+                    .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
+                            || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
+                    .collect(Collectors.toList());
             storage.put(component.getId(), targetedConnectors);
         }
 
@@ -286,9 +253,7 @@ public abstract class AssemblyContextChange extends Change<AssemblyContext> impl
         for (final var component : listCompromisedAssemblyContexts) {
             final var resource = getResourceContainer(component);
             final var reachableLinkingResources = getLinkingResource(resource).stream()
-                .filter(e -> !CacheCompromised.instance()
-                    .compromised(e))
-                .collect(Collectors.toList());
+                    .filter(e -> !CacheCompromised.instance().compromised(e)).collect(Collectors.toList());
             final var handler = getLinkingHandler();
             handler.attackLinkingResource(reachableLinkingResources, this.changes, component);
         }

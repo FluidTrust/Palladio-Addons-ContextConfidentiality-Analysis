@@ -187,7 +187,6 @@ class PropagationAssemblyTest extends AbstractChangeTests {
         // create Context and Contextset and add to containers
         final var contextAccess = createContext("Test");
 
-
         createPolicyEntity(contextAccess, resourceOpt.get());
 
         // ((CredentialAttack)attacker.getAttacks().getAttack().get(0)).getContexts().add(attackerContext);

@@ -54,7 +54,6 @@ public class MethodContext extends MethodHandler {
                         .forEach(getDataHandler()::addData);
             }
 
-
 //            var data = DataHandler.getData(service);
 //            getDataHandler().addData(data);
         }

@@ -38,9 +38,7 @@ public class HelperUpdateCredentialChange {
     public static void updateCredentials(final CredentialChange changes,
             final Stream<ContextChange> streamContextChange) {
         final var listChanges = streamContextChange
-                .filter(e -> changes.getContextchange().stream()
-                        .noneMatch(f -> equalUsageElement(f,e)
-                                ))
+                .filter(e -> changes.getContextchange().stream().noneMatch(f -> equalUsageElement(f, e)))
                 .collect(Collectors.toList());
 
         changes.getContextchange().addAll(listChanges);
@@ -56,8 +54,7 @@ public class HelperUpdateCredentialChange {
         var newCredential = toCompare.getAffectedElement();
 
         var attributesEquals = EcoreUtil.equals(referenceCredential.getAttribute(), newCredential.getAttribute());
-        var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(),
-                newCredential.getAttributevalue());
+        var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(), newCredential.getAttributevalue());
 
         return attributesEquals && valueEquals;
     }

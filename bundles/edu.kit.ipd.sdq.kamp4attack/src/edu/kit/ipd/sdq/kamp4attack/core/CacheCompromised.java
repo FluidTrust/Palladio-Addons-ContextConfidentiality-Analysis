@@ -45,7 +45,7 @@ public class CacheCompromised {
                     var entityValue = (ModifyEntity<?>) changedValue;
                     if (entityValue.getAffectedElement() instanceof Entity
                             && ((Entity) entityValue.getAffectedElement()).getId() != null) {
-                            CacheCompromised.this.compromised.add(((Entity) entityValue.getAffectedElement()).getId());
+                        CacheCompromised.this.compromised.add(((Entity) entityValue.getAffectedElement()).getId());
 
                     }
                 }

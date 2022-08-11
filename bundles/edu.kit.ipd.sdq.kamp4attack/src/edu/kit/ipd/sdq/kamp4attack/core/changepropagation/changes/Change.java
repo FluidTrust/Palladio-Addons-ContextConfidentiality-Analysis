@@ -47,23 +47,14 @@ public abstract class Change<T> {
     }
 
     protected Attacker getAttacker() {
-        if (this.modelStorage.getModificationMarkRepository()
-            .getSeedModifications()
-            .getAttackcomponent()
-            .isEmpty()) {
+        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().isEmpty()) {
             throw new IllegalStateException("No attacker selected");
         }
-        if (this.modelStorage.getModificationMarkRepository()
-            .getSeedModifications()
-            .getAttackcomponent()
-            .size() > 2) {
+        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().size() > 2) {
             throw new IllegalStateException("More than one attacker");
         }
-        return this.modelStorage.getModificationMarkRepository()
-            .getSeedModifications()
-            .getAttackcomponent()
-            .get(0)
-            .getAffectedElement();
+        return this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().get(0)
+                .getAffectedElement();
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
@@ -72,12 +63,10 @@ public abstract class Change<T> {
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(container.getId())) {
             final var resourceEnvironment = this.modelStorage.getResourceEnvironment();
-            var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment()
-                .parallelStream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource()
-                    .stream()
-                    .anyMatch(f -> EcoreUtil.equals(f, container)))
-                .collect(Collectors.toList());
+            var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment().parallelStream()
+                    .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
+                            .anyMatch(f -> EcoreUtil.equals(f, container)))
+                    .collect(Collectors.toList());
             storage.put(container.getId(), linkingResourcesList);
         }
 
@@ -85,13 +74,9 @@ public abstract class Change<T> {
     }
 
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
-        final var resources = this.getLinkingResource(resource)
-            .stream()
-            .flatMap(e -> e.getConnectedResourceContainers_LinkingResource()
-                .stream())
-            .distinct()
-            .filter(e -> !EcoreUtil.equals(e, resource))
-            .collect(Collectors.toList());
+        final var resources = this.getLinkingResource(resource).stream()
+                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
+                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
         return resources;
     }
 }
