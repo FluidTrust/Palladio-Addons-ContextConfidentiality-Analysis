@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.core.entity.Entity;
@@ -33,6 +35,8 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 //@Component(service = IAttackPropagationAnalysis.class)
 public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
+    private static final Logger LOGGER = Logger.getLogger(AttackSurfaceAnalysis.class.getName());
+
     private CredentialChange changes;
 
     private Entity crtitcalEntity;
@@ -51,7 +55,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         createInitialStructure(modelStorage);
         var graph = new AttackGraphCreation(modelStorage);
 
-        var future = CompletableFuture.allOf(
+        // calculate the attack graph in parallel
+        var future = CompletableFuture
+                .allOf(
                 CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
 
                 CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
@@ -69,14 +75,14 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
                 CompletableFuture.runAsync(graph::calculateResourceContainerToResourcePropagation));
         try {
             future.get();
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (ExecutionException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during graph creation", e);
+            Thread.currentThread().interrupt();
+            throw new IllegalStateException("IllegalState durin graph creation", e);
+        } catch (InterruptedException e) {
+            LOGGER.log(Level.SEVERE, "Error during graph creation", e);
+            Thread.currentThread().interrupt();
         }
-
 
 
 
@@ -91,19 +97,6 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage,
                 graph, this.crtitcalEntity);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
-    }
-
-    /**
-     * Method for testing the {@link AttackPathSurface} to {@link AttackPath} conversion.
-     *
-     * @param allAttackPathsSurface
-     *            - list of {@link AttackPathSurface} instances representing all found paths
-     * @param modelStorage
-     * @return list of {@link AttackPath} instances
-     */
-    public List<AttackPath> toAttackPaths(final List<AttackPathSurface> allAttackPathsSurface,
-            final BlackboardWrapper modelStorage) {
-        return new ArrayList<>(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
 
     private Collection<AttackPath> toAttackPaths(final BlackboardWrapper modelStorage,
@@ -130,14 +123,6 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
 
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
-//        this.attackGraph = this.attackGraph != null ? this.attackGraph : new AttackGraph(this.crtitcalEntity);
-//
-//        final var setCredentials = localAttacker.getAttacker().getCredentials().stream().map(CredentialSurface::new)
-//                .collect(Collectors.toSet());
-//        this.attackGraph.addCredentialsFromBeginningOn(setCredentials);
-//        convertAffectedElementsToChanges(localAttacker);
-//        addAllPossibleAttacks(board, localAttacker);
-//        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
 
 

@@ -32,8 +32,7 @@ public enum PCMElementType {
 
     BASIC_COMPONENT(RepositoryComponent.class),
 
-    COMPOSITE_COMPONENT(CompositeComponent.class)
-    ;
+    COMPOSITE_COMPONENT(CompositeComponent.class);
 
     private final Class<? extends Entity> clazz;
 
@@ -43,7 +42,8 @@ public enum PCMElementType {
 
     /**
      *
-     * @param entity - the entity
+     * @param entity
+     *            - the entity
      * @return type of the entity or {@code null} if no type fits
      */
     public static PCMElementType typeOf(final Entity entity) {
@@ -57,7 +57,8 @@ public enum PCMElementType {
 
     /**
      *
-     * @param pcmElement - the {@link PCMElement}
+     * @param pcmElement
+     *            - the {@link PCMElement}
      * @return the type of the element or {@code null} if no type fits
      */
     public static PCMElementType typeOf(final PCMElement pcmElement) {
@@ -71,7 +72,8 @@ public enum PCMElementType {
 
     /**
      *
-     * @param original - the original element
+     * @param original
+     *            - the original element
      * @return copy of the element
      */
     public static PCMElement copy(final PCMElement original) {
@@ -81,39 +83,40 @@ public enum PCMElementType {
 
     /**
      *
-     * @param entity - the entity
+     * @param entity
+     *            - the entity
      * @return the entity inside an {@link PCMElement}
      */
     public PCMElement toPCMElement(final Entity entity) {
         Objects.requireNonNull(entity);
         if (!this.clazz.isInstance(entity)) {
-            throw new IllegalArgumentException("invalid type, should be \"" +
-                    this.clazz.getName() + "\" but is \"" + entity.getClass().getName() + "\"");
+            throw new IllegalArgumentException("invalid type, should be \"" + this.clazz.getName() + "\" but is \""
+                    + entity.getClass().getName() + "\"");
         }
 
         final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        switch(this) {
-            case RESOURCE_CONTAINER:
-                pcmElement.setResourcecontainer((ResourceContainer) entity);
-                break;
-            case LINKING_RESOURCE:
-                pcmElement.setLinkingresource((LinkingResource) entity);
-                break;
-            case BASIC_COMPONENT:
-                pcmElement.setBasiccomponent((RepositoryComponent) entity);
-                break;
-            case COMPOSITE_COMPONENT:
-                pcmElement.setCompositecomponent((CompositeComponent) entity);
-                break;
-            case ASSEMBLY_CONTEXT:
-                pcmElement.getAssemblycontext().add((AssemblyContext) entity);
-                break;
-            case METHOD_SPECIFICATION:
-                pcmElement.setMethodspecification((MethodSpecification) entity);
-                break;
-            default:
-                assert false;
-                break;
+        switch (this) {
+        case RESOURCE_CONTAINER:
+            pcmElement.setResourcecontainer((ResourceContainer) entity);
+            break;
+        case LINKING_RESOURCE:
+            pcmElement.setLinkingresource((LinkingResource) entity);
+            break;
+        case BASIC_COMPONENT:
+            pcmElement.setBasiccomponent((RepositoryComponent) entity);
+            break;
+        case COMPOSITE_COMPONENT:
+            pcmElement.setCompositecomponent((CompositeComponent) entity);
+            break;
+        case ASSEMBLY_CONTEXT:
+            pcmElement.getAssemblycontext().add((AssemblyContext) entity);
+            break;
+        case METHOD_SPECIFICATION:
+            pcmElement.setMethodspecification((MethodSpecification) entity);
+            break;
+        default:
+            assert false;
+            break;
         }
 
         return pcmElement;
@@ -121,7 +124,8 @@ public enum PCMElementType {
 
     /**
      *
-     * @param pcmElement - the element
+     * @param pcmElement
+     *            - the element
      * @return the entity inside the element
      */
     public Entity getEntity(final PCMElement pcmElement) {
@@ -130,32 +134,32 @@ public enum PCMElementType {
         }
 
         Entity ret = null;
-        switch(this) {
-            case RESOURCE_CONTAINER:
-                ret = pcmElement.getResourcecontainer();
+        switch (this) {
+        case RESOURCE_CONTAINER:
+            ret = pcmElement.getResourcecontainer();
+            break;
+        case LINKING_RESOURCE:
+            ret = pcmElement.getLinkingresource();
+            break;
+        case BASIC_COMPONENT:
+            ret = pcmElement.getBasiccomponent();
+            break;
+        case COMPOSITE_COMPONENT:
+            ret = pcmElement.getCompositecomponent();
+            break;
+        case ASSEMBLY_CONTEXT:
+            if (pcmElement.getAssemblycontext().isEmpty()) {
+                ret = null;
                 break;
-            case LINKING_RESOURCE:
-                ret = pcmElement.getLinkingresource();
-                break;
-            case BASIC_COMPONENT:
-                ret = pcmElement.getBasiccomponent();
-                break;
-            case COMPOSITE_COMPONENT:
-                ret = pcmElement.getCompositecomponent();
-                break;
-            case ASSEMBLY_CONTEXT:
-                if (pcmElement.getAssemblycontext().isEmpty()) {
-                    ret = null;
-                    break;
-                }
-                ret = pcmElement.getAssemblycontext().get(0); // TODO: fix for list
-                break;
-            case METHOD_SPECIFICATION:
-                ret = pcmElement.getMethodspecification();
-                break;
-            default:
-                assert false;
-                break;
+            }
+            ret = pcmElement.getAssemblycontext().get(0); // TODO: fix for list
+            break;
+        case METHOD_SPECIFICATION:
+            ret = pcmElement.getMethodspecification();
+            break;
+        default:
+            assert false;
+            break;
         }
         return ret;
     }
@@ -163,8 +167,9 @@ public enum PCMElementType {
     /**
      *
      * @param entity
-     * @return a predicate over a system integration and an entity returning {@code true} on ecore equality of the
-     * entity and the entity contained in the PCMElement of the system integration
+     * @return a predicate over a system integration and an entity returning {@code true} on ecore
+     *         equality of the entity and the entity contained in the PCMElement of the system
+     *         integration
      */
     public Predicate<SystemIntegration> getElementEqualityPredicate(final Entity entity) {
         return s -> {

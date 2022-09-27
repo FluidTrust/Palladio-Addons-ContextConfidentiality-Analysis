@@ -43,6 +43,18 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationste
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.LinkingPropagation;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagation;
 
+/**
+ * Class for creating an attack graph. It uses <a href="https://github.com/google/guava">Google
+ * Guava</a> as internal graph representation
+ *
+ * It iteratively calculates for each architectural elements the neighbouring elements and adds an
+ * edge if the neighbours are connected by an exploitable connection. For edges it uses the
+ * {@link AttackEdge} and the architectural elements are represented in the graph as
+ * {@link ArchitectureNode}
+ *
+ * @author majuwa
+ *
+ */
 public class AttackGraphCreation
         implements AssemblyContextPropagation, LinkingPropagation, ResourceContainerPropagation {
 
@@ -438,6 +450,11 @@ public class AttackGraphCreation
 
     }
 
+    /**
+     * Creates an immutable copy of the internal attack graph and returns it
+     *
+     * @return {@link ImmutableNetwork} copy of internal graph
+     */
     public ImmutableNetwork<ArchitectureNode, AttackEdge> getGraph() {
         return ImmutableNetwork.copyOf(this.graph);
     }

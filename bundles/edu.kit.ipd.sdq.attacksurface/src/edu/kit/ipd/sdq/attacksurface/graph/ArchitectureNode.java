@@ -18,6 +18,12 @@ public class ArchitectureNode {
 
     private Entity entity;
 
+    /**
+     * Creates an ArchitectureNode
+     *
+     * @param entity
+     *            Entity should be an architectural Entity
+     */
     public ArchitectureNode(Entity entity) {
         this.entity = entity;
     }
