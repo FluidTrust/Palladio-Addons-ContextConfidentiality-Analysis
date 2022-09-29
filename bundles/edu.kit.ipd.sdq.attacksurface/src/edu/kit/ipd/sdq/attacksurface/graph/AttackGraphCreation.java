@@ -59,7 +59,7 @@ public class AttackGraphCreation
         implements AssemblyContextPropagation, LinkingPropagation, ResourceContainerPropagation {
 
     private static final Logger LOGGER = Logger.getLogger(AttackGraphCreation.class.getName());
-    private MutableNetwork<ArchitectureNode, AttackEdge> graph;
+    private volatile MutableNetwork<ArchitectureNode, AttackEdge> graph;
     private BlackboardWrapper modelStorage;
     private PolicySet policies;
 
@@ -357,12 +357,14 @@ public class AttackGraphCreation
 
     @Override
     public void calculateLinkingResourceToResourcePropagation() {
-        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
+        this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
+                .forEach(linking -> {
+//        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
             var resources = linking.getConnectedResourceContainers_LinkingResource();
 
             createEdgeResourceContainer(linking, resources);
 
-        }
+                });
 
     }
 
@@ -378,37 +380,43 @@ public class AttackGraphCreation
 
     @Override
     public void calculateLinkingResourceToAssemblyContextPropagation() {
-        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
+        this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
+                .forEach(linking -> {
+//        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
             var resources = linking.getConnectedResourceContainers_LinkingResource();
             var components = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
             createGraphEdgesComponents(linking, components);
 
-        }
+                });
 
     }
 
     @Override
     public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
-        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
+        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+                .forEach(resource -> {
+//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var reachableResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
             var components = CollectionHelper.getAssemblyContext(reachableResources, this.modelStorage.getAllocation());
             components = components.stream().filter(e -> !CollectionHelper.isGlobalCommunication(e,
                     this.modelStorage.getVulnerabilitySpecification().getVulnerabilities())).toList();
             createGraphEdgesComponents(resource, components);
-        }
+                });
 
     }
 
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
-        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
+        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+                .forEach(resource -> {
+//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource),
                     this.modelStorage.getAllocation());
             for (var target : targetComponents) {
                 createEdgeImplicit(resource, target, this.modelStorage);
             }
-        }
+                });
 
     }
 
@@ -421,13 +429,15 @@ public class AttackGraphCreation
 //                    this.modelStorage.getResourceEnvironment());
 //            createEdgeResourceContainer(resource, resources);
 //                });
+        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+                .forEach(resource -> {
 
-        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
+//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
             createEdgeResourceContainer(resource, resources);
 
-        }
+                });
 
     }
 
@@ -440,12 +450,13 @@ public class AttackGraphCreation
 //
 //            createEdgeLinkingResources(resource, linkings);
 //                });
-
-        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
+        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
+                .forEach(resource -> {
+//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var linkings = PCMConnectionHelper.getLinkingResource(resource, this.modelStorage.getResourceEnvironment());
 
             createEdgeLinkingResources(resource, linkings);
-        }
+                });
 
 
     }
