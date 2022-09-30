@@ -67,7 +67,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
     @AfterEach
     @BeforeEach
-    void resetHashMaps() {
+    protected void resetHashMaps() {
         ChangeLinkingResourcesStorage.getInstance().reset();
         AssemblyContextChangeIsGlobalStorage.getInstance().reset();
         AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();

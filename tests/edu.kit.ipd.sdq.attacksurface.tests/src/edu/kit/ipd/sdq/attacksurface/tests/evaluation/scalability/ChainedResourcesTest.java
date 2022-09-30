@@ -57,41 +57,6 @@ public class ChainedResourcesTest extends ScalabilityTests {
     }
 
     @Override
-    protected long runEvaluationAnalysis() {
-
-        runAnalysis();
-        return 0;
-//        var graph = new AttackGraphCreation(getBlackboardWrapper());
-//        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
-//        var future = CompletableFuture.allOf(
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
-//
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToGlobalAssemblyContextPropagation),
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToLinkingResourcePropagation),
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToLocalResourcePropagation),
-//                CompletableFuture.runAsync(graph::calculateAssemblyContextToRemoteResourcePropagation),
-//
-//                CompletableFuture.runAsync(graph::calculateLinkingResourceToAssemblyContextPropagation),
-//                CompletableFuture.runAsync(graph::calculateLinkingResourceToResourcePropagation),
-//
-//                CompletableFuture.runAsync(graph::calculateResourceContainerToLinkingResourcePropagation),
-//                CompletableFuture.runAsync(graph::calculateResourceContainerToLocalAssemblyContextPropagation),
-//                CompletableFuture.runAsync(graph::calculateResourceContainerToRemoteAssemblyContextPropagation),
-//                CompletableFuture.runAsync(graph::calculateResourceContainerToResourcePropagation));
-//        try {
-//            future.get();
-//        } catch (InterruptedException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-
-    }
-
-    @Override
     protected void moveVulnerabilitiesIfNecessary(final AttackerSystemSpecificationContainer attacks) {
         // move vulnerability to resource container
         final var origin = this.environment.getResourceContainer_ResourceEnvironment().get(1);

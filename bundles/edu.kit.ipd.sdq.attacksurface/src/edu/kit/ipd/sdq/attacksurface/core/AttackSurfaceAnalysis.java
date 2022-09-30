@@ -1,24 +1,14 @@
 package edu.kit.ipd.sdq.attacksurface.core;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 import java.util.logging.Logger;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
 import org.palladiosimulator.pcm.core.entity.Entity;
 
-import com.google.common.graph.ImmutableNetwork;
-
-import edu.kit.ipd.sdq.attacksurface.graph.ArchitectureNode;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackEdge;
 import edu.kit.ipd.sdq.attacksurface.graph.AttackGraphCreation;
-import edu.kit.ipd.sdq.attacksurface.graph.AttackPathSurface;
-import edu.kit.ipd.sdq.attacksurface.graph.DefaultAttackPathFinder;
 import edu.kit.ipd.sdq.attacksurface.graph.PCMElementType;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.api.IAttackPropagationAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.AttackPath;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationmarksFactory;
 
@@ -54,33 +44,9 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         graph.createGraph();
 
-
-
-        createAttackPaths(modelStorage, graph.getGraph());
+        (new AttackPathCreation(this.crtitcalEntity, this.changes)).createAttackPaths(modelStorage, graph.getGraph());
         VulnerabilityHelper.resetMap();
 
-    }
-
-
-    private void createAttackPaths(final BlackboardWrapper modelStorage,
-            ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
-        final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage, graph,
-                this.crtitcalEntity);
-        this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
-    }
-
-    private Collection<AttackPath> toAttackPaths(final BlackboardWrapper modelStorage,
-            final List<AttackPathSurface> allAttackPathsSurface) {
-        final List<AttackPath> allPaths = new ArrayList<>();
-
-        for (final var pathSurface : allAttackPathsSurface) {
-            final var attackPathPath = pathSurface.toAttackPath(modelStorage, this.crtitcalEntity, false);
-            if (!attackPathPath.getAttackpathelement().isEmpty()) {
-                allPaths.add(attackPathPath);
-            }
-        }
-
-        return allPaths;
     }
 
     private void createInitialStructure(BlackboardWrapper board) {
@@ -94,14 +60,5 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
         board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
     }
-
-
-
-
-
-
-
-
-
 
 }
