@@ -9,7 +9,7 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceEnvironment;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceenvironmentFactory;
 
-public class ChainedResources extends ScalabilityTests {
+public class ChainedResourcesTest extends ScalabilityTests {
     private static int id = 0;
 
     private int maximumPathLength = 1;
@@ -48,7 +48,7 @@ public class ChainedResources extends ScalabilityTests {
 
     @Override
     protected int getMaximumNumberOfAdditions() {
-        return 100000;
+        return 1000;
     }
 
     @Override

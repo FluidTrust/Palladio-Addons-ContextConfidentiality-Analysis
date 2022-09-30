@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
-import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerSystemSpecificationContainer;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.PcmIntegrationFactory;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.pcmIntegration.VulnerabilitySystemIntegration;
@@ -30,7 +29,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
     public static final int REPEAT = 2;// 10;
     protected static final boolean RUN_COMPLETE_ANALYSIS = true; // TODO adapt to false for only
                                                                  // element prop. analysis
-    protected static final int MAX_NUMBER_COMPLETE = 100;
+    protected static final int MAX_NUMBER_COMPLETE = 10;
 
     public ScalabilityTests() {
         this.PATH_REPOSITORY = "Scalability/scalability.repository";
@@ -62,17 +61,20 @@ public abstract class ScalabilityTests extends EvaluationTest {
     }
 
     // TODO enable for scalability test for maximum
-    @Disabled
+
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
             analysisTime();
         }
 
+        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
         final var attacks = this.attacker.getSystemintegration();
         moveVulnerabilitiesIfNecessary(attacks);
-        perform(this.environment, getMaximumRunValue(), attacks);
+        perform(this.environment, 100000, attacks);
         writeResults();
+        VulnerabilityHelper.resetMap();
+
     }
 
     protected abstract int getMaximumRunValue();
@@ -151,16 +153,15 @@ public abstract class ScalabilityTests extends EvaluationTest {
             newOrigin = resourceAddOperation(environment, newOrigin, integration);
             attacks.getVulnerabilities().add(integration);
 
-            getSurfaceAttacker().getFiltercriteria().clear();
-
-            var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
-            var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
-            pcmElement.setResourcecontainer(newOrigin);
-            startFilter.getStartResources().add(pcmElement);
-
-            getSurfaceAttacker().getFiltercriteria().add(startFilter);
-
         }
+//        getSurfaceAttacker().getFiltercriteria().clear();
+//
+//        var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
+//        var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
+//        pcmElement.setResourcecontainer(newOrigin);
+//        startFilter.getStartResources().add(pcmElement);
+//
+//        getSurfaceAttacker().getFiltercriteria().add(startFilter);
     }
 
     protected abstract void moveVulnerabilitiesIfNecessary(AttackerSystemSpecificationContainer attacks);

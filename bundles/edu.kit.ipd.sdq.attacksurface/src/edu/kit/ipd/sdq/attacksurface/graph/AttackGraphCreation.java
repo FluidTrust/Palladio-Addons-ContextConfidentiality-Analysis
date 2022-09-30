@@ -219,7 +219,7 @@ public class AttackGraphCreation
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
-        for (var component : this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
+        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
             var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
 
             if (CollectionHelper.isGlobalCommunication(component,
@@ -253,33 +253,33 @@ public class AttackGraphCreation
                 createEdgeCredentials(component, connectedResource, this.modelStorage);
             }
 
-        }
+        });
 
     }
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
-        for (var component : this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
+        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
             var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
 
             var vulnerabilities = VulnerabilityHelper
                     .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), resource);
             createEdgeVulnerability(component, resource, vulnerabilities, AttackVector.LOCAL);
             createEdgeCredentials(component, resource, this.modelStorage);
-        }
+        });
 
     }
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
-        for (var component : this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
+        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
             var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
             var reachableLinking = PCMConnectionHelper.getLinkingResource(resource,
                     this.modelStorage.getResourceEnvironment());
 
             createEdgeLinkingResources(component, reachableLinking);
 
-        }
+        });
 
     }
 
@@ -294,7 +294,7 @@ public class AttackGraphCreation
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        var globalComponents = this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().stream()
+        var globalComponents = this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream()
                 .filter(assembly -> CollectionHelper.isGlobalCommunication(assembly,
                         this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()))
                 .toList();
@@ -325,7 +325,7 @@ public class AttackGraphCreation
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
-        for (var component : this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure()) {
+        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
 
             var connectedComponents = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(),
                     component);
@@ -340,7 +340,7 @@ public class AttackGraphCreation
                         isConncected(resource1, resource2));
                 createEdgeCredentials(component, connectedComponent, this.modelStorage);
             }
-        }
+        });
     }
 
     private AttackVector isConncected(ResourceContainer resource1, ResourceContainer resource2) {
@@ -359,7 +359,6 @@ public class AttackGraphCreation
     public void calculateLinkingResourceToResourcePropagation() {
         this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
                 .forEach(linking -> {
-//        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
             var resources = linking.getConnectedResourceContainers_LinkingResource();
 
             createEdgeResourceContainer(linking, resources);
@@ -382,7 +381,6 @@ public class AttackGraphCreation
     public void calculateLinkingResourceToAssemblyContextPropagation() {
         this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
                 .forEach(linking -> {
-//        for (var linking : this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment()) {
             var resources = linking.getConnectedResourceContainers_LinkingResource();
             var components = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
             createGraphEdgesComponents(linking, components);
@@ -395,7 +393,6 @@ public class AttackGraphCreation
     public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
         this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
                 .forEach(resource -> {
-//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var reachableResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
             var components = CollectionHelper.getAssemblyContext(reachableResources, this.modelStorage.getAllocation());
@@ -410,7 +407,6 @@ public class AttackGraphCreation
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
         this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
                 .forEach(resource -> {
-//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource),
                     this.modelStorage.getAllocation());
             for (var target : targetComponents) {
@@ -432,7 +428,6 @@ public class AttackGraphCreation
         this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
                 .forEach(resource -> {
 
-//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
             createEdgeResourceContainer(resource, resources);
@@ -452,7 +447,6 @@ public class AttackGraphCreation
 //                });
         this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
                 .forEach(resource -> {
-//        for (var resource : this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment()) {
             var linkings = PCMConnectionHelper.getLinkingResource(resource, this.modelStorage.getResourceEnvironment());
 
             createEdgeLinkingResources(resource, linkings);

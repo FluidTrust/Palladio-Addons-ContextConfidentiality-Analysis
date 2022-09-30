@@ -94,8 +94,8 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
     private void createAttackPaths(final BlackboardWrapper modelStorage,
             ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
-        final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage,
-                graph, this.crtitcalEntity);
+        final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage, graph,
+                this.crtitcalEntity);
         this.changes.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
     }
 
