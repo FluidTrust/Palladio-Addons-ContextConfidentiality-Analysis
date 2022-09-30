@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/">
-  <changePropagationSteps/>
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+  <changePropagationSteps>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="scalability.attacker#testVuln0"/>
+      <attackpathelement id="_QXYtYByHEe2DkYJ_o8LVkA">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_DcJmoLWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+      <attackpathelement id="_QXYtYRyHEe2DkYJ_o8LVkA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+        <causingElements href="scalability.attacker#testVuln0"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+      <attackpathelement id="_QXbJoByHEe2DkYJ_o8LVkA">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="scalability.resourceenvironment#_MYMUkLWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+      <attackpathelement id="_QXbJoRyHEe2DkYJ_o8LVkA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="scalability.attacker#testVuln0"/>
+      <attackpathelement id="_QXbJohyHEe2DkYJ_o8LVkA">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="scalability.resourceenvironment#_PPHeYLWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+      <attackpathelement id="_QXbJoxyHEe2DkYJ_o8LVkA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+        <causingElements href="scalability.attacker#testVuln0"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="scalability.attacker#testVuln0"/>
+      <attackpathelement id="_QXbJpByHEe2DkYJ_o8LVkA">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="scalability.resourceenvironment#_P_t04LWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+      <attackpathelement id="_QXbJpRyHEe2DkYJ_o8LVkA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_DcJmoLWoEeyQX-6J3sEuBA"/>
+      </attackpathelement>
+      <attackpathelement id="_QXbwsByHEe2DkYJ_o8LVkA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="scalability.system#_BniOYLWoEeyQX-6J3sEuBA"/>
+        <causingElements href="scalability.attacker#testVuln0"/>
+      </attackpathelement>
+    </attackpaths>
+  </changePropagationSteps>
   <seedModifications>
     <surfaceattackcomponent id="_ldgWsbWpEeyQX-6J3sEuBA">
       <affectedElement xsi:type="attacker:SurfaceAttacker" href="scalability.attacker#_6lrfwbWoEeyQX-6J3sEuBA"/>
