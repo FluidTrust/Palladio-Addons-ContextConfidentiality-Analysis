@@ -1,44 +1,32 @@
 package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
 
-public class ChangeLinkingResourcesStorage {
+public class ChangeLinkingResourcesStorage extends ModelRelationCache<List<LinkingResource>> {
 
-    private static ChangeLinkingResourcesStorage singleton;
+    private static final Object object = new Object();
 
-    private HashMap<String, List<LinkingResource>> linkingResourcesMap;
+    private static volatile ChangeLinkingResourcesStorage singleton;
+
 
     private ChangeLinkingResourcesStorage() {
-        linkingResourcesMap = new HashMap<>();
     }
 
     public static synchronized ChangeLinkingResourcesStorage getInstance() {
         if (singleton == null) {
-            singleton = new ChangeLinkingResourcesStorage();
+            synchronized (object) {
+                if (singleton == null) {
+                    singleton = new ChangeLinkingResourcesStorage();
+                }
+            }
+
         }
 
         return singleton;
     }
 
-    public void reset() {
-        linkingResourcesMap = new HashMap<>();
-        linkingResourcesMap.clear();
-    }
 
-    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-    public synchronized void put(String key, List<LinkingResource> value) {
-        linkingResourcesMap.put(key, value);
-    }
-
-    public List<LinkingResource> get(String key) {
-        return linkingResourcesMap.get(key);
-    }
-
-    public boolean contains(String key) {
-        return linkingResourcesMap.containsKey(key);
-    }
 
 }

@@ -1,43 +1,31 @@
 package org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
-public class AssemblyContextChangeAssemblyContextsStorage {
+public class AssemblyContextChangeAssemblyContextsStorage extends ModelRelationCache<List<AssemblyContext>> {
 
-    private static AssemblyContextChangeAssemblyContextsStorage singleton;
 
-    private HashMap<String, List<AssemblyContext>> assemblyContextsMap;
+    private static volatile AssemblyContextChangeAssemblyContextsStorage singleton;
+
+    private static final Object object = new Object();
+
 
     private AssemblyContextChangeAssemblyContextsStorage() {
-        assemblyContextsMap = new HashMap<>();
     }
 
-    public static synchronized AssemblyContextChangeAssemblyContextsStorage getInstance() {
+    public static AssemblyContextChangeAssemblyContextsStorage getInstance() {
+
         if (singleton == null) {
-            singleton = new AssemblyContextChangeAssemblyContextsStorage();
+            synchronized (object) {
+                if (singleton == null) {
+                    singleton = new AssemblyContextChangeAssemblyContextsStorage();
+                }
+            }
+
         }
 
         return singleton;
-    }
-
-    public void reset() {
-        assemblyContextsMap = new HashMap<>();
-        assemblyContextsMap.clear();
-    }
-
-    // IMPORTANT: HashMap is unsynchronized, so synchronization must be done here.
-    public synchronized void put(String key, List<AssemblyContext> value) {
-        assemblyContextsMap.put(key, value);
-    }
-
-    public List<AssemblyContext> get(String key) {
-        return assemblyContextsMap.get(key);
-    }
-
-    public boolean contains(String key) {
-        return assemblyContextsMap.containsKey(key);
     }
 }
