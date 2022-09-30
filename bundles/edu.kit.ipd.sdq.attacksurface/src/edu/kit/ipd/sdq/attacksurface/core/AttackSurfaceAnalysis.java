@@ -3,9 +3,6 @@ package edu.kit.ipd.sdq.attacksurface.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.helper.VulnerabilityHelper;
@@ -55,34 +52,7 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         createInitialStructure(modelStorage);
         var graph = new AttackGraphCreation(modelStorage);
 
-        // calculate the attack graph in parallel
-        var future = CompletableFuture
-                .allOf(
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
-
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToAssemblyContextPropagation),
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToGlobalAssemblyContextPropagation),
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToLinkingResourcePropagation),
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToLocalResourcePropagation),
-                CompletableFuture.runAsync(graph::calculateAssemblyContextToRemoteResourcePropagation),
-
-                CompletableFuture.runAsync(graph::calculateLinkingResourceToAssemblyContextPropagation),
-                CompletableFuture.runAsync(graph::calculateLinkingResourceToResourcePropagation),
-
-                CompletableFuture.runAsync(graph::calculateResourceContainerToLinkingResourcePropagation),
-                CompletableFuture.runAsync(graph::calculateResourceContainerToLocalAssemblyContextPropagation),
-                CompletableFuture.runAsync(graph::calculateResourceContainerToRemoteAssemblyContextPropagation),
-                CompletableFuture.runAsync(graph::calculateResourceContainerToResourcePropagation));
-        try {
-            future.get();
-        } catch (ExecutionException e) {
-            LOGGER.log(Level.SEVERE, "Error during graph creation", e);
-            Thread.currentThread().interrupt();
-            throw new IllegalStateException("IllegalState durin graph creation", e);
-        } catch (InterruptedException e) {
-            LOGGER.log(Level.SEVERE, "Error during graph creation", e);
-            Thread.currentThread().interrupt();
-        }
+        graph.createGraph();
 
 
 

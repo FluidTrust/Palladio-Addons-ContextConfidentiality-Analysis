@@ -27,7 +27,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 public abstract class ScalabilityTests extends EvaluationTest {
     public static final int WARMUP = 0;
     public static final int REPEAT = 2;// 10;
-    protected static final boolean RUN_COMPLETE_ANALYSIS = true; // TODO adapt to false for only
+    protected static final boolean RUN_ONLY_GRAPH_ANALYSIS = true; // TODO adapt to false for only
                                                                  // element prop. analysis
     protected static final int MAX_NUMBER_COMPLETE = 10;
 
@@ -51,7 +51,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
         VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
         final var attacks = this.attacker.getSystemintegration();
         moveVulnerabilitiesIfNecessary(attacks);
-        final var maximumNumberOfAdditions = RUN_COMPLETE_ANALYSIS ? getMaximumNumberOfAdditionsForFullAnalysis()
+        final var maximumNumberOfAdditions = RUN_ONLY_GRAPH_ANALYSIS ? getMaximumNumberOfAdditionsForFullAnalysis()
                 : getMaximumNumberOfAdditions();
         for (var i = 10; i <= maximumNumberOfAdditions; i *= 10) {
             perform(this.environment, i, attacks);
@@ -62,6 +62,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
 
     // TODO enable for scalability test for maximum
 
+    @Disabled
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
@@ -102,11 +103,11 @@ public abstract class ScalabilityTests extends EvaluationTest {
         }
 
         try (var output = Files.newBufferedWriter(path, StandardOpenOption.APPEND);) {
-            var changes = RUN_COMPLETE_ANALYSIS
+            var changes = RUN_ONLY_GRAPH_ANALYSIS
                     ? (CredentialChange) getBlackboardWrapper().getModificationMarkRepository()
                             .getChangePropagationSteps().get(0)
                     : getChanges();
-            if(RUN_COMPLETE_ANALYSIS) {
+            if(RUN_ONLY_GRAPH_ANALYSIS) {
             output.append(String.format(Locale.US, "%d,%d,%d\n", changes.getAttackpaths().size(),
                     Math.round(timeList.stream().mapToLong(Long::longValue).average().getAsDouble()),changes.getAttackpaths().size()
 //                    Math.round(changes.getAttackpaths().stream().mapToInt(p -> p.getAttackpathelement().size())
@@ -130,15 +131,15 @@ public abstract class ScalabilityTests extends EvaluationTest {
 //        resetAttackGraphAndChanges();
         setPathLengthFilter(getMaximumPathLength());
         var startTime = java.lang.System.currentTimeMillis();
-        if (RUN_COMPLETE_ANALYSIS) {
+        if (RUN_ONLY_GRAPH_ANALYSIS) {
             runAnalysis();
         } else {
-            runEvaluationAnalysis();
+            startTime = runEvaluationAnalysis();
         }
         return java.lang.System.currentTimeMillis() - startTime;
     }
 
-    protected abstract void runEvaluationAnalysis();
+    protected abstract long runEvaluationAnalysis();
 
     private void perform(ResourceEnvironment environment, int numberAddition,
             AttackerSystemSpecificationContainer attacks) {

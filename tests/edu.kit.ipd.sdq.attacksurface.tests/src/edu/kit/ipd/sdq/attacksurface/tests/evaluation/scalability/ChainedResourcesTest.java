@@ -57,10 +57,10 @@ public class ChainedResourcesTest extends ScalabilityTests {
     }
 
     @Override
-    protected void runEvaluationAnalysis() {
+    protected long runEvaluationAnalysis() {
 
         runAnalysis();
-
+        return 0;
 //        var graph = new AttackGraphCreation(getBlackboardWrapper());
 //        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
 //        var future = CompletableFuture.allOf(
