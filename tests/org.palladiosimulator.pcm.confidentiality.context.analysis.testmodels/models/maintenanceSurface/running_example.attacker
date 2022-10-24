@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+  <attackers>
+    <surfaceattacker id="_kZMisTWdEe2cAKq-d4-tBw" entityName="RunningExample" targetedElement="IntegrationProductStorageStart">
+      <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion">
+        <prohibitedInitialCredentials href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </filtercriteria>
+    </surfaceattacker>
+  </attackers>
+  <attacks>
+    <attack xsi:type="attack:CWEAttack" id="_IWtvEOZvEeyfBL2hDeJh1g" entityName="Exploit Cleartext Storage of Sensitive Information" category="__WrR8OZuEeyfBL2hDeJh1g"/>
+  </attacks>
+  <vulnerabilites>
+    <vulnerability xsi:type="attack:CVEVulnerability" cweID="__WrR8OZuEeyfBL2hDeJh1g" entityName="Credentials-Running-Example" confidentialityImpact="High" takeOver="true" cveID="_RaU6EeZuEeyze4K1yVUPAw">
+      <gainedAttributes href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+    </vulnerability>
+  </vulnerabilites>
+  <categoryspecification>
+    <categories xsi:type="attack:CVEID" id="_RaU6EeZuEeyze4K1yVUPAw" cveID="CVE-2021-28374"/>
+    <categories xsi:type="attack:CWEID" id="__WrR8OZuEeyfBL2hDeJh1g" entityName="Cleartext Storage of Sensitive Information" cweID="312"/>
+  </categoryspecification>
+  <systemintegration>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_9nZQMOZvEeyfBL2hDeJh1g" vulnerability="//@vulnerabilites/@vulnerability.0">
+      <pcmelement id="_-DBcQOZvEeyfBL2hDeJh1g">
+        <resourcecontainer href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_rhWRIzWdEe2cAKq-d4-tBw">
+      <pcmelement id="IntegrationProductStorageStart">
+        <assemblycontext href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </pcmelement>
+    </vulnerabilities>
+  </systemintegration>
+</attacker:AttackerSpecification>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context:ConfidentialAccessSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.palladiosimulator.org/pcm/confidentiality/context/policy/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:context="http://www.palladiosimulator.org/pcm/confidentiality/context/0.1/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/" xmlns:systemcontext="http://www.palladiosimulator.org/pcm/confidentiality/context/systemcontext/0.1/" xmlns:usage="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/usage/0.1/">
+  <pcmspecificationcontainer id="_IDMZ0JSkEeyvBd3n0aDE-g">
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_2DIB4LP4EeyBBMZUdAqcvg" entityName="GetMachineContextSwitch">
+      <attribute id="_7ZGBALP4EeyBBMZUdAqcvg" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+      <methodspecification id="_3WoRIrP4EeyBBMZUdAqcvg">
+        <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>
+        <hierachy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+        <connector xsi:type="composition:AssemblyConnector" href="maintenanceScenario.system#_Huf9MJSZEeyjlrv9ryW3Zw"/>
+      </methodspecification>
+    </attributeprovider>
+    <attributeprovider xsi:type="structure:PCMAttributeProvider" id="_68vJQLQFEeyBBMZUdAqcvg" entityName="StoreMachineContextSwitch">
+      <attribute id="__sZ9YLQFEeyBBMZUdAqcvg" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+      <methodspecification id="_8xNXkrQFEeyBBMZUdAqcvg">
+        <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
+        <hierachy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+        <connector xsi:type="composition:AssemblyConnector" href="maintenanceScenario.system#_Huf9MJSZEeyjlrv9ryW3Zw"/>
+      </methodspecification>
+    </attributeprovider>
+    <usagespecification id="_nqv00bGMEeyLRdjos_zQbg" entityName="Technican" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <usagespecification id="_yxkYQbGMEeyLRdjos_zQbg" entityName="MachineFailure" attributevalue="_XgmhcLGMEeyLRdjos_zQbg" attribute="_S5hooLGMEeyLRdjos_zQbg"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_7JDnorGMEeyLRdjos_zQbg" entityName="MaintenanceTechnicanFailureAttribute" attributevalue="_XgmhcLGMEeyLRdjos_zQbg" attribute="_S5hooLGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_i86-UrGNEeyLRdjos_zQbg" entityName="MaintenanceTechnicanRoleAttribute" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+    <usagespecification id="_lDlzEbQCEeyBBMZUdAqcvg" entityName="MachineRole" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_VeC9YrQJEeyBBMZUdAqcvg" entityName="MachineSave" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <entrylevelsystemcall href="maintenanceScenario.usagemodel#_oMRd0JSeEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+    <usagespecification id="__90ZUbQMEeyBBMZUdAqcvg" entityName="ProductDeveloper" attributevalue="_7LZzMLQMEeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_cPopIrQNEeyBBMZUdAqcvg" entityName="ProductDeveloperScenario" attributevalue="_7LZzMLQMEeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_tjyHUJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_l9uuArQsEeyHE8TPwgN3cQ" entityName="TechnicianOnly" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
+    </usagespecification>
+    <usagespecification id="_mx--seZvEeyfBL2hDeJh1g" entityName="Admin" attributevalue="_j_nkwOZvEeyfBL2hDeJh1g" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <misusagescenario>
+      <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
+    </misusagescenario>
+  </pcmspecificationcontainer>
+  <policyset id="_d7xFEZSjEeyvBd3n0aDE-g" entityName="AccessControl">
+    <policy id="_pK9oQeZvEeyfBL2hDeJh1g" entityName="Admin">
+      <rule id="_puyuEOZvEeyfBL2hDeJh1g" entityName="Admin Access">
+        <condition xsi:type="SimpleAttributeCondition" id="_4fVKN-ZvEeyfBL2hDeJh1g" attribute="_mx--seZvEeyfBL2hDeJh1g"/>
+      </rule>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_sONW0OZvEeyfBL2hDeJh1g">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        </match>
+      </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_10DPsOZvEeyfBL2hDeJh1g">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        </match>
+      </target>
+    </policy>
+  </policyset>
+  <attributes>
+    <attribute xsi:type="systemcontext:SystemEntityAttribute" id="_S5hooLGMEeyLRdjos_zQbg" entityName="Machine">
+      <attributevalue id="_WL1G4LGMEeyLRdjos_zQbg">
+        <values>Running</values>
+      </attributevalue>
+      <attributevalue id="_XgmhcLGMEeyLRdjos_zQbg">
+        <values>Failure</values>
+      </attributevalue>
+      <modelEntity xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_f4Ph0rGMEeyLRdjos_zQbg" entityName="Role">
+      <attributevalue id="_gO5uULGMEeyLRdjos_zQbg">
+        <values>Technican</values>
+      </attributevalue>
+      <attributevalue id="_9_Fy4LP4EeyBBMZUdAqcvg">
+        <values>Machine</values>
+      </attributevalue>
+      <attributevalue id="_7LZzMLQMEeyBBMZUdAqcvg">
+        <values>ProductDeveloper</values>
+      </attributevalue>
+      <attributevalue id="_j_nkwOZvEeyfBL2hDeJh1g">
+        <values>Admin</values>
+      </attributevalue>
+    </attribute>
+  </attributes>
+</context:ConfidentialAccessSpecification>

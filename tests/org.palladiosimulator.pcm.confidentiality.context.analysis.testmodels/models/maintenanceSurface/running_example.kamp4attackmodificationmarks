@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
+  <changePropagationSteps>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <attackpathelement id="_Wmp6QFN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmqhUFN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <attackpathelement id="_WmqhUVN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmqhUlN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </attackpathelement>
+      <attackpathelement id="_WmqhU1N1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </attackpathelement>
+      <attackpathelement id="_WmqhVFN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <attackpathelement id="_WmrIYFN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_53Jy4JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIYVN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIYlN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIY1N1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <attackpathelement id="_WmrIZFN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="maintenanceScenario.resourceenvironment#_cGDsMJSZEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIZVN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIZlN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrIZ1N1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <attackpathelement id="_WmrvcFN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ag33EJSZEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrvcVN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrvclN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Wmrvc1N1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      <attackpathelement id="_WmrvdFN1Ee2pW6L471Y3XA">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrvdVN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="running_example.attacker#//@vulnerabilites/@vulnerability.0"/>
+      </attackpathelement>
+      <attackpathelement id="_WmrvdlN1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        <causingElements href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
+      </attackpathelement>
+      <attackpathelement id="_Wmrvd1N1Ee2pW6L471Y3XA" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="maintenanceScenario.system#_7bi90JSYEeyjlrv9ryW3Zw"/>
+      </attackpathelement>
+    </attackpaths>
+  </changePropagationSteps>
+  <seedModifications>
+    <surfaceattackcomponent id="_l10cQTWeEe2cAKq-d4-tBw">
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="running_example.attacker#_kZMisTWdEe2cAKq-d4-tBw"/>
+    </surfaceattackcomponent>
+  </seedModifications>
+</KAMP4attackModificationmarks:KAMP4attackModificationRepository>

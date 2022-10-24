@@ -1,42 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+<attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:structure="http://www.palladiosimulator.org/pcm/confidentiality/context/specification/pcm/structure/0.1/">
   <attackers>
-    <attacker id="_Y0jAMLM6EeyQ67qz7PIV5Q" entityName="testAttacker"/>
-    <surfaceattacker id="_a8Q6obM6EeyQ67qz7PIV5Q" targetedElement="_ZiM68LM7EeyQ67qz7PIV5Q">
-      <filtercriteria xsi:type="attacker:MaximumPathLengthFilterCriterion" entityName="maxPathLengthFilter"/>
-      <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion" entityName="initialCredentialFilter">
-        <prohibitedInitialCredentials href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
+    <surfaceattacker id="_7vmLsVOJEe2pW6L471Y3XA" targetedElement="65465156165165">
+      <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion">
+        <prohibitedInitialCredentials href="default.context#_2rnzoTmWEey9DpUgqaC4Ew"/>
       </filtercriteria>
-      <filtercriteria xsi:type="attacker:ExploitabilityVulnerabilityFilterCriterion" entityName="exploitabilityFilter"/>
-      <filtercriteria xsi:type="attacker:ImpactVulnerabilityFilterCriterion" entityName="impactFilter"/>
     </surfaceattacker>
   </attackers>
-  <attacks/>
+  <attacks>
+    <attack xsi:type="attack:CWEAttack" id="_8JwOoKd6EeuyobD7xRWqAQ" entityName="Cleartext Storage of Sensitive Information" category="_ZB1mf1N5Ee2pW6L471Y3XA"/>
+    <attack xsi:type="attack:CWEAttack" id="_ynkV4Dl2EeyxuvclpmtFmA" entityName="Deserialization of Untrusted Data" category="_ZB1mfFN5Ee2pW6L471Y3XA"/>
+    <attack xsi:type="attack:CWEAttack" id="_y29cwDl2EeyxuvclpmtFmA" entityName="Improper Access Control" category="_ZB1mgFN5Ee2pW6L471Y3XA"/>
+    <attack xsi:type="attack:CWEAttack" id="_zKRaUDl2EeyxuvclpmtFmA" entityName="Improper Neutralization" category="_ZB1mflN5Ee2pW6L471Y3XA"/>
+    <attack xsi:type="attack:CWEAttack" id="_GA4T8Dl3EeyxuvclpmtFmA" entityName="Improper Neutralization of Special Elements used in a Command" category="_ZB1mfVN5Ee2pW6L471Y3XA"/>
+  </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CWEVulnerability" id="_CiKb4LM9EeyQ67qz7PIV5Q" entityName="weakPassword" attackVector="AdjacentNetwork" confidentialityImpact="High" integrityImpact="High" availabilityImpact="Low" takeOver="true" cweID="_FLSsMhJyEe2ljd52t2IYkQ">
-      <gainedAttributes href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_px3jQKd4EeuyobD7xRWqAQ" entityName="Vulnerability Travelplanner" attackVector="AdjacentNetwork" confidentialityImpact="High" takeOver="true" cweID="_ZB1mfFN5Ee2pW6L471Y3XA"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_6TslgKg2Eeu41LgoiPSZgg" entityName="Smartphone" attackVector="Local" confidentialityImpact="High" cweID="_ZB1mf1N5Ee2pW6L471Y3XA">
+      <gainedAttributes href="default.context#_cYY84fXpEeub3tcXgMY_nQ"/>
     </vulnerability>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_DE78MKg4EeuBy83MqQpiOw" entityName="Vulnerability TravelAgency" attackVector="AdjacentNetwork" privileges="Low" takeOver="true" cweID="_ZB1mfVN5Ee2pW6L471Y3XA"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_oBdkwDl0EeyxuvclpmtFmA" entityName="Airline Resource Container" takeOver="true" cweID="_ZB1mgFN5Ee2pW6L471Y3XA"/>
+    <vulnerability xsi:type="attack:CWEVulnerability" id="_89t8QDl0EeyxuvclpmtFmA" entityName="LinkingResource Internet" cweID="_ZB1mgFN5Ee2pW6L471Y3XA"/>
   </vulnerabilites>
   <categoryspecification>
-    <categories xsi:type="attack:CWEID" id="_FLSsMhJyEe2ljd52t2IYkQ" entityName="Weak Password Requirements" cweID="521" parents="_FLSsMxJyEe2ljd52t2IYkQ"/>
-    <categories xsi:type="attack:CWEID" id="_FLSsMxJyEe2ljd52t2IYkQ" entityName="Credentials Management Errors" cweID="255" children="_FLSsMhJyEe2ljd52t2IYkQ"/>
+    <categories xsi:type="attack:CWEID" id="_ZB1mfFN5Ee2pW6L471Y3XA" entityName="Deserialization of Untrusted Data" cweID="502" parents="_ZB1mflN5Ee2pW6L471Y3XA"/>
+    <categories xsi:type="attack:CWEID" id="_ZB1mfVN5Ee2pW6L471Y3XA" entityName="Improper Neutralization of Special Elements used in a Command" cweID="77" parents="_ZB1mflN5Ee2pW6L471Y3XA"/>
+    <categories xsi:type="attack:CWEID" id="_ZB1mflN5Ee2pW6L471Y3XA" entityName="Improper Neutralization" cweID="707" children="_ZB1mfFN5Ee2pW6L471Y3XA _ZB1mfVN5Ee2pW6L471Y3XA"/>
+    <categories xsi:type="attack:CWEID" id="_ZB1mf1N5Ee2pW6L471Y3XA" entityName="Cleartext Storage of Sensitive Information" cweID="312"/>
+    <categories xsi:type="attack:CWEID" id="_ZB1mgFN5Ee2pW6L471Y3XA" entityName="Improper Access Control" cweID="284"/>
   </categoryspecification>
   <systemintegration>
-    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_ZJFQU7M7EeyQ67qz7PIV5Q" entityName="critical integration">
-      <pcmelement id="_ZiM68LM7EeyQ67qz7PIV5Q">
-        <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_F_zfgDi_Eey9mszNksodxw" vulnerability="_px3jQKd4EeuyobD7xRWqAQ">
+      <pcmelement id="_Mz7nADl1EeyxuvclpmtFmA">
+        <assemblycontext href="default.system#_2pBlYMN-EeWst9mTsticNA"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_SeGUILM9EeyQ67qz7PIV5Q" entityName="weakPswIntegration" vulnerability="_CiKb4LM9EeyQ67qz7PIV5Q">
-      <pcmelement id="_VnUu4LM9EeyQ67qz7PIV5Q">
-        <assemblycontext href="default.system#_0WeT8MN-EeWst9mTsticNA"/>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_MIzmYDl1EeyxuvclpmtFmA" vulnerability="_oBdkwDl0EeyxuvclpmtFmA">
+      <pcmelement id="_NnKawDl1EeyxuvclpmtFmA">
+        <resourcecontainer href="default.resourceenvironment#_fuWBEMN4EeWPE-QAhbUzuQ"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_uoGu9LNBEeyF-9FfcuBY2w" entityName="root integration">
-      <pcmelement id="_vJN38LNBEeyF-9FfcuBY2w">
-        <resourcecontainer href="default.resourceenvironment#_HM_VsMN5EeWPE-QAhbUzuQ"/>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_N9TC0Dl1EeyxuvclpmtFmA" vulnerability="_89t8QDl0EeyxuvclpmtFmA">
+      <pcmelement id="_OVv_EDl1EeyxuvclpmtFmA">
+        <linkingresource href="default.resourceenvironment#_67lcMMN9EeWPE-QAhbUzuQ"/>
       </pcmelement>
-      <credential href="default.context#_aOs_IbM8EeyQ67qz7PIV5Q"/>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_pihSYDl1EeyxuvclpmtFmA" vulnerability="_DE78MKg4EeuBy83MqQpiOw">
+      <pcmelement id="_p8eqgDl1EeyxuvclpmtFmA">
+        <methodspecification xsi:type="structure:ServiceSpecification" id="_xI_UgTl1EeyxuvclpmtFmA">
+          <signature xsi:type="repository:OperationSignature" href="default.repository#_R6uH4MNyEeWPE-QAhbUzuQ"/>
+          <assemblycontext href="default.system#_0WeT8MN-EeWst9mTsticNA"/>
+          <service href="default.repository#_brO1YN5fEeeel_96Qa_d5A"/>
+        </methodspecification>
+      </pcmelement>
+    </vulnerabilities>
+    <vulnerabilities xsi:type="pcmIntegration:DefaultSystemIntegration" id="_AuUvg1OKEe2pW6L471Y3XA">
+      <pcmelement id="65465156165165">
+        <assemblycontext href="default.system#_XOyEsMOBEeWst9mTsticNA"/>
+      </pcmelement>
     </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

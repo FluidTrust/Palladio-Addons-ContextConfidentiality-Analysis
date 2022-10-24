@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
+<KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
   <changePropagationSteps>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="default.system#_XOyEsMOBEeWst9mTsticNA"/>
+      <attackpathelement id="_mhcuwFOQEe2yws43QmkMVg">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="default.resourceenvironment#_Lq-ZYMN4EeWPE-QAhbUzuQ"/>
+      </attackpathelement>
+      <attackpathelement id="_mhcuwVOQEe2yws43QmkMVg" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="default.system#_XOyEsMOBEeWst9mTsticNA"/>
+      </attackpathelement>
+    </attackpaths>
   </changePropagationSteps>
   <seedModifications>
     <surfaceattackcomponent id="__nTfMbM6EeyQ67qz7PIV5Q">
-      <affectedElement xsi:type="attacker:SurfaceAttacker" href="default.attacker#_a8Q6obM6EeyQ67qz7PIV5Q"/>
+      <affectedElement xsi:type="attacker:SurfaceAttacker" href="default.attacker#_7vmLsVOJEe2pW6L471Y3XA"/>
     </surfaceattackcomponent>
   </seedModifications>
 </KAMP4attackModificationmarks:KAMP4attackModificationRepository>
