@@ -4,24 +4,278 @@
     <attackpaths>
       <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
       <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
-      <attackpathelement id="_HmZ9ABcCEe21mbHPjUe6Eg">
-        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+      <attackpathelement id="_bIip4FOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
       </attackpathelement>
-      <attackpathelement id="_HmZ9ARcCEe21mbHPjUe6Eg" toolderived="true">
-        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
-      </attackpathelement>
-      <attackpathelement id="_HmZ9AhcCEe21mbHPjUe6Eg" toolderived="true">
+      <attackpathelement id="_bIip4VOdEe22z5Y_dgUr0g" toolderived="true">
         <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
         <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
       </attackpathelement>
-      <attackpathelement id="_HmZ9AxcCEe21mbHPjUe6Eg" toolderived="true">
+      <attackpathelement id="_bIip4lOdEe22z5Y_dgUr0g" toolderived="true">
         <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
         <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
         <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
       </attackpathelement>
-      <attackpathelement id="_HmakEBcCEe21mbHPjUe6Eg" toolderived="true">
+      <attackpathelement id="_bIjQ8FOdEe22z5Y_dgUr0g" toolderived="true">
         <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
         <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <attackpathelement id="_bIowgFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bIowgVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bIowglOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bIqlsFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="powerGrid.resourceenvironment#_K4S34CwbEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bIqlsVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bIqlslOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bIqls1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bItB8FOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bItB8VOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bItB8lOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bItB81OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bItB9FOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <attackpathelement id="_bIwFQFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bIwFQVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bIwFQlOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bIwFQ1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bIzIkFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bIzIkVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bIzIklOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bIzIk1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bIzIlFOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bI2L4FOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bI2L4VOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_TK0BMC2bEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bI2L4lOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bI2L41OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bI2L5FOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bI4oIFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bI4oIVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bI4oIlOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bI5PMFOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bI5PMVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bI7rcFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_1cglcC2_EeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bI7rcVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bI7rclOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bI7rc1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bI-HsFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_ycvd8C2ZEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bI-HsVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bI-HslOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bI-Hs1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bJBLAFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_V4494CwjEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bJBLAVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bJBLAlOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bJBLA1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bJFccFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bJFccVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bJFcclOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bJFcc1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cveWithId_CVE-2014-1761"/>
+      <attackpathelement id="_bJHRoFOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_STIN4KwkEeyFpqEXJR-5MA"/>
+      </attackpathelement>
+      <attackpathelement id="_bJHRoVOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_17uiwC2YEeyiUoiCEbquLw"/>
+      </attackpathelement>
+      <attackpathelement id="_bJHRolOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_b0b0UC2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.attacker#cveWithId_CVE-2014-1761"/>
+      </attackpathelement>
+      <attackpathelement id="_bJHRo1OdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_snL_0C2ZEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+        <causingElements href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
+      </attackpathelement>
+      <attackpathelement id="_bJHRpFOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+        <causingElements href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+      <attackpathelement id="_bJKU8FOdEe22z5Y_dgUr0g">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
+      </attackpathelement>
+      <attackpathelement id="_bJKU8VOdEe22z5Y_dgUr0g" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
       </attackpathelement>
     </attackpaths>
   </changePropagationSteps>

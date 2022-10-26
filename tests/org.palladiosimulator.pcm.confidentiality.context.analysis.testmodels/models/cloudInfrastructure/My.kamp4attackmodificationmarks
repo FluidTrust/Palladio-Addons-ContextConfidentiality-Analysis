@@ -2,16 +2,193 @@
 <KAMP4attackModificationmarks:KAMP4attackModificationRepository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:KAMP4attackModificationmarks="http://sdq.ipd.kit.edu/KAMP4attackModificationmarks/1.0" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:composition="http://palladiosimulator.org/PalladioComponentModel/Core/Composition/5.2" xmlns:resourceenvironment="http://palladiosimulator.org/PalladioComponentModel/ResourceEnvironment/5.2">
   <changePropagationSteps>
     <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgt3AFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_BPJUkBf1Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_kgt3AVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgt3AlOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
       <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
       <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
-      <attackpathelement id="_W2qs0BiIEe26-d0zbB94zQ">
-        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_8LRyEBf0Ee2dAtAsLX7Vgw"/>
+      <attackpathelement id="_kgw6UFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_CGcDsKObEeyg1bkezwUNpA"/>
       </attackpathelement>
-      <attackpathelement id="_W2qs0RiIEe26-d0zbB94zQ" toolderived="true">
+      <attackpathelement id="_kgw6UVOZEe2S4pTLLALQKQ" toolderived="true">
         <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
         <causingElements href="My.attacker#cve-2013-4344"/>
       </attackpathelement>
-      <attackpathelement id="_W2qs0hiIEe26-d0zbB94zQ" toolderived="true">
+      <attackpathelement id="_kgw6UlOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgw6U1OZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_aguBQKObEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgw6VFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgw6VVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgxhYFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgxhYVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgxhYlOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_DzdrcBf1Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_kgxhY1OZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgxhZFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      <attackpathelement id="_kgyIcFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_9ACKkKOaEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgyIcVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.attacker#cve-2013-4344"/>
+      </attackpathelement>
+      <attackpathelement id="_kgyIclOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgyIc1OZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_-tepEBf0Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_kgyIdFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kgyIdVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kgz9oFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:LinkingResource" href="newResourceEnvironment.resourceenvironment#__1EDk-2-Eeq6pfPMAIqEqg"/>
+      </attackpathelement>
+      <attackpathelement id="_kgz9oVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg0ksFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kg1LwFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_eaQKsBQBEe2E1rY1FkobkQ"/>
+      </attackpathelement>
+      <attackpathelement id="_kg1LwVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg1LwlOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      <attackpathelement id="_kg4PEFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_8LRyEBf0Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_kg4PEVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.attacker#cve-2013-4344"/>
+      </attackpathelement>
+      <attackpathelement id="_kg4PElOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kg4PE1OZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_DYp_gBiJEe26-d0zbB94zQ"/>
+      </attackpathelement>
+      <attackpathelement id="_kg4PFFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg4PFVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kg42IFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_au5FYBf1Ee2dAtAsLX7Vgw"/>
+      </attackpathelement>
+      <attackpathelement id="_kg42IVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg42IlOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <credentials href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <attackpathelement id="_kg5dMFOZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_4DOSUKOaEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg5dMVOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.context#_RyWUMaOhEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg5dMlOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      </attackpathelement>
+    </attackpaths>
+    <attackpaths>
+      <targetedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
+      <vulnerabilities xsi:type="attack:CVEVulnerability" href="My.attacker#cve-2013-4344"/>
+      <attackpathelement id="_kg5dM1OZEe2S4pTLLALQKQ">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_WNeDYKObEeyg1bkezwUNpA"/>
+      </attackpathelement>
+      <attackpathelement id="_kg5dNFOZEe2S4pTLLALQKQ" toolderived="true">
+        <affectedElement xsi:type="resourceenvironment:ResourceContainer" href="newResourceEnvironment.resourceenvironment#_7yeD4KOdEeyg1bkezwUNpA"/>
+        <causingElements href="My.attacker#cve-2013-4344"/>
+      </attackpathelement>
+      <attackpathelement id="_kg5dNVOZEe2S4pTLLALQKQ" toolderived="true">
         <affectedElement xsi:type="composition:AssemblyContext" href="newAssembly.system#_Qn4r0BiHEe26-d0zbB94zQ"/>
       </attackpathelement>
     </attackpaths>

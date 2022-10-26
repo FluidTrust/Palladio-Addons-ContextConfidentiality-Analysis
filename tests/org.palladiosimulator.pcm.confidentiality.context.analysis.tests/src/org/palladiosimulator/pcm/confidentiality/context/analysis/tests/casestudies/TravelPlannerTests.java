@@ -1,8 +1,9 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

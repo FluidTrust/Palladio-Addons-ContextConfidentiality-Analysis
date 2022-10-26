@@ -1,6 +1,8 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.scalability;
 
-import static org.junit.Assert.fail;
+
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 import java.nio.file.Files;

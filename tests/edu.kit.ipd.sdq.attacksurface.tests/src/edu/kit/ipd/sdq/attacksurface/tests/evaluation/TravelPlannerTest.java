@@ -2,7 +2,7 @@ package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
 import java.util.List;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.ExploitabilityVulnerabilityFilterCriterion;
@@ -42,7 +42,7 @@ public class TravelPlannerTest extends EvaluationTest {
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         printPaths(pathsDirectlyAfterAnalysis);
-        Assert.assertEquals(8, pathsDirectlyAfterAnalysis.size());
+        Assertions.assertEquals(8, pathsDirectlyAfterAnalysis.size());
         pathsTestHelper(changes, entity);
     }
 
@@ -52,25 +52,25 @@ public class TravelPlannerTest extends EvaluationTest {
         final var pathsString = toString(paths);
         if (allowVuln) {
             if (maxPathLength < 3) {
-                Assert.assertTrue(paths.isEmpty());
+                Assertions.assertTrue(paths.isEmpty());
                 return;
             } else {
-                Assert.assertTrue(pathsString.contains("3 PATH\n"
+                Assertions.assertTrue(pathsString.contains("3 PATH\n"
                         + "- | TravelPlanner <TravelPlanner>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("3 PATH\n"
+                Assertions.assertTrue(pathsString.contains("3 PATH\n"
                         + "- | Airline <Airline>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("3 PATH\n"
+                Assertions.assertTrue(pathsString.contains("3 PATH\n"
                         + "- | AirlineServer\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("3 PATH\n"
+                Assertions.assertTrue(pathsString.contains("3 PATH\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
@@ -78,71 +78,71 @@ public class TravelPlannerTest extends EvaluationTest {
             }
 
             if (maxPathLength >= 4) {
-                Assert.assertEquals(8, paths.size());
+                Assertions.assertEquals(8, paths.size());
 
-                Assert.assertTrue(pathsString.contains("4 PATH\n"
+                Assertions.assertTrue(pathsString.contains("4 PATH\n"
                     + "- | TravelPlanner <TravelPlanner>\n"
                     + VULN + " | TravelAgency <TravelAgency>\n"
                     + VULN + " | TravelAgency <TravelAgency>\n"
                     + CRED_ROOT + " | AgencyServer\n"
                     + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("4 PATH\n"
+                Assertions.assertTrue(pathsString.contains("4 PATH\n"
                         + "- | Airline <Airline>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("4 PATH\n"
+                Assertions.assertTrue(pathsString.contains("4 PATH\n"
                         + "- | AirlineServer\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
-                Assert.assertTrue(pathsString.contains("4 PATH\n"
+                Assertions.assertTrue(pathsString.contains("4 PATH\n"
                         + "- | AgencyServer\n"
                         + "- | TravelAgency <TravelAgency>\n"
                         + VULN + " | TravelAgency <TravelAgency>\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + "VULNs used: " + VULN));
             } else {
-                Assert.assertEquals(4, paths.size());
-                Assert.assertTrue(paths
+                Assertions.assertEquals(4, paths.size());
+                Assertions.assertTrue(paths
                         .stream()
                         .allMatch(p -> p.getAttackpathelement().size() <= 3));
             }
         } else {
             // no vulnerability attacks --> initial credentials necessary
             if (allowRootCred) {
-                Assert.assertTrue(pathsString.contains("2 PATH\n"
+                Assertions.assertTrue(pathsString.contains("2 PATH\n"
                         + "credentials initally necessary: " + CRED_ROOT + "\n"
                         + CRED_ROOT + " | AgencyServer\n"
                         + CRED_ROOT + " | AgencyServer"));
                 if (maxPathLength < 3) {
-                    Assert.assertEquals(1, paths.size());
+                    Assertions.assertEquals(1, paths.size());
                 } else {
-                    Assert.assertTrue(pathsString.contains("3 PATH\n"
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
                             + "credentials initally necessary: " + CRED_ROOT + "\n"
                             + "- | TravelPlanner <TravelPlanner>\n"
                             + "- | AgencyServer\n"
                             + CRED_ROOT + " | AgencyServer"));
-                    Assert.assertTrue(pathsString.contains("3 PATH\n"
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
                             + "credentials initally necessary: " + CRED_ROOT + "\n"
                             + "- | Airline <Airline>\n"
                             + "- | AgencyServer\n"
                             + CRED_ROOT + " | AgencyServer"));
-                    Assert.assertTrue(pathsString.contains("3 PATH\n"
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
                             + "credentials initally necessary: " + CRED_ROOT + "\n"
                             + "- | TravelAgency <TravelAgency>\n"
                             + "- | AgencyServer\n"
                             + CRED_ROOT + " | AgencyServer"));
-                    Assert.assertTrue(pathsString.contains("3 PATH\n"
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
                             + "credentials initally necessary: " + CRED_ROOT + "\n"
                             + "- | AirlineServer\n"
                             + "- | AgencyServer\n"
                             + CRED_ROOT + " | AgencyServer"));
                 }
             } else {
-                Assert.assertTrue(paths.isEmpty());
+                Assertions.assertTrue(paths.isEmpty());
             }
         }
     }

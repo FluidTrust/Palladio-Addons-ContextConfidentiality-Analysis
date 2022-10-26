@@ -1,15 +1,14 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.junit.jupiter.api.Test;
 
 import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
 class AttackPreStepTest extends AbstractModelTest {
 
@@ -43,13 +42,13 @@ class AttackPreStepTest extends AbstractModelTest {
         execute();
         final var steps = this.modification.getChangePropagationSteps();
 
-        final var assembly = ((CredentialChange) steps.get(0)).getCompromisedassembly().get(0).getAffectedElement();
+        final var assembly = steps.get(0).getCompromisedassembly().get(0).getAffectedElement();
 
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
         assertEquals(1, steps.size());
-        assertEquals(1, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedresource().size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getContextchange().size());
+        assertEquals(1, steps.get(0).getCompromisedassembly().size());
+        assertEquals(0, steps.get(0).getCompromisedresource().size());
+        assertEquals(0, steps.get(0).getContextchange().size());
 
     }
 
@@ -65,11 +64,11 @@ class AttackPreStepTest extends AbstractModelTest {
         final var steps = this.modification.getChangePropagationSteps();
         //
         assertEquals(1, steps.size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedassembly().size());
-        assertEquals(0, ((CredentialChange) steps.get(0)).getCompromisedresource().size());
-        assertEquals(1, ((CredentialChange) steps.get(0)).getContextchange().size());
+        assertEquals(0, steps.get(0).getCompromisedassembly().size());
+        assertEquals(0, steps.get(0).getCompromisedresource().size());
+        assertEquals(1, steps.get(0).getContextchange().size());
         assertTrue(EcoreUtil.equals(context,
-                ((CredentialChange) steps.get(0)).getContextchange().get(0).getAffectedElement()));
+                steps.get(0).getContextchange().get(0).getAffectedElement()));
     }
 
 }

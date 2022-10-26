@@ -1,7 +1,8 @@
 package edu.kit.ipd.sdq.kamp4attack.tests.casestudies.travelplanner;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
 
         assertTrue(change instanceof CredentialChange);
 
-        return (CredentialChange) change;
+        return change;
 
     }
 

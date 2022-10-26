@@ -1,7 +1,8 @@
 package edu.kit.ipd.sdq.kamp4attack.tests.change.credentials;
 
-import static org.junit.Assert.assertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;

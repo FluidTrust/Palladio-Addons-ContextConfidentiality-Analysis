@@ -1,8 +1,9 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,9 +25,9 @@ public class MaintenanceTests extends MaintenanceBaseTest {
 
     @Test
     void positiveCase() {
-        this.generateXML();
+        generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        this.assertAllPositive(output);
+        assertAllPositive(output);
     }
 
     @Test
@@ -40,7 +41,7 @@ public class MaintenanceTests extends MaintenanceBaseTest {
                     e.setAttributevalue(null);
                 });
 
-        this.generateXML();
+        generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
         assertEquals(4, output.getScenariooutput().size());
 

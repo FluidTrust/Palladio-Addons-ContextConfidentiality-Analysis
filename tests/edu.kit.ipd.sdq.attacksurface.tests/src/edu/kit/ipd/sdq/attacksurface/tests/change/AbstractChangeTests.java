@@ -1,6 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.tests.change;
 
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.List;
 import java.util.Set;
@@ -272,14 +272,14 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             final String causeId) {
 //        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
 //        if (node != null) {
-//            Assert.assertEquals(isCompromised, node.isCompromised());
-//            Assert.assertEquals(isAttacked, node.isAttacked());
+//            Assertions.assertEquals(isCompromised, node.isCompromised());
+//            Assertions.assertEquals(isAttacked, node.isAttacked());
 //            if (causeId != null) {
-//                Assert.assertTrue(getAttackGraph().getCompromisationCauseIds(node).stream().anyMatch(i -> Objects.equals(i.getId(), causeId)));
+//                Assertions.assertTrue(getAttackGraph().getCompromisationCauseIds(node).stream().anyMatch(i -> Objects.equals(i.getId(), causeId)));
 //            }
 //        } else {
-//            Assert.assertFalse(isAttacked);
-//            Assert.assertFalse(isCompromised);
+//            Assertions.assertFalse(isAttacked);
+//            Assertions.assertFalse(isCompromised);
 //        }
 
         fail();

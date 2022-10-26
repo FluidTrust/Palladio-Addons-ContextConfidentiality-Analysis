@@ -2,13 +2,7 @@
 <attacker:AttackerSpecification xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:attack="http://www.palladiosimulator.org/pcm/confidentiality/attacker/0.1/" xmlns:attacker="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/" xmlns:pcmIntegration="http://www.palladiosimulator.org/pcm/confidentiality/attack/0.1/pcmIntagration/">
   <attackers>
     <attacker id="_Kw-xUKEmEeuyfoSUd8RMpg" entityName="Test"/>
-    <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" targetedElement="_L8u2kKOfEeyg1bkezwUNpA">
-      <filtercriteria xsi:type="attacker:StartElementFilterCriterion">
-        <startComponents xsi:type="pcmIntegration:PCMElement">
-          <assemblycontext href="newAssembly.system#_8LRyEBf0Ee2dAtAsLX7Vgw"/>
-        </startComponents>
-      </filtercriteria>
-    </surfaceattacker>
+    <surfaceattacker id="_XAJcUaOBEeyPgbGXj7rW7A" targetedElement="_L8u2kKOfEeyg1bkezwUNpA"/>
   </attackers>
   <vulnerabilites>
     <vulnerability xsi:type="attack:CVEVulnerability" id="cve-2013-4344" entityName="vulnerability CVE-2013-4344 attack hypervisor" confidentialityImpact="High" integrityImpact="High" availabilityImpact="High" takeOver="true" cveID="_xO_zQhMpEe2TBtDIRt9JBA">

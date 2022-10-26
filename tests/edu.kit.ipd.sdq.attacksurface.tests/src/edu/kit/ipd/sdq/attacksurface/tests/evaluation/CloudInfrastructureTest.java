@@ -2,7 +2,6 @@ package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
@@ -44,7 +43,7 @@ public class CloudInfrastructureTest extends EvaluationTest {
 
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(1, pathsDirectlyAfterAnalysis.size());
+        Assertions.assertEquals(14, pathsDirectlyAfterAnalysis.size());
         pathsTestHelper(changes, entity);
     }
 

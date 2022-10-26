@@ -84,9 +84,9 @@ public abstract class EvaluationTest extends AbstractChangeTests {
 //        System.out.println(getAttackGraph().getAllCredentials());
 //        System.out.println("children of root: " + getAttackGraph().getChildrenOfNode(getAttackGraph().getRootNodeContent()));
 //
-//        Assert.assertTrue(getAttackGraph().getRootNodeContent().isCompromised());
+//        Assertions.assertTrue(getAttackGraph().getRootNodeContent().isCompromised());
 //        if (isContainerOfRootCompromised) {
-//            Assert.assertTrue(getAttackGraph().findNode(
+//            Assertions.assertTrue(getAttackGraph().findNode(
 //                new AttackNodeContent(
 //                        getResource(getAttackGraph().getRootNodeContent()
 //                                .getContainedElementAsPCMElement().getAssemblycontext()))).isCompromised());
@@ -101,7 +101,7 @@ public abstract class EvaluationTest extends AbstractChangeTests {
 //        printPaths(paths);
 //        System.out.println(surfacePaths.size());
 //        if (isSamePathAmountRequired) {
-//            Assert.assertEquals(surfacePaths.size(), paths.size());
+//            Assertions.assertEquals(surfacePaths.size(), paths.size());
 //        }
     }
 

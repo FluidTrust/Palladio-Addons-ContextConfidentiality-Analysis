@@ -1,7 +1,6 @@
 package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
@@ -24,7 +23,7 @@ public class TargetBreachTest extends EvaluationTest {
         var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(14, pathsDirectlyAfterAnalysis.size());
+        Assertions.assertEquals(14, pathsDirectlyAfterAnalysis.size());
 
 
         pathsTestHelper(changes, entity);
@@ -45,8 +44,8 @@ public class TargetBreachTest extends EvaluationTest {
 
         final var changes = runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        Assert.assertEquals(1, pathsDirectlyAfterAnalysis.size());
-        Assert.assertEquals(4, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
+        Assertions.assertEquals(1, pathsDirectlyAfterAnalysis.size());
+        Assertions.assertEquals(4, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
 
         pathsTestHelper(changes, entity);
     }
