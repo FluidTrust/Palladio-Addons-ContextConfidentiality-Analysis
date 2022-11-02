@@ -8,6 +8,8 @@ import org.palladiosimulator.pcm.allocation.AllocationContext;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.CollectionHelper;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.HelperCreationCompromisedElements;
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ResourceContainerChangeAssemblyContextsStorage;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandler;
+import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.data.DataHandlerAttacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
@@ -18,6 +20,7 @@ import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.Assembl
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.LinkingResourceHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.attackhandlers.ResourceContainerHandler;
 import edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes.propagationsteps.ResourceContainerPropagationWithContext;
+import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedAssembly;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -99,6 +102,10 @@ public abstract class ResourceContainerChange extends Change<ResourceContainer>
                 this.changes.getCompromisedassembly().addAll(listChanges);
                 CollectionHelper.addService(listChanges, this.modelStorage.getVulnerabilitySpecification(),
                         this.changes);
+                final var dataList = listChanges.stream().distinct().map(CompromisedAssembly::getAffectedElement)
+                        .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+                new DataHandlerAttacker(this.changes).addData(dataList);
+
                 this.changes.setChanged(true);
             }
         }
