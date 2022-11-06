@@ -4,13 +4,14 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: PalladioSimulator/Palladio-Build-ActionsPipeline@v3.2
-        with:
+      uses: PalladioSimulator/Palladio-Build-ActionsPipeline/.github/workflows/build.yml@v3.2
+      with:
           deploy-updatesite: 'releng/org.palladiosimulator.pcm.confidentiality.context.analysis.updatesite/target/repository'
           java-version: 17
+          use-display-output: true
+          no-caching: true
+          runner-label: ubuntu-latest
+      secrets:
           server-ssh-key: ${{ secrets.DEPLOYMENT_SERVER_SSH_KEY }}
           remote-host: ${{ secrets.DEPLOYMENT_REMOTE_HOST }}
           remote-port: ${{ secrets.DEPLOYMENT_REMOTE_PORT }}
