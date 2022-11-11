@@ -9,7 +9,7 @@ import org.palladiosimulator.pcm.core.composition.AssemblyConnector;
 import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 /**
- * Class for handling {@link AttributeProvider} in the scenario anlysis. It helps to identify
+ * Class for handling {@link AttributeProvider} in the scenario analysis. It helps to identify
  * context/credential changes during the analysis
  *
  * @author majuwa
