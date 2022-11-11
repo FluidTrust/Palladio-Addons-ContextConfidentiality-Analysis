@@ -25,6 +25,9 @@
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_i86-UrGNEeyLRdjos_zQbg" entityName="MaintenanceTechnicanRoleAttribute" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
       <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
     </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_DkfSgmG7Ee2osaE3TGhWNw" entityName="Maintenance Scenario" attributevalue="_jzPucGG6Ee2osaE3TGhWNw" attribute="_dDdcsmG6Ee2osaE3TGhWNw">
+      <usagescenario href="maintenanceScenario.usagemodel#_szONEJSZEeyjlrv9ryW3Zw"/>
+    </usagespecification>
     <usagespecification id="_lDlzEbQCEeyBBMZUdAqcvg" entityName="MachineRole" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_VeC9YrQJEeyBBMZUdAqcvg" entityName="MachineSave" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
       <entrylevelsystemcall href="maintenanceScenario.usagemodel#_oMRd0JSeEeyjlrv9ryW3Zw"/>
@@ -37,6 +40,7 @@
       <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
     </usagespecification>
     <usagespecification id="_mx--seZvEeyfBL2hDeJh1g" entityName="Admin" attributevalue="_j_nkwOZvEeyfBL2hDeJh1g" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
+    <usagespecification id="_mvonEWG6Ee2osaE3TGhWNw" entityName="External Company Assignment" attributevalue="_jzPucGG6Ee2osaE3TGhWNw" attribute="_dDdcsmG6Ee2osaE3TGhWNw"/>
     <misusagescenario>
       <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
     </misusagescenario>
@@ -47,6 +51,7 @@
         <condition xsi:type="Apply" id="_DxItMLGMEeyLRdjos_zQbg" operation="AND">
           <parameters xsi:type="SimpleAttributeCondition" id="_OhB-Z7GMEeyLRdjos_zQbg" attribute="_nqv00bGMEeyLRdjos_zQbg"/>
           <parameters xsi:type="SimpleAttributeCondition" id="_3mdDl7GMEeyLRdjos_zQbg" category="ENVIRONMENT" attribute="_yxkYQbGMEeyLRdjos_zQbg"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_rrwi12G6Ee2osaE3TGhWNw" attribute="_mvonEWG6Ee2osaE3TGhWNw"/>
         </condition>
       </rule>
       <target>
@@ -90,6 +95,7 @@
         <condition xsi:type="Apply" id="_KgTvYLQHEeyBBMZUdAqcvg" operation="AND">
           <parameters xsi:type="SimpleAttributeCondition" id="_Mi_Y17QHEeyBBMZUdAqcvg" attribute="_nqv00bGMEeyLRdjos_zQbg"/>
           <parameters xsi:type="SimpleAttributeCondition" id="_PZWh97QHEeyBBMZUdAqcvg" category="RESOURCE" attribute="_yxkYQbGMEeyLRdjos_zQbg"/>
+          <parameters xsi:type="SimpleAttributeCondition" id="_i4-CF2G7Ee2osaE3TGhWNw" attribute="_mvonEWG6Ee2osaE3TGhWNw"/>
         </condition>
         <target>
           <match xsi:type="structure:MethodMatch" id="_DiKRgrQHEeyBBMZUdAqcvg">
@@ -140,7 +146,7 @@
         </target>
       </rule>
     </policy>
-    <policy id="_pK9oQeZvEeyfBL2hDeJh1g">
+    <policy id="_pK9oQeZvEeyfBL2hDeJh1g" entityName="Admin">
       <rule id="_puyuEOZvEeyfBL2hDeJh1g" entityName="Admin Access">
         <condition xsi:type="SimpleAttributeCondition" id="_4fVKN-ZvEeyfBL2hDeJh1g" attribute="_mx--seZvEeyfBL2hDeJh1g"/>
       </rule>
@@ -152,6 +158,11 @@
       <target>
         <match xsi:type="structure:EntityMatch" id="_10DPsOZvEeyfBL2hDeJh1g">
           <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
+        </match>
+      </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_Kf8hYGG-Ee2osaE3TGhWNw">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ag33EJSZEeyjlrv9ryW3Zw"/>
         </match>
       </target>
     </policy>
@@ -178,6 +189,14 @@
       </attributevalue>
       <attributevalue id="_j_nkwOZvEeyfBL2hDeJh1g">
         <values>Admin</values>
+      </attributevalue>
+    </attribute>
+    <attribute xsi:type="systemcontext:SimpleAttribute" id="_dDdcsmG6Ee2osaE3TGhWNw" entityName="Company">
+      <attributevalue id="_gvg3sGG6Ee2osaE3TGhWNw" entityName="Producer">
+        <values>P</values>
+      </attributevalue>
+      <attributevalue id="_jzPucGG6Ee2osaE3TGhWNw" entityName="Service">
+        <values>S</values>
       </attributevalue>
     </attribute>
   </attributes>
