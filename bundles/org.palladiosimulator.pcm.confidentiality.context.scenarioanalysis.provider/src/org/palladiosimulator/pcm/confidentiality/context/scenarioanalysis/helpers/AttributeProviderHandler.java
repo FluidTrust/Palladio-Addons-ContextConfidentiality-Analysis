@@ -55,7 +55,7 @@ public class AttributeProviderHandler {
         final var specification = provider.getMethodspecification();
 
         return specification.getConnector().getId().equals(connector.getId())
-                && checkAssemblyList(assemblyContext, specification.getHierachy());
+                && checkAssemblyList(assemblyContext, specification.getHierarchy());
 
     }
 

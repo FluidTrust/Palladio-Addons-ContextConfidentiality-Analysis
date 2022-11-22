@@ -68,7 +68,7 @@ public class SystemWalker {
             if (encapsulatingContexts.size() > 1) {
                 var copy = new LinkedList<>(encapsulatingContexts);
                 copy.removeLast();
-                origin.getHierachy().addAll(copy);
+                origin.getHierarchy().addAll(copy);
             }
 
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),

@@ -130,13 +130,13 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
                 if (match.getMethodspecification() instanceof final ConnectionSpecification restriction) {
                     this.setResource(restriction.getConnector(), matchResourceType, Category.RESOURCE,
-                            restriction.getHierachy());
+                            restriction.getHierarchy());
 
                 } else if (match.getMethodspecification() instanceof final ServiceSpecification restriction) {
                     this.createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     final var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                    this.addHierachy(match.getMethodspecification().getHierachy(), resourceValue);
+                    this.addHierachy(match.getMethodspecification().getHierarchy(), resourceValue);
                     resourceValue.getContent().add(restriction.getAssemblycontext().getId());
                     resourceValue.getContent().add(restriction.getAssemblycontext().getEntityName());
                     matchResourceType.setAttributeValue(resourceValue);
