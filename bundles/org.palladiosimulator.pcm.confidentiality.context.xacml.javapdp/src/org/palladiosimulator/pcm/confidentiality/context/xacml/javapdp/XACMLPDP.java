@@ -65,11 +65,7 @@ public class XACMLPDP implements Evaluate {
                     RequestType.class);
             if (requestString.isPresent()) {
                 final var string = requestString.get();
-//                if (this.cache.containsKey(string)) {
-//                    return Optional.of(this.cache.get(string));
-//                }
                 final var actualRequest = DOMRequest.load(string);
-                final var test = actualRequest.getReturnPolicyIdList();
                 final var response = this.engine.decide(actualRequest);
 
                 if (response.getResults()
