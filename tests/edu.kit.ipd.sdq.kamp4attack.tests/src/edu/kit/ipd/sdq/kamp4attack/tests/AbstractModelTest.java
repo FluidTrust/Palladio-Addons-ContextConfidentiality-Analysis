@@ -38,7 +38,7 @@ public abstract class AbstractModelTest extends BaseTest {
     protected AttackerSpecification attacker;
     protected KAMP4attackModificationRepository modification;
 
-    private String pathXACML = "test.xml";
+    private final String pathXACML = "test.xml";
 
     final protected BlackboardWrapper getBlackboardWrapper() {
 
@@ -68,13 +68,13 @@ public abstract class AbstractModelTest extends BaseTest {
         this.allocation = this.getModel(list, Allocation.class);
         this.context = this.getModel(list, ConfidentialAccessSpecification.class);
         this.attacker = this.getModel(list, AttackerSpecification.class);
-        this.modification = getModel(list, KAMP4attackModificationRepository.class);
+        this.modification = this.getModel(list, KAMP4attackModificationRepository.class);
     }
 
     @Override
     protected void generateXML() {
-        var generator = new XACMLGenerator();
-        var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
+        final var generator = new XACMLGenerator();
+        final var blackboard = new PCMBlackBoard(this.assembly, null, this.environment);
         generator.generateXACML(blackboard, this.context, this.pathXACML);
     }
 
@@ -82,16 +82,22 @@ public abstract class AbstractModelTest extends BaseTest {
         final var contextAccess = SystemFactory.eINSTANCE.createUsageSpecification();
 
         final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
-        var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
-        attributeValue.getValues().add(name);
+        final var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        attributeValue.getValues()
+            .add(name);
         attributeValue.setType(DataTypes.STRING);
-        attribute.getAttributevalue().add(attributeValue);
+        attribute.getAttributevalue()
+            .add(attributeValue);
 
         contextAccess.setEntityName(name);
         contextAccess.setAttribute(attribute);
         contextAccess.setAttributevalue(attributeValue);
-        this.context.getAttributes().getAttribute().add(attribute);
-        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
+        this.context.getAttributes()
+            .getAttribute()
+            .add(attribute);
+        this.context.getPcmspecificationcontainer()
+            .getUsagespecification()
+            .add(contextAccess);
         return contextAccess;
     }
 

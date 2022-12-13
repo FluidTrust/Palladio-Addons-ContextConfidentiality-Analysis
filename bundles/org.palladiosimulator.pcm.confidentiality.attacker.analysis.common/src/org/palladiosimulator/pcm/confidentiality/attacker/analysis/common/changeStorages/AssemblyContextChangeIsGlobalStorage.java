@@ -5,7 +5,6 @@ public class AssemblyContextChangeIsGlobalStorage extends ModelRelationCache<Boo
 
     private static volatile AssemblyContextChangeIsGlobalStorage singleton;
 
-
     private AssemblyContextChangeIsGlobalStorage() {
 
     }
@@ -22,6 +21,5 @@ public class AssemblyContextChangeIsGlobalStorage extends ModelRelationCache<Boo
 
         return singleton;
     }
-
 
 }

@@ -38,21 +38,24 @@ public class XACMLPolicyWriter {
      */
     public static void writeXACMLFile(final Path outputFile, final JAXBElement<?> rootElement,
             final Class<?> rootClass) {
-        LOGGER.info(
-                String.format("Transformation output will be written to %s", outputFile.toAbsolutePath().toString()));
+        LOGGER.info(String.format("Transformation output will be written to %s", outputFile.toAbsolutePath()
+            .toString()));
         String msg;
         try {
             final var marshaller = createMarshaller(rootClass);
             marshaller.marshal(rootElement, outputFile.toFile());
             if (Files.exists(outputFile)) {
-                msg = String.format("Output file %s  written successfully", outputFile.toAbsolutePath().toString());
+                msg = String.format("Output file %s  written successfully", outputFile.toAbsolutePath()
+                    .toString());
                 LOGGER.info(msg);
             } else {
-                msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath().toString());
+                msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath()
+                    .toString());
                 LOGGER.warning(msg);
             }
         } catch (final Exception e) {
-            msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath().toString());
+            msg = String.format("Output file %s could not be written", outputFile.toAbsolutePath()
+                .toString());
             LOGGER.log(Level.SEVERE, msg, e);
         }
     }

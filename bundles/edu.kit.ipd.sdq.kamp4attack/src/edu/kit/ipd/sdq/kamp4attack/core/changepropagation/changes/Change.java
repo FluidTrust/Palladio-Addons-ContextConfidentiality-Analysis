@@ -1,11 +1,9 @@
 package edu.kit.ipd.sdq.kamp4attack.core.changepropagation.changes;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.PCMConnectionHelper;
-import org.palladiosimulator.pcm.confidentiality.attacker.analysis.common.changeStorages.ChangeLinkingResourcesStorage;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.Attacker;
 import org.palladiosimulator.pcm.confidentiality.context.system.pcm.structure.PCMAttributeProvider;
 import org.palladiosimulator.pcm.resourceenvironment.LinkingResource;
@@ -20,7 +18,7 @@ public abstract class Change<T> {
 
     protected CredentialChange changes;
 
-    public Change(final BlackboardWrapper v, CredentialChange change) {
+    public Change(final BlackboardWrapper v, final CredentialChange change) {
         this.modelStorage = v;
         this.changes = change;
     }
@@ -47,14 +45,23 @@ public abstract class Change<T> {
     }
 
     protected Attacker getAttacker() {
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().isEmpty()) {
+        if (this.modelStorage.getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent()
+            .isEmpty()) {
             throw new IllegalStateException("No attacker selected");
         }
-        if (this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().size() > 2) {
+        if (this.modelStorage.getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent()
+            .size() > 2) {
             throw new IllegalStateException("More than one attacker");
         }
-        return this.modelStorage.getModificationMarkRepository().getSeedModifications().getAttackcomponent().get(0)
-                .getAffectedElement();
+        return this.modelStorage.getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent()
+            .get(0)
+            .getAffectedElement();
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {

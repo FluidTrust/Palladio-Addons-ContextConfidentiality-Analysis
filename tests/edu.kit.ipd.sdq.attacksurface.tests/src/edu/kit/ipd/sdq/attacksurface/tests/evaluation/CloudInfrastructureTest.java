@@ -32,54 +32,63 @@ public class CloudInfrastructureTest extends EvaluationTest {
     // Only evaluates whether the generated graph is correct.
     @Test
     public void cloudInfrastructureBaseTest() {
-        final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes, null);
+        final var changes = this.runAnalysisWithoutAttackPathGeneration();
+        this.pathsTestHelper(changes, null);
     }
 
     // Only evaluates whether the generated graph is correct.
     @Test
     public void cloudInfrastructureBaseTestCompleteAnalysis() {
-        final var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+        final var entity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getAssemblycontext()
+            .get(0);
 
-        final var changes = runAnalysis();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         Assertions.assertEquals(14, pathsDirectlyAfterAnalysis.size());
-        pathsTestHelper(changes, entity);
+        this.pathsTestHelper(changes, entity);
     }
 
     @Test
     void exampleDatabaseHypervisior01() {
-        attackHypervisor("DB_VM");
+        this.attackHypervisor("DB_VM");
     }
 
     @Test
     void exampleDatabaseHypervisior02() {
-        attackHypervisor("APP_VM");
+        this.attackHypervisor("APP_VM");
     }
 
-    private void attackHypervisor(String name) {
-        var criteria = getSurfaceAttacker().getFiltercriteria();
-        var targetEntity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+    private void attackHypervisor(final String name) {
+        final var criteria = this.getSurfaceAttacker()
+            .getFiltercriteria();
+        final var targetEntity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getAssemblycontext()
+            .get(0);
         criteria.clear();
-        var elementFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
-        var componentIntegration = PcmIntegrationFactory.eINSTANCE.createSystemComponent();
-        var entity = getFirstEntityByName(name);
-        if (entity instanceof AssemblyContext component) {
-            componentIntegration.getAssemblycontext().add(component);
-            elementFilter.getStartComponents().add(componentIntegration);
+        final var elementFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
+        final var componentIntegration = PcmIntegrationFactory.eINSTANCE.createSystemComponent();
+        final var entity = this.getFirstEntityByName(name);
+        if (entity instanceof final AssemblyContext component) {
+            componentIntegration.getAssemblycontext()
+                .add(component);
+            elementFilter.getStartComponents()
+                .add(componentIntegration);
             criteria.add(elementFilter);
         } else {
             fail("No AssemblyContext found");
         }
-        final var changes = runAnalysis();
+        final var changes = this.runAnalysis();
         final var paths = changes.getAttackpaths();
-        pathsTestHelper(changes, targetEntity);
+        this.pathsTestHelper(changes, targetEntity);
         Assertions.assertEquals(1, paths.size());
     }
 
     @Test
     public void graphGenerationTest() {
-        runAnalysis();
-        generateGraph(false);
+        this.runAnalysis();
+        this.generateGraph(false);
     }
 }

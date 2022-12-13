@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.seff.AbstractBranchTransition;
 import org.palladiosimulator.pcm.seff.AbstractInternalControlFlowAction;
 import org.palladiosimulator.pcm.seff.AcquireAction;
@@ -52,7 +51,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
     @Override
     public Set<T> caseAbstractInternalControlFlowAction(final AbstractInternalControlFlowAction action) {
         if (action instanceof RecoveryAction) {
-            logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+            logger.debug("Visit " + action.getClass()
+                .getSimpleName() + " \"" + action.getEntityName() + "\"");
             return this.doSwitch(action.getSuccessor_AbstractAction());
         } else {
             return null;
@@ -70,7 +70,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseAcquireAction(final AcquireAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
 
     }
@@ -86,7 +87,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseBranchAction(final BranchAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         final var abtList = action.getBranches_Branch();
         final var list = new HashSet<T>();
         for (final AbstractBranchTransition abt : abtList) {
@@ -107,7 +109,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseCollectionIteratorAction(final CollectionIteratorAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -122,7 +125,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseExternalCallAction(final ExternalCallAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -137,7 +141,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseForkAction(final ForkAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -166,8 +171,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseInternalAction(final InternalAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"("
-                + action.getId() + ")");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"(" + action.getId() + ")");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -182,7 +187,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseLoopAction(final LoopAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -211,7 +217,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseReleaseAction(final ReleaseAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -255,8 +262,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseSetVariableAction(final SetVariableAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\" ("
-                + action.getId() + ")");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\" (" + action.getId() + ")");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -271,8 +278,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseStartAction(final StartAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\" ("
-                + action.getId() + ")");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\" (" + action.getId() + ")");
         return this.doSwitch(action.getSuccessor_AbstractAction());
     }
 
@@ -287,8 +294,8 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      */
     @Override
     public Set<T> caseStopAction(final StopAction action) {
-        logger.debug("Visit " + action.getClass().getSimpleName() + " \"" + action.getEntityName() + "\"("
-                + action.getId() + ")");
+        logger.debug("Visit " + action.getClass()
+            .getSimpleName() + " \"" + action.getEntityName() + "\"(" + action.getId() + ")");
         return new HashSet<>();
     }
 
@@ -301,7 +308,11 @@ public class AbstractSeffVisitor<T> extends SeffSwitch<Set<T>> {
      * @return the start action
      */
     private StartAction getStartAction(final ResourceDemandingBehaviour behaviour) {
-        return behaviour.getSteps_Behaviour().stream().filter(StartAction.class::isInstance)
-                .map(StartAction.class::cast).findAny().get();
+        return behaviour.getSteps_Behaviour()
+            .stream()
+            .filter(StartAction.class::isInstance)
+            .map(StartAction.class::cast)
+            .findAny()
+            .get();
     }
 }

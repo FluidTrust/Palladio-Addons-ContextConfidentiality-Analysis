@@ -36,7 +36,7 @@ public enum PCMElementType {
 
     private final Class<? extends Entity> clazz;
 
-    PCMElementType(Class<? extends Entity> clazz) {
+    PCMElementType(final Class<? extends Entity> clazz) {
         this.clazz = clazz;
     }
 
@@ -90,8 +90,9 @@ public enum PCMElementType {
     public PCMElement toPCMElement(final Entity entity) {
         Objects.requireNonNull(entity);
         if (!this.clazz.isInstance(entity)) {
-            throw new IllegalArgumentException("invalid type, should be \"" + this.clazz.getName() + "\" but is \""
-                    + entity.getClass().getName() + "\"");
+            throw new IllegalArgumentException(
+                    "invalid type, should be \"" + this.clazz.getName() + "\" but is \"" + entity.getClass()
+                        .getName() + "\"");
         }
 
         final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
@@ -109,7 +110,8 @@ public enum PCMElementType {
             pcmElement.setCompositecomponent((CompositeComponent) entity);
             break;
         case ASSEMBLY_CONTEXT:
-            pcmElement.getAssemblycontext().add((AssemblyContext) entity);
+            pcmElement.getAssemblycontext()
+                .add((AssemblyContext) entity);
             break;
         case METHOD_SPECIFICATION:
             pcmElement.setMethodspecification((MethodSpecification) entity);
@@ -148,11 +150,13 @@ public enum PCMElementType {
             ret = pcmElement.getCompositecomponent();
             break;
         case ASSEMBLY_CONTEXT:
-            if (pcmElement.getAssemblycontext().isEmpty()) {
+            if (pcmElement.getAssemblycontext()
+                .isEmpty()) {
                 ret = null;
                 break;
             }
-            ret = pcmElement.getAssemblycontext().get(0); // TODO: fix for list
+            ret = pcmElement.getAssemblycontext()
+                .get(0); // TODO: fix for list
             break;
         case METHOD_SPECIFICATION:
             ret = pcmElement.getMethodspecification();
@@ -174,7 +178,7 @@ public enum PCMElementType {
     public Predicate<SystemIntegration> getElementEqualityPredicate(final Entity entity) {
         return s -> {
             final var pcmElement = s.getPcmelement();
-            final var entityOfPcmElement = getEntity(pcmElement);
+            final var entityOfPcmElement = this.getEntity(pcmElement);
             if (entityOfPcmElement != null) {
                 return EcoreUtil.equals(entityOfPcmElement, entity);
             }

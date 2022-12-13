@@ -10,7 +10,6 @@ public class ChangeLinkingResourcesStorage extends ModelRelationCache<List<Linki
 
     private static volatile ChangeLinkingResourcesStorage singleton;
 
-
     private ChangeLinkingResourcesStorage() {
     }
 
@@ -26,7 +25,5 @@ public class ChangeLinkingResourcesStorage extends ModelRelationCache<List<Linki
 
         return singleton;
     }
-
-
 
 }

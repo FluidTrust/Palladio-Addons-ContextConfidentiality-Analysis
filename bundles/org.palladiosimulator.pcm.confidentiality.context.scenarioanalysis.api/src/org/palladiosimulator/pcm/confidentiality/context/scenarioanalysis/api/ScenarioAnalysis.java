@@ -5,6 +5,7 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.api.ContextAna
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
 
 public interface ScenarioAnalysis extends ContextAnalysis {
-    AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context, Configuration configuration);
+    AnalysisResults runScenarioAnalysis(PCMBlackBoard pcm, ConfidentialAccessSpecification context,
+            Configuration configuration);
 
 }

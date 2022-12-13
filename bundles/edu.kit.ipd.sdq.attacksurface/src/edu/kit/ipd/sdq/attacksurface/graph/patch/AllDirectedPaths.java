@@ -39,13 +39,14 @@ import org.jgrapht.graph.GraphWalk;
  * A Dijkstra-like algorithm to find all paths between two sets of nodes in a directed graph, with
  * options to search only simple paths and to limit the path length.
  *
- * @param <V> the graph vertex type
- * @param <E> the graph edge type
+ * @param <V>
+ *            the graph vertex type
+ * @param <E>
+ *            the graph edge type
  *
  * @author Andrew Gainer-Dewar, Google LLC
  */
-public class AllDirectedPaths<V, E>
-{
+public class AllDirectedPaths<V, E> {
     private final Graph<V, E> graph;
 
     /**
@@ -57,27 +58,30 @@ public class AllDirectedPaths<V, E>
     /**
      * Create a new instance.
      *
-     * @param graph the input graph
-     * @throws IllegalArgumentException if the graph is not directed
+     * @param graph
+     *            the input graph
+     * @throws IllegalArgumentException
+     *             if the graph is not directed
      */
-    public AllDirectedPaths(Graph<V, E> graph)
-    {
+    public AllDirectedPaths(final Graph<V, E> graph) {
         this(graph, null);
     }
 
     /**
      * Create a new instance with given {@code pathValidator}.
      *
-     * If non-{@code null}, the {@code pathValidator} will be used while searching for paths, validating the addition
-     * of any edge to a partial path. Zero-length paths will therefore not be subject to {@code pathValidator};
-     * length-1 paths will.
+     * If non-{@code null}, the {@code pathValidator} will be used while searching for paths,
+     * validating the addition of any edge to a partial path. Zero-length paths will therefore not
+     * be subject to {@code pathValidator}; length-1 paths will.
      *
-     * @param graph the input graph
-     * @param pathValidator validator for computed paths; may be null
-     * @throws IllegalArgumentException if the graph is not directed
+     * @param graph
+     *            the input graph
+     * @param pathValidator
+     *            validator for computed paths; may be null
+     * @throws IllegalArgumentException
+     *             if the graph is not directed
      */
-    public AllDirectedPaths(Graph<V, E> graph, PathValidator<V, E> pathValidator)
-    {
+    public AllDirectedPaths(final Graph<V, E> graph, final PathValidator<V, E> pathValidator) {
         this.graph = GraphTests.requireDirected(graph);
         this.pathValidator = pathValidator;
     }
@@ -85,44 +89,48 @@ public class AllDirectedPaths<V, E>
     /**
      * Calculate (and return) all paths from the source vertex to the target vertex.
      *
-     * @param sourceVertex the source vertex
-     * @param targetVertex the target vertex
-     * @param simplePathsOnly if true, only search simple (non-self-intersecting) paths
-     * @param maxPathLength maximum number of edges to allow in a path (if null, all paths are
-     *        considered, which may be very slow due to potentially huge output)
+     * @param sourceVertex
+     *            the source vertex
+     * @param targetVertex
+     *            the target vertex
+     * @param simplePathsOnly
+     *            if true, only search simple (non-self-intersecting) paths
+     * @param maxPathLength
+     *            maximum number of edges to allow in a path (if null, all paths are considered,
+     *            which may be very slow due to potentially huge output)
      * @return all paths from the source vertex to the target vertex
      */
-    public List<GraphPath<V, E>> getAllPaths(
-        V sourceVertex, V targetVertex, boolean simplePathsOnly, Integer maxPathLength)
-    {
-        return getAllPaths(
-            Collections.singleton(sourceVertex), Collections.singleton(targetVertex),
-            simplePathsOnly, maxPathLength);
+    public List<GraphPath<V, E>> getAllPaths(final V sourceVertex, final V targetVertex, final boolean simplePathsOnly,
+            final Integer maxPathLength) {
+        return this.getAllPaths(Collections.singleton(sourceVertex), Collections.singleton(targetVertex),
+                simplePathsOnly, maxPathLength);
     }
 
     /**
      * Calculate (and return) all paths from the source vertices to the target vertices.
      *
-     * @param sourceVertices the source vertices
-     * @param targetVertices the target vertices
-     * @param simplePathsOnly if true, only search simple (non-self-intersecting) paths
-     * @param maxPathLength maximum number of edges to allow in a path (if null, all paths are
-     *        considered, which may be very slow due to potentially huge output)
+     * @param sourceVertices
+     *            the source vertices
+     * @param targetVertices
+     *            the target vertices
+     * @param simplePathsOnly
+     *            if true, only search simple (non-self-intersecting) paths
+     * @param maxPathLength
+     *            maximum number of edges to allow in a path (if null, all paths are considered,
+     *            which may be very slow due to potentially huge output)
      *
      * @return list of all paths from the sources to the targets containing no more than
      *         maxPathLength edges
      */
-    public List<GraphPath<V, E>> getAllPaths(
-        Set<V> sourceVertices, Set<V> targetVertices, boolean simplePathsOnly,
-        Integer maxPathLength)
-    {
+    public List<GraphPath<V, E>> getAllPaths(final Set<V> sourceVertices, final Set<V> targetVertices,
+            final boolean simplePathsOnly, final Integer maxPathLength) {
         if ((maxPathLength != null) && (maxPathLength < 0)) {
             throw new IllegalArgumentException("maxPathLength must be non-negative if defined");
         }
 
         if (!simplePathsOnly && (maxPathLength == null)) {
             throw new IllegalArgumentException(
-                "If search is not restricted to simple paths, a maximum path length must be set to avoid infinite cycles");
+                    "If search is not restricted to simple paths, a maximum path length must be set to avoid infinite cycles");
         }
 
         if ((sourceVertices.isEmpty()) || (targetVertices.isEmpty())) {
@@ -130,35 +138,34 @@ public class AllDirectedPaths<V, E>
         }
 
         // Decorate the edges with the minimum path lengths through them
-        var edgeMinDistancesFromTargets =
-            edgeMinDistancesBackwards(targetVertices, maxPathLength);
+        final var edgeMinDistancesFromTargets = this.edgeMinDistancesBackwards(targetVertices, maxPathLength);
 
         // Generate all the paths
 
-        return generatePaths(
-            sourceVertices, targetVertices, simplePathsOnly, maxPathLength,
-            edgeMinDistancesFromTargets);
+        return this.generatePaths(sourceVertices, targetVertices, simplePathsOnly, maxPathLength,
+                edgeMinDistancesFromTargets);
     }
 
     /**
      * Compute the minimum number of edges in a path to the targets through each edge, so long as it
      * is not greater than a bound.
      *
-     * @param targetVertices the target vertices
-     * @param maxPathLength maximum number of edges to allow in a path (if null, all edges will be
-     *        considered, which may be expensive)
+     * @param targetVertices
+     *            the target vertices
+     * @param maxPathLength
+     *            maximum number of edges to allow in a path (if null, all edges will be considered,
+     *            which may be expensive)
      *
      * @return the minimum number of edges in a path from each edge to the targets, encoded in a Map
      */
-    private Map<E, Integer> edgeMinDistancesBackwards(Set<V> targetVertices, Integer maxPathLength)
-    {
+    private Map<E, Integer> edgeMinDistancesBackwards(final Set<V> targetVertices, final Integer maxPathLength) {
         /*
          * We walk backwards through the network from the target vertices, marking edges and
          * vertices with their minimum distances as we go.
          */
-        Map<E, Integer> edgeMinDistances = new HashMap<>();
-        Map<V, Integer> vertexMinDistances = new HashMap<>();
-        Queue<V> verticesToProcess = new ArrayDeque<>();
+        final Map<E, Integer> edgeMinDistances = new HashMap<>();
+        final Map<V, Integer> vertexMinDistances = new HashMap<>();
+        final Queue<V> verticesToProcess = new ArrayDeque<>();
 
         // Input sanity checking
         if (maxPathLength != null) {
@@ -171,7 +178,7 @@ public class AllDirectedPaths<V, E>
         }
 
         // Bootstrap the process with the target vertices
-        for (V target : targetVertices) {
+        for (final V target : targetVertices) {
             vertexMinDistances.put(target, 0);
             verticesToProcess.add(target);
         }
@@ -180,23 +187,20 @@ public class AllDirectedPaths<V, E>
         for (V vertex; (vertex = verticesToProcess.poll()) != null;) {
             assert vertexMinDistances.containsKey(vertex);
 
-            Integer childDistance = vertexMinDistances.get(vertex) + 1;
+            final Integer childDistance = vertexMinDistances.get(vertex) + 1;
 
             // Check whether the incoming edges of this node are correctly
             // decorated
-            for (E edge : this.graph.incomingEdgesOf(vertex)) {
+            for (final E edge : this.graph.incomingEdgesOf(vertex)) {
                 // Mark the edge if needed
-                if (!edgeMinDistances.containsKey(edge)
-                    || (edgeMinDistances.get(edge) > childDistance))
-                {
+                if (!edgeMinDistances.containsKey(edge) || (edgeMinDistances.get(edge) > childDistance)) {
                     edgeMinDistances.put(edge, childDistance);
                 }
 
                 // Mark the edge's source vertex if needed
-                var edgeSource = this.graph.getEdgeSource(edge);
+                final var edgeSource = this.graph.getEdgeSource(edge);
                 if (!vertexMinDistances.containsKey(edgeSource)
-                    || (vertexMinDistances.get(edgeSource) > childDistance))
-                {
+                        || (vertexMinDistances.get(edgeSource) > childDistance)) {
                     vertexMinDistances.put(edgeSource, childDistance);
 
                     if ((maxPathLength == null) || (childDistance < maxPathLength)) {
@@ -213,28 +217,32 @@ public class AllDirectedPaths<V, E>
     /**
      * Generate all paths from the sources to the targets, using pre-computed minimum distances.
      *
-     * @param sourceVertices the source vertices
-     * @param targetVertices the target vertices
-     * @param maxPathLength maximum number of edges to allow in a path
-     * @param simplePathsOnly if true, only search simple (non-self-intersecting) paths (if null,
-     *        all edges will be considered, which may be expensive)
-     * @param edgeMinDistancesFromTargets the minimum number of edges in a path to a target through
-     *        each edge, as computed by {@code
+     * @param sourceVertices
+     *            the source vertices
+     * @param targetVertices
+     *            the target vertices
+     * @param maxPathLength
+     *            maximum number of edges to allow in a path
+     * @param simplePathsOnly
+     *            if true, only search simple (non-self-intersecting) paths (if null, all edges will
+     *            be considered, which may be expensive)
+     * @param edgeMinDistancesFromTargets
+     *            the minimum number of edges in a path to a target through each edge, as computed
+     *            by {@code
      * edgeMinDistancesBackwards}.
      *
      * @return a List of all GraphPaths from the sources to the targets satisfying the given
      *         constraints
      */
-    private List<GraphPath<V, E>> generatePaths(
-        Set<V> sourceVertices, Set<V> targetVertices, boolean simplePathsOnly,
-        Integer maxPathLength, Map<E, Integer> edgeMinDistancesFromTargets)
-    {
+    private List<GraphPath<V, E>> generatePaths(final Set<V> sourceVertices, final Set<V> targetVertices,
+            final boolean simplePathsOnly, final Integer maxPathLength,
+            final Map<E, Integer> edgeMinDistancesFromTargets) {
         /*
          * We walk forwards through the network from the source vertices, exploring all outgoing
          * edges whose minimum distances is small enough.
          */
-        List<GraphPath<V, E>> completePaths = new ArrayList<>();
-        Deque<List<E>> incompletePaths = new LinkedList<>();
+        final List<GraphPath<V, E>> completePaths = new ArrayList<>();
+        final Deque<List<E>> incompletePaths = new LinkedList<>();
 
         // Input sanity checking
         if (maxPathLength != null && maxPathLength < 0) {
@@ -242,7 +250,7 @@ public class AllDirectedPaths<V, E>
         }
 
         // Bootstrap the search with the source vertices
-        for (V source : sourceVertices) {
+        for (final V source : sourceVertices) {
             if (targetVertices.contains(source)) {
                 // pathValidator intentionally not invoked here
                 completePaths.add(GraphWalk.singletonWalk(this.graph, source, 0d));
@@ -252,18 +260,19 @@ public class AllDirectedPaths<V, E>
                 continue;
             }
 
-            for (E edge : this.graph.outgoingEdgesOf(source)) {
-                assert this.graph.getEdgeSource(edge).equals(source);
+            for (final E edge : this.graph.outgoingEdgesOf(source)) {
+                assert this.graph.getEdgeSource(edge)
+                    .equals(source);
 
-                if (this.pathValidator == null || this.pathValidator.isValidPath(GraphWalk.emptyWalk(this.graph), edge)) {
+                if (this.pathValidator == null
+                        || this.pathValidator.isValidPath(GraphWalk.emptyWalk(this.graph), edge)) {
                     if (targetVertices.contains(this.graph.getEdgeTarget(edge))) {
-                        completePaths.add(makePath(Collections.singletonList(edge)));
+                        completePaths.add(this.makePath(Collections.singletonList(edge)));
                         return completePaths;
                     }
 
-                    if (edgeMinDistancesFromTargets.containsKey(edge)
-                            && (maxPathLength == null || maxPathLength > 1)) {
-                        List<E> path = Collections.singletonList(edge);
+                    if (edgeMinDistancesFromTargets.containsKey(edge) && (maxPathLength == null || maxPathLength > 1)) {
+                        final List<E> path = Collections.singletonList(edge);
                         incompletePaths.add(path);
                     }
                 }
@@ -276,44 +285,39 @@ public class AllDirectedPaths<V, E>
 
         // Walk through the queue of incomplete paths
         for (List<E> incompletePath; (incompletePath = incompletePaths.poll()) != null;) {
-            Integer lengthSoFar = incompletePath.size();
+            final Integer lengthSoFar = incompletePath.size();
             assert (maxPathLength == null) || (lengthSoFar < maxPathLength);
 
-            var leafEdge = incompletePath.get(lengthSoFar - 1);
-            var leafNode = this.graph.getEdgeTarget(leafEdge);
+            final var leafEdge = incompletePath.get(lengthSoFar - 1);
+            final var leafNode = this.graph.getEdgeTarget(leafEdge);
 
-            Set<V> pathVertices = new HashSet<>();
-            for (E pathEdge : incompletePath) {
+            final Set<V> pathVertices = new HashSet<>();
+            for (final E pathEdge : incompletePath) {
                 pathVertices.add(this.graph.getEdgeSource(pathEdge));
                 pathVertices.add(this.graph.getEdgeTarget(pathEdge));
             }
 
-            for (E outEdge : this.graph.outgoingEdgesOf(leafNode)) {
+            for (final E outEdge : this.graph.outgoingEdgesOf(leafNode)) {
                 // Proceed if the outgoing edge is marked and the mark
                 // is sufficiently small
                 if (edgeMinDistancesFromTargets.containsKey(outEdge) && ((maxPathLength == null)
-                    || ((edgeMinDistancesFromTargets.get(outEdge) + lengthSoFar) <= maxPathLength)))
-                {
-                    List<E> newPath = new ArrayList<>(incompletePath);
+                        || ((edgeMinDistancesFromTargets.get(outEdge) + lengthSoFar) <= maxPathLength))) {
+                    final List<E> newPath = new ArrayList<>(incompletePath);
                     newPath.add(outEdge);
 
                     // If requested, make sure this path isn't self-intersecting
-                    if (simplePathsOnly && pathVertices.contains(this.graph.getEdgeTarget(outEdge))) {
-                        continue;
-                    }
-
                     // If requested, validate the path
-                    if (this.pathValidator != null && !this.pathValidator.isValidPath(makePath(incompletePath), outEdge)) {
+                    if ((simplePathsOnly && pathVertices.contains(this.graph.getEdgeTarget(outEdge))) || (this.pathValidator != null
+                            && !this.pathValidator.isValidPath(this.makePath(incompletePath), outEdge))) {
                         continue;
                     }
 
                     // If this path reaches a target, add it to completePaths
                     if (targetVertices.contains(this.graph.getEdgeTarget(outEdge))) {
-                        var completePath = makePath(newPath);
+                        final var completePath = this.makePath(newPath);
                         assert sourceVertices.contains(completePath.getStartVertex());
                         assert targetVertices.contains(completePath.getEndVertex());
-                        assert (maxPathLength == null)
-                            || (completePath.getLength() <= maxPathLength);
+                        assert (maxPathLength == null) || (completePath.getLength() <= maxPathLength);
                         completePaths.add(completePath);
                         return completePaths;
                     }
@@ -339,15 +343,17 @@ public class AllDirectedPaths<V, E>
      *
      * The weight of the generated GraphPath is set to the sum of the weights of the edges.
      *
-     * @param edges the edges
+     * @param edges
+     *            the edges
      *
      * @return the corresponding GraphPath
      */
-    private GraphPath<V, E> makePath(List<E> edges)
-    {
-        var source = this.graph.getEdgeSource(edges.get(0));
-        var target = this.graph.getEdgeTarget(edges.get(edges.size() - 1));
-        var weight = edges.stream().mapToDouble(edge -> this.graph.getEdgeWeight(edge)).sum();
+    private GraphPath<V, E> makePath(final List<E> edges) {
+        final var source = this.graph.getEdgeSource(edges.get(0));
+        final var target = this.graph.getEdgeTarget(edges.get(edges.size() - 1));
+        final var weight = edges.stream()
+            .mapToDouble(edge -> this.graph.getEdgeWeight(edge))
+            .sum();
         return new GraphWalk<>(this.graph, source, target, edges, weight);
     }
 }

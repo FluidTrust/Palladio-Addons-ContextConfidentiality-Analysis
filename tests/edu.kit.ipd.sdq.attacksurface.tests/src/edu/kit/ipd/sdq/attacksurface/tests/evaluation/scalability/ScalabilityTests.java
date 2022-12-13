@@ -35,7 +35,7 @@ public abstract class ScalabilityTests extends EvaluationTest {
     public static final int WARMUP = 0;
     public static final int REPEAT = 5;// 10;
     protected static final boolean RUN_ONLY_GRAPH_ANALYSIS = true; // TODO adapt to false for only
-                                                                    // element prop. analysis
+                                                                   // element prop. analysis
     protected static final int MAX_NUMBER_COMPLETE = 10;
 
     public ScalabilityTests() {
@@ -53,16 +53,17 @@ public abstract class ScalabilityTests extends EvaluationTest {
     void run() {
 
         for (var i = 0; i < WARMUP; i++) {
-            analysisTime(null);
+            this.analysisTime(null);
         }
-        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
+        VulnerabilityHelper.initializeVulnerabilityStorage(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification());
         final var attacks = this.attacker.getSystemintegration();
-        moveVulnerabilitiesIfNecessary(attacks);
-        final var maximumNumberOfAdditions = RUN_ONLY_GRAPH_ANALYSIS ? getMaximumNumberOfAdditionsForFullAnalysis()
-                : getMaximumNumberOfAdditions();
+        this.moveVulnerabilitiesIfNecessary(attacks);
+        final var maximumNumberOfAdditions = RUN_ONLY_GRAPH_ANALYSIS ? this.getMaximumNumberOfAdditionsForFullAnalysis()
+                : this.getMaximumNumberOfAdditions();
         for (var i = 10; i <= maximumNumberOfAdditions; i *= 10) {
-            perform(this.environment, i, attacks);
-            writeResults(i);
+            this.perform(this.environment, i, attacks);
+            this.writeResults(i);
         }
         VulnerabilityHelper.resetMap();
     }
@@ -73,14 +74,15 @@ public abstract class ScalabilityTests extends EvaluationTest {
     @Test
     void runMax() { // runs the test for aof the scalability evaluation
         for (var i = 0; i < WARMUP; i++) {
-            analysisTime(null);
+            this.analysisTime(null);
         }
 
-        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
+        VulnerabilityHelper.initializeVulnerabilityStorage(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification());
         final var attacks = this.attacker.getSystemintegration();
-        moveVulnerabilitiesIfNecessary(attacks);
-        perform(this.environment, 100000, attacks);
-        writeResults();
+        this.moveVulnerabilitiesIfNecessary(attacks);
+        this.perform(this.environment, 100000, attacks);
+        this.writeResults();
         VulnerabilityHelper.resetMap();
 
     }
@@ -94,33 +96,35 @@ public abstract class ScalabilityTests extends EvaluationTest {
     }
 
     private void writeResults() {
-        writeResults(0);
+        this.writeResults(0);
     }
 
-    private void writeResults(int i) {
-        var timeList = new ArrayList<Long>();
+    private void writeResults(final int i) {
+        final var timeList = new ArrayList<Long>();
 
         for (var j = 0; j < REPEAT; j++) {
-            analysisTime(timeList);
+            this.analysisTime(timeList);
         }
 
-        var path = Paths.get(System.getProperty("java.io.tmpdir"), getFilename());
+        var path = Paths.get(System.getProperty("java.io.tmpdir"), this.getFilename());
         if (!Files.exists(path)) {
             try {
                 path = Files.createFile(path);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 fail(e.getMessage());
             }
         }
 
         try (var output = Files.newBufferedWriter(path, StandardOpenOption.APPEND);) {
-            var changes = !RUN_ONLY_GRAPH_ANALYSIS
-                    ? (CredentialChange) getBlackboardWrapper().getModificationMarkRepository()
-                            .getChangePropagationSteps().get(0)
-                    : getChanges();
+            final var changes = !RUN_ONLY_GRAPH_ANALYSIS ? (CredentialChange) this.getBlackboardWrapper()
+                .getModificationMarkRepository()
+                .getChangePropagationSteps()
+                .get(0) : this.getChanges();
             if (RUN_ONLY_GRAPH_ANALYSIS) {
-                output.append(String.format(Locale.US, "%d,%d\n", i,
-                        Math.round(timeList.stream().mapToLong(Long::longValue).average().getAsDouble())
+                output.append(String.format(Locale.US, "%d,%d\n", i, Math.round(timeList.stream()
+                    .mapToLong(Long::longValue)
+                    .average()
+                    .getAsDouble())
 //                    Math.round(changes.getAttackpaths().stream().mapToInt(p -> p.getAttackpathelement().size())
 //                            .average()
 //                            .getAsDouble())
@@ -129,20 +133,25 @@ public abstract class ScalabilityTests extends EvaluationTest {
                  * , toString(changes.getAttackpaths())
                  */)); // TODO remove actual path output
             } else {
-                output.append(
-                        String.format(Locale.US, "%d,%d,%d,%d\n", i,
-                                Math.round(timeList.stream().mapToLong(Long::longValue).average().getAsDouble()),
-                                getBlackboardWrapper().getResourceEnvironment()
-                                        .getResourceContainer_ResourceEnvironment().size(),
-                                changes.getAttackpaths().get(0).getAttackpathelement().size()));
+                output.append(String.format(Locale.US, "%d,%d,%d,%d\n", i, Math.round(timeList.stream()
+                    .mapToLong(Long::longValue)
+                    .average()
+                    .getAsDouble()), this.getBlackboardWrapper()
+                        .getResourceEnvironment()
+                        .getResourceContainer_ResourceEnvironment()
+                        .size(),
+                        changes.getAttackpaths()
+                            .get(0)
+                            .getAttackpathelement()
+                            .size()));
             }
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             fail(e.getMessage());
         }
     }
 
-    void analysisTime(List<Long> list) {
+    void analysisTime(final List<Long> list) {
 //        resetAttackGraphAndChanges();
 //        setPathLengthFilter(getMaximumPathLength());
         for (var i = 0; i < REPEAT; i++) {
@@ -150,15 +159,15 @@ public abstract class ScalabilityTests extends EvaluationTest {
             var endTime = 0L;
             if (RUN_ONLY_GRAPH_ANALYSIS) {
                 startTime = java.lang.System.currentTimeMillis();
-                endTime = runGraphCreation();
+                endTime = this.runGraphCreation();
             } else {
-                var graph = createGraph();
+                final var graph = this.createGraph();
                 startTime = System.currentTimeMillis();
 
-                endTime = runFullAnalysis(graph);
+                endTime = this.runFullAnalysis(graph);
             }
             VulnerabilityHelper.resetMap();
-            resetHashMaps();
+            this.resetHashMaps();
             if (list != null) {
                 list.add(endTime - startTime);
             }
@@ -166,62 +175,85 @@ public abstract class ScalabilityTests extends EvaluationTest {
     }
 
     protected long runGraphCreation() {
-        createGraph();
+        this.createGraph();
         VulnerabilityHelper.resetMap();
         return System.currentTimeMillis();
 
     }
 
     private AttackGraphCreation createGraph() {
-        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
-        var graph = new AttackGraphCreation(getBlackboardWrapper());
+        VulnerabilityHelper.initializeVulnerabilityStorage(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification());
+        final var graph = new AttackGraphCreation(this.getBlackboardWrapper());
         graph.createGraph();
         return graph;
     }
 
-    protected long runFullAnalysis(AttackGraphCreation graph) {
-        getSurfaceAttacker().getFiltercriteria().clear();
-        var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
-        var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
-        pcmElement.setResourcecontainer(getBlackboardWrapper().getResourceEnvironment()
+    protected long runFullAnalysis(final AttackGraphCreation graph) {
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
+            .clear();
+        final var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
+        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
+        pcmElement.setResourcecontainer(this.getBlackboardWrapper()
+            .getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .get(this.getBlackboardWrapper()
+                .getResourceEnvironment()
                 .getResourceContainer_ResourceEnvironment()
-                .get(getBlackboardWrapper().getResourceEnvironment().getResourceContainer_ResourceEnvironment().size()
-                        - 1));
-        startFilter.getStartResources().add(pcmElement);
+                .size() - 1));
+        startFilter.getStartResources()
+            .add(pcmElement);
 
-        getSurfaceAttacker().getFiltercriteria().add(startFilter);
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
+            .add(startFilter);
 
-
-        var target = prepareAnalysis();
-        (new AttackPathCreation(target,
-                getBlackboardWrapper().getModificationMarkRepository().getChangePropagationSteps().get(0)))
-                        .createAttackPaths(getBlackboardWrapper(), graph.getGraph());
+        final var target = this.prepareAnalysis();
+        (new AttackPathCreation(target, this.getBlackboardWrapper()
+            .getModificationMarkRepository()
+            .getChangePropagationSteps()
+            .get(0))).createAttackPaths(this.getBlackboardWrapper(), graph.getGraph());
 
         return System.currentTimeMillis();
     }
 
     private Entity prepareAnalysis() {
-        var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
-        getBlackboardWrapper().getModificationMarkRepository().getChangePropagationSteps().clear();
-        getBlackboardWrapper().getModificationMarkRepository().getChangePropagationSteps().add(change);
-        final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(getBlackboardWrapper());
+        final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
+        this.getBlackboardWrapper()
+            .getModificationMarkRepository()
+            .getChangePropagationSteps()
+            .clear();
+        this.getBlackboardWrapper()
+            .getModificationMarkRepository()
+            .getChangePropagationSteps()
+            .add(change);
+        final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(this.getBlackboardWrapper());
         final var criticalPCMElement = localAttacker.getTargetedElement();
-        return PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
+        return PCMElementType.typeOf(criticalPCMElement)
+            .getEntity(criticalPCMElement);
     }
 
-    private void perform(ResourceEnvironment environment, int numberAddition,
-            AttackerSystemSpecificationContainer attacks) {
-        final var sizeMinOne = environment.getResourceContainer_ResourceEnvironment().size() - 1;
-        final var origin = environment.getResourceContainer_ResourceEnvironment().get(sizeMinOne);
-        var vulnerability = this.attacker.getVulnerabilites().getVulnerability().get(0);
+    private void perform(final ResourceEnvironment environment, final int numberAddition,
+            final AttackerSystemSpecificationContainer attacks) {
+        final var sizeMinOne = environment.getResourceContainer_ResourceEnvironment()
+            .size() - 1;
+        final var origin = environment.getResourceContainer_ResourceEnvironment()
+            .get(sizeMinOne);
+        final var vulnerability = this.attacker.getVulnerabilites()
+            .getVulnerability()
+            .get(0);
         var newOrigin = origin;
-        for (var i = getBlackboardWrapper().getResourceEnvironment().getResourceContainer_ResourceEnvironment()
-                .size(); i < numberAddition; i++) {
-            var integration = PcmIntegrationFactory.eINSTANCE.createVulnerabilitySystemIntegration();
+        for (var i = this.getBlackboardWrapper()
+            .getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .size(); i < numberAddition; i++) {
+            final var integration = PcmIntegrationFactory.eINSTANCE.createVulnerabilitySystemIntegration();
             integration.setVulnerability(vulnerability);
 
-            newOrigin = resourceAddOperation(environment, newOrigin, integration);
-            attacks.getVulnerabilities().add(integration);
+            newOrigin = this.resourceAddOperation(environment, newOrigin, integration);
+            attacks.getVulnerabilities()
+                .add(integration);
 
         }
 
@@ -231,24 +263,45 @@ public abstract class ScalabilityTests extends EvaluationTest {
 
     protected void moveVulnerabilities(final AttackerSystemSpecificationContainer attacks,
             final AssemblyContext assemblyInOrigin, final ResourceContainer origin) {
-        var vulnerability = VulnerabilityHelper.getVulnerabilities(attacks, assemblyInOrigin).get(0);
-        final var sysInteg = attacks.getVulnerabilities().stream()
-                .filter(s -> PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement()).getId()
-                        .equals(assemblyInOrigin.getId()))
-                .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent())).findFirst().orElse(null);
-        sysInteg.getPcmelement().getAssemblycontext().clear();
-        sysInteg.getPcmelement().setResourcecontainer(origin);
+        final var vulnerability = VulnerabilityHelper.getVulnerabilities(attacks, assemblyInOrigin)
+            .get(0);
+        final var sysInteg = attacks.getVulnerabilities()
+            .stream()
+            .filter(s -> PCMElementType.typeOf(s.getPcmelement())
+                .getEntity(s.getPcmelement())
+                .getId()
+                .equals(assemblyInOrigin.getId()))
+            .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent()))
+            .findFirst()
+            .orElse(null);
+        sysInteg.getPcmelement()
+            .getAssemblycontext()
+            .clear();
+        sysInteg.getPcmelement()
+            .setResourcecontainer(origin);
 
         // set resource container as critical element and move vulnerability there too
-        final var root = getSurfaceAttacker().getTargetedElement().getAssemblycontext();
-        final var sysIntegRoot = attacks.getVulnerabilities().stream()
-                .filter(s -> PCMElementType.typeOf(s.getPcmelement()).getEntity(s.getPcmelement()).getId()
-                        .equals(root.get(0).getId()))
-                .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent())).findFirst().orElse(null);
-        sysIntegRoot.getPcmelement().getAssemblycontext().clear();
-        sysIntegRoot.getPcmelement().setResourcecontainer(getResource(root));
+        final var root = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getAssemblycontext();
+        final var sysIntegRoot = attacks.getVulnerabilities()
+            .stream()
+            .filter(s -> PCMElementType.typeOf(s.getPcmelement())
+                .getEntity(s.getPcmelement())
+                .getId()
+                .equals(root.get(0)
+                    .getId()))
+            .filter(s -> EcoreUtil.equals(vulnerability, s.getIdOfContent()))
+            .findFirst()
+            .orElse(null);
+        sysIntegRoot.getPcmelement()
+            .getAssemblycontext()
+            .clear();
+        sysIntegRoot.getPcmelement()
+            .setResourcecontainer(this.getResource(root));
 
-        setCriticalResourceContainer(getResource(root).getEntityName());
+        this.setCriticalResourceContainer(this.getResource(root)
+            .getEntityName());
     }
 
     protected abstract ResourceContainer resourceAddOperation(ResourceEnvironment environment, ResourceContainer origin,

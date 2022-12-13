@@ -1,7 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.scalability;
 
-
-
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
@@ -33,15 +31,15 @@ public abstract class ScalabilityTests extends ScalabilityBaseTest {
     @Disabled
     @Test
     void warmup() {
-        runAnalysis();
+        this.runAnalysis();
     }
 
     @Disabled
     @Test
     void run() {
-        generateXML();
+        this.generateXML();
         for (var i = 0; i < WARMUP; i++) {
-            runAnalysis();
+            this.runAnalysis();
         }
 
 //        for (var i = 0; i < 1; i++) {
@@ -65,47 +63,54 @@ public abstract class ScalabilityTests extends ScalabilityBaseTest {
 //            }
 //
 //        }
-        perform(10);
-        writeResults();
-        perform(90);
-        writeResults();
-        perform(900);
-        writeResults();
-        perform(9000);
-        writeResults();
-        perform(90000);
-        writeResults();
+        this.perform(10);
+        this.writeResults();
+        this.perform(90);
+        this.writeResults();
+        this.perform(900);
+        this.writeResults();
+        this.perform(9000);
+        this.writeResults();
+        this.perform(90000);
+        this.writeResults();
     }
 
     private void writeResults() {
-        var timeList = new ArrayList<Long>();
+        final var timeList = new ArrayList<Long>();
 
         for (var j = 0; j < REPEAT; j++) {
-            timeList.add(analysisTime());
+            timeList.add(this.analysisTime());
         }
 
-        try (var output = Files.newBufferedWriter(Paths.get(System.getProperty("java.io.tmpdir"), getFilename()),
+        try (var output = Files.newBufferedWriter(Paths.get(System.getProperty("java.io.tmpdir"), this.getFilename()),
                 StandardOpenOption.APPEND);) {
-            output.append(String.format("%d,%d\n",
-                    this.blackBoard.getSystem().getAssemblyContexts__ComposedStructure().size(),
-                    Math.round(timeList.stream().mapToLong(Long::longValue).average().getAsDouble())));
+            output.append(String.format("%d,%d\n", this.blackBoard.getSystem()
+                .getAssemblyContexts__ComposedStructure()
+                .size(),
+                    Math.round(timeList.stream()
+                        .mapToLong(Long::longValue)
+                        .average()
+                        .getAsDouble())));
 
-        } catch (IOException e) {
+        } catch (final IOException e) {
             fail(e.getMessage());
         }
     }
 
     long analysisTime() {
-        var startTime = java.lang.System.currentTimeMillis();
-        runAnalysis();
+        final var startTime = java.lang.System.currentTimeMillis();
+        this.runAnalysis();
         return java.lang.System.currentTimeMillis() - startTime;
     }
 
-    private void perform(int numberAddition) {
-        var origin = this.blackBoard.getSystem().getAssemblyContexts__ComposedStructure()
-                .get(this.blackBoard.getSystem().getAssemblyContexts__ComposedStructure().size() - 1);
+    private void perform(final int numberAddition) {
+        var origin = this.blackBoard.getSystem()
+            .getAssemblyContexts__ComposedStructure()
+            .get(this.blackBoard.getSystem()
+                .getAssemblyContexts__ComposedStructure()
+                .size() - 1);
         for (var i = 0; i < numberAddition; i++) {
-            origin = resourceAddOperation(this.blackBoard.getSystem(), origin);
+            origin = this.resourceAddOperation(this.blackBoard.getSystem(), origin);
         }
     }
 

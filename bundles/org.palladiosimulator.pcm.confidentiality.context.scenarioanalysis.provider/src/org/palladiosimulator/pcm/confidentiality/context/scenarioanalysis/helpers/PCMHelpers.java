@@ -8,6 +8,7 @@ public class PCMHelpers {
     }
 
     public static org.palladiosimulator.pcm.system.System getSystem(final EntryLevelSystemCall call) {
-        return (org.palladiosimulator.pcm.system.System) call.getProvidedRole_EntryLevelSystemCall().eContainer();
+        return (org.palladiosimulator.pcm.system.System) call.getProvidedRole_EntryLevelSystemCall()
+            .eContainer();
     }
 }

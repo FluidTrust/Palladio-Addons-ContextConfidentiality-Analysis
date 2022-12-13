@@ -30,7 +30,8 @@ public class HelperCreationCompromisedElements {
         final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(container);
-        compromisedResource.getCausingElements().addAll(list);
+        compromisedResource.getCausingElements()
+            .addAll(list);
         return compromisedResource;
     }
 
@@ -39,27 +40,29 @@ public class HelperCreationCompromisedElements {
         final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(container);
-        compromisedResource.getCausingElements().addAll(list);
+        compromisedResource.getCausingElements()
+            .addAll(list);
         return compromisedResource;
     }
 
     public static CompromisedLinkingResource createCompromisedLinking(final LinkingResource linking,
             final Collection<? extends EObject> list) {
         final var compromisedResource = KAMP4attackModificationmarksFactory.eINSTANCE
-                .createCompromisedLinkingResource();
+            .createCompromisedLinkingResource();
         compromisedResource.setToolderived(true);
         compromisedResource.setAffectedElement(linking);
-        compromisedResource.getCausingElements().addAll(list);
+        compromisedResource.getCausingElements()
+            .addAll(list);
         return compromisedResource;
     }
 
     public static CompromisedService createCompromisedService(final ServiceSpecification service,
             final Collection<? extends EObject> list) {
-        final var compromisedService = KAMP4attackModificationmarksFactory.eINSTANCE
-                .createCompromisedService();
+        final var compromisedService = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedService();
         compromisedService.setToolderived(true);
         compromisedService.setAffectedElement(service);
-        compromisedService.getCausingElements().addAll(list);
+        compromisedService.getCausingElements()
+            .addAll(list);
         return compromisedService;
     }
 }

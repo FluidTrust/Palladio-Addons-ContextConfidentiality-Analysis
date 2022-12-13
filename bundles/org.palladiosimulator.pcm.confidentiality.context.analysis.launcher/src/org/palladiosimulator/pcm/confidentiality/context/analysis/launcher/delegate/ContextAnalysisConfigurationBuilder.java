@@ -30,14 +30,14 @@ public abstract class ContextAnalysisConfigurationBuilder extends AbstractWorkfl
                     + ContextAnalysisWorkflowConfig.class + " expected");
         }
         final var config = (ContextAnalysisWorkflowConfig) configuration;
-        config.setContextModel(getURI(Constants.CONTEXT_MODEL_LABEL));
-        config.setRepositoryModel(getURI(Constants.REPOSITORY_MODEL_LABEL));
-        config.setAllocationModel(getURI(Constants.ALLOCATION_MODEL_LABEL));
+        config.setContextModel(this.getURI(Constants.CONTEXT_MODEL_LABEL));
+        config.setRepositoryModel(this.getURI(Constants.REPOSITORY_MODEL_LABEL));
+        config.setAllocationModel(this.getURI(Constants.ALLOCATION_MODEL_LABEL));
 
     }
 
     protected URI getURI(final String pathValue) throws CoreException {
-        return URI.createURI(getStringAttribute(pathValue));
+        return URI.createURI(this.getStringAttribute(pathValue));
     }
 
 }

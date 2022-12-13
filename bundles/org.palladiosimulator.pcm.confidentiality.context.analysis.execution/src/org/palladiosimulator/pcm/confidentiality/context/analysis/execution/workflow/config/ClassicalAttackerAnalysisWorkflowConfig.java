@@ -7,7 +7,7 @@ import de.uka.ipd.sdq.workflow.jobs.IJob;
 
 public class ClassicalAttackerAnalysisWorkflowConfig extends AbstractAttackerAnalysisWorkflowConfig {
     @Override
-    public IJob createWorkflowJob(ILaunch launch) {
+    public IJob createWorkflowJob(final ILaunch launch) {
         return new ClassicalAttackerAnalysisWorkflow(this);
     }
 }

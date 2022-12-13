@@ -3,7 +3,6 @@ package org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.dele
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunch;
 import org.eclipse.debug.core.ILaunchConfiguration;
-
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ClassicalAttackerAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ContextAnalysisWorkflowConfig;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.execution.workflow.config.ScenarioAnalysisWorkflowConfig;
@@ -41,9 +40,9 @@ public class LaunchDelegate
             attackBuilder.fillConfiguration(config);
             break;
         case "Attack surface":
-        	config = new SurfaceAttackerAnalysisWorkflowConfig();
+            config = new SurfaceAttackerAnalysisWorkflowConfig();
             final var attackSurfaceBuilder = new AttackSurfaceAnalysisConfigurationBuilder(configuration, mode);
-        	attackSurfaceBuilder.fillConfiguration(config);
+            attackSurfaceBuilder.fillConfiguration(config);
             break;
         default:
             assert false;

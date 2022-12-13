@@ -12,13 +12,13 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.SavePartitionToDiskJob;
 
 public class ClassicalAttackerAnalysisWorkflow extends AttackerAnalysisWorkflow {
 
-    public ClassicalAttackerAnalysisWorkflow(ClassicalAttackerAnalysisWorkflowConfig config) {
+    public ClassicalAttackerAnalysisWorkflow(final ClassicalAttackerAnalysisWorkflowConfig config) {
         super(config);
     }
 
     @Override
     protected List<IJob> getOutputJob() {
-        var jobList = new ArrayList<IJob>();
+        final var jobList = new ArrayList<IJob>();
         jobList.add(new SavePartitionToDiskJob(PARTITION_ID_MODIFICATION));
         return jobList;
     }

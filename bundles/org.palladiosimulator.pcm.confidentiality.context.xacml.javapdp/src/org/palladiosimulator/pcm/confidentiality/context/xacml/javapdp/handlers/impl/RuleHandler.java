@@ -27,7 +27,9 @@ public class RuleHandler implements ContextTypeConverter<List<RuleType>, List<Ru
 
     @Override
     public List<RuleType> transform(final List<Rule> inputModel) {
-        return inputModel.stream().map(this::createRule).collect(Collectors.toList());
+        return inputModel.stream()
+            .map(this::createRule)
+            .collect(Collectors.toList());
     }
 
     private RuleType createRule(final Rule rule) {

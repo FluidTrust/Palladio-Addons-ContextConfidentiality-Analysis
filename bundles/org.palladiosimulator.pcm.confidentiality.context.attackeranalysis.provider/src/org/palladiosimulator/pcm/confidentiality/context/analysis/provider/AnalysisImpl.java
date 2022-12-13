@@ -17,16 +17,16 @@ public class AnalysisImpl implements AttackerAnalysis {
      * (Policy) StereotypeAPI.getTaggedValue(element, ProfileConstants.POLICY_STRING,
      * ProfileConstants.STEREOTYPE_CONTEXT); } if (element instanceof EntryLevelSystemCall) {
      * checkMethod((EntryLevelSystemCall) element, policy); } element = element.getSuccessor();
-     * 
+     *
      * } while (element != null); }
-     * 
+     *
      * private boolean checkMethod(EntryLevelSystemCall systemCall, Policy policy) { var operations
      * = systemCall.getProvidedRole_EntryLevelSystemCall(); var system =
      * (org.palladiosimulator.pcm.system.System) EcoreUtil.getRootContainer(operations);
-     * 
-     * 
+     *
+     *
      * return false; }
-     * 
+     *
      * private Start findStartAction(UsageScenario scenario) { return
      * scenario.getScenarioBehaviour_UsageScenario().getActions_ScenarioBehaviour().stream()
      * .filter(Start.class::isInstance).map(Start.class::cast).findFirst().get(); }
@@ -41,18 +41,18 @@ public class AnalysisImpl implements AttackerAnalysis {
          * var profiles = ProfileAPI.getAppliedProfiles(adversary.eResource());
          * if(!ProfileAPI.isProfileApplied(adversary.eResource(),ProfileConstants.PROFILE_NAME))
          * return false;
-         * 
+         *
          * for(Adversary attacker:adversary.getAdversaries()) { analysisAttacker(pcm, context,
          * attacker, data); }
-         * 
-         * 
+         *
+         *
          * return true;
          */
     }
     /*
      * private void analysisAttacker(Repository pcm, Context context, Adversary adversary,
      * ConfidentialitySpecification data) { // if(StereotypeAPI.hasAppliedStereotype(adversary,)
-     * 
+     *
      * }
      */
 

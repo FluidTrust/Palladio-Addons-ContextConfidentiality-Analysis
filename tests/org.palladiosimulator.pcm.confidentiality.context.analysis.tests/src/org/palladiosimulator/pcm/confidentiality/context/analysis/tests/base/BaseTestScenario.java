@@ -151,15 +151,21 @@ public abstract class BaseTestScenario extends BaseTest {
 
         final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
         final var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
-        attributeValue.getValues().add(name);
+        attributeValue.getValues()
+            .add(name);
         attributeValue.setType(DataTypes.STRING);
-        attribute.getAttributevalue().add(attributeValue);
+        attribute.getAttributevalue()
+            .add(attributeValue);
 
         contextAccess.setEntityName(name);
         contextAccess.setAttribute(attribute);
         contextAccess.setAttributevalue(attributeValue);
-        this.context.getAttributes().getAttribute().add(attribute);
-        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
+        this.context.getAttributes()
+            .getAttribute()
+            .add(attribute);
+        this.context.getPcmspecificationcontainer()
+            .getUsagespecification()
+            .add(contextAccess);
         return contextAccess;
     }
 

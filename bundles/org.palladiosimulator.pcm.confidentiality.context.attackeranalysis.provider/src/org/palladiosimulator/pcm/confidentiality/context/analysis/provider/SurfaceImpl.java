@@ -7,11 +7,11 @@ import org.palladiosimulator.pcm.repository.Repository;
 
 public class SurfaceImpl implements AttackSurfaceAnalysis {
 
-	@Override
-	public boolean runAttackSurfaceAnalysis(Repository pcm, ConfidentialAccessSpecification context,
-			Attacker adversary) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean runAttackSurfaceAnalysis(final Repository pcm, final ConfidentialAccessSpecification context,
+            final Attacker adversary) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
 }

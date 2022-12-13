@@ -33,8 +33,8 @@ public interface ScenarioResultStorage {
      * @throws NullPointerException
      *             if one argument is null
      */
-    void storeResult(UsageScenario scenario, Signature signature,
-            Identifier seff, Connector connector, PDPResult decision, List<AssemblyContext> assembly,
-            ServiceSpecification originService, ExternalCallAction action);
+    void storeResult(UsageScenario scenario, Signature signature, Identifier seff, Connector connector,
+            PDPResult decision, List<AssemblyContext> assembly, ServiceSpecification originService,
+            ExternalCallAction action);
 
 }

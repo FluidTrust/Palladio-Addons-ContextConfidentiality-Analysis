@@ -17,7 +17,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class ResourceContainerPropagationContext extends ResourceContainerChange {
 
-    public ResourceContainerPropagationContext(final BlackboardWrapper v, CredentialChange change) {
+    public ResourceContainerPropagationContext(final BlackboardWrapper v, final CredentialChange change) {
         super(v, change);
     }
 

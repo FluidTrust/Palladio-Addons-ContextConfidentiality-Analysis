@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.attacksurface.tests.evaluation;
 
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.palladiosimulator.pcm.confidentiality.attackerSpecification.AttackerFactory;
@@ -18,35 +17,51 @@ public class TargetBreachTest extends EvaluationTest {
         this.PATH_USAGE = "targetBreach-surface/target.usagemodel";
         this.PATH_RESOURCES = "targetBreach-surface/target.resourceenvironment";
     }
+
     @Test
     public void targetBreachBaseTestCompleteAnalysis() {
-        var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
-        final var changes = runAnalysis();
+        final var entity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getAssemblycontext()
+            .get(0);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         Assertions.assertEquals(14, pathsDirectlyAfterAnalysis.size());
 
-
-        pathsTestHelper(changes, entity);
+        this.pathsTestHelper(changes, entity);
     }
 
     @Test
     public void targetScenario() {
-        var entity = getSurfaceAttacker().getTargetedElement().getAssemblycontext().get(0);
+        final var entity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getAssemblycontext()
+            .get(0);
 
-        var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
-        var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
-        var resource = getBlackboardWrapper().getResourceEnvironment().getResourceContainer_ResourceEnvironment()
-                .stream().filter(e -> e.getEntityName().equals("SupplierMachine")).findAny();
+        final var startFilter = AttackerFactory.eINSTANCE.createStartElementFilterCriterion();
+        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createResourceEnvironmentElement();
+        final var resource = this.getBlackboardWrapper()
+            .getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .stream()
+            .filter(e -> e.getEntityName()
+                .equals("SupplierMachine"))
+            .findAny();
         Assertions.assertTrue(resource.isPresent());
         pcmElement.setResourcecontainer(resource.get());
-        startFilter.getStartResources().add(pcmElement);
-        getSurfaceAttacker().getFiltercriteria().add(startFilter);
+        startFilter.getStartResources()
+            .add(pcmElement);
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
+            .add(startFilter);
 
-        final var changes = runAnalysis();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
         Assertions.assertEquals(1, pathsDirectlyAfterAnalysis.size());
-        Assertions.assertEquals(4, pathsDirectlyAfterAnalysis.get(0).getAttackpathelement().size());
+        Assertions.assertEquals(4, pathsDirectlyAfterAnalysis.get(0)
+            .getAttackpathelement()
+            .size());
 
-        pathsTestHelper(changes, entity);
+        this.pathsTestHelper(changes, entity);
     }
 }

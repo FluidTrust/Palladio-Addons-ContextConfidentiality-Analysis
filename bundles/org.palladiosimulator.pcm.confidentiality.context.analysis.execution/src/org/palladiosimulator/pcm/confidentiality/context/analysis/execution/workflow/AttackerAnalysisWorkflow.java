@@ -35,7 +35,9 @@ public abstract class AttackerAnalysisWorkflow extends SequentialBlackboardInter
         if (config.getGenerateGraph()) {
             this.add(new CreateGraphJob(config));
         }
-        getOutputJob().stream().forEach(this::add);
+        this.getOutputJob()
+            .stream()
+            .forEach(this::add);
     }
 
     protected abstract List<IJob> getOutputJob();

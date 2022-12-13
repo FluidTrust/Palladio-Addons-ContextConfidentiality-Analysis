@@ -16,18 +16,21 @@ import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 class PropagationContextAssemblyTest extends AbstractChangeTests {
 
     private void isNoContextChangeNoResourceNoLinking(final CredentialChange change) {
-        assertTrue(change.getContextchange().isEmpty());
-        isNoResourceChangeLinkingChange(change);
+        assertTrue(change.getContextchange()
+            .isEmpty());
+        this.isNoResourceChangeLinkingChange(change);
     }
 
     private void isNoResourceChangeLinkingChange(final CredentialChange change) {
-        assertTrue(change.getCompromisedresource().isEmpty());
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
+        assertTrue(change.getCompromisedresource()
+            .isEmpty());
+        assertTrue(change.getCompromisedlinkingresource()
+            .isEmpty());
     }
 
     private void runContextToAssemblyPropagation(final CredentialChange change) {
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
+        this.generateXML();
+        final var wrapper = this.getBlackboardWrapper();
         final var contextChange = new AssemblyContextPropagationContext(wrapper, change);
         contextChange.calculateAssemblyContextToRemoteResourcePropagation();
     }
@@ -36,28 +39,37 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyContextNoSpecification() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var ownedContext = createContext("Owned");
-        final var context = createContext("Test");
+        final var ownedContext = this.createContext("Owned");
+        final var context = this.createContext("Test");
 
         final var compromissedComponent = this.createAssembly(change);
         final var assemblyComponent = compromissedComponent.getAffectedElement();
 
-        createContextChange(ownedContext, change);
+        this.createContextChange(ownedContext, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(1, change.getCompromisedassembly()
+            .size());
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly()
+            .get(0)
+            .getAffectedElement()));
         assertFalse(change.isChanged());
 
     }
@@ -67,27 +79,38 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationDuplicate() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(1, change.getCompromisedassembly()
+            .size());
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(0))));
         assertFalse(change.isChanged());
 
     }
@@ -96,18 +119,22 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationNoAssemblyComponent() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoContextChangeNoResourceNoLinking(change);
-        assertTrue(change.getCompromisedassembly().isEmpty());
+        this.isNoContextChangeNoResourceNoLinking(change);
+        assertTrue(change.getCompromisedassembly()
+            .isEmpty());
         assertFalse(change.isChanged());
 
     }
@@ -116,10 +143,11 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationNoContextNoAssemblyComponent() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        runContextToAssemblyPropagation(change);
-        isNoContextChangeNoResourceNoLinking(change);
+        this.runContextToAssemblyPropagation(change);
+        this.isNoContextChangeNoResourceNoLinking(change);
 
-        assertTrue(change.getCompromisedassembly().isEmpty());
+        assertTrue(change.getCompromisedassembly()
+            .isEmpty());
         assertFalse(change.isChanged());
 
     }
@@ -130,12 +158,15 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
 
         final var compromissedComponent = this.createAssembly(change);
         final var assemblyComponent = compromissedComponent.getAffectedElement();
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoContextChangeNoResourceNoLinking(change);
+        this.isNoContextChangeNoResourceNoLinking(change);
 
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
+        assertEquals(1, change.getCompromisedassembly()
+            .size());
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly()
+            .get(0)
+            .getAffectedElement()));
         assertFalse(change.isChanged());
 
     }
@@ -145,31 +176,46 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationProvided() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
         this.createAssembly(change);
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(1));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(1));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(2, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(2))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(2, change.getCompromisedassembly()
+            .size());
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(0))));
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(2))));
         assertTrue(change.isChanged());
 
     }
@@ -179,33 +225,52 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationRequired() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(1));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(1));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(3, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(2))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(1))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(3, change.getCompromisedassembly()
+            .size());
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(0))));
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(2))));
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(1))));
         assertTrue(change.isChanged());
 
     }
@@ -215,30 +280,45 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationRequiredNoSpecificationThirdComponent() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(2, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(2))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(2, change.getCompromisedassembly()
+            .size());
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(0))));
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(2))));
         assertTrue(change.isChanged());
 
     }
@@ -248,33 +328,49 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationRequiredSpecificationThirdComponentWrongContext() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        final var differentContext = createContext("different");
+        final var differentContext = this.createContext("different");
 
-        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(differentContext, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(differentContext, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(context, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(2, change.getCompromisedassembly().size());
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(0))));
-        assertTrue(change.getCompromisedassembly().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.assembly.getAssemblyContexts__ComposedStructure().get(2))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(2, change.getCompromisedassembly()
+            .size());
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(0))));
+        assertTrue(change.getCompromisedassembly()
+            .stream()
+            .anyMatch(
+                    e -> EcoreUtil.equals(e.getAffectedElement(), this.assembly.getAssemblyContexts__ComposedStructure()
+                        .get(2))));
         assertTrue(change.isChanged());
 
     }
@@ -283,30 +379,41 @@ class PropagationContextAssemblyTest extends AbstractChangeTests {
     void testContextToAssemblyPropagationWrongContext() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var ownedContext = createContext("Owned");
-        final var context = createContext("Test");
+        final var ownedContext = this.createContext("Owned");
+        final var context = this.createContext("Test");
 
         final var compromissedComponent = this.createAssembly(change);
         final var assemblyComponent = compromissedComponent.getAffectedElement();
 
-        createContextChange(ownedContext, change);
+        this.createContextChange(ownedContext, change);
 
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(1));
-        createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure().get(2));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(1));
+        this.createPolicyEntity(context, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(2));
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
 
-        runContextToAssemblyPropagation(change);
+        this.runContextToAssemblyPropagation(change);
 
-        isNoResourceChangeLinkingChange(change);
+        this.isNoResourceChangeLinkingChange(change);
 
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange().get(0).getAffectedElement()));
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly().get(0).getAffectedElement()));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(ownedContext, change.getContextchange()
+            .get(0)
+            .getAffectedElement()));
+        assertEquals(1, change.getCompromisedassembly()
+            .size());
+        assertTrue(EcoreUtil.equals(assemblyComponent, change.getCompromisedassembly()
+            .get(0)
+            .getAffectedElement()));
         assertFalse(change.isChanged());
 
     }

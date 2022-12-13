@@ -49,11 +49,16 @@ public abstract class BaseTest {
     protected abstract void assignValues(List<Resource> list);
 
     protected <T extends EObject> T getModel(final List<Resource> resources, final Class<T> classObject) {
-        final var object = resources.stream().filter(e -> classObject.isInstance(e.getContents().get(0))).findAny();
+        final var object = resources.stream()
+            .filter(e -> classObject.isInstance(e.getContents()
+                .get(0)))
+            .findAny();
         if (object.isEmpty()) {
             fail("Class not found " + classObject);
         }
-        return classObject.cast(object.get().getContents().get(0));
+        return classObject.cast(object.get()
+            .getContents()
+            .get(0));
     }
 
     @BeforeEach
@@ -61,12 +66,12 @@ public abstract class BaseTest {
         final var listResources = new ArrayList<Resource>();
         final var resourceSet = new ResourceSetImpl();
 
-        final var listModels = getModelsPath();
+        final var listModels = this.getModelsPath();
         for (final var model : listModels) {
-            listResources.add(loadResource(resourceSet, TestInitializer.getModelURI(model)));
+            listResources.add(this.loadResource(resourceSet, TestInitializer.getModelURI(model)));
         }
 
-        assignValues(listResources);
+        this.assignValues(listResources);
 
         EcoreUtil.resolveAll(resourceSet);
     }
@@ -83,11 +88,9 @@ public abstract class BaseTest {
     protected void shutdownEval() {
         if (this.eval != null) {
             this.eval.shutdown();
-            var file = new File(this.pathXACML);
+            final var file = new File(this.pathXACML);
             file.delete();
         }
     }
-
-
 
 }

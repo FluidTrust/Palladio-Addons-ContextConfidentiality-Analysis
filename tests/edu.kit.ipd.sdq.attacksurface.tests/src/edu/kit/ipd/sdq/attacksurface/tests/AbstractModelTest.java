@@ -58,11 +58,13 @@ public abstract class AbstractModelTest extends BaseTest {
                 this.context.getPcmspecificationcontainer(), this.attacker.getSystemintegration(), this.eval);
     }
 
-
-
     protected Entity getCriticalEntity() {
-        final var pcmElement = this.attacker.getAttackers().getSurfaceattacker().get(0).getTargetedElement();
-        return PCMElementType.typeOf(pcmElement).getEntity(pcmElement);
+        final var pcmElement = this.attacker.getAttackers()
+            .getSurfaceattacker()
+            .get(0)
+            .getTargetedElement();
+        return PCMElementType.typeOf(pcmElement)
+            .getEntity(pcmElement);
     }
 
     protected Entity getFirstEntityByName(final String namePart) {
@@ -70,11 +72,14 @@ public abstract class AbstractModelTest extends BaseTest {
         allEntities.addAll(this.environment.getResourceContainer_ResourceEnvironment());
         allEntities.addAll(this.environment.getLinkingResources__ResourceEnvironment());
         allEntities.addAll(this.allocation.getAllocationContexts_Allocation());
-        allEntities.addAll(getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities());
-        return allEntities
-                .stream()
-                .filter(e -> e.getEntityName().equals(namePart))
-                .findFirst().orElse(null);
+        allEntities.addAll(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification()
+            .getVulnerabilities());
+        return allEntities.stream()
+            .filter(e -> e.getEntityName()
+                .equals(namePart))
+            .findFirst()
+            .orElse(null);
     }
 
     protected final CredentialChange getChanges() {
@@ -114,39 +119,52 @@ public abstract class AbstractModelTest extends BaseTest {
         final var contextAccess = SystemFactory.eINSTANCE.createUsageSpecification();
 
         final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
-        var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
-        attributeValue.getValues().add(name);
+        final var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
+        attributeValue.getValues()
+            .add(name);
         attributeValue.setType(DataTypes.STRING);
-        attribute.getAttributevalue().add(attributeValue);
+        attribute.getAttributevalue()
+            .add(attributeValue);
 
         contextAccess.setEntityName(name);
         contextAccess.setAttribute(attribute);
         contextAccess.setAttributevalue(attributeValue);
-        this.context.getAttributes().getAttribute().add(attribute);
-        this.context.getPcmspecificationcontainer().getUsagespecification().add(contextAccess);
+        this.context.getAttributes()
+            .getAttribute()
+            .add(attribute);
+        this.context.getPcmspecificationcontainer()
+            .getUsagespecification()
+            .add(contextAccess);
         return contextAccess;
     }
 
     protected SurfaceAttacker getSurfaceAttacker() {
-        assert this.attacker.getAttackers().getSurfaceattacker().size() == 1;
-        return this.attacker.getAttackers().getSurfaceattacker().get(0);
+        assert this.attacker.getAttackers()
+            .getSurfaceattacker()
+            .size() == 1;
+        return this.attacker.getAttackers()
+            .getSurfaceattacker()
+            .get(0);
     }
 
     protected void createAvailabilityImpactFilter() {
-        final var filterCriteria = getSurfaceAttacker().getFiltercriteria();
+        final var filterCriteria = this.getSurfaceAttacker()
+            .getFiltercriteria();
         final var impactFilter = AttackerFactory.eINSTANCE.createImpactVulnerabilityFilterCriterion();
         impactFilter.setAvailabilityImpactMinimum(AvailabilityImpact.HIGH);
         filterCriteria.add(impactFilter);
     }
 
     protected void createCredentialFilter() {
-        final var filterCriteria = getSurfaceAttacker().getFiltercriteria();
+        final var filterCriteria = this.getSurfaceAttacker()
+            .getFiltercriteria();
         final var impactFilter = AttackerFactory.eINSTANCE.createInitialCredentialFilterCriterion();
-        impactFilter.getProhibitedInitialCredentials().add(createRootCredentialsIfNecessary());
+        impactFilter.getProhibitedInitialCredentials()
+            .add(this.createRootCredentialsIfNecessary());
         filterCriteria.add(impactFilter);
     }
 
-    protected ContextChange toChange(UsageSpecification credentials) {
+    protected ContextChange toChange(final UsageSpecification credentials) {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         change.setAffectedElement(credentials);
         change.setToolderived(true);
@@ -155,8 +173,12 @@ public abstract class AbstractModelTest extends BaseTest {
 
     protected void setCriticalResourceContainer(final String namePart) {
         final var newCriticalEntity = this.allocation.getTargetResourceEnvironment_Allocation()
-                .getResourceContainer_ResourceEnvironment().stream().filter(r -> r.getEntityName().contains(namePart))
-                .findFirst().orElse(null);
+            .getResourceContainer_ResourceEnvironment()
+            .stream()
+            .filter(r -> r.getEntityName()
+                .contains(namePart))
+            .findFirst()
+            .orElse(null);
         if (newCriticalEntity == null) {
             throw new IllegalArgumentException("container " + namePart + " not found");
         }
@@ -164,38 +186,52 @@ public abstract class AbstractModelTest extends BaseTest {
         newCriticalElement.setResourcecontainer(newCriticalEntity);
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
-        this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        getSurfaceAttacker().setTargetedElement(newCriticalElement);
+        this.attacker.getSystemintegration()
+            .getVulnerabilities()
+            .add(systemInteg);
+        this.getSurfaceAttacker()
+            .setTargetedElement(newCriticalElement);
     }
 
     protected void setCriticalAssemblyContext(final String namePart) {
-        final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure().stream()
-                .filter(a -> a.getEntityName().contains(namePart)).findFirst().orElse(null);
+        final var newCriticalEntity = this.assembly.getAssemblyContexts__ComposedStructure()
+            .stream()
+            .filter(a -> a.getEntityName()
+                .contains(namePart))
+            .findFirst()
+            .orElse(null);
         if (newCriticalEntity == null) {
             throw new IllegalArgumentException("assembly " + namePart + " not found");
         }
         final var newCriticalElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        newCriticalElement.getAssemblycontext().add(newCriticalEntity);
+        newCriticalElement.getAssemblycontext()
+            .add(newCriticalEntity);
         final var systemInteg = PcmIntegrationFactory.eINSTANCE.createDefaultSystemIntegration();
         systemInteg.setPcmelement(newCriticalElement);
-        this.attacker.getSystemintegration().getVulnerabilities().add(systemInteg);
-        getSurfaceAttacker().setTargetedElement(newCriticalElement);
+        this.attacker.getSystemintegration()
+            .getVulnerabilities()
+            .add(systemInteg);
+        this.getSurfaceAttacker()
+            .setTargetedElement(newCriticalElement);
     }
 
     private UsageSpecification getRootCredentials() {
-        return getFirstByName(ROOT_STR);
+        return this.getFirstByName(ROOT_STR);
     }
 
     protected UsageSpecification createRootCredentialsIfNecessary() {
-        if (getRootCredentials() == null) {
+        if (this.getRootCredentials() == null) {
             final var root = SystemFactory.eINSTANCE.createUsageSpecification();
             root.setEntityName(ROOT_STR);
-            root.setAttribute(createRootAttribute());
-            root.setAttributevalue(root.getAttribute().getAttributevalue().get(0));
+            root.setAttribute(this.createRootAttribute());
+            root.setAttributevalue(root.getAttribute()
+                .getAttributevalue()
+                .get(0));
             this.context.getPcmspecificationcontainer()
-                .getUsagespecification().add(root);
+                .getUsagespecification()
+                .add(root);
         }
-        return getRootCredentials();
+        return this.getRootCredentials();
     }
 
     private Attribute createRootAttribute() {
@@ -203,18 +239,25 @@ public abstract class AbstractModelTest extends BaseTest {
         attribute.setEntityName("Role");
         attribute.setEnvironment(false);
         final var value = SystemcontextFactory.eINSTANCE.createAttributeValue();
-        value.getValues().add(ROOT_STR);
+        value.getValues()
+            .add(ROOT_STR);
         value.setType(DataTypes.STRING);
-        attribute.getAttributevalue().add(value);
-        this.context.getAttributes().getAttribute().add(attribute);
+        attribute.getAttributevalue()
+            .add(value);
+        this.context.getAttributes()
+            .getAttribute()
+            .add(attribute);
         return attribute;
     }
 
     protected UsageSpecification getFirstByName(final String namePart) {
-        return this.context.getPcmspecificationcontainer().getUsagespecification()
-                .stream()
-                .filter(u -> u.getEntityName().contains(namePart))
-                .findFirst().orElse(null);
+        return this.context.getPcmspecificationcontainer()
+            .getUsagespecification()
+            .stream()
+            .filter(u -> u.getEntityName()
+                .contains(namePart))
+            .findFirst()
+            .orElse(null);
     }
 
     @BeforeEach

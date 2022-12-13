@@ -9,7 +9,8 @@ public class ContextPartition extends ResourceSetPartition {
     public ConfidentialAccessSpecification getContextSpecification() {
         // FIXME solve Problem of not finding ContextContainer
         return (ConfidentialAccessSpecification) this
-                .getElement(ContextPackage.eINSTANCE.getConfidentialAccessSpecification()).get(0);
+            .getElement(ContextPackage.eINSTANCE.getConfidentialAccessSpecification())
+            .get(0);
         // return (ContextContainer)
     }
 }

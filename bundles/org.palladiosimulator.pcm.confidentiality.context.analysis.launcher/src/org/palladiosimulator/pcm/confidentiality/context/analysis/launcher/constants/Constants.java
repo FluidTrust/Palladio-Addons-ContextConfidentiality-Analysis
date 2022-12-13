@@ -15,7 +15,6 @@ public class Constants {
 
     public static final String NAME = "Attacker Analysis Modelling Launcher";
 
-
     public static final String ANALYSIS_TYPE_LABEL = "Select Analysis Type";
     public static final String REPOSITORY_MODEL_LABEL = "Select Repository Model";
     public static final String ALLOCATION_MODEL_LABEL = "Select Allocation Model";

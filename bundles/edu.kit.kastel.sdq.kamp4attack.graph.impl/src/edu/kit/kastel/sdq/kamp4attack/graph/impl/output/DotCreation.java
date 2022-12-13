@@ -9,8 +9,11 @@ public class DotCreation implements OutputFormat {
     @Override
     public String createOutputFormat(final MutableValueGraph<String, String> graph) {
 
-        var body = graph.edges().stream().map(edge -> String.format("\"%s\" -> \"%s\" [ label = \"%s\"]", edge.nodeU(),
-                edge.nodeV(), graph.edgeValueOrDefault(edge, ""))).collect(Collectors.joining("\n"));
+        final var body = graph.edges()
+            .stream()
+            .map(edge -> String.format("\"%s\" -> \"%s\" [ label = \"%s\"]", edge.nodeU(), edge.nodeV(),
+                    graph.edgeValueOrDefault(edge, "")))
+            .collect(Collectors.joining("\n"));
 
         return String.join("\n", "digraph g {", body, "}");
     }

@@ -13,7 +13,7 @@ import edu.kit.ipd.sdq.attacksurface.tests.AbstractModelTest;
 public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
 
     public AbstractAttackHandlerTest() {
-        //TODO adapt
+        // TODO adapt
         this.PATH_ATTACKER = "simpleAttackmodels-surface/DesignOverviewDiaModel/My.attacker";
         this.PATH_ASSEMBLY = "simpleAttackmodels-surface/DesignOverviewDiaModel/My.system";
         this.PATH_ALLOCATION = "simpleAttackmodels-surface/DesignOverviewDiaModel/My.allocation";
@@ -25,29 +25,40 @@ public abstract class AbstractAttackHandlerTest extends AbstractModelTest {
     }
 
     protected ResourceContainer getResourceContainer(final List<AssemblyContext> componentList) {
-        var component = componentList.get(0);
-        final var allocationOPT = getBlackboardWrapper().getAllocation().getAllocationContexts_Allocation().stream()
-                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
-                .findAny();
+        final var component = componentList.get(0);
+        final var allocationOPT = this.getBlackboardWrapper()
+            .getAllocation()
+            .getAllocationContexts_Allocation()
+            .stream()
+            .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
+            .findAny();
         if (allocationOPT.isEmpty()) {
             throw new IllegalStateException(
                     "No Allocation for assemblycontext " + component.getEntityName() + " found");
         }
-        return allocationOPT.get().getResourceContainer_AllocationContext();
+        return allocationOPT.get()
+            .getResourceContainer_AllocationContext();
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
-        final var resourceEnvironment = getBlackboardWrapper().getResourceEnvironment();
-        return resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
-                        .anyMatch(f -> EcoreUtil.equals(f, container)))
-                .collect(Collectors.toList());
+        final var resourceEnvironment = this.getBlackboardWrapper()
+            .getResourceEnvironment();
+        return resourceEnvironment.getLinkingResources__ResourceEnvironment()
+            .stream()
+            .filter(e -> e.getConnectedResourceContainers_LinkingResource()
+                .stream()
+                .anyMatch(f -> EcoreUtil.equals(f, container)))
+            .collect(Collectors.toList());
     }
 
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
-        final var resources = getLinkingResource(resource).stream()
-                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
-                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+        final var resources = this.getLinkingResource(resource)
+            .stream()
+            .flatMap(e -> e.getConnectedResourceContainers_LinkingResource()
+                .stream())
+            .distinct()
+            .filter(e -> !EcoreUtil.equals(e, resource))
+            .collect(Collectors.toList());
         return resources;
     }
 }

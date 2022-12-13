@@ -25,25 +25,26 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class EvaluationTest extends AbstractChangeTests {
 
+    protected void pathsTestHelper(final CredentialChange changes, final Entity targetedEntity) {
 
+        final var attackPath = changes.getAttackpaths();
 
+        this.baseAttackPathTest(attackPath);
 
-    protected void pathsTestHelper(final CredentialChange changes, Entity targetedEntity) {
-
-        var attackPath = changes.getAttackpaths();
-
-        baseAttackPathTest(attackPath);
-
-        var set = new HashSet<String>();
-        for (var path : attackPath) {
-            var element = path.getAttackpathelement().get(0).getAffectedElement().getId();
+        final var set = new HashSet<String>();
+        for (final var path : attackPath) {
+            final var element = path.getAttackpathelement()
+                .get(0)
+                .getAffectedElement()
+                .getId();
             if (set.contains(element)) {
                 fail("Only one path for each element allowed");
             }
             set.add(element);
         }
-        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
-        var attackGraphCreation = new AttackGraphCreation(getBlackboardWrapper());
+        VulnerabilityHelper.initializeVulnerabilityStorage(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification());
+        final var attackGraphCreation = new AttackGraphCreation(this.getBlackboardWrapper());
 
         attackGraphCreation.calculateAssemblyContextToAssemblyContextPropagation();
         attackGraphCreation.calculateAssemblyContextToGlobalAssemblyContextPropagation();
@@ -59,16 +60,17 @@ public abstract class EvaluationTest extends AbstractChangeTests {
         attackGraphCreation.calculateResourceContainerToRemoteAssemblyContextPropagation();
         attackGraphCreation.calculateResourceContainerToResourcePropagation();
 
-        var edges = attackGraphCreation.getGraph().edges();
+        final var edges = attackGraphCreation.getGraph()
+            .edges();
 
         if (targetedEntity != null) {
-            Assertions.assertTrue(
-                    attackPath.stream().allMatch(e -> e.getTargetedElement().getId().equals(targetedEntity.getId())));
+            Assertions.assertTrue(attackPath.stream()
+                .allMatch(e -> e.getTargetedElement()
+                    .getId()
+                    .equals(targetedEntity.getId())));
         }
 
-        isConnectedPath(attackPath, edges);
-
-
+        this.isConnectedPath(attackPath, edges);
 
 //        final var attacked = getAttackGraph().getAttackedNodes();
 //        final var compromised = getAttackGraph().getCompromisedNodes();
@@ -105,54 +107,74 @@ public abstract class EvaluationTest extends AbstractChangeTests {
 //        }
     }
 
-    private void isConnectedPath(EList<AttackPath> attackPath, Set<AttackEdge> edges) {
-        for (var path : attackPath) {
-            var elements = path.getAttackpathelement();
+    private void isConnectedPath(final EList<AttackPath> attackPath, final Set<AttackEdge> edges) {
+        for (final var path : attackPath) {
+            final var elements = path.getAttackpathelement();
             for (var i = 1; i < elements.size(); i++) {
-                var origin = elements.get(i - 1).getAffectedElement();
-                var target = elements.get(i).getAffectedElement();
+                final var origin = elements.get(i - 1)
+                    .getAffectedElement();
+                final var target = elements.get(i)
+                    .getAffectedElement();
 
-                Assertions.assertTrue(edges.stream().anyMatch(e -> e.getRoot().getId().equals(origin.getId())
-                        && e.getTarget().getId().equals(target.getId())));
+                Assertions.assertTrue(edges.stream()
+                    .anyMatch(e -> e.getRoot()
+                        .getId()
+                        .equals(origin.getId())
+                            && e.getTarget()
+                                .getId()
+                                .equals(target.getId())));
 
             }
         }
     }
 
-    private void baseAttackPathTest(EList<AttackPath> attackPath) {
-        var allMatch = attackPath.stream().allMatch(e -> EcoreUtil
-                .equals(e.getAttackpathelement().get(e.getAttackpathelement().size() - 1).getAffectedElement(),
-                        e.getTargetedElement()));
+    private void baseAttackPathTest(final EList<AttackPath> attackPath) {
+        final var allMatch = attackPath.stream()
+            .allMatch(e -> EcoreUtil.equals(e.getAttackpathelement()
+                .get(e.getAttackpathelement()
+                    .size() - 1)
+                .getAffectedElement(), e.getTargetedElement()));
         Assertions.assertTrue(allMatch);
     }
 
-    protected String toString(
-            final List<AttackPath> paths) {
-        return toString(paths, "");
+    protected String toString(final List<AttackPath> paths) {
+        return this.toString(paths, "");
     }
 
     protected String toString(final List<AttackPath> paths, final String pathContainsFilter) {
         final var mainJoiner = new StringJoiner("\n");
         paths.forEach(p -> {
             final var joiner = new StringJoiner("\n");
-            joiner.add(p.getAttackpathelement().size() + " PATH");
-            if (!p.getCredentials().isEmpty()) {
-                p.getCredentials().stream().sorted(this::compareIds).forEach(c -> {
-                    final var credId = c.getId();
-                    joiner.add("credentials initally necessary: " + credId);
-                });
+            joiner.add(p.getAttackpathelement()
+                .size() + " PATH");
+            if (!p.getCredentials()
+                .isEmpty()) {
+                p.getCredentials()
+                    .stream()
+                    .sorted(this::compareIds)
+                    .forEach(c -> {
+                        final var credId = c.getId();
+                        joiner.add("credentials initally necessary: " + credId);
+                    });
             }
-            p.getAttackpathelement().forEach(s -> {
-                final var id = !s.getCausingElements().isEmpty()
-                        ? s.getCausingElements().stream().map(Entity.class::cast).map(Entity::getId)
-                                .collect(Collectors.joining(""))
-                        : "-";
-                var name = s.getAffectedElement() != null ? s.getAffectedElement().getEntityName() : "";
-                joiner.add(id + " | " + name);
-            });
-            p.getVulnerabilities().stream().sorted(this::compareIds).forEach(v -> {
-                joiner.add("VULNs used: " + v.getId());
-            });
+            p.getAttackpathelement()
+                .forEach(s -> {
+                    final var id = !s.getCausingElements()
+                        .isEmpty() ? s.getCausingElements()
+                            .stream()
+                            .map(Entity.class::cast)
+                            .map(Entity::getId)
+                            .collect(Collectors.joining("")) : "-";
+                    final var name = s.getAffectedElement() != null ? s.getAffectedElement()
+                        .getEntityName() : "";
+                    joiner.add(id + " | " + name);
+                });
+            p.getVulnerabilities()
+                .stream()
+                .sorted(this::compareIds)
+                .forEach(v -> {
+                    joiner.add("VULNs used: " + v.getId());
+                });
             joiner.add("\n");
             final var joinerStr = joiner.toString();
             if (joinerStr.contains(pathContainsFilter)) {
@@ -162,22 +184,28 @@ public abstract class EvaluationTest extends AbstractChangeTests {
         return mainJoiner.toString();
     }
 
-    private int compareIds(Identifier o1, Identifier o2) {
-        return o1.getId().compareTo(o2.getId());
+    private int compareIds(final Identifier o1, final Identifier o2) {
+        return o1.getId()
+            .compareTo(o2.getId());
     }
 
     protected void printPaths(final List<AttackPath> paths) {
-        System.out.println(toString(paths));
+        System.out.println(this.toString(paths));
     }
 
     protected void setPathLengthFilter(final int maxLength) {
-        if (getSurfaceAttacker().getFiltercriteria().stream()
-                .noneMatch(MaximumPathLengthFilterCriterion.class::isInstance)) {
+        if (this.getSurfaceAttacker()
+            .getFiltercriteria()
+            .stream()
+            .noneMatch(MaximumPathLengthFilterCriterion.class::isInstance)) {
             final var maxPathLengthFilter = AttackerFactory.eINSTANCE.createMaximumPathLengthFilterCriterion();
-            getSurfaceAttacker().getFiltercriteria().add(maxPathLengthFilter);
+            this.getSurfaceAttacker()
+                .getFiltercriteria()
+                .add(maxPathLengthFilter);
         }
 
-        getSurfaceAttacker().getFiltercriteria()
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
             .stream()
             .filter(MaximumPathLengthFilterCriterion.class::isInstance)
             .map(MaximumPathLengthFilterCriterion.class::cast)

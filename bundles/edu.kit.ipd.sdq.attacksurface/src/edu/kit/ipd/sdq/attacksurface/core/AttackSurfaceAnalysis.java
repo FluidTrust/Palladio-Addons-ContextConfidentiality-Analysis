@@ -39,8 +39,8 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
         this.changes = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
         VulnerabilityHelper.initializeVulnerabilityStorage(modelStorage.getVulnerabilitySpecification());
 
-        createInitialStructure(modelStorage);
-        var graph = new AttackGraphCreation(modelStorage);
+        this.createInitialStructure(modelStorage);
+        final var graph = new AttackGraphCreation(modelStorage);
 
         graph.createGraph();
 
@@ -49,16 +49,20 @@ public class AttackSurfaceAnalysis implements IAttackPropagationAnalysis {
 
     }
 
-    private void createInitialStructure(BlackboardWrapper board) {
+    private void createInitialStructure(final BlackboardWrapper board) {
         final var repository = board.getModificationMarkRepository();
         final var localAttacker = AttackHandlingHelper.getSurfaceAttacker(board);
 
-        repository.getChangePropagationSteps().clear();
+        repository.getChangePropagationSteps()
+            .clear();
 
         final var criticalPCMElement = localAttacker.getTargetedElement();
-        this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement).getEntity(criticalPCMElement);
+        this.crtitcalEntity = PCMElementType.typeOf(criticalPCMElement)
+            .getEntity(criticalPCMElement);
 
-        board.getModificationMarkRepository().getChangePropagationSteps().add(this.changes);
+        board.getModificationMarkRepository()
+            .getChangePropagationSteps()
+            .add(this.changes);
     }
 
 }

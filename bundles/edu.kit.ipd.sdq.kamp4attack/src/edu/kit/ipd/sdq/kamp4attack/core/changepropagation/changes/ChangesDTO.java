@@ -18,11 +18,11 @@ public class ChangesDTO {
 
     private volatile boolean changed;
 
-    private ChangesStorage<CompromisedAssembly, AssemblyContext> assemblies = new ChangesStorage<>();
-    private ChangesStorage<CompromisedLinkingResource, LinkingResource> linkingResources = new ChangesStorage<>();
-    private ChangesStorage<CompromisedResource, ResourceContainer> resourceContainers = new ChangesStorage<>();
-    private ChangesStorage<CompromisedService, ServiceSpecification> services = new ChangesStorage<>();
-    private ChangesStorage<CompromisedData, DatamodelAttacker> data = new ChangesStorage<>();
+    private final ChangesStorage<CompromisedAssembly, AssemblyContext> assemblies = new ChangesStorage<>();
+    private final ChangesStorage<CompromisedLinkingResource, LinkingResource> linkingResources = new ChangesStorage<>();
+    private final ChangesStorage<CompromisedResource, ResourceContainer> resourceContainers = new ChangesStorage<>();
+    private final ChangesStorage<CompromisedService, ServiceSpecification> services = new ChangesStorage<>();
+    private final ChangesStorage<CompromisedData, DatamodelAttacker> data = new ChangesStorage<>();
 
     public final ChangesStorage<CompromisedAssembly, AssemblyContext> getAssemblies() {
         return this.assemblies;
@@ -44,7 +44,7 @@ public class ChangesDTO {
         this.changed = true;
     }
 
-    public void addData(List<DatamodelAttacker> data) {
+    public void addData(final List<DatamodelAttacker> data) {
 
     }
 

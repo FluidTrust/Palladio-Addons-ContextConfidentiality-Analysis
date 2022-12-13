@@ -21,7 +21,7 @@ public class LoadContextJob extends AbstractLoadModelJob {
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var contextPartition = new ContextPartition();
-        loadModel2Partition(contextPartition, new URI[] { this.configuration.getContextModel() },
+        this.loadModel2Partition(contextPartition, new URI[] { this.configuration.getContextModel() },
                 new EPackage[] { ContextPackage.eINSTANCE }, PARTITION_ID_CONTEXT);
     }
 

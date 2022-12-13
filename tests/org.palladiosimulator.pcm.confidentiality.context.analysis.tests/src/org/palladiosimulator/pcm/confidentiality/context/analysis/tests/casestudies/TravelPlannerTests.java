@@ -1,6 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,27 +25,41 @@ class TravelPlannerTests extends TravelPlannerBaseTest {
     @DisplayName("01_no_context_usage_model")
     void noContext() {
         // clear existing policies
-        this.context.getPolicyset().getPolicy().clear();
-        this.context.getPolicyset().getPolicyset().clear();
-        this.blackBoard.getUsageModel().getUsageScenario_UsageModel().remove(0);
+        this.context.getPolicyset()
+            .getPolicy()
+            .clear();
+        this.context.getPolicyset()
+            .getPolicyset()
+            .clear();
+        this.blackBoard.getUsageModel()
+            .getUsageScenario_UsageModel()
+            .remove(0);
 
-        generateXML();
+        this.generateXML();
         final var analysis = new ScenarioAnalysisSystemImpl();
         final var output = analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
         assertNotNull(output.getScenariooutput());
 
-        output.getScenariooutput().stream().filter(e -> e.getScenario().getEntityName().contains("Misusage"))
-                .forEach(e -> assertTrue(e.isPassed()));
-        output.getScenariooutput().stream().filter(e -> !e.getScenario().getEntityName().contains("Misusage"))
-                .forEach(e -> assertFalse(e.isPassed()));
+        output.getScenariooutput()
+            .stream()
+            .filter(e -> e.getScenario()
+                .getEntityName()
+                .contains("Misusage"))
+            .forEach(e -> assertTrue(e.isPassed()));
+        output.getScenariooutput()
+            .stream()
+            .filter(e -> !e.getScenario()
+                .getEntityName()
+                .contains("Misusage"))
+            .forEach(e -> assertFalse(e.isPassed()));
     }
 
     @Test
     @DisplayName("02_context")
     void allPositive() {
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertAllPositive(output);
+        this.assertAllPositive(output);
     }
 
     // @Test

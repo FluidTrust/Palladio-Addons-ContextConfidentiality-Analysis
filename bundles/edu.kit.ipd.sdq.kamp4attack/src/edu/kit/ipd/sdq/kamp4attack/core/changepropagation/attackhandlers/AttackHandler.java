@@ -26,9 +26,9 @@ import org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.result.PDPRes
 import org.palladiosimulator.pcm.core.entity.Entity;
 import org.palladiosimulator.pcm.repository.Signature;
 
-import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.core.CachePDP;
 import edu.kit.ipd.sdq.kamp4attack.core.CacheVulnerability;
+import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 
@@ -61,15 +61,22 @@ public abstract class AttackHandler {
     }
 
     protected final List<UsageSpecification> getCredentials(final CredentialChange changes) {
-        return changes.getContextchange().stream().map(ContextChange::getAffectedElement).collect(Collectors.toList());
+        return changes.getContextchange()
+            .stream()
+            .map(ContextChange::getAffectedElement)
+            .collect(Collectors.toList());
     }
 
     // TODO: Think about better location
     protected List<Attack> getAttacks() {
-        final var listAttackers = this.modelStorage.getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent();
-        return listAttackers.stream().flatMap(e -> e.getAffectedElement().getAttacks().stream())
-                .collect(Collectors.toList());
+        final var listAttackers = this.modelStorage.getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent();
+        return listAttackers.stream()
+            .flatMap(e -> e.getAffectedElement()
+                .getAttacks()
+                .stream())
+            .collect(Collectors.toList());
     }
 
     protected List<EObject> createSource(final EObject sourceItem,
@@ -104,10 +111,11 @@ public abstract class AttackHandler {
         final var listOperation = new ArrayList<UsageSpecification>();
 
         if (signature == null) {
-            PolicyHelper.createRequestAttributes(listTargetEntity, credentials, listSubject, listEnvironment, listResource,
-                    listXML);
+            PolicyHelper.createRequestAttributes(listTargetEntity, credentials, listSubject, listEnvironment,
+                    listResource, listXML);
         } else {
-            var result = CachePDP.instance().get(target, signature);
+            final var result = CachePDP.instance()
+                .get(target, signature);
             if (result.isPresent()) {
                 return result;
             }
@@ -115,23 +123,27 @@ public abstract class AttackHandler {
                     listResource, listOperation, listXML);
         }
 
-        final var result = getModelStorage().getEval().evaluate(listSubject, listEnvironment, listResource,
-                listOperation, listXML);
+        final var result = this.getModelStorage()
+            .getEval()
+            .evaluate(listSubject, listEnvironment, listResource, listOperation, listXML);
         if (result.isPresent() && signature != null) {
-            CachePDP.instance().insert(target, signature, result.get());
+            CachePDP.instance()
+                .insert(target, signature, result.get());
         }
         return result;
     }
 
     protected Optional<PDPResult> queryAccessForEntity(final Entity target,
             final List<? extends UsageSpecification> credentials) {
-        var result = CachePDP.instance().get(target);
+        var result = CachePDP.instance()
+            .get(target);
         if (result.isPresent()) {
             return result;
         }
         result = this.queryAccessForEntity(target, credentials, null);
         if (result.isPresent()) {
-            CachePDP.instance().insert(target, result.get());
+            CachePDP.instance()
+                .insert(target, result.get());
         }
         return result;
     }
@@ -160,18 +172,20 @@ public abstract class AttackHandler {
     protected Vulnerability checkVulnerability(final Entity entity, final CredentialChange change,
             final List<UsageSpecification> credentials, final List<Attack> attacks,
             final List<Vulnerability> vulnerabilityList, final AttackVector attackVector) {
-        if (CacheVulnerability.instance().checkedBefore(entity)) {
+        if (CacheVulnerability.instance()
+            .checkedBefore(entity)) {
             return null;
         }
         Optional<PDPResult> result;
-        var authenticatedNeeded = vulnerabilityList.stream().anyMatch(
-                e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
+        final var authenticatedNeeded = vulnerabilityList.stream()
+            .anyMatch(e -> Privileges.LOW.equals(e.getPrivileges()) || Privileges.SPECIAL.equals(e.getPrivileges()));
         if (authenticatedNeeded) {
             result = this.queryAccessForEntity(entity, credentials);
         } else {
             result = Optional.empty();
         }
-        CacheVulnerability.instance().addEntity(entity);
+        CacheVulnerability.instance()
+            .addEntity(entity);
         return this.checkVulnerability(change, attacks, vulnerabilityList, attackVector, result);
     }
 
@@ -198,13 +212,16 @@ public abstract class AttackHandler {
             final Optional<PDPResult> result) {
         var authenticated = false;
         if (result.isPresent()) {
-            authenticated = DecisionType.PERMIT.equals(result.get().decision());
+            authenticated = DecisionType.PERMIT.equals(result.get()
+                .decision());
         }
-        final var roleSpecification = VulnerabilityHelper.getRoles(getModelStorage().getVulnerabilitySpecification());
+        final var roleSpecification = VulnerabilityHelper.getRoles(this.getModelStorage()
+            .getVulnerabilitySpecification());
 
         final var roles = roleSpecification.stream()
-                .filter(e -> CompromisedElementHelper.isHacked(e.getPcmelement(), change))
-                .map(RoleSystemIntegration::getRole).collect(Collectors.toList());
+            .filter(e -> CompromisedElementHelper.isHacked(e.getPcmelement(), change))
+            .map(RoleSystemIntegration::getRole)
+            .collect(Collectors.toList());
 
         final var vulnerability = VulnerabilityHelper.checkAttack(authenticated, vulnerabilityList, attacks,
                 attackVector, roles);

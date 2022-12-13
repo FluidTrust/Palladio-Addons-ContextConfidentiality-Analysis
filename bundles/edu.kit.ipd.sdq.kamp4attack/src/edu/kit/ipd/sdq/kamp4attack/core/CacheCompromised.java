@@ -12,7 +12,7 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class CacheCompromised {
 
-    private Set<String> compromised = new HashSet<>();
+    private final Set<String> compromised = new HashSet<>();
 
     private static CacheCompromised cache = new CacheCompromised();
 
@@ -20,7 +20,7 @@ public class CacheCompromised {
         // TODO Auto-generated constructor stub
     }
 
-    public boolean compromised(Entity entity) {
+    public boolean compromised(final Entity entity) {
         return entity.getId() != null ? this.compromised.contains(entity.getId()) : false;
     }
 
@@ -32,17 +32,17 @@ public class CacheCompromised {
         this.compromised.clear();
     }
 
-    public void register(CredentialChange change) {
-        var adapter = new AdapterImpl() {
+    public void register(final CredentialChange change) {
+        final var adapter = new AdapterImpl() {
             @Override
-            public void notifyChanged(Notification notification) {
+            public void notifyChanged(final Notification notification) {
                 if (notification.isTouch()) {
                     return;
                 }
-                var changedValue = notification.getNewValue();
+                final var changedValue = notification.getNewValue();
                 if (changedValue instanceof ModifyEntity) {
 
-                    var entityValue = (ModifyEntity<?>) changedValue;
+                    final var entityValue = (ModifyEntity<?>) changedValue;
                     if (entityValue.getAffectedElement() instanceof Entity
                             && ((Entity) entityValue.getAffectedElement()).getId() != null) {
                         CacheCompromised.this.compromised.add(((Entity) entityValue.getAffectedElement()).getId());
@@ -52,7 +52,8 @@ public class CacheCompromised {
             }
         };
 
-        change.eAdapters().add(adapter);
+        change.eAdapters()
+            .add(adapter);
     }
 
 }

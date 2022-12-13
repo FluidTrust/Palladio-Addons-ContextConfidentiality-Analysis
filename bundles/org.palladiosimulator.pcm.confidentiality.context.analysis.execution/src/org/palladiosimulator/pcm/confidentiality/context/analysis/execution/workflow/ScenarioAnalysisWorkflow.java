@@ -17,7 +17,6 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
  *
  */
 public class ScenarioAnalysisWorkflow extends SequentialBlackboardInteractingJob<MDSDBlackboard> {
-    
 
     public ScenarioAnalysisWorkflow(final ScenarioAnalysisWorkflowConfig config) {
         super(false);

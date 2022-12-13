@@ -23,14 +23,19 @@ import org.palladiosimulator.pcm.repository.RepositoryComponent;
 public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegration>> {
 
     @Override
-    public List<SystemIntegration> rollOut(PCMBlackBoard test, List<SystemIntegration> t) {
-        final var listRollout = t.stream().filter(this::isComponent).toList();
+    public List<SystemIntegration> rollOut(final PCMBlackBoard test, final List<SystemIntegration> t) {
+        final var listRollout = t.stream()
+            .filter(this::isComponent)
+            .toList();
 
-        final var rolledOut = filter(t, listRollout);
+        final var rolledOut = this.filter(t, listRollout);
 
         for (final var integration : listRollout) {
-            final var list = getAssemblyContext(integration.getPcmelement().getBasiccomponent(), test.getSystem())
-                    .stream().map(assembly -> createIntegration(assembly, integration)).toList();
+            final var list = this.getAssemblyContext(integration.getPcmelement()
+                .getBasiccomponent(), test.getSystem())
+                .stream()
+                .map(assembly -> this.createIntegration(assembly, integration))
+                .toList();
             rolledOut.addAll(list);
         }
 
@@ -38,9 +43,10 @@ public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegratio
 
     }
 
-    private SystemIntegration createIntegration(AssemblyContext context, SystemIntegration oldIntegration) {
+    private SystemIntegration createIntegration(final AssemblyContext context, final SystemIntegration oldIntegration) {
         final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
-        pcmElement.getAssemblycontext().add(context);
+        pcmElement.getAssemblycontext()
+            .add(context);
         final var integration = oldIntegration.getCopyExceptElement();
         integration.setPcmelement(pcmElement);
 
@@ -48,24 +54,32 @@ public class RolloutImpl implements Rollout<PCMBlackBoard, List<SystemIntegratio
 
     }
 
-    private List<AssemblyContext> getAssemblyContext(RepositoryComponent component,
-            org.palladiosimulator.pcm.system.System system) {
-        return system.getAssemblyContexts__ComposedStructure().stream()
-                .filter(e -> e.getEncapsulatedComponent__AssemblyContext().getId().equals(component.getId()))
-                .toList();
+    private List<AssemblyContext> getAssemblyContext(final RepositoryComponent component,
+            final org.palladiosimulator.pcm.system.System system) {
+        return system.getAssemblyContexts__ComposedStructure()
+            .stream()
+            .filter(e -> e.getEncapsulatedComponent__AssemblyContext()
+                .getId()
+                .equals(component.getId()))
+            .toList();
     }
 
-    private boolean isComponent(SystemIntegration integration) {
-        return integration.getPcmelement().getBasiccomponent() != null;
+    private boolean isComponent(final SystemIntegration integration) {
+        return integration.getPcmelement()
+            .getBasiccomponent() != null;
     }
 
-    private List<SystemIntegration> filter(List<SystemIntegration> original, List<SystemIntegration> filter) {
+    private List<SystemIntegration> filter(final List<SystemIntegration> original,
+            final List<SystemIntegration> filter) {
 
-        return original.stream().filter(e -> !containsHelper(e, filter)).collect(Collectors.toList());
+        return original.stream()
+            .filter(e -> !this.containsHelper(e, filter))
+            .collect(Collectors.toList());
     }
 
-    private boolean containsHelper(Entity entity, List<? extends Entity> list) {
-        return list.stream().anyMatch(e -> Objects.equals(e.getId(), entity.getId()));
+    private boolean containsHelper(final Entity entity, final List<? extends Entity> list) {
+        return list.stream()
+            .anyMatch(e -> Objects.equals(e.getId(), entity.getId()));
     }
 
 }

@@ -25,27 +25,31 @@ public class DataHandlerAttacker {
     }
 
     public void addData(final Collection<DatamodelAttacker> data) {
-        var newData = data.stream().filter(referenceData -> !contains(referenceData))
-                .collect(Collectors.toList());
-        this.datamodel.getDatamodelattacker().addAll(newData);
+        final var newData = data.stream()
+            .filter(referenceData -> !this.contains(referenceData))
+            .collect(Collectors.toList());
+        this.datamodel.getDatamodelattacker()
+            .addAll(newData);
 
-
-        newData.stream().forEach(orgininalData -> {
-            final var compromisedData = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedData();
-            compromisedData.setAffectedElement(orgininalData);
-            compromisedData.getCausingElements().add(orgininalData.getSource());
-            compromisedData.setToolderived(true);
-            this.change.getCompromiseddata().add(compromisedData);
-        });
-
+        newData.stream()
+            .forEach(orgininalData -> {
+                final var compromisedData = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedData();
+                compromisedData.setAffectedElement(orgininalData);
+                compromisedData.getCausingElements()
+                    .add(orgininalData.getSource());
+                compromisedData.setToolderived(true);
+                this.change.getCompromiseddata()
+                    .add(compromisedData);
+            });
 
     }
 
     private boolean contains(final DatamodelAttacker referenceData) {
-        return this.datamodel.getDatamodelattacker().stream()
-                .anyMatch(data -> Objects.equals(data.getReferenceName(), referenceData.getReferenceName())
-                        && EcoreUtil.equals(data.getSource(), referenceData.getSource())
-                        && EcoreUtil.equals(data.getDataType(), referenceData.getDataType()));
+        return this.datamodel.getDatamodelattacker()
+            .stream()
+            .anyMatch(data -> Objects.equals(data.getReferenceName(), referenceData.getReferenceName())
+                    && EcoreUtil.equals(data.getSource(), referenceData.getSource())
+                    && EcoreUtil.equals(data.getDataType(), referenceData.getDataType()));
     }
 
 }

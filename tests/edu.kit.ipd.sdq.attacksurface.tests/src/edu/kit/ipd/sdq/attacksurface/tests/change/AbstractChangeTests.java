@@ -68,24 +68,34 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     @AfterEach
     @BeforeEach
     protected void resetHashMaps() {
-        ChangeLinkingResourcesStorage.getInstance().reset();
-        AssemblyContextChangeIsGlobalStorage.getInstance().reset();
-        AssemblyContextChangeTargetedConnectorsStorage.getInstance().reset();
-        AssemblyContextChangeResourceContainerStorage.getInstance().reset();
-        AssemblyContextChangeAssemblyContextsStorage.getInstance().reset();
-        ResourceContainerChangeAssemblyContextsStorage.getInstance().reset();
+        ChangeLinkingResourcesStorage.getInstance()
+            .reset();
+        AssemblyContextChangeIsGlobalStorage.getInstance()
+            .reset();
+        AssemblyContextChangeTargetedConnectorsStorage.getInstance()
+            .reset();
+        AssemblyContextChangeResourceContainerStorage.getInstance()
+            .reset();
+        AssemblyContextChangeAssemblyContextsStorage.getInstance()
+            .reset();
+        ResourceContainerChangeAssemblyContextsStorage.getInstance()
+            .reset();
     }
 
     protected void resetVulnerabilityCache() {
-        VulnerabilityHelper.initializeVulnerabilityStorage(getBlackboardWrapper().getVulnerabilitySpecification());
+        VulnerabilityHelper.initializeVulnerabilityStorage(this.getBlackboardWrapper()
+            .getVulnerabilitySpecification());
     }
 
     private void addPolicy(final Policy policy) {
-        this.context.getPolicyset().getPolicy().add(policy);
+        this.context.getPolicyset()
+            .getPolicy()
+            .add(policy);
     }
 
     protected CompromisedAssembly createAssembly(final CredentialChange change) {
-        return this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        return this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
     }
 
     protected CompromisedAssembly createAssembly(final CredentialChange change,
@@ -93,7 +103,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var infectedAssembly = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
         final var assemblyContext = assemblyComponent;
         infectedAssembly.setAffectedElement(assemblyContext);
-        change.getCompromisedassembly().add(infectedAssembly);
+        change.getCompromisedassembly()
+            .add(infectedAssembly);
         return infectedAssembly;
     }
 
@@ -101,39 +112,47 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setAssemblycontext(component);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
 
     protected void createAttributeProvider(final UsageSpecification contextSet, final LinkingResource resource) {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setLinkingresource(resource);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
 
     protected void createAttributeProvider(final UsageSpecification contextSet, final ResourceContainer resource) {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setResourcecontainer(resource);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
-
 
     protected void createContextChange(final UsageSpecification context, final CredentialChange change) {
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);
-        change.getContextchange().add(contextChange);
+        change.getContextchange()
+            .add(contextChange);
     }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
-        return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
     }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change,
             final LinkingResource linking) {
         final var linkingChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
         linkingChange.setAffectedElement(linking);
-        change.getCompromisedlinkingresource().add(linkingChange);
+        change.getCompromisedlinkingresource()
+            .add(linkingChange);
         return linkingChange;
     }
 
@@ -141,28 +160,32 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var policy = PolicyFactory.eINSTANCE.createPolicy();
         policy.setCombiningAlgorithm(RuleCombiningAlgorihtm.DENY_UNLESS_PERMIT);
 
-        var match = StructureFactory.eINSTANCE.createEntityMatch();
+        final var match = StructureFactory.eINSTANCE.createEntityMatch();
         match.setCategory(Category.RESOURCE);
         match.setEntity(entity);
-        var allOff = PolicyFactory.eINSTANCE.createAllOf();
-        allOff.getMatch().add(match);
-        policy.getTarget().add(allOff);
+        final var allOff = PolicyFactory.eINSTANCE.createAllOf();
+        allOff.getMatch()
+            .add(match);
+        policy.getTarget()
+            .add(allOff);
 
-        var rule = PolicyFactory.eINSTANCE.createRule();
+        final var rule = PolicyFactory.eINSTANCE.createRule();
 
-        var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
+        final var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
         simpleExpression.setAttribute(usageSpecification);
 
         rule.setCondition(simpleExpression);
         rule.setPermit(PermitType.PERMIT);
 
-        policy.getRule().add(rule);
+        policy.getRule()
+            .add(rule);
 
-        addPolicy(policy);
+        this.addPolicy(policy);
     }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
-        return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
     }
 
@@ -170,7 +193,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             final ResourceContainer resource) {
         final var infectedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         infectedResource.setAffectedElement(resource);
-        change.getCompromisedresource().add(infectedResource);
+        change.getCompromisedresource()
+            .add(infectedResource);
         return infectedResource;
     }
 
@@ -182,7 +206,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
     protected CWEID createCWEID(final int id, final CWEID parent) {
         final var cweID = this.createCWEID(id);
-        parent.getChildren().add(cweID);
+        parent.getChildren()
+            .add(cweID);
         return cweID;
     }
 
@@ -202,57 +227,72 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             final Privileges privileges, final ConfidentialityImpact impact, final boolean takeOver,
             final UsageSpecification gainedAttributes) {
         final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
-        vulnerability.getCweID().add(id);
+        vulnerability.getCweID()
+            .add(id);
         vulnerability.setAttackVector(vector);
         vulnerability.setPrivileges(privileges);
         vulnerability.setConfidentialityImpact(impact);
         vulnerability.setTakeOver(takeOver);
         if (gainedAttributes != null) {
-            vulnerability.getGainedAttributes().add(gainedAttributes);
+            vulnerability.getGainedAttributes()
+                .add(gainedAttributes);
         }
         return vulnerability;
     }
 
     protected CWEVulnerability createCWEVulnerability(final CWEID id, final boolean takeOver,
             final boolean gainRootAccess) {
-        return createCWEVulnerability(id, AttackVector.NETWORK, Privileges.NONE, ConfidentialityImpact.HIGH,
-                takeOver, gainRootAccess ? createRootCredentialsIfNecessary() : null);
+        return this.createCWEVulnerability(id, AttackVector.NETWORK, Privileges.NONE, ConfidentialityImpact.HIGH,
+                takeOver, gainRootAccess ? this.createRootCredentialsIfNecessary() : null);
     }
 
     protected CWEID createSimpleAttack() {
         final var cweID = this.createCWEID(1);
-        final var attack = createCWEAttack(cweID);
-        this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
+        final var attack = this.createCWEAttack(cweID);
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getAttacks()
+            .add(attack);
         return cweID;
     }
 
     protected void integrateRoot(final Entity entity) {
-        final var rootCred = createRootCredentialsIfNecessary();
+        final var rootCred = this.createRootCredentialsIfNecessary();
 
         final var sysInteg = PcmIntegrationFactory.eINSTANCE.createCredentialSystemIntegration();
-        sysInteg.setPcmelement(PCMElementType.typeOf(entity).toPCMElement(entity));
+        sysInteg.setPcmelement(PCMElementType.typeOf(entity)
+            .toPCMElement(entity));
 
         sysInteg.setCredential(rootCred);
-        this.attacker.getSystemintegration().getVulnerabilities().add(sysInteg);
-        this.context.getPolicyset().setCombiningAlgorithm(PolicyCombiningAlgorithm.DENY_UNLESS_PERMIT);
-        this.context.getPolicyset().getPolicy().add(toPolicy(entity, rootCred));
+        this.attacker.getSystemintegration()
+            .getVulnerabilities()
+            .add(sysInteg);
+        this.context.getPolicyset()
+            .setCombiningAlgorithm(PolicyCombiningAlgorithm.DENY_UNLESS_PERMIT);
+        this.context.getPolicyset()
+            .getPolicy()
+            .add(this.toPolicy(entity, rootCred));
     }
 
     private Policy toPolicy(final Entity entity, final UsageSpecification credentials) {
         final var policy = PolicyFactory.eINSTANCE.createPolicy();
-        policy.getRule().add(toRule(entity, credentials));
+        policy.getRule()
+            .add(this.toRule(entity, credentials));
         return policy;
     }
 
-    private Rule toRule(Entity entity, UsageSpecification credentials) {
+    private Rule toRule(final Entity entity, final UsageSpecification credentials) {
         final var rule = PolicyFactory.eINSTANCE.createRule();
         rule.setPermit(PermitType.PERMIT);
         final var allOf = PolicyFactory.eINSTANCE.createAllOf();
         final var entityMatch = StructureFactory.eINSTANCE.createEntityMatch();
         entityMatch.setCategory(Category.RESOURCE);
         entityMatch.setEntity(entity);
-        allOf.getMatch().add(entityMatch);
-        rule.getTarget().add(allOf);
+        allOf.getMatch()
+            .add(entityMatch);
+        rule.getTarget()
+            .add(allOf);
         final var condition = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
         condition.setCategory(Category.SUBJECT);
         condition.setMustBePresent(true);
@@ -268,8 +308,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     protected void assertCompromisationStatus(final boolean isCompromised, final boolean isAttacked,
-            final Entity entity,
-            final String causeId) {
+            final Entity entity, final String causeId) {
 //        final var node = getAttackGraph().findNode(new AttackNodeContent(entity));
 //        if (node != null) {
 //            Assertions.assertEquals(isCompromised, node.isCompromised());
@@ -285,12 +324,13 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         fail();
     }
 
-
     protected ResourceContainer getResource(final List<AssemblyContext> assemblyList) {
-        var assembly = assemblyList.get(0);
-        final var resourceOpt = this.allocation.getAllocationContexts_Allocation().stream()
-                .filter(e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(), assembly))
-                .map(AllocationContext::getResourceContainer_AllocationContext).findAny();
+        final var assembly = assemblyList.get(0);
+        final var resourceOpt = this.allocation.getAllocationContexts_Allocation()
+            .stream()
+            .filter(e -> EcoreUtil.equals(e.getAssemblyContext_AllocationContext(), assembly))
+            .map(AllocationContext::getResourceContainer_AllocationContext)
+            .findAny();
         if (resourceOpt.isEmpty()) {
             fail("Wrong Test Input");
         }
@@ -298,34 +338,40 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     protected List<LinkingResource> getLinkingResource(final ResourceContainer container) {
-        return this.environment.getLinkingResources__ResourceEnvironment().stream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
-                        .anyMatch(f -> EcoreUtil.equals(f, container)))
-                .collect(Collectors.toList());
+        return this.environment.getLinkingResources__ResourceEnvironment()
+            .stream()
+            .filter(e -> e.getConnectedResourceContainers_LinkingResource()
+                .stream()
+                .anyMatch(f -> EcoreUtil.equals(f, container)))
+            .collect(Collectors.toList());
     }
 
     protected List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource) {
-        final var resources = getLinkingResource(resource).stream()
-                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
-                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+        final var resources = this.getLinkingResource(resource)
+            .stream()
+            .flatMap(e -> e.getConnectedResourceContainers_LinkingResource()
+                .stream())
+            .distinct()
+            .filter(e -> !EcoreUtil.equals(e, resource))
+            .collect(Collectors.toList());
         return resources;
     }
 
     protected CredentialChange runAnalysis() {
-        generateXML();
-        final var modelStorage = getBlackboardWrapper();
+        this.generateXML();
+        final var modelStorage = this.getBlackboardWrapper();
         final var analysis = new AttackSurfaceAnalysis();
         analysis.runChangePropagationAnalysis(modelStorage);
-        return this.modification.getChangePropagationSteps().get(0);
+        return this.modification.getChangePropagationSteps()
+            .get(0);
     }
 
     protected CredentialChange runAnalysisWithoutAttackPathGeneration() {
-        return runAnalysis();
+        return this.runAnalysis();
     }
 
 //    protected AttackEdge toEdge(AttackStatusEdgeContent content, Entity attacker, Entity attacked) {
 //        return new AttackEdge(attacker, attacked, null, null);
-
 
 //
 //                AttackStatusEdge(content,
@@ -334,8 +380,7 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 //                        new AttackNodeContent(attacked)));
 //    }
 
-    protected void doDebugSysOutExpectedAndUnexpectedPaths(
-            final Set<AttackPathSurface> expectedPathsSet,
+    protected void doDebugSysOutExpectedAndUnexpectedPaths(final Set<AttackPathSurface> expectedPathsSet,
             final Set<AttackPathSurface> attackPaths) {
         if (IS_DEBUG) {
             attackPaths.forEach(p -> System.out.println(p));

@@ -15,65 +15,65 @@ public class AttackEdgeTest {
 
     @Test
     void equalAssemblyVulnerabilityTest() {
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
 
-        var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
+        final var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
 
         Assertions.assertEquals(edge, edgeCompare);
     }
 
     @Test
     void equalAssemblyVulnerabilityTestWithDifferentVulnerability() {
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var vulnerability1 = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var vulnerability1 = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
         vulnerability1.setId("test");
-        var vulnerability2 = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var vulnerability2 = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
         vulnerability1.setId("test2");
-        var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability1, null);
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability2, null);
+        final var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability1, null);
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability2, null);
 
         Assertions.assertNotEquals(edge, edgeCompare);
     }
 
     @Test
     void nonEqualAssemblyVulnerabilityTestwithSwitchedTargetAndSource() {
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
 
-        var edge = new AttackEdge(assemblyTarget, assemblySource, vulnerability, null);
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
+        final var edge = new AttackEdge(assemblyTarget, assemblySource, vulnerability, null);
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
 
         Assertions.assertNotEquals(edge, edgeCompare);
     }
 
     @Test
     void nonEqualAssemblyVulnerabilityTestwithDifferentTargetandSource() {
-        var assemblySource1 = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget1 = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblySource2 = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget2 = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var assemblySource1 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget1 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblySource2 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget2 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
 
-        var edge = new AttackEdge(assemblySource1, assemblyTarget1, vulnerability, null);
-        var edgeCompare = new AttackEdge(assemblySource2, assemblyTarget2, vulnerability, null);
+        final var edge = new AttackEdge(assemblySource1, assemblyTarget1, vulnerability, null);
+        final var edgeCompare = new AttackEdge(assemblySource2, assemblyTarget2, vulnerability, null);
 
         Assertions.assertNotEquals(edge, edgeCompare);
     }
 
     @Test
     void equalAssemblyVulnerabilityTestwithAttackVector() {
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCVEVulnerability();
 
-        var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null, false,
+        final var edge = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null, false,
                 AttackVector.ADJACENT_NETWORK);
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, vulnerability, null);
 
         Assertions.assertNotEquals(edge, edgeCompare);
     }
@@ -81,13 +81,13 @@ public class AttackEdgeTest {
     @Test
     void equalAssemblyVulnerabilityTestwithCredentials() {
 
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
 
-        var usage = SystemFactory.eINSTANCE.createUsageSpecification();
+        final var usage = SystemFactory.eINSTANCE.createUsageSpecification();
 
-        var edge = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage));
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage));
+        final var edge = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage));
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage));
 
         Assertions.assertTrue(edge.equals(edgeCompare));
     }
@@ -95,16 +95,16 @@ public class AttackEdgeTest {
     @Test
     void notEqualAssemblyVulnerabilityTestwithCredentials() {
 
-        var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblySource = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var assemblyTarget = CompositionFactory.eINSTANCE.createAssemblyContext();
 
-        var usage1 = SystemFactory.eINSTANCE.createUsageSpecification();
+        final var usage1 = SystemFactory.eINSTANCE.createUsageSpecification();
         usage1.setId("test");
-        var usage2 = SystemFactory.eINSTANCE.createUsageSpecification();
+        final var usage2 = SystemFactory.eINSTANCE.createUsageSpecification();
         usage2.setId("test2");
 
-        var edge = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage1));
-        var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage2));
+        final var edge = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage1));
+        final var edgeCompare = new AttackEdge(assemblySource, assemblyTarget, null, List.of(usage2));
 
         Assertions.assertFalse(edge.equals(edgeCompare));
     }

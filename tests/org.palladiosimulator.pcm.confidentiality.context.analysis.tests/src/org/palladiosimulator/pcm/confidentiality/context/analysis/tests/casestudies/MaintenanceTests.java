@@ -1,6 +1,5 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.casestudies;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -25,44 +24,65 @@ public class MaintenanceTests extends MaintenanceBaseTest {
 
     @Test
     void positiveCase() {
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertAllPositive(output);
+        this.assertAllPositive(output);
     }
 
     @Test
     void noContext() {
 
         // removes Machine Context from UsageScenario "Save MachineData"
-        this.context.getPcmspecificationcontainer().getUsagespecification().stream()
-                .filter(specification -> specification.getId().equals("_VeC9YrQJEeyBBMZUdAqcvg")).findAny()
-                .ifPresent(e -> {
-                    e.setAttribute(null);
-                    e.setAttributevalue(null);
-                });
+        this.context.getPcmspecificationcontainer()
+            .getUsagespecification()
+            .stream()
+            .filter(specification -> specification.getId()
+                .equals("_VeC9YrQJEeyBBMZUdAqcvg"))
+            .findAny()
+            .ifPresent(e -> {
+                e.setAttribute(null);
+                e.setAttributevalue(null);
+            });
 
-        generateXML();
+        this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertEquals(4, output.getScenariooutput().size());
+        assertEquals(4, output.getScenariooutput()
+            .size());
 
         // only the "Save MachineData" should fail
-        assertEquals(3, output.getScenariooutput().stream().filter(ScenarioOutput::isPassed).count());
-        final var resultSaveMachineDataOpt = output.getScenariooutput().stream()
-                .filter(e -> "Save MachineData".equals(e.getScenario().getEntityName())).findFirst();
+        assertEquals(3, output.getScenariooutput()
+            .stream()
+            .filter(ScenarioOutput::isPassed)
+            .count());
+        final var resultSaveMachineDataOpt = output.getScenariooutput()
+            .stream()
+            .filter(e -> "Save MachineData".equals(e.getScenario()
+                .getEntityName()))
+            .findFirst();
         assertTrue(resultSaveMachineDataOpt.isPresent());
-        assertFalse(resultSaveMachineDataOpt.get().isPassed());
+        assertFalse(resultSaveMachineDataOpt.get()
+            .isPassed());
 
         /*
          * from the "Save MachineData" should only the initial save operation from the machine
          * should fail
          */
         final var resultSaveMachineData = resultSaveMachineDataOpt.get();
-        assertEquals(2, resultSaveMachineData.getOperationOutput().size());
-        final var machineSaveOpt = resultSaveMachineData.getOperationOutput().stream()
-                .filter(e -> e.getAssemblyContext().get(0).getEntityName().equals("Assembly_MachineComponent"))
-                .filter(e -> e.getOperationsignature().getEntityName().equals("saveLogs")).findAny();
+        assertEquals(2, resultSaveMachineData.getOperationOutput()
+            .size());
+        final var machineSaveOpt = resultSaveMachineData.getOperationOutput()
+            .stream()
+            .filter(e -> e.getAssemblyContext()
+                .get(0)
+                .getEntityName()
+                .equals("Assembly_MachineComponent"))
+            .filter(e -> e.getOperationsignature()
+                .getEntityName()
+                .equals("saveLogs"))
+            .findAny();
         assertTrue(machineSaveOpt.isPresent());
-        assertEquals(DecisionType.DENY, machineSaveOpt.get().getDecision());
+        assertEquals(DecisionType.DENY, machineSaveOpt.get()
+            .getDecision());
 
     }
 

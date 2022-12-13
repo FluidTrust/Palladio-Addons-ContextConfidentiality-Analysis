@@ -15,25 +15,31 @@ import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     private void createPolicies(final UsageSpecification contextSet) {
-        createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment().get(0));
-        createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment().get(1));
-        createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment().get(2));
+        this.createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
+        this.createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(1));
+        this.createPolicyEntity(contextSet, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(2));
 
     }
 
     private void isNoAssemblyResourceChange(final CredentialChange change) {
-        assertTrue(change.getCompromisedassembly().isEmpty());
-        assertTrue(change.getCompromisedresource().isEmpty());
+        assertTrue(change.getCompromisedassembly()
+            .isEmpty());
+        assertTrue(change.getCompromisedresource()
+            .isEmpty());
     }
 
     private void isNoContextChangeNoAssemblyNoResource(final CredentialChange change) {
-        assertTrue(change.getContextchange().isEmpty());
-        isNoAssemblyResourceChange(change);
+        assertTrue(change.getContextchange()
+            .isEmpty());
+        this.isNoAssemblyResourceChange(change);
     }
 
     private void runContextLinkingToResourcePropagation(final CredentialChange change) {
-        generateXML();
-        final var contextChange = new LinkingPropagationContext(getBlackboardWrapper(), change);
+        this.generateXML();
+        final var contextChange = new LinkingPropagationContext(this.getBlackboardWrapper(), change);
         contextChange.calculateLinkingResourceToResourcePropagation();
     }
 
@@ -41,29 +47,45 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagation() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
-        createContextChange(context, change);
+        final var context = this.createContext("Test");
+        this.createContextChange(context, change);
 
         final var linkingChange = this.createLinkingChange(change);
         final var linkingResource = linkingChange.getAffectedElement();
 
-        createPolicies(context);
+        this.createPolicies(context);
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        assertTrue(change.getCompromisedassembly().isEmpty());
-        assertEquals(3, change.getCompromisedresource().size());
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(0))));
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(1))));
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(2))));
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
-        assertEquals(1, change.getCompromisedlinkingresource().size());
-        assertTrue(
-                EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(), linkingResource));
+        assertTrue(change.getCompromisedassembly()
+            .isEmpty());
+        assertEquals(3, change.getCompromisedresource()
+            .size());
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(0))));
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(1))));
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(2))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getContextchange()
+            .get(0)
+            .getAffectedElement(), context));
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource()
+            .get(0)
+            .getAffectedElement(), linkingResource));
         assertTrue(change.isChanged());
 
     }
@@ -71,33 +93,52 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationDuplicate() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
-        createContextChange(context, change);
+        final var context = this.createContext("Test");
+        this.createContextChange(context, change);
 
         final var linkingChange = this.createLinkingChange(change);
         final var linkingResource = linkingChange.getAffectedElement();
 
-        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
-        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(1));
-        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(2));
+        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
+        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(1));
+        this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(2));
 
-        createPolicies(context);
+        this.createPolicies(context);
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        assertTrue(change.getCompromisedassembly().isEmpty());
-        assertEquals(3, change.getCompromisedresource().size());
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(0))));
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(1))));
-        assertTrue(change.getCompromisedresource().stream().anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
-                this.environment.getResourceContainer_ResourceEnvironment().get(2))));
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
-        assertEquals(1, change.getCompromisedlinkingresource().size());
-        assertTrue(
-                EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(), linkingResource));
+        assertTrue(change.getCompromisedassembly()
+            .isEmpty());
+        assertEquals(3, change.getCompromisedresource()
+            .size());
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(0))));
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(1))));
+        assertTrue(change.getCompromisedresource()
+            .stream()
+            .anyMatch(e -> EcoreUtil.equals(e.getAffectedElement(),
+                    this.environment.getResourceContainer_ResourceEnvironment()
+                        .get(2))));
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getContextchange()
+            .get(0)
+            .getAffectedElement(), context));
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource()
+            .get(0)
+            .getAffectedElement(), linkingResource));
         assertFalse(change.isChanged());
 
     }
@@ -106,10 +147,11 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationNoContextNoStartResource() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        isNoContextChangeNoAssemblyNoResource(change);
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
+        this.isNoContextChangeNoAssemblyNoResource(change);
+        assertTrue(change.getCompromisedlinkingresource()
+            .isEmpty());
         assertFalse(change.isChanged());
 
     }
@@ -118,19 +160,21 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationNoOwnedContext() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
         final var linkingChange = this.createLinkingChange(change);
         final var linkingResource = linkingChange.getAffectedElement();
 
-        createPolicies(context);
+        this.createPolicies(context);
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        isNoContextChangeNoAssemblyNoResource(change);
-        assertEquals(1, change.getCompromisedlinkingresource().size());
-        assertTrue(
-                EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(), linkingResource));
+        this.isNoContextChangeNoAssemblyNoResource(change);
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource()
+            .get(0)
+            .getAffectedElement(), linkingResource));
         assertFalse(change.isChanged());
 
     }
@@ -139,13 +183,14 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationNoOwnedContextNoStartResource() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
-        createPolicies(context);
+        final var context = this.createContext("Test");
+        this.createPolicies(context);
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        isNoContextChangeNoAssemblyNoResource(change);
-        assertTrue(change.getCompromisedlinkingresource().isEmpty());
+        this.isNoContextChangeNoAssemblyNoResource(change);
+        assertTrue(change.getCompromisedlinkingresource()
+            .isEmpty());
         assertFalse(change.isChanged());
 
     }
@@ -154,24 +199,29 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationWrongContext() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var contextOwned = createContext("Owned");
-        createContextChange(contextOwned, change);
+        final var contextOwned = this.createContext("Owned");
+        this.createContextChange(contextOwned, change);
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
         final var linkingChange = this.createLinkingChange(change);
         final var linkingResource = linkingChange.getAffectedElement();
 
-        createPolicies(context);
+        this.createPolicies(context);
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        isNoAssemblyResourceChange(change);
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), contextOwned));
-        assertEquals(1, change.getCompromisedlinkingresource().size());
-        assertTrue(
-                EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(), linkingResource));
+        this.isNoAssemblyResourceChange(change);
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getContextchange()
+            .get(0)
+            .getAffectedElement(), contextOwned));
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource()
+            .get(0)
+            .getAffectedElement(), linkingResource));
         assertFalse(change.isChanged());
 
     }
@@ -179,24 +229,31 @@ class PropagationContextLinkingResourceTest extends AbstractChangeTests {
     void testContextLinkingToResourcePropagationWrongStartPoint() {
         final var change = KAMP4attackModificationmarksFactory.eINSTANCE.createCredentialChange();
 
-        final var context = createContext("Test");
+        final var context = this.createContext("Test");
 
-        createContextChange(context, change);
+        this.createContextChange(context, change);
 
         final var linkingChange = this.createLinkingChange(change,
-                this.environment.getLinkingResources__ResourceEnvironment().get(1));
+                this.environment.getLinkingResources__ResourceEnvironment()
+                    .get(1));
         final var linkingResource = linkingChange.getAffectedElement();
 
-        createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        this.createPolicyEntity(context, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
-        runContextLinkingToResourcePropagation(change);
+        this.runContextLinkingToResourcePropagation(change);
 
-        isNoAssemblyResourceChange(change);
-        assertEquals(1, change.getContextchange().size());
-        assertTrue(EcoreUtil.equals(change.getContextchange().get(0).getAffectedElement(), context));
-        assertEquals(1, change.getCompromisedlinkingresource().size());
-        assertTrue(
-                EcoreUtil.equals(change.getCompromisedlinkingresource().get(0).getAffectedElement(), linkingResource));
+        this.isNoAssemblyResourceChange(change);
+        assertEquals(1, change.getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getContextchange()
+            .get(0)
+            .getAffectedElement(), context));
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
+        assertTrue(EcoreUtil.equals(change.getCompromisedlinkingresource()
+            .get(0)
+            .getAffectedElement(), linkingResource));
         assertFalse(change.isChanged());
 
     }

@@ -6,11 +6,9 @@ import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 
 public class AssemblyContextChangeAssemblyContextsStorage extends ModelRelationCache<List<AssemblyContext>> {
 
-
     private static volatile AssemblyContextChangeAssemblyContextsStorage singleton;
 
     private static final Object object = new Object();
-
 
     private AssemblyContextChangeAssemblyContextsStorage() {
     }

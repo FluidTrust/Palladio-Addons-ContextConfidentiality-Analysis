@@ -10,10 +10,10 @@ public class ArchitectureNodeTest {
 
     @Test
     void equalsTest() {
-        var entity = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var entity = CompositionFactory.eINSTANCE.createAssemblyContext();
 
-        var node1 = new ArchitectureNode(entity);
-        var node2 = new ArchitectureNode(entity);
+        final var node1 = new ArchitectureNode(entity);
+        final var node2 = new ArchitectureNode(entity);
 
         Assertions.assertEquals(node1, node2);
 
@@ -21,11 +21,11 @@ public class ArchitectureNodeTest {
 
     @Test
     void notEqualsTest() {
-        var entity1 = CompositionFactory.eINSTANCE.createAssemblyContext();
-        var entity2 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var entity1 = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var entity2 = CompositionFactory.eINSTANCE.createAssemblyContext();
 
-        var node1 = new ArchitectureNode(entity1);
-        var node2 = new ArchitectureNode(entity2);
+        final var node1 = new ArchitectureNode(entity1);
+        final var node2 = new ArchitectureNode(entity2);
 
         Assertions.assertNotEquals(node1, node2);
 
@@ -33,9 +33,9 @@ public class ArchitectureNodeTest {
 
     @Test
     void getEntity() {
-        var entity = CompositionFactory.eINSTANCE.createAssemblyContext();
+        final var entity = CompositionFactory.eINSTANCE.createAssemblyContext();
 
-        var node = new ArchitectureNode(entity);
+        final var node = new ArchitectureNode(entity);
 
         Assertions.assertEquals(entity, node.getEntity());
 

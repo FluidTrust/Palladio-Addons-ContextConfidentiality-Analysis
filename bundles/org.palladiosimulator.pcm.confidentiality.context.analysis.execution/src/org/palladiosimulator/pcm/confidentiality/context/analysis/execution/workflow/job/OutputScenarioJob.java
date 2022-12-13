@@ -30,11 +30,13 @@ public class OutputScenarioJob implements IBlackboardInteractingJob<MDSDBlackboa
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var partition = (OutputPartition) this.blackboard.getPartition(PARTITION_ID_OUTPUT);
-        final var myConsole = findConsole("pcm.confidentiality.context.analysis.launcher.console");
+        final var myConsole = this.findConsole("pcm.confidentiality.context.analysis.launcher.console");
         final var out = myConsole.newMessageStream();
 
-        for (final var result : partition.getAnalysisResults().getScenariooutput()) {
-            out.print(result.getScenario().getEntityName());
+        for (final var result : partition.getAnalysisResults()
+            .getScenariooutput()) {
+            out.print(result.getScenario()
+                .getEntityName());
             out.print(": ");
 //            out.println(Boolean.toString(result.isResult()));
         }

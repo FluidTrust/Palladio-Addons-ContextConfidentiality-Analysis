@@ -24,8 +24,10 @@ public class AttributeProviderHandler {
      * @param attributeProviders
      */
     public AttributeProviderHandler(final List<AttributeProvider> attributeProviders) {
-        this.pcmAttributeProviders = attributeProviders.stream().filter(PCMAttributeProvider.class::isInstance)
-                .map(PCMAttributeProvider.class::cast).toList();
+        this.pcmAttributeProviders = attributeProviders.stream()
+            .filter(PCMAttributeProvider.class::isInstance)
+            .map(PCMAttributeProvider.class::cast)
+            .toList();
     }
 
     /**
@@ -43,8 +45,9 @@ public class AttributeProviderHandler {
             final List<AssemblyContext> assemblyContext) {
 
         return this.pcmAttributeProviders.stream()
-                .filter(provider -> filterMatching(provider, conntector, assemblyContext))
-                .map(PCMAttributeProvider::getAttribute).toList();
+            .filter(provider -> this.filterMatching(provider, conntector, assemblyContext))
+            .map(PCMAttributeProvider::getAttribute)
+            .toList();
     }
 
     private boolean filterMatching(final PCMAttributeProvider provider, final AssemblyConnector connector,
@@ -54,8 +57,9 @@ public class AttributeProviderHandler {
         }
         final var specification = provider.getMethodspecification();
 
-        return specification.getConnector().getId().equals(connector.getId())
-                && checkAssemblyList(assemblyContext, specification.getHierarchy());
+        return specification.getConnector()
+            .getId()
+            .equals(connector.getId()) && this.checkAssemblyList(assemblyContext, specification.getHierarchy());
 
     }
 
@@ -64,7 +68,10 @@ public class AttributeProviderHandler {
             return false;
         }
         for (var i = 0; i < target.size(); i++) {
-            if (!target.get(i).getId().equals(compare.get(i).getId())) {
+            if (!target.get(i)
+                .getId()
+                .equals(compare.get(i)
+                    .getId())) {
                 return false;
             }
         }

@@ -33,9 +33,15 @@ public class SaveAttackerModelJob implements IBlackboardInteractingJob<MDSDBlack
         segments[test.segmentCount() - 1] = "attacker.output.attacker";
         final var testUri = URI.createPlatformResourceURI(segments[1] + "/" + segments[2], true);
 
-        final var resource = partitionOutput.getResourceSet().createResource(testUri);
+        final var resource = partitionOutput.getResourceSet()
+            .createResource(testUri);
         try {
-            resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
+            resource.getContents()
+                .add(partitionOutput.getResourceSet()
+                    .getResources()
+                    .get(0)
+                    .getContents()
+                    .get(0));
             resource.save(Collections.EMPTY_MAP);
         } catch (final IOException e) {
             // TODO Auto-generated catch block

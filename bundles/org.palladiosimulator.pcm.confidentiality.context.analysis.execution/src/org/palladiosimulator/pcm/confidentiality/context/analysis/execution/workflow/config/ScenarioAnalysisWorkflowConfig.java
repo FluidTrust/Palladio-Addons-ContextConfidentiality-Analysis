@@ -18,7 +18,7 @@ public class ScenarioAnalysisWorkflowConfig extends ContextAnalysisWorkflowConfi
     }
 
     @Override
-    public IJob createWorkflowJob(ILaunch launch) {
+    public IJob createWorkflowJob(final ILaunch launch) {
         return new GUIBasedScenarioAnalysisWorkflow(this);
     }
 

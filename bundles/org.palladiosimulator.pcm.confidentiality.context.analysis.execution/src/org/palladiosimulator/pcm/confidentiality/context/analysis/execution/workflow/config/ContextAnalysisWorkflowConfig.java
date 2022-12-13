@@ -51,7 +51,7 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
         return this.outputXACML;
     }
 
-    public void setOutputXACML(URI outputXACML) {
+    public void setOutputXACML(final URI outputXACML) {
         this.outputXACML = outputXACML;
     }
 
@@ -66,6 +66,6 @@ public abstract class ContextAnalysisWorkflowConfig extends AbstractWorkflowBase
         // TODO Auto-generated method stub
 
     }
-    
+
     public abstract IJob createWorkflowJob(final ILaunch launch);
 }

@@ -25,16 +25,21 @@ public class XACMLGenerator implements XACMLGeneration {
             final ConfidentialAccessSpecification confidentialitySpecification, final String path) {
         // set root policyset with description
         final var set = this.setHandler.transform(confidentialitySpecification.getPolicyset());
-        set.setDescription("Policies for " + pcm.getSystem().getEntityName()
-                + ". Automatically created by Palladio-XACML-Integration");
+        set.setDescription("Policies for " + pcm.getSystem()
+            .getEntityName() + ". Automatically created by Palladio-XACML-Integration");
 
         // create child policy sets
         final var factory = new ObjectFactory();
         if (confidentialitySpecification.getPolicyset() != null) {
-            final var listChildSets = confidentialitySpecification.getPolicyset().getPolicyset().stream()
-                    .map(this.setHandler::transform).map(factory::createPolicySet).collect(Collectors.toList());
+            final var listChildSets = confidentialitySpecification.getPolicyset()
+                .getPolicyset()
+                .stream()
+                .map(this.setHandler::transform)
+                .map(factory::createPolicySet)
+                .collect(Collectors.toList());
 
-            set.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listChildSets);
+            set.getPolicySetOrPolicyOrPolicySetIdReference()
+                .addAll(listChildSets);
         }
 
         final var objectFactory = new ObjectFactory();

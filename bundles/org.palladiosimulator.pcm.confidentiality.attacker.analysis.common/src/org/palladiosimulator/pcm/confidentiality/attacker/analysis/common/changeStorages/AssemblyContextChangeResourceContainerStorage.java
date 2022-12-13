@@ -7,7 +7,6 @@ public class AssemblyContextChangeResourceContainerStorage extends ModelRelation
 
     private static volatile AssemblyContextChangeResourceContainerStorage singleton;
 
-
     private AssemblyContextChangeResourceContainerStorage() {
     }
 
@@ -23,6 +22,5 @@ public class AssemblyContextChangeResourceContainerStorage extends ModelRelation
 
         return singleton;
     }
-
 
 }

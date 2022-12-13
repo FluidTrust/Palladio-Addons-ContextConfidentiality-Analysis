@@ -36,55 +36,70 @@ public class CredentialValidator implements PathValidator<ArchitectureNode, Atta
     private final BlackboardWrapper modelStorage;
     private final List<UsageSpecification> initialBlockedCredentials;
 
-    public CredentialValidator(BlackboardWrapper modelStorage) {
+    public CredentialValidator(final BlackboardWrapper modelStorage) {
         this.modelStorage = modelStorage;
         this.initialBlockedCredentials = Collections
-                .unmodifiableList(AttackHandlingHelper.filteredCredentials(modelStorage));
+            .unmodifiableList(AttackHandlingHelper.filteredCredentials(modelStorage));
     }
 
     @Override
-    public boolean isValidPath(GraphPath<ArchitectureNode, AttackEdge> graph, AttackEdge newEdge) {
-        var initialCredentials = graph.getVertexList().stream().map(ArchitectureNode::getEntity)
-                .flatMap(this::attributeProvider);
-        var gainedCredentialsVulnerability = graph.getEdgeList().stream().filter(e -> e.getCause() != null)
-                .map(AttackEdge::getCause).flatMap(e -> e.getGainedAttributes().stream());
+    public boolean isValidPath(final GraphPath<ArchitectureNode, AttackEdge> graph, final AttackEdge newEdge) {
+        final var initialCredentials = graph.getVertexList()
+            .stream()
+            .map(ArchitectureNode::getEntity)
+            .flatMap(this::attributeProvider);
+        final var gainedCredentialsVulnerability = graph.getEdgeList()
+            .stream()
+            .filter(e -> e.getCause() != null)
+            .map(AttackEdge::getCause)
+            .flatMap(e -> e.getGainedAttributes()
+                .stream());
 
-        var gainedCredentialList = Stream.concat(initialCredentials, gainedCredentialsVulnerability).toList();
-        return !credentialCheck(newEdge, gainedCredentialList);
+        final var gainedCredentialList = Stream.concat(initialCredentials, gainedCredentialsVulnerability)
+            .toList();
+        return !this.credentialCheck(newEdge, gainedCredentialList);
 
     }
 
-    private boolean credentialCheck(AttackEdge edge, List<UsageSpecification> credentials) {
-        if (edge.getCredentials() == null || edge.getCredentials().isEmpty()) {
+    private boolean credentialCheck(final AttackEdge edge, final List<UsageSpecification> credentials) {
+        if (edge.getCredentials() == null || edge.getCredentials()
+            .isEmpty()) {
             return false;
         }
-        var blocked = edge.getCredentials().stream()
-                .filter(e -> this.initialBlockedCredentials.stream()
-                        .anyMatch(cred -> EcoreUtil.equals(cred.getAttribute(), e.getAttribute())
-                                && EcoreUtil.equals(e.getAttributevalue(), cred.getAttributevalue())))
-                .toList();
-        return !blocked.stream().allMatch(
-                e -> credentials.stream().anyMatch(cred -> EcoreUtil.equals(cred.getAttribute(), e.getAttribute())
+        final var blocked = edge.getCredentials()
+            .stream()
+            .filter(e -> this.initialBlockedCredentials.stream()
+                .anyMatch(cred -> EcoreUtil.equals(cred.getAttribute(), e.getAttribute())
+                        && EcoreUtil.equals(e.getAttributevalue(), cred.getAttributevalue())))
+            .toList();
+        return !blocked.stream()
+            .allMatch(e -> credentials.stream()
+                .anyMatch(cred -> EcoreUtil.equals(cred.getAttribute(), e.getAttribute())
                         && EcoreUtil.equals(e.getAttributevalue(), cred.getAttributevalue())));
     }
 
-    private Stream<UsageSpecification> attributeProvider(Entity entity) {
-        return this.modelStorage.getSpecification().getAttributeprovider().stream()
-                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast).filter(e -> {
-                    if (entity instanceof AssemblyContext) {
-                        return EcoreUtil.equals(e.getAssemblycontext(), entity);
-                    }
-                    if (entity instanceof LinkingResource) {
-                        return EcoreUtil.equals(e.getLinkingresource(), entity);
-                    }
-                    if (entity instanceof ResourceContainer) {
-                        return EcoreUtil.equals(e.getResourcecontainer(), entity);
-                    }
-                    if (entity instanceof MethodSpecification) {
-                        return EcoreUtil.equals(e.getMethodspecification(), entity);
-                    }
-                    return false;
-                }).map(PCMAttributeProvider::getAttribute);
+    private Stream<UsageSpecification> attributeProvider(final Entity entity) {
+        return this.modelStorage.getSpecification()
+            .getAttributeprovider()
+            .stream()
+            .filter(PCMAttributeProvider.class::isInstance)
+            .map(PCMAttributeProvider.class::cast)
+            .filter(e -> {
+                if (entity instanceof AssemblyContext) {
+                    return EcoreUtil.equals(e.getAssemblycontext(), entity);
+                }
+                if (entity instanceof LinkingResource) {
+                    return EcoreUtil.equals(e.getLinkingresource(), entity);
+                }
+                if (entity instanceof ResourceContainer) {
+                    return EcoreUtil.equals(e.getResourcecontainer(), entity);
+                }
+                if (entity instanceof MethodSpecification) {
+                    return EcoreUtil.equals(e.getMethodspecification(), entity);
+                }
+                return false;
+            })
+            .map(PCMAttributeProvider::getAttribute);
     }
 
 }

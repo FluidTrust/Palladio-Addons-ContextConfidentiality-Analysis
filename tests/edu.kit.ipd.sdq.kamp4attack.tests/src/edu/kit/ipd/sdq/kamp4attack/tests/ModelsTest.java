@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -29,8 +28,8 @@ class ModelsTest extends AbstractModelTest {
 
     @BeforeEach
     protected void execute() {
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
+        this.generateXML();
+        final var wrapper = this.getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
 
@@ -39,9 +38,15 @@ class ModelsTest extends AbstractModelTest {
         final var steps = this.modification.getChangePropagationSteps();
 
         assertEquals(1, steps.size());
-        assertEquals(1, steps.get(0).getCompromisedassembly().size());
-        assertEquals(1, steps.get(0).getCompromisedresource().size());
-        assertEquals(2, steps.get(0).getContextchange().size());
+        assertEquals(1, steps.get(0)
+            .getCompromisedassembly()
+            .size());
+        assertEquals(1, steps.get(0)
+            .getCompromisedresource()
+            .size());
+        assertEquals(2, steps.get(0)
+            .getContextchange()
+            .size());
     }
 
     @Test
@@ -49,28 +54,42 @@ class ModelsTest extends AbstractModelTest {
 
         final var steps = this.modification.getChangePropagationSteps();
 
-        assertTrue(steps.stream().allMatch(CredentialChange.class::isInstance));
+        assertTrue(steps.stream()
+            .allMatch(CredentialChange.class::isInstance));
     }
 
     @Test
     void testCorrectReturnValues() {
         final var steps = this.modification.getChangePropagationSteps();
 
-        final var resource = steps.get(0).getCompromisedresource().get(0).getAffectedElement();
-        final var assembly = steps.get(0).getCompromisedassembly().get(0).getAffectedElement();
+        final var resource = steps.get(0)
+            .getCompromisedresource()
+            .get(0)
+            .getAffectedElement();
+        final var assembly = steps.get(0)
+            .getCompromisedassembly()
+            .get(0)
+            .getAffectedElement();
 
-        final var contexts = steps.get(0).getContextchange().stream()
-                .map(ContextChange::getAffectedElement).collect(Collectors.toList());
+        final var contexts = steps.get(0)
+            .getContextchange()
+            .stream()
+            .map(ContextChange::getAffectedElement)
+            .collect(Collectors.toList());
         assertEquals("_Fg8BQe2_Eeq6pfPMAIqEqg", resource.getId());
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
 
         final var context0 = contexts.get(0);
         final var context1 = contexts.get(1);
 
-        assertTrue((context0.getId().equals("_sKKUUe4ZEeu1msiU_4h_hw")
-                && context1.getId().equals("_0SaqUe4YEeu1msiU_4h_hw"))
-                || (context1.getId().equals("_sKKUUe4ZEeu1msiU_4h_hw")
-                        && context0.getId().equals("_0SaqUe4YEeu1msiU_4h_hw")));
+        assertTrue((context0.getId()
+            .equals("_sKKUUe4ZEeu1msiU_4h_hw")
+                && context1.getId()
+                    .equals("_0SaqUe4YEeu1msiU_4h_hw"))
+                || (context1.getId()
+                    .equals("_sKKUUe4ZEeu1msiU_4h_hw")
+                        && context0.getId()
+                            .equals("_0SaqUe4YEeu1msiU_4h_hw")));
 
     }
 

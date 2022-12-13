@@ -19,20 +19,19 @@ import de.uka.ipd.sdq.workflow.jobs.JobFailedException;
 import de.uka.ipd.sdq.workflow.jobs.UserCanceledException;
 import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 import edu.kit.ipd.sdq.attacksurface.core.AttackSurfaceAnalysis;
-import edu.kit.ipd.sdq.kamp4attack.core.AttackPropagationAnalysis;
 import edu.kit.ipd.sdq.kamp4attack.core.api.BlackboardWrapper;
 
 /**
- * Job specification to launch an "attack surface" analysis. Before using the models should be loaded into
- * the corresponding MDSDBlackboard
+ * Job specification to launch an "attack surface" analysis. Before using the models should be
+ * loaded into the corresponding MDSDBlackboard
  *
  * @author majuwa
  * @author ugnwq
  */
 public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDBlackboard> {
     private MDSDBlackboard blackboard;
-    
-    private static final String TEST_XACML = "test.xacml"; //TODO later
+
+    private static final String TEST_XACML = "test.xacml"; // TODO later
 
     public AttackSurfaceAnalysisJob(final ContextAnalysisWorkflowConfig config) {
 
@@ -41,35 +40,42 @@ public class AttackSurfaceAnalysisJob implements IBlackboardInteractingJob<MDSDB
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
         final var modificationPartition = ((ModificationMarkPartition) this.blackboard
-                .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
+            .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
         final var system = pcmPartition.getSystem();
         final var environment = pcmPartition.getResourceEnvironment();
         final var allocation = pcmPartition.getAllocation();
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
-        final var specification = contextPartition.getContextSpecification().getPcmspecificationcontainer();
+        final var specification = contextPartition.getContextSpecification()
+            .getPcmspecificationcontainer();
         final var attackPartition = (AttackPartition) this.blackboard.getPartition(PARTITION_ID_ATTACK);
-        final var vulnerabilitySpecification = attackPartition.getAttackSpecification().getSystemintegration();
+        final var vulnerabilitySpecification = attackPartition.getAttackSpecification()
+            .getSystemintegration();
 
-        /*final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
-                pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
-                pcmPartition.getResourceEnvironment());
-
-        Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
-        		TEST_XACML);
-        Activator.getInstance().getEvaluate().initialize(TEST_XACML);*/ //TODO later
+        /*
+         * final var pcmXACML = new
+         * org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
+         * pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
+         * pcmPartition.getResourceEnvironment());
+         * 
+         * Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML,
+         * contextPartition.getContextSpecification(), TEST_XACML);
+         * Activator.getInstance().getEvaluate().initialize(TEST_XACML);
+         */ // TODO later
         final var wrapper = new BlackboardWrapper(modificationPartition, system, environment, allocation, specification,
-                vulnerabilitySpecification, Activator.getInstance().getEvaluate());
+                vulnerabilitySpecification, Activator.getInstance()
+                    .getEvaluate());
 
-        final var propagation = new AttackSurfaceAnalysis(); //TODO later inject // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
+        final var propagation = new AttackSurfaceAnalysis(); // TODO later inject //
+                                                             // org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
         propagation.runChangePropagationAnalysis(wrapper);
-        //Activator.getInstance().getEvaluate().shutdown(); //TODO later
+        // Activator.getInstance().getEvaluate().shutdown(); //TODO later
     }
 
     @Override
     public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
         // TODO Provide clean up Operations
-    	// TODO cleanup xacml in the end and save it (per configuration)
+        // TODO cleanup xacml in the end and save it (per configuration)
     }
 
     @Override

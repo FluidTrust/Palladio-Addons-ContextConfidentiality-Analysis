@@ -9,7 +9,6 @@ public class ResourceContainerChangeAssemblyContextsStorage extends ModelRelatio
 
     private static volatile ResourceContainerChangeAssemblyContextsStorage singleton;
 
-
     private ResourceContainerChangeAssemblyContextsStorage() {
     }
 

@@ -43,26 +43,31 @@ public class CollectionHelper {
      */
     public static List<AssemblyContext> getAssemblyContext(final List<ResourceContainer> resources,
             final Allocation allocation) {
-        return allocation.getAllocationContexts_Allocation().stream()
-                .filter(container -> searchResource(container.getResourceContainer_AllocationContext(), resources))
-                .map(AllocationContext::getAssemblyContext_AllocationContext).distinct().collect(Collectors.toList());
+        return allocation.getAllocationContexts_Allocation()
+            .stream()
+            .filter(container -> searchResource(container.getResourceContainer_AllocationContext(), resources))
+            .map(AllocationContext::getAssemblyContext_AllocationContext)
+            .distinct()
+            .collect(Collectors.toList());
 
     }
 
     public static List<ServiceSpecification> getProvidedRestrictions(final List<AssemblyContext> components) {
 
-        return components.stream().flatMap(component -> CollectionHelper.getProvidedRestrictions(component).stream())
-                .collect(Collectors.toList());
+        return components.stream()
+            .flatMap(component -> CollectionHelper.getProvidedRestrictions(component)
+                .stream())
+            .collect(Collectors.toList());
     }
 
-    public static List<ServiceSpecification> getProvidedRestrictions(AssemblyContext component) {
-        var listRestriction = new ArrayList<ServiceSpecification>();
+    public static List<ServiceSpecification> getProvidedRestrictions(final AssemblyContext component) {
+        final var listRestriction = new ArrayList<ServiceSpecification>();
 
-        var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
+        final var repoComponent = component.getEncapsulatedComponent__AssemblyContext();
         if (repoComponent instanceof BasicComponent) {
-            for (var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
+            for (final var seff : ((BasicComponent) repoComponent).getServiceEffectSpecifications__BasicComponent()) {
                 if (seff instanceof ResourceDemandingSEFF) {
-                    var specification = StructureFactory.eINSTANCE.createServiceSpecification();
+                    final var specification = StructureFactory.eINSTANCE.createServiceSpecification();
                     specification.setAssemblycontext(component);
                     specification.setService((ResourceDemandingSEFF) seff);
                     specification.setSignature(seff.getDescribedService__SEFF());
@@ -77,21 +82,27 @@ public class CollectionHelper {
 
     public static List<CompromisedService> filterExistingService(final List<CompromisedService> services,
             final CredentialChange change) {
-        return services.stream().filter(service -> !containsService(service, change)).collect(Collectors.toList());
+        return services.stream()
+            .filter(service -> !containsService(service, change))
+            .collect(Collectors.toList());
 
     }
 
-    public static ServiceSpecification findOrCreateServiceSpecification(ServiceSpecification service,
-            AttackerSystemSpecificationContainer attackerSpecification, CredentialChange change) {
-        var listMethodSpecification = attackerSpecification.getVulnerabilities().stream()
-                .filter(VulnerabilitySystemIntegration.class::isInstance)
-                .map(VulnerabilitySystemIntegration.class::cast)
-                .filter(e -> e.getPcmelement().getMethodspecification() != null)
-                .map(VulnerabilitySystemIntegration::getPcmelement).map(PCMElement::getMethodspecification)
-                .filter(ServiceSpecification.class::isInstance).map(ServiceSpecification.class::cast)
-                .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
-                        && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
-                .findAny();
+    public static ServiceSpecification findOrCreateServiceSpecification(final ServiceSpecification service,
+            final AttackerSystemSpecificationContainer attackerSpecification, final CredentialChange change) {
+        var listMethodSpecification = attackerSpecification.getVulnerabilities()
+            .stream()
+            .filter(VulnerabilitySystemIntegration.class::isInstance)
+            .map(VulnerabilitySystemIntegration.class::cast)
+            .filter(e -> e.getPcmelement()
+                .getMethodspecification() != null)
+            .map(VulnerabilitySystemIntegration::getPcmelement)
+            .map(PCMElement::getMethodspecification)
+            .filter(ServiceSpecification.class::isInstance)
+            .map(ServiceSpecification.class::cast)
+            .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
+                    && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
+            .findAny();
 
         if (listMethodSpecification.isPresent()) {
             return listMethodSpecification.get();
@@ -102,22 +113,26 @@ public class CollectionHelper {
                     KAMP4attackModificationmarksFactory.eINSTANCE.createServiceRestrictionContainer());
         }
 
-        listMethodSpecification = change.getServicerestrictioncontainer().getServicerestriction().stream()
-                .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
-                        && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
-                .findAny();
+        listMethodSpecification = change.getServicerestrictioncontainer()
+            .getServicerestriction()
+            .stream()
+            .filter(e -> EcoreUtil.equals(e.getService(), service.getService())
+                    && EcoreUtil.equals(e.getAssemblycontext(), service.getAssemblycontext()))
+            .findAny();
 
         if (listMethodSpecification.isPresent()) {
             return listMethodSpecification.get();
         } else {
-            change.getServicerestrictioncontainer().getServicerestriction().add(service);
+            change.getServicerestrictioncontainer()
+                .getServicerestriction()
+                .add(service);
             return service;
         }
 
     }
 
     public static void addService(final Collection<CompromisedAssembly> compromisedAssemblies,
-            AttackerSystemSpecificationContainer container, final CredentialChange change) {
+            final AttackerSystemSpecificationContainer container, final CredentialChange change) {
 
         for (final var component : compromisedAssemblies) {
             final var serviceRestrictions = CollectionHelper.getProvidedRestrictions(component.getAffectedElement());
@@ -125,30 +140,37 @@ public class CollectionHelper {
             final var causingElement = new ArrayList<AssemblyContext>();
             causingElement.add(component.getAffectedElement());
 
-            var serviceRestrictionsCompromised = serviceRestrictions.stream().map(service -> {
-                var serviceModel = CollectionHelper.findOrCreateServiceSpecification(service, container, change);
-                return HelperCreationCompromisedElements.createCompromisedService(serviceModel, causingElement);
-            }).collect(Collectors.toList());
+            var serviceRestrictionsCompromised = serviceRestrictions.stream()
+                .map(service -> {
+                    final var serviceModel = CollectionHelper.findOrCreateServiceSpecification(service, container,
+                            change);
+                    return HelperCreationCompromisedElements.createCompromisedService(serviceModel, causingElement);
+                })
+                .collect(Collectors.toList());
 
             serviceRestrictionsCompromised = CollectionHelper.filterExistingService(serviceRestrictionsCompromised,
                     change);
-            change.getCompromisedservice().addAll(serviceRestrictionsCompromised);
+            change.getCompromisedservice()
+                .addAll(serviceRestrictionsCompromised);
         }
 
     }
 
-    public static boolean isGlobalCommunication(AssemblyContext component, List<SystemIntegration> list) {
-        var storage = AssemblyContextChangeIsGlobalStorage.getInstance();
+    public static boolean isGlobalCommunication(final AssemblyContext component, final List<SystemIntegration> list) {
+        final var storage = AssemblyContextChangeIsGlobalStorage.getInstance();
 
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(component.getId())) {
 
             // TODO adapt get(0) for list comparision
-            var globalElement = list.stream()
-                    .filter(systemelement -> !systemelement.getPcmelement().getAssemblycontext().isEmpty())
-                    .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement().getAssemblycontext().get(0),
-                            component))
-                    .noneMatch(NonGlobalCommunication.class::isInstance);
+            final var globalElement = list.stream()
+                .filter(systemelement -> !systemelement.getPcmelement()
+                    .getAssemblycontext()
+                    .isEmpty())
+                .filter(systemElement -> EcoreUtil.equals(systemElement.getPcmelement()
+                    .getAssemblycontext()
+                    .get(0), component))
+                .noneMatch(NonGlobalCommunication.class::isInstance);
             storage.put(component.getId(), globalElement);
         }
 
@@ -156,8 +178,10 @@ public class CollectionHelper {
     }
 
     private static boolean containsService(final CompromisedService service, final CredentialChange change) {
-        return change.getCompromisedservice().stream().anyMatch(referenceComponent -> EcoreUtil
-                .equals(referenceComponent.getAffectedElement(), service.getAffectedElement()));
+        return change.getCompromisedservice()
+            .stream()
+            .anyMatch(referenceComponent -> EcoreUtil.equals(referenceComponent.getAffectedElement(),
+                    service.getAffectedElement()));
     }
 
     @SuppressWarnings("unchecked")
@@ -167,7 +191,8 @@ public class CollectionHelper {
 
     private static boolean searchResource(final ResourceContainer targetContainer,
             final List<ResourceContainer> listContainer) {
-        return listContainer.stream().anyMatch(container -> EcoreUtil.equals(container, targetContainer));
+        return listContainer.stream()
+            .anyMatch(container -> EcoreUtil.equals(container, targetContainer));
     }
 
 }

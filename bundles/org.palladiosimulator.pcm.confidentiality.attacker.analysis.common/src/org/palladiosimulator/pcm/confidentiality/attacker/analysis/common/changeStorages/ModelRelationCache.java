@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.concurrent.locks.StampedLock;
 
 public abstract class ModelRelationCache<T> {
-    private StampedLock lock = new StampedLock();
+    private final StampedLock lock = new StampedLock();
 
-    private HashMap<String, T> modelRelationMap;
+    private final HashMap<String, T> modelRelationMap;
 
     protected ModelRelationCache() {
         this.modelRelationMap = new HashMap<>();
     }
 
     public void reset() {
-        var stamp = this.lock.writeLock();
+        final var stamp = this.lock.writeLock();
         try {
             this.modelRelationMap.clear();
         } finally {
@@ -21,8 +21,8 @@ public abstract class ModelRelationCache<T> {
         }
     }
 
-    public void put(String key, T value) {
-        var stamp = this.lock.writeLock();
+    public void put(final String key, final T value) {
+        final var stamp = this.lock.writeLock();
         try {
             this.modelRelationMap.computeIfAbsent(key, e -> value);
         } finally {
@@ -30,7 +30,7 @@ public abstract class ModelRelationCache<T> {
         }
     }
 
-    public T get(String key) {
+    public T get(final String key) {
         var stamp = this.lock.tryOptimisticRead();
 
         var value = this.modelRelationMap.get(key);
@@ -45,7 +45,7 @@ public abstract class ModelRelationCache<T> {
         return value;
     }
 
-    public boolean contains(String key) {
+    public boolean contains(final String key) {
         var stamp = this.lock.tryOptimisticRead();
 
         var value = this.modelRelationMap.containsKey(key);

@@ -20,8 +20,10 @@ public interface AttackPathFinder {
      * Finds all possible attack paths in the graph. <br />
      * Additionally, paths with initially necessary credentials.
      *
-     * @param modelStorage   - the model storage
-     * @param changes - the changes
+     * @param modelStorage
+     *            - the model storage
+     * @param changes
+     *            - the changes
      * @return all possible attack paths
      */
     List<AttackPathSurface> findAttackPaths(BlackboardWrapper board,

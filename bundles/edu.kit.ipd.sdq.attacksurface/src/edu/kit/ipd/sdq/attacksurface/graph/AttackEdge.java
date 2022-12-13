@@ -61,6 +61,7 @@ public class AttackEdge {
         this.implicit = implicit;
         this.vector = vector;
     }
+
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -72,11 +73,11 @@ public class AttackEdge {
         final var other = (AttackEdge) obj;
 
         if (this.cause == null && other.cause == null) {
-            return checkComparision(other);
+            return this.checkComparision(other);
         }
 
         else if (this.cause != null && other.cause != null) {
-            return Objects.equals(this.cause.getId(), other.cause.getId()) && checkComparision(other);
+            return Objects.equals(this.cause.getId(), other.cause.getId()) && this.checkComparision(other);
 
         }
         return false;
@@ -121,11 +122,13 @@ public class AttackEdge {
     @Override
     public String toString() {
         if (this.cause == null) {
-            return "AttackEdge [content="
-                    + this.credentials.stream()
-                            .map(e -> e.getAttribute().getEntityName() + e.getAttributevalue().getValues())
-                            .collect(Collectors.joining(","))
-                    + ", " + this.root.getEntityName() + " -> " + this.target.getEntityName() + "]";
+            return "AttackEdge [content=" + this.credentials.stream()
+                .map(e -> e.getAttribute()
+                    .getEntityName()
+                        + e.getAttributevalue()
+                            .getValues())
+                .collect(Collectors.joining(",")) + ", " + this.root.getEntityName() + " -> "
+                    + this.target.getEntityName() + "]";
         }
         return "AttackEdge [content=" + this.cause + ", " + this.root.getEntityName() + " -> "
                 + this.target.getEntityName() + "]";
@@ -134,7 +137,8 @@ public class AttackEdge {
     private boolean checkComparision(final AttackEdge other) {
         return EcoreUtil.equals(this.credentials, other.credentials) && this.implicit == other.implicit
                 && Objects.equals(this.vector, other.vector) && Objects.equals(this.root.getId(), other.root.getId())
-                && Objects.equals(this.target.getId(), other.getTarget().getId());
+                && Objects.equals(this.target.getId(), other.getTarget()
+                    .getId());
     }
 
 }

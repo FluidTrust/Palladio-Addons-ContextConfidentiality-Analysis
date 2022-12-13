@@ -16,83 +16,113 @@ public class GraphLinkingResourceTest extends AttackGraphCreationTest {
     @Test
     void testLinking2ResourceCredentials() {
 
-        getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
+        this.getBlackboardWrapper()
+            .getVulnerabilitySpecification()
+            .getVulnerabilities()
+            .clear();
 
-        resetVulnerabilityCache();
-        var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
+        this.resetVulnerabilityCache();
+        final var graphCreation = new AttackGraphCreation(this.getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();
 
-        var graph = graphCreation.getGraph();
+        final var graph = graphCreation.getGraph();
 
-        var resourceContainer = getFirstEntityByName("Critical Resource Container");
-        var linkingResource = getFirstEntityByName("LinkingResource1");
+        final var resourceContainer = this.getFirstEntityByName("Critical Resource Container");
+        final var linkingResource = this.getFirstEntityByName("LinkingResource1");
 
         // correct amount of nodes and edges
-        Assertions.assertEquals(2, graph.nodes().size());
-        Assertions.assertEquals(1, graph.edges().size());
+        Assertions.assertEquals(2, graph.nodes()
+            .size());
+        Assertions.assertEquals(1, graph.edges()
+            .size());
 
         // correct nodes and edges
-        Assertions.assertTrue(graph.nodes().contains(new ArchitectureNode(resourceContainer)));
-        Assertions.assertTrue(graph.nodes().contains(new ArchitectureNode(linkingResource)));
+        Assertions.assertTrue(graph.nodes()
+            .contains(new ArchitectureNode(resourceContainer)));
+        Assertions.assertTrue(graph.nodes()
+            .contains(new ArchitectureNode(linkingResource)));
 
-        var edge = new AttackEdge(linkingResource, resourceContainer, null, List.of(getFirstByName("root usage spec")));
+        final var edge = new AttackEdge(linkingResource, resourceContainer, null,
+                List.of(this.getFirstByName("root usage spec")));
 
         graph.edges();
-        Assertions.assertTrue(graph.edges().contains(edge));
+        Assertions.assertTrue(graph.edges()
+            .contains(edge));
 
     }
 
     @Test
     void testLinking2ResourceNoEdge() {
-        this.context.getPolicyset().getPolicy().clear();
-        this.context.getPolicyset().getPolicyset().clear();
-        getBlackboardWrapper().getVulnerabilitySpecification().getVulnerabilities().clear();
+        this.context.getPolicyset()
+            .getPolicy()
+            .clear();
+        this.context.getPolicyset()
+            .getPolicyset()
+            .clear();
+        this.getBlackboardWrapper()
+            .getVulnerabilitySpecification()
+            .getVulnerabilities()
+            .clear();
 
-        resetVulnerabilityCache();
-        var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
+        this.resetVulnerabilityCache();
+        final var graphCreation = new AttackGraphCreation(this.getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();
 
-        var graph = graphCreation.getGraph();
+        final var graph = graphCreation.getGraph();
 
         // correct amount of nodes and edges
-        Assertions.assertEquals(0, graph.nodes().size());
-        Assertions.assertEquals(0, graph.edges().size());
+        Assertions.assertEquals(0, graph.nodes()
+            .size());
+        Assertions.assertEquals(0, graph.edges()
+            .size());
     }
 
     @Test
     void testLinking2ResourceVulnerability() {
-        this.context.getPolicyset().getPolicy().clear();
-        this.context.getPolicyset().getPolicyset().clear();
+        this.context.getPolicyset()
+            .getPolicy()
+            .clear();
+        this.context.getPolicyset()
+            .getPolicyset()
+            .clear();
 
-        var resourceContainer = getFirstEntityByName("Critical Resource Container");
-        var linkingResource = getFirstEntityByName("LinkingResource1");
+        final var resourceContainer = this.getFirstEntityByName("Critical Resource Container");
+        final var linkingResource = this.getFirstEntityByName("LinkingResource1");
 
-        var integration = (VulnerabilitySystemIntegration) getFirstEntityByName(
-                "Critical Test Vulnerability Integration");
-        integration.getPcmelement().getAssemblycontext().clear();
-        integration.getPcmelement().setResourcecontainer((ResourceContainer) resourceContainer);
+        final var integration = (VulnerabilitySystemIntegration) this
+            .getFirstEntityByName("Critical Test Vulnerability Integration");
+        integration.getPcmelement()
+            .getAssemblycontext()
+            .clear();
+        integration.getPcmelement()
+            .setResourcecontainer((ResourceContainer) resourceContainer);
 
-        resetVulnerabilityCache();
-        var graphCreation = new AttackGraphCreation(getBlackboardWrapper());
+        this.resetVulnerabilityCache();
+        final var graphCreation = new AttackGraphCreation(this.getBlackboardWrapper());
 
         graphCreation.calculateLinkingResourceToResourcePropagation();
 
-        var graph = graphCreation.getGraph();
+        final var graph = graphCreation.getGraph();
 
         // correct amount of nodes and edges
-        Assertions.assertEquals(2, graph.nodes().size());
-        Assertions.assertEquals(1, graph.edges().size());
+        Assertions.assertEquals(2, graph.nodes()
+            .size());
+        Assertions.assertEquals(1, graph.edges()
+            .size());
 
         // correct nodes and edges
-        Assertions.assertTrue(graph.nodes().contains(new ArchitectureNode(resourceContainer)));
-        Assertions.assertTrue(graph.nodes().contains(new ArchitectureNode(linkingResource)));
+        Assertions.assertTrue(graph.nodes()
+            .contains(new ArchitectureNode(resourceContainer)));
+        Assertions.assertTrue(graph.nodes()
+            .contains(new ArchitectureNode(linkingResource)));
 
-        var edge = new AttackEdge(linkingResource, resourceContainer, integration.getVulnerability(), null);
+        final var edge = new AttackEdge(linkingResource, resourceContainer, integration.getVulnerability(), null);
 
         graph.edges();
-        Assertions.assertTrue(graph.edges().contains(edge));
+        Assertions.assertTrue(graph.edges()
+            .contains(edge));
 
     }
 

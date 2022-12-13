@@ -15,6 +15,4 @@ public abstract class AttackGraphCreationTest extends AbstractChangeTests {
         this.PATH_RESOURCES = "simpleAttackmodels-surface/DesignOverviewDiaModel/My.resourceenvironment";
     }
 
-
-
 }

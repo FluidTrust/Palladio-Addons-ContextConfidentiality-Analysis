@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.tests.casestudies.travelplanner;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -31,13 +30,15 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
 
     @Test
     void defaultCase() {
-        runAnalysis();
+        this.runAnalysis();
     }
 
     protected CredentialChange getCredentials() {
-        assertEquals(1, this.modification.getChangePropagationSteps().size());
+        assertEquals(1, this.modification.getChangePropagationSteps()
+            .size());
 
-        var change = this.modification.getChangePropagationSteps().get(0);
+        final var change = this.modification.getChangePropagationSteps()
+            .get(0);
 
         assertTrue(change instanceof CredentialChange);
 
@@ -45,52 +46,65 @@ public abstract class TravelPlannerCaseStudy extends AbstractChangeTests {
 
     }
 
-    protected boolean checkAssembly(CredentialChange change) {
-        return change.getCompromisedassembly().stream().map(CompromisedAssembly::getAffectedElement)
-                .map(AssemblyContext::getEntityName).allMatch(this::assemblyNameMatch);
+    protected boolean checkAssembly(final CredentialChange change) {
+        return change.getCompromisedassembly()
+            .stream()
+            .map(CompromisedAssembly::getAffectedElement)
+            .map(AssemblyContext::getEntityName)
+            .allMatch(this::assemblyNameMatch);
     }
 
-    protected boolean checkResource(CredentialChange change) {
-        return change.getCompromisedresource().stream().map(CompromisedResource::getAffectedElement)
-                .map(ResourceContainer::getEntityName).allMatch(this::resourceNameMatch);
+    protected boolean checkResource(final CredentialChange change) {
+        return change.getCompromisedresource()
+            .stream()
+            .map(CompromisedResource::getAffectedElement)
+            .map(ResourceContainer::getEntityName)
+            .allMatch(this::resourceNameMatch);
     }
 
-    protected boolean checkLining(CredentialChange change) {
-        return change.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
-                .map(LinkingResource::getEntityName).allMatch(this::linkingResourceNameMatch);
+    protected boolean checkLining(final CredentialChange change) {
+        return change.getCompromisedlinkingresource()
+            .stream()
+            .map(CompromisedLinkingResource::getAffectedElement)
+            .map(LinkingResource::getEntityName)
+            .allMatch(this::linkingResourceNameMatch);
     }
 
-    protected boolean checkContext(CredentialChange change) {
-        return change.getContextchange().stream().map(ContextChange::getAffectedElement)
-                .allMatch(this::checkAttributeUsage);
+    protected boolean checkContext(final CredentialChange change) {
+        return change.getContextchange()
+            .stream()
+            .map(ContextChange::getAffectedElement)
+            .allMatch(this::checkAttributeUsage);
     }
 
-    protected boolean checkServiceRestriction(CredentialChange change) {
-        return change.getCompromisedservice().stream().map(CompromisedService::getAffectedElement)
-                .allMatch(this::checkServiceRestriction);
+    protected boolean checkServiceRestriction(final CredentialChange change) {
+        return change.getCompromisedservice()
+            .stream()
+            .map(CompromisedService::getAffectedElement)
+            .allMatch(this::checkServiceRestriction);
     }
 
-    protected boolean assemblyNameMatch(String name) {
+    protected boolean assemblyNameMatch(final String name) {
         fail();
         return false;
     }
 
-    protected boolean resourceNameMatch(String name) {
+    protected boolean resourceNameMatch(final String name) {
         fail();
         return false;
     }
 
-    protected boolean checkAttributeUsage(UsageSpecification usage) {
+    protected boolean checkAttributeUsage(final UsageSpecification usage) {
         fail();
         return false;
     }
 
-    protected boolean checkServiceRestriction(ServiceSpecification servicerestriction1) {
+    protected boolean checkServiceRestriction(final ServiceSpecification servicerestriction1) {
         fail();
         return false;
     }
 
-    protected boolean linkingResourceNameMatch(String name) {
+    protected boolean linkingResourceNameMatch(final String name) {
         fail();
         return false;
     }

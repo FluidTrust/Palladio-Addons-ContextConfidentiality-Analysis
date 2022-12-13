@@ -61,14 +61,15 @@ public class SystemWalker {
                 continue;
             }
 
-            var origin = StructureFactory.eINSTANCE.createServiceSpecification();
+            final var origin = StructureFactory.eINSTANCE.createServiceSpecification();
             origin.setService((ResourceDemandingSEFF) seff);
             origin.setAssemblycontext(encapsulatingContexts.getLast());
             origin.setSignature(seff.getDescribedService__SEFF());
             if (encapsulatingContexts.size() > 1) {
-                var copy = new LinkedList<>(encapsulatingContexts);
+                final var copy = new LinkedList<>(encapsulatingContexts);
                 copy.removeLast();
-                origin.getHierarchy().addAll(copy);
+                origin.getHierarchy()
+                    .addAll(copy);
             }
 
             final var nextSeff = this.getSEFF(externalAction.getCalledService_ExternalService(),
@@ -84,7 +85,7 @@ public class SystemWalker {
     private ResourceDemandingSEFF getSEFF(final EntryLevelSystemCall call, final System system) {
         final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        final var ac = getHandlingAssemblyContext(call, system);
+        final var ac = this.getHandlingAssemblyContext(call, system);
         return this.getSEFF(sig, ac);
     }
 
@@ -98,7 +99,9 @@ public class SystemWalker {
         final var bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
         final var seffList = bc.getServiceEffectSpecifications__BasicComponent();
         for (final ServiceEffectSpecification seff : seffList) {
-            if (seff.getDescribedService__SEFF().getEntityName().equals(sig.getEntityName())) {
+            if (seff.getDescribedService__SEFF()
+                .getEntityName()
+                .equals(sig.getEntityName())) {
                 return (ResourceDemandingSEFF) seff;
             }
         }

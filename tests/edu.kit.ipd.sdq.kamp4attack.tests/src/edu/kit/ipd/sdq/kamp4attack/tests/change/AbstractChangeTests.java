@@ -46,11 +46,14 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
     }
 
     private void addPolicy(final Policy policy) {
-        this.context.getPolicyset().getPolicy().add(policy);
+        this.context.getPolicyset()
+            .getPolicy()
+            .add(policy);
     }
 
     protected CompromisedAssembly createAssembly(final CredentialChange change) {
-        return this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure().get(0));
+        return this.createAssembly(change, this.assembly.getAssemblyContexts__ComposedStructure()
+            .get(0));
     }
 
     protected CompromisedAssembly createAssembly(final CredentialChange change,
@@ -58,7 +61,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var infectedAssembly = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedAssembly();
         final var assemblyContext = assemblyComponent;
         infectedAssembly.setAffectedElement(assemblyContext);
-        change.getCompromisedassembly().add(infectedAssembly);
+        change.getCompromisedassembly()
+            .add(infectedAssembly);
         return infectedAssembly;
     }
 
@@ -66,38 +70,47 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setAssemblycontext(component);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
 
     protected void createAttributeProvider(final UsageSpecification contextSet, final LinkingResource resource) {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setLinkingresource(resource);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
 
     protected void createAttributeProvider(final UsageSpecification contextSet, final ResourceContainer resource) {
         final var attributeProvider = StructureFactory.eINSTANCE.createPCMAttributeProvider();
         attributeProvider.setResourcecontainer(resource);
         attributeProvider.setAttribute(contextSet);
-        this.context.getPcmspecificationcontainer().getAttributeprovider().add(attributeProvider);
+        this.context.getPcmspecificationcontainer()
+            .getAttributeprovider()
+            .add(attributeProvider);
     }
 
     protected void createContextChange(final UsageSpecification context, final CredentialChange change) {
         final var contextChange = KAMP4attackModificationmarksFactory.eINSTANCE.createContextChange();
         contextChange.setAffectedElement(context);
-        change.getContextchange().add(contextChange);
+        change.getContextchange()
+            .add(contextChange);
     }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change) {
-        return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment().get(0));
+        return this.createLinkingChange(change, this.environment.getLinkingResources__ResourceEnvironment()
+            .get(0));
     }
 
     protected CompromisedLinkingResource createLinkingChange(final CredentialChange change,
             final LinkingResource linking) {
         final var linkingChange = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedLinkingResource();
         linkingChange.setAffectedElement(linking);
-        change.getCompromisedlinkingresource().add(linkingChange);
+        change.getCompromisedlinkingresource()
+            .add(linkingChange);
         return linkingChange;
     }
 
@@ -105,28 +118,32 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
         final var policy = PolicyFactory.eINSTANCE.createPolicy();
         policy.setCombiningAlgorithm(RuleCombiningAlgorihtm.DENY_UNLESS_PERMIT);
 
-        var match = StructureFactory.eINSTANCE.createEntityMatch();
+        final var match = StructureFactory.eINSTANCE.createEntityMatch();
         match.setCategory(Category.RESOURCE);
         match.setEntity(entity);
-        var allOff = PolicyFactory.eINSTANCE.createAllOf();
-        allOff.getMatch().add(match);
-        policy.getTarget().add(allOff);
+        final var allOff = PolicyFactory.eINSTANCE.createAllOf();
+        allOff.getMatch()
+            .add(match);
+        policy.getTarget()
+            .add(allOff);
 
-        var rule = PolicyFactory.eINSTANCE.createRule();
+        final var rule = PolicyFactory.eINSTANCE.createRule();
 
-        var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
+        final var simpleExpression = PolicyFactory.eINSTANCE.createSimpleAttributeCondition();
         simpleExpression.setAttribute(usageSpecification);
 
         rule.setCondition(simpleExpression);
         rule.setPermit(PermitType.PERMIT);
 
-        policy.getRule().add(rule);
+        policy.getRule()
+            .add(rule);
 
-        addPolicy(policy);
+        this.addPolicy(policy);
     }
 
     protected CompromisedResource createResourceChange(final CredentialChange change) {
-        return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment().get(0));
+        return this.createResourceChange(change, this.environment.getResourceContainer_ResourceEnvironment()
+            .get(0));
 
     }
 
@@ -134,7 +151,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             final ResourceContainer resource) {
         final var infectedResource = KAMP4attackModificationmarksFactory.eINSTANCE.createCompromisedResource();
         infectedResource.setAffectedElement(resource);
-        change.getCompromisedresource().add(infectedResource);
+        change.getCompromisedresource()
+            .add(infectedResource);
         return infectedResource;
     }
 
@@ -146,7 +164,8 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
 
     protected CWEID createCWEID(final int id, final CWEID parent) {
         final var cweID = this.createCWEID(id);
-        parent.getChildren().add(cweID);
+        parent.getChildren()
+            .add(cweID);
         return cweID;
     }
 
@@ -166,36 +185,45 @@ public abstract class AbstractChangeTests extends AbstractModelTest {
             final Privileges privileges, final ConfidentialityImpact impact, final boolean takeOver,
             final UsageSpecification gainedAttributes) {
         final var vulnerability = AttackSpecificationFactory.eINSTANCE.createCWEVulnerability();
-        vulnerability.getCweID().add(id);
+        vulnerability.getCweID()
+            .add(id);
         vulnerability.setAttackVector(vector);
         vulnerability.setPrivileges(privileges);
         vulnerability.setConfidentialityImpact(impact);
         vulnerability.setTakeOver(takeOver);
         if (gainedAttributes != null) {
-            vulnerability.getGainedAttributes().add(gainedAttributes);
+            vulnerability.getGainedAttributes()
+                .add(gainedAttributes);
         }
         return vulnerability;
     }
 
     protected CWEID createSimpleAttack() {
         final var cweID = this.createCWEID(1);
-        final var attack = createCWEAttack(cweID);
-        this.attacker.getAttackers().getAttacker().get(0).getAttacks().add(attack);
+        final var attack = this.createCWEAttack(cweID);
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getAttacks()
+            .add(attack);
         return cweID;
     }
 
     protected void runAnalysis() {
-        generateXML();
-        final var board = getBlackboardWrapper();
+        this.generateXML();
+        final var board = this.getBlackboardWrapper();
         final var analysis = new AttackPropagationAnalysis();
         analysis.runChangePropagationAnalysis(board);
     }
 
     @BeforeEach
     void clearCache() {
-        CachePDP.instance().clearCache();
-        CacheCompromised.instance().reset();
-        CacheVulnerability.instance().reset();
+        CachePDP.instance()
+            .clearCache();
+        CacheCompromised.instance()
+            .reset();
+        CacheVulnerability.instance()
+            .reset();
     }
 
 }

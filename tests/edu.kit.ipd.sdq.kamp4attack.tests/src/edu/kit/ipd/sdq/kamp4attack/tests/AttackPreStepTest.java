@@ -1,6 +1,5 @@
 package edu.kit.ipd.sdq.kamp4attack.tests;
 
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -24,51 +23,84 @@ class AttackPreStepTest extends AbstractModelTest {
     }
 
     protected void execute() {
-        generateXML();
-        final var wrapper = getBlackboardWrapper();
+        this.generateXML();
+        final var wrapper = this.getBlackboardWrapper();
         (new AttackPropagationAnalysis()).runChangePropagationAnalysis(wrapper);
     }
 
     @Test
     void testNoNullValue() {
-        execute();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
         assertNotNull(steps);
     }
 
     @Test
     void testOnlyStartAssembly() {
-        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
-        execute();
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getCredentials()
+            .clear();
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
 
-        final var assembly = steps.get(0).getCompromisedassembly().get(0).getAffectedElement();
+        final var assembly = steps.get(0)
+            .getCompromisedassembly()
+            .get(0)
+            .getAffectedElement();
 
         assertEquals("_oO9U8O2-Eeq6pfPMAIqEqg", assembly.getId());
         assertEquals(1, steps.size());
-        assertEquals(1, steps.get(0).getCompromisedassembly().size());
-        assertEquals(0, steps.get(0).getCompromisedresource().size());
-        assertEquals(0, steps.get(0).getContextchange().size());
+        assertEquals(1, steps.get(0)
+            .getCompromisedassembly()
+            .size());
+        assertEquals(0, steps.get(0)
+            .getCompromisedresource()
+            .size());
+        assertEquals(0, steps.get(0)
+            .getContextchange()
+            .size());
 
     }
 
     @Test
     void testAttackerOnlyStartAttribute() {
-        this.attacker.getAttackers().getAttacker().get(0).getCompromisedComponents().clear();
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getCompromisedComponents()
+            .clear();
 
-        var context = createContext("TestValue");
+        final var context = this.createContext("TestValue");
 
-        this.attacker.getAttackers().getAttacker().get(0).getCredentials().clear();
-        this.attacker.getAttackers().getAttacker().get(0).getCredentials().add(context);
-        execute();
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getCredentials()
+            .clear();
+        this.attacker.getAttackers()
+            .getAttacker()
+            .get(0)
+            .getCredentials()
+            .add(context);
+        this.execute();
         final var steps = this.modification.getChangePropagationSteps();
         //
         assertEquals(1, steps.size());
-        assertEquals(0, steps.get(0).getCompromisedassembly().size());
-        assertEquals(0, steps.get(0).getCompromisedresource().size());
-        assertEquals(1, steps.get(0).getContextchange().size());
-        assertTrue(EcoreUtil.equals(context,
-                steps.get(0).getContextchange().get(0).getAffectedElement()));
+        assertEquals(0, steps.get(0)
+            .getCompromisedassembly()
+            .size());
+        assertEquals(0, steps.get(0)
+            .getCompromisedresource()
+            .size());
+        assertEquals(1, steps.get(0)
+            .getContextchange()
+            .size());
+        assertTrue(EcoreUtil.equals(context, steps.get(0)
+            .getContextchange()
+            .get(0)
+            .getAffectedElement()));
     }
 
 }

@@ -33,24 +33,28 @@ public class SaveOutputModelJob implements IBlackboardInteractingJob<MDSDBlackbo
 
         final var test = this.configuration.getContextModel();
 
-
         final var segments = test.segments();
         segments[test.segmentCount() - 1] = "my" + System.currentTimeMillis();
 
-        var outputString = new StringBuilder();
+        final var outputString = new StringBuilder();
 
-        for (var i = 1; i < segments.length-1; i++) {
+        for (var i = 1; i < segments.length - 1; i++) {
             outputString.append(segments[i]);
             outputString.append(File.separator);
         }
         outputString.append("my" + System.currentTimeMillis() + ".outputmodel");
 
-
         final var testUri = URI.createPlatformResourceURI(outputString.toString(), true);
-        final var resource = partitionOutput.getResourceSet().createResource(testUri);
+        final var resource = partitionOutput.getResourceSet()
+            .createResource(testUri);
         try {
-            resource.getContents().add(partitionOutput.getResourceSet().getResources().get(0).getContents().get(0));
-            var saveMap = new HashMap<>();
+            resource.getContents()
+                .add(partitionOutput.getResourceSet()
+                    .getResources()
+                    .get(0)
+                    .getContents()
+                    .get(0));
+            final var saveMap = new HashMap<>();
             saveMap.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
             saveMap.put(XMLResource.OPTION_URI_HANDLER, new URIHandlerImpl.AbsoluteCrossBundleAware());
             resource.save(saveMap);

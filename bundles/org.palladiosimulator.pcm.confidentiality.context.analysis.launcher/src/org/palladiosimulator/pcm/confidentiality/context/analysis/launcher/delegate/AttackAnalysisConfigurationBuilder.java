@@ -24,14 +24,15 @@ public class AttackAnalysisConfigurationBuilder extends ContextAnalysisConfigura
     @Override
     public void fillConfiguration(final AbstractWorkflowBasedRunConfiguration configuration) throws CoreException {
         super.fillConfiguration(configuration);
-        if (!configuration.getClass().equals(ClassicalAttackerAnalysisWorkflowConfig.class)) {
+        if (!configuration.getClass()
+            .equals(ClassicalAttackerAnalysisWorkflowConfig.class)) {
             throw new IllegalArgumentException("configuration is from type " + configuration.getClass() + ", but "
                     + ClassicalAttackerAnalysisWorkflowConfig.class + " expected");
         }
         final var config = (ClassicalAttackerAnalysisWorkflowConfig) configuration;
-        config.setModificationModel(getURI(Constants.MODIFIACTION_MODEL_LABEL));
-        config.setAttackModel(getURI(Constants.ATTACKER_MODEL_LABEL));
-        config.setGenerateGraph(getBooleanAttribute(Constants.GRAPH_CREATION_LABEL));
+        config.setModificationModel(this.getURI(Constants.MODIFIACTION_MODEL_LABEL));
+        config.setAttackModel(this.getURI(Constants.ATTACKER_MODEL_LABEL));
+        config.setGenerateGraph(this.getBooleanAttribute(Constants.GRAPH_CREATION_LABEL));
 
     }
 

@@ -62,8 +62,10 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 if (entity instanceof AssemblyContext || entity instanceof Connector) {
                     this.addHierachy(context, value);
                 }
-                value.getContent().add(entity.getId());
-                value.getContent().add(entity.getEntityName());
+                value.getContent()
+                    .add(entity.getId());
+                value.getContent()
+                    .add(entity.getEntityName());
 
                 matchType.setAttributeValue(value);
             }
@@ -82,16 +84,20 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 final var designator = factory.createAttributeDesignatorType();
 
                 // get the attribute id
-                final var container = (Attribute) object.getAttributevalue().eContainer();
+                final var container = (Attribute) object.getAttributevalue()
+                    .eContainer();
                 designator.setAttributeId(container.getId());
                 if (container instanceof SystemEntityAttribute) { // identify issuer
-                    designator.setIssuer(((SystemEntityAttribute) container).getModelEntity().getId());
+                    designator.setIssuer(((SystemEntityAttribute) container).getModelEntity()
+                        .getId());
                 }
                 final var value = factory.createAttributeValueType();
                 EnumHelpers.extractAndSetCategory(object.getCategory(), designator::setCategory);
 
-                EnumHelpers.extractAndSetDataType(object.getAttributevalue().getType(), designator::setDataType);
-                EnumHelpers.extractAndSetDataType(object.getAttributevalue().getType(), value::setDataType);
+                EnumHelpers.extractAndSetDataType(object.getAttributevalue()
+                    .getType(), designator::setDataType);
+                EnumHelpers.extractAndSetDataType(object.getAttributevalue()
+                    .getType(), value::setDataType);
 
                 switch (object.getOperation()) {
                 case STRING_EQUAL:
@@ -102,7 +108,9 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
                 }
 
-                value.getContent().addAll(object.getAttributevalue().getValues());
+                value.getContent()
+                    .addAll(object.getAttributevalue()
+                        .getValues());
 
                 matchType.setAttributeDesignator(designator);
                 matchType.setAttributeValue(value);
@@ -122,7 +130,10 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
                 final var value = factory.createAttributeValueType();
                 value.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                value.getContent().add(match.getMethodspecification().getSignature().getId());
+                value.getContent()
+                    .add(match.getMethodspecification()
+                        .getSignature()
+                        .getId());
                 matchActionType.setAttributeValue(value);
 
                 final var matchResourceType = factory.createMatchType();
@@ -136,9 +147,14 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     this.createResourceDesignatorInMatch(matchResourceType, Category.RESOURCE);
                     final var resourceValue = factory.createAttributeValueType();
                     resourceValue.setDataType(XACML3.ID_DATATYPE_STRING.stringValue());
-                    this.addHierachy(match.getMethodspecification().getHierarchy(), resourceValue);
-                    resourceValue.getContent().add(restriction.getAssemblycontext().getId());
-                    resourceValue.getContent().add(restriction.getAssemblycontext().getEntityName());
+                    this.addHierachy(match.getMethodspecification()
+                        .getHierarchy(), resourceValue);
+                    resourceValue.getContent()
+                        .add(restriction.getAssemblycontext()
+                            .getId());
+                    resourceValue.getContent()
+                        .add(restriction.getAssemblycontext()
+                            .getEntityName());
                     matchResourceType.setAttributeValue(resourceValue);
                 }
 
@@ -150,7 +166,9 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                 if (context == null) {
                     return;
                 }
-                context.stream().map(AssemblyContext::getId).forEach(resourceValue.getContent()::add);
+                context.stream()
+                    .map(AssemblyContext::getId)
+                    .forEach(resourceValue.getContent()::add);
             }
 
             @Override
@@ -161,7 +179,7 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
                     final var unmarshall = context.createUnmarshaller();
                     @SuppressWarnings("unchecked")
                     final var privateObject = (JAXBElement<MatchType>) unmarshall
-                            .unmarshal(new StringReader(match.getXmlString()));
+                        .unmarshal(new StringReader(match.getXmlString()));
                     matchType = privateObject.getValue();
                     return Stream.of(matchType);
 
@@ -181,7 +199,9 @@ public class MatchHandler implements ContextTypeConverter<List<MatchType>, List<
 
         };
 
-        return inputModel.stream().flatMap(switchMatch::doSwitch).collect(Collectors.toList());
+        return inputModel.stream()
+            .flatMap(switchMatch::doSwitch)
+            .collect(Collectors.toList());
 
     }
 

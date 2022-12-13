@@ -18,30 +18,35 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public abstract class LinkingChange extends Change<LinkingResource> implements LinkingPropagationWithContext {
 
-    public LinkingChange(final BlackboardWrapper v, CredentialChange change) {
+    public LinkingChange(final BlackboardWrapper v, final CredentialChange change) {
         super(v, change);
     }
 
     @Override
     public void calculateLinkingResourceToContextPropagation() {
-        final var listCompromisedLinkingResources = this.changes.getCompromisedlinkingresource().stream()
-                .map(CompromisedLinkingResource::getAffectedElement).collect(Collectors.toList());
+        final var listCompromisedLinkingResources = this.changes.getCompromisedlinkingresource()
+            .stream()
+            .map(CompromisedLinkingResource::getAffectedElement)
+            .collect(Collectors.toList());
 
-        final var streamAttributeProvider = this.modelStorage.getSpecification().getAttributeprovider().stream()
-                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast)
-                .filter(e -> listCompromisedLinkingResources.stream()
-                        .anyMatch(f -> EcoreUtil.equals(e.getLinkingresource(), f)));
+        final var streamAttributeProvider = this.modelStorage.getSpecification()
+            .getAttributeprovider()
+            .stream()
+            .filter(PCMAttributeProvider.class::isInstance)
+            .map(PCMAttributeProvider.class::cast)
+            .filter(e -> listCompromisedLinkingResources.stream()
+                .anyMatch(f -> EcoreUtil.equals(e.getLinkingresource(), f)));
 
-        updateFromContextProviderStream(this.changes, streamAttributeProvider);
+        this.updateFromContextProviderStream(this.changes, streamAttributeProvider);
 
     }
 
     @Override
     public void calculateLinkingResourceToResourcePropagation() {
-        final var compromisedLinkingResources = getCompromisedLinkingResources();
+        final var compromisedLinkingResources = this.getCompromisedLinkingResources();
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
-            final var handler = getResourceContainerHandler();
+            final var handler = this.getResourceContainerHandler();
             handler.attackResourceContainer(reachableResources, this.changes, linking);
         }
 
@@ -53,16 +58,16 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
 
     @Override
     public void calculateLinkingResourceToAssemblyContextPropagation() {
-        final var compromisedLinkingResources = getCompromisedLinkingResources();
+        final var compromisedLinkingResources = this.getCompromisedLinkingResources();
 
         for (final var linking : compromisedLinkingResources) {
             final var reachableResources = linking.getConnectedResourceContainers_LinkingResource();
             var reachableAssemblies = CollectionHelper.getAssemblyContext(reachableResources,
                     this.modelStorage.getAllocation());
-            final var handler = getAssemblyContextHandler();
+            final var handler = this.getAssemblyContextHandler();
             reachableAssemblies = CollectionHelper.removeDuplicates(reachableAssemblies);
             handler.attackAssemblyContext(reachableAssemblies, this.changes, linking);
-            handleSeff(this.changes, reachableAssemblies, linking);
+            this.handleSeff(this.changes, reachableAssemblies, linking);
 
         }
     }
@@ -71,8 +76,10 @@ public abstract class LinkingChange extends Change<LinkingResource> implements L
             LinkingResource source);
 
     protected List<LinkingResource> getCompromisedLinkingResources() {
-        return this.changes.getCompromisedlinkingresource().stream().map(CompromisedLinkingResource::getAffectedElement)
-                .collect(Collectors.toList());
+        return this.changes.getCompromisedlinkingresource()
+            .stream()
+            .map(CompromisedLinkingResource::getAffectedElement)
+            .collect(Collectors.toList());
     }
 
 }

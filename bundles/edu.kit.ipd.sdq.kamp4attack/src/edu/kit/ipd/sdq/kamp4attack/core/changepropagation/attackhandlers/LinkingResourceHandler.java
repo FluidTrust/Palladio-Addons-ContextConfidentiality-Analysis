@@ -21,13 +21,17 @@ public abstract class LinkingResourceHandler extends AttackHandler {
 
     public void attackLinkingResource(final Collection<LinkingResource> linking, final CredentialChange change,
             final EObject source) {
-        final var compromisedResources = linking.stream().map(e -> this.attackLinkingResource(e, change, source))
-                .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        final var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var compromisedResources = linking.stream()
+            .map(e -> this.attackLinkingResource(e, change, source))
+            .flatMap(Optional::stream)
+            .distinct()
+            .collect(Collectors.toList());
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
-            change.getCompromisedlinkingresource().addAll(newCompromisedResources);
+            change.getCompromisedlinkingresource()
+                .addAll(newCompromisedResources);
         }
     }
 
@@ -41,12 +45,16 @@ public abstract class LinkingResourceHandler extends AttackHandler {
 
     private Collection<CompromisedLinkingResource> filterExsiting(final Collection<CompromisedLinkingResource> linkings,
             final CredentialChange change) {
-        return linkings.stream().filter(linking -> !contains(linking, change)).collect(Collectors.toList());
+        return linkings.stream()
+            .filter(linking -> !this.contains(linking, change))
+            .collect(Collectors.toList());
 
     }
 
     private boolean contains(final CompromisedLinkingResource linking, final CredentialChange change) {
-        return change.getCompromisedlinkingresource().stream().anyMatch(referenceLinking -> EcoreUtil
-                .equals(referenceLinking.getAffectedElement(), linking.getAffectedElement()));
+        return change.getCompromisedlinkingresource()
+            .stream()
+            .anyMatch(referenceLinking -> EcoreUtil.equals(referenceLinking.getAffectedElement(),
+                    linking.getAffectedElement()));
     }
 }

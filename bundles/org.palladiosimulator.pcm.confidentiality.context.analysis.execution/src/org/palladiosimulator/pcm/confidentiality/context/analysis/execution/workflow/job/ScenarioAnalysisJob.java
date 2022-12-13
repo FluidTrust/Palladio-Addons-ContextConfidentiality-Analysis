@@ -33,7 +33,7 @@ import de.uka.ipd.sdq.workflow.mdsd.blackboard.MDSDBlackboard;
 public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackboard> {
 
     private MDSDBlackboard blackboard;
-    private ScenarioAnalysisWorkflowConfig config;
+    private final ScenarioAnalysisWorkflowConfig config;
 
     public ScenarioAnalysisJob(final ScenarioAnalysisWorkflowConfig config) {
         this.config = config;
@@ -41,7 +41,8 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
 
     @Override
     public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
-        final var analysis = Activator.getInstance().getScenarioAnalysis();
+        final var analysis = Activator.getInstance()
+            .getScenarioAnalysis();
 
         final var contextPartition = (ContextPartition) this.blackboard.getPartition(PARTITION_ID_CONTEXT);
         final var pcmPartition = (PCMResourceSetPartition) this.blackboard.getPartition(PARTITION_ID_PCM);
@@ -51,10 +52,12 @@ public class ScenarioAnalysisJob implements IBlackboardInteractingJob<MDSDBlackb
         final var pcmXACML = new org.palladiosimulator.pcm.confidentiality.context.xacml.generation.api.PCMBlackBoard(
                 pcmPartition.getSystem(), pcmPartition.getMiddlewareRepository(),
                 pcmPartition.getResourceEnvironment());
-        var eval = Activator.getInstance().getEvaluate();
+        final var eval = Activator.getInstance()
+            .getEvaluate();
 
-        Activator.getInstance().getXACMLGenerator().generateXACML(pcmXACML, contextPartition.getContextSpecification(),
-                "test.xacml");
+        Activator.getInstance()
+            .getXACMLGenerator()
+            .generateXACML(pcmXACML, contextPartition.getContextSpecification(), "test.xacml");
 
         eval.initialize("test.xacml");
         final var result = analysis.runScenarioAnalysis(pcm, contextPartition.getContextSpecification(),

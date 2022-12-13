@@ -53,9 +53,11 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
 
     @Override
     public boolean isValid(final ILaunchConfiguration launchConfig) {
-        //        return !repositoryTextField.getText().isEmpty() && !allocationTextField.getText().isEmpty()
-        //                && !contextTextField.getText().isEmpty() && isURIexistent(repositoryTextField.getText())
-        //                && isURIexistent(allocationTextField.getText()) && isURIexistent(contextTextField.getText());
+        // return !repositoryTextField.getText().isEmpty() &&
+        // !allocationTextField.getText().isEmpty()
+        // && !contextTextField.getText().isEmpty() && isURIexistent(repositoryTextField.getText())
+        // && isURIexistent(allocationTextField.getText()) &&
+        // isURIexistent(contextTextField.getText());
         // FIXME
         return true;
     }
@@ -78,19 +80,14 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
             this.contextTextField.setText("");
 
             try {
-                this.repositoryTextField
-                        .setText(configuration.getAttribute(Constants.REPOSITORY_MODEL_LABEL, ""));
-                this.allocationTextField
-                        .setText(configuration.getAttribute(Constants.ALLOCATION_MODEL_LABEL, ""));
-                this.contextTextField
-                        .setText(configuration.getAttribute(Constants.CONTEXT_MODEL_LABEL, ""));
+                this.repositoryTextField.setText(configuration.getAttribute(Constants.REPOSITORY_MODEL_LABEL, ""));
+                this.allocationTextField.setText(configuration.getAttribute(Constants.ALLOCATION_MODEL_LABEL, ""));
+                this.contextTextField.setText(configuration.getAttribute(Constants.CONTEXT_MODEL_LABEL, ""));
                 this.dataTextField.setText(configuration.getAttribute(Constants.DATA_MODEL_LABEL, ""));
-                this.adversaryTextField
-                        .setText(configuration.getAttribute(Constants.ATTACKER_MODEL_LABEL, ""));
+                this.adversaryTextField.setText(configuration.getAttribute(Constants.ATTACKER_MODEL_LABEL, ""));
                 this.usageTextField.setText(configuration.getAttribute(Constants.USAGE_MODEL_LABEL, ""));
                 this.analysisCombo.setText(configuration.getAttribute(Constants.ANALYSIS_TYPE_LABEL, ""));
-                this.modificationTextField
-                        .setText(configuration.getAttribute(Constants.MODIFIACTION_MODEL_LABEL, ""));
+                this.modificationTextField.setText(configuration.getAttribute(Constants.MODIFIACTION_MODEL_LABEL, ""));
 
             } catch (final CoreException e) {
                 // TODO expection handling
@@ -107,8 +104,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         configuration.setAttribute(Constants.ATTACKER_MODEL_LABEL, this.adversaryTextField.getText());
         configuration.setAttribute(Constants.ANALYSIS_TYPE_LABEL, this.analysisCombo.getText());
         configuration.setAttribute(Constants.USAGE_MODEL_LABEL, this.usageTextField.getText());
-        configuration.setAttribute(Constants.MODIFIACTION_MODEL_LABEL,
-                this.modificationTextField.getText());
+        configuration.setAttribute(Constants.MODIFIACTION_MODEL_LABEL, this.modificationTextField.getText());
     }
 
     @Override
@@ -140,7 +136,7 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         this.comp = new Composite(parent, SWT.NONE);
         final var layout = new GridLayout();
         this.comp.setLayout(layout);
-        setControl(this.comp);
+        this.setControl(this.comp);
 
         final var analysisGroup = new Group(this.comp, SWT.NONE);
         analysisGroup.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
@@ -162,45 +158,57 @@ public class ModelInputTab extends AbstractLaunchConfigurationTab {
         this.usageTextField = new Text(this.comp, SWT.BORDER);
         this.usageTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.USAGE_MODEL_LABEL,
-                new String[] { "*.usagemodel" }, this.usageTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.usagemodel" }, this.usageTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         /* Repository */
 
         this.repositoryTextField = new Text(this.comp, SWT.BORDER);
         this.repositoryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.REPOSITORY_MODEL_LABEL,
-                new String[] { "*.repository" }, this.repositoryTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.repository" }, this.repositoryTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         /* Allocation-Model */
 
         this.allocationTextField = new Text(this.comp, SWT.BORDER);
         this.allocationTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.ALLOCATION_MODEL_LABEL,
-                new String[] { "*.allocation" }, this.allocationTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.allocation" }, this.allocationTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         /* Context-Model */
 
         this.contextTextField = new Text(this.comp, SWT.BORDER);
         this.contextTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.CONTEXT_MODEL_LABEL,
-                new String[] { "*.context" }, this.contextTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.context" }, this.contextTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         this.dataTextField = new Text(this.comp, SWT.BORDER);
         this.dataTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.DATA_MODEL_LABEL,
-                new String[] { "*.confidentiality" }, this.dataTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.confidentiality" }, this.dataTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         this.adversaryTextField = new Text(this.comp, SWT.BORDER);
         this.adversaryTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.ATTACKER_MODEL_LABEL,
-                new String[] { "*.attacker" }, this.adversaryTextField, Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.attacker" }, this.adversaryTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
 
         this.modificationTextField = new Text(this.comp, SWT.BORDER);
         this.modificationTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false, 1, 1));
         TabHelper.createFileInputSection(this.comp, modifyListener, Constants.MODIFIACTION_MODEL_LABEL,
-                new String[] { "*.kamp4attackmodificationmarks" }, this.modificationTextField,
-                Display.getCurrent().getActiveShell(), "");
+                new String[] { "*.kamp4attackmodificationmarks" }, this.modificationTextField, Display.getCurrent()
+                    .getActiveShell(),
+                "");
     }
-
 
 }

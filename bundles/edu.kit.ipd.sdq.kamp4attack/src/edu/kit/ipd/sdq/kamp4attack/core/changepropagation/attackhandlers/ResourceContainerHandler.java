@@ -23,27 +23,36 @@ public abstract class ResourceContainerHandler extends AttackHandler {
 
     public void attackResourceContainer(final Collection<ResourceContainer> containers, final CredentialChange change,
             final EObject source) {
-        final var compromisedResources = containers.stream().map(e -> this.attackResourceContainer(e, change, source))
-                .flatMap(Optional::stream).distinct().collect(Collectors.toList());
-        final var newCompromisedResources = filterExsiting(compromisedResources, change);
+        final var compromisedResources = containers.stream()
+            .map(e -> this.attackResourceContainer(e, change, source))
+            .flatMap(Optional::stream)
+            .distinct()
+            .collect(Collectors.toList());
+        final var newCompromisedResources = this.filterExsiting(compromisedResources, change);
         if (!newCompromisedResources.isEmpty()) {
-            handleDataExtraction(newCompromisedResources);
+            this.handleDataExtraction(newCompromisedResources);
             change.setChanged(true);
-            change.getCompromisedresource().addAll(newCompromisedResources);
+            change.getCompromisedresource()
+                .addAll(newCompromisedResources);
         }
     }
 
     private void handleDataExtraction(final Collection<CompromisedResource> resources) {
 
         Collection<ResourceContainer> filteredComponents = resources.stream()
-                .map(CompromisedResource::getAffectedElement).collect(Collectors.toList());
+            .map(CompromisedResource::getAffectedElement)
+            .collect(Collectors.toList());
 
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
         final var dataList = filteredComponents.stream()
-                .flatMap(resource -> DataHandler.getData(resource, getModelStorage().getAllocation()).stream())
-                .distinct().collect(Collectors.toList());
-        getDataHandler().addData(dataList);
+            .flatMap(resource -> DataHandler.getData(resource, this.getModelStorage()
+                .getAllocation())
+                .stream())
+            .distinct()
+            .collect(Collectors.toList());
+        this.getDataHandler()
+            .addData(dataList);
     }
 
     protected abstract Optional<CompromisedResource> attackResourceContainer(ResourceContainer container,
@@ -51,13 +60,17 @@ public abstract class ResourceContainerHandler extends AttackHandler {
 
     private Collection<CompromisedResource> filterExsiting(final Collection<CompromisedResource> containers,
             final CredentialChange change) {
-        return containers.stream().filter(container -> !contains(container, change)).collect(Collectors.toList());
+        return containers.stream()
+            .filter(container -> !this.contains(container, change))
+            .collect(Collectors.toList());
 
     }
 
     private boolean contains(final CompromisedResource resource, final CredentialChange change) {
-        return change.getCompromisedresource().stream().anyMatch(referenceContainer -> EcoreUtil
-                .equals(referenceContainer.getAffectedElement(), resource.getAffectedElement()));
+        return change.getCompromisedresource()
+            .stream()
+            .anyMatch(referenceContainer -> EcoreUtil.equals(referenceContainer.getAffectedElement(),
+                    resource.getAffectedElement()));
     }
 
 }

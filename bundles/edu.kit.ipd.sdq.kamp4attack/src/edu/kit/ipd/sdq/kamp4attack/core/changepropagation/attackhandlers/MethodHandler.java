@@ -29,29 +29,37 @@ public abstract class MethodHandler extends AttackHandler {
 
     public void attackService(final Collection<ServiceSpecification> services, final CredentialChange change,
             final EObject source) {
-        final var compromisedComponent = services.stream().map(e -> attackEntity(e, change, source))
-                .flatMap(Optional::stream).collect(Collectors.toList());
-        final var newCompromisedComponent = filterExsiting(compromisedComponent, change);
+        final var compromisedComponent = services.stream()
+            .map(e -> this.attackEntity(e, change, source))
+            .flatMap(Optional::stream)
+            .collect(Collectors.toList());
+        final var newCompromisedComponent = this.filterExsiting(compromisedComponent, change);
         if (!newCompromisedComponent.isEmpty()) {
-            handleDataExtraction(newCompromisedComponent);
+            this.handleDataExtraction(newCompromisedComponent);
             change.setChanged(true);
-            change.getCompromisedassembly().addAll(newCompromisedComponent);
-            CollectionHelper.addService(newCompromisedComponent, getModelStorage().getVulnerabilitySpecification(),
-                    change);
+            change.getCompromisedassembly()
+                .addAll(newCompromisedComponent);
+            CollectionHelper.addService(newCompromisedComponent, this.getModelStorage()
+                .getVulnerabilitySpecification(), change);
         }
     }
 
     private void handleDataExtraction(final Collection<CompromisedAssembly> components) {
 
         Collection<AssemblyContext> filteredComponents = components.stream()
-                .map(CompromisedAssembly::getAffectedElement).collect(Collectors.toList());
+            .map(CompromisedAssembly::getAffectedElement)
+            .collect(Collectors.toList());
 
         filteredComponents = CollectionHelper.removeDuplicates(filteredComponents);
 
-        final var dataList = filteredComponents.stream().distinct()
-                .flatMap(component -> DataHandler.getData(component).stream()).collect(Collectors.toList());
+        final var dataList = filteredComponents.stream()
+            .distinct()
+            .flatMap(component -> DataHandler.getData(component)
+                .stream())
+            .collect(Collectors.toList());
 
-        getDataHandler().addData(dataList);
+        this.getDataHandler()
+            .addData(dataList);
     }
 
     protected abstract Optional<CompromisedAssembly> attackEntity(ServiceSpecification serviceRestriction,
@@ -59,13 +67,17 @@ public abstract class MethodHandler extends AttackHandler {
 
     private Collection<CompromisedAssembly> filterExsiting(final Collection<CompromisedAssembly> components,
             final CredentialChange change) {
-        return components.stream().filter(component -> !contains(component, change)).collect(Collectors.toList());
+        return components.stream()
+            .filter(component -> !this.contains(component, change))
+            .collect(Collectors.toList());
 
     }
 
     private boolean contains(final CompromisedAssembly component, final CredentialChange change) {
-        return change.getCompromisedassembly().stream().anyMatch(referenceComponent -> EcoreUtil
-                .equals(referenceComponent.getAffectedElement(), component.getAffectedElement()));
+        return change.getCompromisedassembly()
+            .stream()
+            .anyMatch(referenceComponent -> EcoreUtil.equals(referenceComponent.getAffectedElement(),
+                    component.getAffectedElement()));
     }
 
     protected Vulnerability checkVulnerability(final ServiceSpecification entity, final CredentialChange change,

@@ -16,20 +16,29 @@ public class EmptyAttackTests extends TravelPlannerCaseStudy {
 
     @Test
     void noPropagation() {
-        runAnalysis();
+        this.runAnalysis();
 
-        var change = getCredentials();
+        final var change = this.getCredentials();
 
-        assertEquals(1, change.getCompromisedassembly().size());
-        assertEquals(0, change.getCompromisedlinkingresource().size());
-        assertEquals(0, change.getCompromisedresource().size());
-        assertEquals(3, change.getCompromisedservice().size());
-        assertEquals(0, change.getContextchange().size());
+        assertEquals(1, change.getCompromisedassembly()
+            .size());
+        assertEquals(0, change.getCompromisedlinkingresource()
+            .size());
+        assertEquals(0, change.getCompromisedresource()
+            .size());
+        assertEquals(3, change.getCompromisedservice()
+            .size());
+        assertEquals(0, change.getContextchange()
+            .size());
 
-        checkAssembly(change);
+        this.checkAssembly(change);
 
-        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent().get(0).getAffectedElement();
+        final var attacker = this.getBlackboardWrapper()
+            .getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent()
+            .get(0)
+            .getAffectedElement();
 
 //FIXME: depends on the correct data handling or required connections
 //        assertEquals(10, change.getCompromiseddata().size());
@@ -37,8 +46,8 @@ public class EmptyAttackTests extends TravelPlannerCaseStudy {
     }
 
     @Override
-    protected boolean assemblyNameMatch(String name) {
-        var set = Set.of("Travelplanner");
+    protected boolean assemblyNameMatch(final String name) {
+        final var set = Set.of("Travelplanner");
         return set.contains(name);
     }
 

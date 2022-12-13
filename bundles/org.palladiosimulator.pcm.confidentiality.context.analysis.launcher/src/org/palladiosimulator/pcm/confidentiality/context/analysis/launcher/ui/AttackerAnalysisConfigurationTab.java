@@ -14,7 +14,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.constants.Constants;
 
-
 /**
  * Configuration Tab for the Attacker Analyis in the Launch-Configuration
  *
@@ -22,7 +21,6 @@ import org.palladiosimulator.pcm.confidentiality.context.analysis.launcher.const
  *
  */
 public class AttackerAnalysisConfigurationTab extends AbstractLaunchConfigurationTab {
-
 
     private Button checkBox;
 
@@ -35,14 +33,14 @@ public class AttackerAnalysisConfigurationTab extends AbstractLaunchConfiguratio
      * @wbp.parser.entryPoint
      */
     @Override
-    public void createControl(Composite parent) {
+    public void createControl(final Composite parent) {
 
-        var comp = new Composite(parent, SWT.NONE);
+        final var comp = new Composite(parent, SWT.NONE);
         final var layout = new GridLayout();
         comp.setLayout(layout);
-        setControl(comp);
+        this.setControl(comp);
 
-        var text = new Label(comp, 0);
+        final var text = new Label(comp, 0);
         text.setText("Options");
 
         this.checkBox = new Button(comp, SWT.CHECK);
@@ -50,7 +48,7 @@ public class AttackerAnalysisConfigurationTab extends AbstractLaunchConfiguratio
         this.checkBox.addSelectionListener(new SelectionAdapter() {
 
             @Override
-            public void widgetSelected(SelectionEvent event) {
+            public void widgetSelected(final SelectionEvent event) {
                 AttackerAnalysisConfigurationTab.this.setDirty(true);
                 AttackerAnalysisConfigurationTab.this.updateLaunchConfigurationDialog();
             }
@@ -59,25 +57,26 @@ public class AttackerAnalysisConfigurationTab extends AbstractLaunchConfiguratio
     }
 
     @Override
-    public void setDefaults(ILaunchConfigurationWorkingCopy configuration) {
+    public void setDefaults(final ILaunchConfigurationWorkingCopy configuration) {
         configuration.setAttribute(Constants.GRAPH_CREATION_LABEL, false);
 
     }
 
     @Override
-    public void initializeFrom(ILaunchConfiguration configuration) {
+    public void initializeFrom(final ILaunchConfiguration configuration) {
         try {
-            var previousConfiguration = configuration.getAttribute(Constants.GRAPH_CREATION_LABEL, false);
+            final var previousConfiguration = configuration.getAttribute(Constants.GRAPH_CREATION_LABEL, false);
             this.checkBox.setSelection(previousConfiguration);
-        } catch (CoreException e) {
-            Platform.getLog(getClass()).error("Could not load from saved configuration", e);
+        } catch (final CoreException e) {
+            Platform.getLog(this.getClass())
+                .error("Could not load from saved configuration", e);
         }
 
     }
 
     @Override
-    public void performApply(ILaunchConfigurationWorkingCopy configuration) {
-        var selection = this.checkBox.getSelection();
+    public void performApply(final ILaunchConfigurationWorkingCopy configuration) {
+        final var selection = this.checkBox.getSelection();
         configuration.setAttribute(Constants.GRAPH_CREATION_LABEL, selection);
 
     }

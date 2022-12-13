@@ -15,20 +15,30 @@ public class EmptyAttackerTests extends TravelPlannerCaseStudy {
 
     @Test
     void noPropagation() {
-        runAnalysis();
+        this.runAnalysis();
 
-        var change = getCredentials();
+        final var change = this.getCredentials();
 
-        assertEquals(0, change.getCompromisedassembly().size());
-        assertEquals(0, change.getCompromisedlinkingresource().size());
-        assertEquals(0, change.getCompromisedresource().size());
-        assertEquals(0, change.getCompromisedservice().size());
-        assertEquals(0, change.getContextchange().size());
+        assertEquals(0, change.getCompromisedassembly()
+            .size());
+        assertEquals(0, change.getCompromisedlinkingresource()
+            .size());
+        assertEquals(0, change.getCompromisedresource()
+            .size());
+        assertEquals(0, change.getCompromisedservice()
+            .size());
+        assertEquals(0, change.getContextchange()
+            .size());
 
-        var attacker = getBlackboardWrapper().getModificationMarkRepository().getSeedModifications()
-                .getAttackcomponent().get(0).getAffectedElement();
+        final var attacker = this.getBlackboardWrapper()
+            .getModificationMarkRepository()
+            .getSeedModifications()
+            .getAttackcomponent()
+            .get(0)
+            .getAffectedElement();
 
-        assertEquals(0, change.getCompromiseddata().size());
+        assertEquals(0, change.getCompromiseddata()
+            .size());
 
     }
 

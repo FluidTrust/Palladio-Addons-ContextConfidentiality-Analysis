@@ -55,8 +55,10 @@ public class PCMInstanceHelper {
         for (final Connector conn : system.getConnectors__ComposedStructure()) {
             if (conn instanceof final ProvidedDelegationConnector pdc) {
 
-                if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
-                        .equals(call.getProvidedRole_EntryLevelSystemCall().getId())) {
+                if (pdc.getOuterProvidedRole_ProvidedDelegationConnector()
+                    .getId()
+                    .equals(call.getProvidedRole_EntryLevelSystemCall()
+                        .getId())) {
                     topLevelAssCtx = pdc.getAssemblyContext_ProvidedDelegationConnector();
                     topLevelAssCtxProvidedRole = pdc.getInnerProvidedRole_ProvidedDelegationConnector();
                 }
@@ -73,11 +75,13 @@ public class PCMInstanceHelper {
                 + "\" that matches the EntryLevelSystemCall \"" + call.getEntityName() + "\".");
     }
 
-    public static Connector getHandlingAssemblyConnector(EntryLevelSystemCall call, System system) {
+    public static Connector getHandlingAssemblyConnector(final EntryLevelSystemCall call, final System system) {
         for (final Connector conn : system.getConnectors__ComposedStructure()) {
             if (conn instanceof final ProvidedDelegationConnector pdc) {
-                if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
-                        .equals(call.getProvidedRole_EntryLevelSystemCall().getId())) {
+                if (pdc.getOuterProvidedRole_ProvidedDelegationConnector()
+                    .getId()
+                    .equals(call.getProvidedRole_EntryLevelSystemCall()
+                        .getId())) {
                     return pdc;
                 }
             }
@@ -108,7 +112,9 @@ public class PCMInstanceHelper {
         // Search for an AssemblyConnector between the calling
         // AssemblyContext and the handling AssemblyContext:
         final var connector = getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
-                (OperationInterface) call.getCalledService_ExternalService().eContainer(), contexts);
+                (OperationInterface) call.getCalledService_ExternalService()
+                    .eContainer(),
+                contexts);
         if (connector == null) {
             // If no AssemblyConnector is found, the call is a system external
             // call and has no handling AssemblyContext:
@@ -136,7 +142,9 @@ public class PCMInstanceHelper {
             final List<AssemblyContext> encapsulatingContexts) {
         final var contexts = new ArrayList<>(encapsulatingContexts);
         return getAssemblyConnectorForRequiredRole(call.getRole_ExternalService(),
-                (OperationInterface) call.getCalledService_ExternalService().eContainer(), contexts);
+                (OperationInterface) call.getCalledService_ExternalService()
+                    .eContainer(),
+                contexts);
     }
 
     /**
@@ -220,17 +228,21 @@ public class PCMInstanceHelper {
 
         // Retrieve the list of connectors within the parent
         // ComposedStructure:
-        final var connList = requiringContext.getParentStructure__AssemblyContext().getConnectors__ComposedStructure();
+        final var connList = requiringContext.getParentStructure__AssemblyContext()
+            .getConnectors__ComposedStructure();
 
         // Check for each AssemblyConnector in the list if it fulfills
         // the requirements:
         for (final Connector connector : connList) {
             if (connector instanceof final AssemblyConnector assemblyConnector) {
-                if (assemblyConnector.getRequiringAssemblyContext_AssemblyConnector().getId().equals(requiringContext.getId())
-                        && equalInterface(requiredInterface,
-                                assemblyConnector.getRequiredRole_AssemblyConnector()
-                                        .getRequiredInterface__OperationRequiredRole())
-                        && assemblyConnector.getRequiredRole_AssemblyConnector().getId().equals(requiredRole.getId())) {
+                if (assemblyConnector.getRequiringAssemblyContext_AssemblyConnector()
+                    .getId()
+                    .equals(requiringContext.getId())
+                        && equalInterface(requiredInterface, assemblyConnector.getRequiredRole_AssemblyConnector()
+                            .getRequiredInterface__OperationRequiredRole())
+                        && assemblyConnector.getRequiredRole_AssemblyConnector()
+                            .getId()
+                            .equals(requiredRole.getId())) {
                     return assemblyConnector;
                 }
             }
@@ -240,13 +252,17 @@ public class PCMInstanceHelper {
         return null;
     }
 
-    private static boolean equalInterface(OperationInterface interfaceRequested, OperationInterface interfaceFound) {
-        if (interfaceRequested.getId().equals(interfaceFound.getId())) {
+    private static boolean equalInterface(final OperationInterface interfaceRequested,
+            final OperationInterface interfaceFound) {
+        if (interfaceRequested.getId()
+            .equals(interfaceFound.getId())) {
             return true;
         }
-        if(!interfaceFound.getParentInterfaces__Interface().isEmpty()) {
-            return interfaceFound.getParentInterfaces__Interface().stream()
-                    .anyMatch(e -> equalInterface(interfaceRequested, (OperationInterface) e));
+        if (!interfaceFound.getParentInterfaces__Interface()
+            .isEmpty()) {
+            return interfaceFound.getParentInterfaces__Interface()
+                .stream()
+                .anyMatch(e -> equalInterface(interfaceRequested, (OperationInterface) e));
         }
         return false;
     }
@@ -272,17 +288,21 @@ public class PCMInstanceHelper {
 
         // Retrieve the list of connectors within the parent
         // ComposedStructure:
-        final var connList = requiringContext.getParentStructure__AssemblyContext().getConnectors__ComposedStructure();
+        final var connList = requiringContext.getParentStructure__AssemblyContext()
+            .getConnectors__ComposedStructure();
 
         // Check for each RequiredDelegationConnector in the list if it fulfills
         // the requirements:
         for (final Connector conn : connList) {
             if (conn instanceof final RequiredDelegationConnector dc) {
-                if (dc.getAssemblyContext_RequiredDelegationConnector().getId().equals(requiringContext.getId())
-                        && equalInterface(requiredInterface,
-                                dc.getInnerRequiredRole_RequiredDelegationConnector()
-                                        .getRequiredInterface__OperationRequiredRole())
-                        && dc.getInnerRequiredRole_RequiredDelegationConnector().getId().equals(requiredRole.getId())) {
+                if (dc.getAssemblyContext_RequiredDelegationConnector()
+                    .getId()
+                    .equals(requiringContext.getId())
+                        && equalInterface(requiredInterface, dc.getInnerRequiredRole_RequiredDelegationConnector()
+                            .getRequiredInterface__OperationRequiredRole())
+                        && dc.getInnerRequiredRole_RequiredDelegationConnector()
+                            .getId()
+                            .equals(requiredRole.getId())) {
                     return dc;
                 }
             }
@@ -329,8 +349,9 @@ public class PCMInstanceHelper {
             // nested AssemblyContext:
             for (final Connector conn : cs.getConnectors__ComposedStructure()) {
                 if (conn instanceof final ProvidedDelegationConnector pdc) {
-                    if (pdc.getOuterProvidedRole_ProvidedDelegationConnector().getId()
-                            .equals(topLevelProvidedRole.getId())) {
+                    if (pdc.getOuterProvidedRole_ProvidedDelegationConnector()
+                        .getId()
+                        .equals(topLevelProvidedRole.getId())) {
 
                         // We have found a ProvidedDelegationConnector that
                         // delegates from a nested AssemblyContext to the
@@ -351,7 +372,7 @@ public class PCMInstanceHelper {
         }
 
         // Error handling in case an unknown component type is encountered:
-        throw new IllegalArgumentException("Unknown component type \"" + rc.eClass().getName()
-                + "\" encapsulated by AssemblyContext \"" + topLevelContexts.getEntityName() + "\"");
+        throw new IllegalArgumentException("Unknown component type \"" + rc.eClass()
+            .getName() + "\" encapsulated by AssemblyContext \"" + topLevelContexts.getEntityName() + "\"");
     }
 }

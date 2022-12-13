@@ -16,7 +16,9 @@ public class VariableDefinitionHandler
 
     @Override
     public List<VariableDefinitionType> transform(final List<VariableDefinitions> inputModel) {
-        return inputModel.stream().map(this::transformVariableDefinition).collect(Collectors.toList());
+        return inputModel.stream()
+            .map(this::transformVariableDefinition)
+            .collect(Collectors.toList());
     }
 
     private VariableDefinitionType transformVariableDefinition(final VariableDefinitions e) {

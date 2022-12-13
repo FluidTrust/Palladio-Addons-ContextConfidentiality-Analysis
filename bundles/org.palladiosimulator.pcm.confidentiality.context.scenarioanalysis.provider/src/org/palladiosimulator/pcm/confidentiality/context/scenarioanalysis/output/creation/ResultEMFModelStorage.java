@@ -28,12 +28,12 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
         this.resultMap = new HashMap<>();
     }
 
-    public void addScenario(UsageScenario scenario, boolean misusage) {
+    public void addScenario(final UsageScenario scenario, final boolean misusage) {
 
         if (this.resultMap.containsKey(scenario.getId())) {
             throw new IllegalStateException("ScenarioOutput for scenario already exists");
         }
-        var outputScenario = OutputmodelFactory.eINSTANCE.createScenarioOutput();
+        final var outputScenario = OutputmodelFactory.eINSTANCE.createScenarioOutput();
         outputScenario.setScenario(scenario);
         outputScenario.setMisUsage(misusage);
         this.resultMap.put(scenario.getId(), outputScenario);
@@ -41,9 +41,9 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
     }
 
     @Override
-    public void storeResult(final UsageScenario scenario,
-            final Signature signature, final Identifier seff, Connector connector, final PDPResult policies,
-            final List<AssemblyContext> assembly, ServiceSpecification originService, ExternalCallAction originAction) {
+    public void storeResult(final UsageScenario scenario, final Signature signature, final Identifier seff,
+            final Connector connector, final PDPResult policies, final List<AssemblyContext> assembly,
+            final ServiceSpecification originService, final ExternalCallAction originAction) {
 
         // checking for null values
         Objects.requireNonNull(scenario);
@@ -55,19 +55,22 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
             throw new IllegalStateException("Result storage before scenario initialisation");
         }
 
-        var output = this.resultMap.get(scenario.getId());
+        final var output = this.resultMap.get(scenario.getId());
 
         final var scenarioResult = OutputmodelFactory.eINSTANCE.createOperationOutput();
 
         scenarioResult.setDecision(policies.decision());
-        scenarioResult.getPolicyIDs().addAll(policies.policyIdentifiers());
+        scenarioResult.getPolicyIDs()
+            .addAll(policies.policyIdentifiers());
         scenarioResult.setOperationsignature((OperationSignature) signature);
-        scenarioResult.getAssemblyContext().addAll(assembly);
+        scenarioResult.getAssemblyContext()
+            .addAll(assembly);
         scenarioResult.setConnector(connector);
         scenarioResult.setOriginService(originService);
         scenarioResult.setOrgiginAction(originAction);
 
-        output.getOperationOutput().add(scenarioResult);
+        output.getOperationOutput()
+            .add(scenarioResult);
 
     }
 
@@ -77,9 +80,10 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
      * @return AnalysisResults
      */
     public AnalysisResults getResultModel() {
-        var results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
-        finishScenarios();
-        results.getScenariooutput().addAll(this.resultMap.values());
+        final var results = OutputmodelFactory.eINSTANCE.createAnalysisResults();
+        this.finishScenarios();
+        results.getScenariooutput()
+            .addAll(this.resultMap.values());
 
         return results;
     }
@@ -88,16 +92,21 @@ public final class ResultEMFModelStorage implements ScenarioResultStorage {
      * Decides for all scenarios whether they are passed or not
      */
     private void finishScenarios() {
-        for (var scenario : this.resultMap.values()) {
+        for (final var scenario : this.resultMap.values()) {
             if (!scenario.isMisUsage()) {
-                if (scenario.getOperationOutput().stream().allMatch(e -> e.getDecision().equals(DecisionType.PERMIT))) {
+                if (scenario.getOperationOutput()
+                    .stream()
+                    .allMatch(e -> e.getDecision()
+                        .equals(DecisionType.PERMIT))) {
                     scenario.setPassed(true);
                 } else {
                     scenario.setPassed(false);
                 }
-            }
-            else {
-                if (scenario.getOperationOutput().stream().anyMatch(e -> e.getDecision().equals(DecisionType.DENY))) {
+            } else {
+                if (scenario.getOperationOutput()
+                    .stream()
+                    .anyMatch(e -> e.getDecision()
+                        .equals(DecisionType.DENY))) {
                     scenario.setPassed(true);
                 } else {
                     scenario.setPassed(false);

@@ -35,11 +35,15 @@ public class TargetHandler implements ContextTypeConverter<TargetType, List<AllO
         final var targetType = new ObjectFactory().createTargetType();
         if (!inputModel.isEmpty()) {
             final var anyOfType = new ObjectFactory().createAnyOfType();
-            final var allOfList = inputModel.stream().map(this::transformAllOf).collect(Collectors.toList());
+            final var allOfList = inputModel.stream()
+                .map(this::transformAllOf)
+                .collect(Collectors.toList());
 
-            anyOfType.getAllOf().addAll(allOfList);
+            anyOfType.getAllOf()
+                .addAll(allOfList);
 
-            targetType.getAnyOf().add(anyOfType);
+            targetType.getAnyOf()
+                .add(anyOfType);
         }
         return targetType;
 
@@ -55,7 +59,8 @@ public class TargetHandler implements ContextTypeConverter<TargetType, List<AllO
     private AllOfType transformAllOf(final AllOf allOf) {
         final var allOfType = new ObjectFactory().createAllOfType();
         final var matchList = this.matchHandler.transform(allOf.getMatch());
-        allOfType.getMatch().addAll(matchList);
+        allOfType.getMatch()
+            .addAll(matchList);
         return allOfType;
 
     }

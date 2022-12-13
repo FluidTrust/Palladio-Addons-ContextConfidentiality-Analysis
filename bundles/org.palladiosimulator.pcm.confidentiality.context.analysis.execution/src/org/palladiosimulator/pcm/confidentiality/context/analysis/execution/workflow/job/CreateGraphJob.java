@@ -24,40 +24,47 @@ public class CreateGraphJob implements IBlackboardInteractingJob<MDSDBlackboard>
 
     private MDSDBlackboard blackboard;
 
-    private ClassicalAttackerAnalysisWorkflowConfig config;
+    private final ClassicalAttackerAnalysisWorkflowConfig config;
 
-    public CreateGraphJob(ClassicalAttackerAnalysisWorkflowConfig config) {
+    public CreateGraphJob(final ClassicalAttackerAnalysisWorkflowConfig config) {
         this.config = config;
     }
 
     @Override
-    public void execute(IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
+    public void execute(final IProgressMonitor monitor) throws JobFailedException, UserCanceledException {
 
         final var modificationPartition = ((ModificationMarkPartition) this.blackboard
-                .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
+            .getPartition(PartitionConstants.PARTITION_ID_MODIFICATION)).getModificationRepository();
 
         this.logger.info("Start generating dot graph");
-        var file = Activator.getInstance().getGraphCreation().createAttackGraph(modificationPartition)
-                .orElseThrow(JobFailedException::new);
+        final var file = Activator.getInstance()
+            .getGraphCreation()
+            .createAttackGraph(modificationPartition)
+            .orElseThrow(JobFailedException::new);
 
-        var path = new Path(this.config.getModificationModel().toPlatformString(false));
-        var pathString = ResourcesPlugin.getWorkspace().getRoot().getFile(path).getLocation().removeLastSegments(1)
-                .toString();
+        final var path = new Path(this.config.getModificationModel()
+            .toPlatformString(false));
+        final var pathString = ResourcesPlugin.getWorkspace()
+            .getRoot()
+            .getFile(path)
+            .getLocation()
+            .removeLastSegments(1)
+            .toString();
 
         try {
-            var tmpFile = Files.copy(file, java.nio.file.Path.of(pathString, file.getFileName().toString()));
-            this.logger.info("File stored at " + tmpFile.toAbsolutePath().toString());
-        } catch (IOException e) {
+            final var tmpFile = Files.copy(file, java.nio.file.Path.of(pathString, file.getFileName()
+                .toString()));
+            this.logger.info("File stored at " + tmpFile.toAbsolutePath()
+                .toString());
+        } catch (final IOException e) {
             this.logger.error("Error on file operation", e);
             throw new JobFailedException();
         }
 
     }
 
-
-
     @Override
-    public void cleanup(IProgressMonitor monitor) throws CleanupFailedException {
+    public void cleanup(final IProgressMonitor monitor) throws CleanupFailedException {
 
     }
 
@@ -67,7 +74,7 @@ public class CreateGraphJob implements IBlackboardInteractingJob<MDSDBlackboard>
     }
 
     @Override
-    public void setBlackboard(MDSDBlackboard blackboard) {
+    public void setBlackboard(final MDSDBlackboard blackboard) {
         this.blackboard = blackboard;
     }
 

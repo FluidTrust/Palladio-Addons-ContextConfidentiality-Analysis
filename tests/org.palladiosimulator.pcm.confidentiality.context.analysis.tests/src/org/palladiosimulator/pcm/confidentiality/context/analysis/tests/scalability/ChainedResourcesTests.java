@@ -15,29 +15,37 @@ public class ChainedResourcesTests extends ScalabilityTests {
     }
 
     @Override
-    protected AssemblyContext resourceAddOperation(System system, AssemblyContext context) {
-        var newComponent = CompositionFactory.eINSTANCE.createAssemblyContext();
+    protected AssemblyContext resourceAddOperation(final System system, final AssemblyContext context) {
+        final var newComponent = CompositionFactory.eINSTANCE.createAssemblyContext();
 
         newComponent.setEncapsulatedComponent__AssemblyContext(context.getEncapsulatedComponent__AssemblyContext());
 
-        var delegationConnector = system.getConnectors__ComposedStructure().stream()
-                .filter(RequiredDelegationConnector.class::isInstance).map(RequiredDelegationConnector.class::cast)
-                .findAny();
-        delegationConnector.get().setAssemblyContext_RequiredDelegationConnector(newComponent);
+        final var delegationConnector = system.getConnectors__ComposedStructure()
+            .stream()
+            .filter(RequiredDelegationConnector.class::isInstance)
+            .map(RequiredDelegationConnector.class::cast)
+            .findAny();
+        delegationConnector.get()
+            .setAssemblyContext_RequiredDelegationConnector(newComponent);
 
-        var connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
+        final var connector = CompositionFactory.eINSTANCE.createAssemblyConnector();
 
         connector.setParentStructure__Connector(system);
         connector.setProvidingAssemblyContext_AssemblyConnector(newComponent);
         connector.setRequiringAssemblyContext_AssemblyConnector(context);
-        connector.setProvidedRole_AssemblyConnector((OperationProvidedRole) context
-                .getEncapsulatedComponent__AssemblyContext().getProvidedRoles_InterfaceProvidingEntity().get(0));
+        connector.setProvidedRole_AssemblyConnector(
+                (OperationProvidedRole) context.getEncapsulatedComponent__AssemblyContext()
+                    .getProvidedRoles_InterfaceProvidingEntity()
+                    .get(0));
         connector.setRequiredRole_AssemblyConnector(
                 (OperationRequiredRole) context.getEncapsulatedComponent__AssemblyContext()
-                        .getRequiredRoles_InterfaceRequiringEntity().get(0));
+                    .getRequiredRoles_InterfaceRequiringEntity()
+                    .get(0));
 
-        system.getConnectors__ComposedStructure().add(connector);
-        system.getAssemblyContexts__ComposedStructure().add(newComponent);
+        system.getConnectors__ComposedStructure()
+            .add(connector);
+        system.getAssemblyContexts__ComposedStructure()
+            .add(newComponent);
 
         return newComponent;
     }

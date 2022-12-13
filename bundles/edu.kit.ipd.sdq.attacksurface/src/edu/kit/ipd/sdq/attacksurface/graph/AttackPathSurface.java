@@ -34,7 +34,7 @@ public class AttackPathSurface {
     /**
      * Creates a new empty {@link AttackPathSurface}.
      */
-    public AttackPathSurface(GraphPath<ArchitectureNode, AttackEdge> path) {
+    public AttackPathSurface(final GraphPath<ArchitectureNode, AttackEdge> path) {
         this.path = path;
     }
 
@@ -52,20 +52,16 @@ public class AttackPathSurface {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if ((obj == null) || (this.getClass() != obj.getClass())) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        var other = (AttackPathSurface) obj;
+        final var other = (AttackPathSurface) obj;
         return Objects.equals(this.path, other.path);
     }
-
 
     @Override
     public String toString() {
@@ -86,84 +82,107 @@ public class AttackPathSurface {
      *            - whether a path should be created without causes (for temporary paths)
      * @return an {@link AttackPath} representing this attack path
      */
-    public AttackPath toAttackPath(
-            BlackboardWrapper modelStorage, final Entity targetedEntity, final boolean doCreateCauselessPaths) {
-        var list = new ArrayList<AttackPathElement>();
+    public AttackPath toAttackPath(final BlackboardWrapper modelStorage, final Entity targetedEntity,
+            final boolean doCreateCauselessPaths) {
+        final var list = new ArrayList<AttackPathElement>();
 
-        var outputPath = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
+        final var outputPath = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPath();
         outputPath.setTargetedElement(targetedEntity);
 
-        var startElement = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPathElement();
+        final var startElement = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPathElement();
         startElement.setToolderived(false);
-        startElement.setAffectedElement(this.path.getStartVertex().getEntity());
+        startElement.setAffectedElement(this.path.getStartVertex()
+            .getEntity());
 
         list.add(startElement);
 
-        for (var edge : this.path.getEdgeList()) {
-            var element = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPathElement();
+        for (final var edge : this.path.getEdgeList()) {
+            final var element = KAMP4attackModificationmarksFactory.eINSTANCE.createAttackPathElement();
             element.setToolderived(true);
             element.setAffectedElement(edge.getTarget());
 
             if (edge.getCause() != null) {
-                element.getCausingElements().add(edge.getCause());
+                element.getCausingElements()
+                    .add(edge.getCause());
             }
             if (edge.getCredentials() != null) {
-                edge.getCredentials().stream().forEach(element.getCausingElements()::add);
+                edge.getCredentials()
+                    .stream()
+                    .forEach(element.getCausingElements()::add);
             }
             list.add(element);
         }
 
-        outputPath.getAttackpathelement().addAll(list);
-        outputPath.getVulnerabilities().addAll(getVulnerabilities(list));
-        outputPath.getCredentials().addAll(getCredentials(modelStorage, list));
+        outputPath.getAttackpathelement()
+            .addAll(list);
+        outputPath.getVulnerabilities()
+            .addAll(this.getVulnerabilities(list));
+        outputPath.getCredentials()
+            .addAll(this.getCredentials(modelStorage, list));
 
         return outputPath;
     }
 
-    private List<Vulnerability> getVulnerabilities(List<AttackPathElement> elements) {
-        return elements.parallelStream().flatMap(e -> e.getCausingElements().stream())
-                .filter(Vulnerability.class::isInstance).map(Vulnerability.class::cast).toList();
+    private List<Vulnerability> getVulnerabilities(final List<AttackPathElement> elements) {
+        return elements.parallelStream()
+            .flatMap(e -> e.getCausingElements()
+                .stream())
+            .filter(Vulnerability.class::isInstance)
+            .map(Vulnerability.class::cast)
+            .toList();
     }
 
-    private List<UsageSpecification> getCredentials(BlackboardWrapper modelStorage, List<AttackPathElement> elements) {
-        var necessaryCredentials = elements.parallelStream().flatMap(e -> e.getCausingElements().stream())
-                .filter(UsageSpecification.class::isInstance).map(UsageSpecification.class::cast).toList();
+    private List<UsageSpecification> getCredentials(final BlackboardWrapper modelStorage,
+            final List<AttackPathElement> elements) {
+        final var necessaryCredentials = elements.parallelStream()
+            .flatMap(e -> e.getCausingElements()
+                .stream())
+            .filter(UsageSpecification.class::isInstance)
+            .map(UsageSpecification.class::cast)
+            .toList();
 
-        var foundCredentialsElements = elements.parallelStream()
-                .flatMap(e -> attributeProvider(modelStorage, e.getAffectedElement())).toList();
+        final var foundCredentialsElements = elements.parallelStream()
+            .flatMap(e -> this.attributeProvider(modelStorage, e.getAffectedElement()))
+            .toList();
 
-        var foundCredentialsVulnerabilities = getVulnerabilities(elements).stream()
-                .flatMap(e -> e.getGainedAttributes().stream()).toList();
+        final var foundCredentialsVulnerabilities = this.getVulnerabilities(elements)
+            .stream()
+            .flatMap(e -> e.getGainedAttributes()
+                .stream())
+            .toList();
 
-        var foundCredenitals = new ArrayList<>(foundCredentialsElements);
+        final var foundCredenitals = new ArrayList<>(foundCredentialsElements);
         foundCredenitals.addAll(foundCredentialsVulnerabilities);
 
-        return necessaryCredentials
-                .parallelStream().filter(
-                        e -> foundCredenitals.stream()
-                                .noneMatch(credential -> EcoreUtil.equals(credential.getAttribute(), e.getAttribute())
-                                        && EcoreUtil.equals(credential.getAttributevalue(), e.getAttributevalue())))
-                .toList();
-
+        return necessaryCredentials.parallelStream()
+            .filter(e -> foundCredenitals.stream()
+                .noneMatch(credential -> EcoreUtil.equals(credential.getAttribute(), e.getAttribute())
+                        && EcoreUtil.equals(credential.getAttributevalue(), e.getAttributevalue())))
+            .toList();
 
     }
 
-    private Stream<UsageSpecification> attributeProvider(BlackboardWrapper modelstorage, Entity entity) {
-        return modelstorage.getSpecification().getAttributeprovider().stream()
-                .filter(PCMAttributeProvider.class::isInstance).map(PCMAttributeProvider.class::cast).filter(e -> {
-                    if (entity instanceof AssemblyContext) {
-                        return EcoreUtil.equals(e.getAssemblycontext(), entity);
-                    }
-                    if (entity instanceof LinkingResource) {
-                        return EcoreUtil.equals(e.getLinkingresource(), entity);
-                    }
-                    if (entity instanceof ResourceContainer) {
-                        return EcoreUtil.equals(e.getResourcecontainer(), entity);
-                    }
-                    if (entity instanceof MethodSpecification) {
-                        return EcoreUtil.equals(e.getMethodspecification(), entity);
-                    }
-                    return false;
-                }).map(PCMAttributeProvider::getAttribute);
+    private Stream<UsageSpecification> attributeProvider(final BlackboardWrapper modelstorage, final Entity entity) {
+        return modelstorage.getSpecification()
+            .getAttributeprovider()
+            .stream()
+            .filter(PCMAttributeProvider.class::isInstance)
+            .map(PCMAttributeProvider.class::cast)
+            .filter(e -> {
+                if (entity instanceof AssemblyContext) {
+                    return EcoreUtil.equals(e.getAssemblycontext(), entity);
+                }
+                if (entity instanceof LinkingResource) {
+                    return EcoreUtil.equals(e.getLinkingresource(), entity);
+                }
+                if (entity instanceof ResourceContainer) {
+                    return EcoreUtil.equals(e.getResourcecontainer(), entity);
+                }
+                if (entity instanceof MethodSpecification) {
+                    return EcoreUtil.equals(e.getMethodspecification(), entity);
+                }
+                return false;
+            })
+            .map(PCMAttributeProvider::getAttribute);
     }
 }

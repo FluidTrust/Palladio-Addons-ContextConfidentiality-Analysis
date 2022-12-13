@@ -51,13 +51,14 @@ public class XACMLPDP implements Evaluate {
         final var request = this.factory.createRequestType();
         request.setReturnPolicyIdList(true);
 
-        request.getAttributes().add(assignAttributes(XACML3.ID_SUBJECT.stringValue(), subject));
         request.getAttributes()
-                .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
+            .add(this.assignAttributes(XACML3.ID_SUBJECT.stringValue(), subject));
         request.getAttributes()
-                .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
+            .add(this.assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ENVIRONMENT.stringValue(), environment));
         request.getAttributes()
-                .add(assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.stringValue(), operation));
+            .add(this.assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_RESOURCE.stringValue(), resource));
+        request.getAttributes()
+            .add(this.assignAttributes(XACML3.ID_ATTRIBUTE_CATEGORY_ACTION.stringValue(), operation));
         try {
 
             final var requestString = XACMLPolicyWriter.createXMLString(this.factory.createRequest(request),
@@ -68,17 +69,21 @@ public class XACMLPDP implements Evaluate {
 //                    return Optional.of(this.cache.get(string));
 //                }
                 final var actualRequest = DOMRequest.load(string);
-                var test = actualRequest.getReturnPolicyIdList();
+                final var test = actualRequest.getReturnPolicyIdList();
                 final var response = this.engine.decide(actualRequest);
 
-
-                if (response.getResults().size() != 1) {
+                if (response.getResults()
+                    .size() != 1) {
                     throw new IllegalStateException("Unexpected Result Amount");
                 }
-                final var result = response.getResults().iterator().next();
+                final var result = response.getResults()
+                    .iterator()
+                    .next();
 
-                final var listPolicyID = result.getPolicyIdentifiers().stream().map(Object::toString)
-                        .collect(Collectors.toList());
+                final var listPolicyID = result.getPolicyIdentifiers()
+                    .stream()
+                    .map(Object::toString)
+                    .collect(Collectors.toList());
 
                 DecisionType decision;
                 switch (result.getDecision()) {
@@ -121,7 +126,9 @@ public class XACMLPDP implements Evaluate {
         final var attributes = this.factory.createAttributesType();
         attributes.setCategory(category);
 
-        attributeValues.stream().map(this::convertUsage).forEach(attributes.getAttribute()::add);
+        attributeValues.stream()
+            .map(this::convertUsage)
+            .forEach(attributes.getAttribute()::add);
 
         return attributes;
     }
@@ -154,7 +161,8 @@ public class XACMLPDP implements Evaluate {
         properties.put("properties.file", pathXACMLFile);
 
         try {
-            this.engine = PDPEngineFactory.newInstance().newEngine(properties);
+            this.engine = PDPEngineFactory.newInstance()
+                .newEngine(properties);
         } catch (final FactoryException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
             return false;

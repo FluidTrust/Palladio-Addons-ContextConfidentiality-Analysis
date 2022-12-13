@@ -9,7 +9,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
 
 public class CachePDP {
 
-    private Map<String, PDPResult> cache = new HashMap<>();
+    private final Map<String, PDPResult> cache = new HashMap<>();
 
     private static CachePDP instance;
 
@@ -21,21 +21,21 @@ public class CachePDP {
         return instance == null ? instance = new CachePDP() : instance;
     }
 
-    public void insert(Entity target, PDPResult result) {
+    public void insert(final Entity target, final PDPResult result) {
         this.cache.put(target.getId(), result);
 
     }
 
-    public void insert(Entity target, Entity method, PDPResult result) {
+    public void insert(final Entity target, final Entity method, final PDPResult result) {
         this.cache.put(target.getId() + method.getId(), result);
     }
 
-    public Optional<PDPResult> get(Entity target) {
+    public Optional<PDPResult> get(final Entity target) {
 
         return Optional.ofNullable(this.cache.get(target.getId()));
     }
 
-    public Optional<PDPResult> get(Entity target, Entity method) {
+    public Optional<PDPResult> get(final Entity target, final Entity method) {
 
         return Optional.ofNullable(this.cache.get(target.getId() + method.getId()));
     }

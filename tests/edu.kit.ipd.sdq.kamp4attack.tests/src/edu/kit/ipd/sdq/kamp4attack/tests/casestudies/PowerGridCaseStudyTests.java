@@ -17,7 +17,6 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedResource;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CompromisedService;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ContextChange;
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.tests.change.AbstractChangeTests;
 
 public class PowerGridCaseStudyTests extends AbstractChangeTests {
@@ -35,36 +34,52 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
     @Test
     void defaultCase() {
 
-        runAnalysis();
+        this.runAnalysis();
     }
 
     @Test
     void defaultCaseCorrectAssemblyNumber() {
-        runAnalysis();
-        final var change = (CredentialChange) this.modification.getChangePropagationSteps().get(0);
-        assertEquals(5, change.getCompromisedresource().size());
-        assertEquals(7, change.getCompromisedassembly().size());
-        assertEquals(10, change.getCompromisedservice().size());
-        assertEquals(4, change.getContextchange().size());
-        assertEquals(1, change.getCompromisedlinkingresource().size());
+        this.runAnalysis();
+        final var change = this.modification.getChangePropagationSteps()
+            .get(0);
+        assertEquals(5, change.getCompromisedresource()
+            .size());
+        assertEquals(7, change.getCompromisedassembly()
+            .size());
+        assertEquals(10, change.getCompromisedservice()
+            .size());
+        assertEquals(4, change.getContextchange()
+            .size());
+        assertEquals(1, change.getCompromisedlinkingresource()
+            .size());
 
-        var containsRequiredAssemblies = change.getCompromisedassembly().stream()
-                .map(CompromisedAssembly::getAffectedElement).map(AssemblyContext::getEntityName)
-                .allMatch(this::assemblyNameMatch);
+        final var containsRequiredAssemblies = change.getCompromisedassembly()
+            .stream()
+            .map(CompromisedAssembly::getAffectedElement)
+            .map(AssemblyContext::getEntityName)
+            .allMatch(this::assemblyNameMatch);
 
-        var containsRequiredResources = change.getCompromisedresource().stream()
-                .map(CompromisedResource::getAffectedElement).map(ResourceContainer::getEntityName)
-                .allMatch(this::resourceNameMatch);
+        final var containsRequiredResources = change.getCompromisedresource()
+            .stream()
+            .map(CompromisedResource::getAffectedElement)
+            .map(ResourceContainer::getEntityName)
+            .allMatch(this::resourceNameMatch);
 
-        var containsRequiredLinking = change.getCompromisedlinkingresource().stream()
-                .map(CompromisedLinkingResource::getAffectedElement).map(LinkingResource::getEntityName)
-                .allMatch(this::linkingNameMatch);
+        final var containsRequiredLinking = change.getCompromisedlinkingresource()
+            .stream()
+            .map(CompromisedLinkingResource::getAffectedElement)
+            .map(LinkingResource::getEntityName)
+            .allMatch(this::linkingNameMatch);
 
-        var containsRequiredContext = change.getContextchange().stream().map(ContextChange::getAffectedElement)
-                .allMatch(this::checkAttribute);
+        final var containsRequiredContext = change.getContextchange()
+            .stream()
+            .map(ContextChange::getAffectedElement)
+            .allMatch(this::checkAttribute);
 
-        change.getCompromisedservice().stream().map(CompromisedService::getAffectedElement)
-                .allMatch(this::checkServiceRestriction);
+        change.getCompromisedservice()
+            .stream()
+            .map(CompromisedService::getAffectedElement)
+            .allMatch(this::checkServiceRestriction);
 
         assertTrue(containsRequiredAssemblies);
         assertTrue(containsRequiredResources);
@@ -73,45 +88,50 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
 
     }
 
-    private boolean assemblyNameMatch(String name) {
-        var set = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
+    private boolean assemblyNameMatch(final String name) {
+        final var set = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
                 "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights", "ExternalVPNBridge");
         return set.contains(name);
     }
 
-    private boolean resourceNameMatch(String name) {
-        var set = Set.of("Workstation01", "CallCenter", "DataCenter", "Workstation02", "VPNBridgeExternal");
+    private boolean resourceNameMatch(final String name) {
+        final var set = Set.of("Workstation01", "CallCenter", "DataCenter", "Workstation02", "VPNBridgeExternal");
         return set.contains(name);
     }
 
-    private boolean linkingNameMatch(String name) {
-        var set = Set.of("CorporateNetwork");
+    private boolean linkingNameMatch(final String name) {
+        final var set = Set.of("CorporateNetwork");
         return set.contains(name);
     }
 
-    private boolean checkAttribute(UsageSpecification specification) {
-        var attributeEquals = specification.getAttribute().getId().equals("_8fjUoi8jEeylPOrRpUZy4w");
+    private boolean checkAttribute(final UsageSpecification specification) {
+        final var attributeEquals = specification.getAttribute()
+            .getId()
+            .equals("_8fjUoi8jEeylPOrRpUZy4w");
         if (!attributeEquals) {
             return attributeEquals;
         }
-        var set = Set.of("_-E3soC8jEeylPOrRpUZy4w", "_CkwYUC8kEeylPOrRpUZy4w", "_GNARYC8kEeylPOrRpUZy4w",
+        final var set = Set.of("_-E3soC8jEeylPOrRpUZy4w", "_CkwYUC8kEeylPOrRpUZy4w", "_GNARYC8kEeylPOrRpUZy4w",
                 "_XsEwUC8kEeylPOrRpUZy4w");
-        return set.contains(specification.getAttributevalue().getId());
+        return set.contains(specification.getAttributevalue()
+            .getId());
     }
 
-    private boolean checkServiceRestriction(ServiceSpecification restriction) {
-        var setAssembly = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
-                "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights",
+    private boolean checkServiceRestriction(final ServiceSpecification restriction) {
+        final var setAssembly = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication",
+                "ICS-VPN-Bridge", "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights",
                 "Assembly_DMSClientApplication", "Assembly_DMSServerApplication", "ExternalVPNBridge");
 
-        var equalAssembly = setAssembly.contains(restriction.getAssemblycontext().getEntityName());
+        final var equalAssembly = setAssembly.contains(restriction.getAssemblycontext()
+            .getEntityName());
         if (!equalAssembly) {
             return equalAssembly;
         }
-        var setServices = Set.of("_Q-7lUCwjEeylP6vhO63XvA", "_xXMikCwiEeylP6vhO63XvA", "_B6cScCwjEeylP6vhO63XvA",
+        final var setServices = Set.of("_Q-7lUCwjEeylP6vhO63XvA", "_xXMikCwiEeylP6vhO63XvA", "_B6cScCwjEeylP6vhO63XvA",
                 "_9onQ4CwiEeylP6vhO63XvA", "_xWrqQC2YEeyiUoiCEbquLw", "_G-t3wC2bEeyiUoiCEbquLw",
                 "_ZHSHAC2YEeyiUoiCEbquLw", "_ZIvfkC2YEeyiUoiCEbquLw");
-        return setServices.contains(restriction.getService().getId());
+        return setServices.contains(restriction.getService()
+            .getId());
 
     }
 }

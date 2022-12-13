@@ -4,7 +4,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.usagemodel.Branch;
 import org.palladiosimulator.pcm.usagemodel.BranchTransition;
 import org.palladiosimulator.pcm.usagemodel.Delay;
@@ -106,8 +105,12 @@ public class AbstractUsageModelVisitor<T> extends UsagemodelSwitch<Set<T>> {
      * @return
      */
     private Start getStartAction(final ScenarioBehaviour behaviour) {
-        return behaviour.getActions_ScenarioBehaviour().stream().filter(Start.class::isInstance).map(Start.class::cast)
-                .findAny().get();
+        return behaviour.getActions_ScenarioBehaviour()
+            .stream()
+            .filter(Start.class::isInstance)
+            .map(Start.class::cast)
+            .findAny()
+            .get();
     }
 
 }

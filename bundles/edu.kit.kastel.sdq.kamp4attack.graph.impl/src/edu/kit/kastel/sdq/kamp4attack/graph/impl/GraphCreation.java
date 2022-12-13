@@ -25,7 +25,6 @@ import org.palladiosimulator.pcm.resourceenvironment.ResourceContainer;
 import com.google.common.graph.MutableValueGraph;
 import com.google.common.graph.ValueGraphBuilder;
 
-import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.CredentialChange;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.KAMP4attackModificationRepository;
 import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.ModifyEntity;
 import edu.kit.kastel.sdq.kamp4attack.graph.api.AttackGraphCreation;
@@ -37,40 +36,48 @@ public class GraphCreation implements AttackGraphCreation {
     private final Logger logger = Logger.getLogger(GraphCreation.class);
 
     @Override
-    public Optional<Path> createAttackGraph(KAMP4attackModificationRepository modificationPartition) {
-        if (modificationPartition.getChangePropagationSteps().size() == 1) {
+    public Optional<Path> createAttackGraph(final KAMP4attackModificationRepository modificationPartition) {
+        if (modificationPartition.getChangePropagationSteps()
+            .size() == 1) {
 
-            var change = (CredentialChange) modificationPartition.getChangePropagationSteps().get(0);
+            final var change = modificationPartition.getChangePropagationSteps()
+                .get(0);
 
-            MutableValueGraph<String, String> graph = ValueGraphBuilder.directed().allowsSelfLoops(true).build();
+            final MutableValueGraph<String, String> graph = ValueGraphBuilder.directed()
+                .allowsSelfLoops(true)
+                .build();
 
-            fillGraph(graph, change.getCompromisedassembly());
-            fillGraph(graph, change.getCompromisedresource());
-            fillGraph(graph, change.getCompromisedlinkingresource());
-            fillGraph(graph, change.getCompromisedservice());
-            fillGraph(graph, change.getContextchange());
-            fillGraph(graph, change.getCompromiseddata());
-            var dot = new DotCreation();
-            var dotString = dot.createOutputFormat(graph);
+            this.fillGraph(graph, change.getCompromisedassembly());
+            this.fillGraph(graph, change.getCompromisedresource());
+            this.fillGraph(graph, change.getCompromisedlinkingresource());
+            this.fillGraph(graph, change.getCompromisedservice());
+            this.fillGraph(graph, change.getContextchange());
+            this.fillGraph(graph, change.getCompromiseddata());
+            final var dot = new DotCreation();
+            final var dotString = dot.createOutputFormat(graph);
 
             try {
-                var file = Files.createTempFile("test", ".dot");
+                final var file = Files.createTempFile("test", ".dot");
 
                 Files.writeString(file.toAbsolutePath(), dotString);
-                var command = String.format("dot -Tpng %s", file.toAbsolutePath().toString());
-                var process = Runtime.getRuntime().exec(command);
+                final var command = String.format("dot -Tpng %s", file.toAbsolutePath()
+                    .toString());
+                final var process = Runtime.getRuntime()
+                    .exec(command);
 
-                var outputFile = Files.createTempFile("test", ".png");
-                var outputStream = Files.newOutputStream(outputFile.toAbsolutePath());
-                process.getInputStream().transferTo(outputStream);
+                final var outputFile = Files.createTempFile("test", ".png");
+                final var outputStream = Files.newOutputStream(outputFile.toAbsolutePath());
+                process.getInputStream()
+                    .transferTo(outputStream);
 
-                var errorStream = new ByteArrayOutputStream();
-                process.getErrorStream().transferTo(errorStream);
+                final var errorStream = new ByteArrayOutputStream();
+                process.getErrorStream()
+                    .transferTo(errorStream);
                 if (errorStream.size() != 0) {
                     this.logger.error(errorStream.toString());
                 }
                 return Optional.of(outputFile);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 this.logger.error(e);
             }
 
@@ -79,108 +86,128 @@ public class GraphCreation implements AttackGraphCreation {
 
     }
 
-    private void fillGraph(MutableValueGraph<String, String> graph,
-            List<? extends ModifyEntity<? extends Entity>> change) {
-        for (var assembly : change) {
-            var node = assembly.getAffectedElement();
-            var source = getSource(assembly.getCausingElements());
-            for (var entity : source) {
-                graph.putEdgeValue(entity, getString(node), getName(assembly.getCausingElements()));
+    private void fillGraph(final MutableValueGraph<String, String> graph,
+            final List<? extends ModifyEntity<? extends Entity>> change) {
+        for (final var assembly : change) {
+            final var node = assembly.getAffectedElement();
+            final var source = this.getSource(assembly.getCausingElements());
+            for (final var entity : source) {
+                graph.putEdgeValue(entity, this.getString(node), this.getName(assembly.getCausingElements()));
             }
         }
     }
 
-    private List<String> getSource(List<EObject> list) {
+    private List<String> getSource(final List<EObject> list) {
         return list.stream()
-                .filter(e -> (e instanceof ResourceContainer) || e instanceof AssemblyContext
-                        || e instanceof LinkingResource || e instanceof MethodSpecification)
-                .map(Entity.class::cast).map(this::getString).collect(Collectors.toList());
+            .filter(e -> (e instanceof ResourceContainer) || e instanceof AssemblyContext
+                    || e instanceof LinkingResource || e instanceof MethodSpecification)
+            .map(Entity.class::cast)
+            .map(this::getString)
+            .collect(Collectors.toList());
     }
 
-    private List<Vulnerability> getVulnerabilites(List<EObject> list) {
-        return list.stream().filter(Vulnerability.class::isInstance).map(Vulnerability.class::cast)
-                .collect(Collectors.toList());
+    private List<Vulnerability> getVulnerabilites(final List<EObject> list) {
+        return list.stream()
+            .filter(Vulnerability.class::isInstance)
+            .map(Vulnerability.class::cast)
+            .collect(Collectors.toList());
     }
 
-    private List<UsageSpecification> getCredentials(List<EObject> list) {
-        return list.stream().filter(UsageSpecification.class::isInstance).map(UsageSpecification.class::cast)
-                .collect(Collectors.toList());
+    private List<UsageSpecification> getCredentials(final List<EObject> list) {
+        return list.stream()
+            .filter(UsageSpecification.class::isInstance)
+            .map(UsageSpecification.class::cast)
+            .collect(Collectors.toList());
     }
 
-    private String getName(List<EObject> list) {
-        var vulnerabilitiesString = getVulnerabilites(list).stream().map(Entity::getEntityName).collect(Collectors.joining(", "));
-        var credentials = getCredentials(list).stream().map(this::getString).collect(Collectors.joining(", "));
+    private String getName(final List<EObject> list) {
+        final var vulnerabilitiesString = this.getVulnerabilites(list)
+            .stream()
+            .map(Entity::getEntityName)
+            .collect(Collectors.joining(", "));
+        final var credentials = this.getCredentials(list)
+            .stream()
+            .map(this::getString)
+            .collect(Collectors.joining(", "));
 
         if (vulnerabilitiesString.isEmpty() && credentials.isEmpty()) {
             return "implicit";
         } else if (vulnerabilitiesString.isEmpty()) {
             return credentials;
-        }else if(credentials.isEmpty()) {
+        } else if (credentials.isEmpty()) {
             return vulnerabilitiesString;
         }
         return String.join(", ", vulnerabilitiesString, credentials);
 
     }
 
-    private String getString(Entity entity) {
+    private String getString(final Entity entity) {
         if (entity instanceof ResourceContainer) {
-            return getString((ResourceContainer) entity);
+            return this.getString((ResourceContainer) entity);
         } else if (entity instanceof AssemblyContext) {
-            return getString((AssemblyContext) entity);
+            return this.getString((AssemblyContext) entity);
         } else if (entity instanceof LinkingResource) {
-            return getString((LinkingResource) entity);
+            return this.getString((LinkingResource) entity);
         } else if (entity instanceof UsageSpecification) {
-            return getString((UsageSpecification) entity);
-        }
-        else if (entity instanceof ServiceSpecification) {
-            return getString((ServiceSpecification) entity);
-        }
-        else if (entity instanceof DatamodelAttacker) {
-            return getString((DatamodelAttacker) entity);
+            return this.getString((UsageSpecification) entity);
+        } else if (entity instanceof ServiceSpecification) {
+            return this.getString((ServiceSpecification) entity);
+        } else if (entity instanceof DatamodelAttacker) {
+            return this.getString((DatamodelAttacker) entity);
         }
         return entity.getEntityName();
     }
 
-    private String getString(DatamodelAttacker datamodel) {
+    private String getString(final DatamodelAttacker datamodel) {
         var datatype = "";
         if (datamodel.getDataType() != null && datamodel.getDataType() instanceof Entity) {
-            var tmpEntityDatatype = (Entity) datamodel.getDataType();
+            final var tmpEntityDatatype = (Entity) datamodel.getDataType();
             datatype = tmpEntityDatatype.getEntityName();
         }
         if (datamodel.getDataType() != null && datamodel.getDataType() instanceof PrimitiveDataType) {
-            var tmpDatatype = (PrimitiveDataType) datamodel.getDataType();
-            datatype = tmpDatatype.getType() != null ? tmpDatatype.getType().toString() : "INT";
+            final var tmpDatatype = (PrimitiveDataType) datamodel.getDataType();
+            datatype = tmpDatatype.getType() != null ? tmpDatatype.getType()
+                .toString() : "INT";
         }
-        var referenceName = datamodel.getReferenceName();
+        final var referenceName = datamodel.getReferenceName();
         if (referenceName != null) {
             return String.format("%s:%s", referenceName, datatype);
         }
-        return String.format("%s from %s:%s", datatype, datamodel.getMethod().getEntityName(),
-                datamodel.getMethod().getInterface__OperationSignature().getEntityName());
+        return String.format("%s from %s:%s", datatype, datamodel.getMethod()
+            .getEntityName(),
+                datamodel.getMethod()
+                    .getInterface__OperationSignature()
+                    .getEntityName());
 
     }
-    private String getString(ResourceContainer entity) {
-        return getString("ResourceContainer", entity);
+
+    private String getString(final ResourceContainer entity) {
+        return this.getString("ResourceContainer", entity);
     }
 
-    private String getString(AssemblyContext entity) {
-        return getString("AssemblyContext", entity);
+    private String getString(final AssemblyContext entity) {
+        return this.getString("AssemblyContext", entity);
     }
 
-    private String getString(LinkingResource entity) {
-        return getString("LinkingResource", entity);
+    private String getString(final LinkingResource entity) {
+        return this.getString("LinkingResource", entity);
     }
 
-    private String getString(UsageSpecification entity) {
-        return String.format("%s: %s", entity.getAttribute().getEntityName(),
-                entity.getAttributevalue().getValues().stream().collect(Collectors.joining(", ")));
+    private String getString(final UsageSpecification entity) {
+        return String.format("%s: %s", entity.getAttribute()
+            .getEntityName(),
+                entity.getAttributevalue()
+                    .getValues()
+                    .stream()
+                    .collect(Collectors.joining(", ")));
     }
 
-    private String getString(ServiceSpecification entity) {
-        return getString(entity.getAssemblycontext().getEntityName(), entity.getSignature());
+    private String getString(final ServiceSpecification entity) {
+        return this.getString(entity.getAssemblycontext()
+            .getEntityName(), entity.getSignature());
     }
 
-    private String getString(String symbolName, Entity entity) {
+    private String getString(final String symbolName, final Entity entity) {
         return String.format("%s: %s", symbolName, entity.getEntityName());
     }
 

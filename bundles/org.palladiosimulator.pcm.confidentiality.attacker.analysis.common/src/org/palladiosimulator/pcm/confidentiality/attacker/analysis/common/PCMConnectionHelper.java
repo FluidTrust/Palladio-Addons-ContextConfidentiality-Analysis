@@ -21,27 +21,31 @@ public class PCMConnectionHelper {
         assert false;
     }
 
-    public static List<AssemblyContext> getConnectectedAssemblies(System system, AssemblyContext component) {
+    public static List<AssemblyContext> getConnectectedAssemblies(final System system,
+            final AssemblyContext component) {
         final var targetConnectors = getConnectedConnectors(component, system);
 
         final var targetComponents = targetConnectors.stream()
-                .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
-                .filter(e -> !EcoreUtil.equals(e, component)).collect(Collectors.toList());
+            .map(AssemblyConnector::getProvidingAssemblyContext_AssemblyConnector)
+            .filter(e -> !EcoreUtil.equals(e, component))
+            .collect(Collectors.toList());
         // not possible to change to toList() since this list needs to be mutable
 
-        targetComponents
-                .addAll(targetConnectors.stream().map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
-                        .filter(e -> !EcoreUtil.equals(e, component)).toList());
+        targetComponents.addAll(targetConnectors.stream()
+            .map(AssemblyConnector::getRequiringAssemblyContext_AssemblyConnector)
+            .filter(e -> !EcoreUtil.equals(e, component))
+            .toList());
         return CollectionHelper.removeDuplicates(targetComponents);
     }
 
     public static List<AssemblyConnector> getConnectedConnectors(final AssemblyContext component, final System system) {
-        var storage = AssemblyContextChangeTargetedConnectorsStorage.getInstance();
+        final var storage = AssemblyContextChangeTargetedConnectorsStorage.getInstance();
 
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(component.getId())) {
-            var targetedConnectors = system.getConnectors__ComposedStructure().stream()
-                    .filter(AssemblyConnector.class::isInstance)
+            final var targetedConnectors = system.getConnectors__ComposedStructure()
+                .stream()
+                .filter(AssemblyConnector.class::isInstance)
                 .map(AssemblyConnector.class::cast)
                 .filter(e -> EcoreUtil.equals(e.getRequiringAssemblyContext_AssemblyConnector(), component)
                         || EcoreUtil.equals(e.getProvidingAssemblyContext_AssemblyConnector(), component))
@@ -61,51 +65,56 @@ public class PCMConnectionHelper {
      *            used AllocationModel
      * @return allocated ResourceContainer
      */
-    public static ResourceContainer getResourceContainer(final AssemblyContext component, Allocation allocationModel) {
-        var storage = AssemblyContextChangeResourceContainerStorage.getInstance();
+    public static ResourceContainer getResourceContainer(final AssemblyContext component,
+            final Allocation allocationModel) {
+        final var storage = AssemblyContextChangeResourceContainerStorage.getInstance();
 
         // Uses a HashMap to store results, to avoid recalculation and improve
         // performance
         if (!storage.contains(component.getId())) {
             final var allocationOPT = allocationModel.getAllocationContexts_Allocation()
-                    .parallelStream().filter(allocation -> EcoreUtil
-                            .equals(allocation.getAssemblyContext_AllocationContext(), component))
-                    .findAny();
+                .parallelStream()
+                .filter(allocation -> EcoreUtil.equals(allocation.getAssemblyContext_AllocationContext(), component))
+                .findAny();
             if (allocationOPT.isEmpty()) {
                 throw new IllegalStateException(
                         "No Allocation for assemblycontext " + component.getEntityName() + " found");
             }
 
-            storage.put(component.getId(), allocationOPT.get().getResourceContainer_AllocationContext());
+            storage.put(component.getId(), allocationOPT.get()
+                .getResourceContainer_AllocationContext());
         }
 
         return storage.get(component.getId());
     }
 
     public static List<ResourceContainer> getConnectedResourceContainers(final ResourceContainer resource,
-            ResourceEnvironment environment) {
+            final ResourceEnvironment environment) {
         final var resources = getLinkingResource(resource, environment).stream()
-                .flatMap(e -> e.getConnectedResourceContainers_LinkingResource().stream()).distinct()
-                .filter(e -> !EcoreUtil.equals(e, resource)).collect(Collectors.toList());
+            .flatMap(e -> e.getConnectedResourceContainers_LinkingResource()
+                .stream())
+            .distinct()
+            .filter(e -> !EcoreUtil.equals(e, resource))
+            .collect(Collectors.toList());
         return resources;
     }
 
     public static List<LinkingResource> getLinkingResource(final ResourceContainer container,
-            ResourceEnvironment resourceEnvironment) {
-        var storage = ChangeLinkingResourcesStorage.getInstance();
+            final ResourceEnvironment resourceEnvironment) {
+        final var storage = ChangeLinkingResourcesStorage.getInstance();
 
         // Uses a HashMap to store results, to avoid recalculation and improve performance
         if (!storage.contains(container.getId())) {
-            var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment().stream()
-                .filter(e -> e.getConnectedResourceContainers_LinkingResource().stream()
-                        .anyMatch(f -> EcoreUtil.equals(f, container)))
+            final var linkingResourcesList = resourceEnvironment.getLinkingResources__ResourceEnvironment()
+                .stream()
+                .filter(e -> e.getConnectedResourceContainers_LinkingResource()
+                    .stream()
+                    .anyMatch(f -> EcoreUtil.equals(f, container)))
                 .collect(Collectors.toList());
             storage.put(container.getId(), linkingResourcesList);
         }
 
         return storage.get(container.getId());
     }
-
-
 
 }

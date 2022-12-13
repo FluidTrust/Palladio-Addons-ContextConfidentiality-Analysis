@@ -18,19 +18,20 @@ import edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificati
 
 public class AttackPathCreation {
 
-    private Entity target;
-    private CredentialChange change;
+    private final Entity target;
+    private final CredentialChange change;
 
-    public AttackPathCreation(Entity target, CredentialChange change) {
+    public AttackPathCreation(final Entity target, final CredentialChange change) {
         this.target = target;
         this.change = change;
     }
 
     public void createAttackPaths(final BlackboardWrapper modelStorage,
-            ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
+            final ImmutableNetwork<ArchitectureNode, AttackEdge> graph) {
         final var allAttackPathsSurface = new DefaultAttackPathFinder().findAttackPaths(modelStorage, graph,
                 this.target);
-        this.change.getAttackpaths().addAll(toAttackPaths(modelStorage, allAttackPathsSurface));
+        this.change.getAttackpaths()
+            .addAll(this.toAttackPaths(modelStorage, allAttackPathsSurface));
     }
 
     private Collection<AttackPath> toAttackPaths(final BlackboardWrapper modelStorage,
@@ -39,7 +40,8 @@ public class AttackPathCreation {
 
         for (final var pathSurface : allAttackPathsSurface) {
             final var attackPathPath = pathSurface.toAttackPath(modelStorage, this.target, false);
-            if (!attackPathPath.getAttackpathelement().isEmpty()) {
+            if (!attackPathPath.getAttackpathelement()
+                .isEmpty()) {
                 allPaths.add(attackPathPath);
             }
         }

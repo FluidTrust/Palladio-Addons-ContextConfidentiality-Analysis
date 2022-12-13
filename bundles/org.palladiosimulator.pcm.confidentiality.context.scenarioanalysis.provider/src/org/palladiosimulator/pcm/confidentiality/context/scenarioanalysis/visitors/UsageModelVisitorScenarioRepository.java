@@ -1,12 +1,9 @@
 package org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.visitors;
 
-import java.util.List;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.EList;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMHelpers;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.helpers.PCMInstanceHelper;
-import org.palladiosimulator.pcm.core.composition.AssemblyContext;
 import org.palladiosimulator.pcm.repository.BasicComponent;
 import org.palladiosimulator.pcm.repository.Signature;
 import org.palladiosimulator.pcm.seff.ResourceDemandingBehaviour;
@@ -31,14 +28,15 @@ public class UsageModelVisitorScenarioRepository extends AbstractUsageModelVisit
     private ServiceEffectSpecification getNextSEFF(final EntryLevelSystemCall call) {
         final Signature sig = call.getOperationSignature__EntryLevelSystemCall();
 
-        final var acList = PCMInstanceHelper.getHandlingAssemblyContexts(call,
-                PCMHelpers.getSystem(call));
+        final var acList = PCMInstanceHelper.getHandlingAssemblyContexts(call, PCMHelpers.getSystem(call));
 
         final var ac = acList.get(acList.size() - 1);
         final var bc = (BasicComponent) ac.getEncapsulatedComponent__AssemblyContext();
         final var seffList = bc.getServiceEffectSpecifications__BasicComponent();
         for (final ServiceEffectSpecification seff : seffList) {
-            if (seff.getDescribedService__SEFF().getEntityName().equals(sig.getEntityName())) {
+            if (seff.getDescribedService__SEFF()
+                .getEntityName()
+                .equals(sig.getEntityName())) {
                 return seff;
             }
         }

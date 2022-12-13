@@ -21,22 +21,26 @@ public class ChainedResourcesTest extends ScalabilityTests {
     }
 
     @Override
-    protected ResourceContainer resourceAddOperation(ResourceEnvironment environment, ResourceContainer origin,
-            VulnerabilitySystemIntegration integration) {
-        var resource = EcoreUtil.copy(origin);
+    protected ResourceContainer resourceAddOperation(final ResourceEnvironment environment,
+            final ResourceContainer origin, final VulnerabilitySystemIntegration integration) {
+        final var resource = EcoreUtil.copy(origin);
         resource.setId(nextId());
         resource.setEntityName(resource.getId() + " middle");
-        var linking = ResourceenvironmentFactory.eINSTANCE.createLinkingResource();
+        final var linking = ResourceenvironmentFactory.eINSTANCE.createLinkingResource();
 
-        linking.getConnectedResourceContainers_LinkingResource().add(origin);
-        linking.getConnectedResourceContainers_LinkingResource().add(resource);
+        linking.getConnectedResourceContainers_LinkingResource()
+            .add(origin);
+        linking.getConnectedResourceContainers_LinkingResource()
+            .add(resource);
 
-        var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
+        final var pcmElement = PcmIntegrationFactory.eINSTANCE.createPCMElement();
         pcmElement.setResourcecontainer(resource);
         integration.setPcmelement(pcmElement);
 
-        environment.getLinkingResources__ResourceEnvironment().add(linking);
-        environment.getResourceContainer_ResourceEnvironment().add(resource);
+        environment.getLinkingResources__ResourceEnvironment()
+            .add(linking);
+        environment.getResourceContainer_ResourceEnvironment()
+            .add(resource);
 
         this.maximumPathLength++;
         return resource;
@@ -53,17 +57,21 @@ public class ChainedResourcesTest extends ScalabilityTests {
 
     @Override
     protected int getMaximumNumberOfAdditionsForFullAnalysis() {
-        return getMaximumNumberOfAdditions();
+        return this.getMaximumNumberOfAdditions();
     }
 
     @Override
     protected void moveVulnerabilitiesIfNecessary(final AttackerSystemSpecificationContainer attacks) {
         // move vulnerability to resource container
-        final var origin = this.environment.getResourceContainer_ResourceEnvironment().get(1);
-        final var assemblyInOrigin = this.allocation.getAllocationContexts_Allocation().stream()
-                .filter(a -> EcoreUtil.equals(a.getResourceContainer_AllocationContext(), origin))
-                .map(AllocationContext::getAssemblyContext_AllocationContext).findFirst().orElse(null);
-        moveVulnerabilities(attacks, assemblyInOrigin, origin);
+        final var origin = this.environment.getResourceContainer_ResourceEnvironment()
+            .get(1);
+        final var assemblyInOrigin = this.allocation.getAllocationContexts_Allocation()
+            .stream()
+            .filter(a -> EcoreUtil.equals(a.getResourceContainer_AllocationContext(), origin))
+            .map(AllocationContext::getAssemblyContext_AllocationContext)
+            .findFirst()
+            .orElse(null);
+        this.moveVulnerabilities(attacks, assemblyInOrigin, origin);
     }
 
     @Override

@@ -31,115 +31,88 @@ public class TravelPlannerTest extends EvaluationTest {
 
     @Test
     public void travelplannerBaseTest() {
-        var entity = getSurfaceAttacker().getTargetedElement().getResourcecontainer();
-        final var changes = runAnalysisWithoutAttackPathGeneration();
-        pathsTestHelper(changes, entity);
+        final var entity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getResourcecontainer();
+        final var changes = this.runAnalysisWithoutAttackPathGeneration();
+        this.pathsTestHelper(changes, entity);
     }
 
     @Test
     public void travelplannerBaseTestCompleteAnalysis() {
-        var entity = getSurfaceAttacker().getTargetedElement().getResourcecontainer();
-        final var changes = runAnalysis();
+        final var entity = this.getSurfaceAttacker()
+            .getTargetedElement()
+            .getResourcecontainer();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
+        this.printPaths(pathsDirectlyAfterAnalysis);
         Assertions.assertEquals(8, pathsDirectlyAfterAnalysis.size());
-        pathsTestHelper(changes, entity);
+        this.pathsTestHelper(changes, entity);
     }
 
-    private void areAllPathsThereHelper(
-            final List<AttackPath> paths,
-            final int maxPathLength, final boolean allowVuln, final boolean allowRootCred) {
-        final var pathsString = toString(paths);
+    private void areAllPathsThereHelper(final List<AttackPath> paths, final int maxPathLength, final boolean allowVuln,
+            final boolean allowRootCred) {
+        final var pathsString = this.toString(paths);
         if (allowVuln) {
             if (maxPathLength < 3) {
                 Assertions.assertTrue(paths.isEmpty());
                 return;
             } else {
-                Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                        + "- | TravelPlanner <TravelPlanner>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                        + "- | Airline <Airline>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                        + "- | AirlineServer\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains(
+                        "3 PATH\n" + "- | TravelPlanner <TravelPlanner>\n" + VULN + " | TravelAgency <TravelAgency>\n"
+                                + CRED_ROOT + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString
+                    .contains("3 PATH\n" + "- | Airline <Airline>\n" + VULN + " | TravelAgency <TravelAgency>\n"
+                            + CRED_ROOT + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString
+                    .contains("3 PATH\n" + "- | AirlineServer\n" + VULN + " | TravelAgency <TravelAgency>\n" + CRED_ROOT
+                            + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains("3 PATH\n" + VULN + " | TravelAgency <TravelAgency>\n" + VULN
+                        + " | TravelAgency <TravelAgency>\n" + CRED_ROOT + " | AgencyServer\n" + "VULNs used: "
+                        + VULN));
             }
 
             if (maxPathLength >= 4) {
                 Assertions.assertEquals(8, paths.size());
 
-                Assertions.assertTrue(pathsString.contains("4 PATH\n"
-                    + "- | TravelPlanner <TravelPlanner>\n"
-                    + VULN + " | TravelAgency <TravelAgency>\n"
-                    + VULN + " | TravelAgency <TravelAgency>\n"
-                    + CRED_ROOT + " | AgencyServer\n"
-                    + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("4 PATH\n"
-                        + "- | Airline <Airline>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("4 PATH\n"
-                        + "- | AirlineServer\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
-                Assertions.assertTrue(pathsString.contains("4 PATH\n"
-                        + "- | AgencyServer\n"
-                        + "- | TravelAgency <TravelAgency>\n"
-                        + VULN + " | TravelAgency <TravelAgency>\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains("4 PATH\n" + "- | TravelPlanner <TravelPlanner>\n" + VULN
+                        + " | TravelAgency <TravelAgency>\n" + VULN + " | TravelAgency <TravelAgency>\n" + CRED_ROOT
+                        + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains("4 PATH\n" + "- | Airline <Airline>\n" + VULN
+                        + " | TravelAgency <TravelAgency>\n" + VULN + " | TravelAgency <TravelAgency>\n" + CRED_ROOT
+                        + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains("4 PATH\n" + "- | AirlineServer\n" + VULN
+                        + " | TravelAgency <TravelAgency>\n" + VULN + " | TravelAgency <TravelAgency>\n" + CRED_ROOT
+                        + " | AgencyServer\n" + "VULNs used: " + VULN));
+                Assertions.assertTrue(pathsString.contains("4 PATH\n" + "- | AgencyServer\n"
+                        + "- | TravelAgency <TravelAgency>\n" + VULN + " | TravelAgency <TravelAgency>\n" + CRED_ROOT
+                        + " | AgencyServer\n" + "VULNs used: " + VULN));
             } else {
                 Assertions.assertEquals(4, paths.size());
-                Assertions.assertTrue(paths
-                        .stream()
-                        .allMatch(p -> p.getAttackpathelement().size() <= 3));
+                Assertions.assertTrue(paths.stream()
+                    .allMatch(p -> p.getAttackpathelement()
+                        .size() <= 3));
             }
         } else {
             // no vulnerability attacks --> initial credentials necessary
             if (allowRootCred) {
-                Assertions.assertTrue(pathsString.contains("2 PATH\n"
-                        + "credentials initally necessary: " + CRED_ROOT + "\n"
-                        + CRED_ROOT + " | AgencyServer\n"
-                        + CRED_ROOT + " | AgencyServer"));
+                Assertions.assertTrue(pathsString.contains("2 PATH\n" + "credentials initally necessary: " + CRED_ROOT
+                        + "\n" + CRED_ROOT + " | AgencyServer\n" + CRED_ROOT + " | AgencyServer"));
                 if (maxPathLength < 3) {
                     Assertions.assertEquals(1, paths.size());
                 } else {
-                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                            + "credentials initally necessary: " + CRED_ROOT + "\n"
-                            + "- | TravelPlanner <TravelPlanner>\n"
-                            + "- | AgencyServer\n"
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n" + "credentials initally necessary: "
+                            + CRED_ROOT + "\n" + "- | TravelPlanner <TravelPlanner>\n" + "- | AgencyServer\n"
                             + CRED_ROOT + " | AgencyServer"));
-                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                            + "credentials initally necessary: " + CRED_ROOT + "\n"
-                            + "- | Airline <Airline>\n"
-                            + "- | AgencyServer\n"
-                            + CRED_ROOT + " | AgencyServer"));
-                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                            + "credentials initally necessary: " + CRED_ROOT + "\n"
-                            + "- | TravelAgency <TravelAgency>\n"
-                            + "- | AgencyServer\n"
-                            + CRED_ROOT + " | AgencyServer"));
-                    Assertions.assertTrue(pathsString.contains("3 PATH\n"
-                            + "credentials initally necessary: " + CRED_ROOT + "\n"
-                            + "- | AirlineServer\n"
-                            + "- | AgencyServer\n"
-                            + CRED_ROOT + " | AgencyServer"));
+                    Assertions.assertTrue(pathsString
+                        .contains("3 PATH\n" + "credentials initally necessary: " + CRED_ROOT + "\n"
+                                + "- | Airline <Airline>\n" + "- | AgencyServer\n" + CRED_ROOT + " | AgencyServer"));
+                    Assertions.assertTrue(pathsString.contains("3 PATH\n" + "credentials initally necessary: "
+                            + CRED_ROOT + "\n" + "- | TravelAgency <TravelAgency>\n" + "- | AgencyServer\n" + CRED_ROOT
+                            + " | AgencyServer"));
+                    Assertions
+                        .assertTrue(pathsString.contains("3 PATH\n" + "credentials initally necessary: " + CRED_ROOT
+                                + "\n" + "- | AirlineServer\n" + "- | AgencyServer\n" + CRED_ROOT + " | AgencyServer"));
                 }
             } else {
                 Assertions.assertTrue(paths.isEmpty());
@@ -149,174 +122,180 @@ public class TravelPlannerTest extends EvaluationTest {
 
     @Test
     public void evalAnalysisWithoutFilters() {
-        getSurfaceAttacker().getFiltercriteria().clear();
-        final var changes = runAnalysis();
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
+            .clear();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, true);
     }
 
     @Test
     public void evalAnalysisWithNotFilteringFilters() {
-        final var changes = runAnalysis();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, true);
     }
 
     @Test
     public void evalAnalysisWithMaxPathFilter3() {
-        setPathLengthFilter(3);
-        final var changes = runAnalysis();
+        this.setPathLengthFilter(3);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, true, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, true, true);
     }
 
     @Test
     public void evalAnalysisWithMaxPathFilter2() {
-        setPathLengthFilter(2);
-        final var changes = runAnalysis();
+        this.setPathLengthFilter(2);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, true, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, true, true);
     }
 
     @Test
     public void evalAnalysisRootUnusableButVulnerabilityUsable() {
-        setRootUnusable();
-        final var changes = runAnalysis();
+        this.setRootUnusable();
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, false);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, true, false);
     }
 
     @Test
     public void evalAnalysisRootUnusableButVulnerabilityUsableAnd3() {
-        setRootUnusable();
-        setPathLengthFilter(3);
-        final var changes = runAnalysis();
+        this.setRootUnusable();
+        this.setPathLengthFilter(3);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, true, false);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, true, false);
     }
 
     @Test
     public void evalAnalysisRootUnusableButVulnerabilityUsableAnd2() {
-        setRootUnusable();
-        setPathLengthFilter(2);
-        final var changes = runAnalysis();
+        this.setRootUnusable();
+        this.setPathLengthFilter(2);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, true, false);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, true, false);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAttackVector() {
-        setVulnerabilityUnusable(true);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(true);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, true);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAttackVectorAnd3() {
-        setVulnerabilityUnusable(true);
-        setPathLengthFilter(3);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(true);
+        this.setPathLengthFilter(3);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, false, true);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAttackVectorAnd2() {
-        setVulnerabilityUnusable(true);
-        setPathLengthFilter(2);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(true);
+        this.setPathLengthFilter(2);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, false, true);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAvailabilityImpact() {
-        setVulnerabilityUnusable(false);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(false);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, true);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAvailabilityImpactAnd3() {
-        setVulnerabilityUnusable(false);
-        setPathLengthFilter(3);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(false);
+        this.setPathLengthFilter(3);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 3, false, true);
     }
 
     @Test
     public void evalAnalysisRootUsableButVulnerabilityNotUsableDueToAvailabilityImpactAnd2() {
-        setVulnerabilityUnusable(false);
-        setPathLengthFilter(2);
-        final var changes = runAnalysis();
+        this.setVulnerabilityUnusable(false);
+        this.setPathLengthFilter(2);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, false, true);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 2, false, true);
     }
 
     @Test
     public void evalAnalysisRootAndVulnerabilityUnusableDueToAttackVector() {
-        setRootUnusable();
-        setVulnerabilityUnusable(true);
-        final var changes = runAnalysis();
+        this.setRootUnusable();
+        this.setVulnerabilityUnusable(true);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, false);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, false);
     }
 
     @Test
     public void evalAnalysisRootAndVulnerabilityUnusableDueToAvailabilityImpact() {
-        setRootUnusable();
-        setVulnerabilityUnusable(false);
-        final var changes = runAnalysis();
+        this.setRootUnusable();
+        this.setVulnerabilityUnusable(false);
+        final var changes = this.runAnalysis();
         final var pathsDirectlyAfterAnalysis = changes.getAttackpaths();
-        printPaths(pathsDirectlyAfterAnalysis);
-        areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, false);
+        this.printPaths(pathsDirectlyAfterAnalysis);
+        this.areAllPathsThereHelper(pathsDirectlyAfterAnalysis, 4, false, false);
     }
 
     private void setVulnerabilityUnusable(final boolean dueToAttackVector) {
         if (dueToAttackVector) {
-            getSurfaceAttacker().getFiltercriteria()
+            this.getSurfaceAttacker()
+                .getFiltercriteria()
                 .stream()
                 .filter(ExploitabilityVulnerabilityFilterCriterion.class::isInstance)
                 .map(ExploitabilityVulnerabilityFilterCriterion.class::cast)
                 .forEach(f -> f.setAttackVectorMaximum(AttackVector.NETWORK));
         } else { // due to availability impact
-            getSurfaceAttacker().getFiltercriteria()
-            .stream()
-            .filter(ImpactVulnerabilityFilterCriterion.class::isInstance)
-            .map(ImpactVulnerabilityFilterCriterion.class::cast)
-            .forEach(f -> f.setAvailabilityImpactMinimum(AvailabilityImpact.HIGH));
+            this.getSurfaceAttacker()
+                .getFiltercriteria()
+                .stream()
+                .filter(ImpactVulnerabilityFilterCriterion.class::isInstance)
+                .map(ImpactVulnerabilityFilterCriterion.class::cast)
+                .forEach(f -> f.setAvailabilityImpactMinimum(AvailabilityImpact.HIGH));
         }
     }
 
     private void setRootUnusable() {
-        final var root = createRootCredentialsIfNecessary();
-        getSurfaceAttacker().getFiltercriteria()
+        final var root = this.createRootCredentialsIfNecessary();
+        this.getSurfaceAttacker()
+            .getFiltercriteria()
             .stream()
             .filter(InitialCredentialFilterCriterion.class::isInstance)
             .map(InitialCredentialFilterCriterion.class::cast)
-            .forEach(f -> f.getProhibitedInitialCredentials().add(root));
+            .forEach(f -> f.getProhibitedInitialCredentials()
+                .add(root));
     }
 
     @Test
     public void graphGenerationTest() {
-        runAnalysis();
-        generateGraph(false);
+        this.runAnalysis();
+        this.generateGraph(false);
     }
 }

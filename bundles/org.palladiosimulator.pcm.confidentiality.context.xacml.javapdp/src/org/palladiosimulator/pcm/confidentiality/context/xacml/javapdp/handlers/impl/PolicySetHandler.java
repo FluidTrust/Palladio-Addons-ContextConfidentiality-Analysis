@@ -80,13 +80,16 @@ public class PolicySetHandler implements ContextTypeConverter<PolicySetType, Pol
     private void addPoliciesToSet(final PolicySetType xacmlPolicySet, final PolicySet set) {
         if (set != null) {
             final var listPolicy = this.createPolicy(set.getPolicy());
-            xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference().addAll(listPolicy);
+            xacmlPolicySet.getPolicySetOrPolicyOrPolicySetIdReference()
+                .addAll(listPolicy);
         }
     }
 
     private List<JAXBElement<PolicyType>> createPolicy(final List<Policy> policies) {
-        return policies.stream().map(this.handler::transform).map(this.factory::createPolicy)
-                .collect(Collectors.toList());
+        return policies.stream()
+            .map(this.handler::transform)
+            .map(this.factory::createPolicy)
+            .collect(Collectors.toList());
     }
 
 }

@@ -30,7 +30,8 @@ public class AssemblyContextContext extends AssemblyContextHandler {
 
         final var result = this.queryAccessForEntity(component, credentials);
 
-        if (result.isPresent() && Objects.equal(result.get().decision(), DecisionType.PERMIT)) {
+        if (result.isPresent() && Objects.equal(result.get()
+            .decision(), DecisionType.PERMIT)) {
             final var sourceList = this.createSource(source, credentials);
             final var compromised = HelperCreationCompromisedElements.createCompromisedAssembly(component, sourceList);
             return Optional.of(compromised);

@@ -37,24 +37,28 @@ public class HelperUpdateCredentialChange {
      */
     public static void updateCredentials(final CredentialChange changes,
             final Stream<ContextChange> streamContextChange) {
-        final var listChanges = streamContextChange
-                .filter(e -> changes.getContextchange().stream().noneMatch(f -> equalUsageElement(f, e)))
-                .collect(Collectors.toList());
+        final var listChanges = streamContextChange.filter(e -> changes.getContextchange()
+            .stream()
+            .noneMatch(f -> equalUsageElement(f, e)))
+            .collect(Collectors.toList());
 
-        changes.getContextchange().addAll(listChanges);
+        changes.getContextchange()
+            .addAll(listChanges);
 
         if (!listChanges.isEmpty()) {
-            CachePDP.instance().clearCache();
+            CachePDP.instance()
+                .clearCache();
             changes.setChanged(true);
         }
     }
 
-    private static boolean equalUsageElement(ContextChange changeReference, ContextChange toCompare) {
-        var referenceCredential = changeReference.getAffectedElement();
-        var newCredential = toCompare.getAffectedElement();
+    private static boolean equalUsageElement(final ContextChange changeReference, final ContextChange toCompare) {
+        final var referenceCredential = changeReference.getAffectedElement();
+        final var newCredential = toCompare.getAffectedElement();
 
-        var attributesEquals = EcoreUtil.equals(referenceCredential.getAttribute(), newCredential.getAttribute());
-        var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(), newCredential.getAttributevalue());
+        final var attributesEquals = EcoreUtil.equals(referenceCredential.getAttribute(), newCredential.getAttribute());
+        final var valueEquals = EcoreUtil.equals(referenceCredential.getAttributevalue(),
+                newCredential.getAttributevalue());
 
         return attributesEquals && valueEquals;
     }
@@ -75,7 +79,8 @@ public class HelperUpdateCredentialChange {
         change.setToolderived(true);
         change.setAffectedElement(usageSpecification);
         if (sources != null && !sources.isEmpty()) {
-            change.getCausingElements().addAll(sources);
+            change.getCausingElements()
+                .addAll(sources);
         }
         return change;
     }

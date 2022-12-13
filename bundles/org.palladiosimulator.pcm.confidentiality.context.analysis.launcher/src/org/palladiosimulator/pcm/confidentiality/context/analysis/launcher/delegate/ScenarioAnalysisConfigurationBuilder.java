@@ -24,12 +24,13 @@ public class ScenarioAnalysisConfigurationBuilder extends ContextAnalysisConfigu
     @Override
     public void fillConfiguration(final AbstractWorkflowBasedRunConfiguration configuration) throws CoreException {
         super.fillConfiguration(configuration);
-        if (!configuration.getClass().equals(ScenarioAnalysisWorkflowConfig.class)) {
+        if (!configuration.getClass()
+            .equals(ScenarioAnalysisWorkflowConfig.class)) {
             throw new IllegalArgumentException("configuration is from type " + configuration.getClass() + ", but "
                     + ScenarioAnalysisWorkflowConfig.class + " expected");
         }
         final var config = (ScenarioAnalysisWorkflowConfig) configuration;
-        config.setUsage(getURI(Constants.USAGE_MODEL_LABEL));
+        config.setUsage(this.getURI(Constants.USAGE_MODEL_LABEL));
 
     }
 

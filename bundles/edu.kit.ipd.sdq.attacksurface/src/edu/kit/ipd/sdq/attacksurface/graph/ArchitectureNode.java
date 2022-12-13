@@ -15,8 +15,7 @@ import org.palladiosimulator.pcm.core.entity.Entity;
  */
 public class ArchitectureNode {
 
-
-    private Entity entity;
+    private final Entity entity;
 
     /**
      * Creates an ArchitectureNode
@@ -24,7 +23,7 @@ public class ArchitectureNode {
      * @param entity
      *            Entity should be an architectural Entity
      */
-    public ArchitectureNode(Entity entity) {
+    public ArchitectureNode(final Entity entity) {
         this.entity = entity;
     }
 
@@ -34,17 +33,14 @@ public class ArchitectureNode {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if ((obj == null) || (this.getClass() != obj.getClass())) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        var other = (ArchitectureNode) obj;
+        final var other = (ArchitectureNode) obj;
         return Objects.equals(this.entity.getId(), other.entity.getId());
     }
 

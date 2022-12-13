@@ -18,7 +18,7 @@ public class LaunchConfigurationTabGroup extends AbstractLaunchConfigurationTabG
      */
     @Override
     public void createTabs(final ILaunchConfigurationDialog dialog, final String mode) {
-        setTabs(new ModelInputTab(), new AttackerAnalysisConfigurationTab(), new CommonTab());
+        this.setTabs(new ModelInputTab(), new AttackerAnalysisConfigurationTab(), new CommonTab());
     }
 
 }

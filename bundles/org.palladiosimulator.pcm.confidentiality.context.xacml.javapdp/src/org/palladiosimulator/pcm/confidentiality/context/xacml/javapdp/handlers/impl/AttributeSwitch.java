@@ -23,17 +23,20 @@ public class AttributeSwitch extends SystemcontextSwitch<Void> {
         this.attribute.setAttributeId(object.getId());
 
         final var valueType = new ObjectFactory().createAttributeValueType();
-        valueType.getContent().addAll(this.value.getValues());
+        valueType.getContent()
+            .addAll(this.value.getValues());
         EnumHelpers.extractAndSetDataType(this.value.getType(), valueType::setDataType);
 
-        this.attribute.getAttributeValue().add(valueType);
+        this.attribute.getAttributeValue()
+            .add(valueType);
         return null;
     }
 
     @Override
     public Void caseSystemEntityAttribute(final SystemEntityAttribute object) {
 
-        this.attribute.setIssuer(object.getModelEntity().getId());
+        this.attribute.setIssuer(object.getModelEntity()
+            .getId());
 
         return null;
     }

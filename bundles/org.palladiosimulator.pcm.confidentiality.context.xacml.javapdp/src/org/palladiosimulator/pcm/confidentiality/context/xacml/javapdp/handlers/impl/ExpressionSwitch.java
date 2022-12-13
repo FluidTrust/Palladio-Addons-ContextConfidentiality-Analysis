@@ -35,7 +35,10 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
         final var applyType = this.factory.createApplyType();
         applyType.setDescription(object.getEntityName());
 
-        object.getParameters().stream().map(this::doSwitch).forEach(applyType.getExpression()::add);
+        object.getParameters()
+            .stream()
+            .map(this::doSwitch)
+            .forEach(applyType.getExpression()::add);
         EnumHelpers.extractAndSetFunction(object.getOperation(), applyType::setFunctionId);
         return this.factory.createApply(applyType);
     }
@@ -53,7 +56,8 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
 
         if (attribute instanceof final SystemEntityAttribute systemEntitiyAttribute) {
 
-            designator.setIssuer(systemEntitiyAttribute.getModelEntity().getId());
+            designator.setIssuer(systemEntitiyAttribute.getModelEntity()
+                .getId());
         }
 
         designator.setMustBePresent(object.isMustBePresent());
@@ -65,8 +69,11 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
     @Override
     public JAXBElement<?> caseAttributeValueReference(final AttributeValueReference object) {
         final var attributeValue = this.factory.createAttributeValueType();
-        EnumHelpers.extractAndSetDataType(object.getAttributevalue().getType(), attributeValue::setDataType);
-        attributeValue.getContent().addAll(object.getAttributevalue().getValues());
+        EnumHelpers.extractAndSetDataType(object.getAttributevalue()
+            .getType(), attributeValue::setDataType);
+        attributeValue.getContent()
+            .addAll(object.getAttributevalue()
+                .getValues());
 
         return this.factory.createAttributeValue(attributeValue);
 
@@ -85,7 +92,8 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
     @Override
     public JAXBElement<?> caseVariableReference(final VariableReference object) {
         final var variableReference = this.factory.createVariableReferenceType();
-        variableReference.setVariableId(object.getVariabledefinitions().getId());
+        variableReference.setVariableId(object.getVariabledefinitions()
+            .getId());
         return this.factory.createVariableReference(variableReference);
 
     }
@@ -123,17 +131,22 @@ public class ExpressionSwitch extends PolicySwitch<JAXBElement<?>> {
 
         final var functionReference = PolicyFactory.eINSTANCE.createFunctionReference();
         functionReference.setFunction(Operations.STRING_EQUAL);
-        applyObject.getParameters().add(functionReference);
+        applyObject.getParameters()
+            .add(functionReference);
 
         final var valueReference = PolicyFactory.eINSTANCE.createAttributeValueReference();
-        valueReference.setAttributevalue(object.getAttribute().getAttributevalue());
-        applyObject.getParameters().add(valueReference);
+        valueReference.setAttributevalue(object.getAttribute()
+            .getAttributevalue());
+        applyObject.getParameters()
+            .add(valueReference);
 
         final var selector = PolicyFactory.eINSTANCE.createAttributeDesignator();
         selector.setCategory(object.getCategory());
-        selector.setAttribute(object.getAttribute().getAttribute());
+        selector.setAttribute(object.getAttribute()
+            .getAttribute());
 
-        applyObject.getParameters().add(selector);
+        applyObject.getParameters()
+            .add(selector);
 
         return this.caseApply(applyObject);
     }

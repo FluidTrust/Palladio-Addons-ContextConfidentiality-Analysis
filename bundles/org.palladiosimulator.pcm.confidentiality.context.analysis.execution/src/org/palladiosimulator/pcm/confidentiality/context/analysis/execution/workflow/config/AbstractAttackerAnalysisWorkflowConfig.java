@@ -31,8 +31,8 @@ public abstract class AbstractAttackerAnalysisWorkflowConfig extends ContextAnal
     public void setModificationModel(final URI adversaryModel) {
         this.modificationModel = adversaryModel;
     }
-	
-    public void setGenerateGraph(boolean generateGraph) {
+
+    public void setGenerateGraph(final boolean generateGraph) {
         this.generateGraph = generateGraph;
     }
 

@@ -62,19 +62,22 @@ public class AttackGraphCreation
 
     private static final Logger LOGGER = Logger.getLogger(AttackGraphCreation.class.getName());
     private volatile MutableNetwork<ArchitectureNode, AttackEdge> graph;
-    private BlackboardWrapper modelStorage;
+    private final BlackboardWrapper modelStorage;
     private PolicySet policies;
 
-    public AttackGraphCreation(BlackboardWrapper modelStorage) {
-        this.graph = NetworkBuilder.directed().allowsParallelEdges(true).build();
+    public AttackGraphCreation(final BlackboardWrapper modelStorage) {
+        this.graph = NetworkBuilder.directed()
+            .allowsParallelEdges(true)
+            .build();
         this.modelStorage = modelStorage;
-        if (modelStorage.getSpecification().eContainer() instanceof ConfidentialAccessSpecification policies) {
+        if (modelStorage.getSpecification()
+            .eContainer() instanceof final ConfidentialAccessSpecification policies) {
             this.policies = policies.getPolicyset();
 
         } else {
             throw new IllegalArgumentException("No AccessControl description found");
         }
-        if (!isValidAccessControll()) {
+        if (!this.isValidAccessControll()) {
             throw new IllegalStateException("Access control files contains unsupported elements");
         }
     }
@@ -85,19 +88,24 @@ public class AttackGraphCreation
             return true;
         }
 
-        var checkEntityMatch = this.policies.eContents().stream().filter(Match.class::isInstance)
-                .allMatch(this::isCorrectMatchType);
+        final var checkEntityMatch = this.policies.eContents()
+            .stream()
+            .filter(Match.class::isInstance)
+            .allMatch(this::isCorrectMatchType);
         if (!checkEntityMatch) {
             LOGGER.log(Level.SEVERE, "Access Control contains non supported Match Elements");
         }
-        var checkConditions = this.policies.eContents().stream().filter(Expression.class::isInstance).allMatch(e -> {
-            if (e instanceof Apply apply) {
-                return Objects.equals(apply.getOperation(), Operations.AND);
-            } else if (e instanceof SimpleAttributeCondition) {
-                return true;
-            }
-            return false;
-        });
+        final var checkConditions = this.policies.eContents()
+            .stream()
+            .filter(Expression.class::isInstance)
+            .allMatch(e -> {
+                if (e instanceof final Apply apply) {
+                    return Objects.equals(apply.getOperation(), Operations.AND);
+                } else if (e instanceof SimpleAttributeCondition) {
+                    return true;
+                }
+                return false;
+            });
         if (!checkConditions) {
             LOGGER.log(Level.SEVERE, "Access Control contains non supported Expression elements");
         }
@@ -105,58 +113,58 @@ public class AttackGraphCreation
         return checkEntityMatch && checkConditions;
     }
 
-    private boolean isCorrectMatchType(EObject match) {
+    private boolean isCorrectMatchType(final EObject match) {
         return match instanceof EntityMatch || match instanceof MethodMatch;
     }
 
-    private void createEdgeVulnerability(Entity rootEntity, Entity connectedEntity, List<Vulnerability> vulnerabilities,
-            AttackVector vector) {
-        for (var vulnerability : vulnerabilities) {
-            if (!AttackVectorHelper.isIncluded(vector, vulnerability.getAttackVector())) {
+    private void createEdgeVulnerability(final Entity rootEntity, final Entity connectedEntity,
+            final List<Vulnerability> vulnerabilities, final AttackVector vector) {
+        for (final var vulnerability : vulnerabilities) {
+            if (!AttackVectorHelper.isIncluded(vector, vulnerability.getAttackVector()) || !AttackHandlingHelper.notFilteredVulnerability(this.modelStorage, vulnerability)) {
                 continue;
             }
-            if (!AttackHandlingHelper.notFilteredVulnerability(this.modelStorage, vulnerability)) {
-                continue;
-            }
-            var node1 = new ArchitectureNode(rootEntity);
-            var node2 = new ArchitectureNode(connectedEntity);
-            var edge = new AttackEdge(rootEntity, connectedEntity, vulnerability, null);
+            final var node1 = new ArchitectureNode(rootEntity);
+            final var node2 = new ArchitectureNode(connectedEntity);
+            final var edge = new AttackEdge(rootEntity, connectedEntity, vulnerability, null);
 
-            insertEdge(node1, node2, edge);
+            this.insertEdge(node1, node2, edge);
 
         }
     }
 
-    private void createEdgeCredentials(Entity rootEntity, Entity connectedEntity, BlackboardWrapper modelStorage) {
+    private void createEdgeCredentials(final Entity rootEntity, final Entity connectedEntity,
+            final BlackboardWrapper modelStorage) {
 
-        var credentials = getCredentialIntegrations(connectedEntity);
+        final var credentials = this.getCredentialIntegrations(connectedEntity);
 
         if (!credentials.isEmpty()) {
-            var node1 = new ArchitectureNode(rootEntity);
-            var node2 = new ArchitectureNode(connectedEntity);
-            for (var credentialEdge : credentials) {
-                var edge = new AttackEdge(rootEntity, connectedEntity, null, credentialEdge);
+            final var node1 = new ArchitectureNode(rootEntity);
+            final var node2 = new ArchitectureNode(connectedEntity);
+            for (final var credentialEdge : credentials) {
+                final var edge = new AttackEdge(rootEntity, connectedEntity, null, credentialEdge);
 
-                insertEdge(node1, node2, edge);
+                this.insertEdge(node1, node2, edge);
             }
         }
 
     }
 
-    private synchronized void insertEdge(ArchitectureNode node1, ArchitectureNode node2, AttackEdge edge) {
+    private synchronized void insertEdge(final ArchitectureNode node1, final ArchitectureNode node2,
+            final AttackEdge edge) {
         this.graph.addEdge(node1, node2, edge);
     }
 
-    private void createEdgeImplicit(Entity rootEntity, Entity connectedEntity, BlackboardWrapper modelStorage) {
+    private void createEdgeImplicit(final Entity rootEntity, final Entity connectedEntity,
+            final BlackboardWrapper modelStorage) {
 
 //        var credentials = getCredentialIntegrations(connectedEntity);
 
-        var node1 = new ArchitectureNode(rootEntity);
-        var node2 = new ArchitectureNode(connectedEntity);
+        final var node1 = new ArchitectureNode(rootEntity);
+        final var node2 = new ArchitectureNode(connectedEntity);
 //        if (credentials.isEmpty()) {
-            var edge = new AttackEdge(rootEntity, connectedEntity, null, List.of(), true, AttackVector.LOCAL);
+        final var edge = new AttackEdge(rootEntity, connectedEntity, null, List.of(), true, AttackVector.LOCAL);
 
-            insertEdge(node1, node2, edge);
+        this.insertEdge(node1, node2, edge);
 //        } else {
 //            for (var credential : credentials) {
 //                var edge = new AttackEdge(rootEntity, connectedEntity, null, credential, true, AttackVector.LOCAL);
@@ -167,51 +175,77 @@ public class AttackGraphCreation
 
     }
 
-    private List<List<UsageSpecification>> getCredentialIntegrations(Entity target) {
+    private List<List<UsageSpecification>> getCredentialIntegrations(final Entity target) {
 
-        var matches = Streams.stream(this.policies.eAllContents()).filter(AllOf.class::isInstance)
-                .map(AllOf.class::cast)
-                .filter(e -> e.getMatch().size() == 1).flatMap(e -> e.getMatch().stream()).filter(EntityMatch.class::isInstance).map(EntityMatch.class::cast).filter(e-> e.getEntity().getId().equals(target.getId())).toList();
+        final var matches = Streams.stream(this.policies.eAllContents())
+            .filter(AllOf.class::isInstance)
+            .map(AllOf.class::cast)
+            .filter(e -> e.getMatch()
+                .size() == 1)
+            .flatMap(e -> e.getMatch()
+                .stream())
+            .filter(EntityMatch.class::isInstance)
+            .map(EntityMatch.class::cast)
+            .filter(e -> e.getEntity()
+                .getId()
+                .equals(target.getId()))
+            .toList();
 
-
-
-
-        var switchExpression = new PolicySwitch<List<UsageSpecification>>() {
+        final var switchExpression = new PolicySwitch<List<UsageSpecification>>() {
             @Override
-            public List<UsageSpecification> caseSimpleAttributeCondition(SimpleAttributeCondition condition) {
+            public List<UsageSpecification> caseSimpleAttributeCondition(final SimpleAttributeCondition condition) {
                 return List.of(condition.getAttribute());
             }
 
             @Override
-            public List<UsageSpecification> caseApply(Apply apply) {
-                return apply.getParameters().stream().flatMap(e -> this.doSwitch(e).stream()).toList();
+            public List<UsageSpecification> caseApply(final Apply apply) {
+                return apply.getParameters()
+                    .stream()
+                    .flatMap(e -> this.doSwitch(e)
+                        .stream())
+                    .toList();
             }
         };
 
-        var policySwitch = new PolicySwitch<List<List<UsageSpecification>>>() {
+        final var policySwitch = new PolicySwitch<List<List<UsageSpecification>>>() {
 
             @Override
-            public List<List<UsageSpecification>> casePolicySet(PolicySet object) {
-                var policyStream = object.getPolicy().stream().flatMap(e -> this.doSwitch(e).stream());
-                var policySetStream = object.getPolicyset().stream().flatMap(e -> this.doSwitch(e).stream());
-                return Stream.concat(policyStream, policySetStream).toList();
+            public List<List<UsageSpecification>> casePolicySet(final PolicySet object) {
+                final var policyStream = object.getPolicy()
+                    .stream()
+                    .flatMap(e -> this.doSwitch(e)
+                        .stream());
+                final var policySetStream = object.getPolicyset()
+                    .stream()
+                    .flatMap(e -> this.doSwitch(e)
+                        .stream());
+                return Stream.concat(policyStream, policySetStream)
+                    .toList();
             }
 
             @Override
-            public List<List<UsageSpecification>> casePolicy(Policy object) {
+            public List<List<UsageSpecification>> casePolicy(final Policy object) {
 
-                return object.getRule().stream().flatMap(e -> this.doSwitch(e).stream()).toList();
+                return object.getRule()
+                    .stream()
+                    .flatMap(e -> this.doSwitch(e)
+                        .stream())
+                    .toList();
             }
 
             @Override
-            public List<List<UsageSpecification>> caseRule(Rule rule) {
+            public List<List<UsageSpecification>> caseRule(final Rule rule) {
                 return List.of(switchExpression.doSwitch(rule.getCondition()));
             }
 
         };
 
-        return matches.stream().map(EObject::eContainer).map(EObject::eContainer)
-                .flatMap(e -> policySwitch.doSwitch(e).stream()).toList();
+        return matches.stream()
+            .map(EObject::eContainer)
+            .map(EObject::eContainer)
+            .flatMap(e -> policySwitch.doSwitch(e)
+                .stream())
+            .toList();
 
 //        return this.modelStorage.getVulnerabilitySpecification().getVulnerabilities().stream()
 //                .filter(PCMElementType.typeOf(target).getElementEqualityPredicate(target))
@@ -221,136 +255,162 @@ public class AttackGraphCreation
 
     @Override
     public void calculateAssemblyContextToRemoteResourcePropagation() {
-        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
-            var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
+        this.modelStorage.getAssembly()
+            .getAssemblyContexts__ComposedStructure()
+            .parallelStream()
+            .forEach(component -> {
+                final var resource = PCMConnectionHelper.getResourceContainer(component,
+                        this.modelStorage.getAllocation());
 
-            if (CollectionHelper.isGlobalCommunication(component,
-                    this.modelStorage.getVulnerabilitySpecification().getVulnerabilities())) {
-                // find directly connected Resources
-                // only GlobalCommunication since non Global can't connect
-                var connectedResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
-                        this.modelStorage.getResourceEnvironment());
-                for (var connectedResource : connectedResources) {
-                    var vulnerabilities = VulnerabilityHelper
+                if (CollectionHelper.isGlobalCommunication(component, this.modelStorage.getVulnerabilitySpecification()
+                    .getVulnerabilities())) {
+                    // find directly connected Resources
+                    // only GlobalCommunication since non Global can't connect
+                    final var connectedResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
+                            this.modelStorage.getResourceEnvironment());
+                    for (final var connectedResource : connectedResources) {
+                        final var vulnerabilities = VulnerabilityHelper
                             .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), connectedResource);
-                    createEdgeVulnerability(component, connectedResource, vulnerabilities,
-                            AttackVector.ADJACENT_NETWORK);
-                    createEdgeCredentials(component, connectedResource, this.modelStorage);
+                        this.createEdgeVulnerability(component, connectedResource, vulnerabilities,
+                                AttackVector.ADJACENT_NETWORK);
+                        this.createEdgeCredentials(component, connectedResource, this.modelStorage);
+                    }
                 }
-            }
 
-            // find indirectly reachable resources
-            var assemblies = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(), component);
-            var reachAbleResources = assemblies.stream()
-                    .map(c -> PCMConnectionHelper.getResourceContainer(c, this.modelStorage.getAllocation())).toList();
-            for (var connectedResource : reachAbleResources) {
-                // add potential filtering to remove duplicates
+                // find indirectly reachable resources
+                final var assemblies = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(),
+                        component);
+                final var reachAbleResources = assemblies.stream()
+                    .map(c -> PCMConnectionHelper.getResourceContainer(c, this.modelStorage.getAllocation()))
+                    .toList();
+                for (final var connectedResource : reachAbleResources) {
+                    // add potential filtering to remove duplicates
 //                if (connectedResources.stream().anyMatch(e -> e.getId().equals(connectedResource.getId()))) {
 //                    continue;
 //                }
-                var vulnerabilities = VulnerabilityHelper
+                    final var vulnerabilities = VulnerabilityHelper
                         .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), connectedResource);
-                createEdgeVulnerability(component, connectedResource, vulnerabilities,
-                        isConncected(connectedResource, resource));
-                createEdgeCredentials(component, connectedResource, this.modelStorage);
-            }
+                    this.createEdgeVulnerability(component, connectedResource, vulnerabilities,
+                            this.isConncected(connectedResource, resource));
+                    this.createEdgeCredentials(component, connectedResource, this.modelStorage);
+                }
 
-        });
+            });
 
     }
 
     @Override
     public void calculateAssemblyContextToLocalResourcePropagation() {
-        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
-            var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
+        this.modelStorage.getAssembly()
+            .getAssemblyContexts__ComposedStructure()
+            .parallelStream()
+            .forEach(component -> {
+                final var resource = PCMConnectionHelper.getResourceContainer(component,
+                        this.modelStorage.getAllocation());
 
-            var vulnerabilities = VulnerabilityHelper
+                final var vulnerabilities = VulnerabilityHelper
                     .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), resource);
-            createEdgeVulnerability(component, resource, vulnerabilities, AttackVector.LOCAL);
-            createEdgeCredentials(component, resource, this.modelStorage);
-        });
+                this.createEdgeVulnerability(component, resource, vulnerabilities, AttackVector.LOCAL);
+                this.createEdgeCredentials(component, resource, this.modelStorage);
+            });
 
     }
 
     @Override
     public void calculateAssemblyContextToLinkingResourcePropagation() {
-        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
-            var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
-            var reachableLinking = PCMConnectionHelper.getLinkingResource(resource,
-                    this.modelStorage.getResourceEnvironment());
+        this.modelStorage.getAssembly()
+            .getAssemblyContexts__ComposedStructure()
+            .parallelStream()
+            .forEach(component -> {
+                final var resource = PCMConnectionHelper.getResourceContainer(component,
+                        this.modelStorage.getAllocation());
+                final var reachableLinking = PCMConnectionHelper.getLinkingResource(resource,
+                        this.modelStorage.getResourceEnvironment());
 
-            createEdgeLinkingResources(component, reachableLinking);
+                this.createEdgeLinkingResources(component, reachableLinking);
 
-        });
+            });
 
     }
 
-    private void createEdgeLinkingResources(Entity component, List<LinkingResource> reachableLinking) {
-        for (var linking : reachableLinking) {
-            var vulnerabilities = VulnerabilityHelper
-                    .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), linking);
-            createEdgeVulnerability(component, linking, vulnerabilities, AttackVector.NETWORK);
-            createEdgeCredentials(component, linking, this.modelStorage);
+    private void createEdgeLinkingResources(final Entity component, final List<LinkingResource> reachableLinking) {
+        for (final var linking : reachableLinking) {
+            final var vulnerabilities = VulnerabilityHelper
+                .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), linking);
+            this.createEdgeVulnerability(component, linking, vulnerabilities, AttackVector.NETWORK);
+            this.createEdgeCredentials(component, linking, this.modelStorage);
         }
     }
 
     @Override
     public void calculateAssemblyContextToGlobalAssemblyContextPropagation() {
-        var globalComponents = this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream()
-                .filter(assembly -> CollectionHelper.isGlobalCommunication(assembly,
-                        this.modelStorage.getVulnerabilitySpecification().getVulnerabilities()))
-                .toList();
+        final var globalComponents = this.modelStorage.getAssembly()
+            .getAssemblyContexts__ComposedStructure()
+            .parallelStream()
+            .filter(assembly -> CollectionHelper.isGlobalCommunication(assembly,
+                    this.modelStorage.getVulnerabilitySpecification()
+                        .getVulnerabilities()))
+            .toList();
 
-        for (var component : globalComponents) {
-            var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
-            var reachableResource = PCMConnectionHelper.getConnectedResourceContainers(resource,
+        for (final var component : globalComponents) {
+            final var resource = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
+            final var reachableResource = PCMConnectionHelper.getConnectedResourceContainers(resource,
                     this.modelStorage.getResourceEnvironment());
 
-            var reachableComponents = CollectionHelper.getAssemblyContext(reachableResource,
+            final var reachableComponents = CollectionHelper.getAssemblyContext(reachableResource,
                     this.modelStorage.getAllocation());
 
-            createGraphEdgesComponents(component, reachableComponents);
+            this.createGraphEdgesComponents(component, reachableComponents);
 
         }
 
     }
 
-    private void createGraphEdgesComponents(Entity rootElement, List<AssemblyContext> targetComponents) {
-        for (var targetComponent : targetComponents) {
+    private void createGraphEdgesComponents(final Entity rootElement, final List<AssemblyContext> targetComponents) {
+        for (final var targetComponent : targetComponents) {
 
-            var vulnerabilities = VulnerabilityHelper
-                    .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), targetComponent);
-            createEdgeVulnerability(rootElement, targetComponent, vulnerabilities, AttackVector.ADJACENT_NETWORK);
-            createEdgeCredentials(rootElement, targetComponent, this.modelStorage);
+            final var vulnerabilities = VulnerabilityHelper
+                .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), targetComponent);
+            this.createEdgeVulnerability(rootElement, targetComponent, vulnerabilities, AttackVector.ADJACENT_NETWORK);
+            this.createEdgeCredentials(rootElement, targetComponent, this.modelStorage);
         }
     }
 
     @Override
     public void calculateAssemblyContextToAssemblyContextPropagation() {
-        this.modelStorage.getAssembly().getAssemblyContexts__ComposedStructure().parallelStream().forEach(component -> {
+        this.modelStorage.getAssembly()
+            .getAssemblyContexts__ComposedStructure()
+            .parallelStream()
+            .forEach(component -> {
 
-            var connectedComponents = PCMConnectionHelper.getConnectectedAssemblies(this.modelStorage.getAssembly(),
-                    component);
-            for (var connectedComponent : connectedComponents) {
-                var vulnerabilities = VulnerabilityHelper
+                final var connectedComponents = PCMConnectionHelper
+                    .getConnectectedAssemblies(this.modelStorage.getAssembly(), component);
+                for (final var connectedComponent : connectedComponents) {
+                    final var vulnerabilities = VulnerabilityHelper
                         .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), connectedComponent);
 
-                var resource1 = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
-                var resource2 = PCMConnectionHelper.getResourceContainer(component, this.modelStorage.getAllocation());
+                    final var resource1 = PCMConnectionHelper.getResourceContainer(component,
+                            this.modelStorage.getAllocation());
+                    final var resource2 = PCMConnectionHelper.getResourceContainer(component,
+                            this.modelStorage.getAllocation());
 
-                createEdgeVulnerability(component, connectedComponent, vulnerabilities,
-                        isConncected(resource1, resource2));
-                createEdgeCredentials(component, connectedComponent, this.modelStorage);
-            }
-        });
+                    this.createEdgeVulnerability(component, connectedComponent, vulnerabilities,
+                            this.isConncected(resource1, resource2));
+                    this.createEdgeCredentials(component, connectedComponent, this.modelStorage);
+                }
+            });
     }
 
-    private AttackVector isConncected(ResourceContainer resource1, ResourceContainer resource2) {
-        var linking1 = PCMConnectionHelper.getLinkingResource(resource1, this.modelStorage.getResourceEnvironment());
-        var linking2 = PCMConnectionHelper.getLinkingResource(resource2, this.modelStorage.getResourceEnvironment());
+    private AttackVector isConncected(final ResourceContainer resource1, final ResourceContainer resource2) {
+        final var linking1 = PCMConnectionHelper.getLinkingResource(resource1,
+                this.modelStorage.getResourceEnvironment());
+        final var linking2 = PCMConnectionHelper.getLinkingResource(resource2,
+                this.modelStorage.getResourceEnvironment());
 
-        for (var linking : linking1) {
-            if (linking2.stream().anyMatch(e -> e.getId().equals(linking.getId()))) {
+        for (final var linking : linking1) {
+            if (linking2.stream()
+                .anyMatch(e -> e.getId()
+                    .equals(linking.getId()))) {
                 return AttackVector.ADJACENT_NETWORK;
             }
         }
@@ -359,62 +419,75 @@ public class AttackGraphCreation
 
     @Override
     public void calculateLinkingResourceToResourcePropagation() {
-        this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
-                .forEach(linking -> {
-            var resources = linking.getConnectedResourceContainers_LinkingResource();
+        this.modelStorage.getResourceEnvironment()
+            .getLinkingResources__ResourceEnvironment()
+            .parallelStream()
+            .forEach(linking -> {
+                final var resources = linking.getConnectedResourceContainers_LinkingResource();
 
-            createEdgeResourceContainer(linking, resources);
+                this.createEdgeResourceContainer(linking, resources);
 
-                });
+            });
 
     }
 
-    private void createEdgeResourceContainer(Entity linking, List<ResourceContainer> resources) {
-        for (var resource : resources) {
+    private void createEdgeResourceContainer(final Entity linking, final List<ResourceContainer> resources) {
+        for (final var resource : resources) {
 
-            var vulnerabilities = VulnerabilityHelper
-                    .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), resource);
-            createEdgeVulnerability(linking, resource, vulnerabilities, AttackVector.ADJACENT_NETWORK);
-            createEdgeCredentials(linking, resource, this.modelStorage);
+            final var vulnerabilities = VulnerabilityHelper
+                .getVulnerabilities(this.modelStorage.getVulnerabilitySpecification(), resource);
+            this.createEdgeVulnerability(linking, resource, vulnerabilities, AttackVector.ADJACENT_NETWORK);
+            this.createEdgeCredentials(linking, resource, this.modelStorage);
         }
     }
 
     @Override
     public void calculateLinkingResourceToAssemblyContextPropagation() {
-        this.modelStorage.getResourceEnvironment().getLinkingResources__ResourceEnvironment().parallelStream()
-                .forEach(linking -> {
-            var resources = linking.getConnectedResourceContainers_LinkingResource();
-            var components = CollectionHelper.getAssemblyContext(resources, this.modelStorage.getAllocation());
-            createGraphEdgesComponents(linking, components);
+        this.modelStorage.getResourceEnvironment()
+            .getLinkingResources__ResourceEnvironment()
+            .parallelStream()
+            .forEach(linking -> {
+                final var resources = linking.getConnectedResourceContainers_LinkingResource();
+                final var components = CollectionHelper.getAssemblyContext(resources,
+                        this.modelStorage.getAllocation());
+                this.createGraphEdgesComponents(linking, components);
 
-                });
+            });
 
     }
 
     @Override
     public void calculateResourceContainerToRemoteAssemblyContextPropagation() {
-        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
-                .forEach(resource -> {
-            var reachableResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
-                    this.modelStorage.getResourceEnvironment());
-            var components = CollectionHelper.getAssemblyContext(reachableResources, this.modelStorage.getAllocation());
-            components = components.stream().filter(e -> !CollectionHelper.isGlobalCommunication(e,
-                    this.modelStorage.getVulnerabilitySpecification().getVulnerabilities())).toList();
-            createGraphEdgesComponents(resource, components);
-                });
+        this.modelStorage.getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .parallelStream()
+            .forEach(resource -> {
+                final var reachableResources = PCMConnectionHelper.getConnectedResourceContainers(resource,
+                        this.modelStorage.getResourceEnvironment());
+                var components = CollectionHelper.getAssemblyContext(reachableResources,
+                        this.modelStorage.getAllocation());
+                components = components.stream()
+                    .filter(e -> !CollectionHelper.isGlobalCommunication(e,
+                            this.modelStorage.getVulnerabilitySpecification()
+                                .getVulnerabilities()))
+                    .toList();
+                this.createGraphEdgesComponents(resource, components);
+            });
 
     }
 
     @Override
     public void calculateResourceContainerToLocalAssemblyContextPropagation() {
-        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
-                .forEach(resource -> {
-            var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource),
-                    this.modelStorage.getAllocation());
-            for (var target : targetComponents) {
-                createEdgeImplicit(resource, target, this.modelStorage);
-            }
-                });
+        this.modelStorage.getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .parallelStream()
+            .forEach(resource -> {
+                final var targetComponents = CollectionHelper.getAssemblyContext(List.of(resource),
+                        this.modelStorage.getAllocation());
+                for (final var target : targetComponents) {
+                    this.createEdgeImplicit(resource, target, this.modelStorage);
+                }
+            });
 
     }
 
@@ -427,14 +500,16 @@ public class AttackGraphCreation
 //                    this.modelStorage.getResourceEnvironment());
 //            createEdgeResourceContainer(resource, resources);
 //                });
-        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
-                .forEach(resource -> {
+        this.modelStorage.getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .parallelStream()
+            .forEach(resource -> {
 
-            var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
-                    this.modelStorage.getResourceEnvironment());
-            createEdgeResourceContainer(resource, resources);
+                final var resources = PCMConnectionHelper.getConnectedResourceContainers(resource,
+                        this.modelStorage.getResourceEnvironment());
+                this.createEdgeResourceContainer(resource, resources);
 
-                });
+            });
 
     }
 
@@ -447,13 +522,15 @@ public class AttackGraphCreation
 //
 //            createEdgeLinkingResources(resource, linkings);
 //                });
-        this.modelStorage.getResourceEnvironment().getResourceContainer_ResourceEnvironment().parallelStream()
-                .forEach(resource -> {
-            var linkings = PCMConnectionHelper.getLinkingResource(resource, this.modelStorage.getResourceEnvironment());
+        this.modelStorage.getResourceEnvironment()
+            .getResourceContainer_ResourceEnvironment()
+            .parallelStream()
+            .forEach(resource -> {
+                final var linkings = PCMConnectionHelper.getLinkingResource(resource,
+                        this.modelStorage.getResourceEnvironment());
 
-            createEdgeLinkingResources(resource, linkings);
-                });
-
+                this.createEdgeLinkingResources(resource, linkings);
+            });
 
     }
 
@@ -462,7 +539,7 @@ public class AttackGraphCreation
      */
     public void createGraph() {
         // calculate the attack graph in parallel
-        var future = CompletableFuture.allOf(
+        final var future = CompletableFuture.allOf(
                 CompletableFuture.runAsync(this::calculateAssemblyContextToAssemblyContextPropagation),
 
                 CompletableFuture.runAsync(this::calculateAssemblyContextToAssemblyContextPropagation),
@@ -480,13 +557,15 @@ public class AttackGraphCreation
                 CompletableFuture.runAsync(this::calculateResourceContainerToResourcePropagation));
         try {
             future.get();
-        } catch (ExecutionException e) {
+        } catch (final ExecutionException e) {
             LOGGER.log(Level.SEVERE, "Error during graph creation", e);
-            Thread.currentThread().interrupt();
+            Thread.currentThread()
+                .interrupt();
             throw new IllegalStateException("IllegalState durin graph creation", e);
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             LOGGER.log(Level.SEVERE, "Error during graph creation", e);
-            Thread.currentThread().interrupt();
+            Thread.currentThread()
+                .interrupt();
         }
     }
 
