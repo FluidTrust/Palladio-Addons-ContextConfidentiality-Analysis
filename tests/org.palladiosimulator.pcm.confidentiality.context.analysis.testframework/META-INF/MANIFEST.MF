@@ -9,7 +9,6 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.20.0",
  tools.mdsd.library.standalone.initialization,
  tools.mdsd.library.standalone.initialization.log4j,
  org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels;bundle-version="1.0.0",
- org.junit.jupiter.api,
  com.google.gson,
  com.google.guava,
  org.apache.commons.codec,
@@ -28,3 +27,4 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.20.0",
  org.palladiosimulator.pcm.confidentiality.context.xacml.pdp,
  org.palladiosimulator.pcm.confidentiality.context
 Export-Package: org.palladiosimulator.pcm.confidentiality.context.analysis.testframework
+Import-Package: org.junit.jupiter.api;version="5.8.0"

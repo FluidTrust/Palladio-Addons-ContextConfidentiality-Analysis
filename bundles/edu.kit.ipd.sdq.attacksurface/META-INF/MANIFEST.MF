@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.sdq.attacksurface.activator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
- org.junit,
  org.eclipse.emf.compare;bundle-version="1.2.2",
  org.eclipse.core.resources;bundle-version="3.7.101",
  org.eclipse.emf.compare.rcp;bundle-version="2.3.0",
