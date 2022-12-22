@@ -44,6 +44,7 @@ public class CredentialValidator implements PathValidator<ArchitectureNode, Atta
 
     @Override
     public boolean isValidPath(final GraphPath<ArchitectureNode, AttackEdge> graph, final AttackEdge newEdge) {
+        // TODO consider AttributeProvider
         final var initialCredentials = graph.getVertexList()
             .stream()
             .map(ArchitectureNode::getEntity)
