@@ -55,22 +55,5 @@
         <assemblycontext href="target.system#_QTPPQAo9EeyKMtWTxnyP1g"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_RTUWhLDhEeypYcU_Blfkxg">
-      <pcmelement id="_SmfOkLDhEeypYcU_Blfkxg">
-        <assemblycontext href="target.system#_MHdyYAo9EeyKMtWTxnyP1g"/>
-      </pcmelement>
-      <credential href="target.context#_UPJtMAyYEeyaBLrK9rfqSA"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_nkPldLDiEeypYcU_Blfkxg">
-      <pcmelement id="_n39LoLDiEeypYcU_Blfkxg">
-        <basiccomponent xsi:type="repository:BasicComponent" href="target.repository#_33huUAo8EeyKMtWTxnyP1g"/>
-      </pcmelement>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_ESpJ9LDrEeyBPqC2c2mINw">
-      <pcmelement id="_FXIs0LDrEeyBPqC2c2mINw">
-        <resourcecontainer href="target.resourceenvironment#_csC_AAo9EeyKMtWTxnyP1g"/>
-      </pcmelement>
-      <credential href="target.context#_zklkoDf-Eey5OtKYIVrxdg"/>
-    </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>

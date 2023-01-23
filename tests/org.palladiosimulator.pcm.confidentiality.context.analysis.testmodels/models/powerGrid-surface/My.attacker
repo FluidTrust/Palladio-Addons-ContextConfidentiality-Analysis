@@ -38,47 +38,5 @@
         <assemblycontext href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
       </pcmelement>
     </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_D6fZxK6oEeyvC52u2Hlp6Q" entityName="backoffice admin w01">
-      <pcmelement id="_Fnz3MK6oEeyvC52u2Hlp6Q">
-        <resourcecontainer href="powerGrid.resourceenvironment#_bcPLUCwbEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_JH5SxK6oEeyvC52u2Hlp6Q" entityName="backoffice admin w02">
-      <pcmelement id="_NQ2FIK6oEeyvC52u2Hlp6Q">
-        <resourcecontainer href="powerGrid.resourceenvironment#_RGEX4C2_EeyiUoiCEbquLw"/>
-      </pcmelement>
-      <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_O5JftK6oEeyvC52u2Hlp6Q" entityName="backoffice admin callcenter">
-      <pcmelement id="_Ts_pMK6oEeyvC52u2Hlp6Q">
-        <resourcecontainer href="powerGrid.resourceenvironment#_cyRxMCwbEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_bBbgJK6oEeyvC52u2Hlp6Q" entityName="backoffice admin datacenter">
-      <pcmelement id="_ccw1sK6oEeyvC52u2Hlp6Q">
-        <resourcecontainer href="powerGrid.resourceenvironment#_eGWBICwbEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_hyGitK6oEeyvC52u2Hlp6Q" entityName="backoffice admin vpn external">
-      <pcmelement id="_mlFwkK6oEeyvC52u2Hlp6Q">
-        <resourcecontainer href="powerGrid.resourceenvironment#_V9xXgCwbEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_YpxbYDirEeyW5vhrbaBM1w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_xkwjJK6oEeyvC52u2Hlp6Q" entityName="ics user">
-      <pcmelement id="_2NPxMK6oEeyvC52u2Hlp6Q" entityName="ics user pcm">
-        <resourcecontainer href="powerGrid.resourceenvironment#_FgAvICwcEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_lqiu8S8nEeylPOrRpUZy4w"/>
-    </vulnerabilities>
-    <vulnerabilities xsi:type="pcmIntegration:CredentialSystemIntegration" id="_c9Ls9LAuEeyr3L7-Rg5M7g" entityName="ics vpn bridgre vpn gateway">
-      <pcmelement id="_gQl-cLAuEeyr3L7-Rg5M7g">
-        <resourcecontainer href="powerGrid.resourceenvironment#_RUWVUCwbEeylP6vhO63XvA"/>
-      </pcmelement>
-      <credential href="My.context#_R3dMsC8sEeylPOrRpUZy4w"/>
-    </vulnerabilities>
   </systemintegration>
 </attacker:AttackerSpecification>
