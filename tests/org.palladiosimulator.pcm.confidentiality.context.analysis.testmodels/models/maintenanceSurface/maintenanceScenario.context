@@ -5,7 +5,7 @@
       <attribute id="_7ZGBALP4EeyBBMZUdAqcvg" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
       <methodspecification id="_3WoRIrP4EeyBBMZUdAqcvg">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_3GqscJSREeyOldzBRFqWVw"/>
-        <hierachy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+        <hierarchy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
         <connector xsi:type="composition:AssemblyConnector" href="maintenanceScenario.system#_Huf9MJSZEeyjlrv9ryW3Zw"/>
       </methodspecification>
     </attributeprovider>
@@ -13,7 +13,7 @@
       <attribute id="__sZ9YLQFEeyBBMZUdAqcvg" attributevalue="_9_Fy4LP4EeyBBMZUdAqcvg" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
       <methodspecification id="_8xNXkrQFEeyBBMZUdAqcvg">
         <signature xsi:type="repository:OperationSignature" href="maintenanceScenario.repository#_qP0LQJSQEeyOldzBRFqWVw"/>
-        <hierachy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
+        <hierarchy href="maintenanceScenario.system#_4lwccJSYEeyjlrv9ryW3Zw"/>
         <connector xsi:type="composition:AssemblyConnector" href="maintenanceScenario.system#_Huf9MJSZEeyjlrv9ryW3Zw"/>
       </methodspecification>
     </attributeprovider>

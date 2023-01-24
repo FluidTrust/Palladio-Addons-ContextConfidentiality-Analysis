@@ -5,13 +5,18 @@
       <filtercriteria xsi:type="attacker:InitialCredentialFilterCriterion">
         <prohibitedInitialCredentials href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
       </filtercriteria>
+      <filtercriteria xsi:type="attacker:StartElementFilterCriterion">
+        <startComponents xsi:type="pcmIntegration:SystemElement" id="_EP2e8pvrEe2oMYebcAzFCQ">
+          <assemblycontext href="maintenanceScenario.system#_8WGhkJSYEeyjlrv9ryW3Zw"/>
+        </startComponents>
+      </filtercriteria>
     </surfaceattacker>
   </attackers>
   <attacks>
     <attack xsi:type="attack:CWEAttack" id="_IWtvEOZvEeyfBL2hDeJh1g" entityName="Exploit Cleartext Storage of Sensitive Information" category="__WrR8OZuEeyfBL2hDeJh1g"/>
   </attacks>
   <vulnerabilites>
-    <vulnerability xsi:type="attack:CVEVulnerability" cweID="__WrR8OZuEeyfBL2hDeJh1g" entityName="Credentials-Running-Example" confidentialityImpact="High" takeOver="true" cveID="_RaU6EeZuEeyze4K1yVUPAw">
+    <vulnerability xsi:type="attack:CVEVulnerability" id="_924KspvqEe2oMYebcAzFCQ" entityName="Credentials-Running-Example" cweID="__WrR8OZuEeyfBL2hDeJh1g" confidentialityImpact="High" takeOver="true" cveID="_RaU6EeZuEeyze4K1yVUPAw">
       <gainedAttributes href="maintenanceScenario.context#_mx--seZvEeyfBL2hDeJh1g"/>
     </vulnerability>
   </vulnerabilites>
@@ -20,7 +25,7 @@
     <categories xsi:type="attack:CWEID" id="__WrR8OZuEeyfBL2hDeJh1g" entityName="Cleartext Storage of Sensitive Information" cweID="312"/>
   </categoryspecification>
   <systemintegration>
-    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_9nZQMOZvEeyfBL2hDeJh1g" vulnerability="//@vulnerabilites/@vulnerability.0">
+    <vulnerabilities xsi:type="pcmIntegration:VulnerabilitySystemIntegration" id="_9nZQMOZvEeyfBL2hDeJh1g" vulnerability="_924KspvqEe2oMYebcAzFCQ">
       <pcmelement id="_-DBcQOZvEeyfBL2hDeJh1g">
         <resourcecontainer href="maintenanceScenario.resourceenvironment#_ZOQ_sJSZEeyjlrv9ryW3Zw"/>
       </pcmelement>
