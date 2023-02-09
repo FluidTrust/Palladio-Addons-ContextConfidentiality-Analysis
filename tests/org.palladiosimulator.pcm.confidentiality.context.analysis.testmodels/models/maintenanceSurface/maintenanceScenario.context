@@ -56,6 +56,11 @@
           <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_Wy_3IJSZEeyjlrv9ryW3Zw"/>
         </match>
       </target>
+      <target>
+        <match xsi:type="structure:EntityMatch" id="_4e-eAKiEEe2NFY6L8GLdvw">
+          <entity xsi:type="resourceenvironment:ResourceContainer" href="maintenanceScenario.resourceenvironment#_ag33EJSZEeyjlrv9ryW3Zw"/>
+        </match>
+      </target>
     </policy>
   </policyset>
   <attributes>
