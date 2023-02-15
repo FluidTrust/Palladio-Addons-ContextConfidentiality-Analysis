@@ -77,6 +77,16 @@
             </methodspecification>
           </match>
         </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_KF8DMBMgEe2D-5IdelvJXw">
+            <entity xsi:type="composition:AssemblyContext" href="powerGrid.system#_Q-4sUCzDEeyiUoiCEbquLw"/>
+          </match>
+        </target>
+        <target>
+          <match xsi:type="structure:EntityMatch" id="_OpcDkBMgEe2D-5IdelvJXw">
+            <entity xsi:type="composition:AssemblyContext" href="powerGrid.system#_UsPu4CzDEeyiUoiCEbquLw"/>
+          </match>
+        </target>
       </rule>
       <rule id="_NHHXQC85EeykYdnERVaxtw" entityName="ICSBride">
         <condition xsi:type="Apply" id="_aR-PAC85EeykYdnERVaxtw" operation="AND">

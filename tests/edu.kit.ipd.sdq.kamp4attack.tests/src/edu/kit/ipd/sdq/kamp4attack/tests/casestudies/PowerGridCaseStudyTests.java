@@ -44,7 +44,7 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
             .get(0);
         assertEquals(5, change.getCompromisedresource()
             .size());
-        assertEquals(7, change.getCompromisedassembly()
+        assertEquals(9, change.getCompromisedassembly()
             .size());
         assertEquals(10, change.getCompromisedservice()
             .size());
@@ -90,7 +90,8 @@ public class PowerGridCaseStudyTests extends AbstractChangeTests {
 
     private boolean assemblyNameMatch(final String name) {
         final var set = Set.of("Assembly_StorageApplication", "Assembly_CallCenterApplication", "ICS-VPN-Bridge",
-                "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights", "ExternalVPNBridge");
+                "AssemblyWithVPNRights", "Assembly_DomainControler", "AssemblyWithoutRights", "ExternalVPNBridge",
+                "Assembly_DMSClientApplication", "Assembly_DMSServerApplication");
         return set.contains(name);
     }
 
