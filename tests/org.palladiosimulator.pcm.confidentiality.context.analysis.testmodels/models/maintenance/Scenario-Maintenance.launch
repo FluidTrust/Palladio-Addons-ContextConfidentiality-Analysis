@@ -2,11 +2,12 @@
 <launchConfiguration type="pcm.dataprocessing.context.attackeranalysis.launcher.config">
     <booleanAttribute key="Graph Creation" value="true"/>
     <stringAttribute key="Select Allocation Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/maintenanceScenario.allocation"/>
-    <stringAttribute key="Select Analysis Type" value="Insider"/>
+    <stringAttribute key="Select Analysis Type" value="Scenario"/>
     <stringAttribute key="Select Attacker Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/running_example.attacker"/>
     <stringAttribute key="Select Context Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/maintenanceScenario.context"/>
     <stringAttribute key="Select Data Model" value=""/>
     <stringAttribute key="Select Modifiaction Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/running_example.kamp4attackmodificationmarks"/>
     <stringAttribute key="Select Repository Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/maintenanceScenario.repository"/>
     <stringAttribute key="Select Usage Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/maintenance/maintenanceScenario.usagemodel"/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
 </launchConfiguration>
