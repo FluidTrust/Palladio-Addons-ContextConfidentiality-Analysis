@@ -106,12 +106,6 @@
     <semanticResources>models/bank/newSystem.system</semanticResources>
     <semanticResources>models/bank/newRepository.repository</semanticResources>
     <semanticResources>models/bank/newUsageModel.usagemodel</semanticResources>
-    <semanticResources>models/scalability/scalability.repository</semanticResources>
-    <semanticResources>models/scalability/scalability.system</semanticResources>
-    <semanticResources>models/scalability/scalability.context</semanticResources>
-    <semanticResources>models/scalability/scalability.resourceenvironment</semanticResources>
-    <semanticResources>models/scalability/scalability.allocation</semanticResources>
-    <semanticResources>models/scalability/scalability.usagemodel</semanticResources>
     <semanticResources>models/bank/my1649228914614.outputmodel</semanticResources>
     <semanticResources>models/university/my1649233367125.outputmodel</semanticResources>
     <semanticResources>models/maintenance/my1649233437805.outputmodel</semanticResources>
