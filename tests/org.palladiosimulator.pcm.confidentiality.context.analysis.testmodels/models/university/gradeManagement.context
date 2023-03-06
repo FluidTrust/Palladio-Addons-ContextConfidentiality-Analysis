@@ -15,11 +15,17 @@
     <usagespecification xsi:type="usage:PCMUsageSpecification" id="_U-PhErS7EeyIO4nD9VIyMw" attributevalue="_JXX94LS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
       <usagescenario href="gradeManagement.usagemodel#_qJbwoLS0EeyIO4nD9VIyMw"/>
     </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_FxqBwrwdEe24nvjMF1iwhw" entityName="FacultyMisusage" attributevalue="_HHe-4LS2EeyIO4nD9VIyMw" attribute="_FlbWQbS2EeyIO4nD9VIyMw">
+      <usagescenario href="gradeManagement.usagemodel#_jTdvQLwcEe24nvjMF1iwhw"/>
+    </usagespecification>
     <misusagescenario>
       <usagescenario href="gradeManagement.usagemodel#_WL0gwLS2EeyIO4nD9VIyMw"/>
     </misusagescenario>
     <misusagescenario>
       <usagescenario href="gradeManagement.usagemodel#_qJbwoLS0EeyIO4nD9VIyMw"/>
+    </misusagescenario>
+    <misusagescenario>
+      <usagescenario href="gradeManagement.usagemodel#_jTdvQLwcEe24nvjMF1iwhw"/>
     </misusagescenario>
   </pcmspecificationcontainer>
   <policyset id="_-9q_IbS1EeyIO4nD9VIyMw" entityName="GradingManagement">

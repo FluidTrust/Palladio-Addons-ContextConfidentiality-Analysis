@@ -20,7 +20,12 @@ public class UniversityTests extends UniversityGradingBaseTest {
     void positiveCase() {
         this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        this.assertAllPositive(output);
+        var passed = new String[] { "StudentAssignGrade", "FacultyAssign", "TAMisusage", "TA-Correct" };
+        var failed = new String[] { "ExternalGradeMisusageFailed", "ExternalGradeFailed" };
+
+        this.assertPassedFailed(output, passed, failed);
     }
+
+
 
 }

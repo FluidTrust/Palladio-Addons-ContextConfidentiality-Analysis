@@ -1,13 +1,16 @@
 package org.palladiosimulator.pcm.confidentiality.context.analysis.tests.base;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.palladiosimulator.pcm.confidentiality.context.ConfidentialAccessSpecification;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.AnalysisResults;
+import org.palladiosimulator.pcm.confidentiality.context.analysis.outputmodel.ScenarioOutput;
 import org.palladiosimulator.pcm.confidentiality.context.analysis.testframework.BaseTest;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.Configuration;
 import org.palladiosimulator.pcm.confidentiality.context.scenarioanalysis.api.PCMBlackBoard;
@@ -49,12 +52,47 @@ public abstract class BaseTestScenario extends BaseTest {
         generator.generateXACML(blackboard, this.context, this.pathXACML);
     }
 
-    protected void assertAllPositive(final AnalysisResults output) {
-        assertNotNull(output.getScenariooutput());
+    private void assertAllPassed(List<ScenarioOutput> scenarioOutputs) {
+        assertNotNull(scenarioOutputs);
 
-        for (final var scenario : output.getScenariooutput()) {
+        for (final var scenario : scenarioOutputs) {
             assertTrue(scenario.isPassed());
         }
+    }
+
+    private void assertAllFailed(List<ScenarioOutput> scenarioOutputs) {
+        assertNotNull(scenarioOutputs);
+
+        for (final var scenario : scenarioOutputs) {
+            assertFalse(scenario.isPassed());
+        }
+    }
+
+    protected void assertAllPositive(final AnalysisResults output) {
+        this.assertAllPassed(output.getScenariooutput());
+    }
+
+    protected void assertPassedFailed(final AnalysisResults output, String[] passedScenarios,
+            String[] failedScenarios) {
+        var passed = output.getScenariooutput()
+                .stream()
+                .filter(scenario -> this.filterScenario(scenario, passedScenarios))
+                .toList();
+        this.assertAllPassed(passed);
+        var failed = output.getScenariooutput()
+                .stream()
+                .filter(scenario -> this.filterScenario(scenario, failedScenarios))
+                .toList();
+        this.assertAllFailed(failed);
+
+    }
+
+    private boolean filterScenario(ScenarioOutput output, String[] scenarioNames) {
+
+        return Arrays.stream(scenarioNames)
+                .anyMatch(output.getScenario()
+                        .getEntityName()::equals);
+
     }
 
     // protected ContextAttribute getContextAttributeByName(final String name) {
@@ -152,21 +190,22 @@ public abstract class BaseTestScenario extends BaseTest {
         final var attribute = SystemcontextFactory.eINSTANCE.createSimpleAttribute();
         final var attributeValue = SystemcontextFactory.eINSTANCE.createAttributeValue();
         attributeValue.getValues()
-            .add(name);
+        .add(name);
         attributeValue.setType(DataTypes.STRING);
         attribute.getAttributevalue()
-            .add(attributeValue);
+        .add(attributeValue);
 
         contextAccess.setEntityName(name);
         contextAccess.setAttribute(attribute);
         contextAccess.setAttributevalue(attributeValue);
         this.context.getAttributes()
-            .getAttribute()
-            .add(attribute);
+        .getAttribute()
+        .add(attribute);
         this.context.getPcmspecificationcontainer()
-            .getUsagespecification()
-            .add(contextAccess);
+        .getUsagespecification()
+        .add(contextAccess);
         return contextAccess;
     }
+
 
 }

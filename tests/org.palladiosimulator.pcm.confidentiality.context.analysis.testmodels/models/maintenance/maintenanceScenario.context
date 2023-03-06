@@ -41,8 +41,20 @@
     </usagespecification>
     <usagespecification id="_mx--seZvEeyfBL2hDeJh1g" entityName="Admin" attributevalue="_j_nkwOZvEeyfBL2hDeJh1g" attribute="_f4Ph0rGMEeyLRdjos_zQbg"/>
     <usagespecification id="_mvonEWG6Ee2osaE3TGhWNw" entityName="External Company Assignment" attributevalue="_jzPucGG6Ee2osaE3TGhWNw" attribute="_dDdcsmG6Ee2osaE3TGhWNw"/>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_Nu3Z0rwmEe24nvjMF1iwhw" entityName="MisusageFailedTechnician" attributevalue="_gO5uULGMEeyLRdjos_zQbg" attribute="_f4Ph0rGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_7yhJALwlEe24nvjMF1iwhw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_U5ZG0rwmEe24nvjMF1iwhw" entityName="MisusageFailedMachine" attributevalue="_XgmhcLGMEeyLRdjos_zQbg" attribute="_S5hooLGMEeyLRdjos_zQbg">
+      <usagescenario href="maintenanceScenario.usagemodel#_7yhJALwlEe24nvjMF1iwhw"/>
+    </usagespecification>
+    <usagespecification xsi:type="usage:PCMUsageSpecification" id="_hNWLwrwmEe24nvjMF1iwhw" entityName="MisusageFailedCompany" attributevalue="_jzPucGG6Ee2osaE3TGhWNw" attribute="_dDdcsmG6Ee2osaE3TGhWNw">
+      <usagescenario href="maintenanceScenario.usagemodel#_7yhJALwlEe24nvjMF1iwhw"/>
+    </usagespecification>
     <misusagescenario>
       <usagescenario href="maintenanceScenario.usagemodel#_X-sAQLQsEeyHE8TPwgN3cQ"/>
+    </misusagescenario>
+    <misusagescenario>
+      <usagescenario href="maintenanceScenario.usagemodel#_7yhJALwlEe24nvjMF1iwhw"/>
     </misusagescenario>
   </pcmspecificationcontainer>
   <policyset id="_d7xFEZSjEeyvBd3n0aDE-g" entityName="AccessControl">

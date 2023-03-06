@@ -26,7 +26,11 @@ public class MaintenanceTests extends MaintenanceBaseTest {
     void positiveCase() {
         this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        this.assertAllPositive(output);
+
+        var passed = new String[] { "ProductStorage", "Save MachineData", "MisusageMaintenance" };
+
+        var failed = new String[] { "SaveMachineDataFailed", "MisusageMaintenanceFailed" };
+        this.assertPassedFailed(output, passed, failed);
     }
 
     @Test
@@ -34,34 +38,34 @@ public class MaintenanceTests extends MaintenanceBaseTest {
 
         // removes Machine Context from UsageScenario "Save MachineData"
         this.context.getPcmspecificationcontainer()
-            .getUsagespecification()
-            .stream()
-            .filter(specification -> specification.getId()
+        .getUsagespecification()
+        .stream()
+        .filter(specification -> specification.getId()
                 .equals("_VeC9YrQJEeyBBMZUdAqcvg"))
-            .findAny()
-            .ifPresent(e -> {
-                e.setAttribute(null);
-                e.setAttributevalue(null);
-            });
+        .findAny()
+        .ifPresent(e -> {
+            e.setAttribute(null);
+            e.setAttributevalue(null);
+        });
 
         this.generateXML();
         final var output = this.analysis.runScenarioAnalysis(this.blackBoard, this.context, this.configuration);
-        assertEquals(4, output.getScenariooutput()
-            .size());
+        assertEquals(6, output.getScenariooutput()
+                .size());
 
         // only the "Save MachineData" should fail
         assertEquals(3, output.getScenariooutput()
-            .stream()
-            .filter(ScenarioOutput::isPassed)
-            .count());
+                .stream()
+                .filter(ScenarioOutput::isPassed)
+                .count());
         final var resultSaveMachineDataOpt = output.getScenariooutput()
-            .stream()
-            .filter(e -> "Save MachineData".equals(e.getScenario()
-                .getEntityName()))
-            .findFirst();
+                .stream()
+                .filter(e -> "Save MachineData".equals(e.getScenario()
+                        .getEntityName()))
+                .findFirst();
         assertTrue(resultSaveMachineDataOpt.isPresent());
         assertFalse(resultSaveMachineDataOpt.get()
-            .isPassed());
+                .isPassed());
 
         /*
          * from the "Save MachineData" should only the initial save operation from the machine
@@ -69,20 +73,20 @@ public class MaintenanceTests extends MaintenanceBaseTest {
          */
         final var resultSaveMachineData = resultSaveMachineDataOpt.get();
         assertEquals(2, resultSaveMachineData.getOperationOutput()
-            .size());
+                .size());
         final var machineSaveOpt = resultSaveMachineData.getOperationOutput()
-            .stream()
-            .filter(e -> e.getAssemblyContext()
-                .get(0)
-                .getEntityName()
-                .equals("Assembly_MachineComponent"))
-            .filter(e -> e.getOperationsignature()
-                .getEntityName()
-                .equals("saveLogs"))
-            .findAny();
+                .stream()
+                .filter(e -> e.getAssemblyContext()
+                        .get(0)
+                        .getEntityName()
+                        .equals("Assembly_MachineComponent"))
+                .filter(e -> e.getOperationsignature()
+                        .getEntityName()
+                        .equals("saveLogs"))
+                .findAny();
         assertTrue(machineSaveOpt.isPresent());
         assertEquals(DecisionType.DENY, machineSaveOpt.get()
-            .getDecision());
+                .getDecision());
 
     }
 
