@@ -8,8 +8,8 @@
       license-feature-version="1.0.0">
 
    <requires>
-      <import feature="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature" version="0.1.0.qualifier"/>
-      <import feature="org.palladiosimulator.pcm.confidentiality.context.editor.feature" version="0.2.0.qualifier"/>
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature" version="0.1.0"/>
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.editor.feature" version="0.2.0"/>
    </requires>
 
   <includes
