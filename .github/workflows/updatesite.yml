@@ -8,6 +8,7 @@ jobs:
       with:
           deploy-updatesite: 'releng/org.palladiosimulator.pcm.confidentiality.context.analysis.updatesite/target/repository'
           java-version: 17
+          skip-branch-deploy: false
           use-display-output: true
           no-caching: true
           runner-label: ubuntu-latest
