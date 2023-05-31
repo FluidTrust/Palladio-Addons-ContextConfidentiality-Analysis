@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Generation
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.xacml.generation
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.xacml.generation.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm,

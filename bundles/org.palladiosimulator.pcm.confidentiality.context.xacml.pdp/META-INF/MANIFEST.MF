@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Pdp
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.xacml.pdp
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.xacml.pdp.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.palladiosimulator.pcm.confidentiality.context;bundle-version="0.3.0"

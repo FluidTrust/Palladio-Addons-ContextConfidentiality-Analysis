@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack.tests
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks,

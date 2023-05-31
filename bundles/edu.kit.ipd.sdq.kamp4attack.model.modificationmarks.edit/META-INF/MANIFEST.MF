@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.edit;singleton:=true
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.edit
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.KAMP4attackModificationmarks.provider.KAMP4attackModificationsmarksEditPlugin$Implementation
 Bundle-Vendor: %providerName

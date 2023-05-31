@@ -2,14 +2,14 @@
 <feature
       id="org.palladiosimulator.pcm.confidentiality.context.analysis.feature"
       label="Confidentiality Analysis"
-      version="0.1.0.qualifier"
+      version="5.2.0.qualifier"
       plugin="org.palladiosimulator.branding"
       license-feature="org.palladiosimulator.license.epl2"
       license-feature-version="1.0.0">
 
    <requires>
-      <import feature="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature" version="0.1.0"/>
-      <import feature="org.palladiosimulator.pcm.confidentiality.context.editor.feature" version="0.2.0"/>
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature" version="5.2.0"/>
+      <import feature="org.palladiosimulator.pcm.confidentiality.context.editor.feature" version="5.2.0"/>
    </requires>
 
   <includes

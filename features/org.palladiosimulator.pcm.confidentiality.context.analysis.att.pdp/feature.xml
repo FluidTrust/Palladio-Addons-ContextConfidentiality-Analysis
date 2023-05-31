@@ -2,7 +2,7 @@
 <feature
       id="org.palladiosimulator.pcm.confidentiality.context.analysis.att.pdp.feature"
       label="Confidentiality Analysis"
-      version="0.1.0.qualifier">
+      version="5.2.0.qualifier">
 
    <description url="https://github.com/att/xacml-3.0">
       Contains the ATT XACML implementation

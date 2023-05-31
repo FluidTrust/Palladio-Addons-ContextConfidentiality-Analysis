@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Impl
 Bundle-SymbolicName: edu.kit.kastel.sdq.kamp4attack.graph.impl
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: edu.kit.kastel.sdq.kamp4attack.graph.impl.Activator
 Require-Bundle: org.eclipse.core.runtime,
  edu.kit.kastel.sdq.kamp4attack.graph.api;bundle-version="1.0.0",

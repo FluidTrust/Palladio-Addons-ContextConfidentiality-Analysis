@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-ActivationPolicy: lazy
 Bundle-Name: Launcher
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.launcher;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Automatic-Module-Name: pcm.dataprocessing.analysis.launcher
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.palladiosimulator.pcm.resources;bundle-version="4.0.0";visibility:=reexport,

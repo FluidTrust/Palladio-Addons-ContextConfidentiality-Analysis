@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Workflow
 Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.mwe2
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Automatic-Module-Name: edu.kit.ipd.sdq.kamp4attack.model.modificationmarks.workflow
 Bundle-RequiredExecutionEnvironment: JavaSE-17
 Require-Bundle: org.eclipse.emf.mwe2.launch;bundle-version="2.14.0",
