@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Partition
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.partition
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.analysis.partition.Activator
 Require-Bundle: org.eclipse.core.runtime,
  de.uka.ipd.sdq.workflow.mdsd,

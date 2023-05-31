@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Karlsruhe Architectural Maintainability Prediction
 Bundle-SymbolicName: edu.kit.ipd.sdq.kamp4attack;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: edu.kit.ipd.sdq.kamp4attack.activator.Activator
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,

@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: WFE
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.context.analysis.execution
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: org.palladiosimulator.pcm.confidentiality.context.analysis.execution.Activator
 Bundle-ActivationPolicy: lazy
 Require-Bundle: org.eclipse.ui,

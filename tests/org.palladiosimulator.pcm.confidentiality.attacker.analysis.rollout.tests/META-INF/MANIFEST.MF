@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Tests
 Bundle-SymbolicName: org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout.tests
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Import-Package: org.junit.jupiter.api;version="5.8.0"
 Automatic-Module-Name: org.palladiosimulator.pcm.confidentiality.attacker.analysis.rollout.tests
 Bundle-RequiredExecutionEnvironment: JavaSE-17

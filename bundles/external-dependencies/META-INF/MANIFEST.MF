@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: External-dependencies
 Bundle-SymbolicName: external-dependencies
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 5.2.0.qualifier
 Bundle-Activator: external_dependencies.Activator
 Require-Bundle: com.google.gson,
  com.google.guava,
