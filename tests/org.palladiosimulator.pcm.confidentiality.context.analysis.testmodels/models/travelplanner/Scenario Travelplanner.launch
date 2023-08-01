@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="pcm.dataprocessing.context.attackeranalysis.launcher.config">
+    <booleanAttribute key="Graph Creation" value="false"/>
+    <stringAttribute key="Select Allocation Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/default.allocation"/>
+    <stringAttribute key="Select Analysis Type" value="Scenario"/>
+    <stringAttribute key="Select Attacker Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/targetBreach/My.attacker"/>
+    <stringAttribute key="Select Context Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/Scenarios/test_scenarios.context"/>
+    <stringAttribute key="Select Data Model" value=""/>
+    <stringAttribute key="Select Modifiaction Model" value=""/>
+    <stringAttribute key="Select Repository Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/default.repository"/>
+    <stringAttribute key="Select Usage Model" value="platform:/resource/org.palladiosimulator.pcm.confidentiality.context.analysis.testmodels/models/travelplanner/default.usagemodel"/>
+    <stringAttribute key="Variation Model" value=""/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+</launchConfiguration>
